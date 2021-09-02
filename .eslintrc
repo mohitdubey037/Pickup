@@ -1,0 +1,56 @@
+{
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "es6": true,
+      "browser": true
+    },
+    "rules": {
+      "react/react-in-jsx-scope": "off",
+      // "react/jsx-uses-react": 1,
+      "react/no-deprecated": 1,
+      "no-useless-escape": 1,
+      "no-dupe-keys": 1,
+      "react-hooks/rules-of-hooks": 1,
+      "react/jsx-no-duplicate-props": 1,
+      "react/no-unknown-property": 1,
+      "no-unreachable": 1,
+      "react/jsx-uses-vars": 1,
+      "no-unused-vars": 1,
+      "unused-imports/no-unused-imports": 1,
+      "unused-imports/no-unused-vars": 1,
+      "no-empty":1,
+      "jsx-a11y/anchor-is-valid": 0,
+      "react/prop-types": 0,
+      "react/no-unescaped-entities": 0,
+      "react/jsx-no-target-blank": 0,
+      "no-mixed-spaces-and-tabs": 0,
+      "no-cond-assign": 0,
+      "react/jsx-key": 0,
+      "react/display-name": 0,
+      "no-lone-blocks": 0,
+      "jsx-a11y/accessible-emoji": 0,
+      "prettier/prettier": 0
+    },
+    "extends": [
+      "react-app",
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "plugins": [
+      "react",
+      "unused-imports",
+      // "eslint-config-prettier",
+      "prettier"
+    ],
+    "settings": {
+      "react": {
+        "pragma": "React",  
+        "version": "detect"
+      }
+    }
+  }
