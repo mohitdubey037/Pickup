@@ -19,7 +19,7 @@ const Routes = () => {
             <ForgotPassword path='/forgot-password'/>
             <MailSent path='/mail-sent'/>
             <RecoverPassword path='/recover-password'/>
-            {authUser==='isAuthentic'&&<Dashboard path='/dashboard'/>}
+            <Dashboard path='/dashboard'/>
         </Router>
     )
 }
