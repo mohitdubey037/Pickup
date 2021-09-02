@@ -22,7 +22,7 @@ describe('<ThemeSwitch />', () => {
     store = configureAppStore();
   });
 
-  it('should have 3 radio buttons', () => {
+  it('should have 3 radio Button', () => {
     const languageSwitch = renderThemeSwitch(store);
     expect(languageSwitch.queryAllByRole('radio').length).toBe(3);
     languageSwitch.unmount();
@@ -30,14 +30,14 @@ describe('<ThemeSwitch />', () => {
 
   it('should switch theme on click', () => {
     const languageSwitch = renderThemeSwitch(store);
-    const radioButtons = languageSwitch.queryAllByRole(
+    const radioButton = languageSwitch.queryAllByRole(
       'radio',
     ) as HTMLInputElement[];
 
-    expect(radioButtons[0].checked).toBe(true);
+    expect(radioButton[0].checked).toBe(true);
 
-    fireEvent.click(radioButtons[1]);
+    fireEvent.click(radioButton[1]);
 
-    expect(radioButtons[1].checked).toBe(true);
+    expect(radioButton[1].checked).toBe(true);
   });
 });

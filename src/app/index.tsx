@@ -7,6 +7,8 @@ import { GlobalStyle } from '../styles/global-styles';
 import { useTranslation } from 'react-i18next';
 import Routes from 'Routes';
 import './App.css'
+import { Provider } from 'react-redux';
+import store from 'store/configureStore';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -19,9 +21,11 @@ export function App() {
       >
         <meta name="description" content="A React Boilerplate application" />
       </Helmet>
+  <Provider store={store}>
+
 
       <Routes/>
-      <GlobalStyle />
+      </Provider>
       </div>
       );
 }

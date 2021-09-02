@@ -1,16 +1,28 @@
 import * as React from 'react';
-import { ThemeProvider as OriginalThemeProvider } from 'styled-components';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { green, orange } from '@material-ui/core/colors';
 import { useSelector } from 'react-redux';
 import { useThemeSlice } from './slice';
 import { selectTheme } from './slice/selectors';
 
-export const ThemeProvider = (props: { children: React.ReactChild }) => {
-  useThemeSlice();
 
-  const theme = useSelector(selectTheme);
+const outerTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#FECE3E",
+    },
+    secondary: {
+      main: '#ffffff',
+    },
+  },
+});
+ 
+
+export const ThemeProviderWraper = (props: { children: React.ReactChild }) => {
+  
   return (
-    <OriginalThemeProvider theme={theme}>
-      {React.Children.only(props.children)}
-    </OriginalThemeProvider>
+    <ThemeProvider theme={outerTheme}>
+{props.children}
+</ThemeProvider>
   );
 };

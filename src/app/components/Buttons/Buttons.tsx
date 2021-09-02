@@ -7,10 +7,10 @@ interface ButtonProps{
     size?:'small'|'medium'|'large';
 }
 
-const Buttons:React.FC<ButtonProps>=({label,onClick,size='medium'})=>{
+const Button:React.FC<ButtonProps>=({label,onClick,size='medium'})=>{
     return(
-        <CustomButton onClick={onClick} size={size} variant="contained">{label}</CustomButton>
+        <CustomButton color={'primary'} onClick={onClick} size={size} variant="contained"  >{label}</CustomButton>
     )
 }
 
-export default Buttons;
+export default Button;

@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "@reach/router";
-import { Buttons } from "../../../components/Buttons";
+import { Button } from "../../../components/Buttons";
 import { PasswordInput } from "../../../components/Input";
 import {
   SignUpWrapper,
@@ -18,7 +18,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
           <Header>PASSWORD</Header>
           <PasswordInput label="Password" placeholder="Start typing" validate/>
           <PasswordInput label="Confirm Password" placeholder="Start typing" />
-          <Buttons label="Sign Up" onClick={() => {}} />
+          <Button label="Sign Up" onClick={() => {}} />
         </FormContent>
       </FormWrapper>
     </SignUpWrapper>

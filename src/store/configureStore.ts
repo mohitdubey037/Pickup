@@ -35,3 +35,6 @@ export function configureAppStore() {
 
   return store;
 }
+
+const store=configureAppStore()
+export default store;

@@ -8,7 +8,7 @@ import {
   LoginLink
 } from "../style";
 import { Input } from "../../../components/Input";
-import { Buttons } from "../../../components/Buttons";
+import { Button } from "../../../components/Buttons";
 import { BlackLink } from "../../../components/Typography/Typography";
 
 type SignUpProps = RouteComponentProps;
@@ -21,7 +21,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
         <FormContent>
           <Header>SIGN UP</Header>
           <Input label="Business Email" placeholder="Start typing" />
-          <Buttons label="Sign Up" onClick={() => navigate?.("/email-sent")} />
+          <Button label="Sign Up" onClick={() => navigate?.("/email-sent")} />
           <LoginLink>
               Already have an account? <BlackLink label={"Login here"} />
           </LoginLink>

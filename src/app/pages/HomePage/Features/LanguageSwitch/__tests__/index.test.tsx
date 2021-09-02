@@ -15,7 +15,7 @@ const renderLanguageSwitch = (theme?: DefaultTheme) =>
     </ThemeProvider>,
   );
 describe('<LanguageSwitch />', () => {
-  it('should have 2 radio buttons', () => {
+  it('should have 2 radio Button', () => {
     const languageSwitch = renderLanguageSwitch();
     expect(languageSwitch.queryAllByRole('radio').length).toBe(2);
   });

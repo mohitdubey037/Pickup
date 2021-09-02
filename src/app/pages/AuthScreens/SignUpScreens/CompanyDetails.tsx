@@ -8,7 +8,7 @@ import {
   Header,
 } from "../style";
 import { Input } from "../../../components/Input";
-import { Buttons } from "../../../components/Buttons";
+import { Button } from "../../../components/Buttons";
 
 const CompanyDetails = ({ navigate }: RouteComponentProps) => {
   return (
@@ -24,7 +24,7 @@ const CompanyDetails = ({ navigate }: RouteComponentProps) => {
           <Input label="Company Name" placeholder="Start typing" />
           <Input label="Email address" placeholder="johndoe@pickups.com" />
           <Input label="Phone number" placeholder="Start typing" />
-          <Buttons label="Next" onClick={() => navigate?.("/password")} />
+          <Button label="Next" onClick={() => navigate?.("/password")} />
         </FormContent>
       </FormWrapper>
     </SignUpWrapper>

@@ -1,7 +1,7 @@
-import Buttons from "./Buttons";
+import Button from "./Buttons";
 
 export default {title:"Button"};
 
 export const byDefault = () => (
-    <Buttons label='Sign-in' onClick={()=>{}} size='large'/>
+    <Button label='Sign-in' onClick={()=>{}} size='large'/>
 )

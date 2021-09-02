@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "@reach/router";
-import { Buttons } from "../../../components/Buttons";
+import { Button } from "../../../components/Buttons";
 import { PasswordInput } from "../../../components/Input";
 import {
   FormContent,
@@ -18,7 +18,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
           <Header>RECOVER PASSWORD</Header>
           <PasswordInput label="Password" placeholder="Start typing" validate/>
           <PasswordInput label="Confirm Password" placeholder="Start typing" />
-          <Buttons label="Confirm" onClick={() => {}} />
+          <Button label="Confirm" onClick={() => {}} />
         </FormContent>
       </FormWrapper>
     </LoginWrapper>

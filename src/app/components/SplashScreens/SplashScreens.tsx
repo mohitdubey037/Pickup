@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SplashScreensArr } from "./helper";
 import { CustomCard, CardContent, LeftContent, RightContent, LogoImage,SplashHeader,SplashSubHeader,ButtonBox, CardCount } from "./style";
 import { SplashScreenType } from "./type";
-import { Buttons } from "../Buttons";
+import { Button } from "../Buttons";
 
 const SplashScreens = () => {
   const [currentScreen, setScreen] = useState(1);
@@ -37,10 +37,10 @@ const SplashScreens = () => {
                   <SplashSubHeader>{content.subHeaderText}</SplashSubHeader>
                   {
                       content.screenNo===SplashScreensArr.length
-                        ?<Buttons label='Go to Dashboard' onClick={()=>{}}/>
+                        ?<Button label='Go to Dashboard' onClick={()=>{}}/>
                         :(<ButtonBox>
-                            <Buttons label='Skip' onClick={()=>setShow(false)}/>
-                            <Buttons label='Next' onClick={handleNext}/>
+                            <Button label='Skip' onClick={()=>setShow(false)}/>
+                            <Button label='Next' onClick={handleNext}/>
                         </ButtonBox>)
                   }                 
                 </RightContent>
