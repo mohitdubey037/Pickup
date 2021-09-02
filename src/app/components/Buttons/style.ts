@@ -8,3 +8,4 @@ export const CustomButton = styled(Button)`
   line-height: 19px;
   width:100%;
 `;
+

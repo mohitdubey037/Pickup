@@ -62,7 +62,7 @@ function isImportedTranslationObject(content, key) {
 }
 
 function replaceTranslationObjectWithString(content, key, keyAsStringValue) {
-  return content.replace(`_t(${key}`, `t(${keyAsStringValue}`);
+  return content?.replace(`_t(${key}`, `t(${keyAsStringValue}`);
 }
 
 module.exports = stringfyTranslationObjects;

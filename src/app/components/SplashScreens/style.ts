@@ -3,21 +3,25 @@ import { Card } from "@material-ui/core";
 import { logoImg } from "../../assets/Icons";
 
 export const CustomCard = styled(Card)`
-  width: 898px;
+  width: 998px;
   height: 519px;
   background: #ffffff;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
+  border-radius: 16px !important;
+  
   position: relative;
+  
 `;
 
 export const CardContent = styled.div`
   display: flex;
   gap: 20px;
+  
+   
 `;
 
 export const LeftContent = styled.div`
-  width: 50%;
+  width: 40%;
   position:relative;
   .yellowSplash {
     position: absolute;
@@ -30,7 +34,9 @@ export const LeftContent = styled.div`
   img{
     position:absolute;
     top:20%;
-    left:10%;
+    left: 10%;
+    width: -webkit-fill-available;
+}
 }
 `;
 
@@ -38,8 +44,11 @@ export const RightContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 50%;
+  width: 52%;
   padding: 40px;
+  padding-right:0px;
+  align-items: inherit;
+  text-align: initial;
 `;
 
 export const SplashHeader = styled.div`
