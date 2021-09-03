@@ -9,6 +9,7 @@ export const ModuleContainerWrapper = styled.div`
     align-items: flex-start;
     padding: 20px;
     background-color:#FAFAFA;
+    border-radius: 40px 0px 0px 0px;
 `
 
 
