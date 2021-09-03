@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import { RouteComponentProps } from "@reach/router";
 import {
   Header,
@@ -11,6 +12,11 @@ import { mailLogo } from "../../../assets/Icons";
 import { RedLink } from "../../../components/Typography/Typography";
 
 const EmailSent = ({ navigate }: RouteComponentProps) => {
+
+  useEffect(() => {
+   setTimeout(()=>navigate('/company-details'),3000)
+  }, []);
+  
   return (
     <SignUpWrapper>
       <LogoImage />

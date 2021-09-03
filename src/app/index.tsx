@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { GlobalStyle } from '../styles/global-styles';
+// import { GlobalStyle } from '../styles/global-styles';
 
 
 import { useTranslation } from 'react-i18next';
@@ -16,7 +16,7 @@ export function App() {
     <div className="App">
     <Helmet
         titleTemplate="%s - React Boilerplate"
-        defaultTitle="React Boilerplate"
+        defaultTitle="Pickups B2B"
         htmlAttributes={{ lang: i18n.language }}
       >
         <meta name="description" content="A React Boilerplate application" />

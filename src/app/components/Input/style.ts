@@ -10,7 +10,7 @@ export const InputWrapper = styled.div`
     cursor: pointer;
     position: absolute;
     top: 36px;
-    right: 0px;
+    right: 5px;
   }
 `;
 

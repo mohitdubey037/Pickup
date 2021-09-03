@@ -7,5 +7,6 @@ import speaker from './speaker.svg';
 import analytics from './analytics.svg';
 import truck from './truck.svg';
 import track from './track.svg';
+import congrats from './congrats.svg';
 
-export {logoImg, mailLogo,eyeIcon,redCross,greenCheck,speaker,analytics,track,truck};
+export {logoImg, mailLogo,eyeIcon,redCross,greenCheck,speaker,analytics,track,truck,congrats};
