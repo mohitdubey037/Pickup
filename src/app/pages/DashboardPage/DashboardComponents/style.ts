@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import AppBar from '@material-ui/core/AppBar';
 
 export const LeftDashboardWrapper = styled.div`
   width: 24%;
@@ -48,3 +49,17 @@ export const ChildLink = styled.div`
 export const Row = styled.div`
   display: flex;
 `;
+
+export const MainAppBar = styled(AppBar)`
+  &.MuiAppBar-root{
+    background-color: transparent;
+  }
+`
+
+export const AppbarContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid #DDDDDD;
+  `;
