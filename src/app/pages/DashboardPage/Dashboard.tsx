@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import { RouteComponentProps } from "@reach/router";
-import {LeftDashboard,RightDashboard} from "./DashboardComps";
+import {LeftDashboard,RightDashboard} from "./DashboardComponents";
 import { DasboardWrapper } from "./style";
 import { SelectedLink } from './type';
 import { dashboardHelper } from './helper';

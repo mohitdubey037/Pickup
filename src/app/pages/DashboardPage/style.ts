@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const DasboardWrapper = styled.div`
   height: 100vh;
   background: #fece3e;
-
   display: flex;
 `;
 
