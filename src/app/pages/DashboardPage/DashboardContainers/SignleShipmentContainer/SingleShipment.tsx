@@ -1,5 +1,7 @@
+
 import ModuleContainer from 'app/components/ModuleContainer'
 import { FormContainer } from 'app/components/ModuleContainer/style'
+import Select from 'app/components/Select'
 import { ContainerTitle, FormContainerTitle } from 'app/components/Typography/Typography'
 
 function SingleShipment() {
@@ -12,6 +14,7 @@ function SingleShipment() {
                 <FormContainerTitle>
                     Address Details
                 </FormContainerTitle>
+             <Select/>
             </FormContainer>
 
         </ModuleContainer >
