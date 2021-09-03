@@ -10,7 +10,7 @@ const Routes = () => {
     const authUser = useSelector((state: any) => state.authReducer.user);
     return (
         <>
-            {authUser ? <Router>
+            {!authUser ? <Router>
                 <SignUp path='/' />
                 <EmailSent path='/email-sent' />
                 <CompanyDetails path='/company-details' />
