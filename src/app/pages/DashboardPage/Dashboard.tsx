@@ -1,30 +1,17 @@
+import {useState} from 'react';
 import { RouteComponentProps } from "@reach/router";
-import { ChildLink, DasboardWrapper,LeftDashboard, ParentLink, RightDashboard } from "./style";
-import { dashboardHelper } from "./helper";
-import { Link } from "./type";
-import SingleShipment from "./DashboardContainers/SignleShipmentContainer";
+import {LeftDashboard,RightDashboard} from "./DashboardComponents";
+import { DasboardWrapper } from "./style";
+import { SelectedLink } from './type';
+import { dashboardHelper } from './helper';
 
 const Dashboard = ({navigate}:RouteComponentProps) => {
+    const [link,setLink] = useState<SelectedLink>({parent:dashboardHelper[0],child:dashboardHelper[0].children?.[0]});
+    
     return (
         <DasboardWrapper>
-            <LeftDashboard>
-                {dashboardHelper.map((link:Link)=>{
-                    return(
-                        <>
-                      <ParentLink>{link.label}</ParentLink>  
-                      {link.children?.map((child:Link)=>{
-                          return(
-                            <ChildLink>{child.label}</ChildLink>
-                          )
-                      })
-                      }
-                      </>
-                    )
-                })}
-            </LeftDashboard>
-            <RightDashboard>
-                <SingleShipment />
-            </RightDashboard>
+            <LeftDashboard getSelectedLinkIds={(id)=>setLink(id)}/>
+            <RightDashboard selectedLink={link}/>
         </DasboardWrapper>
     )
 }
