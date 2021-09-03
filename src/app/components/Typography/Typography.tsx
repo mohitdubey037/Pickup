@@ -20,7 +20,11 @@ export const BlackLink = ({ label, link }: TypoProps) => {
 }
 
 export const ContainerTitle = (props) => {
-    return <ContainerTitleLabel>{props.children}</ContainerTitleLabel>
+    return <ContainerTitleLabel large={true}>{props.children}</ContainerTitleLabel>
+
 }
 
 
+export const FormContainerTitle = (props) => {
+    return <ContainerTitleLabel>{props.children}</ContainerTitleLabel>
+}

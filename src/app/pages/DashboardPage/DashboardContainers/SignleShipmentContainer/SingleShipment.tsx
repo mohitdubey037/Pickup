@@ -1,7 +1,6 @@
-import { Container } from '@material-ui/core'
 import ModuleContainer from 'app/components/ModuleContainer'
-import { ContainerTitle } from 'app/components/Typography/Typography'
-import React from 'react'
+import { FormContainer } from 'app/components/ModuleContainer/style'
+import { ContainerTitle, FormContainerTitle } from 'app/components/Typography/Typography'
 
 function SingleShipment() {
     return (
@@ -9,6 +8,12 @@ function SingleShipment() {
             <ContainerTitle>
                 Single Shipment
             </ContainerTitle>
+            <FormContainer elevation={2}>
+                <FormContainerTitle>
+                    Address Details
+                </FormContainerTitle>
+            </FormContainer>
+
         </ModuleContainer >
     )
 }
