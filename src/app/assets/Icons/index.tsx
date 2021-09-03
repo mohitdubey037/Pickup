@@ -6,7 +6,6 @@ import dashboard from './dashboardIcon.svg';
 import delivery from './delivery.svg';
 import eyeIcon from './eyeIcon.svg';
 import greenCheck from './greenCheck.svg';
-import logoImg from './logoImg.svg';
 import mailLogo from './mailLogo.svg';
 import myAccount from './myAccount.svg';
 import redCross from './redCross.svg';
@@ -15,6 +14,8 @@ import search from './search.svg';
 import speaker from './speaker.svg';
 import track from './track.svg';
 import truck from './truck.svg';
+
+import LogoImg from './LogoImg';
 
 export {
     analytics,
@@ -25,7 +26,7 @@ export {
     delivery,
     eyeIcon,
     greenCheck,
-    logoImg,
+    LogoImg,
     mailLogo,
     myAccount,
     redCross,

@@ -18,7 +18,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
           <Header>PASSWORD</Header>
           <PasswordInput label="Password" placeholder="Start typing" validate/>
           <PasswordInput label="Confirm Password" placeholder="Start typing" />
-          <Button label="Sign Up" onClick={() => navigate('/congratulations')} />
+          <Button label="Sign Up" onClick={() => navigate?.('/congratulations')} />
         </FormContent>
       </FormWrapper>
     </SignUpWrapper>

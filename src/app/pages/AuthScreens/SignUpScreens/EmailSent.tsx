@@ -14,9 +14,9 @@ import { RedLink } from "../../../components/Typography/Typography";
 const EmailSent = ({ navigate }: RouteComponentProps) => {
 
   useEffect(() => {
-   setTimeout(()=>navigate('/company-details'),3000)
+   setTimeout(()=>navigate?.('/company-details'),3000)
   }, []);
-  
+
   return (
     <SignUpWrapper>
       <LogoImage />

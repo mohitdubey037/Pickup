@@ -2,7 +2,7 @@ import React from 'react'
 import {Router} from '@reach/router';
 import {SignUp,CompanyDetails,Password,EmailSent,Congratulations} from './app/pages/AuthScreens/SignUpScreens';
 import { SignIn,ForgotPassword,MailSent,RecoverPassword } from './app/pages/AuthScreens/LoginScreens';
-import { Dashboard } from './app/pages/DashboardPage';
+import DashboardPage from './app/pages/DashboardPage';
 import { useSelector } from 'react-redux';
 import { NotFoundPage } from 'app/pages/NotFoundPage';
 
@@ -19,7 +19,7 @@ const Routes = () => {
             <ForgotPassword path='/forgot-password'/>
             <MailSent path='/mail-sent'/>
             <RecoverPassword path='/recover-password'/>
-            <Dashboard path='/dashboard'/>
+            <DashboardPage path='/dashboard'/>
         </Router>
     )
 }
