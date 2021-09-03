@@ -4,10 +4,10 @@ import {SignUp,CompanyDetails,Password,EmailSent,Congratulations} from './app/pa
 import { SignIn,ForgotPassword,MailSent,RecoverPassword } from './app/pages/AuthScreens/LoginScreens';
 import { Dashboard } from './app/pages/DashboardPage';
 import { useSelector } from 'react-redux';
+import { NotFoundPage } from 'app/pages/NotFoundPage';
 
 const Routes = () => {
-    const authUser = useSelector((state:any)=>state.authReducer.user);
-    console.log(authUser,'authUser')
+    const authUser = useSelector((state: any) => state.authReducer.user);
     return (
         <Router>
             <SignUp path='/'/>

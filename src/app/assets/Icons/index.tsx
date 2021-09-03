@@ -1,16 +1,41 @@
+import analytics from './analytics.svg';
+import clock from './clock.svg';
+import congrats from './congrats.svg';
+import creditCard from './credit-card.svg';
+import dashboard from './dashboardIcon.svg';
+import delivery from './delivery.svg';
+import eyeIcon from './eyeIcon.svg';
+import greenCheck from './greenCheck.svg';
 import logoImg from './logoImg.svg';
 import mailLogo from './mailLogo.svg';
-import eyeIcon from './eyeIcon.svg';
+import myAccount from './myAccount.svg';
 import redCross from './redCross.svg';
-import greenCheck from './greenCheck.svg';
+import reports from './reports.svg';
+import search from './search.svg';
 import speaker from './speaker.svg';
-import analytics from './analytics.svg';
-import truck from './truck.svg';
 import track from './track.svg';
-import congrats from './congrats.svg';
 import settings from './settings.svg';
 import dropdown from './dropdown.svg';
+import truck from './truck.svg';
 
-
-
-export {logoImg, mailLogo,eyeIcon,redCross,greenCheck,speaker,analytics,track,truck,congrats,settings,dropdown};
+export {
+    analytics,
+    clock,
+    congrats,
+    creditCard,
+    dashboard,
+    delivery,
+    eyeIcon,
+    greenCheck,
+    logoImg,
+    mailLogo,
+    myAccount,
+    redCross,
+    reports,
+    search,
+    speaker,
+    track,
+    settings,
+    dropdown,
+    truck
+};

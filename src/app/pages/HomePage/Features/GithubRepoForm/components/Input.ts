@@ -21,13 +21,5 @@ export const Input = styled.input`
     color: ${p => p.theme.textSecondary};
   }
 
-  &:focus {
-    border-color: ${p => p.theme.primary};
-    box-shadow: 0 0 0 3px
-      ${p =>
-        p.theme.primary.replace(
-          /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-          'rgba$1,0.2)',
-        )};
-  }
+  
 `;
