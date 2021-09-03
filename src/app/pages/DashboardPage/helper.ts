@@ -1,7 +1,7 @@
 import { Link } from "./type";
 
-export const dashboardHelper:Link[]=[
-    {label:'Dasboard',link:'/dashboard',},
+export const dashboardHelper:Array<Link>=[
+    {label:'Dasboard',link:'/dashboard'},
     {label:'Charter Shipment',link:'/',children:[{label:'Single Shipment',link:'/'},{label:'Bulk Shipment',link:'/'}]},
     {label:'Holding Zone',link:'/'},
     {label:'Search Shipments',link:'/'},

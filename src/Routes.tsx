@@ -2,7 +2,7 @@ import React from 'react'
 import {Router} from '@reach/router';
 import {SignUp,CompanyDetails,Password,EmailSent,Congratulations} from './app/pages/AuthScreens/SignUpScreens';
 import { SignIn,ForgotPassword,MailSent,RecoverPassword } from './app/pages/AuthScreens/LoginScreens';
-import { Dashboard } from './app/pages/Dashboard';
+import { Dashboard } from './app/pages/DashboardPage';
 import { useSelector } from 'react-redux';
 
 const Routes = () => {
