@@ -14,7 +14,7 @@ const Routes = () => {
             <EmailSent path='/email-sent'/>
             <CompanyDetails path='/company-details'/>
             <Password path='/password'/>
-            <Congratulations  path='congratulations'/>
+            <Congratulations  path='/congratulations'/>
             <SignIn path='/sign-in'/>
             <ForgotPassword path='/forgot-password'/>
             <MailSent path='/mail-sent'/>

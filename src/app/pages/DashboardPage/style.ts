@@ -26,7 +26,7 @@ z-index: 2;
 cursor: pointer;
 display:flex;
 justify-content: center;
-}
+
 `;
 
 export const Center = styled.div`
