@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AppBar from '@material-ui/core/AppBar';
 
 export const DasboardWrapper = styled.div`
   height: 100%;
@@ -19,7 +20,7 @@ export const LeftDashboard = styled.div`
 export const RightDashboard = styled.div`
   position: absolute;
   height: inherit;
-  width: 100%;
+  width: 80%;
   background: #fafafa;
   border-radius: 40px 0px 0px 0px;
   left: 20%;
@@ -36,3 +37,17 @@ export const ChildLink = styled.div`
 font-size: 16px;
 line-height: 19px;
 `;
+
+export const MainAppBar = styled(AppBar)`
+  &.MuiAppBar-root{
+    background-color: transparent;
+  }
+`
+
+export const AppbarContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid #DDDDDD;
+`

@@ -8,5 +8,9 @@ import analytics from './analytics.svg';
 import truck from './truck.svg';
 import track from './track.svg';
 import congrats from './congrats.svg';
+import settings from './settings.svg';
+import dropdown from './dropdown.svg';
 
-export {logoImg, mailLogo,eyeIcon,redCross,greenCheck,speaker,analytics,track,truck,congrats};
+
+
+export {logoImg, mailLogo,eyeIcon,redCross,greenCheck,speaker,analytics,track,truck,congrats,settings,dropdown};
