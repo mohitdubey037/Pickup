@@ -14,3 +14,4 @@ export const CustomButton = styled(Button)`
     font-weight: 600;
   }
 `;
+

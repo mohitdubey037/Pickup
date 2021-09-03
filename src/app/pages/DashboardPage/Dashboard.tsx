@@ -2,7 +2,7 @@ import {useState} from 'react';
 import { RouteComponentProps } from "@reach/router";
 import {LeftDashboard,RightDashboard} from "./DashboardComps";
 import { DasboardWrapper } from "./style";
-import { Link, SelectedLink } from './type';
+import { SelectedLink } from './type';
 import { dashboardHelper } from './helper';
 
 const Dashboard = ({navigate}:RouteComponentProps) => {

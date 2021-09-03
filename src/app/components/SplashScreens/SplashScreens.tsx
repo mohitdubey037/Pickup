@@ -39,7 +39,7 @@ const SplashScreens = () => {
                       content.screenNo===SplashScreensArr.length
                         ?<Button label='Go to Dashboard' onClick={()=>{}}/>
                         :(<ButtonBox>
-                            <Button label='Skip' onClick={()=>setShow(false)}/>
+                            <Button label='Skip' secondary onClick={()=>setShow(false)}/>
                             <Button label='Next' onClick={handleNext}/>
                         </ButtonBox>)
                   }                 
