@@ -2,6 +2,7 @@ import { RouteComponentProps } from "@reach/router";
 import { ChildLink, DasboardWrapper,LeftDashboard, ParentLink, RightDashboard } from "./style";
 import { dashboardHelper } from "./helper";
 import { Link } from "./type";
+import SingleShipment from "./DashboardContainers/SignleShipmentContainer";
 
 const Dashboard = ({navigate}:RouteComponentProps) => {
     return (
@@ -21,7 +22,9 @@ const Dashboard = ({navigate}:RouteComponentProps) => {
                     )
                 })}
             </LeftDashboard>
-            <RightDashboard></RightDashboard>
+            <RightDashboard>
+                <SingleShipment />
+            </RightDashboard>
         </DasboardWrapper>
     )
 }

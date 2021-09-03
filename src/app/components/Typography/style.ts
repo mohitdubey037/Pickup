@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import styled from "styled-components";
 
 export const CustomRedLink = styled.div`
@@ -19,3 +20,12 @@ export const CustomBlackLink = styled.div`
   text-decoration: underline;
   line-height: 16px;
 `;
+
+
+export const ContainerTitleLabel=styled(Typography)`
+font-style: normal !important;
+font-weight: bold !important;
+font-size: 24px !important;
+line-height: 28px !important;
+color:#343434;
+`

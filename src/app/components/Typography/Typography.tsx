@@ -1,20 +1,26 @@
-import { CustomRedLink,CustomBlackLink } from "./style"
+import { Typography } from "@material-ui/core"
+import { CustomRedLink, CustomBlackLink, ContainerTitleLabel } from "./style"
 
-interface TypoProps{
-    label:string;
-    link?:any;
+interface TypoProps {
+    label: string;
+    link?: any;
 }
 
-export const RedLink = ({label,link}:TypoProps) => {
+export const RedLink = ({ label, link }: TypoProps) => {
     return (
-        <CustomRedLink onClick={link}>{label}</CustomRedLink>        
+        <CustomRedLink onClick={link}>{label}</CustomRedLink>
     )
 }
 
 
-export const BlackLink = ({label,link}:TypoProps) => {
+export const BlackLink = ({ label, link }: TypoProps) => {
     return (
-        <CustomBlackLink onClick={link}>{label}</CustomBlackLink>        
+        <CustomBlackLink onClick={link}>{label}</CustomBlackLink>
     )
 }
+
+export const ContainerTitle = (props) => {
+    return <ContainerTitleLabel>{props.children}</ContainerTitleLabel>
+}
+
 
