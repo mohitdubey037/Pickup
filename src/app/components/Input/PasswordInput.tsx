@@ -17,7 +17,7 @@ const PasswordInput = ({label,placeholder,validate,onChange}:InputProps) => {
        <InputWrapper>
        <CustomLabel>{label}</CustomLabel>
         <CustomInput placeholder={placeholder} type={showPass?'':'password'} value={value} onChange={onChangeHandler} />
-            <img src={eyeIcon} alt='' onClick={()=>setShowPass(!showPass)} style={{opacity:showPass?0.3:1}}/>
+            <img src={eyeIcon} alt='' onClick={()=>setShowPass(!showPass)} style={{opacity:showPass?0.3:1, height:'25px',padding:'6px 12px'}}/>
             {validate && <PasswordValidate isOpen={value ? value.length>0 : false} input={value}/>}
        </InputWrapper>
     )
