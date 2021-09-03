@@ -10,7 +10,7 @@ export const InputWrapper = styled.div`
     cursor: pointer;
     position: absolute;
     top: 36px;
-    right: 0px;
+    right: 5px;
   }
 `;
 
@@ -19,6 +19,7 @@ export const CustomLabel = styled.label`
   font-size: 16px;
   line-height: 19px;
   color: #343434;
+  margin-bottom: 0.5rem;
 `;
 
 export const CustomInput = styled.input`
