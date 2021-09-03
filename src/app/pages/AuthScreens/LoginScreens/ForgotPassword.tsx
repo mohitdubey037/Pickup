@@ -12,8 +12,8 @@ const ForgotPassword = ({navigate}:RouteComponentProps) => {
                <FormContent>
                    <Header>FORGOT PASSWORD</Header>
                    <Input label='Email' placeholder='Start typing'/>
-                   <Button label='Recover Password' onClick={()=>{}}/>
-                   <RedLink label='Back to Login'/>
+                   <Button label='Recover Password' onClick={()=>navigate?.('/mail-sent')}/>
+                   <RedLink label='Back to Login' link={()=>navigate?.('/sign-in')}/>
                </FormContent>
            </FormWrapper>
        </LoginWrapper>

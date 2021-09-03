@@ -10,7 +10,6 @@
     "yarn": ">=1.22.10",
     "node": ">=14.0.0"
   },
-   
   "main": "template.json",
   "files": [
     "template",
@@ -53,7 +52,7 @@
     "create:npm-package": "ts-node --project=./internals/ts-node.tsconfig.json ./internals/scripts/create-npm-package.script.ts",
     "create:cra-app": "ts-node --project=./internals/ts-node.tsconfig.json ./internals/scripts/create-cra-app.script.ts",
     "// ---PUBLISHING---": "",
-     "changelog": "ts-node --project=./internals/ts-node.tsconfig.json ./internals/scripts/create-changelog.script.ts",
+    "changelog": "ts-node --project=./internals/ts-node.tsconfig.json ./internals/scripts/create-changelog.script.ts",
     "release": "standard-version",
     "publish:npm": "yarn run create:npm-package && yarn publish .cra-template-rb --non-interactive",
     "prepare": "husky install"
@@ -154,7 +153,8 @@
     "stylelint-processor-styled-components": "1.10.0",
     "ts-jest": "26.5.6",
     "ts-node": "10.0.0",
-    "typescript": "4.2.2"
+    "typescript": "4.2.2",
+    "webpack": "^4.44.0"
   },
   "browserslist": {
     "production": [

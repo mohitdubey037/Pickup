@@ -68,6 +68,7 @@ export const Header = styled.div`
   color: #343434;
   line-height: 37px;
   text-align: inherit;
+  margin: 1rem 0;
 `;
 
 
@@ -78,3 +79,10 @@ export const LoginLink = styled.div`
   gap:4px;
   bottom:20px;
 `;
+
+export const RememberDiv = styled.div`
+  display:flex;
+  align-items:center; 
+  justify-content:space-between;
+  width:100%
+`

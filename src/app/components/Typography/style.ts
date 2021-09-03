@@ -7,6 +7,8 @@ export const CustomRedLink = styled.div`
   font-size: 14px;
   text-decoration: underline;
   line-height: 16px;
+  position: absolute;
+  bottom: 35px;
 `;
 
 export const CustomBlackLink = styled.div`
