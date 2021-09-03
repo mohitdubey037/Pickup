@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AppBar from '@material-ui/core/AppBar';
 
 export const DasboardWrapper = styled.div`
   height: 100vh;
@@ -20,6 +21,7 @@ export const LeftDashboardWrapper = styled.div`
 export const RightDashboardWrapper = styled.div`
   flex: 1;
   height: inherit;
+  width: 80%;
   background: #fafafa;
   border-radius: 40px 0px 0px 0px;
 `;
@@ -77,7 +79,7 @@ z-index: 2;
 cursor: pointer;
 display:flex;
 justify-content: center;
-}
+
 `;
 
 export const Center = styled.div`
@@ -85,3 +87,17 @@ export const Center = styled.div`
   flex-direction: column;
   justify-content: center;
 `;
+
+export const MainAppBar = styled(AppBar)`
+  &.MuiAppBar-root{
+    background-color: transparent;
+  }
+`
+
+export const AppbarContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid #DDDDDD;
+`

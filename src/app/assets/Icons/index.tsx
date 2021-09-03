@@ -14,6 +14,8 @@ import reports from './reports.svg';
 import search from './search.svg';
 import speaker from './speaker.svg';
 import track from './track.svg';
+import settings from './settings.svg';
+import dropdown from './dropdown.svg';
 import truck from './truck.svg';
 
 export {
@@ -33,5 +35,7 @@ export {
     search,
     speaker,
     track,
+    settings,
+    dropdown,
     truck
 };
