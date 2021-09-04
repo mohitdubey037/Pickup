@@ -14,7 +14,11 @@ function SingleShipment() {
                 <FormContainerTitle>
                     Address Details
                 </FormContainerTitle>
-             <Select/>
+                <Select
+                    label='Location Type'
+
+                />
+
             </FormContainer>
 
         </ModuleContainer >

@@ -1,53 +1,72 @@
-import React from 'react'
-import MaterialSelect from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 
-function Select() {
-    return (
-        <div>
- 
- <select>
+import React from 'react';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import { SelectContainer, ComponentContainer,useStyles } from './style'
 
-<option>Item one</option>
 
-<option>Item one</option>
-
-<option>Item one</option>
-
-<option>Item one</option>
-
-<option>Item one</option>
-
-<option>Item one</option>
-
-<option>Item one</option>
-
-<option>Item one</option>
-
-<option>Item one</option>
-
-<option>Item one</option>
-
- </select>
-            {/* <MaterialSelect
-                placeholder={'s'}
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                onChange={() => { }}
-                label="Age"
-                value={10}
-                style={{width:100}}
-            >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-            </MaterialSelect> */}
-        </div>
-    )
+interface SelectOption {
+  value: string | number
+  label: string
+}
+interface SelectPropTypes {
+  label: string
+  options?: Array<SelectOption>
+  value?:string | number
 }
 
-export default Select
+export default function Select(props: SelectPropTypes) {
+  const { label, value,options = [] } = props;
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  return (
+    <ComponentContainer>
+      <span>
+        {label||value}
+      </span>
+      <SelectContainer
+        aria-describedby={id}
+        //@ts-ignore
+        onClick={handleClick}
+      >
+        <span  className={classes.placeholder}>
+          Select
+        </span>
+        <span  >
+          &#8964;
+        </span>
+      </SelectContainer>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        {options.map((option) =>
+          <Typography className={classes.typography} key={option.value}>{option.label}</Typography>
+        )}
+      </Popover>
+
+    </ComponentContainer>
+  );
+}
