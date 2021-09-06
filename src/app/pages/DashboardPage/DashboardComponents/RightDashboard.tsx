@@ -29,7 +29,8 @@ const RightDashboard = ({selectedLink}:RightDashboardProps) => {
                         <img style={{margin:'1rem 2rem 1rem 0rem'}} src={dropdown} alt="dropdown"/>
                 </AppbarContainer>
             </MainAppBar>
-            <SingleShipment/>
+            {/* <SingleShipment/> */}
+            <Dashboard/>
         </RightDashboardWrapper>
     )
 }

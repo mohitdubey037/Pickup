@@ -18,7 +18,7 @@ const CategoryProgressCard = ({contents}:ProgressCardProps) => {
             {contents.map((category:ProgressCategory)=>{
                 return(
                     <ProgressRow>
-                        {category.category} 
+                        <span>{category.category} </span>
                         <Progressbar value={category.progressValue}/>
                         <span>$ {category.cost}</span>
                     </ProgressRow> 
