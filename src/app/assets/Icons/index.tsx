@@ -16,6 +16,12 @@ import track from './track.svg';
 import settings from './settings.svg';
 import dropdown from './dropdown.svg';
 import truck from './truck.svg';
+import arrowUp from './arrow-up.svg'
+import arrowUpWhite from './arrow-up-white.svg'
+import ChevronDown from './ChevronDown.svg'
+import ContactSvg from './ContactSvg.svg'
+import phone from './phone.svg'
+import email from './email.svg'
 
 import LogoImg from './LogoImg';
 
@@ -38,5 +44,11 @@ export {
     track,
     settings,
     dropdown,
-    truck
+    truck,
+    arrowUp,
+    arrowUpWhite,
+    ChevronDown,
+    ContactSvg,
+    phone,
+    email
 };
