@@ -6,7 +6,6 @@ import dashboard from './dashboardIcon.svg';
 import delivery from './delivery.svg';
 import eyeIcon from './eyeIcon.svg';
 import greenCheck from './greenCheck.svg';
-import logoImg from './logoImg.svg';
 import mailLogo from './mailLogo.svg';
 import myAccount from './myAccount.svg';
 import redCross from './redCross.svg';
@@ -24,6 +23,8 @@ import ContactSvg from './ContactSvg.svg'
 import phone from './phone.svg'
 import email from './email.svg'
 
+import LogoImg from './LogoImg';
+
 export {
     analytics,
     clock,
@@ -33,7 +34,7 @@ export {
     delivery,
     eyeIcon,
     greenCheck,
-    logoImg,
+    LogoImg,
     mailLogo,
     myAccount,
     redCross,
