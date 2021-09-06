@@ -22,10 +22,10 @@ export const CustomBlackLink = styled.div`
 `;
 
 
-export const ContainerTitleLabel=styled(Typography)`
+export const ContainerTitleLabel = styled(Typography)`
 font-style: normal !important;
 font-weight: bold !important;
-font-size: 24px !important;
+font-size: ${(props: { large?: boolean }) => props.large ? '24px' : '18px'} !important;
 line-height: 28px !important;
 color:#343434;
 `
