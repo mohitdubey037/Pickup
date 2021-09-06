@@ -4,7 +4,7 @@ import {Button as MaterialButton} from '@material-ui/core';
 
 interface ButtonProps {
     label: string;
-    onClick: () => void;
+    onClick?: () => void;
     size?: 'small' | 'medium' | 'large';
     secondary?: boolean
 }
