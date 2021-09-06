@@ -11,6 +11,7 @@ import myAccount from './myAccount.svg';
 import redCross from './redCross.svg';
 import reports from './reports.svg';
 import search from './search.svg';
+import sortBy from './sortby.svg';
 import speaker from './speaker.svg';
 import track from './track.svg';
 import settings from './settings.svg';
@@ -34,6 +35,7 @@ export {
     redCross,
     reports,
     search,
+    sortBy,
     speaker,
     track,
     settings,
