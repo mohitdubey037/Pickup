@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Card } from "@material-ui/core";
-import { logoImg } from "../../assets/Icons";
+import { LogoImg } from "../../assets/Icons";
 
 export const CustomCard = styled(Card)`
   width: 998px;
@@ -67,9 +67,6 @@ export const SplashSubHeader = styled.div`
 
 export const LogoImage = styled.img`
   width: 84px;
-  height: 84px;
-  background-image: url(${logoImg});
-  background-size: cover;
 `;
 
 export const ButtonBox = styled.div`

@@ -1,4 +1,6 @@
-import { AppbarContainer, MainAppBar, RightDashboardWrapper } from "../style";
+// import SingleShipment from "../DashboardContainers/SignleShipmentContainer";
+import Dashboard from "../DashboardContainers/Dashboard";
+import { AppbarContainer, MainAppBar, RightDashboardWrapper } from "./style";
 import { SelectedLink } from "../type";
 import SingleShipment from "../DashboardContainers/SignleShipmentContainer";
 import { dropdown, settings } from "app/assets/Icons";

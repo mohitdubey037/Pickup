@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { bgImage,bgImage2 } from "../../assets/Images";
-import { logoImg } from "../../assets/Icons";
+import { bgImage, bgImage2 } from "../../assets/Images";
+import { LogoImg } from "../../assets/Icons";
 
 export const SignUpWrapper = styled.div`
-  background: url(${bgImage}) no-repeat center center fixed; 
+  background: url(${bgImage}) no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -14,7 +14,7 @@ export const SignUpWrapper = styled.div`
 `;
 
 export const LoginWrapper = styled.div`
-  background: url(${bgImage2})no-repeat center center fixed; 
+  background: url(${bgImage2}) no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -24,10 +24,8 @@ export const LoginWrapper = styled.div`
   gap: 20px;
 `;
 
-export const LogoImage = styled.img`
+export const LogoImage = styled(LogoImg)`
   width: 126px;
-  height: 126px;
-  background-image: url(${logoImg});
 `;
 
 export const FormWrapper = styled.div`
@@ -35,8 +33,8 @@ export const FormWrapper = styled.div`
   width: 486px;
   box-shadow: 0px 16px 40px 5px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
-  min-height:519px;
-  position:relative;
+  min-height: 519px;
+  position: relative;
   .mailLogo {
     width: 170px;
     height: 148px;
@@ -47,9 +45,9 @@ export const FormWrapper = styled.div`
 export const FormContent = styled.div`
   display: flex;
   flex-direction: column;
-  padding:30px;
+  padding: 30px;
   gap: 14px;
-  align-items:flex-start;
+  align-items: flex-start;
 `;
 
 export const CenterContent = styled.div`
@@ -59,7 +57,7 @@ export const CenterContent = styled.div`
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
-  gap:20px;
+  gap: 20px;
 `;
 
 export const Header = styled.div`
@@ -71,18 +69,17 @@ export const Header = styled.div`
   margin: 1rem 0;
 `;
 
-
 export const LoginLink = styled.div`
-  display:flex;
-  align-items:center;
-  position:absolute;
-  gap:4px;
-  bottom:20px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  gap: 4px;
+  bottom: 20px;
 `;
 
 export const RememberDiv = styled.div`
-  display:flex;
-  align-items:center; 
-  justify-content:space-between;
-  width:100%
-`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
