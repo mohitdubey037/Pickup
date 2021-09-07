@@ -2,6 +2,7 @@ import analytics from './analytics.svg';
 import clock from './clock.svg';
 import congrats from './congrats.svg';
 import creditCard from './credit-card.svg';
+import csvIcon from './csvIcon.svg';
 import dashboard from './dashboardIcon.svg';
 import delivery from './delivery.svg';
 import eyeIcon from './eyeIcon.svg';
@@ -31,6 +32,7 @@ export {
     clock,
     congrats,
     creditCard,
+    csvIcon,
     dashboard,
     delivery,
     eyeIcon,
