@@ -1,20 +1,14 @@
-// import SingleShipment from "../DashboardContainers/SignleShipmentContainer";
-// import Dashboard from "../DashboardContainers/Dashboard";
 import { RightDashboardWrapper } from "./style";
-import { SelectedLink } from "../type";
-// import SingleShipment from "../DashboardContainers/SignleShipmentContainer";
-import BulkShipment from '../DashboardContainers/BulkShipment';
+import { ReactNode } from "react";
 
 interface RightDashboardProps{
-    selectedLink:SelectedLink;
+    children?:ReactNode;
 }
 
-const RightDashboard = ({selectedLink}:RightDashboardProps) => {
+const RightDashboard = ({children}:RightDashboardProps) => {
     return (
         <RightDashboardWrapper>
-            {/* {selectedLink.child? selectedLink.child.label : selectedLink.parent.label} */}
-            {/* <SingleShipment/> */}
-            <BulkShipment/>
+           {children}
         </RightDashboardWrapper>
     )
 }

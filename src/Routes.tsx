@@ -5,6 +5,7 @@ import { SignIn,ForgotPassword,MailSent,RecoverPassword } from './app/pages/Auth
 import DashboardPage from './app/pages/DashboardPage';
 import { useSelector } from 'react-redux';
 import { NotFoundPage } from 'app/pages/NotFoundPage';
+import {BulkShipment} from 'app/pages/DashboardPage/DashboardContainers/BulkShipment';
 
 const Routes = () => {
     const authUser = useSelector((state: any) => state.authReducer.user);
@@ -19,7 +20,9 @@ const Routes = () => {
             <ForgotPassword path='/forgot-password'/>
             <MailSent path='/mail-sent'/>
             <RecoverPassword path='/recover-password'/>
-            <DashboardPage path='/dashboard'/>
+            <DashboardPage path='/dashboard'>
+                <BulkShipment path='/dashboard/charter-shipment/bulk-shipment'/>
+            </DashboardPage>
         </Router>
     )
 }
