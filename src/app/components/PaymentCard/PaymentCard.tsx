@@ -1,5 +1,5 @@
 import React from 'react'
-import { IndividualCardDetailsContainer, IndividualCardDiv, IndividualCardNumberContainer } from './style'
+import { CardEllipse, CardOption, IndividualCardDetailsContainer, IndividualCardDiv, IndividualCardNumberContainer } from './style'
 import { dots, masterCard, ellipse } from '../../assets/Icons/index'
 import { Menu, MenuItem } from '@material-ui/core'
 
@@ -23,8 +23,8 @@ export default function PaymentCard({type,name,expiryData,cardNumber}:PaymentCar
     return (
         <>
             <IndividualCardDiv>
-                <img src={ellipse} style={{position:'absolute',top: '-2px', right: '-2px' , opacity:0.1}}/>
-                <img src={dots} onClick={handleClick} style={{position:'absolute',top: '20px', right: '20px' , cursor:'pointer'}}/>
+                <CardEllipse src={ellipse} />
+                <CardOption src={dots} onClick={handleClick}/>
                 <div style={{display:'flex', width:'100%'}}>
                     <img src={type}/>
                 </div>
