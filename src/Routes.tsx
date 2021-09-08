@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { NotFoundPage } from "app/pages/NotFoundPage";
 import { BulkShipment } from "app/pages/DashboardPage/DashboardContainers/BulkShipment";
 import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
+import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
 
 const Routes = () => {
   const authUser = useSelector((state: any) => state.authReducer.user);
@@ -34,7 +35,9 @@ const Routes = () => {
       <RecoverPassword path="/recover-password" />
       <DashboardPage path="/dashboard">
         <Dashboard path="/" />
+        <SingleShipment path='/charter-shipment/single-shipment'/>
         <BulkShipment path="/charter-shipment/bulk-shipment" />
+
       </DashboardPage>
     </Router>
   );

@@ -5,7 +5,7 @@ import { Radio } from 'app/components/Radio'
 import Select from 'app/components/Select'
 import { ContainerTitle, FormContainerTitle } from 'app/components/Typography/Typography'
 
-function SingleShipment() {
+function SingleShipment({path:string}) {
     return (
         <ModuleContainer >
             <ContainerTitle>
