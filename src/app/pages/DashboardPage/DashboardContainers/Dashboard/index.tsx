@@ -1,6 +1,6 @@
 import { CategoryProgressCard } from "app/components/Cards"
 import { ProgressCardData } from "../../helper"
-const Dashboard = () => {
+const Dashboard = ({path:string}) => {
     return (
         <div>
             <CategoryProgressCard contents={ProgressCardData}/>

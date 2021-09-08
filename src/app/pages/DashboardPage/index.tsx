@@ -12,8 +12,8 @@ const DashboardPage = ({children,navigate}:DashboardProps) => {
     const [link,setLink] = useState(dashboardHelper[0].link);
     return (
         <DasboardWrapper>
-            <LeftDashboard getSelectedLinkIds={(id)=>{
-                navigate?.(link)
+            <LeftDashboard onDrawerItemSelect={(id)=>{
+                navigate?.(id)
                 setLink(id);
             }}/>
             <RightDashboard>
@@ -24,3 +24,4 @@ const DashboardPage = ({children,navigate}:DashboardProps) => {
 }
 
 export default DashboardPage;
+ 
