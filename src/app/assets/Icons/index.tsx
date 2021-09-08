@@ -24,6 +24,11 @@ import ChevronDown from './ChevronDown.svg'
 import ContactSvg from './ContactSvg.svg'
 import phone from './phone.svg'
 import email from './email.svg'
+import dots from './dots.svg'
+import masterCard from './masterCard.png'
+import ellipse from './Ellipse.svg'
+import scotiaBank from './scotiaBank.png'
+
 
 import LogoImg from './LogoImg';
 
@@ -54,5 +59,9 @@ export {
     ChevronDown,
     ContactSvg,
     phone,
+    dots,
+    ellipse,
+    masterCard,
+    scotiaBank,
     email
 };
