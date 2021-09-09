@@ -1,52 +1,70 @@
 import { useState } from "react";
-import { LeftDashboardWrapper,LeftContent,CustomListItem,ChildLink,ParentLink,Row } from "./style";
+import {
+  LeftDashboardWrapper,
+  LeftContent,
+  CustomListItem,
+  ChildLink,
+  ParentLink,
+  Row,
+} from "./style";
 import { dashboardHelper } from "../helper";
-import { Link,SelectedLink } from "../type";
+import { Link } from "../type";
 import { LogoImg } from "app/assets/Icons";
 
-interface LeftDashboardProps{
-    getSelectedLinkIds?:(link:SelectedLink)=>void;
+interface LeftDashboardProps {
+    onDrawerItemSelect: (link: string) => void;
 }
 
-const LeftDashboard = ({getSelectedLinkIds}:LeftDashboardProps) => {
-    const [selectedLink,setSelectedLink] = useState<SelectedLink>(
-        {parent:dashboardHelper[0],child:dashboardHelper[0].children?.[0]}
-        );
+const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
+  const [selectedLink, setSelectedLink] = useState(dashboardHelper[0].link);
 
-    const onLinkSelectHandler=(id:SelectedLink)=>{
-        setSelectedLink(id);
-        getSelectedLinkIds && getSelectedLinkIds(id)
-    }
-    return (
-        <LeftDashboardWrapper>
-            <LogoImg width={'62px'} margin={'10px'}/>
-                <LeftContent>
-                {dashboardHelper.map((link:Link)=>{
-                    return(
-                        <CustomListItem 
-                            className={selectedLink.parent.id===link.id?'selected':''} 
-                            onClick={(e)=>onLinkSelectHandler({parent:link,child:link.children?.[0]})}>
-                        <Row>
-                        <img src={link.logo} alt=''className='logoIcon'/>
-                      <ParentLink>{link.label}</ParentLink> 
-                      </Row> 
-                      {link.children?.map((child:Link)=>{
-                          return(
-                            <ChildLink onClick={(e)=>{
-                                e.stopPropagation();
-                                onLinkSelectHandler({parent:selectedLink.parent,child:child})
-                                }}>
-                                {child.label}
-                                </ChildLink>
-                          )
-                      })
-                      }
-                      </CustomListItem>
-                    )
-                })}
-                </LeftContent>
-            </LeftDashboardWrapper>
-    )
-}
+  const onLinkSelectHandler = (link: string) => {
+    setSelectedLink(link);
+    onDrawerItemSelect(link);
+  };
+ 
+  return (
+    <LeftDashboardWrapper>
+      <LogoImg width={"62px"} margin={"10px"} />
+      <LeftContent>
+        {dashboardHelper.map((parent: Link) => {
+          const isSelected =
+            selectedLink
+              ?.split("/dashboard/")[1]
+              ?.includes(parent.link.split("/dashboard/")[1]) ||
+            (!parent.children?.length && parent.link === selectedLink);
+            
+          return (
+            <CustomListItem
+              onClick={() =>
+                onLinkSelectHandler(
+                  parent.children ? parent.children[0].link : parent.link
+                )
+              }
+              selected={isSelected}
+             >
+              <Row>
+                <img src={parent.logo} alt="" className="logoIcon" />
+                <ParentLink>{parent.label}</ParentLink>
+              </Row>
+              {parent.children?.map((child: Link) => {
+                return (
+                  <ChildLink
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onLinkSelectHandler(child.link);
+                    }}
+                  >
+                    {child.label}
+                  </ChildLink>
+                );
+              })}
+            </CustomListItem>
+          );
+        })}
+      </LeftContent>
+    </LeftDashboardWrapper>
+  );
+};
 
-export default LeftDashboard
+export default LeftDashboard;

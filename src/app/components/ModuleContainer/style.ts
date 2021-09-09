@@ -18,8 +18,7 @@ export const FormContainer=styled(Paper)`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-     padding-left: 15px;
-    padding-top: 15px;
+    padding:24px;
     margin-top: 20px;
     flex:1;
     border-radius: 8px !important;

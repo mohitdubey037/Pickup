@@ -28,9 +28,8 @@ export const CustomListItem = styled.li`
     width: 18px;
     height: 18px;
   }
-  &.selected {
-    background: #ffdb6f;
-  }
+  background:${(props:{selected:boolean}) => props.selected && '#ffdb6f'}
+  
 `;
 
 export const ParentLink = styled.div`
