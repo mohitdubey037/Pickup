@@ -37,7 +37,7 @@ const Routes = () => {
         <Dashboard path="/" />
         <SingleShipment path='/charter-shipment/single-shipment'/>
         <BulkShipment path="/charter-shipment/bulk-shipment" />
-
+      <NotFoundPage default/>
       </DashboardPage>
     </Router>
   );
