@@ -4,6 +4,7 @@ import { RightDashboardWrapper } from "./style";
 import { SelectedLink } from "../type";
 // import SingleShipment from "../DashboardContainers/SignleShipmentContainer";
 import BulkShipment from '../DashboardContainers/BulkShipment';
+import { HelpContainer } from "../DashboardContainers/HelpContainer";
 
 interface RightDashboardProps{
     selectedLink:SelectedLink;
@@ -14,7 +15,8 @@ const RightDashboard = ({selectedLink}:RightDashboardProps) => {
         <RightDashboardWrapper>
             {/* {selectedLink.child? selectedLink.child.label : selectedLink.parent.label} */}
             {/* <SingleShipment/> */}
-            <BulkShipment/>
+            {/* <BulkShipment/> */}
+            <HelpContainer/>
         </RightDashboardWrapper>
     )
 }
