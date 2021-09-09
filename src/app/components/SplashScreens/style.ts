@@ -37,7 +37,6 @@ export const LeftContent = styled.div`
     left: 10%;
     width: -webkit-fill-available;
 }
-}
 `;
 
 export const RightContent = styled.div`
