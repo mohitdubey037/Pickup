@@ -44,6 +44,7 @@ export const ChildLink = styled.div`
   line-height: 19px;
   margin: 15px 0;
   margin-left: 38px;
+  text-decoration:${(props:{selected:boolean})=>props.selected && 'underline'}
 `;
 
 export const Row = styled.div`
