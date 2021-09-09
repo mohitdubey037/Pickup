@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  LeftDashboardWrapper,
-  LeftContent,
-  CustomListItem,
-  ChildLink,
-  ParentLink,
-  Row,
-} from "./style";
+import {LeftDashboardWrapper,LeftContent,CustomListItem,ChildLink,ParentLink,Row} from "./style";
 import { dashboardHelper } from "../helper";
 import { Link } from "../type";
 import { LogoImg } from "app/assets/Icons";
@@ -54,6 +47,7 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
                       e.stopPropagation();
                       onLinkSelectHandler(child.link);
                     }}
+                    selected={selectedLink === child.link}
                   >
                     {child.label}
                   </ChildLink>
