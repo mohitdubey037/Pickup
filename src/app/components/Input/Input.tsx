@@ -1,9 +1,13 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { CustomInput, CustomLabel, InputWrapper } from "./style";
 import {InputProps} from './type';
 
-const Input: React.FC<InputProps> = ({ label, placeholder, onChange }) => {
+const Input: React.FC<InputProps> = ({ initValue, label, placeholder, onChange }) => {
     const [value,setValue] = useState('');
+
+    useEffect(()=>{
+      initValue ? setValue(initValue) : setValue('')
+    },[initValue])
 
     const onChangeHandler = (e:any) => {
         setValue(e.target.value);

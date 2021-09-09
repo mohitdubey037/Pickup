@@ -2,6 +2,6 @@ export interface InputProps {
     label?: string;
     placeholder?: string;
     validate?:boolean;
-    value?:any;
+    initValue?:any;
     onChange?:(value:any)=>void;
   }
