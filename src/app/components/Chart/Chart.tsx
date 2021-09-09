@@ -13,20 +13,11 @@ interface ChartProps{
     savedNumber: number;
     labelSavedNumber: string;
     chartData?: any;
+    chartSeries?: any;
 }
 
-const seriesChart = [
-    {
-      name: "Series 1",
-      data: [45, 52, 38, 45, 19, 23, 2,45, 52, 38, 45, 19]
-    },
-    {
-      name: "Series 2",
-      data: [15, 42, 58, 95, 9, 13, 92, 9, 13, 92, 13, 92]
-    }
-]
 
-const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice, spentNumber, labelSpentNumber, savedNumber, labelSavedNumber, chartData})=>{
+const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice, spentNumber, labelSpentNumber, savedNumber, labelSavedNumber, chartData, chartSeries})=>{
     return (
         <CardContainer>
             <Grid container>
@@ -98,7 +89,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                                 show: false
                             }
                           }}
-                        series={seriesChart}
+                        series={chartSeries}
                         type="area"
                         height={250}
                       />

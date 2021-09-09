@@ -6,6 +6,17 @@ import Select from 'app/components/Select'
 import { ContainerTitle, FormContainerTitle } from 'app/components/Typography/Typography'
 import { ChartDashboard } from 'app/components/Chart'
 
+const seriesChart = [
+    {
+      name: "Series 1",
+      data: [45, 52, 38, 45, 19, 23, 2,45, 52, 38, 45, 19]
+    },
+    {
+      name: "Series 2",
+      data: [15, 42, 58, 95, 9, 13, 92, 9, 13, 92, 13, 92]
+    }
+]
+
 function SingleShipment() {
     return (
         <ModuleContainer >
@@ -23,6 +34,7 @@ function SingleShipment() {
                     marketPriceNumber={42032} 
                     spentNumber={32032} 
                     savedNumber={10000}
+                    chartSeries={seriesChart}
                 />
             </FormContainer>
 
