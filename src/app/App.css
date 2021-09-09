@@ -2,4 +2,29 @@
   text-align: center;
   height: 100vh;
 }
+.div_select{
+  line-height: 35px;
+}
+.div_select label{
+  float: left;
+}
+.div_select > div {
+  width: 100%;
 
+}
+.select{
+  width: 303px;
+  height: 42px;
+    border: 1px solid #C4C4C4;
+    border-radius: 4px;
+    padding: 0px 8px;
+    float: left;
+}
+.typography{
+font-weight: 700 !important;
+font-size: 16px !important;
+line-height: 32px !important;
+display: flex;
+align-items: center;
+font-feature-settings: 'pnum' on, 'lnum' on;
+}
