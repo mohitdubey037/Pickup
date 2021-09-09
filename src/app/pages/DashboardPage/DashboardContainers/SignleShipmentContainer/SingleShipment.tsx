@@ -8,7 +8,7 @@ import { ContainerTitle, FormContainerTitle } from 'app/components/Typography/Ty
 import SingleShipmentDetails from './SingleShipmentDetails'
 import SingleSipmentForm from './SingleSipmentForm'
 
-function SingleShipment() {
+function SingleShipment({path:string}) {
     return (
         <ModuleContainer >
             <ContainerTitle>

@@ -5,6 +5,7 @@ export const UploadingWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width:fit-content;
 `;
 
 export const UploadText = styled.p`
