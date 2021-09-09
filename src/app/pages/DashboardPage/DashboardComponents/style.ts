@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
 
 export const LeftDashboardWrapper = styled.div`
-  width: 24%;
+  width: 18%;
   background: #fece3e;
   z-index: 1;
   text-align: left;

@@ -10,6 +10,7 @@ export const TableTop = styled.div`
   border-bottom: none;
   width: 100%;
   display: flex;
+  background: #ffffff;
 `;
 
 export const CustomTableContainer = styled(TableContainer)`
@@ -25,15 +26,15 @@ export const CustomTable = styled(Table)`
     }
   }
   th {
-      color: #828282;
-      font-size: 14px;
-      line-height: 150%;
-      border-right: 1px solid #dcdcdc;
-      padding:10px 16px;
-      img{
-          float:right;
-          cursor:pointer;
-      }
+    color: #828282;
+    font-size: 14px;
+    line-height: 150%;
+    border-right: 1px solid #dcdcdc;
+    padding: 10px 16px;
+    img {
+      float: right;
+      cursor: pointer;
+    }
   }
   td {
     font-size: 14px;
@@ -48,9 +49,10 @@ export const CustomPagination = styled(TablePagination)`
   display: flex !important;
   justify-content: flex-end;
   min-height: 58px;
-  border: 1px solid #dcdcdc;
   border-radius: 0px 0px 8px 8px;
+  border: 1px solid #dcdcdc;
   border-top: none;
+  background: #ffffff;
   .MuiTablePagination-input {
     display: none;
   }
