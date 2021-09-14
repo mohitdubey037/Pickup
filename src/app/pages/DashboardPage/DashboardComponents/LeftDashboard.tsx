@@ -9,7 +9,7 @@ interface LeftDashboardProps {
 }
 
 const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
-  const [selectedLink, setSelectedLink] = useState(dashboardHelper[0].link);
+  const [selectedLink, setSelectedLink] = useState('');
 
   const onLinkSelectHandler = (link: string) => {
     setSelectedLink(link);
