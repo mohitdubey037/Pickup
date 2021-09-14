@@ -2,7 +2,6 @@ import {useState} from 'react';
 import { RouteComponentProps } from "@reach/router";
 import {LeftDashboard,RightDashboard} from "./DashboardComponents";
 import { DasboardWrapper } from "./style";
-import { dashboardHelper } from './helper';
 
 interface DashboardProps extends RouteComponentProps{
     children?:any;
@@ -10,6 +9,7 @@ interface DashboardProps extends RouteComponentProps{
 
 const DashboardPage = ({children,navigate}:DashboardProps) => {
     const [link,setLink] = useState('');
+
     return (
         <DasboardWrapper>
             <LeftDashboard onDrawerItemSelect={(id)=>{

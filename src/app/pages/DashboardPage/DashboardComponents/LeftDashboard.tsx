@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {LeftDashboardWrapper,LeftContent,CustomListItem,ChildLink,ParentLink,Row} from "./style";
 import { dashboardHelper } from "../helper";
 import { Link } from "../type";
@@ -10,6 +10,11 @@ interface LeftDashboardProps {
 
 const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
   const [selectedLink, setSelectedLink] = useState('');
+
+  useEffect(()=>{
+    const url = window.location.pathname;
+    setSelectedLink(url);
+},[])
 
   const onLinkSelectHandler = (link: string) => {
     setSelectedLink(link);
