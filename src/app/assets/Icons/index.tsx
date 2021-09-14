@@ -24,6 +24,7 @@ import ChevronDown from './ChevronDown.svg'
 import ContactSvg from './ContactSvg.svg'
 import phone from './phone.svg'
 import email from './email.svg'
+import cross from './cross.svg'
 import dots3 from './3Dots.svg';
 import imageIcon from './imageIcon.svg';
 import printer from './printer.svg';
@@ -58,6 +59,7 @@ export {
     ChevronDown,
     ContactSvg,
     phone,
+    cross,
     email,
     dots3,
     imageIcon,
