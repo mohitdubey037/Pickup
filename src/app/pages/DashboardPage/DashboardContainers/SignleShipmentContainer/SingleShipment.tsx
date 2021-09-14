@@ -6,11 +6,12 @@ import { FormContainer } from 'app/components/ModuleContainer/style'
 import { Radio } from 'app/components/Radio'
 import Select from 'app/components/Select'
 import { ContainerTitle, FormContainerTitle } from 'app/components/Typography/Typography'
+import WarningMessage from 'app/components/WarningMessage/WarningMessage'
 import { useState } from 'react'
 import ShipmentSummaryTable from './ShipmentSummaryTable'
 import SingleShipmentDetails from './SingleShipmentDetails'
 import SingleSipmentForm from './SingleSipmentForm'
-
+import {warningIcon} from '../../../../assets/Icons'
 
 
 function ShipmentSummaryItem(Shippingid: string, Shedule: string, Itemcount: number, shippingcost: string) {
@@ -63,6 +64,10 @@ function SingleShipment({ path: string }) {
                 <ShipmentSummaryTable
                     shipmentItems={rows}
                 />
+                <WarningMessage
+                imgSrc="warningIcon"
+                id="1" />
+
             </Drawer>
         </ModuleContainer >
     )
