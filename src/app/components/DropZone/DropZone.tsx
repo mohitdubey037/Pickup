@@ -1,4 +1,4 @@
-import { DropText, DropzoneWrapper, HelperText } from "./style";
+import { DropzoneWrapper, DropText, DropzoneBox, HelperText } from "./style";
 import Dropzone from "react-dropzone";
 import { csvIcon } from "app/assets/Icons";
 import { ErrorBox } from "./ErrorBox";
@@ -12,12 +12,12 @@ interface DropZoneProps {
 
 const DropZone = ({ onDrop, isError, inProgress }: DropZoneProps) => {
   return (
-    <>
+    <DropzoneWrapper>
       {isError && <ErrorBox />}
       {inProgress ? (
         <Uploading />
       ) : (
-        <DropzoneWrapper>
+        <DropzoneBox>
           <Dropzone onDrop={(acceptedFiles) => onDrop(acceptedFiles)}>
             {({ getRootProps, getInputProps }) => (
               <section>
@@ -32,9 +32,9 @@ const DropZone = ({ onDrop, isError, inProgress }: DropZoneProps) => {
               </section>
             )}
           </Dropzone>
-        </DropzoneWrapper>
+        </DropzoneBox>
       )}
-    </>
+    </DropzoneWrapper>
   );
 };
 

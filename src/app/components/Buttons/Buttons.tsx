@@ -1,12 +1,12 @@
 import React from 'react';
 import { CustomButton } from './style';
-import {Button as MaterialButton} from '@material-ui/core';
 
 interface ButtonProps {
     label: string;
     onClick?: () => void;
     size?: 'small' | 'medium' | 'large';
-    secondary?: boolean
+    secondary?: boolean;
+    
 }
 
 const ThemeButton: React.FC<ButtonProps> = ({ label, secondary , onClick, size = 'medium' }) => {
