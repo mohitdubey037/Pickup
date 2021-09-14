@@ -10,7 +10,7 @@ import { uploadFile } from "utils/commonUtils";
 
 const BulkShipment = ({ navigate }: RouteComponentProps) => {
   const [error, setError] = useState(false);
-  const [processing, setProcessing] = useState(true);
+  const [processing, setProcessing] = useState(false);
 
   const onBulkUpload = () => {
     setProcessing(true);

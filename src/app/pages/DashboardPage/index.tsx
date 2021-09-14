@@ -9,7 +9,7 @@ interface DashboardProps extends RouteComponentProps{
 }
 
 const DashboardPage = ({children,navigate}:DashboardProps) => {
-    const [link,setLink] = useState(dashboardHelper[0].link);
+    const [link,setLink] = useState('');
     return (
         <DasboardWrapper>
             <LeftDashboard onDrawerItemSelect={(id)=>{

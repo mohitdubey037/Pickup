@@ -19,6 +19,7 @@ import { NotFoundPage } from "app/pages/NotFoundPage";
 import { BulkShipment } from "app/pages/DashboardPage/DashboardContainers/BulkShipment";
 import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
+import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/SearchContainer";
 
 const Routes = () => {
   const authUser = useSelector((state: any) => state.authReducer.user);
@@ -37,6 +38,7 @@ const Routes = () => {
         <Dashboard path="/" />
         <SingleShipment path='/charter-shipment/single-shipment'/>
         <BulkShipment path="/charter-shipment/bulk-shipment" />
+        <SearchContainer path='/search-shipment'/>
       <NotFoundPage default/>
       </DashboardPage>
     </Router>
