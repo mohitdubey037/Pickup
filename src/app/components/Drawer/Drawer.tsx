@@ -16,10 +16,9 @@ interface DrawerProps{
 }
 
 export default function Drawer({open,setDrawerOpen,closeIcon,title,children,actionButtons,cancelButtonText,actionButtonText}:DrawerProps) {
-    const [state,setState] = useState(false)
     return (
         <div>
-            <CustomDrawer open={open} anchor={'right'} onClose={()=>setState(false)}>
+            <CustomDrawer open={open} anchor={'right'} onClose={()=>setDrawerOpen(false)}>
                 <DrawerTitleDiv>
                     <h3 style={{margin:0}}>
                         {title}
