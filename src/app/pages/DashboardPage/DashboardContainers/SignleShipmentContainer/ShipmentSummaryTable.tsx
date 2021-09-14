@@ -23,25 +23,14 @@ interface ShipmentSummaryItemType {
 
   }
 
-function ShipmentSummaryItem(Shippingid: string, Shedule: string, Itemcount: number, shippingcost: string) {
-    return { Shippingid, Shedule, Itemcount, shippingcost };
-  }
-  const rows = [
-    ShipmentSummaryItem('TOR-0607-123', 'Right Now', 15,'$50'),
-    ShipmentSummaryItem('TOR-0607-124', 'Right Now', 15, '$50'),
-    ShipmentSummaryItem('TOR-0607-125', '09:00 - 06/06/21', 15, '$50'),
-    ShipmentSummaryItem('TOR-0607-126', 'Right Now', 15, '$50'),
-    ShipmentSummaryItem('TOR-0607-127', 'Right Now', 15, '$50'),
-    ShipmentSummaryItem('TOR-0607-128', '09:00 - 06/06/21', 15, '$50'),
-    ShipmentSummaryItem('TOR-0607-126', 'Right Now', 15, '$50'),
-    ShipmentSummaryItem('TOR-0607-126', 'Right Now', 15, '$50')
-  ];
-
   interface ShipmentSummaryTableProps{
       shipmentItems:Array<ShipmentSummaryItemType>
   }
+
 export default function ShipmentSummaryTable(props:ShipmentSummaryTableProps) {
-    const classes = useStyles();
+  const {shipmentItems}=props;  
+  const classes = useStyles();
+
     return (
         <>
             <Typography>Shipment Summary</Typography>
@@ -58,7 +47,7 @@ export default function ShipmentSummaryTable(props:ShipmentSummaryTableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {shipmentItems.map((row) => (
             <TableRow key={row.Shippingid}>
               <TableCell component="th" scope="row">
                 {row.Shippingid}
