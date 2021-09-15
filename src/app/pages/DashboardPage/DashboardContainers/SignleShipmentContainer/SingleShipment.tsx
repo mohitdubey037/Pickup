@@ -43,7 +43,7 @@ function SingleShipment({path:string}) {
                 cancelButtonText="Cancel"
                 actionButtonText="Save"
             >
-                <CardDetails cardNumber = {"1234 5678 1234 3421"} nameOnCard = {"Deepak Pathak"} expiryDate = {new Date()} cardTypeImage = {masterCard}/>
+                <CardDetails cardNumber = {"1234 5678 1234 3421"} nameOnCard = {"Deepak Pathak"} expiryDate = {new Date()} cardImage = {masterCard} cardType = {"Master Card"}/>
             </Drawer>
         </ModuleContainer >
     )
