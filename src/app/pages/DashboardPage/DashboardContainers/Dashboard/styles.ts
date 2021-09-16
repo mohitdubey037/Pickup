@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const DashboardCardContainer = styled.div`
  display:flex;
+ width:100%
+ 
  `;
 
 
@@ -12,13 +14,18 @@ flex:1;
 `;
 
 export const ChartStyle = styled.div `
- 
+margin-top:15px;
+flex:1;
 `;
 
 export const SpentByCategory = styled.div` 
- 
+margin-top:15px;
+flex:1;
+margin-right:5px
+
 `;
 
 export const Deliveries = styled.div `
- 
+
+
 `

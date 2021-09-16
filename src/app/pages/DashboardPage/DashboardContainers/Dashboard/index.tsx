@@ -51,7 +51,7 @@ const Dashboard = ({ path: string }) => {
         </CardContainer>
       </DashboardCardContainer>
 
-      {/* <ChartStyle>
+      <ChartStyle>
         <Paper>
           <ChartDashboard
             marketPriceNumber={42032}
@@ -62,7 +62,7 @@ const Dashboard = ({ path: string }) => {
             labelSavedNumber="4% more than last Month"
           />
         </Paper>
-      </ChartStyle> */}
+      </ChartStyle>
 
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <SpentByCategory>
