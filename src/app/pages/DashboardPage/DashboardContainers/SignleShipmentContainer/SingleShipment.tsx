@@ -38,7 +38,7 @@ function SingleShipment({path:string}) {
                 open={drawerOpen} 
                 setDrawerOpen={(flag)=>setDrawerOpen(flag)} 
                 closeIcon={true} 
-                title="Dummy Drawer"
+                title="Payment"
                 actionButtons={true}
                 cancelButtonText="Cancel"
                 actionButtonText="Save"
