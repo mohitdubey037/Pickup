@@ -1,19 +1,19 @@
+import { Paper } from '@material-ui/core';
 import styled from "styled-components";
 
-export const CardDiv = styled.div`
+export const CardDiv = styled(Paper)`
     padding: 1rem;
-    
-    width: 100%;
-    height: 30%;
-    border-radius: 11px;
+     border-radius: 11px;
     text-align: center;
+    background-color:${(props:{backgroundColor?:string}) =>props.backgroundColor || 'white'}
     
 `
 
 export const CardTitle = styled.h3`
     margin: 0;
     font-size: 18px;
-    text-align: Left;
+    text-align: left;
+    color:${(props:{color?:string})=>props.color||'black'};
 `
 
 export const CardNumber = styled.h1`

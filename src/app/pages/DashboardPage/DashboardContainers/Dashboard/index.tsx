@@ -8,31 +8,77 @@ import { useState } from "react";
 import { ProgressCardData } from "../../helper";
 import {
   ChartStyle,
-  CompletedShipments,
   Deliveries,
-  InProgressShipment,
-  PendingShipment,
+  CardContainer,
   SpentByCategory,
+  DashboardCardContainer,
 } from "./styles";
+import ModuleContainer from "app/components/ModuleContainer";
+import { ContainerTitle } from "app/components/Typography/Typography";
 
 const series = [45, 55];
 
 const Dashboard = ({ path: string }) => {
-  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   return (
-    <div>
-      <Grid container>
-        <Grid item lg={5}>
-          <Deliveries>
-            <DoghnutChart
-              title="Deliveries"
-              onTimePercentage={45}
-              delayedPercentage={55}
-              doghnutData={series}
-            />{" "}
-          </Deliveries>
-        </Grid>
-      </Grid>
+    <ModuleContainer>
+      <ContainerTitle>Dashboard</ContainerTitle>
+      <DashboardCardContainer>
+        <CardContainer>
+          <Card
+            title="Pending Shipments"
+            numberValue={512}
+            label="4% more than last Month"
+            onClick={() => {}}
+           />
+        </CardContainer>
+        <CardContainer>
+          <Card
+            title="In Progress Shipments"
+            numberValue={321}
+            label="4% more than last Month"
+            onClick={() => {}}
+            type="secondary"
+           />
+        </CardContainer>
+        <CardContainer>
+          <Card
+            title="Completed Shipments"
+            numberValue={241}
+            label="4% more than last Month"
+            onClick={() => {}}
+           />
+        </CardContainer>
+      </DashboardCardContainer>
+
+      {/* <ChartStyle>
+        <Paper>
+          <ChartDashboard
+            marketPriceNumber={42032}
+            labelMarketPrice="4% more than last Month"
+            spentNumber={32032}
+            labelSpentNumber="4% more than last Month"
+            savedNumber={5846}
+            labelSavedNumber="4% more than last Month"
+          />
+        </Paper>
+      </ChartStyle> */}
+
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <SpentByCategory>
+          {" "}
+          <CategoryProgressCard contents={ProgressCardData} />{" "}
+        </SpentByCategory>
+
+        <Deliveries>
+          <DoghnutChart
+            title="Deliveries"
+            onTimePercentage={45}
+            delayedPercentage={55}
+            doghnutData={series}
+          />{" "}
+        </Deliveries>
+      </div>
       <Drawer
         open={drawerOpen}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
@@ -44,51 +90,7 @@ const Dashboard = ({ path: string }) => {
       >
         <h1>Dhrunit</h1>
       </Drawer>
-      <SpentByCategory>
-        {" "}
-        <CategoryProgressCard contents={ProgressCardData} />{" "}
-      </SpentByCategory>
-      <ChartStyle>
-        <Paper>
-          <ChartDashboard
-            marketPriceNumber={42032}
-            labelMarketPrice="4% more than last Month"
-            spentNumber={32032}
-            labelSpentNumber="4% more than last Month"
-            savedNumber={5846}
-            labelSavedNumber="4% more than last Month"
-          />
-        </Paper>
-      </ChartStyle>
-
-      <PendingShipment>
-        <Card
-          title="Pending Shipments"
-          numberValue={512}
-          label="4% more than last Month"
-          onClick={() => {}}
-          type="false"
-        />
-      </PendingShipment>
-      <InProgressShipment>
-        <Card
-          title="In Progress Shipments"
-          numberValue={321}
-          label="4% more than last Month"
-          onClick={() => {}}
-          type="True"
-        />
-      </InProgressShipment>
-      <CompletedShipments>
-        <Card
-          title="Completed Shipments"
-          numberValue={241}
-          label="4% more than last Month"
-          onClick={() => {}}
-          type="True"
-        />
-      </CompletedShipments>
-    </div>
+    </ModuleContainer>
   );
 };
 

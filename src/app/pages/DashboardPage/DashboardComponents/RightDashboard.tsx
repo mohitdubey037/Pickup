@@ -1,16 +1,18 @@
 import { RightDashboardWrapper } from "./style";
 import { ReactNode } from "react";
+import { Appbar } from "app/components/Appbar";
 
-interface RightDashboardProps{
-    children?:ReactNode;
+interface RightDashboardProps {
+  children?: ReactNode;
 }
 
-const RightDashboard = ({children}:RightDashboardProps) => {
-    return (
-        <RightDashboardWrapper>
-           {children}
-        </RightDashboardWrapper>
-    )
-}
+const RightDashboard = ({ children }: RightDashboardProps) => {
+  return (
+    <div style={{ width: "100%", backgroundColor: "white" }}>
+      <Appbar />
+      <RightDashboardWrapper>{children}</RightDashboardWrapper>
+    </div>
+  );
+};
 
-export default RightDashboard
+export default RightDashboard;
