@@ -24,7 +24,9 @@ import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpC
 import PersonalProfileContainer from "app/pages/DashboardPage/DashboardContainers/PersonalProfileContainer/PersonalProfileContainer";
 
 const Routes = () => {
-  const authUser = useSelector((state: any) => state.authReducer.user);
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
   return (
     <Router>
       <SignUp path="/" />

@@ -15,7 +15,7 @@ import { CardDetails } from 'app/components/PaymentCardDetails';
 import { masterCard } from "../../../../assets/Images/index";
 
 function SingleShipment({path:string}) {
-    const [drawerOpen, setDrawerOpen] = useState(true)
+    const [drawerOpen, setDrawerOpen] = useState(false)
     return (
         <ModuleContainer >
             <ContainerTitle>

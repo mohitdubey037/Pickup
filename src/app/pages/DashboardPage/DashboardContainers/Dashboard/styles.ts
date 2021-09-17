@@ -24,7 +24,7 @@ margin-bottom:15px;
 export const SpentByCategory = styled.div` 
 margin-top:15px;
 flex:1;
-margin-right:5px
+margin-right: 20px
 
 `;
 

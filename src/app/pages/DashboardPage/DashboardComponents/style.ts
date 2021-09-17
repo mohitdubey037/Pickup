@@ -7,7 +7,7 @@ export const LeftDashboardWrapper = styled.div`
   z-index: 1;
   text-align: left;
   color: #343434;
-  height: 100%;
+  height: 100vh;
 `;
 
 export const RightDashboardWrapper = styled.div`
