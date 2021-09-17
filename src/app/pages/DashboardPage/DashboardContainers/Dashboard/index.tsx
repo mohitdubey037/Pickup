@@ -15,6 +15,7 @@ import {
 } from "./styles";
 import ModuleContainer from "app/components/ModuleContainer";
 import { ContainerTitle } from "app/components/Typography/Typography";
+import {DUMMY_CHART} from './helper'
 
 const series = [45, 55];
 
@@ -30,7 +31,7 @@ const Dashboard = ({ path: string }) => {
             numberValue={512}
             label="4% more than last Month"
             onClick={() => {}}
-           />
+          />
         </CardContainer>
         <CardContainer>
           <Card
@@ -39,7 +40,7 @@ const Dashboard = ({ path: string }) => {
             label="4% more than last Month"
             onClick={() => {}}
             type="secondary"
-           />
+          />
         </CardContainer>
         <CardContainer>
           <Card
@@ -47,12 +48,12 @@ const Dashboard = ({ path: string }) => {
             numberValue={241}
             label="4% more than last Month"
             onClick={() => {}}
-           />
+          />
         </CardContainer>
       </DashboardCardContainer>
 
       <ChartStyle>
-        <Paper>
+        <Paper style={{ backgroundColor: "white" }}>
           <ChartDashboard
             marketPriceNumber={42032}
             labelMarketPrice="4% more than last Month"
@@ -60,13 +61,14 @@ const Dashboard = ({ path: string }) => {
             labelSpentNumber="4% more than last Month"
             savedNumber={5846}
             labelSavedNumber="4% more than last Month"
+            chartSeries={DUMMY_CHART}
           />
         </Paper>
       </ChartStyle>
 
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{ display: "flex", justifyContent: "space-between",alignItems:'baseline' }}>
         <SpentByCategory>
-          {" "}
+        
           <CategoryProgressCard contents={ProgressCardData} />{" "}
         </SpentByCategory>
 
