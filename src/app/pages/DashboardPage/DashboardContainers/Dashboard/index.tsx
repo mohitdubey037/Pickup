@@ -66,7 +66,7 @@ const Dashboard = ({ path: string }) => {
         </Paper>
       </ChartStyle>
 
-      <div style={{ display: "flex", justifyContent: "space-between",alignItems:'baseline' }}>
+      <div style={{ display: "flex", width:'100%',alignItems:'baseline' }}>
         <SpentByCategory>
         
           <CategoryProgressCard contents={ProgressCardData} />{" "}
