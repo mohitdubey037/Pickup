@@ -4,7 +4,7 @@ import ModuleContainer from 'app/components/ModuleContainer'
 import { FormContainer } from 'app/components/ModuleContainer/style'
 import React from 'react'
 
-export default function HelpContainer() {
+export default function HelpContainer({path:string}) {
     return (
         <ModuleContainer>
             <h3 style={{margin:0}}>
