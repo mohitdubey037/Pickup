@@ -14,6 +14,7 @@ import {
 import { SplashScreenType } from "./type";
 import { Button } from "../Buttons";
 import { useEffect } from "react";
+import { navigate } from "@reach/router";
 
 interface SplashScreensTypes {
   onHide?: Function;
@@ -56,7 +57,11 @@ const SplashScreens = (props: SplashScreensTypes) => {
                 <SplashHeader>{content.headerText}</SplashHeader>
                 <SplashSubHeader>{content.subHeaderText}</SplashSubHeader>
                 {content.screenNo === SplashScreensArr.length ? (
-                  <Button label="Go to Dashboard" onClick={() => {}} />
+                  <Button label="Go to Dashboard" onClick={() => {
+                    setShow(false)
+                    navigate('/dashboard')
+
+                  }} />
                 ) : (
                   <ButtonBox>
                     <Button
