@@ -1,6 +1,6 @@
 import ModuleContainer from 'app/components/ModuleContainer'
 import React from 'react'
-import PersonalProfile from './Helper'
+import PersonalProfile from './PersonalProfile'
 
 
 export default function PersonalProfileContainer({path:string}){

@@ -1,6 +1,7 @@
 import ModuleContainer from "app/components/ModuleContainer";
-import React from "react";
+import { ContainerTitle } from "app/components/Typography/Typography";
 
+ 
 interface CardInterface {
   imgSrc: string;
   title: string;
@@ -16,7 +17,7 @@ export default function PersonalProfile(props: CardInterface) {
     props;
   return (
     <ModuleContainer>
-      <h3 style={{ margin: 0 }}>Personal Profile</h3>
+      <ContainerTitle>Single Shipment</ContainerTitle>
       <img src={imgSrc} />
       <h4 style={{ margin: "0 0 1.5rem 0" }}>
         First Name <br />

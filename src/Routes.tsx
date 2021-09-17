@@ -36,16 +36,16 @@ const Routes = () => {
       <ForgotPassword path="/forgot-password" />
       <MailSent path="/mail-sent" />
       <RecoverPassword path="/recover-password" />
-      
+
       <DashboardPage path="/dashboard">
-      <HelpContainer path="/my-account/help" />
-      <PersonalProfileContainer path ="my-account/personal-profile" />
+        <HelpContainer path="/my-account/help" />
+        <PersonalProfileContainer path="my-account/personal-profile" />
         <Dashboard path="/" />
-        <SingleShipment path='/charter-shipment/single-shipment'/>
+        <SingleShipment path="/charter-shipment/single-shipment" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
-        <SearchContainer path='/search-shipment'/>
-        
-      <NotFoundPage default/>
+        <SearchContainer path="/search-shipment" />
+
+        <NotFoundPage default />
       </DashboardPage>
     </Router>
   );
