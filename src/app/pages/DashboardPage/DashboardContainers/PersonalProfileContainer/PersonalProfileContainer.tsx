@@ -6,13 +6,15 @@ import PersonalProfile from './PersonalProfile'
 export default function PersonalProfileContainer({path:string}){
 
     return (<PersonalProfile 
-        imgSrc=""
-        title="Personal Profile"
-        FirstName= "John"
-        LastName ="jeo"
-        PhoneNumber= {9876543215}
-        Role="Manager"
-        emailid="johnjeo@gmail.com"
+       
+        profile={{
+            avatar:'string',
+             firstName:"John",
+            lastName :"jeo",
+            phoneNumber: '9876543215',
+            role:"Manager",
+            email:"johnjeo@gmail.com"
+        }}
     
     />
 
