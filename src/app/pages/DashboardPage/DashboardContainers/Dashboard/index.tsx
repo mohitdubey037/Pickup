@@ -16,7 +16,7 @@ import {
 import ModuleContainer from "app/components/ModuleContainer";
 import { ContainerTitle } from "app/components/Typography/Typography";
 import {DUMMY_CHART} from './helper'
-import { FormContainer } from "app/components/ModuleContainer/style";
+import { InnerContainer } from "app/components/ModuleContainer/style";
 
 const series = [45, 55];
 
@@ -25,7 +25,7 @@ const Dashboard = ({ path: string }) => {
   return (
     <ModuleContainer>
       <ContainerTitle>Dashboard</ContainerTitle>
-      <FormContainer> 
+      <InnerContainer> 
       <DashboardCardContainer>
         <CardContainer>
           <Card
@@ -83,7 +83,7 @@ const Dashboard = ({ path: string }) => {
           />{" "}
         </Deliveries>
       </div>
-      </FormContainer>
+      </InnerContainer>
       <Drawer
         open={drawerOpen}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
