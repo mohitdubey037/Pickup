@@ -22,7 +22,9 @@ import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleSh
 import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/SearchContainer";
 
 const Routes = () => {
-  const authUser = useSelector((state: any) => state.authReducer.user);
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
   return (
     <Router>
       <SignUp path="/" />
@@ -36,10 +38,10 @@ const Routes = () => {
       <RecoverPassword path="/recover-password" />
       <DashboardPage path="/dashboard">
         <Dashboard path="/" />
-        <SingleShipment path='/charter-shipment/single-shipment'/>
+        <SingleShipment path="/charter-shipment/single-shipment" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
-        <SearchContainer path='/search-shipment'/>
-      <NotFoundPage default/>
+        <SearchContainer path="/search-shipment" />
+        <NotFoundPage default />
       </DashboardPage>
     </Router>
   );

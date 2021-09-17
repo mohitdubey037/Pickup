@@ -25,6 +25,7 @@ z-index: 2;
 cursor: pointer;
 display:flex;
 justify-content: center;
+align-items: center;
 
 `;
 
