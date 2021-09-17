@@ -23,7 +23,9 @@ import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/Sea
 import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
 
 const Routes = () => {
-  const authUser = useSelector((state: any) => state.authReducer.user);
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
   return (
     <Router>
       <SignUp path="/" />
@@ -39,10 +41,11 @@ const Routes = () => {
       <DashboardPage path="/dashboard">
       <HelpContainer path="/my-account/help" />
         <Dashboard path="/" />
-        <SingleShipment path='/charter-shipment/single-shipment'/>
+        <SingleShipment path="/charter-shipment/single-shipment" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
-        <SearchContainer path='/search-shipment'/>
-        
+        <SearchContainer path="/search-shipment" />
+        <NotFoundPage default />
+         
       <NotFoundPage default/>
       </DashboardPage>
     </Router>

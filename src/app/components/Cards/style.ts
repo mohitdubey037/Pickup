@@ -5,8 +5,7 @@ export const CustomProgressCard = styled.div`
   box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);
   border-radius: 8px;
   padding: 20px;
-  width: 686px;
-`;
+  `;
 
 export const ProgressCardHeader = styled.div`
   font-weight: 500;
@@ -19,7 +18,7 @@ export const ProgressCardHeader = styled.div`
 
 export const ProgressRow = styled.div`
   display: flex;
-  align-items: center;
+  align-items: ce nter;
   gap: 20px;
   padding: 5px 0;
   span {
