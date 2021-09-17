@@ -79,6 +79,11 @@ export const dashboardHelper: Array<Link> = [
         label: "Favourite Locations",
         link: "/dashboard/my-account/favourite-locations",
       },
+      {
+        id: 4,
+        label: "Help",
+        link: "/dashboard/my-account/help",
+      }
     ],
   },
 ];

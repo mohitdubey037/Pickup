@@ -20,6 +20,7 @@ import { BulkShipment } from "app/pages/DashboardPage/DashboardContainers/BulkSh
 import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
 import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/SearchContainer";
+import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
 
 const Routes = () => {
   const authUser = useSelector((state: any) => state.authReducer.user);
@@ -34,11 +35,14 @@ const Routes = () => {
       <ForgotPassword path="/forgot-password" />
       <MailSent path="/mail-sent" />
       <RecoverPassword path="/recover-password" />
+      
       <DashboardPage path="/dashboard">
+      <HelpContainer path="/my-account/help" />
         <Dashboard path="/" />
         <SingleShipment path='/charter-shipment/single-shipment'/>
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path='/search-shipment'/>
+        
       <NotFoundPage default/>
       </DashboardPage>
     </Router>
