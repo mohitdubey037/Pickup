@@ -12,9 +12,7 @@ export const LeftDashboardWrapper = styled.div`
 
 export const RightDashboardWrapper = styled.div`
   flex: 1;
-  background: #fafafa;
-  border-radius: 40px 0px 0px 0px;
-  padding: 0 32px;
+    padding: 0 32px;
 `;
 
 export const LeftContent = styled.div``;

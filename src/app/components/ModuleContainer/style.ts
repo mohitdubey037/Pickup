@@ -2,14 +2,15 @@ import styled from "styled-components";
 import { Paper } from "@material-ui/core";
 
 export const ModuleContainerWrapper = styled.div`
-    height: 100%;
-     display: flex;
-        flex:1;
-     flex-direction: column;
+    max-height: 100vh;
+    display: flex;
+    flex:1;
+    flex-direction: column;
     align-items: flex-start;
     padding: 20px;
     background-color:#FAFAFA;
-    border-radius: 40px 0px 0px 0px;
+    overflow-y:scroll;
+    max-height: 90vh;
 `
 
 
@@ -21,5 +22,5 @@ export const FormContainer=styled(Paper)`
     padding:24px;
     margin-top: 20px;
     flex:1;
-    border-radius: 8px !important;
+    
 `
