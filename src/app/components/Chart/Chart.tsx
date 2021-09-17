@@ -50,6 +50,9 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                 <Grid item lg={9}>
                     <ReactApexChart
                         options={{
+                            stroke: {
+                                curve: 'straight',
+                              },
                             chart: {
                               height: 280,
                               type: "area",
@@ -69,7 +72,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                                 stops: [0, 90, 100]
                               }
                             },
-                            colors:['#F99746','#2FC87F'],
+                            colors:['#F99746','#2FC87F','#1b8af0'],
                             xaxis: {
                               categories: [
                                 "Jan",
@@ -89,7 +92,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                                 show: false
                             }
                           }}
-                        series={chartSeries}
+                        series={chartSeries || []}
                         type="area"
                         height={250}
                       />

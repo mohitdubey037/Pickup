@@ -3,8 +3,7 @@ import { Paper } from '@material-ui/core'
 
 export const CardContainer = styled.div`
     padding: 1rem;
-    background: #f7f7f7;
-    width: 100%;
+     width: 100%;
     border-radius: 8px;
 `
 
