@@ -21,6 +21,7 @@ import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
 import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/SearchContainer";
 import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
+import PersonalProfileContainer from "app/pages/DashboardPage/DashboardContainers/PersonalProfileContainer/PersonalProfileContainer";
 
 const Routes = () => {
   const authUser = useSelector((state: any) => state.authReducer.user);
@@ -38,6 +39,7 @@ const Routes = () => {
       
       <DashboardPage path="/dashboard">
       <HelpContainer path="/my-account/help" />
+      <PersonalProfileContainer path ="my-account/personal-profile" />
         <Dashboard path="/" />
         <SingleShipment path='/charter-shipment/single-shipment'/>
         <BulkShipment path="/charter-shipment/bulk-shipment" />
