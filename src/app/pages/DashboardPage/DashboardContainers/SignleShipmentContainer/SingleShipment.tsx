@@ -6,6 +6,9 @@ import { FormContainer } from 'app/components/ModuleContainer/style'
 import { Radio } from 'app/components/Radio'
 import Select from 'app/components/Select'
 import { ContainerTitle, FormContainerTitle } from 'app/components/Typography/Typography'
+import WarningMessage from 'app/components/WarningMessage/WarningMessage'
+import { useState } from 'react'
+import ShipmentSummaryTable from './ShipmentSummaryTable'
 import SingleShipmentDetails from './SingleShipmentDetails'
 import SingleSipmentForm from './SingleSipmentForm'
 import { CardDetails } from 'app/components/PaymentCardDetails';
@@ -20,7 +23,7 @@ function SingleShipment({path:string}) {
                 Single Shipment
             </ContainerTitle>
             <FormContainer elevation={2}>
-                 <FormContainerTitle>
+                <FormContainerTitle>
                     Address Details
                 </FormContainerTitle>
                 <div style={{ marginBottom: "30px" }}>

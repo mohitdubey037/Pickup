@@ -29,7 +29,7 @@ import dots3 from './3Dots.svg';
 import imageIcon from './imageIcon.svg';
 import printer from './printer.svg';
 import sliders from './sliders.svg';
-
+import warningIcon from './warningIcon.svg'
 import LogoImg from './LogoImg';
 
 export {
@@ -64,5 +64,6 @@ export {
     dots3,
     imageIcon,
     printer,
-    sliders
+    sliders,
+    warningIcon
 };
