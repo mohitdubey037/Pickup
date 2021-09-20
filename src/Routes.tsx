@@ -47,10 +47,9 @@ const Routes = () => {
         <SingleShipment path="/charter-shipment/single-shipment" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
+        <PaymentsPage path="/payments/cards" />
 
         <NotFoundPage default />
-         <PaymentsPage path="/payments/cards"/>
-      <NotFoundPage default/>
       </DashboardPage>
     </Router>
   );
