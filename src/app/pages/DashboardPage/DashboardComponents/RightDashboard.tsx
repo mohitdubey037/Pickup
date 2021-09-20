@@ -8,7 +8,7 @@ interface RightDashboardProps {
 
 const RightDashboard = ({ children }: RightDashboardProps) => {
   return (
-    <div style={{ width: "100%", backgroundColor: "white" }}>
+    <div style={{ width: "100%", backgroundColor: "#FAFAFA" }}>
       <Appbar />
       <RightDashboardWrapper>{children}</RightDashboardWrapper>
     </div>

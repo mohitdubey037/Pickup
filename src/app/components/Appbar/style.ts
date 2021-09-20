@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 export const MainAppBar = styled(AppBar)`
   &.MuiAppBar-root{
-    background-color: transparent;
+    background-color: white;
   }
 `
 
