@@ -32,7 +32,7 @@ const Routes = () => {
     <Router>
       <SignUp path="/" />
       <EmailSent path="/email-sent" />
-      <CompanyDetails path="/company-details" />
+      <CompanyDetails path="/company-details/:userId" />
       <Password path="/password" />
       <Congratulations path="/congratulations" />
       <SignIn path="/sign-in" />
