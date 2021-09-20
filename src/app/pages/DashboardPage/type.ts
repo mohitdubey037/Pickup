@@ -4,6 +4,7 @@ export interface Link {
     link:string
     children?:Link[];
     logo?:any;
+    slug?:any
 }
 
 export interface SelectedLink{

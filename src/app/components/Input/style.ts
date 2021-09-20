@@ -1,5 +1,15 @@
 import styled from "styled-components";
-
+export const FormWrapper = styled.div`
+ margin-top:20px;
+ &>form{
+  &>div{
+    &>div{
+      width:311px
+    }
+  }
+ }
+ 
+`;
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;

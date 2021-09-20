@@ -1,6 +1,14 @@
 import styled from "styled-components";
 
 export const DropzoneWrapper = styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:10px;
+`;
+
+export const DropzoneBox = styled.div`
+  width: 100%;
   height: 289px;
   border: 1.5px dashed #c1d4d7;
   box-sizing: border-box;
@@ -9,7 +17,7 @@ export const DropzoneWrapper = styled.div`
   flex-direction: center;
   justify-content: center;
   align-items: center;
-  section{
+  section {
     align-items: center;
     justify-content: center;
     display: flex;
@@ -23,9 +31,9 @@ export const DropText = styled.p`
   line-height: 19px;
   text-align: center;
   color: #a6a6a6;
-  a{
-      text-decoration:underline;
-      color: #1B8AF0;
+  a {
+    text-decoration: underline;
+    color: #1b8af0;
   }
 `;
 

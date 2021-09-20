@@ -30,6 +30,12 @@ import ellipse from './Ellipse.svg'
 import scotiaBank from './scotiaBank.png'
 
 
+import cross from './cross.svg'
+import dots3 from './3Dots.svg';
+import imageIcon from './imageIcon.svg';
+import printer from './printer.svg';
+import sliders from './sliders.svg';
+import warningIcon from './warningIcon.svg'
 import LogoImg from './LogoImg';
 
 export {
@@ -63,5 +69,11 @@ export {
     ellipse,
     masterCard,
     scotiaBank,
-    email
+    email,
+    cross,
+     dots3,
+    imageIcon,
+    printer,
+    sliders,
+    warningIcon
 };

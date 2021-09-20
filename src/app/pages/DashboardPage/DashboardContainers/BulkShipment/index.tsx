@@ -1,9 +1,3 @@
-import FileUploading from "./FileUploading";
+import BulkShipment from "./BulkShipment";
 
-const BulkShipment = () => {
-  return (
-   <FileUploading/>
-  );
-};
-
-export default BulkShipment;
+export {BulkShipment};

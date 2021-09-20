@@ -3,5 +3,5 @@ export interface CardProps {
 	numberValue: number;
 	label: string;
     onClick:()=>void;
-	type: string;
+	type?: string;
 }

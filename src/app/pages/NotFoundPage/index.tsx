@@ -6,7 +6,7 @@ import { NavBar } from 'app/components/NavBar';
 import { Helmet } from 'react-helmet-async';
 import { StyleConstants } from 'styles/StyleConstants';
 
-export function NotFoundPage() {
+export function NotFoundPage({default:boolean}) {
   return (
     <>
       <Helmet>
@@ -17,7 +17,7 @@ export function NotFoundPage() {
       <Wrapper>
         <Title>
           4
-          <span role="img" aria-label="Crying Face">
+          <span role="img" >
             😢
           </span>
           4

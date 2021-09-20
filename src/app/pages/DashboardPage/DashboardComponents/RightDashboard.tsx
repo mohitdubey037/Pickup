@@ -1,24 +1,18 @@
-// import SingleShipment from "../DashboardContainers/SignleShipmentContainer";
-// import Dashboard from "../DashboardContainers/Dashboard";
 import { RightDashboardWrapper } from "./style";
-import { SelectedLink } from "../type";
-// import SingleShipment from "../DashboardContainers/SignleShipmentContainer";
-import BulkShipment from '../DashboardContainers/BulkShipment';
-import PaymentsPage from "../DashboardContainers/PaymentsContainer/PaymentsPage";
+import { ReactNode } from "react";
+import { Appbar } from "app/components/Appbar";
 
-interface RightDashboardProps{
-    selectedLink:SelectedLink;
+interface RightDashboardProps {
+  children?: ReactNode;
 }
 
-const RightDashboard = ({selectedLink}:RightDashboardProps) => {
-    return (
-        <RightDashboardWrapper>
-            {/* {selectedLink.child? selectedLink.child.label : selectedLink.parent.label} */}
-            {/* <SingleShipment/> */}
-            {/* <BulkShipment/> */}
-            <PaymentsPage/>
-        </RightDashboardWrapper>
-    )
-}
+const RightDashboard = ({ children }: RightDashboardProps) => {
+  return (
+    <div style={{ width: "100%", backgroundColor: "#FAFAFA" }}>
+      <Appbar />
+      <RightDashboardWrapper>{children}</RightDashboardWrapper>
+    </div>
+  );
+};
 
-export default RightDashboard
+export default RightDashboard;
