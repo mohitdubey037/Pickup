@@ -22,7 +22,7 @@ const individualCardData = [
 ]
 
 
-export default function PaymentsPage() {
+export default function PaymentsPage({path:string}) {
     return (
         <ModuleContainer>
             <Grid container justifyContent='flex-end'>

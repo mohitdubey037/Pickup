@@ -21,6 +21,7 @@ import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
 import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/SearchContainer";
 import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
+import { PaymentsPage } from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer";
 
 const Routes = () => {
   const authUser = useSelector((state: any) => {
@@ -45,7 +46,7 @@ const Routes = () => {
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
         <NotFoundPage default />
-         
+         <PaymentsPage path="/payments/cards"/>
       <NotFoundPage default/>
       </DashboardPage>
     </Router>
