@@ -40,7 +40,7 @@ openSansObserver.load().then(() => {
 
 const store = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
-
+console.log(process.env)
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProviderWraper>

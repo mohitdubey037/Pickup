@@ -28,10 +28,11 @@ const Routes = () => {
     return state.auth?.user;
   });
   return (
+    
     <Router>
       <SignUp path="/" />
       <EmailSent path="/email-sent" />
-      <CompanyDetails path="/company-details" />
+      <CompanyDetails path="/company-details/:userId" />
       <Password path="/password" />
       <Congratulations path="/congratulations" />
       <SignIn path="/sign-in" />
@@ -46,8 +47,8 @@ const Routes = () => {
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
         <NotFoundPage default />
-         <PaymentsPage path="/payments/cards"/>
-      <NotFoundPage default/>
+        <PaymentsPage path="/payments/cards"/>
+        <NotFoundPage default/>
       </DashboardPage>
     </Router>
   );

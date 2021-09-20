@@ -45,3 +45,6 @@ export const CustomInput = styled.input`
     font-size: 16px;
   }
 `;
+export const ErrorLabel=styled.span`
+color:red;
+`
