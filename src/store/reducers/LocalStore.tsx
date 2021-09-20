@@ -2,7 +2,7 @@ const initState = {
     showSplash: true,
   };
   
-  export const LocalStore = (state = initState, action: any) => {
+  export const localStore = (state = initState, action: any) => {
     switch (action.type) {
       case "HIDE_SPLASH":
         return {

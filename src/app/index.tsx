@@ -1,4 +1,4 @@
-import * as React from "react";
+import 'dotenv'
 import { Helmet } from "react-helmet-async";
 import { PersistGate } from "redux-persist/integration/react";
 
