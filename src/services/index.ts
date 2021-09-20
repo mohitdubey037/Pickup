@@ -3,21 +3,50 @@ import { BASE_URL } from "../constants";
 
 class Serivce {
   get = async (url: string) => {
-    try {
-      const res = await axios.get(`${BASE_URL}${url}`);
-      return res;
-    } catch (err) {
-      return err.messages;
-    }
+    return new Promise((resolve, reject) => {
+      try {
+        axios
+          .get(`${BASE_URL}${url}`)
+          .then((res) => {
+            return resolve({ data: res.data, status: res.status });
+          })
+          .catch((err) => {
+            if (err.isAxiosError && err.response) {
+              const errResponse = err.response;
+              return reject({
+                status: errResponse.status,
+                message: errResponse?.data?.message,
+              });
+            }
+          });
+      } catch (err) {
+        return reject(err);
+      }
+    });
   };
-  post = async (url: string, params: {}) => {
-    try {
-      const res = await axios.post(`${BASE_URL}${url}`, { ...params });
-      return res;
-    } catch (err) {
-      return err.messages;
-    }
-  };
-}
 
+  post = (url: string, params: {}) => {
+    return new Promise((resolve, reject) => {
+      try {
+        axios
+          .post(`${BASE_URL}${url}`, { ...params })
+          .then((res) => {
+            return resolve({ data: res.data, status: res.status });
+          })
+          .catch((err) => {
+            if (err.isAxiosError && err.response) {
+              const errResponse = err.response;
+              return reject({
+                status: errResponse.status,
+                message: errResponse?.data?.message,
+              });
+            }
+          });
+      } catch (err) {
+        return reject(err);
+      }
+    });
+  };
+ 
+}
 export default new Serivce();

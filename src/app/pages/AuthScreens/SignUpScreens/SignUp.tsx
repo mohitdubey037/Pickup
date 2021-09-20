@@ -11,7 +11,7 @@ import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
 import { BlackLink } from "../../../components/Typography/Typography";
 import { useDispatch } from "react-redux";
-import { registerUser } from "store/reducers/signUpActions";
+import { registerUser } from "store/reducers/actions/signUpActions";
 
 type SignUpProps = RouteComponentProps;
 
@@ -27,7 +27,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
           <Button
             label="Sign Up"
             onClick={() => {
-              dispatch(registerUser("amit@torinit.ca"));
+              dispatch(registerUser("amsssit@torinit.ca"));
             }}
           />
           <LoginLink>

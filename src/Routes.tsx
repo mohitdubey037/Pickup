@@ -28,6 +28,7 @@ const Routes = () => {
     return state.auth?.user;
   });
   return (
+    
     <Router>
       <SignUp path="/" />
       <EmailSent path="/email-sent" />

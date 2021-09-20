@@ -1,4 +1,4 @@
-import { REGIESTER_USER_RESPONSE } from "./actionTypes";
+import { REGIESTER_USER_RESPONSE } from "./actions/actionTypes";
 
 const initialState = {};
 

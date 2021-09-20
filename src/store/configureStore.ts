@@ -6,13 +6,13 @@ import {
 } from "@reduxjs/toolkit";
 import { createInjectorsEnhancer } from "redux-injectors";
 import createSagaMiddleware from "redux-saga";
-import { auth } from "./reducers/Auth";
+import { auth } from "./reducers/AuthReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 import { createReducer } from "./reducers";
-import { localStore } from "./reducers/LocalStore";
-import { signUp } from "./reducers/SignUp";
+import { localStore } from "./reducers/LocalStoreReducer";
+import { signUp } from "./reducers/SignUpReducer";
 import rootSaga from "sagas";
 
 export function configureAppStore() {
