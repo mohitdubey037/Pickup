@@ -23,7 +23,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
           <Input label="Business Email" placeholder="Start typing" />
           <Button label="Sign Up" onClick={() => navigate?.("/email-sent")} />
           <LoginLink>
-              Already have an account? <BlackLink label={"Login here"} />
+              Already have an account? <BlackLink  link={()=>navigate?.('sign-in')} label={"Login here"} />
           </LoginLink>
         </FormContent>
       </FormWrapper>

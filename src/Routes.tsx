@@ -46,8 +46,8 @@ const Routes = () => {
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
         <NotFoundPage default />
-         <PaymentsPage path="/payments/cards"/>
-      <NotFoundPage default/>
+        <PaymentsPage path="/payments/cards"/>
+        <NotFoundPage default/>
       </DashboardPage>
     </Router>
   );
