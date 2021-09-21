@@ -3,7 +3,7 @@ import { createReducer, createActions } from "reduxsauce";
 const initialState = {
   signUpResponse: {},
   companyRegisterResponse: {},
-  passwordRegisterResponse: {},
+  passwordRegisterResponse: null,
 };
 
 const { Types, Creators } = createActions({

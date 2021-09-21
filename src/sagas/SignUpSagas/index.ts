@@ -28,7 +28,7 @@ function* registerCompanyDetailsWorker(action) {
 function* registerPasswordWorker(action) {
   try {
     const res = yield call(registerPasswordService, action.passwordRequest);
-    yield put(actions.registerPasswordResponse(res.data?.data));
+    yield put(actions.registerPasswordResponse(res));
   } catch (err) {
     showToast(err.message, "error");
   }

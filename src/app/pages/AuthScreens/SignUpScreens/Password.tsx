@@ -3,7 +3,7 @@ import { RouteComponentProps, useLocation } from "@reach/router";
 import { useFormik } from "formik";
 
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SignUpReducer";
 import { showToast } from "utils";
 
@@ -20,13 +20,25 @@ import { passwordSchema } from "./signUpSchemas";
 
 const Password = ({ navigate }: RouteComponentProps) => {
   const { state } = useLocation() as { state: { email: string } };
+  const passwordRegisterResponse = useSelector(
+    (state: { signUp: { passwordRegisterResponse: {} } }) =>
+      state.signUp.passwordRegisterResponse
+  );
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (!state?.email) {
       navigate?.("/");
       showToast("Invalid", "error");
     }
   }, [state?.email]);
+
+  useEffect(() => {
+    if (passwordRegisterResponse) {
+      navigate?.("/congratulations");
+    }
+  }, [passwordRegisterResponse]);
 
   const onSubmit = () => {
     dispatch(
