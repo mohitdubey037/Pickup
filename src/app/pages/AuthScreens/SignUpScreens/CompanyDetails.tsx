@@ -26,6 +26,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   const dispatch = useDispatch();
   const { data, error, isValidating } = useSWR(userId, getEmailUserId, {
     loadingTimeout: 3000,
+    revalidateOnMount:true,
     onLoadingSlow: () => {
       showToast("Invalid", "error");
       navigate?.("/");
