@@ -5,6 +5,8 @@ import {
   FormContainerTitle,
 } from "app/components/Typography/Typography";
 import { PersonalProfileType } from "./types";
+import { Button } from "../../../../components/Buttons";
+import { ComponentStyle } from "./styles";
 
 interface CardInterface {
   profile: PersonalProfileType;
@@ -32,15 +34,30 @@ export default function PersonalProfile(props: CardInterface) {
           </div>
           <button>Edit</button>
         </div>
-        <div style={{ display: "flex" }}>
+        <ComponentStyle>
           <img src={avatar} />
           <h4 style={{ margin: "0 0 1.5rem 0" }}>
             First Name <br />
+            {firstName}
           </h4>
-          <h4 style={{ margin: "0 0 2.5rem 0" }}>
+          <h4 style={{ margin: "0 0 1.5rem 0" }}>
             Last Name <br />
+            {lastName}
           </h4>
-        </div>
+          <h4 style={{ margin: "0 0 1.5rem 0" }}>
+          Phone Number <br />
+            {phoneNumber}
+          </h4>
+          <h4 style={{ margin: "0 0 1.5rem 0" }}>
+          Role/Designation <br />
+            {role}
+          </h4>
+          <h4 style={{ margin: "0 0 1.5rem 0" }}>
+          Email id <br />
+            {email}
+          </h4>
+          <Button label="Change Password" />
+        </ComponentStyle>
       </Paper>
     </ModuleContainer>
   );
