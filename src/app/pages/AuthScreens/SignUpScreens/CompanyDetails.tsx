@@ -15,7 +15,6 @@ import { Button } from "../../../components/Buttons";
 import { companyDetailsSchema } from "./signUpSchemas";
 import { getEmailUserId } from "services/SignUpSerivces";
 import { useEffect } from "react";
-import { LoadingIndicator } from "app/components/LoadingIndicator";
 import { CircularProgress } from "@material-ui/core";
 import { showToast } from "utils";
 import { useDispatch } from "react-redux";
