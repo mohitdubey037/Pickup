@@ -24,9 +24,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
     (state: { signUp: { passwordRegisterResponse: {} } }) =>
       state.signUp.passwordRegisterResponse
   );
-
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (!state?.email) {
       navigate?.("/");
