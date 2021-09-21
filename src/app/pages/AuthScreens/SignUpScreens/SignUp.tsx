@@ -70,7 +70,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
             id="email"
             name="email"
             onChange={handleChange}
-            error={touched.email && errors.email}
+            error={ errors.email}
             onBlur={handleBlur}
           />
           <Button label="Sign Up" onClick={handleSubmit} />

@@ -31,6 +31,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     validationSchema: recoverPasswordSchema,
     onSubmit: Confirm,
   });
+  console.log(touched)
   return (
     <LoginWrapper>
       <LogoImage />
@@ -41,16 +42,18 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
             id="password"
             name="password"
             label="Password"
-            error={ errors.password}
+            onBlur={handleBlur}
             onChange={handleChange}
+            error={touched.password && errors.password}
             placeholder="Start typing"
             validate
           />
           <PasswordInput
             id="confirmpassword"
             name="confirmpassword"
-            error={ errors.confirmpassword}
+            error={touched.confirmpassword && errors.confirmpassword}
             onChange={handleChange}
+            onBlur={handleBlur}
             label="Confirm Password"
             placeholder="Start typing"
           />
