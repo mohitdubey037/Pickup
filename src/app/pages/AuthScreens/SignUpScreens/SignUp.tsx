@@ -2,10 +2,7 @@ import { useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  registerUser,
-  setRegisterUserResponse,
-} from "store/reducers/actions/signUpActions";
+
 import {
   Header,
   SignUpWrapper,
@@ -18,7 +15,8 @@ import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
 import { BlackLink } from "../../../components/Typography/Typography";
 import { signUpSchema } from "./signUpSchemas";
- 
+import { actions } from "store/reducers/SignUpReducer";
+
 type SignUpProps = RouteComponentProps;
 
 const SignUp = ({ navigate }: SignUpProps) => {
@@ -31,9 +29,9 @@ const SignUp = ({ navigate }: SignUpProps) => {
 
   useEffect(() => {
     return () => {
-      dispatch(setRegisterUserResponse({}));
+      dispatch(actions.registerUserResponse({}));
     };
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (signUpResponse.verifyEmailLink) {
@@ -42,9 +40,9 @@ const SignUp = ({ navigate }: SignUpProps) => {
   }, [signUpResponse.verifyEmailLink, navigate]);
 
   const onSignUp = () => {
-    dispatch(registerUser(email));
+    dispatch(actions.registerUser(email));
   };
-  
+
   const {
     handleChange,
     values: { email },

@@ -8,13 +8,17 @@ export const registerUserService = async (email: string) => {
 
 export const registerCompanyService = async (
   companyDetails: CompanyDetailsType
-) => {
-  const res = await Services.post("create", {
+) =>
+  await Services.post("create", {
     ...companyDetails,
     emailId: companyDetails.email,
   });
-  return res;
-};
+
+export const registerPasswordService = async (passwordRequest: {
+  emailId: string;
+  password: string;
+}) => await Services.post("password", passwordRequest);
+
 
 export const getEmailUserId = async (userId) => {
   const res = (await Services.get(`user/${userId}/profile`)) as {

@@ -18,10 +18,7 @@ import { useEffect } from "react";
 import { CircularProgress } from "@material-ui/core";
 import { showToast } from "utils";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  registerCompany,
-  setCompanyRegisterUserResponse,
-} from "store/reducers/actions/signUpActions";
+import { actions } from "store/reducers/SignUpReducer";
 
 const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   const { userId } = useParams();
@@ -44,7 +41,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
 
   useEffect(() => {
     return () => {
-      dispatch(setCompanyRegisterUserResponse({}));
+      dispatch(actions.registerCompanyResponse({}));
     };
   }, []);
   useEffect(() => {
@@ -56,6 +53,10 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   useEffect(() => {
     setFieldValue("email", emailId);
   }, [emailId]);
+
+  const onSubmit = () => {
+    dispatch(actions.registerCompany(values));
+  };
 
   const {
     handleChange,
@@ -79,10 +80,6 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
       onSubmit();
     },
   });
-
-  const onSubmit = () => {
-    dispatch(registerCompany(values));
-  };
 
   return (
     <SignUpWrapper>
