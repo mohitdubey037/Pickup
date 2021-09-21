@@ -7,5 +7,5 @@ export const registerUserService = async (email: string) => {
 
 export const getEmailUserId = async (userId) => {
   const res = await Services.get(`user/${userId}/profile`) as {data:{data:{emailId:string}}};
-  return res.data?.data ;
+   return res.data?.data ;
 };
