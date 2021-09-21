@@ -10,8 +10,9 @@ const Input: React.FC<InputProps> = ({
   id,
   name,
   error,
-  onBlur
-}) => {
+  onBlur,
+  disabled
+ }) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const Input: React.FC<InputProps> = ({
         value={value}
         id={id}
         name={name}
+        disabled={disabled}
       />
       {!!error && <ErrorLabel>{error}</ErrorLabel>}
     </InputWrapper>

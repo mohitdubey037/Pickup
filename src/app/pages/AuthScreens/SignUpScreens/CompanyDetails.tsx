@@ -1,5 +1,7 @@
 import { RouteComponentProps, useParams } from "@reach/router";
 import { useFormik } from "formik";
+import useSWR from "swr";
+
 import {
   SignUpWrapper,
   FormContent,
@@ -11,16 +13,23 @@ import {
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
 import { companyDetailsSchema } from "./signUpSchemas";
+import { getEmailUserId } from "services/SignUpSerivces";
+import { useEffect } from "react";
 
 const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   const { userId } = useParams();
+  const { data, error } = useSWR(userId, getEmailUserId);
+  const { emailId } = data || {};
+
+ 
   const {
     handleChange,
-    values: { email },
     errors,
     touched,
     handleBlur,
     handleSubmit,
+    setFieldValue,
+    values
   } = useFormik({
     initialValues: {
       firstName: "",
@@ -32,6 +41,10 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
     validationSchema: companyDetailsSchema,
     onSubmit: () => {},
   });
+
+  useEffect(() => {
+    setFieldValue("email", emailId);
+  }, [emailId]);
 
   return (
     <SignUpWrapper>
@@ -57,7 +70,6 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.lastName && errors.lastName}
-
             />
           </Row>
           <Input
@@ -68,7 +80,6 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.companyName && errors.companyName}
-
           />
           <Input
             id={"email"}
@@ -78,8 +89,10 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.email && errors.email}
-
+            initValue={values.email}
+            disabled={true}
           />
+
           <Input
             id={"phoneNumber"}
             name={"phoneNumber"}
@@ -88,7 +101,6 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.phoneNumber && errors.phoneNumber}
-
           />
           <Button label="Next" onClick={handleSubmit} />
         </FormContent>
