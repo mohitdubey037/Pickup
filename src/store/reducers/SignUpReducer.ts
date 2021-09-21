@@ -1,14 +1,22 @@
-import { REGISTER_USER_RESPONSE } from "./actions/actionTypes";
+import { createTypes, createReducer } from "reduxsauce";
 
 const initialState = {
-  signUpResponse:{}
+  signUpResponse: {},
 };
 
-export const signUp = (state = initialState, action: any) => {
-  switch (action.type) {
-    case REGISTER_USER_RESPONSE:
-      return { ...state, signUpResponse: action.res };
-    default:
-      return state;
-  }
+const Types = createTypes(`
+REGISTER_USER_RESPONSE
+REGISTER_USER
+REGISTER_COMPANY
+`);
+
+const onRegisterSucess = (state = initialState, action) => {
+  return { ...state, signUpResponse: action.res };
 };
+
+export const HANDLERS = {
+  [Types.REGISTER_USER_RESPONSE]: onRegisterSucess,
+};
+const signUp = createReducer(initialState, HANDLERS);
+
+export { signUp, Types };

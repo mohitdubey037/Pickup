@@ -1,8 +1,8 @@
 import { setRegisterUserResponse } from "./../../store/reducers/actions/signUpActions";
-import { REGISTER_COMPANY, REGISTER_USER } from "../../store/reducers/actions/actionTypes";
-import { call, put, takeLatest } from "redux-saga/effects";
+ import { call, put, takeLatest } from "redux-saga/effects";
 import { registerUserService } from "./../../services/SignUpSerivces/index";
 import { showToast } from "utils";
+import { Types } from "store/reducers/SignUpReducer";
 
 function* registerUserWorker(action) {
   try {
@@ -16,9 +16,9 @@ function* registerUserWorker(action) {
 function* registerCompanyDetailsWorker(action) {}
 
 export function* registerUserWatcher() {
-  yield takeLatest(REGISTER_USER, registerUserWorker);
+  yield takeLatest(Types.REGISTER_USER, registerUserWorker);
 }
 
 export function* registerCompanyDetailsWatcher() {
-  yield takeLatest(REGISTER_COMPANY, registerCompanyDetailsWorker);
+  yield takeLatest(Types.REGISTER_COMPANY, registerCompanyDetailsWorker);
 }
