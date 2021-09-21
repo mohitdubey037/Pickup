@@ -18,17 +18,24 @@ import { useEffect } from "react";
 import { LoadingIndicator } from "app/components/LoadingIndicator";
 import { CircularProgress } from "@material-ui/core";
 import { showToast } from "utils";
+import { useDispatch } from "react-redux";
+import { registerCompany } from "store/reducers/actions/signUpActions";
 
 const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   const { userId } = useParams();
+  const dispatch = useDispatch();
   const { data, error, isValidating } = useSWR(userId, getEmailUserId, {
     loadingTimeout: 3000,
     onLoadingSlow: () => {
-      showToast('Invalid','error')
-      navigate?.('/')
+      showToast("Invalid", "error");
+      navigate?.("/");
     },
   });
   const { emailId } = data || {};
+
+  const onSubmit = () => {
+    dispatch(registerCompany(values));
+  };
 
   const {
     handleChange,
@@ -47,12 +54,12 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
       phoneNumber: "",
     },
     validationSchema: companyDetailsSchema,
-    onSubmit: () => {},
+    onSubmit: onSubmit,
   });
 
   useEffect(() => {
     setFieldValue("email", emailId);
-  }, [emailId,setFieldValue]);
+  }, [emailId, setFieldValue]);
 
   return (
     <SignUpWrapper>
