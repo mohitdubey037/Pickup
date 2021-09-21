@@ -8,4 +8,6 @@ export interface InputProps {
     name?:string
     error?:string | boolean
     onBlur?:(value:any)=>void;
+    value?:string
+    disabled?:boolean
   }
