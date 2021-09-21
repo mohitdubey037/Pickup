@@ -9,6 +9,7 @@ import {
 } from "../style";
 import { RedLink } from "app/components/Typography/Typography";
 import { congrats } from "app/assets/Icons";
+import { Center } from "app/components/Typography/style";
 
 const Congratulations = ({ navigate }: RouteComponentProps) => {
   return (
@@ -25,12 +26,12 @@ const Congratulations = ({ navigate }: RouteComponentProps) => {
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi
               mollis tempus
             </p>
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <Center>
               <RedLink
                 label="Back to Login"
                 link={() => navigate?.("/sign-in")}
               />
-            </div>
+            </Center>
           </CenterContent>
         </FormContent>
       </FormWrapper>
