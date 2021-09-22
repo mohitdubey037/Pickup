@@ -14,25 +14,24 @@ import {
   LoginLink,
   RememberDiv,
 } from "../style";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginSchema } from "./loginSchemas";
+import { actions } from "store/reducers/SignInReducer";
 
 const SignIn = ({ navigate }: RouteComponentProps) => {
   const dispatch = useDispatch();
-
-  const submitLogin = () => {};
-  const {
-    handleChange,
-    values: { email, password },
-    errors,
-    touched,
-    handleBlur,
-    handleSubmit,
-  } = useFormik({
-    initialValues: { email: "", password: "" },
-    validationSchema: loginSchema,
-    onSubmit: submitLogin,
-  });
+   
+  const onSignIn = () => {
+    dispatch(
+      actions.signInUser({ email: values.email, password: values.password })
+    );
+  };
+  const { handleChange, values, errors, touched, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: { email: "", password: "" },
+      validationSchema: loginSchema,
+      onSubmit: onSignIn,
+    });
 
   return (
     <LoginWrapper>
@@ -46,14 +45,16 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
             label="Email"
             placeholder={"Start typing"}
             onChange={handleChange}
-            error={errors.email}
+            onBlur={handleBlur}
+            error={touched.email && errors.email}
           />
           <PasswordInput
+            onChange={handleChange}
+            onBlur={handleBlur}
             label="Password"
             id={"password"}
             name={"password"}
-            onChange={handleChange}
-            error={errors.password}
+            error={touched.password && errors.password}
           />
           <RememberDiv>
             <Checkbox label="Remember me" />

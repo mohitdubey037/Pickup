@@ -1,12 +1,12 @@
 import axios from "axios";
-import { BASE_URL } from "../constants";
+import { BASE_URL ,USER_BASE_URL} from "../constants";
 
 class Serivce {
-  get = async (url: string) => {
+  get = async (url: string,type='BUSSINESS') => {
     return new Promise((resolve, reject) => {
       try {
         axios
-          .get(`${BASE_URL}${url}`)
+          .get(`${type?USER_BASE_URL: BASE_URL}${url}`)
           .then((res) => {
             return resolve({ data: res.data, status: res.status });
           })
@@ -25,11 +25,11 @@ class Serivce {
     });
   };
 
-  post = (url: string, params: {}) => {
+  post = (url: string, params: {},type='BUSSINESS') => {
     return new Promise((resolve, reject) => {
       try {
         axios
-          .post(`${BASE_URL}${url}`, { ...params })
+          .post(`${type?USER_BASE_URL: BASE_URL}${url}`, { ...params })
           .then((res) => {
             return resolve({ data: res.data, status: res.status });
           })
