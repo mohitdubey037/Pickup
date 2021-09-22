@@ -37,6 +37,8 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
     },
     revalidateOnFocus: false,
   });
+
+  
   const { emailId } = data || {};
 
   useEffect(() => {

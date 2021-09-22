@@ -19,13 +19,11 @@ import { loginSchema } from "./loginSchemas";
 
 const SignIn = ({ navigate }: RouteComponentProps) => {
   const dispatch = useDispatch();
- 
-  const submitLogin = () => {
-     // dispatch({type:'Logged-in'});
-  };
+
+  const submitLogin = () => {};
   const {
     handleChange,
-    values: { email ,password},
+    values: { email, password },
     errors,
     touched,
     handleBlur,
@@ -35,7 +33,7 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
     validationSchema: loginSchema,
     onSubmit: submitLogin,
   });
- 
+
   return (
     <LoginWrapper>
       <LogoImage />
@@ -43,22 +41,20 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
         <FormContent>
           <Header>SIGN IN</Header>
           <Input
-            id={'email'}
-            name={'email'}
+            id={"email"}
+            name={"email"}
             label="Email"
             placeholder={"Start typing"}
             onChange={handleChange}
             error={errors.email}
-           />
+          />
           <PasswordInput
             label="Password"
-            id={'password'}
-            name={'password'}
+            id={"password"}
+            name={"password"}
             onChange={handleChange}
             error={errors.password}
-
-
-           />
+          />
           <RememberDiv>
             <Checkbox label="Remember me" />
             <BlackLink

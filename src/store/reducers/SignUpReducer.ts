@@ -14,12 +14,12 @@ const { Types, Creators } = createActions({
   registerPassword: ["passwordRequest"],
   registerPasswordResponse: ["res"],
 });
-export const onRegisterSucess = (state = initialState, action) => ({
+export const onRegisterSuccess = (state = initialState, action) => ({
   ...state,
   signUpResponse: action.res,
 });
 
-export const onCompanyRegisterSucess = (state = initialState, action) => ({
+export const onCompanyRegisterSuccess = (state = initialState, action) => ({
   ...state,
   companyRegisterResponse: action.res,
 });
@@ -30,8 +30,8 @@ export const onRegisterPasswordSuccess = (state = initialState, action) => ({
 });
 
 const HANDLERS = {
-  [Types.REGISTER_USER_RESPONSE]: onRegisterSucess,
-  [Types.REGISTER_COMPANY_RESPONSE]: onCompanyRegisterSucess,
+  [Types.REGISTER_USER_RESPONSE]: onRegisterSuccess,
+  [Types.REGISTER_COMPANY_RESPONSE]: onCompanyRegisterSuccess,
   [Types.REGISTER_PASSWORD_RESPONSE]: onRegisterPasswordSuccess,
 };
 
