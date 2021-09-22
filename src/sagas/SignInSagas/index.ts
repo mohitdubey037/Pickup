@@ -1,7 +1,7 @@
 import { signInUserService } from "./../../services/SignInServices/index";
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
-import { Types, actions } from "store/reducers/SignInReducer";
-import { showToast } from "utils";
+import { Types, actions } from "../../store/reducers/SignInReducer";
+import { showToast } from "../../utils";
 
 // eslint-disable-next-line require-yield
 function* signInUserWorker(action) {
@@ -10,7 +10,7 @@ function* signInUserWorker(action) {
     const res = yield call(signInUserService, action.signInRequest);
     yield put(actions.signInUserResponse(res));
     yield put(actions.showLoader(false));
-  } catch (err) {
+  } catch (err:any) {
     yield put(actions.showLoader(false));
     showToast(err.message, "error");
 

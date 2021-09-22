@@ -1,4 +1,4 @@
-import Services from "services";
+import Services from "../";
 
 export const signInUserService = async (signInRequest: {
   email: string;

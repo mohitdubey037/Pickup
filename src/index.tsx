@@ -13,18 +13,15 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import FontFaceObserver from 'fontfaceobserver';
 
-// Use consistent styling
-import 'sanitize.css/sanitize.css';
-
-import { App } from 'app';
+import { App } from './app';
 
 import { HelmetProvider } from 'react-helmet-async';
 
-import { configureAppStore } from 'store/configureStore';
+import { configureAppStore } from './store/configureStore';
 
-import { ThemeProviderWraper } from 'styles/theme/ThemeProvider';
+import { ThemeProviderWraper } from './styles/theme/ThemeProvider';
 
-import reportWebVitals from 'reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 
 // Initialize languages
 import './locales/i18n';

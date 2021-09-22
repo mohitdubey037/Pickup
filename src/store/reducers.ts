@@ -4,12 +4,11 @@
 
 import { combineReducers } from '@reduxjs/toolkit';
 
-import { InjectedReducersType } from 'utils/types/injector-typings';
- 
+  
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
  */
-export function createReducer(injectedReducers: InjectedReducersType = {}) {
+export function createReducer( ) {
   // Initially we don't have any injectedReducers, so returning identity function to avoid the error
 
   return combineReducers({

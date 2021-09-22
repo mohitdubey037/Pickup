@@ -1,5 +1,5 @@
 import { CompanyDetailsType } from "./../../app/pages/AuthScreens/SignUpScreens/types";
-import Services from "services";
+import Services from "../";
 
 export const registerUserService = async (email: string) => {
   const res = await Services.post("sign_up", { emailId: email });

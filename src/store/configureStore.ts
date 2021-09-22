@@ -13,7 +13,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { createReducer } from "./reducers";
 import { localStore } from "./reducers/LocalStoreReducer";
 import { signUp } from "./reducers/SignUpReducer";
-import rootSaga from "sagas";
+import rootSaga from "../sagas";
 import { signIn } from "./reducers/SignInReducer";
 
 export function configureAppStore() {
@@ -48,8 +48,7 @@ export function configureAppStore() {
     middleware: [...getDefaultMiddleware(), ...middlewares],
     devTools:
       /* istanbul ignore next line */
-      process.env.NODE_ENV !== "production" ||
-      process.env.PUBLIC_URL.length > 0,
+      process.env.NODE_ENV !== "production"  ,
     enhancers,
   });
   runSaga(rootSaga);
