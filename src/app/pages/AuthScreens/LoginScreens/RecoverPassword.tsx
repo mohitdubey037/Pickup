@@ -11,10 +11,6 @@ import {
   LoginWrapper,
 } from "../style";
 import { recoverPasswordSchema } from "./recoverPasswordSchema";
-import {
-  registerUser,
-  setRegisterUserResponse,
-} from "store/reducers/actions/signUpActions";
 
 const RecoverPassword = ({ navigate }: RouteComponentProps) => {
   const dispatch = useDispatch();
