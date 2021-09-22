@@ -6,7 +6,7 @@ import * as yup from "yup";
     lastName: yup.string().required(),
     phoneNumber: yup.string().required(),
     Role: yup.string().required(),
-    email: yup.string().required(),
+    email: yup.string().email().required(),
     notificationFrequency: yup.string().required(),
     Permission: yup.string().required()
   });

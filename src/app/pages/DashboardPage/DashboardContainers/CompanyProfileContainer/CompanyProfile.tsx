@@ -37,7 +37,8 @@ export default function CompanyProfile({ path: string }) {
   return (
 <ModuleContainer>
     <ContainerTitle>Personal Profile</ContainerTitle>
-    <Paper>
+    <Paper 
+    style={{padding:"10px"}}>
       <FormWrapper>
         <form>
           <Typography className="typography" variant="h1" component="h3">
