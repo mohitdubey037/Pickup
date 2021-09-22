@@ -1,16 +1,16 @@
-import {
-  setCompanyRegisterUserResponse,
-  setRegisterUserResponse,
-} from "./../../store/reducers/actions/signUpActions";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { registerCompanyService, registerUserService } from "./../../services/SignUpSerivces/index";
+import {
+  registerCompanyService,
+  registerUserService,
+  registerPasswordService,
+} from "./../../services/SignUpSerivces/index";
 import { showToast } from "utils";
-import { Types } from "store/reducers/SignUpReducer";
+import { Types, actions } from "store/reducers/SignUpReducer";
 
 function* registerUserWorker(action) {
   try {
     const res = yield call(registerUserService, action.email);
-    yield put(setRegisterUserResponse(res.data?.data));
+    yield put(actions.registerUserResponse(res.data?.data));
   } catch (err) {
     showToast(err.message, "error");
   }
@@ -19,7 +19,16 @@ function* registerUserWorker(action) {
 function* registerCompanyDetailsWorker(action) {
   try {
     const res = yield call(registerCompanyService, action.companyDetails);
-    yield put(setCompanyRegisterUserResponse(res.data?.data));
+    yield put(actions.registerCompanyResponse(res.data?.data));
+  } catch (err) {
+    showToast(err.message, "error");
+  }
+}
+
+function* registerPasswordWorker(action) {
+  try {
+    const res = yield call(registerPasswordService, action.passwordRequest);
+    yield put(actions.registerPasswordResponse(res));
   } catch (err) {
     showToast(err.message, "error");
   }
@@ -31,4 +40,8 @@ export function* registerUserWatcher() {
 
 export function* registerCompanyDetailsWatcher() {
   yield takeLatest(Types.REGISTER_COMPANY, registerCompanyDetailsWorker);
+}
+
+export function* registerPasswordWatcher() {
+  yield takeLatest(Types.REGISTER_PASSWORD, registerPasswordWorker);
 }

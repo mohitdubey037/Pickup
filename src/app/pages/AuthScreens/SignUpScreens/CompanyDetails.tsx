@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { RouteComponentProps, useParams } from "@reach/router";
 import { useFormik } from "formik";
 import useSWR from "swr";
-
 import {
   SignUpWrapper,
   FormContent,
@@ -15,27 +15,47 @@ import { Button } from "../../../components/Buttons";
 import { companyDetailsSchema } from "./signUpSchemas";
 import { getEmailUserId } from "services/SignUpSerivces";
 import { useEffect } from "react";
-import { LoadingIndicator } from "app/components/LoadingIndicator";
 import { CircularProgress } from "@material-ui/core";
 import { showToast } from "utils";
-import { useDispatch } from "react-redux";
-import { registerCompany } from "store/reducers/actions/signUpActions";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "store/reducers/SignUpReducer";
 
 const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   const { userId } = useParams();
+  const companyRegisterResponse = useSelector(
+    (state: { signUp: { companyRegisterResponse: { companyId: number } } }) =>
+      state.signUp.companyRegisterResponse
+  );
   const dispatch = useDispatch();
-  const { data, error, isValidating } = useSWR(userId, getEmailUserId, {
+
+  const { data, isValidating } = useSWR(userId, getEmailUserId, {
     loadingTimeout: 3000,
-    revalidateOnMount:true,
+    revalidateOnMount: true,
     onLoadingSlow: () => {
       showToast("Invalid", "error");
       navigate?.("/");
     },
+    revalidateOnFocus: false,
   });
   const { emailId } = data || {};
 
+  useEffect(() => {
+    return () => {
+      dispatch(actions.registerCompanyResponse({}));
+    };
+  }, []);
+  useEffect(() => {
+    if (companyRegisterResponse?.companyId) {
+      navigate?.("/password", { state: { email: emailId } });
+    }
+  }, [companyRegisterResponse?.companyId, emailId]);
+
+  useEffect(() => {
+    setFieldValue("email", emailId);
+  }, [emailId]);
+
   const onSubmit = () => {
-    dispatch(registerCompany(values));
+    dispatch(actions.registerCompany(values));
   };
 
   const {
@@ -46,6 +66,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
     handleSubmit,
     setFieldValue,
     values,
+    isValid,
   } = useFormik({
     initialValues: {
       firstName: "",
@@ -55,12 +76,10 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
       phoneNumber: "",
     },
     validationSchema: companyDetailsSchema,
-    onSubmit: onSubmit,
+    onSubmit: () => {
+      onSubmit();
+    },
   });
-
-  useEffect(() => {
-    setFieldValue("email", emailId);
-  }, [emailId, setFieldValue]);
 
   return (
     <SignUpWrapper>
@@ -121,7 +140,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
               onBlur={handleBlur}
               error={touched.phoneNumber && errors.phoneNumber}
             />
-            <Button label="Next" onClick={handleSubmit} />
+            <Button disabled={!isValid} label="Next" onClick={handleSubmit} />
           </FormContent>
         )}
       </FormWrapper>
