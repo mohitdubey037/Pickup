@@ -1,3 +1,4 @@
+import { CircularProgress } from "@material-ui/core";
 import React from "react";
 import { CustomButton } from "./style";
 
@@ -7,6 +8,7 @@ interface ButtonProps {
   size?: "small" | "medium" | "large";
   secondary?: boolean;
   disabled?: boolean;
+  showLoader?: boolean;
 }
 
 const ThemeButton: React.FC<ButtonProps> = ({
@@ -15,17 +17,18 @@ const ThemeButton: React.FC<ButtonProps> = ({
   onClick,
   size = "medium",
   disabled,
+  showLoader,
 }) => {
   return (
     <>
       <CustomButton
-        disabled={disabled}
+        disabled={disabled || showLoader}
         color={secondary ? "secondary" : "primary"}
         onClick={onClick}
         size={size}
         variant="contained"
       >
-        {label}
+        {showLoader ? <CircularProgress style={{color:'black'}}  /> : label}
       </CustomButton>
     </>
   );

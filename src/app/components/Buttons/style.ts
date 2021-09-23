@@ -8,6 +8,7 @@ export const CustomButton = styled(Button)`
   line-height: 19px;
   width:100%;
   padding:1rem;
+  max-height:56px;
   &.MuiButton-root{
     text-transform: none;
     padding: 1rem;

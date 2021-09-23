@@ -20,12 +20,17 @@ import { actions } from "store/reducers/SignInReducer";
 
 const SignIn = ({ navigate }: RouteComponentProps) => {
   const dispatch = useDispatch();
-   
+
   const onSignIn = () => {
     dispatch(
       actions.signInUser({ email: values.email, password: values.password })
     );
   };
+  const showLoader = useSelector(
+    (state: { globalState: { showLoader: boolean } }) =>
+      state.globalState.showLoader
+  );
+
   const { handleChange, values, errors, touched, handleBlur, handleSubmit } =
     useFormik({
       initialValues: { email: "", password: "" },
@@ -63,7 +68,7 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
               link={() => navigate?.("/forgot-password")}
             />
           </RememberDiv>
-          <Button label="Sign In" onClick={handleSubmit} />
+          <Button showLoader={showLoader} label="Sign In" onClick={handleSubmit} />
           <LoginLink>
             Don't have an account?{" "}
             <BlackLink label="Sign Up Here" link={() => navigate?.("/")} />

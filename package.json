@@ -27,7 +27,7 @@
   ],
   "scripts": {
     "// ---DEFAULT CRA---": "",
-    "start": "react-scripts start ",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "// ---TEMPLATE---": "Scripts will be also in the template",
@@ -125,8 +125,7 @@
     "ts-loader": "^9.2.6",
     "ttf-loader": "^1.0.2",
     "web-vitals": "2.1.0",
-    "webpack-dev-server": "^4.2.1",
-    "yup": "^0.32.9"
+     "yup": "^0.32.9"
   },
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
@@ -181,9 +180,7 @@
     "stylelint-processor-styled-components": "1.10.0",
     "ts-jest": "26.5.6",
     "ts-node": "10.0.0",
-    "typescript": "^4.4.3",
-    "webpack": "^5.40.0",
-    "webpack-cli": "^4.8.0"
+    "typescript": "^4.4.3"
   },
   "browserslist": {
     "production": [

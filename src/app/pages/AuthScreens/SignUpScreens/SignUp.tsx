@@ -26,6 +26,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
       return state.signUp.signUpResponse;
     }
   );
+  const showLoader=useSelector((state:{globalState:{showLoader:boolean}})=>state.globalState.showLoader )
 
   useEffect(() => {
     return () => {
@@ -71,7 +72,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
             error={ errors.email}
             onBlur={handleBlur}
           />
-          <Button label="Sign Up" onClick={handleSubmit} />
+          <Button label="Sign Up" showLoader={showLoader} onClick={handleSubmit} />
           <LoginLink>
             Already have an account?{" "}
             <BlackLink

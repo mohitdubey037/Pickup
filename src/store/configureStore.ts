@@ -15,6 +15,7 @@ import { localStore } from "./reducers/LocalStoreReducer";
 import { signUp } from "./reducers/SignUpReducer";
 import rootSaga from "../sagas";
 import { signIn } from "./reducers/SignInReducer";
+import { globalState } from "./reducers/GlobalReducer";
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -32,14 +33,15 @@ export function configureAppStore() {
   ] as StoreEnhancer[];
   const persistConfig = {
     key: "root",
-    blacklist: ["signUp","signIn"],
+    blacklist: ["signUp","signIn","globalState"],
     storage,
   };
   const rootReducer = combineReducers({
     auth: auth,
     localStore: localStore,
     signUp: signUp,
-    signIn:signIn
+    signIn:signIn,
+    globalState:globalState
   });
   const persistedReducer = persistReducer(persistConfig, rootReducer);
 
