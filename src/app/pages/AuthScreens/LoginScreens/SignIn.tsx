@@ -17,19 +17,37 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { loginSchema } from "./loginSchemas";
 import { actions } from "store/reducers/SignInReducer";
+import { useEffect } from "react";
 
 const SignIn = ({ navigate }: RouteComponentProps) => {
   const dispatch = useDispatch();
+  const signInUserResponse = useSelector(
+    (state: {
+      signIn: { signInUserResponse: { status: number; data: { data: {} } } };
+    }) => state.signIn.signInUserResponse
+  );
+  const showLoader = useSelector(
+    (state: { globalState: { showLoader: boolean } }) =>
+      state.globalState.showLoader
+  );
+  console.log({ signInUserResponse });
 
+  useEffect(() => {
+    if (signInUserResponse.status === 200) {
+      dispatch({
+        type: "SET_LOGEDIN_USER",
+        user: signInUserResponse?.data?.data,
+      });
+      navigate?.("/dashboard");
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [signInUserResponse?.status]);
+  
   const onSignIn = () => {
     dispatch(
       actions.signInUser({ email: values.email, password: values.password })
     );
   };
-  const showLoader = useSelector(
-    (state: { globalState: { showLoader: boolean } }) =>
-      state.globalState.showLoader
-  );
 
   const { handleChange, values, errors, touched, handleBlur, handleSubmit } =
     useFormik({
@@ -68,7 +86,11 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
               link={() => navigate?.("/forgot-password")}
             />
           </RememberDiv>
-          <Button showLoader={showLoader} label="Sign In" onClick={handleSubmit} />
+          <Button
+            showLoader={showLoader}
+            label="Sign In"
+            onClick={handleSubmit}
+          />
           <LoginLink>
             Don't have an account?{" "}
             <BlackLink label="Sign Up Here" link={() => navigate?.("/")} />

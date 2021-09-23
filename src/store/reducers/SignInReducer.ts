@@ -1,7 +1,7 @@
 import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
-  signInResponse: {},
+  signInUserResponse: {},
   showLoader:false
 };
 

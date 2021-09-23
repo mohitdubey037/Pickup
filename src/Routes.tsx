@@ -24,21 +24,24 @@ import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpC
 import PersonalProfileContainer from "app/pages/DashboardPage/DashboardContainers/PersonalProfileContainer/PersonalProfileContainer";
 import { PaymentsPage } from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer";
 import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers/CompanyProfileContainer/CompanyProfile";
+import AuthPages from "app/pages/AuthScreens";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
   });
   return (
     <Router>
-      <SignUp path="/" />
-      <EmailSent path="/email-sent" />
-      <CompanyDetails path="/company-details/:userId" />
-      <Password path="/password" />
-      <Congratulations path="/congratulations" />
-      <SignIn path="/sign-in" />
-      <ForgotPassword path="/forgot-password" />
-      <MailSent path="/mail-sent" />
-      <RecoverPassword path="/recover-password" />
+      <AuthPages path="/">
+        <SignUp path="/" />
+        <EmailSent path="/email-sent" />
+        <CompanyDetails path="/company-details/:userId" />
+        <Password path="/password" />
+        <Congratulations path="/congratulations" />
+        <SignIn path="/sign-in" />
+        <ForgotPassword path="/forgot-password" />
+        <MailSent path="/mail-sent" />
+        <RecoverPassword path="/recover-password" />
+      </AuthPages>
 
       <DashboardPage path="/dashboard">
         <HelpContainer path="/my-account/help" />

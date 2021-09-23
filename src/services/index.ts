@@ -31,7 +31,7 @@ class Serivce {
         axios
           .post(`${type ?USER_BASE_URL: BASE_URL}${url}`, { ...params })
           .then((res) => {
-            return resolve({ data: res.data, status: res.status });
+             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
             if (err.isAxiosError && err.response) {

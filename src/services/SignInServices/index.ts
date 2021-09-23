@@ -4,7 +4,7 @@ export const signInUserService = async (signInRequest: {
   email: string;
   password: string;
 }) => {
-  console.log(signInRequest)
-  const res = await Services.post("login", {password:signInRequest.password,emailId:signInRequest.email}, "user");
-  return res;
+   const res = await Services.post("login", {password:signInRequest.password,emailId:signInRequest.email}, "user");
+    return res;
+
 };
