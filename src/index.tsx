@@ -13,18 +13,15 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import FontFaceObserver from 'fontfaceobserver';
 
-// Use consistent styling
-import 'sanitize.css/sanitize.css';
-
-import { App } from 'app';
+import { App } from './app';
 
 import { HelmetProvider } from 'react-helmet-async';
 
-import { configureAppStore } from 'store/configureStore';
+import { configureAppStore } from './store/configureStore';
 
-import { ThemeProviderWraper } from 'styles/theme/ThemeProvider';
+import { ThemeProviderWraper } from './styles/theme/ThemeProvider';
 
-import reportWebVitals from 'reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 
 // Initialize languages
 import './locales/i18n';
@@ -40,7 +37,7 @@ openSansObserver.load().then(() => {
 
 const store = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
-
+console.log(process.env)
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProviderWraper>

@@ -23,7 +23,7 @@ import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/Sea
 import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
 import PersonalProfileContainer from "app/pages/DashboardPage/DashboardContainers/PersonalProfileContainer/PersonalProfileContainer";
 import { PaymentsPage } from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer";
-
+import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers/CompanyProfileContainer/CompanyProfile";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
@@ -32,7 +32,7 @@ const Routes = () => {
     <Router>
       <SignUp path="/" />
       <EmailSent path="/email-sent" />
-      <CompanyDetails path="/company-details" />
+      <CompanyDetails path="/company-details/:userId" />
       <Password path="/password" />
       <Congratulations path="/congratulations" />
       <SignIn path="/sign-in" />
@@ -42,13 +42,16 @@ const Routes = () => {
 
       <DashboardPage path="/dashboard">
         <HelpContainer path="/my-account/help" />
-        <PersonalProfileContainer path="my-account/personal-profile" />
+        <CompanyProfileContainer path="/my-account/company-profile" />
         <Dashboard path="/" />
         <SingleShipment path="/charter-shipment/single-shipment" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
         <PaymentsPage path="/payments/cards" />
+        <PersonalProfileContainer path="my-account/personal-profile" />
 
+        <NotFoundPage default />
+        <PaymentsPage path="/payments/cards" />
         <NotFoundPage default />
       </DashboardPage>
     </Router>

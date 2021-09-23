@@ -6,12 +6,15 @@ import {
 } from "@reduxjs/toolkit";
 import { createInjectorsEnhancer } from "redux-injectors";
 import createSagaMiddleware from "redux-saga";
-import { AuthReducer } from "./reducers/Auth";
+import { auth } from "./reducers/AuthReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 import { createReducer } from "./reducers";
-import { LocalStore } from "./reducers/LocalStore";
+import { localStore } from "./reducers/LocalStoreReducer";
+import { signUp } from "./reducers/SignUpReducer";
+import rootSaga from "../sagas";
+import { signIn } from "./reducers/SignInReducer";
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -29,26 +32,30 @@ export function configureAppStore() {
   ] as StoreEnhancer[];
   const persistConfig = {
     key: "root",
+    blacklist: ["signUp","signIn"],
     storage,
   };
-  const rootReducer = combineReducers({ auth: AuthReducer,localStore:LocalStore });
+  const rootReducer = combineReducers({
+    auth: auth,
+    localStore: localStore,
+    signUp: signUp,
+    signIn:signIn
+  });
   const persistedReducer = persistReducer(persistConfig, rootReducer);
 
   const store = configureStore({
-    reducer:  persistedReducer,
+    reducer: persistedReducer,
     middleware: [...getDefaultMiddleware(), ...middlewares],
     devTools:
       /* istanbul ignore next line */
-      process.env.NODE_ENV !== "production" ||
-      process.env.PUBLIC_URL.length > 0,
+      process.env.NODE_ENV !== "production"  ,
     enhancers,
   });
- 
+  runSaga(rootSaga);
   return store;
 }
 
 const store = configureAppStore();
-export const  persistor = persistStore(store);
+export const persistor = persistStore(store);
 
 export default store;
-

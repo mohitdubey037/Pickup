@@ -44,4 +44,8 @@ export const CustomInput = styled.input`
     color: #c4c4c4;
     font-size: 16px;
   }
+  background-color:${(props:{disabled?:boolean})=>props.disabled?'#c4c4c4':'white'}
 `;
+export const ErrorLabel=styled.span`
+color:red;
+`
