@@ -1,89 +1,123 @@
-import { Paper } from "@material-ui/core";
-import ModuleContainer from "app/components/ModuleContainer";
-import {
-  ContainerTitle,
-  FormContainerTitle,
-} from "app/components/Typography/Typography";
+import { Avatar, Button, Paper, Typography } from "@material-ui/core";
+import EditIcon from "app/components/EditIcon";
+import { Block, Flex, FullCard } from "app/components/Input/style";
+import { FormContainerTitle } from "app/components/Typography/Typography";
 import { CompanyDetailsType } from "./types";
 
 interface DetailInterface {
-    details: CompanyDetailsType;
-  }
+  details: CompanyDetailsType;
+}
 
-  
 export default function CompanyDetails(props: DetailInterface) {
-    const { avatar, CompanyName, BusinessNumber, Industry, EmployeeStrength, AddressLine1,AddressLine2,City,Pincode,Province,Country,HSTNumber} =
-      props.details;
-  
-    return (
-      <ModuleContainer>
-        <ContainerTitle>Company Details</ContainerTitle>
-  
-        <Paper
-          style={{
-            width: "100%",
-            padding: 20,
-            display:"flex",
-           
-            justifyContent:"flex-start",
-            marginBottom:20
-          }}
-        >
-          <div style={{ display: "flex" }}>
-            <div style={{ flex: 1,textAlign:'left' ,marginBottom:20}}>
-              <FormContainerTitle>Personal Details</FormContainerTitle>
-            </div>
-            <button>Edit</button>
-          </div>
-       
-            <img src={avatar} />
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            Company Name <br />
-              {CompanyName}
-            </h4>
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            Business Number <br />
-              {BusinessNumber}
-            </h4>
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            Industry <br />
-              {Industry}
-            </h4>
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            Employee Strength <br />
-              {EmployeeStrength}
-            </h4>
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            Address Line 1 <br />
-              {AddressLine1}
-            </h4>
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            Address Line 2 <br />
-              {AddressLine2}
-            </h4>
-            
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            City <br />
-              {City}
-            </h4>
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            Pincode <br />
-              {Pincode}
-            </h4>
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            Province <br />
-              {Province}
-            </h4>
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            Country <br />
-              {Country}
-            </h4>
-            <h4 style={{ margin: "0 0 1.5rem 0" }}>
-            HSTNumber <br />
-              {HSTNumber}
-            </h4>
-        </Paper>
-      </ModuleContainer>
-    );
-  }
-  
+  const {
+    avatar,
+    CompanyName,
+    BusinessNumber,
+    Industry,
+    EmployeeStrength,
+    AddressLine1,
+    AddressLine2,
+    City,
+    Pincode,
+    Province,
+    Country,
+    HSTNumber,
+  } = props.details;
+
+  return (
+    <FullCard>
+      <Flex direction={"column"} style={{paddingRight:20}}>
+        <Flex>
+          <FormContainerTitle style={{ flex: 1, textAlign: "left" }}>
+            Company Details
+          </FormContainerTitle>
+          <EditIcon/>
+        </Flex>
+
+        <Flex style={{marginTop:15}}>
+          <Avatar style={{width:86,height:86}}>
+            <img src={avatar} width={86}  />
+          </Avatar>
+          <Flex direction={"column"} style={{marginLeft:20}}>
+            <Flex >
+              <Block style={{flex:1,textAlign:'left'}}> 
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block >
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+            </Flex>
+            <Flex   style={{marginTop:10}}>
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> City</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+              <Block style={{flex:1,textAlign:'left'}}>
+                <span> Company Name</span>
+                <Typography className="typography" variant="h1" component="h3">
+                  {CompanyName}
+                </Typography>
+              </Block>
+              <Block style={{flex:1,textAlign:'left'}}>
+               
+              </Block>
+              <Block>
+               
+               </Block>
+            </Flex>
+          </Flex>
+        </Flex>
+      </Flex>
+    </FullCard>
+  );
+}

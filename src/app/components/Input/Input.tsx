@@ -11,7 +11,9 @@ const Input: React.FC<InputProps> = ({
   name,
   error,
   onBlur,
-  disabled
+  disabled,
+  width,
+  style
  }) => {
   const [value, setValue] = useState("");
 
@@ -25,7 +27,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <InputWrapper>
+    <InputWrapper style={style}>
       <CustomLabel>{label} </CustomLabel>
       <CustomInput
         placeholder={placeholder}
