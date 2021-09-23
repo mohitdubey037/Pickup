@@ -25,7 +25,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
           />
         </FormContent>
         <Center>
-          <RedLink label="Back to Login" link={() => navigate?.("/sign-in")} />
+          <RedLink label="Back to Login" link={() => navigate?.("/")} />
         </Center>
       </FormWrapper>
     </LoginWrapper>
