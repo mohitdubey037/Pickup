@@ -27,7 +27,7 @@
   ],
   "scripts": {
     "// ---DEFAULT CRA---": "",
-    "start": "webpack-dev-server   --hot ",
+    "start": "react-scripts start ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "// ---TEMPLATE---": "Scripts will be also in the template",
