@@ -33,9 +33,9 @@ const Password = ({ navigate }: RouteComponentProps) => {
 
   useEffect(() => {
     return () => {
-      dispatch(actions.registerPasswordResponse({}));
+      dispatch(actions.registerPasswordResponse(null));
     };
-  });
+  },[]);
 
   useEffect(() => {
     if (!state?.email) {

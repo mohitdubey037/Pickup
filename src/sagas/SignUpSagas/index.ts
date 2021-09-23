@@ -36,10 +36,16 @@ function* registerCompanyDetailsWorker(action) {
 
 function* registerPasswordWorker(action) {
   try {
+    yield put(globalActions.showLoader(true));
+
     const res = yield call(registerPasswordService, action.passwordRequest);
     yield put(actions.registerPasswordResponse(res));
+    yield put(globalActions.showLoader(false));
+
   } catch (err: any) {
     showToast(err.message, "error");
+    yield put(globalActions.showLoader(false));
+
   }
 }
 
