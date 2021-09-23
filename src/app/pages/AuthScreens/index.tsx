@@ -3,13 +3,14 @@ import React from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RouteComponentProps } from "@reach/router";
+import { AuthUser } from "types";
 
 interface AuthPageProps extends RouteComponentProps {
   children?: any;
 }
 
 function AuthPages({ navigate, children }: AuthPageProps) {
-  const auth = useSelector((state: { auth: { user: { userId: number } } }) => {
+  const auth = useSelector((state: { auth: { user: AuthUser } }) => {
     return state.auth;
   });
 
