@@ -18,5 +18,9 @@ export const companyDetailsSchema = yup.object().shape({
 
 export const passwordSchema = yup.object().shape({
   password: yup.string().required(),
-  confirmPassword: yup.string().required(),
+  confirmPassword: yup
+    .string()
+    .test("passwords-match", "Passwords must match", function (value) {
+      return this.parent.password === value;
+    }),
 });

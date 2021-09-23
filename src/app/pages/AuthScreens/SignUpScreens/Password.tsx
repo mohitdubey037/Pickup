@@ -24,7 +24,19 @@ const Password = ({ navigate }: RouteComponentProps) => {
     (state: { signUp: { passwordRegisterResponse: {} } }) =>
       state.signUp.passwordRegisterResponse
   );
+  const showLoader = useSelector(
+    (state: { globalState: { showLoader: boolean } }) =>
+      state.globalState.showLoader
+  );
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(actions.registerPasswordResponse({}));
+    };
+  });
+
   useEffect(() => {
     if (!state?.email) {
       navigate?.("/");
@@ -80,7 +92,11 @@ const Password = ({ navigate }: RouteComponentProps) => {
             error={touched.confirmPassword && errors.confirmPassword}
           />
 
-          <Button label="Sign Up" onClick={handleSubmit} />
+          <Button
+            showLoader={showLoader}
+            label="Confirm"
+            onClick={handleSubmit}
+          />
         </FormContent>
       </FormWrapper>
     </SignUpWrapper>

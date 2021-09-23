@@ -26,6 +26,8 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
     (state: { signUp: { companyRegisterResponse: { companyId: number } } }) =>
       state.signUp.companyRegisterResponse
   );
+  const showLoader=useSelector((state:{globalState:{showLoader:boolean}})=>state.globalState.showLoader )
+
   const dispatch = useDispatch();
 
   const { data, isValidating } = useSWR(userId, getEmailUserId, {
@@ -142,7 +144,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
               onBlur={handleBlur}
               error={touched.phoneNumber && errors.phoneNumber}
             />
-            <Button disabled={!isValid} label="Next" onClick={handleSubmit} />
+            <Button showLoader={showLoader} disabled={!isValid} label="Next" onClick={handleSubmit} />
           </FormContent>
         )}
       </FormWrapper>
