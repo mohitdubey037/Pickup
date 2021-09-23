@@ -11,6 +11,7 @@ import {
 import { Button } from "../../../../components/Buttons";
 import companyProfileSchema from "./CompanyProfileSchema";
 import ModuleContainer from "app/components/ModuleContainer";
+import CompanyDetails from "./CompanyDetails";
 
 export default function CompanyProfile({ path: string }) {
   const Save = () => {};
@@ -37,6 +38,23 @@ export default function CompanyProfile({ path: string }) {
   return (
 <ModuleContainer>
     <ContainerTitle>Personal Profile</ContainerTitle>
+    <CompanyDetails
+     details={{
+    avatar:'string',
+     CompanyName:'DDT',
+      BusinessNumber: '212421',
+       Industry:'Retail',
+        EmployeeStrength:'32',
+         AddressLine1:'100 Broadview Avenue',
+         AddressLine2:'Address Line 2',
+         City:'Toronto',
+         Pincode:'123421',
+         Province:'Province',
+         Country:'Canada',
+         HSTNumber:'123 456 789'
+     }}
+    />
+    {/* personal profile  */}
     <Paper 
     style={{padding:"10px"}}>
       <FormWrapper>
