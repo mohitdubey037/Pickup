@@ -21,14 +21,14 @@ import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
 import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/SearchContainer";
 import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
+import PersonalProfileContainer from "app/pages/DashboardPage/DashboardContainers/PersonalProfileContainer/PersonalProfileContainer";
 import { PaymentsPage } from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer";
-import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers/CompanyProfileContainer/CompanyProfile"
+import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers/CompanyProfileContainer/CompanyProfile";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
   });
   return (
-    
     <Router>
       <SignUp path="/" />
       <EmailSent path="/email-sent" />
@@ -40,17 +40,19 @@ const Routes = () => {
       <MailSent path="/mail-sent" />
       <RecoverPassword path="/recover-password" />
 
-      
       <DashboardPage path="/dashboard">
-      <HelpContainer path="/my-account/help" />
-      <CompanyProfileContainer path ="/my-account/company-profile" />
+        <HelpContainer path="/my-account/help" />
+        <CompanyProfileContainer path="/my-account/company-profile" />
         <Dashboard path="/" />
         <SingleShipment path="/charter-shipment/single-shipment" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
+        <PaymentsPage path="/payments/cards" />
+        <PersonalProfileContainer path="my-account/personal-profile" />
+
         <NotFoundPage default />
-        <PaymentsPage path="/payments/cards"/>
-        <NotFoundPage default/>
+        <PaymentsPage path="/payments/cards" />
+        <NotFoundPage default />
       </DashboardPage>
     </Router>
   );
