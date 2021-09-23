@@ -37,7 +37,7 @@ const Routes = () => {
         <CompanyDetails path="/company-details/:userId" />
         <Password path="/password" />
         <Congratulations path="/congratulations" />
-        <SignIn path="/sign-in" />
+        <SignUp path="/sign-up" />
         <ForgotPassword path="/forgot-password" />
         <MailSent path="/mail-sent" />
         <RecoverPassword path="/recover-password" />

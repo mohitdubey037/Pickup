@@ -76,7 +76,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
           <LoginLink>
             Already have an account?{" "}
             <BlackLink
-              link={() => navigate?.("sign-in")}
+              link={() => navigate?.("/")}
               label={"Login here"}
             />
           </LoginLink>

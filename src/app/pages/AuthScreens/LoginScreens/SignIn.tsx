@@ -96,7 +96,7 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
           />
           <LoginLink>
             Don't have an account?{" "}
-            <BlackLink label="Sign Up Here" link={() => navigate?.("/")} />
+            <BlackLink label="Sign Up Here" link={() => navigate?.("/sign-up")} />
           </LoginLink>
         </FormContent>
       </FormWrapper>

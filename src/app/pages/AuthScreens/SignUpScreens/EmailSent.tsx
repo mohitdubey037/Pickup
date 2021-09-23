@@ -27,7 +27,7 @@ const EmailSent = ({ navigate }: RouteComponentProps) => {
               mollis tempus
             </p>
             <Center>
-              <RedLink label="Back to Signup" link={() => navigate?.("/")} />
+              <RedLink label="Back to Signup" link={() => navigate?.("/sign-up")} />
             </Center>
           </CenterContent>
         </FormContent>
