@@ -30,8 +30,11 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
     (state: { globalState: { showLoader: boolean } }) =>
       state.globalState.showLoader
   );
-  console.log({ signInUserResponse });
-
+  useEffect(() => {
+    return () => {
+      dispatch(actions.signInUserResponse({}));
+    };
+  }, []);
   useEffect(() => {
     if (signInUserResponse.status === 200) {
       dispatch({
@@ -40,9 +43,9 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
       });
       navigate?.("/dashboard");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signInUserResponse?.status]);
-  
+
   const onSignIn = () => {
     dispatch(
       actions.signInUser({ email: values.email, password: values.password })

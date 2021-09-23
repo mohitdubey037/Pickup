@@ -32,7 +32,9 @@ export default function Appbar() {
     const { id } = e.target;
     if (id === "logout") {
       dispatch({ type: "LOGOUT_USER" });
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
     }
     setAnchorEl(null);
   };
