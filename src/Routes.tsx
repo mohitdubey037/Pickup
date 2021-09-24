@@ -25,6 +25,7 @@ import PersonalProfileContainer from "app/pages/DashboardPage/DashboardContainer
 import { PaymentsPage } from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer";
 import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers/CompanyProfileContainer/CompanyProfile";
 import AuthPages from "app/pages/AuthScreens";
+import ChildAccount from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccount"
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
@@ -51,8 +52,8 @@ const Routes = () => {
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
         <PaymentsPage path="/payments/cards" />
-        <PersonalProfileContainer path="my-account/personal-profile" />
-
+        <PersonalProfileContainer path="my-account/personal-profile" />   
+        <ChildAccount path="my-account/child-account"/>
         <NotFoundPage default />
         <PaymentsPage path="/payments/cards" />
         <NotFoundPage default />
