@@ -13,6 +13,7 @@ import companyProfileSchema from "./CompanyProfileSchema";
 import ModuleContainer from "app/components/ModuleContainer";
 import CompanyDetails from "./CompanyDetails";
 import NewColleagueForm from "./NewColleagueForm";
+import PersonalProfile from "../PersonalProfileContainer/PersonalProfile";
 
 export default function CompanyProfile({ path: string }) {
   const Save = () => {};
@@ -48,6 +49,16 @@ export default function CompanyProfile({ path: string }) {
           Country: "Canada",
           HSTNumber: "123 456 789",
         }}
+      />
+      <PersonalProfile
+      profile={{
+        avatar:'string',
+             firstName:"John",
+            lastName :"jeo",
+            phoneNumber: '9876543215',
+            role:"Manager",
+            email:"johnjeo23@gmail.com"
+      }}
       />
       {/* personal profile  */}
       <NewColleagueForm
