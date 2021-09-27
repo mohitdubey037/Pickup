@@ -1,33 +1,98 @@
-import React from 'react'
+import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { FormWrapper } from "app/components/Input/style";
+import { RouteComponentProps } from "@reach/router";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import AdminDetailsSchema from "./AdminDetailsSchema";
 
-export default function AdminDetails() {
-    return (
-        <> 
-        <FormWrapper>
+export default function AdminDetails({ navigate }: RouteComponentProps) {
+  const dispatch = useDispatch();
+  const Confirm = () => {};
+  const {
+    handleChange,
+    values: { FirstName },
+    errors,
+    touched,
+    handleBlur,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      FirstName: "",
+      LastName: "",
+      PhoneNumber: "",
+      Role: "",
+      Email: "",
+      
+    },
+    validationSchema: AdminDetailsSchema,
+    onSubmit: Confirm,
+  });
+  return (
+    <>
+      <FormWrapper>
         <form>
           <Grid container spacing={3}>
             <Grid item xs={12}></Grid>
             <Grid item xs={3}>
-              <Input label={"First Name"} placeholder={"Start typing"} />
+              <Input
+                id="FirstName"
+                name="FirstName"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.FirstName && errors.FirstName}
+                label={"First Name"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={3}>
-              <Input label={"Last Name"} placeholder={"Start typing"} />
+              <Input
+                id="LastName"
+                name="LastName"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.LastName && errors.LastName}
+                label={"Last Name"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={3}>
-              <Input label={"Phone Number"} placeholder={"Retail"} />
+              <Input
+                id="PhoneNumber"
+                name="PhoneNumber"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.PhoneNumber && errors.PhoneNumber}
+                label={"Phone Number"}
+                placeholder={"Retail"}
+              />
             </Grid>
             <Grid item xs={3}>
-              <Input label={"Role/Designation"} placeholder={"Start typing"} />
+              <Input
+                id="Role"
+                name="Role"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Role && errors.Role}
+                label={"Role/Designation"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={5}>
-              <Input label={"Email id"} placeholder={"Start typing"} />
+              <Input
+                id="Email"
+                name="Email"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Email && errors.Email}
+                label={"Email id"}
+                placeholder={"Start typing"}
+              />
             </Grid>
           </Grid>
         </form>
       </FormWrapper>
-        </>
-    );
+    </>
+  );
 }

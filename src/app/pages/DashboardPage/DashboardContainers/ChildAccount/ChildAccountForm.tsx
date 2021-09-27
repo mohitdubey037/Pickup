@@ -2,8 +2,37 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { FormWrapper } from "app/components/Input/style";
+import { RouteComponentProps } from "@reach/router";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import ChildAccountSchema from "./ChildAccountSchema";
 
-export default function ChildAccountForm() {
+export default function ChildAccountForm({ navigate }: RouteComponentProps) {
+  const dispatch = useDispatch();
+  const Confirm = () => {};
+  const {
+    handleChange,
+    values: { CompanyName },
+    errors,
+    touched,
+    handleBlur,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      CompanyName: "",
+      BusinessNumber: "",
+      Industry: "",
+      Employee: "",
+      AddressLine1: "",
+      AddressLine2: "",
+      Pincode: "",
+      Province: "",
+      City: "",
+      Country: "",
+    },
+    validationSchema: ChildAccountSchema,
+    onSubmit: Confirm,
+  });
   return (
     <>
       <FormWrapper>
@@ -16,40 +45,119 @@ export default function ChildAccountForm() {
           <Grid container spacing={3}>
             <Grid item xs={12}></Grid>
             <Grid item xs={3}>
-              <Input label={"Company Name"} placeholder={"Start typing"} />
+              <Input
+                id="CompanyName"
+                name="CompanyName"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.CompanyName && errors.CompanyName}
+                label={"Company Name"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={3}>
-              <Input label={"Business Number"} placeholder={"Start typing"} />
+              <Input
+                id="BusinessNumber"
+                name="BusinessNumber"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.BusinessNumber && errors.BusinessNumber}
+                label={"Business Number"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={3}>
-              <Input label={"Industry"} placeholder={"Retail"} />
+              <Input
+                id="Industry"
+                name="Industry"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Industry && errors.Industry}
+                label={"Industry"}
+                placeholder={"Retail"}
+              />
             </Grid>
             <Grid item xs={3}>
-              <Input label={"Employee"} placeholder={"Start typing"} />
+              <Input
+                id="Employee"
+                name="Employee"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Employee && errors.Employee}
+                label={"Employee"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={5}>
-              <Input label={"Address Line 1"} placeholder={"Start typing"} />
+              <Input
+                id="AddressLine1"
+                name="AddressLine1"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.AddressLine1 && errors.AddressLine1}
+                label={"Address Line 1"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={5}>
-              <Input label={"Address Line 2"} placeholder={"Start typing"} />
+              <Input
+                id="AddressLine2"
+                name="AddressLine2"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.AddressLine2 && errors.AddressLine2}
+                label={"Address Line 2"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={3}>
-              <Input label={"Pincode"} placeholder={"Start typing"} />
+              <Input
+                id="Pincode"
+                name="Pincode"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Pincode && errors.Pincode}
+                label={"Pincode"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={3}>
-              <Input label={"Province"} placeholder={"Start typing"} />
+              <Input
+                id="Province"
+                name="Province"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Province && errors.Province}
+                label={"Province"}
+                placeholder={"Start typing"}
+              />
             </Grid>
 
             <Grid item xs={3}>
-              <Input label={"City"} placeholder={"Start typing"} />
+              <Input
+                id="City"
+                name="City"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.City && errors.City}
+                label={"City"}
+                placeholder={"Start typing"}
+              />
             </Grid>
             <Grid item xs={3}>
-              <Input label={"Country"} placeholder={"Start typing"} />
+              <Input
+                id="Country"
+                name="Country"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Country && errors.Country}
+                label={"Country"}
+                placeholder={"Start typing"}
+              />
             </Grid>
           </Grid>
         </form>
       </FormWrapper>
-      
     </>
   );
 }
