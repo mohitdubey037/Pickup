@@ -57,7 +57,7 @@ useEffect(()=>{
                     label={""} 
                     onChange={(e:React.ChangeEvent<HTMLInputElement>)=>handleCheckboxClick(e,undefined,'header')}
                 />}
-              {Object.keys(data[0] as object).map((title,idx:number) => (
+              {!!data?.length && Object.keys(data[0] as object).map((title,idx:number) => (
                 <TableCell>{title}{filterColumns?.includes(idx) && <img src={sortBy} alt=''/>}</TableCell>
               ))}
             </TableRow>
