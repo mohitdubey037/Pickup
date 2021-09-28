@@ -13,9 +13,31 @@ import SingleSipmentForm from './SingleSipmentForm'
 import { CardDetails } from 'app/components/PaymentCardDetails';
 // import { mastercard } from 'app/assets/Images';
 import { masterCard } from "../../../../assets/Images/index";
+import { useFormik } from "formik";
+import { SingleShipmentFormSchema } from "./SingleShipmentFormSchema";
+import { Button } from "../../../../components/Buttons";
 
 function SingleShipment({path:string}) {
     const [drawerOpen, setDrawerOpen] = useState(false)
+    const formik = useFormik({
+        initialValues: {
+          companyName: "",
+          firstName: "",
+          lastName: "",
+          addressLine1: "",
+          addressLine2: "",
+          city: "",
+          postalCode: "",
+          provinceState: "",
+          country: "",
+          contactNumber: "",
+          alternateNumber: "",
+          emailAddress: "",
+          additionalNotes: "",
+        },
+        validationSchema: SingleShipmentFormSchema,
+        onSubmit: () => {},
+      });
     return (
         <ModuleContainer >
             <ContainerTitle>
@@ -26,8 +48,8 @@ function SingleShipment({path:string}) {
                     Address Details
                 </FormContainerTitle>
                 <div style={{ marginBottom: "30px" }}>
-                    <SingleSipmentForm title={"Origin"} />
-                    <SingleSipmentForm title={"Destination"} />
+                    <SingleSipmentForm title={"Origin"} formik = {formik}/>
+                    <SingleSipmentForm title={"Destination"} formik = {formik}/>
                 </div>
             </FormContainer>
             <FormContainer elevation={2}>
@@ -47,6 +69,7 @@ function SingleShipment({path:string}) {
             >
                 <CardDetails cardNumber = {"1234 5678 1234 3421"} nameOnCard = {"Deepak Pathak"} expiryDate = {new Date()} cardImage = {masterCard} cardType = {"Master Card"}/>
             </Drawer>
+            <Button label="Confirm Shipment" onClick={formik.handleSubmit} />
         </ModuleContainer >
     )
 }

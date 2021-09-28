@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { PHONE_NUMBER_REGX } from "../../../../constants";
 import { PHONE_NUMBER_REGX,PASSWORD_REGX } from "../../../../constants";
 
 export const signUpSchema = yup.object().shape({
