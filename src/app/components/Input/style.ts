@@ -1,12 +1,8 @@
+import { Paper } from "@material-ui/core";
 import styled from "styled-components";
 export const FormWrapper = styled.div`
  margin-top:20px;
- &>form{
-  &>div{
-    &>div{
-      width:311px
-    }
-  }
+ 
  }
  
 `;
@@ -14,8 +10,8 @@ export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  position:relative;
-  width:100%;
+  position: relative;
+  width: 100%;
   img {
     cursor: pointer;
     position: absolute;
@@ -38,13 +34,34 @@ export const CustomInput = styled.input`
   border: 1px solid #c4c4c4;
   border-radius: 4px;
   outline-style: none;
-  position:relative;
-  padding:0 5px;
+  position: relative;
+  padding: 0 5px;
   &::placeholder {
     color: #c4c4c4;
     font-size: 16px;
   }
+  background-color: ${(props: { disabled?: boolean }) =>
+    props.disabled ? "#c4c4c4" : "white"};
 `;
-export const ErrorLabel=styled.span`
-color:red;
+export const ErrorLabel = styled.span`
+  color: red;
+`;
+
+export const FullCard = styled(Paper)`
+width: 100%;
+padding: 20px;
+display: flex;
+justify-content: "flex-start";
+margin-top: ${(props: { marginBottom?: number }) => props.marginBottom || 20}px;
+`;
+
+export const Flex=styled.div`
+display:flex;
+flex-direction:${(props:{direction?:string})=>props.direction || 'row'};
+
+justify-content: ${(props:{direction?:string,justifyContent?:any})=>props.justifyContent};
+width:100%;
+ `
+export const Block=styled.div`
+display: block, text-align: start ;
 `

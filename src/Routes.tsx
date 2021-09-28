@@ -21,34 +21,43 @@ import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
 import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/SearchContainer";
 import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
+import PersonalProfileContainer from "app/pages/DashboardPage/DashboardContainers/PersonalProfileContainer/PersonalProfileContainer";
 import { PaymentsPage } from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer";
-
+import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers/CompanyProfileContainer/CompanyProfile";
+import AuthPages from "app/pages/AuthScreens";
+import ChildAccount from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccount"
+import FavoriteLocations from "app/pages/DashboardPage/DashboardContainers/FavoriteLocationsContainer";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
   });
   return (
-    
     <Router>
-      <SignUp path="/" />
-      <EmailSent path="/email-sent" />
-      <CompanyDetails path="/company-details/:userId" />
-      <Password path="/password" />
-      <Congratulations path="/congratulations" />
-      <SignIn path="/sign-in" />
-      <ForgotPassword path="/forgot-password" />
-      <MailSent path="/mail-sent" />
-      <RecoverPassword path="/recover-password" />
-      
+      <AuthPages path="/">
+        <SignIn path="/" />
+        <EmailSent path="/email-sent" />
+        <CompanyDetails path="/company-details/:userId" />
+        <Password path="/password" />
+        <Congratulations path="/congratulations" />
+        <SignUp path="/sign-up" />
+        <ForgotPassword path="/forgot-password" />
+        <MailSent path="/mail-sent" />
+        <RecoverPassword path="/recover-password" />
+      </AuthPages>
+
       <DashboardPage path="/dashboard">
-      <HelpContainer path="/my-account/help" />
+        <HelpContainer path="/my-account/help" />
+        <CompanyProfileContainer path="/my-account/company-profile" />
         <Dashboard path="/" />
         <SingleShipment path="/charter-shipment/single-shipment" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
+        <PaymentsPage path="/payments/cards" />
+        <PersonalProfileContainer path="my-account/personal-profile" />   
+        <ChildAccount path="my-account/child-account"/>
+        <FavoriteLocations path={'my-account/favourite-locations'}/>
+        <PaymentsPage path="/payments/cards" />
         <NotFoundPage default />
-        <PaymentsPage path="/payments/cards"/>
-        <NotFoundPage default/>
       </DashboardPage>
     </Router>
   );

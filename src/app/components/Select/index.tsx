@@ -13,10 +13,11 @@ interface SelectPropTypes {
   label: string
   options?: Array<SelectOption>
   value?:string | number
+  style?:React.CSSProperties
 }
 
 export default function Select(props: SelectPropTypes) {
-  const { label, value,options = [] } = props;
+  const { label, value,options = [],style } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -40,8 +41,9 @@ export default function Select(props: SelectPropTypes) {
         aria-describedby={id}
         //@ts-ignore
         onClick={handleClick}
-      >
-        <span  className={classes.placeholder}>
+        style={style}
+       >
+        <span  className={classes.placeholder}        >
           Select
         </span>
         <span  >

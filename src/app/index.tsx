@@ -3,9 +3,9 @@ import { Helmet } from "react-helmet-async";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import Routes from "Routes";
+import Routes from "../Routes";
 import { Provider } from "react-redux";
-import store, { persistor } from "store/configureStore";
+import store, { persistor } from "../store/configureStore";
 import 'react-toastify/dist/ReactToastify.css';
 import "./App.css"; 
 
@@ -22,7 +22,7 @@ export function App() {
       >
         <meta name="description" content="PickUps" />
       </Helmet>
-      <Provider store={store}>
+       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Routes />
         </PersistGate>

@@ -26,7 +26,7 @@ const MailSent = ({ navigate }: RouteComponentProps) => {
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi
               mollis tempus
             </p>
-            <RedLink label="Back to Login" link={() => navigate?.("/sign-in")} />
+            <RedLink label="Back to Login" link={() => navigate?.("/")} />
           </CenterContent>
         </FormContent>
       </FormWrapper>

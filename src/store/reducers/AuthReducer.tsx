@@ -1,14 +1,22 @@
-const initState = {
-  user: "",
+import { AuthUser } from "types";
+
+const initState: { user: AuthUser | null } = {
+  user: null,
 };
 
-export const auth  = (state = initState, action: any) => {
+export const auth = (state = initState, action: any) => {
   switch (action.type) {
-    case "Logged-in":
+    case "SET_LOGEDIN_USER":
       return {
         ...state,
-        user: "isAuthentic",
+        user: action.user,
       };
-      default : return state;
+    case "LOGOUT_USER":
+      return {
+        ...state,
+        user: null,
+      };
+    default:
+      return state;
   }
 };

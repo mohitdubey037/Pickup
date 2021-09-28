@@ -9,6 +9,7 @@ import {
 } from "../style";
 import { mailLogo } from "../../../assets/Icons";
 import { RedLink } from "../../../components/Typography/Typography";
+import { Center } from "app/components/Typography/style";
 
 const EmailSent = ({ navigate }: RouteComponentProps) => {
   return (
@@ -25,9 +26,9 @@ const EmailSent = ({ navigate }: RouteComponentProps) => {
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi
               mollis tempus
             </p>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <RedLink label="Back to Signup" link={() => navigate?.("/")} />
-            </div>
+            <Center>
+              <RedLink label="Back to Signup" link={() => navigate?.("/sign-up")} />
+            </Center>
           </CenterContent>
         </FormContent>
       </FormWrapper>

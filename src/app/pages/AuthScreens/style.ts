@@ -40,6 +40,12 @@ export const FormWrapper = styled.div`
     height: 148px;
     margin: 20px 0;
   }
+  ${(props: { isValidating?: boolean }) => {
+    return props.isValidating && `justify-content: center;
+    flex-direction: column;
+    display: flex;
+    align-items:center;`;
+  }}
 `;
 
 export const FormContent = styled.div`

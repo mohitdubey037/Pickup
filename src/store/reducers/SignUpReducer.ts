@@ -1,14 +1,40 @@
-import { REGISTER_USER_RESPONSE } from "./actions/actionTypes";
+import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
-  signUpResponse:{}
+  signUpResponse: {},
+  companyRegisterResponse: {},
+  passwordRegisterResponse: null,
 };
 
-export const signUp = (state = initialState, action: any) => {
-  switch (action.type) {
-    case REGISTER_USER_RESPONSE:
-      return { ...state, signUpResponse: action.res };
-    default:
-      return state;
-  }
+const { Types, Creators } = createActions({
+  registerUserResponse: ["res"],
+  registerUser: ["email"],
+  registerCompany: ["companyDetails"],
+  registerCompanyResponse: ["res"],
+  registerPassword: ["passwordRequest"],
+  registerPasswordResponse: ["res"],
+});
+export const onRegisterSuccess = (state = initialState, action) => ({
+  ...state,
+  signUpResponse: action.res,
+});
+
+export const onCompanyRegisterSuccess = (state = initialState, action) => ({
+  ...state,
+  companyRegisterResponse: action.res,
+});
+
+export const onRegisterPasswordSuccess = (state = initialState, action) => ({
+  ...state,
+  passwordRegisterResponse: action.res,
+});
+
+const HANDLERS = {
+  [Types.REGISTER_USER_RESPONSE]: onRegisterSuccess,
+  [Types.REGISTER_COMPANY_RESPONSE]: onCompanyRegisterSuccess,
+  [Types.REGISTER_PASSWORD_RESPONSE]: onRegisterPasswordSuccess,
 };
+
+const signUp = createReducer(initialState, HANDLERS);
+const actions = Creators;
+export { signUp, Types, actions, HANDLERS };

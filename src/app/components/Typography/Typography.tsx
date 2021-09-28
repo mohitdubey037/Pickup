@@ -26,5 +26,5 @@ export const ContainerTitle = (props) => {
 
 
 export const FormContainerTitle = (props) => {
-    return <ContainerTitleLabel>{props.children}</ContainerTitleLabel>
+    return <ContainerTitleLabel style={props.style}>{props.children}</ContainerTitleLabel>
 }

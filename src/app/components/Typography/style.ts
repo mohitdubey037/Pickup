@@ -1,6 +1,12 @@
 import { Typography } from "@material-ui/core";
 import styled from "styled-components";
 
+export const Center=styled.div`
+display: flex; 
+justify-content: center;
+`
+
+
 export const CustomRedLink = styled.div`
   cursor: pointer;
   color: #c94c43;

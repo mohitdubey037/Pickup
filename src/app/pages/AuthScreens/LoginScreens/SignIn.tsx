@@ -14,28 +14,51 @@ import {
   LoginLink,
   RememberDiv,
 } from "../style";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginSchema } from "./loginSchemas";
+import { actions } from "store/reducers/SignInReducer";
+import { useEffect } from "react";
 
 const SignIn = ({ navigate }: RouteComponentProps) => {
   const dispatch = useDispatch();
- 
-  const submitLogin = () => {
-     // dispatch({type:'Logged-in'});
+  const signInUserResponse = useSelector(
+    (state: {
+      signIn: { signInUserResponse: { status: number; data: { data: {} } } };
+    }) => state.signIn.signInUserResponse
+  );
+  const showLoader = useSelector(
+    (state: { globalState: { showLoader: boolean } }) =>
+      state.globalState.showLoader
+  );
+  useEffect(() => {
+    return () => {
+      dispatch(actions.signInUserResponse({}));
+    };
+  }, []);
+  useEffect(() => {
+    if (signInUserResponse.status === 200) {
+      dispatch({
+        type: "SET_LOGEDIN_USER",
+        user: signInUserResponse?.data?.data,
+      });
+      navigate?.("/dashboard");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [signInUserResponse?.status]);
+
+  const onSignIn = () => {
+    dispatch(
+      actions.signInUser({ email: values.email, password: values.password })
+    );
   };
-  const {
-    handleChange,
-    values: { email ,password},
-    errors,
-    touched,
-    handleBlur,
-    handleSubmit,
-  } = useFormik({
-    initialValues: { email: "", password: "" },
-    validationSchema: loginSchema,
-    onSubmit: submitLogin,
-  });
- 
+
+  const { handleChange, values, errors, touched, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: { email: "", password: "" },
+      validationSchema: loginSchema,
+      onSubmit: onSignIn,
+    });
+
   return (
     <LoginWrapper>
       <LogoImage />
@@ -43,33 +66,37 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
         <FormContent>
           <Header>SIGN IN</Header>
           <Input
-            id={'email'}
-            name={'email'}
+            id={"email"}
+            name={"email"}
             label="Email"
             placeholder={"Start typing"}
             onChange={handleChange}
-            error={errors.email}
-           />
+            onBlur={handleBlur}
+            error={touched.email && errors.email}
+          />
           <PasswordInput
-            label="Password"
-            id={'password'}
-            name={'password'}
             onChange={handleChange}
-            error={errors.password}
-
-
-           />
+            onBlur={handleBlur}
+            label="Password"
+            id={"password"}
+            name={"password"}
+            error={touched.password && errors.password}
+          />
           <RememberDiv>
-            <Checkbox label="Remember me" />
+            <Checkbox label="Remember me" isChecked={true} />
             <BlackLink
               label="Forgot my Password"
               link={() => navigate?.("/forgot-password")}
             />
           </RememberDiv>
-          <Button label="Sign In" onClick={handleSubmit} />
+          <Button
+            showLoader={showLoader}
+            label="Sign In"
+            onClick={handleSubmit}
+          />
           <LoginLink>
             Don't have an account?{" "}
-            <BlackLink label="Sign Up Here" link={() => navigate?.("/")} />
+            <BlackLink label="Sign Up Here" link={() => navigate?.("/sign-up")} />
           </LoginLink>
         </FormContent>
       </FormWrapper>

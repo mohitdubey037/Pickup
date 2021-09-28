@@ -13,7 +13,9 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { createReducer } from "./reducers";
 import { localStore } from "./reducers/LocalStoreReducer";
 import { signUp } from "./reducers/SignUpReducer";
-import rootSaga from "sagas";
+import rootSaga from "../sagas";
+import { signIn } from "./reducers/SignInReducer";
+import { globalState } from "./reducers/GlobalReducer";
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -31,13 +33,15 @@ export function configureAppStore() {
   ] as StoreEnhancer[];
   const persistConfig = {
     key: "root",
-    blacklist:['signUp'],
+    blacklist: ["signUp","signIn","globalState"],
     storage,
   };
   const rootReducer = combineReducers({
     auth: auth,
     localStore: localStore,
     signUp: signUp,
+    signIn:signIn,
+    globalState:globalState
   });
   const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -46,8 +50,7 @@ export function configureAppStore() {
     middleware: [...getDefaultMiddleware(), ...middlewares],
     devTools:
       /* istanbul ignore next line */
-      process.env.NODE_ENV !== "production" ||
-      process.env.PUBLIC_URL.length > 0,
+      process.env.NODE_ENV !== "production"  ,
     enhancers,
   });
   runSaga(rootSaga);

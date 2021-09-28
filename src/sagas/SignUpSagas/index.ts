@@ -1,24 +1,62 @@
-import { setRegisterUserResponse } from "./../../store/reducers/actions/signUpActions";
-import { REGISTER_COMPANY, REGISTER_USER } from "../../store/reducers/actions/actionTypes";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { registerUserService } from "./../../services/SignUpSerivces/index";
-import { showToast } from "utils";
+import {
+  registerCompanyService,
+  registerUserService,
+  registerPasswordService,
+} from "./../../services/SignUpSerivces/index";
+import { showToast } from "../../utils";
+import { Types, actions } from "../../store/reducers/SignUpReducer";
+import { globalActions } from "store/reducers/GlobalReducer";
 
 function* registerUserWorker(action) {
   try {
+    yield put(globalActions.showLoader(true));
     const res = yield call(registerUserService, action.email);
-    yield put(setRegisterUserResponse(res.data?.data));
-  } catch (err) {
+    yield put(actions.registerUserResponse(res.data?.data));
+    yield put(globalActions.showLoader(false));
+  } catch (err: any) {
+    yield put(globalActions.showLoader(false));
+
     showToast(err.message, "error");
   }
 }
 
-function* registerCompanyDetailsWorker(action) {}
+function* registerCompanyDetailsWorker(action) {
+  try {
+    yield put(globalActions.showLoader(true));
+
+    const res = yield call(registerCompanyService, action.companyDetails);
+    yield put(actions.registerCompanyResponse(res.data?.data));
+    yield put(globalActions.showLoader(false));
+  } catch (err: any) {
+    showToast(err.message, "error");
+    yield put(globalActions.showLoader(false));
+  }
+}
+
+function* registerPasswordWorker(action) {
+  try {
+    yield put(globalActions.showLoader(true));
+
+    const res = yield call(registerPasswordService, action.passwordRequest);
+    yield put(actions.registerPasswordResponse(res));
+    yield put(globalActions.showLoader(false));
+
+  } catch (err: any) {
+    showToast(err.message, "error");
+    yield put(globalActions.showLoader(false));
+
+  }
+}
 
 export function* registerUserWatcher() {
-  yield takeLatest(REGISTER_USER, registerUserWorker);
+  yield takeLatest(Types.REGISTER_USER, registerUserWorker);
 }
 
 export function* registerCompanyDetailsWatcher() {
-  yield takeLatest(REGISTER_COMPANY, registerCompanyDetailsWorker);
+  yield takeLatest(Types.REGISTER_COMPANY, registerCompanyDetailsWorker);
+}
+
+export function* registerPasswordWatcher() {
+  yield takeLatest(Types.REGISTER_PASSWORD, registerPasswordWorker);
 }
