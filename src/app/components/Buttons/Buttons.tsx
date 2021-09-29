@@ -30,6 +30,7 @@ const ThemeButton: React.FC<ButtonProps> = ({
         size={size}
         variant="contained"
         style={style}
+        secondary={secondary}
       >
         {showLoader ? <CircularProgress style={{color:'black'}}  /> : label}
       </CustomButton>

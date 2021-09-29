@@ -63,5 +63,6 @@ justify-content: ${(props:{direction?:string,justifyContent?:any})=>props.justif
 width:100%;
  `
 export const Block=styled.div`
-display: block, text-align: start ;
+display: block;
+ text-align: start ;
 `

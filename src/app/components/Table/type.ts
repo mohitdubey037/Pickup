@@ -9,4 +9,5 @@ export interface TableProps{
     perPageRows?:number;
     selectedItems?:Array<unknown>;
     getSelectedItems?:(rows:Array<unknown>)=>void;
+    onRowSelect?:Function
 }
