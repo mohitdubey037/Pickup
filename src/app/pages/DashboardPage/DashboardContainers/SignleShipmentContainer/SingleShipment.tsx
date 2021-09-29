@@ -21,6 +21,7 @@ import { SingleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import { Button } from "../../../../components/Buttons";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SingleShipmentReducer";
+import { singleShipmentInitValues } from "./helper";
 
 function SingleShipment({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -30,27 +31,11 @@ function SingleShipment({ path: string }) {
   );
   const dispatch = useDispatch();
 
-  
-console.log(singleShipmentResponse)
-  const formik = useFormik({
-    initialValues: {
-      companyName: "",
-      firstName: "",
-      lastName: "",
-      addressLine1: "",
-      addressLine2: "",
-      city: "",
-      postalCode: "",
-      provinceState: "",
-      country: "",
-      contactNumber: "",
-      alternateNumber: "",
-      emailAddress: "",
-      additionalNotes: "",
-    },
-    // validationSchema: SingleShipmentFormSchema,
+   const formik = useFormik({
+    initialValues:  singleShipmentInitValues,
+    validationSchema: SingleShipmentFormSchema,
     onSubmit: () => {
-      dispatch(actions.submitSingleShipment({ id: "2" }));
+      dispatch(actions.submitSingleShipment(formik.values));
     },
   });
   return (

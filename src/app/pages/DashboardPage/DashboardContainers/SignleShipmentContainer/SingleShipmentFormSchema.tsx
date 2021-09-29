@@ -2,23 +2,48 @@ import * as yup from "yup";
 import { PHONE_NUMBER_REGX } from "../../../../../constants";
 
 export const SingleShipmentFormSchema = yup.object().shape({
-  companyName: yup.string().required(),
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  addressLine1: yup.string().required(),
-  addressLine2: yup.string().required(),
-  city: yup.string().required(),
-  postalCode: yup.string().required(),
-  provinceState: yup.string().required(),
-  country: yup.string().required(),
-  contactNumber: yup
+  OrigincompanyName: yup.string().required(),
+  OriginfirstName: yup.string().required(),
+  OriginlastName: yup.string().required(),
+  OriginaddressLine1: yup.string().required(),
+  OriginaddressLine2: yup.string().required(),
+  Origincity: yup.string().required(),
+  OriginpostalCode: yup.string().required(),
+  OriginprovinceState: yup.string().required(),
+  Origincountry: yup.string().required(),
+  OrigincontactNumber: yup
     .string()
     .required()
     .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
-  alternateNumber: yup
+  OriginalternateNumber: yup
     .string()
     .required()
     .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
-  emailAddress: yup.string().required().email(),
-  additionalNotes: yup.string().required(),
+  OriginemailAddress: yup.string().required().email(),
+  OriginadditionalNotes: yup.string().required(),
+
+
+
+  DestinationcompanyName: yup.string().required(),
+  DestinationfirstName: yup.string().required(),
+  DestinationlastName: yup.string().required(),
+  DestinationaddressLine1: yup.string().required(),
+  DestinationaddressLine2: yup.string().required(),
+  Destinationcity: yup.string().required(),
+  DestinationpostalCode: yup.string().required(),
+  DestinationprovinceState: yup.string().required(),
+  Destinationcountry: yup.string().required(),
+  DestinationcontactNumber: yup
+    .string()
+    .required()
+    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+  DestinationalternateNumber: yup
+    .string()
+    .required()
+    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+  DestinationemailAddress: yup.string().required().email(),
+  DestinationadditionalNotes: yup.string().required(),
+
+
 });
+

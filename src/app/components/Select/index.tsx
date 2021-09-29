@@ -1,25 +1,28 @@
-
-import React from 'react';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import { SelectContainer, ComponentContainer,useStyles } from './style'
-
+import React from "react";
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import { SelectContainer, ComponentContainer, useStyles } from "./style";
 
 interface SelectOption {
-  value: string | number
-  label: string
+  value: string | number;
+  label: string;
 }
 interface SelectPropTypes {
-  label: string
-  options?: Array<SelectOption>
-  value?:string | number
-  style?:React.CSSProperties
+  label?: string;
+  options?: Array<SelectOption>;
+  value?: string | number;
+  style?: React.CSSProperties;
+  onSelect?: Function;
+  id?: string;
+  name?: string;
 }
 
 export default function Select(props: SelectPropTypes) {
-  const { label, value,options = [],style } = props;
+  const { label, id, name, onSelect, value, options = [], style } = props;
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -30,45 +33,56 @@ export default function Select(props: SelectPropTypes) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const parentId = open ? "simple-popover" : undefined;
+  const valueLabel = value
+    ? options.find((i) => i.value === value)?.label
+    : "Select";
 
   return (
     <ComponentContainer>
-      <span>
-        {label||value}
-      </span>
+      <span>{label}</span>
       <SelectContainer
-        aria-describedby={id}
+        aria-describedby={parentId}
         //@ts-ignore
         onClick={handleClick}
         style={style}
-       >
-        <span  className={classes.placeholder}        >
-          Select
+      >
+        <span
+          className={classes.placeholder}
+          style={{ color: value ? "black" : "" }}
+        >
+          {valueLabel}
         </span>
-        <span  >
-          &#8964;
-        </span>
+        <span>&#8964;</span>
       </SelectContainer>
       <Popover
-        id={id}
+        id={parentId}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
+          vertical: "bottom",
+          horizontal: "center",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
+          vertical: "top",
+          horizontal: "center",
         }}
       >
-        {options.map((option) =>
-          <Typography className={classes.typography} key={option.value}>{option.label}</Typography>
-        )}
+        {options.map((option) => (
+          <Typography
+            onClick={() => {
+              handleClose();
+              onSelect &&
+                onSelect({ target: { value: option.value, id, name } });
+            }}
+            className={classes.typography}
+            key={option.value}
+          >
+            {option.label}
+          </Typography>
+        ))}
       </Popover>
-
     </ComponentContainer>
   );
 }
