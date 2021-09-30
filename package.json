@@ -28,7 +28,8 @@
   "scripts": {
     "// ---DEFAULT CRA---": "",
     "start": "react-scripts start",
-    "deploy:staging": "aws s3 sync build/ s3://rentpanda-staging --profile pickups",
+     "deploy-staging": "aws s3 sync build/ s3://pickup-staging-admin --profile pickups && aws cloudfront create-invalidation --distribution-id E16RBASFJGXWBH --paths /* --profile pickups",
+     
 
     "build": "react-scripts build",
     "test": "react-scripts test",
