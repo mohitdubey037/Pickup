@@ -9,10 +9,10 @@ align-items: flex-start;
 `
 
 export const SelectContainer = styled.div`
-width:300px;
-     align-items: flex-start !important;
+    width:300px;
+    align-items: flex-start !important;
     display: flex !important;
-    padding: 10px !important;
+    padding: 4px !important;
     border-radius: 4px !important;
     border: 1px solid #C4C4C4 !important;
     cursor:pointer !important;

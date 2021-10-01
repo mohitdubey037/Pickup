@@ -49,7 +49,7 @@ export default function Select(props: SelectPropTypes) {
       >
         <span
           className={classes.placeholder}
-          style={{ color: value ? "black" : "" }}
+          style={{ color: value ? "black" : "",marginLeft:5 }}
         >
           {valueLabel}
         </span>
@@ -62,12 +62,14 @@ export default function Select(props: SelectPropTypes) {
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "center",
+          horizontal: "left",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "center",
+          horizontal: "left",
         }}
+        style={{ width: 400 }}
+        PaperProps={{ style: { width: '100%' } }}
       >
         {options.map((option) => (
           <Typography
@@ -78,6 +80,7 @@ export default function Select(props: SelectPropTypes) {
             }}
             className={classes.typography}
             key={option.value}
+            style={{cursor:'pointer'}}
           >
             {option.label}
           </Typography>
