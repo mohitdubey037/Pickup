@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { singleShipmentInitValues } from "./helper";
 import { Flex } from "app/components/Input/style";
+import ScheduleShipmentForm from "./ScheduleShipmentForm";
 
 function SingleShipment({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -53,6 +54,13 @@ function SingleShipment({ path: string }) {
         <FormContainerTitle>Shipment Details</FormContainerTitle>
         <SingleShipmentDetails />
       </FormContainer>
+
+      <FormContainer elevation={2} >
+        <FormContainerTitle>Schedule Shipment</FormContainerTitle>
+        <ScheduleShipmentForm />
+      </FormContainer>
+
+
       <Drawer
         open={drawerOpen}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}

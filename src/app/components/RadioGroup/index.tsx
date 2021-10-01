@@ -33,7 +33,7 @@ function RadioGroup({
     <Flex direction={"column"} style={{ alignItems: "start" }}>
       <CustomLabel>{label}</CustomLabel>
       <Flex style={{ alignItems: "center" }}>
-        <Flex left={10}>
+        <Flex  >
           <RadioGroupComponent
             aria-label={ariaLabel || "radio"}
             defaultValue={defaultValue}
