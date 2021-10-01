@@ -21,7 +21,7 @@ export const SelectContainer = styled.div`
     cursor:pointer !important;
     align-items: baseline !important;
     font-size: 20px !important;
-}
+ }
 `
 
 

@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
+import { Radio as RadioComponent } from "@material-ui/core";
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -7,8 +8,8 @@ type InputProps = React.DetailedHTMLProps<
 >;
 
 interface Props extends InputProps {
-  id: string;
-  label: string;
+  id?: string;
+  label?: string;
   className?: string;
   isSelected?: boolean;
 }
@@ -17,8 +18,8 @@ export const Radio = memo(
   ({ id, label, className, isSelected, ...restOf }: Props) => {
     return (
       <Wrapper className={className}>
-        <input type="radio" id={id} checked={isSelected} {...restOf} />
-        <label htmlFor={id}>{label}</label>
+           <RadioComponent  checked={true}   />
+
       </Wrapper>
     );
   },

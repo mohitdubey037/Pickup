@@ -9,7 +9,7 @@ interface ButtonProps {
   secondary?: boolean;
   disabled?: boolean;
   showLoader?: boolean;
-  style?:React.CSSProperties
+  style?: React.CSSProperties;
 }
 
 const ThemeButton: React.FC<ButtonProps> = ({
@@ -19,20 +19,20 @@ const ThemeButton: React.FC<ButtonProps> = ({
   size = "medium",
   disabled,
   showLoader,
-  style
+  style,
 }) => {
   return (
     <>
       <CustomButton
         disabled={disabled || showLoader}
-        color={secondary ? "secondary" : "primary"}
+        color={secondary ? "inherit" : "primary"}
         onClick={onClick}
         size={size}
         variant="contained"
-        style={style}
+        style={{ ...style, backgroundColor: secondary ? "white" : "" }}
         secondary={secondary}
       >
-        {showLoader ? <CircularProgress style={{color:'black'}}  /> : label}
+        {showLoader ? <CircularProgress style={{ color: "black" }} /> : label}
       </CustomButton>
     </>
   );

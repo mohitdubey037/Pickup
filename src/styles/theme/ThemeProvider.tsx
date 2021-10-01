@@ -8,7 +8,8 @@ const outerTheme = createTheme({
       main: "#FECE3E",
     },
     secondary: {
-      main: '#ffffff',
+      main: '#000000',
+      light:'#ffffff'
     },
   },
 });
