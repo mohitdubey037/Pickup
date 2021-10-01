@@ -25,7 +25,7 @@ const DropZone = ({ onDrop, isError, inProgress }: DropZoneProps) => {
                 <div {...getRootProps()}>
                   <input {...getInputProps()} />
                   <DropText>
-                    Drag and drop files or <a>Click Here</a> to select a file
+                    Drag and drop files or <a style={{cursor:'pointer'}}>Click Here</a> to select a file
                   </DropText>
                 </div>
                 <HelperText>Files accepted CSV, XLS</HelperText>

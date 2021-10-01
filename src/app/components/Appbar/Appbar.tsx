@@ -43,8 +43,8 @@ export default function Appbar() {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <MainAppBar elevation={0} position="static">
-      <AppbarContainer>
+    <   >
+      <AppbarContainer >
         <img style={{ width: "1.5rem", cursor: "pointer" }} src={settings} />
         <div style={{ textAlign: "right", marginLeft: "1rem" }}>
           <h5 style={{ margin: 0 }}>{user?.firstName}</h5>
@@ -79,6 +79,6 @@ export default function Appbar() {
           onClick={handleClick}
         />
       </AppbarContainer>
-    </MainAppBar>
+    </ >
   );
 }
