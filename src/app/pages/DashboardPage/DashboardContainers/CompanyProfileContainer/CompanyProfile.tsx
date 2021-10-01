@@ -52,7 +52,7 @@ export default function CompanyProfile({ path: string }) {
       />
       <PersonalProfile
       profile={{
-        avatar:'string',
+        avatar:'https://i.pravatar.cc/300',
              firstName:"John",
             lastName :"jeo",
             phoneNumber: '9876543215',
