@@ -26,6 +26,7 @@ import { PaymentsPage } from "app/pages/DashboardPage/DashboardContainers/Paymen
 import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers/CompanyProfileContainer/CompanyProfile";
 import AuthPages from "app/pages/AuthScreens";
 import ChildAccount from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccount"
+import OnHoldShipmentContainer from "app/pages/DashboardPage/DashboardContainers/OnHoldShipment/OnHoldShipment"
 import FavoriteLocations from "app/pages/DashboardPage/DashboardContainers/FavoriteLocationsContainer";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
@@ -57,6 +58,7 @@ const Routes = () => {
         <ChildAccount path="my-account/child-account"/>
         <FavoriteLocations path={'my-account/favourite-locations'}/>
         <PaymentsPage path="/payments/cards" />
+        <OnHoldShipmentContainer path= "/holding-zone" />
         <NotFoundPage default />
       </DashboardPage>
     </Router>
