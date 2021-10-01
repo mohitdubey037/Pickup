@@ -13,4 +13,6 @@ export const AppbarContainer = styled.div`
   width: 100%;
   align-items: center;
   border-bottom: 1px solid #DDDDDD;
+  background-color:white;
+  border-top-left-radius: 30px;
 `

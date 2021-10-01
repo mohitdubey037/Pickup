@@ -9,6 +9,18 @@ export const LeftDashboardWrapper = styled.div`
   height: 100vh;
 `;
 
+
+export const DashboardRightWrapper=styled.div`
+background-color: #FAFAFA;
+position : absolute;
+zIndex : 111;
+right : 0;
+width : 84%;
+border-top-left-radius: 40;
+
+`
+
+
 export const RightDashboardWrapper = styled.div`
   flex: 1;
  `;

@@ -44,7 +44,7 @@ export default function Appbar() {
 
   return (
     <   >
-      <AppbarContainer >
+      <AppbarContainer  >
         <img style={{ width: "1.5rem", cursor: "pointer" }} src={settings} />
         <div style={{ textAlign: "right", marginLeft: "1rem" }}>
           <h5 style={{ margin: 0 }}>{user?.firstName}</h5>
