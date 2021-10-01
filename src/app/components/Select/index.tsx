@@ -39,8 +39,8 @@ export default function Select(props: SelectPropTypes) {
     : "Select";
 
   return (
-    <ComponentContainer>
-      <span>{label}</span>
+    <ComponentContainer style={{ width:'100%'}} >
+      <Typography style={{marginBottom:2}}>{label}</Typography>
       <SelectContainer
         aria-describedby={parentId}
         //@ts-ignore

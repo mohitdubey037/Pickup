@@ -13,4 +13,6 @@ export interface InputProps {
   disabled?: boolean;
   width?: number;
   style?: React.CSSProperties;
+  inputStyles?:React.CSSProperties;
+  type?: 'text' | 'textarea'
 }

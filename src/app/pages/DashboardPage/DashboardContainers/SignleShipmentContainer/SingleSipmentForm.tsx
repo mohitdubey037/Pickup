@@ -17,12 +17,12 @@ function SingleSipmentForm({ title, formik }) {
     handleSubmit,
   } = formik;
   return (
-    <FormWrapper>
+    <FormWrapper style={{paddingRight:35}}>
       <form>
         <Typography className="typography" variant="h1" component="h3">
           {title}
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} style={{marginRight:30}}>
           <Grid item xs={12}>
             <div className="div_select">
               <label htmlFor="cars">Location type</label>

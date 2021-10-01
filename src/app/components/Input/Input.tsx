@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { CustomInput, CustomLabel, ErrorLabel, InputWrapper } from "./style";
+import {
+  CustomInput,
+  CustomInputTextArea,
+  CustomLabel,
+  ErrorLabel,
+  InputWrapper,
+} from "./style";
 import { InputProps } from "./type";
 
 const Input: React.FC<InputProps> = ({
@@ -13,8 +19,10 @@ const Input: React.FC<InputProps> = ({
   onBlur,
   disabled,
   width,
-  style
- }) => {
+  style,
+  inputStyles,
+  type,
+}) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -29,15 +37,30 @@ const Input: React.FC<InputProps> = ({
   return (
     <InputWrapper style={style}>
       <CustomLabel>{label} </CustomLabel>
-      <CustomInput
-        placeholder={placeholder}
-        onChange={onChangeHandler}
-        onBlur={onBlur}
-        value={value}
-        id={id}
-        name={name}
-        disabled={disabled}
-      />
+
+      {type === "textarea" ? (
+        <CustomInputTextArea
+          placeholder={placeholder}
+          onChange={onChangeHandler}
+          onBlur={onBlur}
+          value={value}
+          id={id}
+          name={name}
+          disabled={disabled}
+          style={inputStyles}
+        />
+      ) : (
+        <CustomInput
+          placeholder={placeholder}
+          onChange={onChangeHandler}
+          onBlur={onBlur}
+          value={value}
+          id={id}
+          name={name}
+          disabled={disabled}
+          style={inputStyles}
+        />
+      )}
       {!!error && <ErrorLabel>{error}</ErrorLabel>}
     </InputWrapper>
   );

@@ -2,8 +2,8 @@ import { Paper } from "@material-ui/core";
 import styled from "styled-components";
 export const FormWrapper = styled.div`
  margin-top:20px;
- 
- }
+ width: 97%;
+  }
  
 `;
 export const InputWrapper = styled.div`
@@ -43,6 +43,25 @@ export const CustomInput = styled.input`
   background-color: ${(props: { disabled?: boolean }) =>
     props.disabled ? "#c4c4c4" : "white"};
 `;
+
+export const CustomInputTextArea = styled.textarea`
+  height: 154px;
+  width: 100%;
+  border: 1px solid #c4c4c4;
+  border-radius: 4px;
+  outline-style: none;
+  position: relative;
+  padding: 10px 5px;
+  
+  &::placeholder {
+    color: #c4c4c4;
+    font-size: 16px;
+  }
+  background-color: ${(props: { disabled?: boolean }) =>
+    props.disabled ? "#c4c4c4" : "white"};
+`;
+
+
 export const ErrorLabel = styled.span`
   color: red;
 `;

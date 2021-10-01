@@ -22,6 +22,7 @@ import { Button } from "../../../../components/Buttons";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { singleShipmentInitValues } from "./helper";
+import { Flex } from "app/components/Input/style";
 
 function SingleShipment({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -31,8 +32,8 @@ function SingleShipment({ path: string }) {
   );
   const dispatch = useDispatch();
 
-   const formik = useFormik({
-    initialValues:  singleShipmentInitValues,
+  const formik = useFormik({
+    initialValues: singleShipmentInitValues,
     validationSchema: SingleShipmentFormSchema,
     onSubmit: () => {
       dispatch(actions.submitSingleShipment(formik.values));
@@ -48,7 +49,7 @@ function SingleShipment({ path: string }) {
           <SingleSipmentForm title={"Destination"} formik={formik} />
         </div>
       </FormContainer>
-      <FormContainer elevation={2}>
+      <FormContainer elevation={2} >
         <FormContainerTitle>Shipment Details</FormContainerTitle>
         <SingleShipmentDetails />
       </FormContainer>
@@ -69,7 +70,18 @@ function SingleShipment({ path: string }) {
           cardType={"Master Card"}
         />
       </Drawer>
-      <Button label="Confirm Shipment" onClick={formik.handleSubmit} />
+      <Flex style={{ marginTop: 20 }} direction={"row-reverse"}>
+        <Button
+          style={{ width: 190 }}
+          label="Confirm Shipment"
+          onClick={formik.handleSubmit}
+        />
+        <Button
+          style={{ width: 190, marginRight: 20 }}
+          secondary
+          label="Add New Shipment"
+        />
+      </Flex>
     </ModuleContainer>
   );
 }

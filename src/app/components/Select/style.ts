@@ -5,11 +5,14 @@ import styled from "styled-components";
 
 export const ComponentContainer = styled.div`
 align-items: flex-start;
-    display: contents;
+display: flex;
+flex-direction: column;
+
 `
 
 export const SelectContainer = styled.div`
-    width:300px;
+    width: 100%;
+    height: 35px;
     align-items: flex-start !important;
     display: flex !important;
     padding: 4px !important;

@@ -13,7 +13,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
       <OnHoldTableTop>
         <p>{OnHoldTable.length} Shipments</p>
         <div>
-          <Button label="Delete" onClick={() => {}} />
+          <Button label="Delete" secondary={true} onClick={() => {}} style={{borderColor:'#C94C43',color:'#C94C43'}} />
           <Button label="Edit" onClick={() => {}} />
           <img src={dots3} alt="" />
         </div>
