@@ -13,6 +13,8 @@ export const CustomButton = styled(Button)`
     text-transform: none;
     padding: 1rem;
     font-weight: 600;
+    border: ${(props:{secondary?:boolean})=>props.secondary && '1px solid' };
+
   }
-`;
+ `;
 

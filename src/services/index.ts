@@ -1,12 +1,12 @@
 import axios from "axios";
-import { BASE_URL ,USER_BASE_URL} from "../constants";
-type RequestType=null | undefined | string
+import { BASE_URL, USER_BASE_URL } from "../constants";
+type RequestType = null | undefined | string;
 class Serivce {
-  get = async (url: string,type?:RequestType) => {
+  get = async (url: string, type?: RequestType) => {
     return new Promise((resolve, reject) => {
       try {
         axios
-          .get(`${type ?USER_BASE_URL: BASE_URL}${url}`)
+          .get(`${type ? USER_BASE_URL : BASE_URL}${url}`)
           .then((res) => {
             return resolve({ data: res.data, status: res.status });
           })
@@ -15,7 +15,7 @@ class Serivce {
               const errResponse = err.response;
               return reject({
                 status: errResponse.status,
-                message: errResponse?.data?.message,
+                message: errResponse?.data?.message || errResponse?.message,
               });
             }
           });
@@ -25,20 +25,23 @@ class Serivce {
     });
   };
 
-  post = (url: string, params: {}, type?:RequestType) => {
+  post = (url: string, params: {}, type?: RequestType) => {
     return new Promise((resolve, reject) => {
-       try {
+      try {
         axios
-          .post(`${type ?USER_BASE_URL: BASE_URL}${url}`, { ...params })
+          .post(`${type ? USER_BASE_URL : BASE_URL}${url}`, { ...params })
           .then((res) => {
-             return resolve({ data: res.data, status: res.status });
+            return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
+            console.log({ err });
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               return reject({
                 status: errResponse.status,
-                message: errResponse?.data?.message,
+                message: errResponse?.data?.message.message
+                  ? errResponse?.data?.message.message
+                  : errResponse?.data?.message,
               });
             }
           });
@@ -47,6 +50,5 @@ class Serivce {
       }
     });
   };
- 
 }
 export default new Serivce();

@@ -27,6 +27,7 @@ import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers
 import AuthPages from "app/pages/AuthScreens";
 import ChildAccount from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccount"
 import OnHoldShipmentContainer from "app/pages/DashboardPage/DashboardContainers/OnHoldShipment/OnHoldShipment"
+import FavoriteLocations from "app/pages/DashboardPage/DashboardContainers/FavoriteLocationsContainer";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
@@ -55,7 +56,7 @@ const Routes = () => {
         <PaymentsPage path="/payments/cards" />
         <PersonalProfileContainer path="my-account/personal-profile" />   
         <ChildAccount path="my-account/child-account"/>
-        <NotFoundPage default />
+        <FavoriteLocations path={'my-account/favourite-locations'}/>
         <PaymentsPage path="/payments/cards" />
         <OnHoldShipmentContainer path= "/holding-zone" />
         <NotFoundPage default />

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const CustomDrawer = styled(Drawer)`
     div.MuiDrawer-paper{
-        width: 40%;
+        overflow-x: hidden;
     }
 `
 
@@ -13,8 +13,7 @@ export const DrawerTitleDiv = styled.div`
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #DDDDDD;
-    width: 100%;
-`
+ `
 
 
 export const DrawerContent = styled.div`
@@ -28,8 +27,7 @@ export const DrawerFooter = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    div{
+     div{
         width: 30%;
         button{
             padding: 0.5rem !important;
