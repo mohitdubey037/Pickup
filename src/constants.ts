@@ -10,3 +10,16 @@ export const LOCATION_TYPES = [
   { label: "COMMERCIAL", value: 2 },
   { label: "RETAIL", value: 3 },
 ];
+export const WEIGHTDIMENSION = [
+  
+  {label: "KG" ,value: 14},
+  {label: "POUND",value: 15},
+];
+
+
+ export const DIMENSION2 = [
+  {label:"INCH",value:12},
+  {label:"CM",value:13}
+];
+
+
