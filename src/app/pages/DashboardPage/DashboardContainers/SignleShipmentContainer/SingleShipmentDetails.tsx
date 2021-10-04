@@ -6,8 +6,23 @@ import { Flex } from "app/components/Input/style";
 import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
-
-function SingleShipmentDetails() {
+import { useFormik } from "formik";
+import { FormikValues } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "store/reducers/SingleShipmentReducer";
+ import SingleShipmentDetailSchema from "./SingleShipmentDetailsSchema"
+import { singleShipmentDetailsInitValues } from "./helperDetails";
+function SingleShipmentDetails(props: { formik: FormikValues }) {
+  const { handleChange, errors, touched, handleBlur, handleSubmit } =
+    props.formik;
+    const dispatch = useDispatch();
+    const formik = useFormik({
+      initialValues: singleShipmentDetailsInitValues,
+      validationSchema: SingleShipmentDetailSchema,
+      onSubmit: () => {
+        dispatch(actions.submitSingleShipment(formik.values));
+      },
+    });
   return (
     <FormWrapper>
       <Typography className="typography" variant="h1" component="h3">
@@ -16,7 +31,15 @@ function SingleShipmentDetails() {
       <Flex direction={"column"}>
         <Flex top={20}>
           <Flex flex={1}>
-            <CustomInput label={"Category"} placeholder={"Start typing"} />
+            <CustomInput
+              id="Category"
+              name="Category"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.Category && errors.Category}
+              label={"Category"}
+              placeholder={"Start typing"}
+            />
           </Flex>
           <Flex flex={1} left={30}>
             <Select label={"Customer Reference Number"} />
@@ -26,6 +49,11 @@ function SingleShipmentDetails() {
           <Flex flex={1}>
             <Flex flex={1}>
               <CustomInput
+                id="ShipmentWeight"
+                name="ShipmentWeight"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.ShipmentWeight && errors.ShipmentWeight}
                 label={"Shipment Weight"}
                 placeholder={"Start typing"}
               />
@@ -41,13 +69,37 @@ function SingleShipmentDetails() {
 
           <Flex flex={1} left={30}>
             <Flex flex={1}>
-              <CustomInput label={"Length"} placeholder={"Start typing"} />
+              <CustomInput
+                id="Length"
+                name="Length"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Length && errors.Length}
+                label={"Length"}
+                placeholder={"Start typing"}
+              />
             </Flex>
             <Flex flex={1} left={30}>
-              <CustomInput label={"Width"} placeholder={"Start typing"} />
+              <CustomInput
+                id="Width"
+                name="Width"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Width && errors.Width}
+                label={"Width"}
+                placeholder={"Start typing"}
+              />
             </Flex>
             <Flex flex={1} left={30}>
-              <CustomInput label={"Height"} placeholder={"Start typing"} />
+              <CustomInput
+                id="Height"
+                name="Height"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={touched.Height && errors.Height}
+                label={"Height"}
+                placeholder={"Start typing"}
+              />
             </Flex>
             <Flex flex={1} left={30}>
               <Select
@@ -60,14 +112,38 @@ function SingleShipmentDetails() {
         </Flex>
         <Flex top={20}>
           <Flex flex={1}>
-            <CustomInput label={"Pieces"} placeholder={"Start typing"} />
+            <CustomInput
+              id="Pieces"
+              name="Pieces"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.Pieces && errors.Pieces}
+              label={"Pieces"}
+              placeholder={"Start typing"}
+            />
           </Flex>
           <Flex flex={1} left={30}>
-            <CustomInput label={"Shipment Cost"} placeholder={"Start typing"} />
+            <CustomInput
+              id="ShipmentCost"
+              name="ShipmentCost"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.ShipmentCost && errors.ShipmentCost}
+              label={"Shipment Cost"}
+              placeholder={"Start typing"}
+            />
           </Flex>
         </Flex>
         <Flex top={20}>
-          <CustomInput label={"Pieces"} placeholder={"Start typing"} />
+          <CustomInput
+            id="Pieces"
+            name="Pieces"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={touched.Pieces && errors.Pieces}
+            label={"Pieces"}
+            placeholder={"Start typing"}
+          />
         </Flex>
 
         <Flex top={20}>
@@ -92,6 +168,11 @@ function SingleShipmentDetails() {
 
         <Flex top={20}>
           <CustomInput
+            id="ShipmentDescription"
+            name="ShipmentDescription"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={touched.ShipmentDescription && errors.ShipmentDescription}
             label={"Shipment Description"}
             placeholder={"Start typing"}
             type={"textarea"}
