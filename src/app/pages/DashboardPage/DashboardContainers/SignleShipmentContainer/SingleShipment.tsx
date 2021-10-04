@@ -26,6 +26,7 @@ import { Flex } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 
 function SingleShipment({ path: string }) {
+  
   const [drawerOpen, setDrawerOpen] = useState(false);
   const singleShipmentResponse = useSelector(
     (state: { singleShipment: { singleShipmentResponse: {} } }) =>
@@ -52,7 +53,7 @@ function SingleShipment({ path: string }) {
       </FormContainer>
       <FormContainer elevation={2} >
         <FormContainerTitle>Shipment Details</FormContainerTitle>
-        <SingleShipmentDetails />
+        <SingleShipmentDetails formik={formik} />
       </FormContainer>
 
       <FormContainer elevation={2} >
