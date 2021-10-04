@@ -1,0 +1,130 @@
+import { FormikValues, Field } from "formik";
+import { Typography } from "@material-ui/core";
+import AddItemLabel from "app/components/AddItemLabel";
+import { Flex } from "app/components/Input/style";
+import RadioGroup from "app/components/RadioGroup";
+import Select from "app/components/Select";
+import { CustomInput } from "../CompanyProfileContainer/style";
+
+function DetailsFormItem(props: { formik: FormikValues; index: number }) {
+  const { handleChange, errors, touched, handleBlur, handleSubmit } =
+    props.formik;
+  const { index } = props;
+  const formItem = `shipementDeatials.${index}`;
+  const errorItem = errors.shipementDeatials && errors.shipementDeatials[index];
+  const toucherItem =
+    touched.shipementDeatials && touched.shipementDeatials[index];
+  return (
+    <>
+      <Typography
+        className="typography"
+        variant="h1"
+        component="h3"
+      ></Typography>
+      <Flex direction={"column"}>
+        <Flex top={20}>
+          <Flex flex={1}>
+            <Flex flex={1}>
+              <CustomInput
+                name={`${formItem}.ShipmentWeight`}
+                id={`${formItem}.ShipmentWeight`}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={toucherItem?.ShipmentWeight && errorItem?.ShipmentWeight}
+                label={"Shipment Weight"}
+                placeholder={"Start typing"}
+              />
+            </Flex>
+            <Flex flex={1} left={30}>
+              <Select
+                label={"Unit"}
+                id={"locationType"}
+                name={"locationType"}
+              />
+            </Flex>
+          </Flex>
+
+          <Flex flex={1} left={30}>
+            <Flex flex={1}>
+              <CustomInput
+                id={`${formItem}.Length`}
+                name={`${formItem}.Length`}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={toucherItem?.Length && errorItem?.Length}
+                label={"Length"}
+                placeholder={"Start typing"}
+              />
+            </Flex>
+            <Flex flex={1} left={30}>
+              <CustomInput
+                id={`${formItem}.Width`}
+                name={`${formItem}.Width`}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={toucherItem?.Width && errorItem?.Width}
+                label={"Width"}
+                placeholder={"Start typing"}
+              />
+            </Flex>
+            <Flex flex={1} left={30}>
+              <CustomInput
+                id={`${formItem}.Height`}
+                name={`${formItem}.Height`}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={toucherItem?.Height && errorItem?.Height}
+                label={"Height"}
+                placeholder={"Start typing"}
+              />
+            </Flex>
+            <Flex flex={1} left={30}>
+              <Select
+                id={"locationType"}
+                name={"locationType"}
+                label={"Unit"}
+              />
+            </Flex>
+          </Flex>
+        </Flex>
+        <Flex top={20}>
+          <Flex flex={1}>
+            <CustomInput
+              id={`${formItem}.Pieces`}
+              name={`${formItem}.Pieces`}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={toucherItem?.Pieces && errorItem?.Pieces}
+              label={"Pieces"}
+              placeholder={"Start typing"}
+            />
+          </Flex>
+          <Flex flex={1} left={30}></Flex>
+          <Flex flex={1} left={30}></Flex>
+          <Flex flex={1} left={30}></Flex>
+        </Flex>
+
+        <Flex top={20}>
+          <CustomInput
+            id={`${formItem}.ShipmentDescription`}
+            name={`${formItem}.ShipmentDescription`}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={
+              toucherItem?.ShipmentDescription && errorItem?.ShipmentDescription
+            }
+            label={"Shipment Description"}
+            placeholder={"Start typing"}
+            type={"textarea"}
+          />
+        </Flex>
+
+        <Flex top={20}>
+          <AddItemLabel text={"Add Shipment Picture"} />
+        </Flex>
+      </Flex>
+    </>
+  );
+}
+
+export default DetailsFormItem;

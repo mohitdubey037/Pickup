@@ -1,20 +1,16 @@
 import { useState } from "react";
 import { Drawer } from "app/components/Drawer";
-import { Dropdown } from "app/components/Dropdown";
 import ModuleContainer from "app/components/ModuleContainer";
 import { FormContainer } from "app/components/ModuleContainer/style";
-import { Radio } from "app/components/Radio";
-import Select from "app/components/Select";
+
 import {
   ContainerTitle,
   FormContainerTitle,
 } from "app/components/Typography/Typography";
-import WarningMessage from "app/components/WarningMessage/WarningMessage";
-import ShipmentSummaryTable from "./ShipmentSummaryTable";
+
 import SingleShipmentDetails from "./SingleShipmentDetails";
 import SingleSipmentForm from "./SingleSipmentForm";
 import { CardDetails } from "app/components/PaymentCardDetails";
-// import { mastercard } from 'app/assets/Images';
 import { masterCard } from "../../../../assets/Images/index";
 import { useFormik } from "formik";
 import { SingleShipmentFormSchema } from "./SingleShipmentFormSchema";
@@ -26,7 +22,6 @@ import { Flex } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 
 function SingleShipment({ path: string }) {
-  
   const [drawerOpen, setDrawerOpen] = useState(false);
   const singleShipmentResponse = useSelector(
     (state: { singleShipment: { singleShipmentResponse: {} } }) =>
@@ -51,16 +46,15 @@ function SingleShipment({ path: string }) {
           <SingleSipmentForm title={"Destination"} formik={formik} />
         </div>
       </FormContainer>
-      <FormContainer elevation={2} >
+      <FormContainer elevation={2}>
         <FormContainerTitle>Shipment Details</FormContainerTitle>
         <SingleShipmentDetails formik={formik} />
       </FormContainer>
 
-      <FormContainer elevation={2} >
+      <FormContainer elevation={2}>
         <FormContainerTitle>Schedule Shipment</FormContainerTitle>
-        <ScheduleShipmentForm formik={formik}/>
+        <ScheduleShipmentForm formik={formik} />
       </FormContainer>
-
 
       <Drawer
         open={drawerOpen}

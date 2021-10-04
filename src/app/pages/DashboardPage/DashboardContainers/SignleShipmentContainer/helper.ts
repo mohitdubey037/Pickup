@@ -25,6 +25,8 @@ export const singleShipmentInitValues = {
   DestinationalternateNumber: "",
   DestinationemailAddress: "",
   DestinationadditionalNotes: "",
+
+  //SHIPMENT DETAILS
   Category: "",
   ShipmentWeight: "",
   Length: "",
@@ -33,7 +35,32 @@ export const singleShipmentInitValues = {
   Pieces: "",
   ShipmentCost: "",
   ShipmentDescription: "",
-  shipmentTime:"",
-  shipmentDate:"",
-  whatToDo:""
+
+  //SHIPMENT DETAILS ITEMS
+  shipementDeatials: [
+    {
+      ShipmentWeight: "",
+      Length: "",
+      Width: "",
+      Height: "",
+      Pieces: "",
+      ShipmentCost: "",
+      ShipmentDescription: "",
+    },
+    {
+      ShipmentWeight: "",
+      Length: "",
+      Width: "",
+      Height: "",
+      Pieces: "",
+      ShipmentCost: "",
+      ShipmentDescription: "",
+    },
+    
+  ],
+
+  // SCHEDULE SHIPMENT
+  shipmentTime: "",
+  shipmentDate: "",
+  whatToDo: "",
 };
