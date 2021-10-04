@@ -22,8 +22,6 @@ export const SingleShipmentFormSchema = yup.object().shape({
   OriginemailAddress: yup.string().required().email(),
   OriginadditionalNotes: yup.string().required(),
 
-
-
   DestinationcompanyName: yup.string().required(),
   DestinationfirstName: yup.string().required(),
   DestinationlastName: yup.string().required(),
@@ -51,7 +49,7 @@ export const SingleShipmentFormSchema = yup.object().shape({
   Pieces: yup.string().required(),
   ShipmentCost: yup.string().required(),
   // Pieces: yup.string().required(),
-  ShipmentDescription: yup.string().required()
-
+  ShipmentDescription: yup.string().required(),
+  shipmentTime: yup.string().required(),
+  shipmentDate: yup.string().required(),
 });
-

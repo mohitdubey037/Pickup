@@ -58,7 +58,7 @@ function SingleShipment({ path: string }) {
 
       <FormContainer elevation={2} >
         <FormContainerTitle>Schedule Shipment</FormContainerTitle>
-        <ScheduleShipmentForm />
+        <ScheduleShipmentForm formik={formik}/>
       </FormContainer>
 
 

@@ -33,4 +33,6 @@ export const singleShipmentInitValues = {
   Pieces: "",
   ShipmentCost: "",
   ShipmentDescription: "",
+  shipmentTime:"",
+  shipmentDate:"",
 };

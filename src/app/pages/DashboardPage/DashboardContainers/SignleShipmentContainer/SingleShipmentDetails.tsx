@@ -1,3 +1,4 @@
+import { FormikValues } from "formik";
 import { Typography } from "@material-ui/core";
 import AddItemLabel from "app/components/AddItemLabel";
 import { Button } from "app/components/Buttons";
@@ -6,8 +7,7 @@ import { Flex } from "app/components/Input/style";
 import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
-import { FormikValues } from "formik";
-
+ 
 function SingleShipmentDetails(props: { formik: FormikValues }) {
   const { handleChange, errors , touched, handleBlur, handleSubmit } =
     props.formik;
