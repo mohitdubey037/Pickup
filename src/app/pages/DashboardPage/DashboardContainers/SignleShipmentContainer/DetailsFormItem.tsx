@@ -1,8 +1,7 @@
-import { FormikValues, Field } from "formik";
+import { FormikValues } from "formik";
 import { Typography } from "@material-ui/core";
 import AddItemLabel from "app/components/AddItemLabel";
 import { Flex } from "app/components/Input/style";
-import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
 
