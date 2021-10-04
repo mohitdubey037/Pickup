@@ -4,13 +4,16 @@ import RadioGroup from "app/components/RadioGroup";
 import { CustomInput } from "../CompanyProfileContainer/style";
 
 function ScheduleShipmentForm(props: { formik: FormikValues }) {
-  const { handleChange, errors, touched, handleBlur, handleSubmit } =
+  const { handleChange, values, errors, touched, handleBlur, handleSubmit } =
     props.formik;
   return (
     <FormWrapper>
       <Flex>
         <RadioGroup
+          defaultValue={values.whatToDo}
           label={"What do you want to do with the shipment?"}
+          name={'whatToDo'}
+          id={'whatToDo'}
           options={[
             {
               value: "1",
@@ -25,7 +28,9 @@ function ScheduleShipmentForm(props: { formik: FormikValues }) {
               label: "Move to Holding Zone",
             },
           ]}
-        />
+          error={touched.whatToDo && errors.whatToDo}
+          onChange={handleChange}
+          />
       </Flex>
       <Flex top={20}>
         <Flex>

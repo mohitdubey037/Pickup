@@ -35,4 +35,5 @@ export const singleShipmentInitValues = {
   ShipmentDescription: "",
   shipmentTime:"",
   shipmentDate:"",
+  whatToDo:""
 };

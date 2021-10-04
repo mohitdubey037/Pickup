@@ -52,4 +52,5 @@ export const SingleShipmentFormSchema = yup.object().shape({
   ShipmentDescription: yup.string().required(),
   shipmentTime: yup.string().required(),
   shipmentDate: yup.string().required(),
+  whatToDo:yup.string().required()
 });

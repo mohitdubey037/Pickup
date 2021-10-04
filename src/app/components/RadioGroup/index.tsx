@@ -5,7 +5,7 @@ import {
   RadioGroup as RadioGroupComponent,
 } from "@material-ui/core";
 
-import { CustomLabel, Flex } from "../Input/style";
+import { CustomLabel, ErrorLabel, Flex } from "../Input/style";
 
 interface RadioOptionItem {
   value: number | string;
@@ -19,6 +19,8 @@ interface RadioGroupProps {
   ariaLabel?: string;
   name?: string;
   onChange?: React.ChangeEventHandler;
+  error?: string;
+  id?: string;
 }
 
 function RadioGroup({
@@ -28,13 +30,16 @@ function RadioGroup({
   ariaLabel,
   name,
   onChange,
+  error,
+  id,
 }: RadioGroupProps) {
   return (
     <Flex direction={"column"} style={{ alignItems: "start" }}>
       <CustomLabel>{label}</CustomLabel>
       <Flex style={{ alignItems: "center" }}>
-        <Flex  >
+        <Flex>
           <RadioGroupComponent
+            id={id}
             aria-label={ariaLabel || "radio"}
             defaultValue={defaultValue}
             name={name}
@@ -52,6 +57,7 @@ function RadioGroup({
           </RadioGroupComponent>
         </Flex>
       </Flex>
+      {!!error && <ErrorLabel>{error}</ErrorLabel>}
     </Flex>
   );
 }
