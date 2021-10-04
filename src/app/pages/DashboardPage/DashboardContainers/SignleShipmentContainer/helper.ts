@@ -25,4 +25,12 @@ export const singleShipmentInitValues = {
   DestinationalternateNumber: "",
   DestinationemailAddress: "",
   DestinationadditionalNotes: "",
+  Category: "",
+  ShipmentWeight: "",
+  Length: "",
+  Width: "",
+  Height: "",
+  Pieces: "",
+  ShipmentCost: "",
+  ShipmentDescription: "",
 };

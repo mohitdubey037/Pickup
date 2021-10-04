@@ -6,24 +6,12 @@ import { Flex } from "app/components/Input/style";
 import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
-import { useFormik } from "formik";
 import { FormikValues } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "store/reducers/SingleShipmentReducer";
- import SingleShipmentDetailSchema from "./SingleShipmentDetailsSchema"
-import { singleShipmentDetailsInitValues } from "./helperDetails";
+
 function SingleShipmentDetails(props: { formik: FormikValues }) {
-  const { handleChange, errors, touched, handleBlur, handleSubmit } =
+  const { handleChange, errors , touched, handleBlur, handleSubmit } =
     props.formik;
-    const dispatch = useDispatch();
-    const formik = useFormik({
-      initialValues: singleShipmentDetailsInitValues,
-      validationSchema: SingleShipmentDetailSchema,
-      onSubmit: () => {
-        dispatch(actions.submitSingleShipment(formik.values));
-      },
-    });
-  return (
+   return (
     <FormWrapper>
       <Typography className="typography" variant="h1" component="h3">
         Parent Shipment

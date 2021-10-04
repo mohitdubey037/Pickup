@@ -43,7 +43,15 @@ export const SingleShipmentFormSchema = yup.object().shape({
     .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
   DestinationemailAddress: yup.string().required().email(),
   DestinationadditionalNotes: yup.string().required(),
-
+  Category: yup.string().required(),
+  ShipmentWeight: yup.string().required(),
+  Length: yup.string().required(),
+  Width: yup.string().required(),
+  Height: yup.string().email().required(),
+  Pieces: yup.string().required(),
+  ShipmentCost: yup.string().required(),
+  // Pieces: yup.string().required(),
+  ShipmentDescription: yup.string().required()
 
 });
 
