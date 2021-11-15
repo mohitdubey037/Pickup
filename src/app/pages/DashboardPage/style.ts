@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
 export const DasboardWrapper = styled.div`
-  background: #fece3e;
-  display: flex;
-`;
+	display: flex;
+	background: #fece3e;
+	height: 100vh;
+	width: 100%;
+	position: fixed;
+`
 
 
 export const Container = styled.div`

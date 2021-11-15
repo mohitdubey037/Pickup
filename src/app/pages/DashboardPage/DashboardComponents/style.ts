@@ -2,28 +2,22 @@ import styled from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
 
 export const LeftDashboardWrapper = styled.div`
-  width: 18%;
-  background: #fece3e;
-   text-align: left;
-  color: #343434;
-  height: 100vh;
-`;
+	text-align: left;
+	flex: 1;
 
-
-export const DashboardRightWrapper=styled.div`
-background-color: #FAFAFA;
-position : absolute;
-zIndex : 111;
-right : 0;
-width : 84%;
-border-top-left-radius: 40;
-
+	color: #343434;
+	height: 100%;
 `
 
+export const DashboardRightWrapper = styled.div`
+	background-color: #fafafa;
+	flex: 5;
+	border-top-left-radius: 40;
+`
 
 export const RightDashboardWrapper = styled.div`
-  flex: 1;
- `;
+	width: 100%;
+`
 
  export const DashboardContainer=styled.div`
  padding: 0 32px;
