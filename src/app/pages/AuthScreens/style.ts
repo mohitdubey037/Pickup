@@ -73,6 +73,7 @@ export const Header = styled.div`
   line-height: 37px;
   text-align: inherit;
   margin: 1rem 0;
+  padding: 35px;
 `;
 
 export const LoginLink = styled.div`
