@@ -14,6 +14,8 @@ const Button:React.FC<CheckboxProps>=({label,onChange,isChecked})=>{
                 color="primary" 
                 onChange={onChange}
                 checked={isChecked}
+                value={true||false}
+                
             ></CheckboxPrimary>
             {label}
         </div>

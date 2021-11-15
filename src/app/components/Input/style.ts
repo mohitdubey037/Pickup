@@ -40,7 +40,7 @@ export const CustomLabel = styled.label`
 
 export const CustomInput = styled.input`
   height: 42px;
-  width: 100%;
+  width: 97%;
   border: 1px solid #c4c4c4;
   border-radius: 4px;
   outline-style: none;
