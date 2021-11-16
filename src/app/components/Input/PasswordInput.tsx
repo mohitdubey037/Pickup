@@ -57,7 +57,7 @@ const PasswordInput = ({
         onClick={() => setShowPass(!showPass)}
         style={{
           opacity: showPass ? 0.3 : 1,
-          height: "25px",
+          height: "15px",
           padding: "6px 12px",
         }}
       />

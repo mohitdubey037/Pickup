@@ -17,7 +17,7 @@ export default function HelpContact() {
                             <Input label="First Name" placeholder="Start typing" />
                         </Grid>
                         <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
-                            <Input label="First Name" placeholder="Start typing" />
+                            <Input label="Last Name" placeholder="Start typing" />
                         </Grid>
                         <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
                             <Input label="Phone Number" placeholder="Start typing" />
@@ -40,7 +40,7 @@ export default function HelpContact() {
                     </Grid>
                 </Grid>
                 <Grid item lg={4}>
-                    <ContactDetails>
+                    <ContactDetails style={{width:310}}>
                         <div>
                             <h4 style={{marginTop:0}}>Contact Information</h4>
                         </div>

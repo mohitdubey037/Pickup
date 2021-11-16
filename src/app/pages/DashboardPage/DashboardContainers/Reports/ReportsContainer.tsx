@@ -40,7 +40,7 @@ function ReportsContainer({ path: string }) {
         <Table
           data={reportsTable}
           tableTop={tableTop()}
-          showCheckbox
+          
           showPagination
           perPageRows={10}
           filterColumns={[0, 1, 2, 3, 4, 5]}

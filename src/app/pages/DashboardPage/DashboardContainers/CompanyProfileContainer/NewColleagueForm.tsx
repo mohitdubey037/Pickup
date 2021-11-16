@@ -5,9 +5,10 @@ import { FormContainerTitle } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { FormikValues } from "formik";
 import { CustomInput } from "./style";
-
+import {PERMISSION_TYPES} from '../../../../../constants'
+import Select from "app/components/Select";
 function NewColleagueForm(props: { formik: FormikValues }) {
-  const { handleChange, errors, touched, handleBlur, handleSubmit } =
+  const { handleChange, errors,title, touched,values, handleBlur, handleSubmit } =
     props.formik;
   return (
     <FullCard>
@@ -84,15 +85,13 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             />
           </Flex>
           <Flex style={{marginTop:20}} >
-            <CustomInput
+            <Select
               id="Permission"
               name="Permission"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.Permission && errors.Permission}
+              options={PERMISSION_TYPES}
               label={"Permission"}
-              placeholder={"Start typing"}
-              style={{ flex: 1, marginRight: 30 }}
+              value={values[title+"Permission"]}
+              style={{ width:1000 }}
             />
           </Flex>
           <Flex direction={"row-reverse"} style={{marginTop:20}}  >
