@@ -11,9 +11,17 @@ const InvoicesContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <InvoiceTableTop>
-        <p>{OnHoldTable.length} Shipments(0 Selected)</p>
+        <p style={{ fontWeight: "bold", color: "black", fontSize: 19 }}>
+          {OnHoldTable.length} Invoices (0 Selected)
+        </p>
         <div>
-          <Button size="large" label="Download" onClick={() => {}} />
+          <Button
+            style={{ width: 190, marginRight: 20 }}
+            size="large"
+            secondary
+            label="Download Selected"
+            onClick={() => {}}
+          />
         </div>
       </InvoiceTableTop>
     );
@@ -21,7 +29,7 @@ const InvoicesContainer = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle>Search</ContainerTitle>
+      <ContainerTitle>Invoices</ContainerTitle>
       <InvoicesWrapper>
         <Input label="Invoice Number" placeholder="eg. 123,321" />
         <Input label="From Date" placeholder="Select" />

@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "@reach/router";
-import { Center } from "app/components/Typography/style";
+import { Center, LeftAlign } from "app/components/Typography/style";
 import { Button } from "../../../components/Buttons";
 import { Input } from "../../../components/Input";
 import { RedLink } from "../../../components/Typography/Typography";
@@ -56,9 +56,9 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
             onClick={() => navigate?.("/mail-sent")}
           />
         </FormContent>
-        <Center>
+        <LeftAlign>
           <RedLink label="Back to Login" link={() => navigate?.("/")} />
-        </Center>
+        </LeftAlign>
       </FormWrapper>
     </LoginWrapper>
   );

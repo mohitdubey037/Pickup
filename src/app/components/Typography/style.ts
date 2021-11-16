@@ -5,7 +5,11 @@ export const Center=styled.div`
 display: flex; 
 justify-content: center;
 `
-
+export const LeftAlign=styled.div`
+display: flex; 
+justify-content: Left;
+padding:15px
+`
 
 export const CustomRedLink = styled.div`
   cursor: pointer;

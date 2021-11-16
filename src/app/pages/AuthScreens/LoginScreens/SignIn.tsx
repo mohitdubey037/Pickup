@@ -85,7 +85,7 @@ const SignIn = ({ navigate }: RouteComponentProps) => {
           <RememberDiv>
             <Checkbox label="Remember me" />
             <BlackLink
-              label="Forgot my Password"
+              label="Forgot my password"
               link={() => navigate?.("/forgot-password")}
             />
           </RememberDiv>

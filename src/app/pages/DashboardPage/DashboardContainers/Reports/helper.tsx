@@ -8,16 +8,16 @@ const getActionItem = () => {
     )
 }
 export const reportsTable = [
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()},
-    {'Source':'Uploaded','Invoice Id':'32132','Shipment Id':'TOR-0607-123','Shipping Date':'06/06/21','Status':'Pending','Shipping Cost':'$50','Action':getActionItem()}
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',},
+    {'Source':'Uploaded','Invoice Id':'ITOR-0821-123','Shipment Id':'1','Item Count':'5','Shipping Date':'06/06/21','Status':'Pending','LBH (inches)':'30 x 30 x 30','Shipping Cost':'$50',}
 ]

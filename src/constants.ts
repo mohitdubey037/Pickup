@@ -10,6 +10,12 @@ export const LOCATION_TYPES = [
   { label: "COMMERCIAL", value: 2 },
   { label: "RETAIL", value: 3 },
 ];
+export const PERMISSION_TYPES = [
+  { label: "Executive", value: 1 },
+  { label: "Superintendent", value: 2 },
+  { label: "Manager", value: 3 },
+  { label: "Admin", value: 4 },
+];
 export const WEIGHTDIMENSION = [
   
   {label: "KG" ,value: 14},
