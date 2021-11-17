@@ -101,6 +101,11 @@ function NewColleagueForm(props: { formik: FormikValues }) {
           </Flex>
         </Flex>
       </Flex>
+      <Flex style={{ marginTop:300,position:'absolute'}}>
+      <div >
+              <Button label="Add Colleague" onClick={handleSubmit} />
+            </div>
+            </Flex>
     </FullCard>
   );
 }

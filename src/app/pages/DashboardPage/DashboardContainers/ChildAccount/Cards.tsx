@@ -26,7 +26,7 @@ export default function Cards({ title }) {
       CVC: "",
       PinCode: "",
       Nickname: "",
-      NameonCard:"",
+      NameonCard: "",
     },
     validationSchema: CardSchema,
     onSubmit: Confirm,
@@ -40,7 +40,7 @@ export default function Cards({ title }) {
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12}></Grid>
-            <Grid item xs={4}>
+            <Grid item xs={5}>
               <Input
                 id="CreditCardNumber"
                 name="CreditCardNumber"
@@ -105,15 +105,26 @@ export default function Cards({ title }) {
                 label={"Nickname (optional)"}
                 placeholder={"Start typing"}
               />
-            </Grid>
-            <Flex direction={"row"} style={{ marginTop: 20 }}>
-              <div style={{ marginRight: 30, width: 148 }}>
-                <Button label="+ Add New Card" />
+              <div style={{ marginRight: 30, width: 148, justifyContent:'center'}}>
+                <Button style={{marginTop:100,flexDirection:'inherit' }} label="+ Add New Card" />
               </div>
-            </Flex>
+            </Grid>
+            
+              
+            
           </Grid>
         </form>
+        
+            
       </FormWrapper>
+      <Flex style={{justifyContent:'space-evenly'}}>
+      <div style={{ width: 180,marginLeft:510,justifyContent:'space-between'}}>
+                <Button secondary style={{marginTop:100 }} label="Invite and Create New" />
+              </div>
+              <div style={{ width: 170, justifyContent:'space-around'}}>
+                <Button  style={{marginRight:'100',marginTop:100}} label="Invite Child" />
+              </div>
+              </Flex>
     </>
   );
 }

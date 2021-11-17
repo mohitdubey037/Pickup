@@ -6,7 +6,7 @@ import { ContainerTitle } from "app/components/Typography/Typography";
 import { OnHoldTable } from "./helper";
 import { OnHoldFieldsWrapper, OnHoldTableTop } from "./Style";
 import { dots3, sliders } from "app/assets/Icons";
-
+import Select from "app/components/Select";
 const OnHoldShipmentContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
@@ -23,14 +23,14 @@ const OnHoldShipmentContainer = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle>Search</ContainerTitle>
+      <ContainerTitle>On Hold Shipments</ContainerTitle>
       <OnHoldFieldsWrapper>
           <Input label="Invoice Number" placeholder="eg. 123,321" />
           <Input label="Shipping Id" placeholder="eg. 123,321" />
           <Input label="From Shipping Date" placeholder="Select" />
           <Input label="To Shipping Date" placeholder="Select" />
-          <Input label="Status" placeholder="Select" />
-          <Button label="Saved Filters" onClick={() => {}} />
+          <Select label="Status" style={{width:120}}/>
+          <Button secondary  size="large" label="Saved Filters" onClick={() => {}} />
         <img src={sliders} alt="" />
       </OnHoldFieldsWrapper>
       <Table

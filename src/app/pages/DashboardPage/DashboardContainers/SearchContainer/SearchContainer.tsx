@@ -13,8 +13,8 @@ const SearchContainer = ({ path: string }) => {
       <SearchTableTop>
         <p>{searchTable.length} Shipments</p>
         <div>
-          <Button label="Delete" onClick={() => {}} />
-          <Button label="Edit" onClick={() => {}} />
+         
+          <Button label="Print" onClick={() => {}} />
           <img src={dots3} alt="" />
         </div>
       </SearchTableTop>
@@ -31,7 +31,7 @@ const SearchContainer = ({ path: string }) => {
           <Input label="To Shipping Date" placeholder="Select" />
           <Input label="Status" placeholder="Select" />
           <Button label="Search" onClick={() => {}} />
-        <img src={sliders} alt="" />
+        <img style={{}} src={sliders} alt="" />
       </SearchFieldsWrapper>
       <Table
         data={searchTable}
