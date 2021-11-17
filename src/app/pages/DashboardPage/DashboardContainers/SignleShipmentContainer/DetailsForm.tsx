@@ -17,14 +17,10 @@ function DetailsForm(props: { formik: FormikValues }) {
       <Flex direction={"column"}>
         <Flex top={20}>
           <Flex flex={1}>
-            <CustomInput
+          <Select
               id="Category"
               name="Category"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.Category && errors.Category}
               label={"Category"}
-              placeholder={"Start typing"}
             />
           </Flex>
           <Flex flex={1} left={30}>
@@ -120,17 +116,7 @@ function DetailsForm(props: { formik: FormikValues }) {
             />
           </Flex>
         </Flex>
-        <Flex top={20}>
-          <CustomInput
-            id="Pieces"
-            name="Pieces"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.Pieces && errors.Pieces}
-            label={"Pieces"}
-            placeholder={"Start typing"}
-          />
-        </Flex>
+       
 
         <Flex top={20}>
           <Flex flex={1}>
