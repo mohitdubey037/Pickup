@@ -24,14 +24,14 @@ const SearchContainer = ({ path: string }) => {
   return (
     <ModuleContainer>
       <ContainerTitle>Search</ContainerTitle>
-      <SearchFieldsWrapper>
+      <SearchFieldsWrapper style={{justifyContent:"space-around"}}>
           <Input label="Invoice Number" placeholder="eg. 123,321" />
           <Input label="Shipping Id" placeholder="eg. 123,321" />
           <Input label="From Shipping Date" placeholder="Select" />
           <Input label="To Shipping Date" placeholder="Select" />
           <Input label="Status" placeholder="Select" />
-          <Button label="Search" onClick={() => {}} />
-        <img style={{}} src={sliders} alt="" />
+          <Button size={"large"} label="Search" onClick={() => {}} />
+        <img style={{paddingLeft:180, marginTop:50}} src={sliders} alt="" />
       </SearchFieldsWrapper>
       <Table
         data={searchTable}

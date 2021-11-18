@@ -35,7 +35,7 @@ const InvoicesContainer = ({ path: string }) => {
         <Input label="From Date" placeholder="Select" />
         <Input label="To Date" placeholder="Select" />
 
-        <img src={sliders} alt="" />
+        
       </InvoicesWrapper>
       <Table
         data={OnHoldTable}

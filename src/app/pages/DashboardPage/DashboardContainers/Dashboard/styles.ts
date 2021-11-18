@@ -10,7 +10,7 @@ export const DashboardCardContainer = styled.div`
 export const CardContainer = styled.div`
 margin-right:10px;
 flex:1;
- 
+
 `;
 
 export const ChartStyle = styled.div `
