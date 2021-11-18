@@ -31,7 +31,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
           <Input label="To Shipping Date" placeholder="Select" />
           <Select label="Status" style={{width:120}}/>
           <Button secondary  size="large" label="Saved Filters" onClick={() => {}} />
-        <img src={sliders} alt="" />
+        <img style={{paddingLeft:170, marginTop:50}} src={sliders} alt="" />
       </OnHoldFieldsWrapper>
       <Table
         data={OnHoldTable}
