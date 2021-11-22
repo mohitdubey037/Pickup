@@ -24,7 +24,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                 <Grid item lg={3} style={{textAlign:'left'}}>
                     <div style={{marginBottom:'0.5rem'}}>
                         <GeneralTypoheading>Market Price</GeneralTypoheading>
-                        <GeneralTypo style={{color:'#F99746'}}>$ {marketPriceNumber}</GeneralTypo>
+                        <GeneralTypo style={{color:'#F99746',letterSpacing:1}}>$ {marketPriceNumber}</GeneralTypo>
                         <LabelContainer>
                             <img src={arrowUp}/>
                             <GeneralTypolabel>{labelMarketPrice}</GeneralTypolabel>
@@ -32,7 +32,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                     </div>
                     <div style={{marginBottom:'0.5rem'}}>
                         <GeneralTypoheading>You Spent</GeneralTypoheading>
-                        <GeneralTypo style={{color:'#2FC87F'}}>$ {spentNumber}</GeneralTypo>
+                        <GeneralTypo style={{color:'#2FC87F',letterSpacing:1}}>$ {spentNumber}</GeneralTypo>
                         <LabelContainer>
                             <img src={arrowUp}/>
                             <GeneralTypolabel>{labelSpentNumber}</GeneralTypolabel>
@@ -40,7 +40,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                     </div>
                     <div>
                         <GeneralTypoheading>You Saved</GeneralTypoheading>
-                        <GeneralTypo style={{color:'#1B8AF0'}}>$ {spentNumber}</GeneralTypo>
+                        <GeneralTypo style={{color:'#1B8AF0',letterSpacing:1}}>$ {spentNumber}</GeneralTypo>
                         <LabelContainer>
                             <img src={arrowUp}/>
                             <GeneralTypolabel>{labelSavedNumber}</GeneralTypolabel>
