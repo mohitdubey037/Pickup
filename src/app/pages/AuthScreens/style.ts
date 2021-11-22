@@ -71,7 +71,7 @@ export const Header = styled.div`
   font-size: 32px;
   color: #343434;
   line-height: 37px;
-  text-align: inherit;
+  text-align: left;
   margin: 1rem 0;
   
 `;
