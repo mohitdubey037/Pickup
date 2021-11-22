@@ -85,27 +85,30 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             />
           </Flex>
           <Flex style={{marginTop:20}} >
+          <Grid item xs={11}>
             <Select
               id="Permission"
               name="Permission"
               options={PERMISSION_TYPES}
               label={"Permission"}
               value={values[title+"Permission"]}
-              style={{ width:1000 }}
+              
             />
+            </Grid>
           </Flex>
           <Flex direction={"row-reverse"} style={{marginTop:20}}  >
             <div style={{ marginRight: 30,width:148}}>
               <Button label="Save" onClick={handleSubmit} />
+
             </div>
+            
           </Flex>
+          <div style={{marginLeft:5,width:130}} >
+            <Button label="Add Colleague" onClick={handleSubmit} style={{marginTop:100,width:150,}}/>
+          </div>
         </Flex>
       </Flex>
-      <Flex style={{ marginTop:300,position:'absolute'}}>
-      <div >
-              <Button label="Add Colleague" onClick={handleSubmit} />
-            </div>
-            </Flex>
+      
     </FullCard>
   );
 }

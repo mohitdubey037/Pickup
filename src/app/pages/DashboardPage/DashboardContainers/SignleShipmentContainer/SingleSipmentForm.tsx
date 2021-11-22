@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { SingleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import Select from "app/components/Select";
 import { LOCATION_TYPES } from "../../../../../constants";
+import RadioGroup from "app/components/RadioGroup";
 
 function SingleSipmentForm({ title, formik }) {
   const {
@@ -22,8 +23,16 @@ function SingleSipmentForm({ title, formik }) {
         <Typography className="typography" variant="h1" component="h3">
           {title}
         </Typography>
+        <RadioGroup
+             
+              options={[
+                { label: "Individual", value: "1" },
+                { label: "Company", value: "0" },
+              ]}
+              name={"Fragile Shipment"}
+            />
         <Grid container spacing={3} style={{marginRight:30}}>
-          <Grid item xs={12}>
+          <Grid item xs={9}>
             <div className="div_select">
               <label htmlFor="cars">Location type</label>
               <br />
