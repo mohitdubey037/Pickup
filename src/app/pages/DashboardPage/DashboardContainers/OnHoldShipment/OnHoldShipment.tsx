@@ -25,14 +25,15 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     <ModuleContainer>
       <ContainerTitle>On Hold Shipments</ContainerTitle>
       <OnHoldFieldsWrapper>
-          <Input label="Invoice Number" placeholder="eg. 123,321" />
+          <Input label="Invoice Number" style={{width:180}}placeholder="eg. 123,321" />
           <Input label="Shipping Id" placeholder="eg. 123,321" />
           <Input label="From Shipping Date" placeholder="Select" />
           <Input label="To Shipping Date" placeholder="Select" />
-          <Select label="Status" style={{width:120}}/>
+          <Select label="Status" style={{width:90}}/>
           <Button secondary  size="large" label="Saved Filters" onClick={() => {}} />
-        <img style={{paddingLeft:170, marginTop:50}} src={sliders} alt="" />
+          <img style={{paddingRight:1, marginTop:100}} src={sliders} alt="" />
       </OnHoldFieldsWrapper>
+      
       <Table
         data={OnHoldTable}
         tableTop={tableTop()}

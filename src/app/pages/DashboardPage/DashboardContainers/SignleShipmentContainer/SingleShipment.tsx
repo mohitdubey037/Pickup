@@ -73,7 +73,7 @@ function SingleShipment({ path: string }) {
           cardType={"Master Card"}
         />
       </Drawer>
-      <Flex style={{ marginTop: 20 }} direction={"row-reverse"}>
+      <Flex style={{ marginBottom: 10 }} direction={"row-reverse"}>
         <Button
           style={{ width: 190 }}
           label="Confirm Shipment"
