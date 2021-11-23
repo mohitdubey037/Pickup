@@ -38,7 +38,7 @@ export const SingleShipmentFormSchema = yup.object().shape({
   DestinationalternateNumber: yup
     .string()
     .required()
-    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+    .matches(PHONE_NUMBER_REGX, "Alternate number is not valid"),
   DestinationemailAddress: yup.string().required("Email Address is a required field").email(),
   DestinationadditionalNotes: yup.string().required("Additional Notes is a required field"),
   Category: yup.string().required("Category is a required field"),

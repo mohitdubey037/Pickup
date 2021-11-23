@@ -7,6 +7,9 @@ import { SingleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import Select from "app/components/Select";
 import { LOCATION_TYPES } from "../../../../../constants";
 import RadioGroup from "app/components/RadioGroup";
+import {FavouriateWrapper
+  
+} from "./style";
 
 function SingleSipmentForm({ title, formik }) {
   const {
@@ -21,7 +24,8 @@ function SingleSipmentForm({ title, formik }) {
     <FormWrapper style={{paddingRight:35}}>
       <form>
         <Typography className="typography" variant="h1" component="h3">
-          {title}
+          {title}<FavouriateWrapper>Add to Favorites</FavouriateWrapper>
+          
         </Typography>
         <RadioGroup
              
@@ -29,10 +33,9 @@ function SingleSipmentForm({ title, formik }) {
                 { label: "Individual", value: "1" },
                 { label: "Company", value: "0" },
               ]}
-              name={"Fragile Shipment"}
+              name={"Radio Options"}
             />
-        <Grid container spacing={3} style={{marginRight:30}}>
-          <Grid item xs={9}>
+            <Grid style={{paddingBottom:20,width:290}}>
             <div className="div_select">
               <label htmlFor="cars">Location type</label>
               <br />
@@ -47,6 +50,8 @@ function SingleSipmentForm({ title, formik }) {
               </div>
             </div>
           </Grid>
+        <Grid container spacing={3} style={{marginRight:30}}>
+          
           <Grid item xs={4}>
             <Input
               id={title+"companyName"}
