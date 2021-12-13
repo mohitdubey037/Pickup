@@ -8,6 +8,7 @@ import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import CardSchema from "./CardSchema";
+import RadioGroup from "app/components/RadioGroup";
 
 export default function Cards({ title }) {
   const dispatch = useDispatch();
@@ -37,7 +38,16 @@ export default function Cards({ title }) {
         <form>
           <Typography className="typography" variant="h1" component="h3">
             {title}
+            
           </Typography>
+          <RadioGroup
+             
+              options={[
+                { label: "Credit Card", value: "1" },
+                { label: "Debit Card", value: "0" },
+              ]}
+              name={"Radio Options"}
+            />
           <Grid container spacing={3}>
             <Grid item xs={12}></Grid>
             <Grid item xs={5}>
@@ -105,8 +115,8 @@ export default function Cards({ title }) {
                 label={"Nickname (optional)"}
                 placeholder={"Start typing"}
               />
-              <div style={{ marginRight: 30, width: 148, justifyContent:'center'}}>
-                <Button style={{marginTop:100,flexDirection:'inherit' }} label="+ Add New Card" />
+              <div style={{ marginRight: 30, width: 140, justifyContent:'center'}}>
+                <Button style={{marginTop:25,flexDirection:'inherit' }} label="+ Add New Card" />
               </div>
             </Grid>
             

@@ -5,6 +5,7 @@ export const ModuleContainerWrapper = styled.div`
   max-height: 100vh;
   display: flex;
   flex: 1;
+  
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
