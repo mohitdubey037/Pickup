@@ -6,6 +6,7 @@ export const SearchFieldsWrapper = styled.div`
   display: flex;
   gap: 8px;
   align-items: flex-end;
+  
   img{
     align-self:center;
     cursor:pointer;
@@ -23,6 +24,7 @@ export const SearchTableTop = styled.div`
   width:100%;
   align-items:center;
   padding:0 12px;
+  
   justify-content: space-between;
   img{
       cursor:pointer;

@@ -36,7 +36,7 @@ function FavoriteLocations(props: RouteComponentProps) {
     <>
       <ModuleContainer>
         <Flex direction={"row-reverse"}>
-          <Select value={"Last 7 days"}  label={""} style={{ color:"black",backgroundColor: "white", width: 100 , marginRight:9 }} />
+          <Select value={"Last 7 days"}  label={""} style={{ color:"black",backgroundColor: "white", width: 100  }} />
         </Flex>
         <Flex direction="column" style={{ marginTop: 20 }}>
           <Table
