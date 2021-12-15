@@ -29,7 +29,7 @@ const Dashboard = ({ path: string }) => {
       <DashboardCardContainer>
         <CardContainer>
           <Card
-            title="Pending Shipments"
+            title="Pending Orders"
             numberValue={512}
             label="4% more than last Month"
             onClick={() => {}}
@@ -37,7 +37,7 @@ const Dashboard = ({ path: string }) => {
         </CardContainer>
         <CardContainer>
           <Card
-            title="In Progress Shipments"
+            title="In Progress Orders"
             numberValue={321}
             label="4% more than last Month"
             onClick={() => {}}
@@ -46,7 +46,7 @@ const Dashboard = ({ path: string }) => {
         </CardContainer>
         <CardContainer>
           <Card
-            title="Completed Shipments"
+            title="Completed Orders"
             numberValue={241}
             label="4% more than last Month"
             onClick={() => {}}
