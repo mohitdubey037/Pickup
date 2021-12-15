@@ -48,7 +48,7 @@ export const SingleShipmentFormSchema = yup.object().shape({
   Height: yup.string().required("Height is a required field"),
   Pieces: yup.string().required("Pieces is a required field"),
   ShipmentCost: yup.string().required("Shipment Cost is a required field"),
-  // Pieces: yup.string().required(),
+ 
   ShipmentDescription: yup.string().required("Shipment Description is a required field"),
   shipmentTime: yup.string().required("Shipment Time is a required field"),
   shipmentDate: yup.string().required("Shipment Date is a required field"),

@@ -17,7 +17,7 @@ import { SingleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import { Button } from "../../../../components/Buttons";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SingleShipmentReducer";
-import { singleShipmentInitValues } from "./helper";
+import { singleShipmentInitValues,addShipmentForm } from "./helper";
 import { Flex } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 
@@ -32,8 +32,12 @@ function SingleShipment({ path: string }) {
   const formik = useFormik({
     initialValues: singleShipmentInitValues,
     validationSchema: SingleShipmentFormSchema,
-    onSubmit: () => {
-      dispatch(actions.submitSingleShipment(formik.values));
+    onSubmit: async() => {
+      console.log(formik.values)
+      
+      const res= await addShipmentForm(formik.values,1) 
+
+      // dispatch(actions.submitSingleShipment(formik.values));
     },
   });
   return (
@@ -76,13 +80,13 @@ function SingleShipment({ path: string }) {
       <Flex style={{ marginBottom: 10 }} direction={"row-reverse"}>
         <Button
           style={{ width: 190 }}
-          label="Confirm Shipment"
+          label="Confirm Order"
           onClick={formik.handleSubmit}
         />
         <Button
           style={{ width: 190, marginRight: 20 }}
           secondary
-          label="Add New Shipment"
+          label="Add New Order"
         />
       </Flex>
     </ModuleContainer>

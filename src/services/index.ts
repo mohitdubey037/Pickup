@@ -1,7 +1,8 @@
 import axios from "axios";
 import { BASE_URL, USER_BASE_URL } from "../constants";
 type RequestType = null | undefined | string;
-class Serivce {
+
+class Service {
   get = async (url: string, type?: RequestType) => {
     return new Promise((resolve, reject) => {
       try {
@@ -51,4 +52,4 @@ class Serivce {
     });
   };
 }
-export default new Serivce();
+export default new Service();

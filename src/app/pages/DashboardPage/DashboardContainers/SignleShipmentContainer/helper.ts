@@ -1,3 +1,6 @@
+
+import { addShipmentDetail } from "services/SingleShipmentServices";
+import service from "../../../../../services/index";
 export const singleShipmentInitValues = {
   OrigincompanyName: "",
   OriginfirstName: "",
@@ -64,3 +67,13 @@ export const singleShipmentInitValues = {
   shipmentDate: "",
   whatToDo: "",
 };
+
+export const addShipmentForm = async (values:any,type:any)=>{
+  try{
+ 
+  const res = await addShipmentDetail(values)
+  return res
+} catch(err){
+  return err;
+}
+}
