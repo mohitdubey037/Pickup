@@ -20,6 +20,7 @@ import { actions } from "store/reducers/SingleShipmentReducer";
 import { singleShipmentInitValues,addShipmentForm } from "./helper";
 import { Flex } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
+import { navigate } from "@reach/router";
 
 function SingleShipment({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -28,6 +29,9 @@ function SingleShipment({ path: string }) {
       state.singleShipment.singleShipmentResponse
   );
   const dispatch = useDispatch();
+  const redirect = () => {
+    navigate("/charter-shipment/single-shipment/order-summary");
+  };
 
   const formik = useFormik({
     initialValues: singleShipmentInitValues,
@@ -36,10 +40,10 @@ function SingleShipment({ path: string }) {
       console.log(formik.values)
       
       const res= await addShipmentForm(formik.values,1) 
-
+      redirect();
       // dispatch(actions.submitSingleShipment(formik.values));
     },
-  });
+  }); 
   return (
     <ModuleContainer>
       <ContainerTitle>Single Shipment</ContainerTitle>
@@ -77,18 +81,33 @@ function SingleShipment({ path: string }) {
           cardType={"Master Card"}
         />
       </Drawer>
-      <Flex style={{ marginBottom: 10 }} direction={"row-reverse"}>
+      <Flex style={{ marginBottom: 10, padding:"inherit" }} direction={"row-reverse"}>
         <Button
           style={{ width: 190 }}
           label="Confirm Order"
           onClick={formik.handleSubmit}
+          
         />
         <Button
           style={{ width: 190, marginRight: 20 }}
           secondary
           label="Add New Order"
+          onClick={()=>{}}
         />
       </Flex>
+{/*       
+        <Drawer 
+          open={true}
+         
+         title="This is a sample Drawer!!"
+         setDrawerOpen={()=>{}}
+    
+    
+          >
+            <div>Dont Open It</div>
+          </Drawer>
+       */}
+      
     </ModuleContainer>
   );
 }

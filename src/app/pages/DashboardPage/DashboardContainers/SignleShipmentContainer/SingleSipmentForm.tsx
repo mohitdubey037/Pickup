@@ -10,7 +10,7 @@ import RadioGroup from "app/components/RadioGroup";
 import {FavouriateWrapper
   
 } from "./style";
-
+import {starimage} from '../../../../assets/Icons'
 function SingleSipmentForm({ title, formik }) {
   const {
     handleChange,
@@ -24,10 +24,10 @@ function SingleSipmentForm({ title, formik }) {
     <FormWrapper style={{paddingRight:35}}>
       <form>
         <Typography className="typography" variant="h1" component="h3">
-          {title}<FavouriateWrapper>Add to Favorites</FavouriateWrapper>
+          {title}<FavouriateWrapper> <img className= "imageStyle" src={starimage} /> Add to Favorites</FavouriateWrapper>
           
         </Typography>
-        <RadioGroup
+        <RadioGroup 
              
               options={[
                 { label: "Individual", value: "1" },

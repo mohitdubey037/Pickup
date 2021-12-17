@@ -12,12 +12,12 @@ import { Button } from "../Buttons";
 interface DrawerProps {
   open: boolean;
   setDrawerOpen: Function;
-  closeIcon: boolean;
+  closeIcon?: boolean;
   title: string;
-  children: ReactNode;
-  actionButtons: boolean;
-  cancelButtonText: string;
-  actionButtonText: string;
+  children?: ReactNode;
+  actionButtons?: boolean;
+  cancelButtonText?: string;
+  actionButtonText?: string;
   cancelButtonType?: string;
   actionButtonType?: string;
 }
@@ -55,7 +55,7 @@ export default function Drawer({
         {actionButtons && (
           <DrawerFooter>
             <div>
-              <Button
+              {/* <Button
                 secondary={cancelButtonType === "secondary"}
                 label={cancelButtonText}
                 size="small"
@@ -66,7 +66,7 @@ export default function Drawer({
                 secondary={actionButtonType === "secondary"}
                 label={actionButtonText}
                 size="small"
-              />
+              /> */}
             </div>
           </DrawerFooter>
         )}
