@@ -104,7 +104,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             
           </Flex>
           <div style={{marginLeft:5,width:130}} >
-            <Button label="Add Colleague" onClick={handleSubmit} style={{marginTop:100,width:150,}}/>
+            <Button label="Add Colleague" onClick={handleSubmit} style={{marginTop:100,width:150}}/>
           </div>
         </Flex>
       </Flex>

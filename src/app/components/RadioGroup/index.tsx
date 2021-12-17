@@ -38,19 +38,22 @@ function RadioGroup({
       <CustomLabel>{label}</CustomLabel>
       <Flex style={{ alignItems: "center" }}>
         <Flex>
-          <RadioGroupComponent
+          <RadioGroupComponent 
+         
             id={id}
             aria-label={ariaLabel || "radio"}
             defaultValue={defaultValue}
             name={name}
             onChange={onChange && onChange}
+            
           >
-            <Flex>
+            <Flex >
               {options?.map(({ value, label }) => (
                 <FormControlLabel
                   value={value}
                   control={<Radio />}
                   label={label}
+                  
                 />
               ))}
             </Flex>

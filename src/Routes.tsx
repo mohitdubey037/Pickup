@@ -30,6 +30,7 @@ import OnHoldShipmentContainer from "app/pages/DashboardPage/DashboardContainers
 import FavoriteLocations from "app/pages/DashboardPage/DashboardContainers/FavoriteLocationsContainer";
 import InvoicesContainer from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/Invoices"
 import { ReportsContainer } from "app/pages/DashboardPage/DashboardContainers/Reports";
+import OrderSummary from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer/OrderSummary";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
@@ -53,6 +54,7 @@ const Routes = () => {
         <CompanyProfileContainer path="/my-account/company-profile" />
         <Dashboard path="/" />
         <SingleShipment path="/charter-shipment/single-shipment" />
+        <OrderSummary path="/charter-shipment/single-shipment/order-summary" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
         <PaymentsPage path="/payments/cards" />

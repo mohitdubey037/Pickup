@@ -28,7 +28,7 @@ import dots from './dots.svg'
 import masterCard from './masterCard.png'
 import ellipse from './Ellipse.svg'
 import scotiaBank from './scotiaBank.png'
-
+import starimage from './starimage.svg'
 
 import cross from './cross.svg'
 import dots3 from './3Dots.svg';
@@ -75,5 +75,6 @@ export {
     imageIcon,
     printer,
     sliders,
-    warningIcon
+    warningIcon,
+    starimage
 };
