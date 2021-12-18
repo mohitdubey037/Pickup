@@ -40,7 +40,7 @@ class Service {
               const errResponse = err.response;
               return reject({
                 status: errResponse.status,
-                message: errResponse?.data?.message.message
+                message: errResponse?.data?.message?.message
                   ? errResponse?.data?.message.message
                   : errResponse?.data?.message,
               });
