@@ -19,7 +19,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
         className="typography"
         variant="h1"
         component="h3"
-      ></Typography>
+      >Item#{index+1}</Typography>
       <Flex direction={"column"}>
         <Flex top={20}>
           <Flex flex={1}>

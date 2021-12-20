@@ -47,6 +47,7 @@ const Routes = () => {
         <ForgotPassword path="/forgot-password" />
         <MailSent path="/mail-sent" />
         <RecoverPassword path="/recover-password" />
+      
       </AuthPages>
 
       <DashboardPage path="/dashboard">
