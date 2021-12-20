@@ -20,9 +20,11 @@ function SingleSipmentForm({ title, formik }) {
     handleBlur,
     handleSubmit,
   } = formik;
-  const[status, setStatus]=React.useState(0)
-  const radioHandler=(status)=>{
-    setStatus(status);
+  const[status, setStatus]=React.useState()
+  const radioHandler=(event)=>{
+    // setStatus(status);
+    const val=event.target.value
+    setStatus(val)
   }
   return (
     <FormWrapper style={{paddingRight:35}}>
@@ -33,7 +35,7 @@ function SingleSipmentForm({ title, formik }) {
         </Typography>
         
         <RadioGroup 
-             
+             onChange={(e)=>radioHandler(e)}
               options={[
                 { label: "Individual", value: "1" },
                 { label: "Company", value: "0" },
@@ -57,19 +59,19 @@ function SingleSipmentForm({ title, formik }) {
           </Grid>
         <Grid container spacing={3} style={{marginRight:30}}>
           
-          <Grid item xs={4}>
-            <Input
-              id={title+"companyName"}
-              name={title+"companyName"}
-              label={"Company Name"}
-              placeholder={"Start typing"}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched[title+"companyName"] && errors[title+"companyName"]}
-             
-              validate
-            />
-          </Grid>
+        {status==="0" && <Grid item xs={4}>
+          <Input
+            id={title+"companyName"}
+            name={title+"companyName"}
+            label={"Company Name"}
+            placeholder={"Start typing"}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched[title+"companyName"] && errors[title+"companyName"]}
+            
+            validate
+          />
+        </Grid>}
           <Grid item xs={4}>
             <Input
               id={title+"firstName"}
