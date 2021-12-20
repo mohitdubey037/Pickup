@@ -11,7 +11,7 @@ const Uploading = ({progressValue}:UploadingProps) => {
         <UploadingWrapper>
             <img src={csvIcon} alt=''/>
             <UploadText>Uploading File</UploadText>
-            <HelperText>We're uploading your file and creating all shipments</HelperText>
+            <HelperText>We're uploading your file and creating all Orders</HelperText>
             <Progressbar value={progressValue||10}/>
         </UploadingWrapper>
     )

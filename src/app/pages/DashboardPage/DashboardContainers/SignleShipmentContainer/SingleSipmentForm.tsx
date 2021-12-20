@@ -20,6 +20,10 @@ function SingleSipmentForm({ title, formik }) {
     handleBlur,
     handleSubmit,
   } = formik;
+  const[status, setStatus]=React.useState(0)
+  const radioHandler=(status)=>{
+    setStatus(status);
+  }
   return (
     <FormWrapper style={{paddingRight:35}}>
       <form>
@@ -27,6 +31,7 @@ function SingleSipmentForm({ title, formik }) {
           {title}<FavouriateWrapper> <img className= "imageStyle" src={starimage} /> Add to Favorites</FavouriateWrapper>
           
         </Typography>
+        
         <RadioGroup 
              
               options={[
@@ -61,6 +66,7 @@ function SingleSipmentForm({ title, formik }) {
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched[title+"companyName"] && errors[title+"companyName"]}
+             
               validate
             />
           </Grid>

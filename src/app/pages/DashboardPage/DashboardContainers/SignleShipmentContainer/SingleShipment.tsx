@@ -21,6 +21,7 @@ import { singleShipmentInitValues,addShipmentForm } from "./helper";
 import { Flex } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { navigate } from "@reach/router";
+import { addShipmentDetail } from "services/SingleShipmentServices";
 
 function SingleShipment({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -37,16 +38,25 @@ function SingleShipment({ path: string }) {
     initialValues: singleShipmentInitValues,
     validationSchema: SingleShipmentFormSchema,
     onSubmit: async() => {
-      console.log(formik.values)
+      console.log(formik.values,'Full')
       
       const res= await addShipmentForm(formik.values,1) 
       redirect();
       // dispatch(actions.submitSingleShipment(formik.values));
     },
   }); 
+  const handleSubmit= async() => {
+    console.log(formik.values,'Full')
+    const body={companyName:formik.values['OrigincompanyName']}
+    console.log(body,'this is Body')
+
+    const res= await addShipmentDetail(body) 
+    //redirect();
+    // dispatch(actions.submitSingleShipment(formik.values));
+  }
   return (
     <ModuleContainer>
-      <ContainerTitle>Single Shipment</ContainerTitle>
+      <ContainerTitle>Single order</ContainerTitle>
       <FormContainer elevation={2}>
         <FormContainerTitle>Address Details</FormContainerTitle>
         <div style={{ marginBottom: "30px" }}>
@@ -55,7 +65,7 @@ function SingleShipment({ path: string }) {
         </div>
       </FormContainer>
       <FormContainer elevation={2}>
-        <FormContainerTitle>Shipment Details</FormContainerTitle>
+        <FormContainerTitle>order Details</FormContainerTitle>
         <SingleShipmentDetails formik={formik} />
       </FormContainer>
 
@@ -85,7 +95,8 @@ function SingleShipment({ path: string }) {
         <Button
           style={{ width: 190 }}
           label="Confirm Order"
-          onClick={formik.handleSubmit}
+          onClick={handleSubmit}
+          
           
         />
         <Button

@@ -145,14 +145,14 @@ function DetailsForm(props: { formik: FormikValues }) {
             onBlur={handleBlur}
             onChange={handleChange}
             error={touched.ShipmentDescription && errors.ShipmentDescription}
-            label={"Shipment Description"}
+            label={"order Description"}
             placeholder={"Start typing"}
             type={"textarea"}
           />
         </Flex>
 
         <Flex top={20}>
-          <AddItemLabel text={"Add Shipment Picture"} />
+          <AddItemLabel text={"Add order Picture"} />
         </Flex>
       </Flex>
     </>

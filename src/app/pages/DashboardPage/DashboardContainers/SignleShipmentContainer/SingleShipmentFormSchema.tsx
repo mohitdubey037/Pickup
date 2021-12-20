@@ -13,13 +13,13 @@ export const SingleShipmentFormSchema = yup.object().shape({
   Origincountry: yup.string().required("Country is a required field"),
   OrigincontactNumber: yup
     .string()
-    .required()
-    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+    .required("Phone number is not valid")
+    .matches(PHONE_NUMBER_REGX, ),
   OriginalternateNumber: yup
     .string()
-    .required()
-    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
-  OriginemailAddress: yup.string().required("Email Address is a required field").email(),
+    .required("Alternate number is not valid")
+    .matches(PHONE_NUMBER_REGX, ),
+  OriginemailAddress: yup.string().required("Email Address is a required field"),
   OriginadditionalNotes: yup.string().required("Additional Notes is a required field"),
 
   DestinationcompanyName: yup.string().required("Company Name is a required field"),
@@ -33,12 +33,12 @@ export const SingleShipmentFormSchema = yup.object().shape({
   Destinationcountry: yup.string().required("Country is a required field"),
   DestinationcontactNumber: yup
     .string()
-    .required()
-    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+    .required("Phone number is not valid")
+    .matches(PHONE_NUMBER_REGX, ),
   DestinationalternateNumber: yup
     .string()
-    .required()
-    .matches(PHONE_NUMBER_REGX, "Alternate number is not valid"),
+    .required( "Alternate number is not valid")
+    .matches(PHONE_NUMBER_REGX,),
   DestinationemailAddress: yup.string().required("Email Address is a required field").email(),
   DestinationadditionalNotes: yup.string().required("Additional Notes is a required field"),
   Category: yup.string().required("Category is a required field"),
@@ -59,10 +59,10 @@ export const SingleShipmentFormSchema = yup.object().shape({
       ShipmentWeight: yup.string().required("Shipment Weight is a required field"),
       Length: yup.string().required("Length is a required field"),
       Width: yup.string().required("Width is a required field"),
-      Height: yup.string().email().required("Height is a required field"),
+      Height: yup.string().required("Height is a required field"),
       Pieces: yup.string().required("Pieces is a required field"),
       ShipmentDescription: yup.string().required("Shipment Description is a required field"),
 
     })
-  ),
+  )
 });

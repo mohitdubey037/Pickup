@@ -11,7 +11,7 @@ function ScheduleShipmentForm(props: { formik: FormikValues }) {
       <Flex>
         <RadioGroup
           defaultValue={values.whatToDo}
-          label={"What do you want to do with the shipment?"}
+          label={"What do you want to do with the order?"}
           name={'whatToDo'}
           id={'whatToDo'}
           options={[

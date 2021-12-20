@@ -13,19 +13,19 @@ export const dashboardHelper: Array<Link> = [
   { id: 0, label: "Dasboard", link: "/dashboard", logo: dashboard },
   {
     id: 1,
-    label: "Charter Shipment",
+    label: "Charter order",
     link: "/dashboard/charter-shipment",
     logo: delivery,
 
     children: [
       {
         id: 0,
-        label: "Single Shipment",
+        label: "Single order",
         link: "/dashboard/charter-shipment/single-shipment",
       },
       {
         id: 1,
-        label: "Bulk Shipment",
+        label: "Bulk order",
         link: "/dashboard/charter-shipment/bulk-shipment",
       },
     ],
@@ -38,7 +38,7 @@ export const dashboardHelper: Array<Link> = [
   },
   {
     id: 3,
-    label: "Search Shipments",
+    label: "Search orders",
     link: "/dashboard/search-shipment",
     logo: search,
   },
