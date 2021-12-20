@@ -30,7 +30,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 error={toucherItem?.ShipmentWeight && errorItem?.ShipmentWeight}
-                label={"Shipment Weight"}
+                label={"order Weight"}
                 placeholder={"Start typing"}
               />
             </Flex>
@@ -112,14 +112,14 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
             error={
               toucherItem?.ShipmentDescription && errorItem?.ShipmentDescription
             }
-            label={"Shipment Description"}
+            label={"order Description"}
             placeholder={"Start typing"}
             type={"textarea"}
           />
         </Flex>
 
         <Flex top={20}>
-          <AddItemLabel text={"Add Shipment Picture"} />
+          <AddItemLabel text={"Add order Picture"} />
         </Flex>
       </Flex>
     </>

@@ -21,6 +21,8 @@ interface RadioGroupProps {
   onChange?: React.ChangeEventHandler;
   error?: string;
   id?: string;
+  checked?:any
+  onClick?:any
 }
 
 function RadioGroup({
@@ -32,6 +34,8 @@ function RadioGroup({
   onChange,
   error,
   id,
+  checked,
+  onClick
 }: RadioGroupProps) {
   return (
     <Flex direction={"column"} style={{ alignItems: "start" }}>

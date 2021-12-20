@@ -2,7 +2,7 @@ import { CompanyDetailsType } from "./../../app/pages/AuthScreens/SignUpScreens/
 import Services from "../";
 
 export const registerUserService = async (email: string) => {
-  const res = await Services.post("sign_up", { emailId: email });
+  const res = await Services.post("business/sign_up", { emailId: email });
   return res;
 };
 

@@ -11,7 +11,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <OnHoldTableTop>
-        <p>{OnHoldTable.length} Shipments</p>
+        <p>{OnHoldTable.length} orders</p>
         <div>
           <Button label="Delete" secondary={true} onClick={() => {}} style={{borderColor:'#C94C43',color:'#C94C43'}} />
           <Button label="Edit" onClick={() => {}} />
