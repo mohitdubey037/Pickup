@@ -5,6 +5,14 @@ export const registerUserService = async (email: string) => {
   const res = await services.post("sign_up", { emailId: email });
   return res;
 };
+export const getCategoryList= async()=>{
+  try{
+    const response = await services.get("order/business/category")
+    return {response: response, success:true} 
+  } catch(err){
+    return { response: err, sucess: false };
+  }
+}
 export const addShipmentDetail = async (body: any) => {
   try {
     
@@ -15,3 +23,4 @@ export const addShipmentDetail = async (body: any) => {
     return { response: err, sucess: false };
   }
 };
+ 

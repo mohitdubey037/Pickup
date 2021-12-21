@@ -144,7 +144,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
               onBlur={handleBlur}
               error={touched.phoneNumber && errors.phoneNumber}
             />
-            <Button showLoader={showLoader} disabled={!isValid} label="Next" onClick={handleSubmit} />
+            <Button  disabled={!isValid} label="Next" onClick={handleSubmit} />
           </FormContent>
         )}
       </FormWrapper>
