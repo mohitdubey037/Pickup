@@ -65,7 +65,7 @@ function SingleShipment({ path: string }) {
         </div>
       </FormContainer>
       <FormContainer elevation={2}>
-        <FormContainerTitle>order Details</FormContainerTitle>
+        <FormContainerTitle>Order Details</FormContainerTitle>
         <SingleShipmentDetails formik={formik} />
       </FormContainer>
 
