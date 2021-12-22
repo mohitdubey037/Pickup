@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from '@reach/router';
 
 export const Link = styled(RouterLink)`
   color: ${p => p.theme.primary};
@@ -12,5 +12,6 @@ export const Link = styled(RouterLink)`
 
   &:active {
     opacity: 0.4;
+    color:"#2A95D1";
   }
 `;
