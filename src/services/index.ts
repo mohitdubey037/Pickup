@@ -30,11 +30,13 @@ class Service {
     });
   };
 
-  post = (url: string, params: {}, type?: RequestType) => {
+  post = (url: string, params: {}, type?: RequestType) => {console.log(url)
+    console.log()
     return new Promise((resolve, reject) => {
       try {
         axios
-          .post(`${type ? USER_BASE_URL : BASE_URL}${url}`, { ...params })
+        // .post(`${type ? USER_BASE_URL : BASE_URL}${url}`, { ...params })
+          .post(`${USER_BASE_URL}${url}`, { ...params })
           .then((res) => {
             return resolve({ data: res.data, status: res.status });
           })
