@@ -27,7 +27,7 @@ interface SelectCategoryType{
   name?:string,
   value:string |number
 }
- ̰
+ 
 
 function DetailsForm(props: { formik: FormikValues ,noOfItem:number}) {
 
