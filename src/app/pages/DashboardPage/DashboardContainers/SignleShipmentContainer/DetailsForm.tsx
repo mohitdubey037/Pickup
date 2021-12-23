@@ -32,12 +32,13 @@ function DetailsForm(props: { formik: FormikValues ,noOfItem:number}) {
   const { handleChange, errors, touched, handleBlur, handleSubmit } =
     props.formik;
     const [selectedBoard, setSelectedBoard] = useState<SelectBoardType[]>([]);
-  const [category, setCategory] =  useState<SelectCategoryType>()
-  const loadCategory = async ()=>{
-   
- 
-    
+  const [category, setCategory] =  useState<SelectBoardType>()
+  const categorySelectHandler =(value:string|number)=>{
+    const selectedCategory =selectedBoard.find(item=>item.categoryId===value) 
+    setCategory(selectedCategory);
   }
+  const [dimensions ,setDimensions]=useState<boolean|null>()
+  
   useEffect(() => {
     (async () => { 
       const response = await getCategoryList();
@@ -45,6 +46,7 @@ function DetailsForm(props: { formik: FormikValues ,noOfItem:number}) {
         const data = response.response as {data: any}
         console.log(data.data.data,"its the response")
          setSelectedBoard(data.data.data)
+         setDimensions(data.data.data.dimensions)
       }
     })()
     
@@ -59,8 +61,8 @@ function DetailsForm(props: { formik: FormikValues ,noOfItem:number}) {
               id="Category"
               name="Category"
               label={"Category"}
-              value={category?.value}
-              onSelect={({target:{value,id,name}})=>{setCategory({value,id,name})}}
+              value={category?.categoryId}
+              onSelect={({target:{value}})=>{categorySelectHandler(value)}}
               options={selectedBoard ? selectedBoard.map(option => ({value: option.categoryId, label: option.name})):[]}
             />
         
@@ -68,7 +70,7 @@ function DetailsForm(props: { formik: FormikValues ,noOfItem:number}) {
           <Flex flex={1} left={30}>
           <CustomInput
                 name={`ShipmentWeight`}
-                id={`.ShipmentWeight`}
+                id={`ShipmentWeight`}
                 onBlur={handleBlur}
                 onChange={handleChange}
                
@@ -96,11 +98,14 @@ function DetailsForm(props: { formik: FormikValues ,noOfItem:number}) {
             />
           </Flex>
         </Flex>
+        {dimensions ? "text" : "text"}
         {new Array(props.noOfItem).fill("").map((value,index)=>{
           return(
           <DetailsFormItem
           formik={props.formik}
-          index={index}/>
+          index={index}
+          />
+          
         )})}
       </Flex>
     </>
