@@ -2,8 +2,6 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { FormWrapper } from "app/components/Input/style";
-import { useFormik } from "formik";
-import { SingleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import Select from "app/components/Select";
 import { LOCATION_TYPES } from "../../../../../constants";
 import RadioGroup from "app/components/RadioGroup";
@@ -30,6 +28,11 @@ function SingleSipmentForm({ title, formik }) {
         </Typography>
 
         <RadioGroup
+          defaultValue="0"
+          onChange={(e) => radioHandler(e)}
+          options={[
+            { label: "Individual", value: "0" },
+            { label: "Company", value: "1" },
           onChange={(e) => radioHandler(e)}
           options={[
             { label: "Individual", value: "1" },
