@@ -5,6 +5,7 @@ import { Flex } from "app/components/Input/style";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
 import { WEIGHTDIMENSION,DIMENSION2 } from "../../../../../constants";
+import { useState } from "react";
 
 function DetailsFormItem(props: { formik: FormikValues; index: number }) {
   const { handleChange, errors, touched, handleBlur, handleSubmit } =
@@ -14,6 +15,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
   const errorItem = errors.shipementDeatials && errors.shipementDeatials[index];
   const toucherItem =
     touched.shipementDeatials && touched.shipementDeatials[index];
+    const [dimensions ,setDimensions]=useState<boolean|null>()
   return (
     <>
       <Typography

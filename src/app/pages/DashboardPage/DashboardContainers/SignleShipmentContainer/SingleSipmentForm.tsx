@@ -33,6 +33,10 @@ function SingleSipmentForm({ title, formik }) {
           options={[
             { label: "Individual", value: "0" },
             { label: "Company", value: "1" },
+          onChange={(e) => radioHandler(e)}
+          options={[
+            { label: "Individual", value: "1" },
+            { label: "Company", value: "0" },
           ]}
           name={"Radio Options"}
         />
