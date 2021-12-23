@@ -31,6 +31,7 @@ import FavoriteLocations from "app/pages/DashboardPage/DashboardContainers/Favor
 import InvoicesContainer from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/Invoices"
 import { ReportsContainer } from "app/pages/DashboardPage/DashboardContainers/Reports";
 import OrderSummary from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer/OrderSummary";
+import SignUpDetails from "app/pages/AuthScreens/SignUpScreens/SignUpDetails";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
@@ -47,7 +48,7 @@ const Routes = () => {
         <ForgotPassword path="/forgot-password" />
         <MailSent path="/mail-sent" />
         <RecoverPassword path="/recover-password" />
-      
+        <SignUpDetails path ="/sign-up-details" />
       </AuthPages>
 
       <DashboardPage path="/dashboard">
