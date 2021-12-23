@@ -4,6 +4,7 @@ import AddItemLabel from "app/components/AddItemLabel";
 import { Flex } from "app/components/Input/style";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
+import { WEIGHTDIMENSION,DIMENSION2 } from "../../../../../constants";
 
 function DetailsFormItem(props: { formik: FormikValues; index: number }) {
   const { handleChange, errors, touched, handleBlur, handleSubmit } =
@@ -39,6 +40,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
                 label={"Unit"}
                 id={"locationType"}
                 name={"locationType"}
+                options={WEIGHTDIMENSION}
               />
             </Flex>
           </Flex>
@@ -82,6 +84,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
                 id={"locationType"}
                 name={"locationType"}
                 label={"Unit"}
+                options={DIMENSION2}
               />
             </Flex>
           </Flex>
