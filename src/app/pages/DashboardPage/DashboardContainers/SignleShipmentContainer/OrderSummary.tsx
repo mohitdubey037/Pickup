@@ -28,11 +28,15 @@ function OrderSummary({ path: string }) {
         />
       </Flex>
     </ModuleContainer>
-  <div style={{display:'inline-flex',justifyContent:'space-evenly',paddingLeft:550}}>
+  <div style={{display:'inline-flex',justifyContent:'space-evenly',paddingLeft:400}}>
 <ContainerTitle >Total</ContainerTitle>
+</div>
+<div style={{display:'inline-flex',justifyContent:'space-evenly',paddingLeft:150}}>
 <ContainerTitle >$250</ContainerTitle>
 </div>
-      {/* <OrderHoldingComponent /> */}
+      <div style={{marginLeft:600, padding:10 , paddingTop:30, paddingBottom:40}}>
+      <OrderHoldingComponent />
+      </div>
       <Flex style={{ marginBottom: 10, padding:"inherit" }} direction={"row-reverse"}>
         <Button
           style={{ width: 190 }}

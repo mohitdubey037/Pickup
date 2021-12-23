@@ -66,7 +66,15 @@ function DetailsForm(props: { formik: FormikValues ,noOfItem:number}) {
         
           </Flex>
           <Flex flex={1} left={30}>
-            <Select label={"Customer Reference Number"} />
+          <CustomInput
+                name={`ShipmentWeight`}
+                id={`.ShipmentWeight`}
+                onBlur={handleBlur}
+                onChange={handleChange}
+               
+                label={"Customer Reference Number"}
+                placeholder={"Start typing"}
+              />
           </Flex>
         </Flex>
         <Flex top={20}>

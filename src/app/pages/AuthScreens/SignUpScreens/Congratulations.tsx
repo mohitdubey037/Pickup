@@ -29,7 +29,7 @@ const Congratulations = ({ navigate }: RouteComponentProps) => {
             <Center>
               <RedLink
                 label="Back to Login"
-                link={() => navigate?.("/")}
+                link={() => navigate?.("/dashboard/charter-shipment/single-shipment/order-summary")}
               />
             </Center>
           </CenterContent>

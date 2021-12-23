@@ -95,8 +95,12 @@ function SingleShipment({ path: string }) {
         <Button
           style={{ width: 190 }}
           label="Confirm Order"
-          onClick={handleSubmit}
-          
+          // onClick={handleSubmit}
+          // link={() => navigate?.("/")}
+          onClick={()=>{
+            handleSubmit();
+            navigate?.("order-summary")
+          }}
           
         />
         <Button
