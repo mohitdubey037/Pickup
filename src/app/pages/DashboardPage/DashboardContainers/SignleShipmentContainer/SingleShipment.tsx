@@ -16,7 +16,7 @@ import { useFormik } from "formik";
 import { SingleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import { Button } from "../../../../components/Buttons";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "store/reducers/SingleShipmentReducer";
+import { actions } from "store/reducers/OrderReducer";
 import { singleShipmentInitValues,addShipmentForm } from "./helper";
 import { Flex } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
@@ -50,9 +50,12 @@ function SingleShipment({ path: string }) {
     const body={companyName:formik.values['OrigincompanyName']}
     console.log(body,'this is Body')
 
-    const res= await addShipmentDetail(body) 
-    //redirect();
-    // dispatch(actions.submitSingleShipment(formik.values));
+    const res= await addShipmentDetail(body);
+     console.log(res,"APi call response")
+    // redirect();
+    
+    // dispatch(actions.confirmOrder());
+    navigate?.("order-summary")
   }
   return (
     <ModuleContainer>
@@ -99,7 +102,7 @@ function SingleShipment({ path: string }) {
           // link={() => navigate?.("/")}
           onClick={()=>{
             handleSubmit();
-            navigate?.("order-summary")
+            
           }}
           
         />

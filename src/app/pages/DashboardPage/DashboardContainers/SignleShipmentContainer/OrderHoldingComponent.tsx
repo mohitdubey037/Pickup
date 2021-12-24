@@ -2,7 +2,7 @@ import React from "react";
 import { alertOctagon } from "../../../../assets/Icons";
 function OrderHoldingComponent() {
   return (
-    <div style={{ backgroundColor: "#FFDB6E", width:650,height:100}}>
+    <div style={{ backgroundColor: "#FFDB6E"}}>
       <div style={{ display: "flex", paddingLeft: 30, paddingTop: 20 }}>
         <img className="imageStyle" src={alertOctagon} />
         <div

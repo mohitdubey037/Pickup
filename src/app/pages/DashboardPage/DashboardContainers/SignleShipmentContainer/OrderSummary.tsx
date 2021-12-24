@@ -8,11 +8,16 @@ import { rows, columns } from "./OrderSummaryHelper";
 import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
+
+import { useSelector } from "react-redux";
+
 import { DataGrid } from "@mui/x-data-grid";
+
 
 import { navigate } from '@reach/router'
 function OrderSummary({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const orders = useSelector((state: { order: { orders: any[] } }) => state.order.orders)
   return (
     <>
       <ModuleContainer>
@@ -24,8 +29,12 @@ function OrderSummary({ path: string }) {
         </Flex>
 
         <Flex direction={"column"} top={20}>
+
+          <Table data={orders} />
+
           {/* <Table data={OrderSummaryTable} /> */}
           <DataGrid rows={rows} columns={columns} checkboxSelection />
+
         </Flex>
       </ModuleContainer>
       <div

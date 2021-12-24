@@ -1,6 +1,7 @@
 import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
+  
   singleShipmentResponse:null
 };
 

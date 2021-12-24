@@ -9,7 +9,7 @@ import createSagaMiddleware from "redux-saga";
 import { auth } from "./reducers/AuthReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-
+import {orderReducer} from "./reducers/OrderReducer"
 import { createReducer } from "./reducers";
 import { localStore } from "./reducers/LocalStoreReducer";
 import { signUp } from "./reducers/SignUpReducer";
@@ -43,7 +43,9 @@ export function configureAppStore() {
     signUp: signUp,
     signIn:signIn,
     globalState:globalState,
-    singleShipment:singleShipment
+    singleShipment:singleShipment,
+    order:orderReducer
+
   });
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);
