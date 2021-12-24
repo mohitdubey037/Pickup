@@ -22,6 +22,26 @@ function AddNewPaymentDrawer() {
   <Typography style={{fontWeight:500}}>Bill to</Typography> <Typography style={{paddingLeft:20}}>Torinit</Typography>
   <Typography style={{paddingLeft:240}}>Invoice Date</Typography> <Typography style={{paddingLeft:20}}>06/06/21</Typography>
   </div>
+  <div style={{paddingTop:20,display:"flex",flexDirection:"row"}}>
+    <Typography>Invoice Number</Typography><Typography style={{paddingLeft:20}}>32132</Typography>
+  </div>
+  <hr/>
+  <div style={{justifyContent:"space-evenly",display:"flex"}}>
+    <Typography>Shipment Count</Typography><Typography style={{paddingLeft:350}}>32</Typography>
+  </div>
+  <div style={{justifyContent:"space-evenly",display:"flex"}}>
+    <Typography>Category</Typography><Typography style={{paddingLeft:350}}>Electronics</Typography>
+  </div>
+  <div style={{justifyContent:"space-evenly",display:"flex"}}>
+    <Typography>Destination count</Typography><Typography style={{paddingLeft:350}}>32</Typography>
+  </div>
+  <div style={{justifyContent:"space-evenly",display:"flex"}}>
+    <Typography>Invoice Amount</Typography><Typography style={{paddingLeft:350}}>$32</Typography>
+  </div>
+  <hr />
+  <div style={{justifyContent:"space-evenly",display:"flex"}}>
+    <Typography>Payment Detail</Typography><Typography style={{paddingLeft:250}}>**** **** **** 1734</Typography>
+  </div>
   </div>;
 }
 
