@@ -7,6 +7,7 @@ import React from 'react'
 import OrderHoldingComponent from './OrderHoldingComponent'
 import { OrderSummaryTable } from './OrderSummaryHelper'
 import { Button } from "../../../../components/Buttons";
+import { navigate } from '@reach/router'
 function OrderSummary({ path: string }) {
     
     return (
@@ -41,7 +42,9 @@ function OrderSummary({ path: string }) {
         <Button
           style={{ width: 190 }}
           label="Proceed to Payment"
-          
+          onClick={()=>{
+            navigate?.("shipment-summary")
+          }}
           
         />
         <Button

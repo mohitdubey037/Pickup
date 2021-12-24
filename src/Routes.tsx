@@ -32,6 +32,7 @@ import InvoicesContainer from "app/pages/DashboardPage/DashboardContainers/Payme
 import { ReportsContainer } from "app/pages/DashboardPage/DashboardContainers/Reports";
 import OrderSummary from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer/OrderSummary";
 import SignUpDetails from "app/pages/AuthScreens/SignUpScreens/SignUpDetails";
+import { ShipmentSummary } from "app/components/PaymentCardDetails";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
@@ -57,6 +58,7 @@ const Routes = () => {
         <Dashboard path="/" />
         <SingleShipment path="/charter-shipment/single-shipment" />
         <OrderSummary path="/charter-shipment/order-summary" />
+        <ShipmentSummary path="/charter-shipment/shipment-summary"/>
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
         <PaymentsPage path="/payments/cards" />
