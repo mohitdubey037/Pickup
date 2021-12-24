@@ -73,7 +73,10 @@ function OrderSummary({ path: string }) {
           style={{ width: 190, marginRight: 20 }}
           secondary
           label="Back"
-          onClick={() => {}}
+          // onClick={() => {}}
+          onClick={() => {
+            setDrawerOpen(true);
+          }}
         />
       </Flex>
       <Drawer
