@@ -9,6 +9,7 @@ import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
 
+import { navigate } from '@reach/router'
 function OrderSummary({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
@@ -60,9 +61,13 @@ function OrderSummary({ path: string }) {
         <Button
           style={{ width: 190 }}
           label="Proceed to Payment"
-          onClick={() => {
-            setDrawerOpen(true);
+          // onClick={() => {
+          //   setDrawerOpen(true);
+          // }}
+          onClick={()=>{
+            navigate?.("shipment-summary")
           }}
+          
         />
         <Button
           style={{ width: 190, marginRight: 20 }}

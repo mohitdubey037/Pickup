@@ -38,6 +38,7 @@ import sliders from './sliders.svg';
 import warningIcon from './warningIcon.svg'
 import LogoImg from './LogoImg';
 import alertOctagon from './alertOctagon.svg';
+import Grouppaymentsummary from './Grouppaymentsummary.svg'
 export {
     analytics,
     clock,
@@ -77,5 +78,6 @@ export {
     sliders,
     warningIcon,
     starimage,
-    alertOctagon
+    alertOctagon,
+    Grouppaymentsummary
 };
