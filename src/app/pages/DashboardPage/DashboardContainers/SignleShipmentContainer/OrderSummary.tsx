@@ -4,11 +4,16 @@ import { Table } from "app/components/Table";
 import { ContainerTitle } from "app/components/Typography/Typography";
 import React, { useState } from "react";
 import OrderHoldingComponent from "./OrderHoldingComponent";
-import { OrderSummaryTable } from "./OrderSummaryHelper";
+import { rows, columns } from "./OrderSummaryHelper";
 import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
+
 import { useSelector } from "react-redux";
+
+import { DataGrid } from "@mui/x-data-grid";
+
+
 import { navigate } from '@reach/router'
 function OrderSummary({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -24,7 +29,12 @@ function OrderSummary({ path: string }) {
         </Flex>
 
         <Flex direction={"column"} top={20}>
+
           <Table data={orders} />
+
+          {/* <Table data={OrderSummaryTable} /> */}
+          <DataGrid rows={rows} columns={columns} checkboxSelection />
+
         </Flex>
       </ModuleContainer>
       <div
