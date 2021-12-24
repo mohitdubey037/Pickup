@@ -24,12 +24,12 @@ function CardDetails(props: CardDetailsProps) {
   const classes = useStyles();
   return (
     <>
-      <ShipmentSummary
+      {/* <ShipmentSummary
         subTotal={320.4}
         taxes={12.0}
         addInsurance={"12"}
         total={332.42}
-      />
+      /> */}
       <hr />
       <PaymentDetails>
         <span className={classes.paymentDetails}>Payment Details</span>

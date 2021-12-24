@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import { Checkbox } from "../Checkbox";
 import {
   SubTotal,
@@ -7,7 +8,7 @@ import {
   Total,
   TearmsConditions,
 } from "./style";
-
+import {Grouppaymentsummary} from '../../assets/Icons'
 interface ShipmentSummaryProps {
   subTotal: number;
   taxes: number;
@@ -15,12 +16,37 @@ interface ShipmentSummaryProps {
   total: number;
 }
 
-function ShipmentSummary(props: ShipmentSummaryProps) {
+function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
   const { subTotal, taxes, addInsurance, total } = props;
   const classes = useStyles();
   return (
     <>
-      <div style={{ marginBottom: "20px" }}>
+    <div style={{position:"absolute",fontWeight:500}}>
+    <Typography component="h2">Shipment Summary</Typography>
+    <SubTotal>
+          <span style={{paddingTop:15}}>Subtotal</span>
+          <span>{subTotal}</span>
+        </SubTotal>
+        <Taxes>
+          <span style={{paddingTop:10}}>Taxes(HST)</span>
+          <span>{taxes}</span>
+        </Taxes>
+        <AddInsurance>
+          <span >
+            <Checkbox label="Add Insurance" />
+            {/* <img style={{position:"absolute",paddingLeft:50,paddingBottom:10}} src={Grouppaymentsummary} /> */}
+          </span>
+          <span>{addInsurance}</span>
+        </AddInsurance>
+        <TearmsConditions>Check our Terms and Conditions</TearmsConditions>
+        <Total>
+        <span style={{fontWeight:700}}>Total</span>
+        <span className={classes.totalCount}>{total}</span>
+      </Total> 
+     
+    </div>
+    
+    {/* <div style={{paddingLeft:10}}>
         <h4>Shipment Summary</h4>
         <SubTotal>
           <span className={classes.subTotal}>Subtotal</span>
@@ -41,7 +67,7 @@ function ShipmentSummary(props: ShipmentSummaryProps) {
       <Total>
         <span className={classes.total}>Total</span>
         <span className={classes.totalCount}>{total}</span>
-      </Total>
+      </Total> */}
     </>
   );
 }
