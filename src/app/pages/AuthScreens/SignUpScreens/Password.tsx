@@ -39,7 +39,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
 
   useEffect(() => {
     if (!state?.email) {
-      navigate?.("/");
+      // navigate?.("/");
       showToast("Invalid", "error");
     }
   }, [state?.email]);
@@ -60,7 +60,11 @@ const Password = ({ navigate }: RouteComponentProps) => {
   };
 
   const onSetPasswords = async (values: any) => {
-    const res = await setPassword(values);
+    const body = {
+      "emailId": "lepoyi4695@drlatvia.com",
+      "password": values.password
+    };
+    const res = await setPassword(body);
     if(res.success) {
       navigate?.("/congratulations");
     }
@@ -70,7 +74,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
     useFormik({
       initialValues: { password: "", confirmPassword: "" },
       validationSchema: passwordSchema,
-      onSubmit: onSubmit,
+      onSubmit: onSetPasswords,
     });
 
   return (

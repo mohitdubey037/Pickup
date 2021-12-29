@@ -162,7 +162,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                 style={{
                   paddingLeft: 10,
                   display: "flex",
-                  alignItems: "center",
+                  // alignItems: "center",
                 }}
               >
                 <Checkbox

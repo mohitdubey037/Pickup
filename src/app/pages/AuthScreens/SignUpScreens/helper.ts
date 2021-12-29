@@ -25,13 +25,9 @@ export const validationSchema = Yup.object({
     .required("Please enter email address"),
 });
 
-export const setPassword = async (values: any) => {
+export const setPassword = async (body: any) => {
   try {
-    const params = {
-      "emailId": values.emailId,
-      "password": values.password,
-    };
-    const response = await services.post("business/password", params);
+    const response = await services.post("business/password", body);
     return { response: response, success: true };
   } catch (error) {
     return { data: error, success: false };
