@@ -19,10 +19,25 @@ export const registerPasswordService = async (passwordRequest: {
   password: string;
 }) => await Services.post("password", passwordRequest);
 
-
 export const getEmailUserId = async (userId) => {
   const res = (await Services.get(`user/${userId}/profile`)) as {
     data: { data: { emailId: string } };
   };
   return res.data?.data;
+};
+
+export const SendSignUpDetails = async (values: any) => {
+  try {
+    const params = {
+      "firstName": values.firstName,
+      "lastName": values.lastName,
+      "companyName": values.companyName,
+      "emailId": values.emailId,
+      "phoneNumber": values.phoneNumber,
+    };
+    const response = await Services.post("business/create", params);
+    return {response: response, success: true}
+  } catch (err) {
+    return { data: err, success: false };
+  }
 };

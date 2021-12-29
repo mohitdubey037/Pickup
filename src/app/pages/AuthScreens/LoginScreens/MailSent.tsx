@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { RouteComponentProps } from "@reach/router";
 import {
   Header,
@@ -18,7 +18,14 @@ const MailSent = ({ navigate }: RouteComponentProps) => {
       <FormWrapper>
         <FormContent>
           <CenterContent>
-            <img src={mailLogo} alt="" className="mailLogo" />
+            <div>
+              <img
+                src={mailLogo}
+                alt=""
+                className="mailLogo"
+                style={{ padding: "25px 0px 0px 0px" }}
+              />
+            </div>
             <Header>EMAIL SENT</Header>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -26,7 +33,7 @@ const MailSent = ({ navigate }: RouteComponentProps) => {
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi
               mollis tempus
             </p>
-            <RedLink  label="Back to Login" link={() => navigate?.("/")} />
+            <RedLink label="Back to Login" link={() => navigate?.("/")} />
           </CenterContent>
         </FormContent>
       </FormWrapper>

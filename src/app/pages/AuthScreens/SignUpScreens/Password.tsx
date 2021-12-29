@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SignUpReducer";
 import { showToast } from "utils";
-
 import { Button } from "../../../components/Buttons";
 import { PasswordInput } from "../../../components/Input";
 import {
@@ -17,6 +16,7 @@ import {
   Header,
 } from "../style";
 import { passwordSchema } from "./signUpSchemas";
+import { setPassword } from "./helper";
 
 const Password = ({ navigate }: RouteComponentProps) => {
   const { state } = useLocation() as { state: { email: string } };
@@ -35,7 +35,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
     return () => {
       dispatch(actions.registerPasswordResponse(null));
     };
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (!state?.email) {
@@ -58,6 +58,13 @@ const Password = ({ navigate }: RouteComponentProps) => {
       })
     );
   };
+
+  const onSetPasswords = async (values: any) => {
+    const res = await setPassword(values);
+    if(res.success) {
+      navigate?.("/congratulations");
+    }
+  }
 
   const { handleChange, errors, values, touched, handleBlur, handleSubmit } =
     useFormik({
@@ -91,7 +98,6 @@ const Password = ({ navigate }: RouteComponentProps) => {
             onBlur={handleBlur}
             error={touched.confirmPassword && errors.confirmPassword}
           />
-
           <Button
             showLoader={showLoader}
             label="Confirm"

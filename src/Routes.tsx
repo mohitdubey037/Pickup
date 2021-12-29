@@ -8,7 +8,7 @@ import {
   Congratulations,
 } from "./app/pages/AuthScreens/SignUpScreens";
 import {
-  SignIn,
+  Login,
   ForgotPassword,
   MailSent,
   RecoverPassword,
@@ -41,16 +41,16 @@ const Routes = () => {
   return (
     <Router>
       <AuthPages path="/">
-        <SignIn path="/" />
+        <Login path="/" />
         <EmailSent path="/email-sent" />
-        <CompanyDetails path="/company-details/:userId" />
+        {/* <CompanyDetails path="/company-details/:userId" /> */}
         <Password path="/password" />
         <Congratulations path="/congratulations" />
         <SignUp path="/sign-up" />
         <ForgotPassword path="/forgot-password" />
         <MailSent path="/mail-sent" />
         <RecoverPassword path="/recover-password" />
-        <SignUpDetails path ="/sign-up-details" />
+        <SignUpDetails path ="/sign-up-details/" />
       </AuthPages>
 
       <DashboardPage path="/dashboard">

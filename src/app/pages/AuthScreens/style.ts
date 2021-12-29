@@ -51,7 +51,7 @@ export const FormWrapper = styled.div`
 export const FormContent = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 30px 52px 30px 52px;
   gap: 14px;
   align-items: flex-start;
 `;
@@ -71,9 +71,8 @@ export const Header = styled.div`
   font-size: 32px;
   color: #343434;
   line-height: 37px;
-  text-align: left;
+  text-align: center;
   margin: 1rem 0;
-  
 `;
 
 export const LoginLink = styled.div`
