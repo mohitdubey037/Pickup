@@ -8,7 +8,7 @@ import { rows, columns } from "./OrderSummaryHelper";
 import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
-
+import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments"
 import { useSelector } from "react-redux";
 
 import { DataGrid } from "@mui/x-data-grid";
@@ -17,6 +17,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { navigate } from '@reach/router'
 function OrderSummary({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpenOne, setDrawerOpenOne] = useState(false);
   const orders = useSelector((state: { order: { orders: any[] } }) => state.order.orders)
   return (
     <>
@@ -89,7 +90,25 @@ function OrderSummary({ path: string }) {
             setDrawerOpen(true);
           }}
         />
+         <Button
+          style={{ width: 190, marginRight: 20 }}
+          secondary
+          label="drawer"
+          // onClick={() => {}}
+          onClick={() => {
+            setDrawerOpenOne(true);
+          }}
+        />
       </Flex>
+      <Drawer
+        open={drawerOpenOne}
+        title="Payments"
+        setDrawerOpen={(flag) => setDrawerOpenOne(flag)}
+        closeIcon={true}
+        actionButtons={true}
+      >
+        <ShipmentSummaryAndPayments/>
+      </Drawer>
       <Drawer
         open={drawerOpen}
         title="Order Details"

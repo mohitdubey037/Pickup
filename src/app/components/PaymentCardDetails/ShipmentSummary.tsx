@@ -24,8 +24,9 @@ function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
     <div style={{position:"absolute",fontWeight:500}}>
     <Typography component="h2">Shipment Summary</Typography>
     <SubTotal>
-          <span style={{paddingTop:15}}>Subtotal</span>
-          <span>{subTotal}</span>
+    <div style={{justifyContent:"space-evenly",display:"flex"}}>
+    <Typography>Subtotal</Typography><Typography style={{paddingLeft:1000}}>$320.42</Typography>
+  </div>
         </SubTotal>
         <Taxes>
           <span style={{paddingTop:10}}>Taxes(HST)</span>

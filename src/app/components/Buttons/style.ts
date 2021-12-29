@@ -11,6 +11,7 @@ export const CustomButton = styled(Button)`
   max-height:56px;
   border-radius:8px;
   height:40px;
+  box-shadow: none !important;
   &.MuiButton-root{
     text-transform: none;
     padding: 1rem;
