@@ -1,5 +1,5 @@
 import { forgetPasswordService, resetPasswordService, signInUserService } from "./../../services/SignInServices/index";
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 import { Types, actions } from "../../store/reducers/SignInReducer";
 import { showToast } from "../../utils";
 import { globalActions } from "store/reducers/GlobalReducer";

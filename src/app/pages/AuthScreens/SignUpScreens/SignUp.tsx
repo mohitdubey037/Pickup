@@ -32,7 +32,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
     return () => {
       dispatch(actions.registerUserResponse({}));
     };
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (signUpResponse.verifyEmailLink) {
@@ -48,7 +48,6 @@ const SignUp = ({ navigate }: SignUpProps) => {
     handleChange,
     values: { email },
     errors,
-    touched,
     handleBlur,
     handleSubmit,
     isValid,
