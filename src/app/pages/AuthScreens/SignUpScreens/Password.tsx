@@ -5,112 +5,102 @@ import { useFormik } from "formik";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SignUpReducer";
-import { showToast } from "utils";
 import { Button } from "../../../components/Buttons";
 import { PasswordInput } from "../../../components/Input";
 import {
-  SignUpWrapper,
-  FormContent,
-  FormWrapper,
-  LogoImage,
-  Header,
+    SignUpWrapper,
+    FormContent,
+    FormWrapper,
+    LogoImage,
+    Header,
 } from "../style";
 import { passwordSchema } from "./signUpSchemas";
-import { setPassword } from "./helper";
 
 const Password = ({ navigate }: RouteComponentProps) => {
-  const { state } = useLocation() as { state: { email: string } };
-  const passwordRegisterResponse = useSelector(
-    (state: { signUp: { passwordRegisterResponse: {} } }) =>
-      state.signUp.passwordRegisterResponse
-  );
-  const showLoader = useSelector(
-    (state: { globalState: { showLoader: boolean } }) =>
-      state.globalState.showLoader
-  );
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    return () => {
-      dispatch(actions.registerPasswordResponse(null));
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!state?.email) {
-      // navigate?.("/");
-      showToast("Invalid", "error");
-    }
-  }, [state?.email]);
-
-  useEffect(() => {
-    if (passwordRegisterResponse) {
-      navigate?.("/congratulations");
-    }
-  }, [passwordRegisterResponse]);
-
-  const onSubmit = () => {
-    dispatch(
-      actions.registerPassword({
-        emailId: state?.email,
-        password: values.password,
-      })
+    const { state } = useLocation() as { state: { email: string } };
+    const passwordRegisterResponse = useSelector(
+        (state: { signUp: { passwordRegisterResponse: {} } }) =>
+            state.signUp.passwordRegisterResponse
     );
-  };
+    const showLoader = useSelector(
+        (state: { globalState: { showLoader: boolean } }) =>
+            state.globalState.showLoader
+    );
 
-  const onSetPasswords = async (values: any) => {
-    const body = {
-      "emailId": "lepoyi4695@drlatvia.com",
-      "password": values.password
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        return () => {
+            dispatch(actions.registerPasswordResponse(null));
+        };
+    }, []);
+
+    useEffect(() => {
+        //This logic needs to improve or something better needs to be thought of to show user in case of missing email in navigation state
+        if (!state?.email) {
+            navigate?.('/sign-up')
+        }
+    }, [state?.email]);
+
+    useEffect(() => {
+        if (passwordRegisterResponse) {
+            navigate?.("/congratulations");
+        }
+    }, [passwordRegisterResponse]);
+
+    const onSubmit = (values) => {
+        dispatch(
+            actions.registerPassword({
+                emailId: state?.email,
+                password: values.password,
+            })
+        );
     };
-    const res = await setPassword(body);
-    if(res.success) {
-      navigate?.("/congratulations");
-    }
-  }
 
-  const { handleChange, errors, values, touched, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: { password: "", confirmPassword: "" },
-      validationSchema: passwordSchema,
-      onSubmit: onSetPasswords,
-    });
+    const { handleChange, errors, touched, handleBlur, handleSubmit, isValid, dirty } =
+        useFormik({
+            initialValues: { password: "", confirmPassword: "" },
+            validationSchema: passwordSchema,
+            onSubmit: onSubmit,
+        });
 
-  return (
-    <SignUpWrapper>
-      <LogoImage />
-      <FormWrapper>
-        <FormContent>
-          <Header>PASSWORD</Header>
-          <PasswordInput
-            id="password"
-            name="password"
-            label="Password"
-            placeholder="Start typing"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.password && errors.password}
-            validate
-          />
-          <PasswordInput
-            id="confirmPassword"
-            name="confirmPassword"
-            label="Confirm Password"
-            placeholder="Start typing"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.confirmPassword && errors.confirmPassword}
-          />
-          <Button
-            showLoader={showLoader}
-            label="Confirm"
-            onClick={handleSubmit}
-          />
-        </FormContent>
-      </FormWrapper>
-    </SignUpWrapper>
-  );
+    return (
+        <SignUpWrapper>
+            <LogoImage />
+            <FormWrapper>
+                <FormContent>
+                    <Header>PASSWORD</Header>
+                    <PasswordInput
+                        id="password"
+                        name="password"
+                        label="Password"
+                        placeholder="Start typing"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.password && errors.password}
+                        autoComplete="off"
+                        validate
+                    />
+                    <PasswordInput
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        label="Confirm Password"
+                        placeholder="Start typing"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        autoComplete="off"
+                        error={touched.confirmPassword && errors.confirmPassword}
+                    />
+                    <Button
+                        disabled={!(isValid && dirty)}
+                        showLoader={showLoader}
+                        label="Confirm"
+                        onClick={handleSubmit}
+                    />
+                </FormContent>
+            </FormWrapper>
+        </SignUpWrapper>
+    );
 };
 
 export default Password;

@@ -51,6 +51,8 @@ const SignUp = ({ navigate }: SignUpProps) => {
     touched,
     handleBlur,
     handleSubmit,
+    isValid,
+    dirty
   } = useFormik({
     initialValues: { email: "" },
     validationSchema: signUpSchema,
@@ -71,8 +73,9 @@ const SignUp = ({ navigate }: SignUpProps) => {
             onChange={handleChange}
             error={ errors.email}
             onBlur={handleBlur}
+            autoComplete="off"
           />
-          <Button label="Sign Up" showLoader={showLoader} onClick={handleSubmit} />
+          <Button disabled={!(isValid && dirty)} label="Sign Up" showLoader={showLoader} onClick={handleSubmit} />
           <LoginLink>
             Already have an account?{" "}
             <BlackLink

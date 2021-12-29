@@ -10,7 +10,8 @@ export const companyDetailsSchema = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   companyName: yup.string().required(),
-  email: yup.string().required("Email is a required field").email(),
+  consent: yup.boolean().required().equals([true]),
+//   email: yup.string().required("Email is a required field").email(),
   phoneNumber: yup
     .string()
     .required()
