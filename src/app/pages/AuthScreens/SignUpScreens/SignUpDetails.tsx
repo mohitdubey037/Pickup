@@ -1,6 +1,6 @@
 import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Header,
   SignUpWrapper,
@@ -60,6 +60,11 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
   // useEffect(() => {
   //   onSignUpFormSubmit(values);
   // }, []);
+  //   useEffect(() => {
+  //     if (signUpResponse.verifyEmailLink) {
+  //       navigate?.("/email-sent");
+  //     }
+  //   }, [signUpResponse.verifyEmailLink, navigate]);
 
   function getParamsFromUrl(search: string) {
     const qs = search.substring(1);
