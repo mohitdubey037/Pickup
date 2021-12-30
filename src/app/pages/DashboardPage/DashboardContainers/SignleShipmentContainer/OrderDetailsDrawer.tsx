@@ -5,17 +5,14 @@ import { getOrderDetails } from "services/SingleShipmentServices";
 import { Flex } from "app/components/Input/style";
 import { showToast } from "utils";
 
-interface CategoryOptions{
-    name?: string;
-    icon?: string;
-}
 interface orderDetails{
     referenceNumber?: string;
     items?: any;
     image?: string;
-    category?: CategoryOptions;
+    category?: string;
     fragile?: number;
-    note?: string;
+    description?: string;
+    picture?: string;
 }
 
 function OrderDetailsDrawer(props) {
@@ -63,7 +60,7 @@ function OrderDetailsDrawer(props) {
                         <Flex direction="row" justifyContent="space-between">
                             <Flex direction="column">
                                 <p>Category</p>
-                                <p>{orderDetails?.category?.name}</p>
+                                <p>{orderDetails?.category}</p>
                             </Flex>
                             <Flex direction="column">
                                 <p>Customer Ref. #</p>
@@ -83,9 +80,9 @@ function OrderDetailsDrawer(props) {
                         <div>
                             <h2>Order Description</h2>
                             <p>
-                                {orderDetails?.note}
+                                {orderDetails?.description}
                             </p>
-                            <img style={{ width: '120px', height: '100px' }} src={orderDetails?.category?.icon ? orderDetails?.category?.icon : 'https://5.imimg.com/data5/VH/KM/ZQ/SELLER-89149368/fish-feed-packaging-box-250x250.jpg'} alt="orderImage" />
+                            <img style={{ width: '120px', height: '100px' }} src={orderDetails?.picture ? orderDetails?.picture : 'https://5.imimg.com/data5/VH/KM/ZQ/SELLER-89149368/fish-feed-packaging-box-250x250.jpg'} alt="orderImage" />
                         </div>
                     </div>
 
