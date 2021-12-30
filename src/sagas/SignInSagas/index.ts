@@ -38,7 +38,7 @@ function* forgetPasswordWorker(action) {
 function* resetPasswordWorker(action) {
   try {
     yield put(globalActions.showLoader(true))
-    const res = yield call(resetPasswordService, action.password);
+    const res = yield call(resetPasswordService, action.resetPassword);
  
     yield put(actions.resetPasswordResponse(res));
     yield put(globalActions.showLoader(false))

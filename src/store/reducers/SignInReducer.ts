@@ -12,7 +12,7 @@ const { Types, Creators } = createActions({
     signInUserResponse: ["res"],
     forgetPassword: ["email"],
     forgetPasswordResponse: ["res"],
-    resetPassword: ["password"],
+    resetPassword: ["resetPassword"],
     resetPasswordResponse: ["res"]
 });
 

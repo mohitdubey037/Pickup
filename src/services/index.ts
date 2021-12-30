@@ -30,13 +30,13 @@ class Service {
     });
   };
 
-  post = (url: string, params: {}, type: RequestType="base") => {
+  post = (url: string, params: {}, type: RequestType="base", token: string='') => {
     return new Promise((resolve, reject) => {
       try {
         axios
         .post(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`,{ ...params } , { 
             headers:{
-                Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMDk3LCJ0eXBlIjoibG9naW4iLCJyb2xlIjozLCJidXNpbmVzc1JvbGUiOm51bGwsImNvbXBhbnkiOm51bGwsImlhdCI6MTYzNzIyODM1NX0.Is8pb06wYV75USsBlm1TaUMXTXdFofFdS5v_PNbZI8g"
+                Authorization:`Bearer ${token ? token : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMDk3LCJ0eXBlIjoibG9naW4iLCJyb2xlIjozLCJidXNpbmVzc1JvbGUiOm51bGwsImNvbXBhbnkiOm51bGwsImlhdCI6MTYzNzIyODM1NX0.Is8pb06wYV75USsBlm1TaUMXTXdFofFdS5v_PNbZI8g'}`
             }
          })
           .then((res) => {
@@ -46,11 +46,12 @@ class Service {
             console.log({ err });
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
+              const errorMessage = errResponse?.data?.message?.message
+                ? errResponse?.data?.message.message
+                : errResponse?.data?.message
               return reject({
                 status: errResponse.status,
-                message: errResponse?.data?.message?.message
-                  ? errResponse?.data?.message.message
-                  : errResponse?.data?.message,
+                message: errorMessage,
               });
             }
           });
