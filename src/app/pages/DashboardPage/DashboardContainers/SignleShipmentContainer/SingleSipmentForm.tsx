@@ -16,6 +16,7 @@ function SingleSipmentForm({ title, formik }) {
     const val = event.target.value;
     setStatus(val);
   };
+
   return (
     <FormWrapper style={{ paddingRight: 35 }}>
       <form>
@@ -32,7 +33,7 @@ function SingleSipmentForm({ title, formik }) {
           onChange={(e) => radioHandler(e)}
           options={[
             { label: "Individual", value: "0" },
-            { label: "Company", value: "1" }
+            { label: "Company", value: "1" },
           ]}
           name={"Radio Options"}
         />
@@ -55,15 +56,16 @@ function SingleSipmentForm({ title, formik }) {
           {status === "0" && (
             <Grid item xs={4}>
               <Input
-                id={title + "companyName"}
-                name={title + "companyName"}
+                id={title + "CompanyName"}
+                name={title + "CompanyName"}
                 label={"Company Name"}
+                value={values[`${title}ComplanyName`]}
                 placeholder={"Start typing"}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={
-                  touched[title + "companyName"] &&
-                  errors[title + "companyName"]
+                  touched[title + "CompanyName"] &&
+                  errors[title + "CompanyName"]
                 }
                 validate
               />
@@ -71,169 +73,181 @@ function SingleSipmentForm({ title, formik }) {
           )}
           <Grid item xs={4}>
             <Input
-              id={title + "firstName"}
-              name={title + "firstName"}
+              id={title + "FirstName"}
+              name={title + "FirstName"}
+              initValue={values[`${title}FirstName`]}
               label={"First Name"}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
-                touched[title + "firstName"] && errors[title + "firstName"]
+                touched[title + "FirstName"] && errors[title + "FirstName"]
               }
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "lastName"}
-              name={title + "lastName"}
+              id={title + "LastName"}
+              name={title + "LastName"}
               label={"Last Name"}
+              initValue={values[`${title}LastName`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={touched[title + "lastName"] && errors[title + "lastName"]}
+              error={touched[title + "LastName"] && errors[title + "LastName"]}
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "addressLine1"}
-              name={title + "addressLine1"}
+              id={title + "AddressLine1"}
+              name={title + "AddressLine1"}
               label={"Address Line 1"}
+              initValue={values[`${title}AddressLine1`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
-                touched[title + "addressLine1"] &&
-                errors[title + "addressLine1"]
+                touched[title + "AddressLine1"] &&
+                errors[title + "AddressLine1"]
               }
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "addressLine2"}
-              name={title + "addressLine2"}
+              id={title + "AddressLine2"}
+              name={title + "AddressLine2"}
               label={"Address Line 2"}
               placeholder={"Start typing"}
+              initValue={values[`${title}AddressLine2`]}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
-                touched[title + "addressLine2"] &&
-                errors[title + "addressLine2"]
+                touched[title + "AddressLine2"] &&
+                errors[title + "AddressLine2"]
               }
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "city"}
-              name={title + "city"}
+              id={title + "City"}
+              name={title + "City"}
               label={"City"}
               placeholder={"Start typing"}
+              initValue={values[`${title}City`]}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={touched[title + "city"] && errors[title + "city"]}
+              error={touched[title + "City"] && errors[title + "City"]}
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "postalCode"}
-              name={title + "postalCode"}
+              id={title + "PostalCode"}
+              name={title + "PostalCode"}
               label={"Postal Code"}
+              initValue={values[`${title}PostalCode`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
-                touched[title + "postalCode"] && errors[title + "postalCode"]
+                touched[title + "PostalCode"] && errors[title + "PostalCode"]
               }
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "provinceState"}
-              name={title + "provinceState"}
+              id={title + "ProvinceState"}
+              name={title + "ProvinceState"}
               label={"Province/State"}
               placeholder={"Start typing"}
+              initValue={values[`${title}ProvinceState`]}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
-                touched[title + "provinceState"] &&
-                errors[title + "provinceState"]
+                touched[title + "ProvinceState"] &&
+                errors[title + "ProvinceState"]
               }
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "country"}
-              name={title + "country"}
+              id={title + "Country"}
+              name={title + "Country"}
               label={"Country"}
+              initValue={values[`${title}Country`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={touched[title + "country"] && errors[title + "country"]}
+              error={touched[title + "Country"] && errors[title + "Country"]}
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "contactNumber"}
-              name={title + "contactNumber"}
+              id={title + "ContactNumber"}
+              name={title + "ContactNumber"}
               label={"Contact Number"}
+              initValue={values[`${title}ContactNumber`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
-                touched[title + "contactNumber"] &&
-                errors[title + "contactNumber"]
+                touched[title + "ContactNumber"] &&
+                errors[title + "ContactNumber"]
               }
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "alternateNumber"}
-              name={title + "alternateNumber"}
-              label={"Alternate Number"}
+              id={title + "ContactNumber"}
+              name={title + "ContactNumber"}
+              initValue={values[`${title}ContactNumber`]}
+              label={"Alternate Contact Number"}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
-                touched[title + "alternateNumber"] &&
-                errors[title + "alternateNumber"]
+                touched[title + "ContactNumber"] &&
+                errors[title + "ContactNumber"]
               }
               validate
             />
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "emailAddress"}
-              name={title + "emailAddress"}
+              id={title + "EmailAddress"}
+              name={title + "EmailAddress"}
               label={"Email Address"}
+              initValue={values[`${title}EmailAddress`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
-                touched[title + "emailAddress"] &&
-                errors[title + "emailAddress"]
+                touched[title + "EmailAddress"] &&
+                errors[title + "EmailAddress"]
               }
               validate
             />
           </Grid>
           <Grid item xs={12}>
             <Input
-              id={title + "additionalNotes"}
-              name={title + "additionalNotes"}
+              id={title + "AdditionalNotes"}
+              name={title + "AdditionalNotes"}
               label={"Additional Notes"}
               placeholder={"Start typing"}
               onChange={handleChange}
+              initValue={values[`${title}AdditionalNotes`]}
               onBlur={handleBlur}
               error={
-                touched[title + "additionalNotes"] &&
-                errors[title + "additionalNotes"]
+                touched[title + "AdditionalNotes"] &&
+                errors[title + "AdditionalNotes"]
               }
               validate
             />

@@ -21,7 +21,9 @@
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
     "baseUrl": "./src",
-    "noEmit": true
+    "noEmit": true,
+    "useUnknownInCatchVariables": false,
+
   },
   "include": [
     "src",

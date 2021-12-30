@@ -4,44 +4,45 @@ import AddItemLabel from "app/components/AddItemLabel";
 import { Flex } from "app/components/Input/style";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
-import { WEIGHTDIMENSION,DIMENSION2 } from "../../../../../constants";
+import { WEIGHTDIMENSION, DIMENSION2 } from "../../../../../constants";
 import { useState } from "react";
 
 function DetailsFormItem(props: { formik: FormikValues; index: number }) {
-  const { handleChange, errors, touched, handleBlur, handleSubmit } =
+  const { handleChange, values, errors, touched, handleBlur, handleSubmit } =
     props.formik;
   const { index } = props;
   const formItem = `shipementDeatials.${index}`;
   const errorItem = errors.shipementDeatials && errors.shipementDeatials[index];
   const toucherItem =
     touched.shipementDeatials && touched.shipementDeatials[index];
-    const [dimensions ,setDimensions]=useState<boolean|null>()
+
+  const formItemValue = values.shipementDeatials[index];
   return (
     <>
-      <Typography
-        className="typography"
-        variant="h1"
-        component="h3"
-      >Item#{index+1}</Typography>
+      <Typography className="typography" variant="h1" component="h3">
+        Item#{index + 1}
+      </Typography>
       <Flex direction={"column"}>
         <Flex top={20}>
           <Flex flex={1}>
             <Flex flex={1}>
               <CustomInput
-                name={`${formItem}.ShipmentWeight`}
-                id={`${formItem}.ShipmentWeight`}
+                name={`${formItem}.weight`}
+                id={`${formItem}.weight`}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={toucherItem?.ShipmentWeight && errorItem?.ShipmentWeight}
+                error={toucherItem?.weight && errorItem?.weight}
                 label={"order Weight"}
+                initValue={formItemValue.weight}
                 placeholder={"Start typing"}
               />
             </Flex>
             <Flex flex={1} left={30}>
               <Select
-                label={"Unit"}
-                id={"locationType"}
-                name={"locationType"}
+                label={"unit"}
+                id={"unit"}
+                name={"unit"}
+                value={values[`${formItem}.unit`]}
                 options={WEIGHTDIMENSION}
               />
             </Flex>
@@ -50,33 +51,38 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
           <Flex flex={1} left={30}>
             <Flex flex={1}>
               <CustomInput
-                id={`${formItem}.Length`}
-                name={`${formItem}.Length`}
+                id={`${formItem}.length`}
+                name={`${formItem}.length`}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={toucherItem?.Length && errorItem?.Length}
+                initValue={formItemValue.length}
+                error={toucherItem?.length && errorItem?.length}
                 label={"Length"}
                 placeholder={"Start typing"}
               />
             </Flex>
             <Flex flex={1} left={30}>
               <CustomInput
-                id={`${formItem}.Width`}
-                name={`${formItem}.Width`}
+                id={`${formItem}.width`}
+                name={`${formItem}.width`}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={toucherItem?.Width && errorItem?.Width}
+                error={toucherItem?.width && errorItem?.width}
                 label={"Width"}
+                initValue={formItemValue.width}
+                
                 placeholder={"Start typing"}
               />
             </Flex>
             <Flex flex={1} left={30}>
               <CustomInput
-                id={`${formItem}.Height`}
-                name={`${formItem}.Height`}
+                id={`${formItem}.height`}
+                name={`${formItem}.height`}
                 onBlur={handleBlur}
+                initValue={formItemValue.height}
+                
                 onChange={handleChange}
-                error={toucherItem?.Height && errorItem?.Height}
+                error={toucherItem?.height && errorItem?.height}
                 label={"Height"}
                 placeholder={"Start typing"}
               />
@@ -94,12 +100,14 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
         <Flex top={20}>
           <Flex flex={1}>
             <CustomInput
-              id={`${formItem}.Pieces`}
-              name={`${formItem}.Pieces`}
+              id={`${formItem}.quantity`}
+              name={`${formItem}.quantity`}
               onBlur={handleBlur}
               onChange={handleChange}
-              error={toucherItem?.Pieces && errorItem?.Pieces}
-              label={"Pieces"}
+              error={toucherItem?.quantity && errorItem?.quantity}
+              label={"quantity"}
+              initValue={formItemValue.quantity}
+                
               placeholder={"Start typing"}
             />
           </Flex>
@@ -110,16 +118,17 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
 
         <Flex top={20}>
           <CustomInput
-            id={`${formItem}.ShipmentDescription`}
-            name={`${formItem}.ShipmentDescription`}
+            id={`${formItem}.description`}
+            name={`${formItem}.description`}
             onBlur={handleBlur}
             onChange={handleChange}
-            error={
-              toucherItem?.ShipmentDescription && errorItem?.ShipmentDescription
-            }
+            error={toucherItem?.description && errorItem?.description}
             label={"order Description"}
             placeholder={"Start typing"}
             type={"textarea"}
+            value={values[`${formItem}.description`]}
+            initValue={formItemValue.description}
+
           />
         </Flex>
 
