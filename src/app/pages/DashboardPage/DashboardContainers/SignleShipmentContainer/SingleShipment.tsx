@@ -20,13 +20,12 @@ import { singleShipmentInitValues, addShipmentForm } from "./helper";
 import { Flex } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { navigate } from "@reach/router";
-import { addShipmentDetail } from "services/SingleShipmentServices";
 
 function SingleShipment({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const redirect = () => {
-    navigate("/dashboard/charter-shipment/order-summary/");
+  const redirect = (orderId: number) => {
+    navigate(`/dashboard/charter-shipment/order-summary/${orderId}`);
   };
 
   const formik = useFormik({
@@ -35,12 +34,15 @@ function SingleShipment({ path: string }) {
     onSubmit: async () => {
       setIsLoading(true);
       const res = await addShipmentForm(formik.values, 1);
+
       setIsLoading(false);
-      redirect()
+      if (res.success) {
+        const orderId = res.response.data.data;
+        redirect(orderId);
+      }
     },
   });
 
-   
   return (
     <ModuleContainer>
       <ContainerTitle>Single order</ContainerTitle>
@@ -95,7 +97,6 @@ function SingleShipment({ path: string }) {
           onClick={() => {}}
         />
       </Flex>
-     
     </ModuleContainer>
   );
 }
