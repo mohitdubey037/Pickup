@@ -28,7 +28,7 @@ export const addShipmentDetail = async (body: any) => {
 
 export const getOrderDetails = async (orderId: any) => {
     try {
-        const res = await services.get(`/order/${orderId}`)
+        const res = await services.get(`order/business/shipment/${orderId}`)
         return { response: res, success: true }
     } catch (err) {
         // const response = (err instanceof Error)
