@@ -37,6 +37,8 @@ function SingleShipment({ path: string }) {
       redirect();
     },
   });
+
+  console.log('errors',formik.errors)
   return (
     <ModuleContainer>
       <ContainerTitle>Single order</ContainerTitle>

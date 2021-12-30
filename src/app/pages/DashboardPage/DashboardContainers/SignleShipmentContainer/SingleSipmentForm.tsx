@@ -16,6 +16,7 @@ function SingleSipmentForm({ title, formik }) {
     const val = event.target.value;
     setStatus(val);
   };
+
   return (
     <FormWrapper style={{ paddingRight: 35 }}>
       <form>
@@ -32,7 +33,7 @@ function SingleSipmentForm({ title, formik }) {
           onChange={(e) => radioHandler(e)}
           options={[
             { label: "Individual", value: "0" },
-            { label: "Company", value: "1" }
+            { label: "Company", value: "1" },
           ]}
           name={"Radio Options"}
         />
@@ -58,6 +59,7 @@ function SingleSipmentForm({ title, formik }) {
                 id={title + "CompanyName"}
                 name={title + "CompanyName"}
                 label={"Company Name"}
+                value={values[`${title}ComplanyName`]}
                 placeholder={"Start typing"}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -73,6 +75,7 @@ function SingleSipmentForm({ title, formik }) {
             <Input
               id={title + "FirstName"}
               name={title + "FirstName"}
+              initValue={values[`${title}FirstName`]}
               label={"First Name"}
               placeholder={"Start typing"}
               onChange={handleChange}
@@ -88,6 +91,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "LastName"}
               name={title + "LastName"}
               label={"Last Name"}
+              initValue={values[`${title}LastName`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -100,6 +104,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "AddressLine1"}
               name={title + "AddressLine1"}
               label={"Address Line 1"}
+              initValue={values[`${title}AddressLine1`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -116,6 +121,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "AddressLine2"}
               label={"Address Line 2"}
               placeholder={"Start typing"}
+              initValue={values[`${title}AddressLine2`]}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
@@ -131,6 +137,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "City"}
               label={"City"}
               placeholder={"Start typing"}
+              initValue={values[`${title}City`]}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched[title + "City"] && errors[title + "City"]}
@@ -142,6 +149,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "PostalCode"}
               name={title + "PostalCode"}
               label={"Postal Code"}
+              initValue={values[`${title}PostalCode`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -157,6 +165,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "ProvinceState"}
               label={"Province/State"}
               placeholder={"Start typing"}
+              initValue={values[`${title}ProvinceState`]}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
@@ -171,6 +180,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "Country"}
               name={title + "Country"}
               label={"Country"}
+              initValue={values[`${title}Country`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -183,6 +193,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "ContactNumber"}
               name={title + "ContactNumber"}
               label={"Contact Number"}
+              initValue={values[`${title}ContactNumber`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -195,15 +206,16 @@ function SingleSipmentForm({ title, formik }) {
           </Grid>
           <Grid item xs={4}>
             <Input
-              id={title + "AlternateNumber"}
-              name={title + "AlternateNumber"}
+              id={title + "ContactNumber"}
+              name={title + "ContactNumber"}
+              initValue={values[`${title}ContactNumber`]}
               label={"Alternate Contact Number"}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
-                touched[title + "AlternateNumber"] &&
-                errors[title + "AlternateNumber"]
+                touched[title + "ContactNumber"] &&
+                errors[title + "ContactNumber"]
               }
               validate
             />
@@ -213,6 +225,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "EmailAddress"}
               name={title + "EmailAddress"}
               label={"Email Address"}
+              initValue={values[`${title}EmailAddress`]}
               placeholder={"Start typing"}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -230,6 +243,7 @@ function SingleSipmentForm({ title, formik }) {
               label={"Additional Notes"}
               placeholder={"Start typing"}
               onChange={handleChange}
+              initValue={values[`${title}AdditionalNotes`]}
               onBlur={handleBlur}
               error={
                 touched[title + "AdditionalNotes"] &&
