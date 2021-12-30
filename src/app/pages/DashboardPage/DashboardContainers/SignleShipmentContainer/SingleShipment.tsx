@@ -24,21 +24,23 @@ import { addShipmentDetail } from "services/SingleShipmentServices";
 
 function SingleShipment({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const redirect = () => {
-    navigate("/charter-shipment/single-shipment/order-summary");
+    navigate("/dashboard/charter-shipment/order-summary/");
   };
 
   const formik = useFormik({
     initialValues: singleShipmentInitValues,
     validationSchema: singleShipmentFormSchema,
     onSubmit: async () => {
+      setIsLoading(true);
       const res = await addShipmentForm(formik.values, 1);
-      redirect();
+      setIsLoading(false);
+      redirect()
     },
   });
 
-  console.log('errors',formik.errors)
+   
   return (
     <ModuleContainer>
       <ContainerTitle>Single order</ContainerTitle>
@@ -84,6 +86,7 @@ function SingleShipment({ path: string }) {
           style={{ width: 190 }}
           label="Confirm Order"
           onClick={formik.handleSubmit}
+          showLoader={isLoading}
         />
         <Button
           style={{ width: 190, marginRight: 20 }}
@@ -92,18 +95,7 @@ function SingleShipment({ path: string }) {
           onClick={() => {}}
         />
       </Flex>
-      {/*       
-        <Drawer 
-          open={true}
-         
-         title="This is a sample Drawer!!"
-         setDrawerOpen={()=>{}}
-    
-    
-          >
-            <div>Dont Open It</div>
-          </Drawer>
-       */}
+     
     </ModuleContainer>
   );
 }
