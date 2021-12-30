@@ -24,3 +24,24 @@ export const addShipmentDetail = async (body: any) => {
   }
 };
  
+
+export const getOrderDetails = async (orderId: any) => {
+    try {
+        const res = await services.get(`/order/${orderId}`)
+        return { response: res, success: true }
+    } catch (err) {
+        if (err.isAxiosError && err.response) {
+            const errResponse = err.response;
+            return {
+                response: errResponse,
+                success: false
+            };
+        }else{
+            return {
+                response: err,
+                success: false
+            };
+
+        }
+    }
+}
