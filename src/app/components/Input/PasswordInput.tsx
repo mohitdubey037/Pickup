@@ -13,6 +13,7 @@ const PasswordInput = ({
   id,
   name,
   onBlur,
+  autoComplete
 }: InputProps) => {
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(true);
@@ -43,6 +44,7 @@ const PasswordInput = ({
     <InputWrapper ref={ref}>
       <CustomLabel>{label}</CustomLabel>
       <CustomInput
+        autoComplete={autoComplete}
         onBlur={onBlur}
         placeholder={placeholder}
         id={id}

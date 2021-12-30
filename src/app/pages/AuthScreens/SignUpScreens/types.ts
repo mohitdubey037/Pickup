@@ -2,6 +2,6 @@ export interface CompanyDetailsType{
 firstName:string
 lastName:string
 companyName:string
-email:string
+emailId:string
 phoneNumber:string
 }

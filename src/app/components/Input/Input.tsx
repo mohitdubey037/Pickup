@@ -22,6 +22,7 @@ const Input: React.FC<InputProps> = ({
   style,
   inputStyles,
   type,
+  autoComplete
 }) => {
   const [value, setValue] = useState("");
 
@@ -59,6 +60,7 @@ const Input: React.FC<InputProps> = ({
           name={name}
           disabled={disabled}
           style={inputStyles}
+          autoComplete={autoComplete}
         />
       )}
       {!!error && <ErrorLabel>{error}</ErrorLabel>}

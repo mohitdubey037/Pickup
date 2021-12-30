@@ -1,24 +1,24 @@
 import React from 'react';
 import { CheckboxPrimary } from './style';
+import { CheckboxProps } from '@material-ui/core/Checkbox';
 
-interface CheckboxProps{
+interface CheckboxPropsType extends CheckboxProps{
     onChange?:(e:React.ChangeEvent<HTMLInputElement>)=>void;
-    label:string| any;
+    label:string | any;
     isChecked?:boolean;
     style?:any;
     onClick?:any
 }
 
-const Button:React.FC<CheckboxProps>=({label,onChange,isChecked, style})=>{
+const Button:React.FC<CheckboxPropsType>=({label,onChange,isChecked, style})=>{
     return(
         <div>
             <CheckboxPrimary 
                 color="primary" 
                 onChange={onChange}
                 checked={isChecked}
-                value={true||false}
+                // value={value}
                 style={style}
-              
             ></CheckboxPrimary>
             {label}
         </div>

@@ -14,5 +14,6 @@ export interface InputProps {
   width?: number;
   style?: React.CSSProperties;
   inputStyles?:React.CSSProperties;
-  type?: 'text' | 'textarea'
+  type?: 'text' | 'textarea';
+  autoComplete?: string;
 }

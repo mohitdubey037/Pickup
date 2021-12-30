@@ -7,3 +7,14 @@ export const uploadFile = (files:Array<File>,{onLoad,onError,onAbort}) => {
         reader.readAsArrayBuffer(file);
       });
 }
+
+export const getParamsFromUrl = (search:string) => {
+    const qs = search.substring(1);
+    const params = qs.split('&').reduce((a, b) => {
+        let [key, val] = b.split('=');
+        a[key] = val;
+        return a;
+    }, {});
+
+    return params
+ }
