@@ -2,32 +2,32 @@
 import { addShipmentDetail } from "services/SingleShipmentServices";
 import service from "../../../../../services/index";
 export const singleShipmentInitValues = {
-  OrigincompanyName: "",
-  OriginfirstName: "",
-  OriginlastName: "",
-  OriginaddressLine1: "",
-  OriginaddressLine2: "",
-  Origincity: "",
-  OriginpostalCode: "",
-  OriginprovinceState: "",
-  Origincountry: "",
-  OrigincontactNumber: "",
-  OriginalternateNumber: "",
-  OriginemailAddress: "",
-  OriginadditionalNotes: "",
-  DestinationcompanyName: "",
-  DestinationfirstName: "",
-  DestinationlastName: "",
-  DestinationaddressLine1: "",
-  DestinationaddressLine2: "",
-  Destinationcity: "",
-  DestinationpostalCode: "",
-  DestinationprovinceState: "",
-  Destinationcountry: "",
-  DestinationtactNumber: "",
-  DestinationalternateNumber: "",
-  DestinationemailAddress: "",
-  DestinationadditionalNotes: "",
+  originCompanyName: "",
+  originFirstName: "",
+  originLastName: "",
+  originAddressLine1: "",
+  originAddressLine2: "",
+  originCity: "",
+  originPostalCode: "",
+  originProvinceState: "",
+  originCountry: "",
+  originContactNumber: "",
+  originAlternateNumber: "",
+  originEmailAddress: "",
+  originAdditionalNotes: "",
+  destinationCompanyName: "",
+  destinationFirstName: "",
+  destinationLastName: "",
+  destinationAddressLine1: "",
+  destinationAddressLine2: "",
+  destinationCity: "",
+  destinationPostalCode: "",
+  destinationProvinceState: "",
+  destinationCountry: "",
+  destinationtContactNumber: "",
+  destinationAlternateContactNumber: "",
+  destinationEmailAddress: "",
+  destinationAdditionalNotes: "",
 
   //SHIPMENT DETAILS
   Category: "",
@@ -76,4 +76,20 @@ export const addShipmentForm = async (values:any,type:any)=>{
 } catch(err){
   return err;
 }
+}
+
+
+export const transformToBackend=(values:any)=>{
+  const payload={
+    dropLocation:{
+      "latitude": 21.11704845,
+      "longitude": 79.04402281,
+      details:"",
+      saveLocation:1,
+      type:1,
+      addressType:1,
+      locationFirstName:values.originfirstName,
+
+    }
+  }
 }

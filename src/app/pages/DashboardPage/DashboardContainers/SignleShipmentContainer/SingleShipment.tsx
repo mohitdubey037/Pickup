@@ -13,11 +13,10 @@ import SingleSipmentForm from "./SingleSipmentForm";
 import { CardDetails } from "app/components/PaymentCardDetails";
 import { masterCard } from "../../../../assets/Images/index";
 import { useFormik } from "formik";
-import { SingleShipmentFormSchema } from "./SingleShipmentFormSchema";
+import { singleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import { Button } from "../../../../components/Buttons";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "store/reducers/OrderReducer";
-import { singleShipmentInitValues,addShipmentForm } from "./helper";
+
+import { singleShipmentInitValues, addShipmentForm } from "./helper";
 import { Flex } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { navigate } from "@reach/router";
@@ -25,46 +24,27 @@ import { addShipmentDetail } from "services/SingleShipmentServices";
 
 function SingleShipment({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const singleShipmentResponse = useSelector(
-    (state: { singleShipment: { singleShipmentResponse: {} } }) =>
-      state.singleShipment.singleShipmentResponse
-  );
-  const dispatch = useDispatch();
+
   const redirect = () => {
     navigate("/charter-shipment/single-shipment/order-summary");
   };
 
   const formik = useFormik({
     initialValues: singleShipmentInitValues,
-    validationSchema: SingleShipmentFormSchema,
-    onSubmit: async() => {
-      console.log(formik.values,'Full')
-      
-      const res= await addShipmentForm(formik.values,1) 
+    validationSchema: singleShipmentFormSchema,
+    onSubmit: async () => {
+      const res = await addShipmentForm(formik.values, 1);
       redirect();
-      // dispatch(actions.submitSingleShipment(formik.values));
     },
-  }); 
-  const handleSubmit= async() => {
-    console.log(formik.values,'Full')
-    const body={companyName:formik.values['OrigincompanyName']}
-    console.log(body,'this is Body')
-
-    const res= await addShipmentDetail(body);
-     console.log(res,"APi call response")
-    // redirect();
-    
-    // dispatch(actions.confirmOrder());
-    navigate?.("order-summary")
-  }
+  });
   return (
     <ModuleContainer>
       <ContainerTitle>Single order</ContainerTitle>
       <FormContainer elevation={2}>
         <FormContainerTitle>Address Details</FormContainerTitle>
         <div style={{ marginBottom: "30px" }}>
-          <SingleSipmentForm title={"Origin"} formik={formik} />
-          <SingleSipmentForm title={"Destination"} formik={formik} />
+          <SingleSipmentForm title={"origin"} formik={formik} />
+          <SingleSipmentForm title={"destination"} formik={formik} />
         </div>
       </FormContainer>
       <FormContainer elevation={2}>
@@ -94,26 +74,23 @@ function SingleShipment({ path: string }) {
           cardType={"Master Card"}
         />
       </Drawer>
-      <Flex style={{ marginBottom: 10, padding:"inherit" }} direction={"row-reverse"}>
+      <Flex
+        style={{ marginBottom: 10, padding: "inherit" }}
+        direction={"row-reverse"}
+      >
         <Button
           style={{ width: 190 }}
           label="Confirm Order"
-          // onClick={handleSubmit}
-          // link={() => navigate?.("/")}
-          onClick={()=>{
-            handleSubmit();
-            
-          }}
-          
+          onClick={formik.handleSubmit}
         />
         <Button
           style={{ width: 190, marginRight: 20 }}
           secondary
           label="Add New Order"
-          onClick={()=>{}}
+          onClick={() => {}}
         />
       </Flex>
-{/*       
+      {/*       
         <Drawer 
           open={true}
          
@@ -125,7 +102,6 @@ function SingleShipment({ path: string }) {
             <div>Dont Open It</div>
           </Drawer>
        */}
-      
     </ModuleContainer>
   );
 }

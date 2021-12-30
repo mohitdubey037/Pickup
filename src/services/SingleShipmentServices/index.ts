@@ -15,7 +15,9 @@ export const getCategoryList= async()=>{
 }
 export const addShipmentDetail = async (body: any) => {
   try {
-    
+    //@ts-ignore
+    // eslint-disable-next-line no-debugger
+    debugger
   const response= await services.post("order/business/create/single",body)
   return {response: response, success:true}
   } catch (err) {
