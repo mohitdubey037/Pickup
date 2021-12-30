@@ -9,7 +9,7 @@ class Service {
         axios
           .get(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`,{
             headers:{
-              Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMzc2LCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiY29tcGFueSI6NjcsImlhdCI6MTY0MDgyMTgwMSwiZXhwIjoxNjQwOTA4MjAxfQ.SyfDqyIgLW3mHqSWZC8D4FiQ4VECcFHvXkrxvpq_0bA"
+              Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMDk3LCJ0eXBlIjoibG9naW4iLCJyb2xlIjozLCJidXNpbmVzc1JvbGUiOm51bGwsImNvbXBhbnkiOm51bGwsImlhdCI6MTYzNzIyODM1NX0.Is8pb06wYV75USsBlm1TaUMXTXdFofFdS5v_PNbZI8g"
             }
           })
           .then((res) => {
@@ -36,7 +36,7 @@ class Service {
         axios
         .post(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`,{ ...params } , { 
             headers:{
-                Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMzc2LCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiY29tcGFueSI6NjcsImlhdCI6MTY0MDgyMTgwMSwiZXhwIjoxNjQwOTA4MjAxfQ.SyfDqyIgLW3mHqSWZC8D4FiQ4VECcFHvXkrxvpq_0bA"
+                Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMDk3LCJ0eXBlIjoibG9naW4iLCJyb2xlIjozLCJidXNpbmVzc1JvbGUiOm51bGwsImNvbXBhbnkiOm51bGwsImlhdCI6MTYzNzIyODM1NX0.Is8pb06wYV75USsBlm1TaUMXTXdFofFdS5v_PNbZI8g"
             }
          })
           .then((res) => {
