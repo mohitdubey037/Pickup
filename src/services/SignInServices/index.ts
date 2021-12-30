@@ -1,5 +1,10 @@
 import Services from "../";
 
+export interface resetPassword {
+    password: string;
+    token: string;
+}
+
 export const signInUserService = async (signInRequest: {
     email: string;
     password: string;
@@ -13,8 +18,7 @@ export const forgetPasswordService = async (email: string) => {
     return res;
 };
 
-export const resetPasswordService = async (password: string) => {
-    console.log('newPassword', password)
-    const res = await Services.post("business/resetPassword", { newPassword: password }, "user");
+export const resetPasswordService = async (resetPassword: resetPassword) => {
+    const res = await Services.post("business/resetPassword", { newPassword: resetPassword.password }, "user", resetPassword.token);
     return res;
 };

@@ -1,4 +1,4 @@
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps, useLocation } from "@reach/router";
 import { useFormik } from "formik";
 import { Button } from "../../../components/Buttons";
 import { PasswordInput } from "../../../components/Input";
@@ -12,10 +12,15 @@ import {
 } from "../style";
 import { recoverPasswordSchema } from "./recoverPasswordSchema";
 import { actions } from "store/reducers/SignInReducer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getParamsFromUrl } from "utils/commonUtils";
+import { verifyToken } from "./helper";
 
 const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const [token, setToken] = useState<string>('')
+    const [jwtToken, setJWTToken] = useState<string>('')
 
     const resetPasswordResponse = useSelector(
         (state: {
@@ -29,9 +34,12 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     );
 
     const onResetPassword = async (values: any) => {
-        console.log('Values', values.password)
+        const requestData: { password: string, token: string } = {
+            password: values.password,
+            token: jwtToken
+        }
         dispatch(
-            actions.resetPassword(values.password)
+            actions.resetPassword(requestData)
         )
     };
 
@@ -46,6 +54,26 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
         validationSchema: recoverPasswordSchema,
         onSubmit: onResetPassword,
     });
+
+    useEffect(() => {
+        const params = getParamsFromUrl(location.search)
+        setToken(params['token'])
+        console.log('Params', params['token'])
+    }, [location.search])
+
+    useEffect(() => {
+        (async () =>{
+            if(token){
+                const res = await verifyToken(token)
+                if(!res.success){
+                    navigate?.('/forgot-password')
+                }
+                setJWTToken(res?.response?.data?.data?.jwtToken)
+            }
+         }
+        )()
+
+    },[token, navigate])
 
     useEffect(() => {
         return () => {
