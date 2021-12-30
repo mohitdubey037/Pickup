@@ -31,18 +31,17 @@ export const getOrderDetails = async (orderId: any) => {
         const res = await services.get(`/order/${orderId}`)
         return { response: res, success: true }
     } catch (err) {
+        // const response = (err instanceof Error)
         if (err.isAxiosError && err.response) {
             const errResponse = err.response;
-            return {
-                response: errResponse,
-                success: false
-            };
-        }else{
-            return {
-                response: err,
-                success: false
-            };
-
+            const errorMessage = errResponse?.data?.message?.message
+            ? errResponse?.data?.message.message
+            : errResponse?.data?.message
+            
+            return { response: errResponse, message: errorMessage, success: false };
+            // Handle your error type safe here
+        } else {
+              return { response: err.response, success: false };
         }
     }
 }

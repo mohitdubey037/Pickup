@@ -4,6 +4,8 @@ import styled from "styled-components";
 export const CustomDrawer = styled(Drawer)`
     div.MuiDrawer-paper{
         overflow-x: hidden;
+        min-width: 600px;
+        max-width: 600px;
     }
 `
 
