@@ -6,6 +6,7 @@ interface CheckboxProps{
     label:string| any;
     isChecked?:boolean;
     style?:any;
+    onClick?:any
 }
 
 const Button:React.FC<CheckboxProps>=({label,onChange,isChecked, style})=>{
@@ -17,6 +18,7 @@ const Button:React.FC<CheckboxProps>=({label,onChange,isChecked, style})=>{
                 checked={isChecked}
                 value={true||false}
                 style={style}
+              
             ></CheckboxPrimary>
             {label}
         </div>

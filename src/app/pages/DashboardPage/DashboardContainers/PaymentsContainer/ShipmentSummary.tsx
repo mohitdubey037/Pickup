@@ -44,7 +44,11 @@ function ShipmentSummary({ path: string }) {
           <span style={{ flex: 1, fontWeight: 700, fontSize: 14, textAlign: "left" }}>Total</span>
           <span style={{ fontWeight: 700, fontSize: 14 }}>$332.42</span>
         </div>
+        <div>
+        <hr/>
+        </div>
       </div>
+      
     </ModuleContainer>
   );
 }

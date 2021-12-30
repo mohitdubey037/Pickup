@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import {Link} from "../../../components/Link/index"
+import { Link } from "../../../components/Link/index";
 import {
   Header,
   SignUpWrapper,
@@ -29,7 +29,10 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
       return state.signUp.signUpResponse;
     }
   );
-  const showLoader=useSelector((state:{globalState:{showLoader:boolean}})=>state.globalState.showLoader )
+  const showLoader = useSelector(
+    (state: { globalState: { showLoader: boolean } }) =>
+      state.globalState.showLoader
+  );
 
   useEffect(() => {
     return () => {
@@ -37,11 +40,11 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
     };
   }, []);
 
-//   useEffect(() => {
-//     if (signUpResponse.verifyEmailLink) {
-//       navigate?.("/email-sent");
-//     }
-//   }, [signUpResponse.verifyEmailLink, navigate]);
+  //   useEffect(() => {
+  //     if (signUpResponse.verifyEmailLink) {
+  //       navigate?.("/email-sent");
+  //     }
+  //   }, [signUpResponse.verifyEmailLink, navigate]);
 
   const onSignUp = () => {
     dispatch(actions.registerUser(email));
@@ -64,64 +67,72 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
     <SignUpWrapper>
       <LogoImage />
       <FormWrapper>
-          <form>
-        <FormContent>
-          <Header>SIGN UP</Header>
-          <Grid container spacing={4} style={{marginRight:30}}>
-          <Grid item xs={6}>
-            <Input
-              id={title+"firstName"}
-              name={title+"firstName"}
-              label={"First Name"}
-              placeholder={"Start typing"}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched[title+'firstName'] && errors[title+'firstName']}
-              validate
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Input
-              id={title+"lastName"}
-              name={title+"lastName"}
-              label={"Last Name"}
-              placeholder={"Start typing"}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched[title+'lastName'] && errors[title+'lastName']}
-              validate
-            />
-          </Grid>
-          <Grid item xs ={12}>
-          <Input
-            label="Company Name"
-            placeholder="Start typing"
-            id="companyName"
-            name="companyName"
-            onChange={handleChange}
-            
-            onBlur={handleBlur}
-          />
-          </Grid>
-          <Grid item xs ={12}>
-          <Input
-            label="Phone Number"
-            placeholder="Start typing"
-            id="phoneNumber"
-            name="phoneNumber"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          </Grid>
-          <div style={{paddingLeft:10,display:"flex"}}>
-          <Checkbox 
-          label="I agree to the Terms and Policies"
-   
-   />
-          </div>
-          <Button label="Next" showLoader={showLoader} onClick={handleSubmit} />
-          </Grid>
-        </FormContent>
+        <form>
+          <FormContent>
+            <Header>SIGN UP</Header>
+            <Grid container spacing={4} style={{ marginRight: 30 }}>
+              <Grid item xs={6}>
+                <Input
+                  id={title + "firstName"}
+                  name={title + "firstName"}
+                  label={"First Name"}
+                  placeholder={"Start typing"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    touched[title + "firstName"] && errors[title + "firstName"]
+                  }
+                  validate
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Input
+                  id={title + "lastName"}
+                  name={title + "lastName"}
+                  label={"Last Name"}
+                  placeholder={"Start typing"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={
+                    touched[title + "lastName"] && errors[title + "lastName"]
+                  }
+                  validate
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Input
+                  label="Company Name"
+                  placeholder="Start typing"
+                  id="companyName"
+                  name="companyName"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Input
+                  label="Phone Number"
+                  placeholder="Start typing"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </Grid>
+              <div style={{ paddingLeft: 10, display: "flex" }}>
+                <Checkbox label="I agree to the Terms and Policies" />
+              </div>
+              <Button
+                label="Next"
+                showLoader={showLoader}
+                // onClick={handleSubmit}
+              onClick={()=>{
+                handleSubmit();
+                navigate?.("./password")
+              }}
+              />
+            </Grid>
+          </FormContent>
         </form>
       </FormWrapper>
     </SignUpWrapper>
