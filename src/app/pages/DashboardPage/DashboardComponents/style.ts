@@ -11,7 +11,7 @@ export const LeftDashboardWrapper = styled.div`
 `
 
 export const DashboardRightWrapper = styled.div`
-	// background-color: #fafafa;
+	min-height:100vh;
 	flex: 5;
 	border-top-left-radius: 40;
 `

@@ -6,13 +6,13 @@ interface FlexProps {
   justifyContent?: any;
   left?: number;
   flex?: number;
-  top?:number
-  right?:number,
-  bottom?:number
+  top?: number
+  right?: number,
+  bottom?: number
 }
 export const FormWrapper = styled.div`
  margin-top:20px;
- width: 97%;
+//  padding:24px;  width: 97%;
   }
  
 `;

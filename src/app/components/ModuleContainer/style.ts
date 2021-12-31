@@ -11,6 +11,7 @@ export const ModuleContainerWrapper = styled.div`
   overflow:hidden;
   overflow-y: auto;
   max-height: calc(100vh - 121px);
+    min-height: calc(100vh - 121px);
   padding:24px 32px;
  
 `;
@@ -22,7 +23,7 @@ export const FormContainer = styled(Paper)`
   align-items: flex-start;
   padding: 24px;
   margin-top: 20px;
-  flex: 1;
+
 `;
 
 export const InnerContainer = styled.div`
