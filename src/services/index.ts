@@ -18,12 +18,13 @@ class Service {
   get = async (url: string, type: RequestType = "base") => {
     return new Promise((resolve, reject) => {
       const localToken = this.getToken()
-
+   
+            
       try {
         axios
           .get(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`, {
             headers: {
-              Authorization: `Bearer ${localToken}`
+              Authorization: `${localToken}`
             }
           })
           .then((res) => {
@@ -33,7 +34,7 @@ class Service {
             console.log({ err })
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
-              if (err.response.status === 401) {
+               if (err.response.status === 401) {
                 store.dispatch({ type: "LOGOUT_USER" });
                 this.removeToken();
                 navigate("/");
@@ -59,7 +60,7 @@ class Service {
         axios
           .post(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`, { ...params }, {
             headers: {
-              Authorization: `Bearer ${token ? token : localToken}`
+              Authorization: `${token ? 'Bearer '+token : localToken}`
             }
 
           })
