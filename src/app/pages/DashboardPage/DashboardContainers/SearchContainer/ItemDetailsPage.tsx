@@ -55,7 +55,7 @@ function ItemDetailsPage(props: any) {
             </Grid>
             <Grid item xs={12}>
               <img
-                className="imageStyle"
+                style={{ width: "180px", height: "180px" }}
                 src={item.picture ? item.picture : itempicture}
               />
             </Grid>
