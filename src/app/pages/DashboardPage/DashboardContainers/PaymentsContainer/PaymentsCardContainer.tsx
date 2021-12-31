@@ -2,7 +2,7 @@ import { Grid } from "@material-ui/core"
 import { Drawer } from "app/components/Drawer"
 import { useState } from "react"
 import { PaymentCard }  from "../../../../components/PaymentCard/index"
-import CardDetails from "./CardDetails"
+import AddCardForm from "./AddCardForm"
 import { CardContainerDiv } from "./style"
 
 
@@ -24,10 +24,14 @@ interface cardData {
     nameOnCard?: string;
 }
 
-export default function PaymentCardContainer({heading,individualCardData}:PaymentCardContainerProps) {
+export default function PaymentCardContainer({heading, individualCardData}:PaymentCardContainerProps) {
 
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
     const [cardData, setCardData] = useState<cardData>({})
+
+    const saveCard = () => {
+        console.log("Save card called")
+    }
 
     return (
         <div style={{marginTop: '2rem'}}>
@@ -48,7 +52,7 @@ export default function PaymentCardContainer({heading,individualCardData}:Paymen
                 closeIcon={true}
                 actionButtons={true}
             >
-                <CardDetails setDrawerOpen={setDrawerOpen} cardData={cardData} />
+                <AddCardForm setDrawerOpen={setDrawerOpen} saveAction={saveCard}/>
             </Drawer>
         </div>
     )

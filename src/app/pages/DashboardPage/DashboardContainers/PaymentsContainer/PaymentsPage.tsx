@@ -8,7 +8,7 @@ import { Drawer } from "app/components/Drawer";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
-
+import AddCardForm from "./AddCardForm";
 
 const individualCardData = [
     {
@@ -27,8 +27,19 @@ const individualCardData = [
 
 export default function PaymentsPage({ path: string }) {
 
+    const initialState = {
+        cardType: 0,
+        cardNumber: '',
+        expiryDate: '',
+        cvc: '',
+        nameOnCard: '',
+        pinCOde: '',
+        nickName: ''
+    }
+
     const dispatch = useDispatch()
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [cardDetails, setCardDetails] = useState(initialState)
 
     const getAllCardResponse = useSelector(
         (state: {
@@ -48,9 +59,10 @@ export default function PaymentsPage({ path: string }) {
         );
     };
 
-    useEffect(() => {
-        onGetData()
-    },[])
+    const saveCard = (values) => {
+        // dispatch(actions.addNewCard)
+        console.log("save card clicked", values)
+    }
 
     return (
         <ModuleContainer>
@@ -90,7 +102,7 @@ export default function PaymentsPage({ path: string }) {
                 closeIcon={true}
                 actionButtons={true}
             >
-                <AddNewPaymentDrawer />
+                <AddCardForm setDrawerOpen={setDrawerOpen} saveAction={saveCard}/>
             </Drawer>
         </ModuleContainer>
     );

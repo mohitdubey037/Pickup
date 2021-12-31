@@ -19,7 +19,7 @@ interface RadioGroupProps {
   ariaLabel?: string;
   name?: string;
   onChange?: React.ChangeEventHandler;
-  error?: string;
+  error?: string | boolean;
   id?: string;
   checked?:any
   onClick?:any
