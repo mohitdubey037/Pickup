@@ -5,16 +5,14 @@ export const ModuleContainerWrapper = styled.div`
   max-height: 100vh;
   display: flex;
   flex: 1;
-  
   flex-direction: column;
   align-items: flex-start;
-  padding: 20px;
   background-color: #fafafa;
-  overflow-y: scroll;
-  max-height: 90vh;
-  ::-webkit-scrollbar{
-      display:none;
-  }
+  overflow:hidden;
+  overflow-y: auto;
+  max-height: calc(100vh - 121px);
+  padding:24px 32px;
+ 
 `;
 
 export const FormContainer = styled(Paper)`
@@ -32,7 +30,7 @@ export const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 24px;
+  // padding: 24px;
   margin-top: 20px;
   flex: 1;
 `;
