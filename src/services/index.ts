@@ -1,10 +1,22 @@
 import axios from "axios";
+import Cookies from 'js-cookie'
+
 import { BASE_URL, USER_BASE_URL } from "../constants";
 type RequestType = "user" | "base";
-const localToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMzc2LCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiY29tcGFueSI6NjcsImlhdCI6MTY0MDgyMTgwMSwiZXhwIjoxNjQwOTA4MjAxfQ.SyfDqyIgLW3mHqSWZC8D4FiQ4VECcFHvXkrxvpq_0bA'
-class Service {
+ class Service {
+
+  getToken = () => {
+    return Cookies.get('token')
+  }
+
+  removeToken=()=>{
+    Cookies.remove('token')
+    return true
+  }
   get = async (url: string, type: RequestType = "base") => {
     return new Promise((resolve, reject) => {
+      const localToken=this.getToken()
+
       try {
         axios
           .get(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`, {
@@ -32,6 +44,8 @@ class Service {
 
   post = (url: string, params: {}, type: RequestType = "base", token: string = '') => {
     return new Promise((resolve, reject) => {
+      const localToken=this.getToken()
+      
       try {
         axios
           .post(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`, { ...params }, {

@@ -17,7 +17,7 @@ function SingleSipmentForm({ title, formik }) {
     setStatus(val);
   };
 
-  return (
+   return (
     <FormWrapper style={{ paddingRight: 35 }}>
       <form>
         <Typography className="typography" variant="h1" component="h3">
@@ -53,7 +53,7 @@ function SingleSipmentForm({ title, formik }) {
           </div>
         </Grid>
         <Grid container spacing={3} style={{ marginRight: 30 }}>
-          {status === "0" && (
+          {status === "1" && (
             <Grid item xs={4}>
               <Input
                 id={title + "CompanyName"}
