@@ -1,24 +1,10 @@
 import React, { useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
-import { Input } from "app/components/Input";
-import { Flex, FormWrapper } from "app/components/Input/style";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import TextField from "@mui/material/TextField";
-import { TimePicker } from "@mui/lab";
-import Select from "app/components/Select";
-import { STATUS_TYPES } from "./helper";
 import {
   ContainerTitle,
   FormContainerTitle,
 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { TabWrapper } from "./style";
-import ModuleContainer from "app/components/ModuleContainer";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 
 function OrderDetailPage(props: any) {

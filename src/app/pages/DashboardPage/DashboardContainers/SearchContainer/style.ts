@@ -60,10 +60,10 @@ export const TabWrapper = styled.div`
   }
   .tab-content {
     margin-top: 20px;
+    width: 100%;
   }
   .label {
     padding: 6px 0px;
-    min-width: 160px;
     font-size: 12px;
   }
   .label-text {

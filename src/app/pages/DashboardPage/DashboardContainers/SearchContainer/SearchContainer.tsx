@@ -17,7 +17,7 @@ import AddNewPaymentDrawer from "../PaymentsContainer/AddNewPaymentDrawer";
 import AdvanceFilters from "./AdvanceFilters";
 import { useFormik } from "formik";
 import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
-import OrderDetailsDrawer from "./OrderDetailsDrawer";
+import SearchOrderDetailsDrawer from "./SearchOrderDetailsDrawer";
 
 const SearchContainer = ({ path: string }) => {
   const [searchRecordData, setSearchRecordData] = useState([{}]);
@@ -37,6 +37,7 @@ const SearchContainer = ({ path: string }) => {
     )
       .then((response) => response.json())
       .then((resData) => {
+        console.log("resData", resData);
         let data = resData.data;
         setSearchRecordData(data);
       });
@@ -124,7 +125,7 @@ const SearchContainer = ({ path: string }) => {
         ) : drawerType == "advanceFilter" ? (
           <AdvanceFilters formik={formik} />
         ) : (
-          <OrderDetailsDrawer />
+          <SearchOrderDetailsDrawer />
         )}
       </Drawer>
     </ModuleContainer>
