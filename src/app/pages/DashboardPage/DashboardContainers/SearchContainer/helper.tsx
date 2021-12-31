@@ -2,15 +2,22 @@ import { imageIcon, printer } from "app/assets/Icons";
 import Services from "../../../../../services/index";
 
 const getInvoiceIdItem = (
-  openInvoiceDrawer: (key: string) => void,
+  openInvoiceDrawer: (key: string, type: any) => void,
   id: any
 ) => {
-  return <div onClick={() => openInvoiceDrawer(id)}>{id}</div>;
+  return <div onClick={() => openInvoiceDrawer(id, "invoice")}>{id}</div>;
+};
+
+const getOrderIdItem = (
+  openInvoiceDrawer: (key: string, type: any) => void,
+  id: any
+) => {
+  return <div onClick={() => openInvoiceDrawer(id, "orderDetails")}>{id}</div>;
 };
 
 export const searchTable = (
   searchRecordData: any,
-  openInvoiceDrawer: (key: string) => void
+  openInvoiceDrawer: (key: string, type: any) => void
 ) => {
   let makeTableData: any = [];
   if (searchRecordData && searchRecordData.length) {
@@ -18,7 +25,7 @@ export const searchTable = (
       makeTableData.push({
         Source: "Uploaded",
         "Invoice Id": getInvoiceIdItem(openInvoiceDrawer, item.invoiceId),
-        "Order Id": item.orderId,
+        "Order Id": getOrderIdItem(openInvoiceDrawer, item.orderId),
         "Order Date": item.shippingDate,
         Status: item.status ? item.status : "-",
         "Order Cost": "$" + item.shipmentCost,

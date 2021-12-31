@@ -17,6 +17,7 @@ import AddNewPaymentDrawer from "../PaymentsContainer/AddNewPaymentDrawer";
 import AdvanceFilters from "./AdvanceFilters";
 import { useFormik } from "formik";
 import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
+import OrderDetailsDrawer from "./OrderDetailsDrawer";
 
 const SearchContainer = ({ path: string }) => {
   const [searchRecordData, setSearchRecordData] = useState([{}]);
@@ -62,9 +63,9 @@ const SearchContainer = ({ path: string }) => {
     setDrawerOpen(true);
   };
 
-  const openInvoiceDrawer = (id: any) => {
+  const openInvoiceDrawer = (id: any, type: any) => {
     setSelectedInvoiceId(id);
-    setDrawerType("invoice");
+    setDrawerType(type);
     setDrawerOpen(true);
   };
 
@@ -120,8 +121,10 @@ const SearchContainer = ({ path: string }) => {
       >
         {drawerType == "invoice" ? (
           <AddNewPaymentDrawer />
-        ) : (
+        ) : drawerType == "advanceFilter" ? (
           <AdvanceFilters formik={formik} />
+        ) : (
+          <OrderDetailsDrawer />
         )}
       </Drawer>
     </ModuleContainer>

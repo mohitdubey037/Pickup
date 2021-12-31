@@ -52,3 +52,22 @@ export const FilterWrapper = styled.div`
     margin-bottom: 20px;
   }
 `;
+
+export const TabWrapper = styled.div`
+  .custom {
+    padding: 0px !important;
+    background-color: #fff !important;
+  }
+  .tab-content {
+    margin-top: 20px;
+  }
+  .label {
+    padding: 6px 0px;
+    min-width: 160px;
+    font-size: 12px;
+  }
+  .label-text {
+    font-weight: bold;
+    font-size: 14px;
+  }
+`;
