@@ -5,34 +5,39 @@ import { itempicture } from "../../../../assets/Images/index";
 import Card from "@mui/material/Card";
 
 function ItemDetailsPage(props: any) {
-  const accordianItem = () => {
+  let { singleOrderData } = props;
+  let { items } = singleOrderData;
+
+  const accordianItem = (item: any) => {
     return (
       <Grid>
-        <Accordion title="Order Items - TOR-0607-123A">
+        <Accordion title={item.name}>
           <Grid container spacing={2}>
             <Grid item xs={2}>
               <div className="label">Category</div>
-              <div className="label-text">Electronics</div>
+              <div className="label-text">{singleOrderData.category}</div>
             </Grid>
             <Grid item xs={3}>
               <div className="label">Shipment Weight (lbs)</div>
-              <div className="label-text">13</div>
+              <div className="label-text">{item.weight}</div>
             </Grid>
             <Grid item xs={2}>
               <div className="label"> LBH (inches)</div>
-              <div className="label-text">32 x 32 x 32</div>
+              <div className="label-text">{item.length}</div>
             </Grid>
             <Grid item xs={2}>
               <div className="label">Pieces</div>
-              <div className="label-text">Pieces</div>
+              <div className="label-text">{singleOrderData.totalQuantity}</div>
             </Grid>
             <Grid item xs={2}>
               <div className="label">Shipment Cost</div>
-              <div className="label-text">$15</div>
+              <div className="label-text">
+                {"$" + singleOrderData.shipmentCost}
+              </div>
             </Grid>
             <Grid item xs={2}>
               <div className="label">Fragile Shipment</div>
-              <div className="label-text">Yes</div>
+              <div className="label-text">{item.fragile}</div>
             </Grid>
             <Grid item xs={3}>
               <div className="label">Delivery options</div>
@@ -40,17 +45,19 @@ function ItemDetailsPage(props: any) {
             </Grid>
             <Grid item xs={2}>
               <div className="label"> Customer Reference #</div>
-              <div className="label-text">PO23451</div>
-            </Grid>
-            <Grid item xs={12}>
-              <div className="label"> Order Description</div>
-              <div className="label">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed
-                libero in nulla maximus consequat. Aliquam dapibus est velit.
+              <div className="label-text">
+                {singleOrderData.customerReferenceNumber}
               </div>
             </Grid>
             <Grid item xs={12}>
-              <img className="imageStyle" src={itempicture} />
+              <div className="label"> Order Description</div>
+              <div className="label">{item.description}</div>
+            </Grid>
+            <Grid item xs={12}>
+              <img
+                className="imageStyle"
+                src={item.picture ? item.picture : itempicture}
+              />
             </Grid>
           </Grid>
         </Accordion>
@@ -60,9 +67,11 @@ function ItemDetailsPage(props: any) {
   return (
     <>
       <Card style={{ marginTop: "20px", padding: "10px" }}>
-        {accordianItem()}
-        {accordianItem()}
-        {accordianItem()}
+        {items && items.length
+          ? items.map((item: any) => {
+              return accordianItem(item);
+            })
+          : null}
       </Card>
     </>
   );

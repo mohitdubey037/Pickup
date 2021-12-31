@@ -22,10 +22,11 @@ import SearchOrderDetailsDrawer from "./SearchOrderDetailsDrawer";
 const SearchContainer = ({ path: string }) => {
   const [searchRecordData, setSearchRecordData] = useState([{}]);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
+  const [singleOrderData, setSingleOrderData] = useState([{}]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerType, setDrawerType] = useState("");
 
-  const getData = async () => {
+  const getSearchOrderListData = async () => {
     fetch(
       "https://staging-api.pickups.mobi/order/v1/api/order/business/shipments",
       {
@@ -43,8 +44,35 @@ const SearchContainer = ({ path: string }) => {
       });
   };
 
+  const getSingleOrderData = async (id: any) => {
+    fetch(
+      "https://staging-api.pickups.mobi/order/v1/api/order/business/shipment/" +
+        id,
+      {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((resData) => {
+        let data = resData.data;
+        // console.log("getSingleOrderData", data, resData);
+        setSingleOrderData(data);
+        setSelectedInvoiceId(id);
+        setDrawerType("orderDetails");
+        setDrawerOpen(true);
+      })
+      .catch(() => {
+        setSelectedInvoiceId(id);
+        setDrawerType("orderDetails");
+        setDrawerOpen(true);
+      });
+  };
+
   useEffect(() => {
-    getData();
+    getSearchOrderListData();
   }, []);
 
   const tableTop = () => {
@@ -65,9 +93,13 @@ const SearchContainer = ({ path: string }) => {
   };
 
   const openInvoiceDrawer = (id: any, type: any) => {
-    setSelectedInvoiceId(id);
-    setDrawerType(type);
-    setDrawerOpen(true);
+    if (type == "orderDetails") {
+      getSingleOrderData(id);
+    } else {
+      setSelectedInvoiceId(id);
+      setDrawerType(type);
+      setDrawerOpen(true);
+    }
   };
 
   const formik = useFormik({
@@ -125,7 +157,7 @@ const SearchContainer = ({ path: string }) => {
         ) : drawerType == "advanceFilter" ? (
           <AdvanceFilters formik={formik} />
         ) : (
-          <SearchOrderDetailsDrawer />
+          <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />
         )}
       </Drawer>
     </ModuleContainer>

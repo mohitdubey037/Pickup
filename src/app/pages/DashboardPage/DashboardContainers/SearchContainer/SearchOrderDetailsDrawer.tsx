@@ -15,6 +15,7 @@ const styles = {
 };
 
 function SearchOrderDetailsDrawer(props: any) {
+  let { singleOrderData } = props;
   const [value, setValue] = React.useState("orderDetails");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -48,7 +49,11 @@ function SearchOrderDetailsDrawer(props: any) {
           />
         </Tabs>
         <div className="tab-content">
-          {value == "orderDetails" ? <OrderDetailPage /> : <ItemDetailsPage />}
+          {value == "orderDetails" ? (
+            <OrderDetailPage />
+          ) : (
+            <ItemDetailsPage singleOrderData={singleOrderData} />
+          )}
         </div>
       </TabWrapper>
     </div>
