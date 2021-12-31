@@ -1,10 +1,24 @@
+import { navigate } from "@reach/router";
 import axios from "axios";
-import { BASE_URL, PAYMENT_BASE_URL, USER_BASE_URL } from "../constants";
+import Cookies from 'js-cookie'
+import store from "store/configureStore";
+
+import { BASE_URL, USER_BASE_URL, PAYMENT_BASE_URL } from "../constants";
 type RequestType = "user" | "base" | "payment";
-const localToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM'
 class Service {
+
+  getToken = () => {
+    return Cookies.get('token')
+  }
+
+  removeToken = () => {
+    Cookies.remove('token')
+    return true
+  }
   get = async (url: string, type: RequestType = "base") => {
     return new Promise((resolve, reject) => {
+      const localToken = this.getToken()
+
       try {
         axios
           .get(`${type === "user" ? USER_BASE_URL : type === "payment" ? PAYMENT_BASE_URL : BASE_URL}${url}`, {
@@ -16,8 +30,15 @@ class Service {
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
+            console.log({ err })
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
+              if (err.response.status === 401) {
+                store.dispatch({ type: "LOGOUT_USER" });
+                this.removeToken();
+                navigate("/");
+            
+              }
               return reject({
                 status: errResponse.status,
                 message: errResponse?.data?.message || errResponse?.message,
@@ -32,6 +53,8 @@ class Service {
 
   post = (url: string, params: {}, type: RequestType = "base", token: string = '') => {
     return new Promise((resolve, reject) => {
+      const localToken = this.getToken()
+
       try {
         axios
           .post(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`, { ...params }, {
