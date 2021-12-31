@@ -8,6 +8,7 @@ import RadioGroup from "app/components/RadioGroup"
 const AddCardForm = ({ title='', setDrawerOpen, saveAction }) => {
 
     const {
+        values,
         handleChange,
         errors,
         touched,
@@ -26,6 +27,8 @@ const AddCardForm = ({ title='', setDrawerOpen, saveAction }) => {
                     <h3>Type of card</h3>
                     <Flex direction="row">
                         <RadioGroup
+                            value={values.cardType}
+                            onChange={handleChange}
                             options={[
                             { label: "Credit Card", value: "1" },
                             { label: "Debit Card", value: "0" },
