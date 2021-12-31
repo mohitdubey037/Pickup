@@ -1,11 +1,23 @@
+
 import Services from "services";
 
-export const recoverPassword = async (values: any) => {
-  try {
-    const params = { "emailId": values.email};
-    const response = await Services.post("business/forgotPassword", params, "user");
-    return { response: response, success: true };
-  } catch (err) {
-    return { response: err, success: false };
-  }
+export const verifyToken = async (value: string) => {
+    try {
+        const params = { token: value }
+        const response = await Services.post("business/verifyResetToken", params, "user");
+        return { response: response, success: true };
+    } catch (err) {
+        // const response = (err instanceof Error)
+        if (err.isAxiosError && err.response) {
+            const errResponse = err.response;
+            const errorMessage = errResponse?.data?.message?.message
+            ? errResponse?.data?.message.message
+            : errResponse?.data?.message
+            
+            return { response: errResponse, message: errorMessage, success: false };
+            // Handle your error type safe here
+        } else {
+              return { response: err.response, success: false };
+        }
+    }
 };
