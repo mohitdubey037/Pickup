@@ -13,7 +13,11 @@ const OnHoldShipmentContainer = ({ path: string }) => {
 
 
     useEffect(() => {
-        const data = getHoldingShipments()
+        (async () => {
+            const data = await getHoldingShipments()
+            console.log('data', data)
+        })()
+
     },[])
 
     const tableTop = () => {
