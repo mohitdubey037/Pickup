@@ -54,7 +54,7 @@ export default function Select(props: SelectPropTypes) {
         >
           {valueLabel}
         </span>
-        <span>&#8964;</span>
+        <span style={{fontWeight:'bold'}}>&#8964;</span>
       </SelectContainer>
       <Popover
         id={parentId}
