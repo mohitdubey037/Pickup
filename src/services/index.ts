@@ -3,8 +3,16 @@ import axios from "axios";
 import Cookies from 'js-cookie'
 import store from "store/configureStore";
 
-import { BASE_URL, USER_BASE_URL, PAYMENT_BASE_URL } from "../constants";
-type RequestType = "user" | "base" | "payment";
+import { BASE_URL, USER_BASE_URL, ORDER_BASE_URL, PAYMENT_BASE_URL } from "../constants";
+type RequestType = "user" | "base" | "order" | "payment";
+
+const MODULE_URL_MAP = {
+  "user": USER_BASE_URL,
+  "base": BASE_URL,
+  "order": ORDER_BASE_URL,
+  "payment": PAYMENT_BASE_URL
+}
+
 class Service {
 
   getToken = () => {
@@ -18,12 +26,13 @@ class Service {
   get = async (url: string, type: RequestType = "base") => {
     return new Promise((resolve, reject) => {
       const localToken = this.getToken()
+      const baseUrl=MODULE_URL_MAP[type]
 
       try {
         axios
-          .get(`${type === "user" ? USER_BASE_URL : type === "payment" ? PAYMENT_BASE_URL : BASE_URL}${url}`, {
+          .get(`${baseUrl}${url}`, {
             headers: {
-              Authorization: `Bearer ${localToken}`
+              Authorization: `${localToken}`
             }
           })
           .then((res) => {
@@ -37,7 +46,7 @@ class Service {
                 store.dispatch({ type: "LOGOUT_USER" });
                 this.removeToken();
                 navigate("/");
-            
+
               }
               return reject({
                 status: errResponse.status,
@@ -54,12 +63,13 @@ class Service {
   post = (url: string, params: {}, type: RequestType = "base", token: string = '') => {
     return new Promise((resolve, reject) => {
       const localToken = this.getToken()
+      const baseUrl=MODULE_URL_MAP[type]
 
       try {
         axios
-          .post(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`, { ...params }, {
+          .post(`${baseUrl}${url}`, { ...params }, {
             headers: {
-              Authorization: `Bearer ${token ? token : localToken}`
+              Authorization: `${token ? 'Bearer ' + token : localToken}`
             }
 
           })
