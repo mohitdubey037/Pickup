@@ -2,7 +2,7 @@
 import services from "../";
 
 export const getShipmentDetails = async (orderId: number,) => {
-  const res = await services.get(`order/business/shipment/${orderId}`,"order");
+  const res = await services.post(`order/business/shipment/summary`,{ shipmentIds: [orderId] },"order");
   return res;
 
 }
