@@ -6,7 +6,7 @@ import Select from "app/components/Select";
 import { Drawer } from "app/components/Drawer";
 import { SearchTableTop } from "../SearchContainer/style";
 import { Table } from "app/components/Table";
-import { searchTable } from "../SearchContainer/helper";
+import { searchTable } from "./helper";
 import { Button } from "app/components/Buttons";
 import ContactDetailsSidebar from "./ContactDetailsSidebar";
 
