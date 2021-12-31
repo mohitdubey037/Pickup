@@ -1,21 +1,23 @@
+import { navigate } from "@reach/router";
 import axios from "axios";
 import Cookies from 'js-cookie'
+import store from "store/configureStore";
 
 import { BASE_URL, USER_BASE_URL } from "../constants";
 type RequestType = "user" | "base";
- class Service {
+class Service {
 
   getToken = () => {
     return Cookies.get('token')
   }
 
-  removeToken=()=>{
+  removeToken = () => {
     Cookies.remove('token')
     return true
   }
   get = async (url: string, type: RequestType = "base") => {
     return new Promise((resolve, reject) => {
-      const localToken=this.getToken()
+      const localToken = this.getToken()
 
       try {
         axios
@@ -28,8 +30,15 @@ type RequestType = "user" | "base";
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
+            console.log({ err })
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
+              if (err.response.status === 401) {
+                store.dispatch({ type: "LOGOUT_USER" });
+                this.removeToken();
+                navigate("/");
+            
+              }
               return reject({
                 status: errResponse.status,
                 message: errResponse?.data?.message || errResponse?.message,
@@ -44,8 +53,8 @@ type RequestType = "user" | "base";
 
   post = (url: string, params: {}, type: RequestType = "base", token: string = '') => {
     return new Promise((resolve, reject) => {
-      const localToken=this.getToken()
-      
+      const localToken = this.getToken()
+
       try {
         axios
           .post(`${type === "user" ? USER_BASE_URL : BASE_URL}${url}`, { ...params }, {
