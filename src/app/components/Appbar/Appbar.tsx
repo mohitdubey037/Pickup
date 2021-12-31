@@ -7,6 +7,7 @@ import { AuthUser } from "types";
 import { useState } from "react";
 import { navigate } from "@reach/router";
 import { useEffect } from "react";
+import services from "services";
 
 export default function Appbar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -19,7 +20,8 @@ export default function Appbar() {
   const { user } = auth;
 
   useEffect(() => {
-    if (!user) {
+    const authToken = services.getToken();
+    if (!authToken) {
       navigate("/");
     }
   }, [auth.user?.userId]);
@@ -32,6 +34,7 @@ export default function Appbar() {
     const { id } = e.target;
     if (id === "logout") {
       dispatch({ type: "LOGOUT_USER" });
+      services.removeToken();
       setTimeout(() => {
         navigate("/");
       }, 500);
@@ -43,8 +46,8 @@ export default function Appbar() {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <   >
-      <AppbarContainer  >
+    <>
+      <AppbarContainer>
         <img style={{ width: "1.5rem", cursor: "pointer" }} src={settings} />
         <div style={{ textAlign: "right", marginLeft: "1rem" }}>
           <h5 style={{ margin: 0 }}>{user?.firstName}</h5>
@@ -79,6 +82,6 @@ export default function Appbar() {
           onClick={handleClick}
         />
       </AppbarContainer>
-    </ >
+    </>
   );
 }

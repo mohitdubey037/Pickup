@@ -1,7 +1,11 @@
 /* eslint-disable no-debugger */
 import services from "../";
 
+export const getShipmentDetails = async (orderId: number,) => {
+  const res = await services.post(`order/business/shipment/summary`,{ shipmentIds: [orderId] },"order");
+  return res;
 
+}
 export const registerUserService = async (email: string) => {
   const res = await services.post("sign_up", { emailId: email });
   return res;

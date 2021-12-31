@@ -116,7 +116,7 @@ export const transformPayloadToBackend = (values: any) => {
       locationProvinceCode: values.destinationProvinceState,
       locationCountry: values.destinationCountry
     },
-    shipementDeatials: values.shipementDeatials
+    items: values.shipementDeatials
   }
 
    
