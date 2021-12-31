@@ -1,5 +1,6 @@
 export const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const USER_BASE_URL = process.env.REACT_APP_USER_BASE_URL;
+export const PAYMENT_BASE_URL = process.env.REACT_APP_PAYMENT_BASE_URL;
 export const ORDER_BASE_URL=process.env.REACT_APP_ORDER_URL
 
 export const PHONE_NUMBER_REGX =

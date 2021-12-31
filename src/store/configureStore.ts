@@ -17,6 +17,7 @@ import rootSaga from "../sagas";
 import { signIn } from "./reducers/SignInReducer";
 import { globalState } from "./reducers/GlobalReducer";
 import { singleShipment } from "./reducers/SingleShipmentReducer";
+import { paymentCardReducer } from "./reducers/PaymentReducer";
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -41,11 +42,11 @@ export function configureAppStore() {
     auth: auth,
     localStore: localStore,
     signUp: signUp,
-    signIn: signIn,
-    globalState: globalState,
-    singleShipment: singleShipment,
-    order: orderReducer
-
+    signIn:signIn,
+    globalState:globalState,
+    singleShipment:singleShipment,
+    order:orderReducer,
+    paymentCard:paymentCardReducer,
   });
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);

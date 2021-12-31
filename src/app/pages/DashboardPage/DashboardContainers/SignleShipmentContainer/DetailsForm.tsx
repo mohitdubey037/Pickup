@@ -51,6 +51,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number }) {
       }
     })();
   }, []);
+
   return (
     <>
       <Flex direction={"column"}>
@@ -98,16 +99,17 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number }) {
             <RadioGroup
               label={"Fragile Order"}
               id={"fragile"}
+              value={values.fragile}
               name={"fragile"}
               options={[
-                { label: "Yes", value: 1 },
-                { label: "No", value: 0 },
+                { label: "Yes", value: "1" },
+                { label: "No", value: "0" },
               ]}
               onChange={handleChange}
             />
           </Flex>
         </Flex>
-        {dimensions ? "text" : "text"}
+        {/* {dimensions ? "text" : "text"} */}
         {new Array(props.noOfItem).fill("").map((value, index) => {
           return <DetailsFormItem formik={props.formik} index={index} />;
         })}

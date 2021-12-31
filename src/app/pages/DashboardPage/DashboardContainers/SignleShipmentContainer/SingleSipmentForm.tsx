@@ -23,7 +23,6 @@ function SingleSipmentForm({ title, formik }) {
         <Typography className="typography" variant="h1" component="h3">
           {title}
           <FavouriateWrapper>
-            {" "}
             <img className="imageStyle" src={starimage} /> Add to Favorites
           </FavouriateWrapper>
         </Typography>
