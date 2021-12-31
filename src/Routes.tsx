@@ -58,7 +58,7 @@ const Routes = () => {
         <CompanyProfileContainer path="/my-account/company-profile" />
         <Dashboard path="/" />
         <SingleShipment path="/charter-shipment/single-shipment" />
-        <OrderSummary path="/charter-shipment/order-summary" />
+        <OrderSummary path="/charter-shipment/order-summary/:orderId" />
         <ShipmentSummary path="/charter-shipment/shipment-summary"/>
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />

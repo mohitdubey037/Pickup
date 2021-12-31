@@ -2,23 +2,35 @@ import { Flex } from "app/components/Input/style";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { ContainerTitle } from "app/components/Typography/Typography";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OrderHoldingComponent from "./OrderHoldingComponent";
 import { rows, columns } from "./OrderSummaryHelper";
 import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
-import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments"
+import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments";
 import { useSelector } from "react-redux";
 
 import { DataGrid } from "@mui/x-data-grid";
 
-
-import { navigate } from '@reach/router'
+import { navigate, useParams } from "@reach/router";
+import { getShipmentDetails } from "services/SingleShipmentServices";
 function OrderSummary({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { orderId } = useParams();
   const [drawerOpenOne, setDrawerOpenOne] = useState(false);
-  const orders = useSelector((state: { order: { orders: any[] } }) => state.order.orders)
+  const orders = useSelector(
+    (state: { order: { orders: any[] } }) => state.order.orders
+  );
+  useEffect(() => {
+    loadData();
+  }, []);
+  const loadData = async () => {
+    const res = (await getShipmentDetails(orderId)) as any;
+    if (res.success) {
+      const shipmentDetails = res.response.data.data;
+    }
+  };
   return (
     <>
       <ModuleContainer>
@@ -30,12 +42,10 @@ function OrderSummary({ path: string }) {
         </Flex>
 
         <Flex direction={"column"} top={20}>
-
           <Table data={orders} />
 
           {/* <Table data={OrderSummaryTable} /> */}
           <DataGrid rows={rows} columns={columns} checkboxSelection />
-
         </Flex>
       </ModuleContainer>
       <div
@@ -76,10 +86,9 @@ function OrderSummary({ path: string }) {
           // onClick={() => {
           //   setDrawerOpen(true);
           // }}
-          onClick={()=>{
-            navigate?.("shipment-summary")
+          onClick={() => {
+            navigate?.("shipment-summary");
           }}
-          
         />
         <Button
           style={{ width: 190, marginRight: 20 }}
@@ -90,7 +99,7 @@ function OrderSummary({ path: string }) {
             setDrawerOpen(true);
           }}
         />
-         <Button
+        <Button
           style={{ width: 190, marginRight: 20 }}
           secondary
           label="drawer"
@@ -107,7 +116,7 @@ function OrderSummary({ path: string }) {
         closeIcon={true}
         actionButtons={true}
       >
-        <ShipmentSummaryAndPayments/>
+        <ShipmentSummaryAndPayments />
       </Drawer>
       <Drawer
         open={drawerOpen}
