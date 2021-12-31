@@ -13,6 +13,28 @@ export const ModuleContainerWrapper = styled.div`
   max-height: calc(100vh - 121px);
     min-height: calc(100vh - 121px);
   padding:24px 32px;
+  padding-right:70px;
+
+&::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+&::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px gray;
+  border-radius: 10px;
+}
+
+
+&::-webkit-scrollbar-thumb {
+  background: #fece3e;
+  border-radius: 10px;
+}
+
+
+&::-webkit-scrollbar-thumb:hover {
+  background: #fece3e;
+}
  
 `;
 
