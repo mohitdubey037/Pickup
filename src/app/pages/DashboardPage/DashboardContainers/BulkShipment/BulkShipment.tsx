@@ -8,6 +8,7 @@ import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
 import { uploadFile } from "utils/commonUtils";
 
+
 const BulkShipment = ({ navigate }: RouteComponentProps) => {
   const [error, setError] = useState(false);
   const [processing, setProcessing] = useState(false);
