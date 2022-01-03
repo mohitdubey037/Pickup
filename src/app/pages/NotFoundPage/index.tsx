@@ -6,7 +6,7 @@ import { NavBar } from 'app/components/NavBar';
 import { Helmet } from 'react-helmet-async';
 import { StyleConstants } from 'styles/StyleConstants';
 
-export function NotFoundPage() {
+export function NotFoundPage({default:boolean}) {
   return (
     <>
       <Helmet>
