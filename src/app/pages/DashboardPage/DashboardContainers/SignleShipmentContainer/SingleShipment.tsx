@@ -33,7 +33,7 @@ function SingleShipment({ path: string }) {
     validationSchema: singleShipmentFormSchema,
     onSubmit: async () => {
       setIsLoading(true);
-      const res = await addShipmentForm(formik.values, 1);
+      const res = await addShipmentForm(formik.values);
 
       setIsLoading(false);
       if (res.success) {
