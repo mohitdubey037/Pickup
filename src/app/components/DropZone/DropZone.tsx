@@ -3,14 +3,15 @@ import Dropzone from "react-dropzone";
 import { csvIcon } from "app/assets/Icons";
 import { ErrorBox } from "./ErrorBox";
 import Uploading from "../Uploading";
-
+import {useState} from 'react'
 interface DropZoneProps {
   onDrop: (files: Array<File>) => void;
   isError?: boolean;
   inProgress?: boolean;
 }
 
-const DropZone = ({ onDrop, isError, inProgress }: DropZoneProps) => {
+const DropZone = ({ onDrop, isError }: DropZoneProps) => {
+  const[inProgress, setInProgress]=useState<boolean>(true)
   return (
     <DropzoneWrapper>
       {isError && <ErrorBox />}

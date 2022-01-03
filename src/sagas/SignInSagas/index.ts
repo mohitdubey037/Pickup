@@ -12,11 +12,12 @@ function* signInUserWorker(action) {
  
     yield put(actions.signInUserResponse(res));
     yield put(globalActions.showLoader(false))
-
-  } catch (err: any) {
+    
+} catch (err: any) {
+      yield put(actions.signInUserResponse(err));
     yield put(globalActions.showLoader(false))
 
-    showToast(err.message, "error");
+    // showToast(err.message, "error");
   }
 }
 
