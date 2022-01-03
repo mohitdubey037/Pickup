@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import ModuleContainer from "app/components/ModuleContainer";
-import { Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { Checkbox } from "app/components/Checkbox";
 import { InsuranceIcon } from "../../../../assets/Icons/index";
 import { Link } from "app/components/Link";
+import { Accordion } from "app/components/Accordion";
 
+import { PaymentsPage } from ".";
+import PaymentCards from "./PaymentCards";
 function ShipmentSummary({ path: string }) {
   return (
     <ModuleContainer>
@@ -48,6 +51,18 @@ function ShipmentSummary({ path: string }) {
         <hr/>
         </div>
       </div>
+      <Typography style={{fontWeight:500,fontSize:18,paddingTop:15,paddingBottom:15}}>Payment Details</Typography>
+       <Typography style={{paddingBottom:10}}>Saved cards and accounts</Typography>
+      <Accordion title="Credit Card (4)" >
+          <Grid container spacing={2}>
+            <PaymentCards path={undefined} />
+          </Grid>
+        </Accordion>
+        <Accordion title="Debit Card (4)" >
+          <Grid container spacing={2}>
+            <PaymentCards path={undefined} />
+          </Grid>
+        </Accordion>
       
     </ModuleContainer>
   );
