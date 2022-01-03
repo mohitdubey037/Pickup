@@ -4,49 +4,50 @@ import { addShipmentDetail } from "services/SingleShipmentServices";
 
 
 export const shipmentDetailsItemInitValue = {
-  "fragile": 0,
-  "quantity": 2,
+
+  "quantity": '',
   "description": "description",
-  "height": 2,
-  "length": 5,
-  "width": 4,
-  "weight": 20,
-  "sizeDimension": 13,
-  "weightDimension": 14,
+  "height": '',
+  "length": '',
+  "width": '',
+  "weight": '',
+  "sizeDimension": '',
+  "weightDimension": '',
   "documet": "https://staging-api.pickups.mobi/order/public/uploads/1628059886387.png"
 }
 
+
 export const singleShipmentInitValues = {
-  originCompanyName: "Torinit",
-  originFirstName: "Amit",
-  originLastName: "Wagh",
-  originAddressLine1: "A",
-  originAddressLine2: "A",
-  originCity: "Ontario",
-  originPostalCode: "333",
-  originProvinceState: "A",
-  originCountry: "Canada",
-  originContactNumber: "9898989898",
-  originAlternateContactNumber: "9898989898",
-  originEmailAddress: "amit@torinit.ca",
-  originAdditionalNotes: "asd",
+  originCompanyName: "",
+  originFirstName: "",
+  originLastName: "",
+  originAddressLine1: "",
+  originAddressLine2: "",
+  originCity: "",
+  originPostalCode: "",
+  originProvinceState: "",
+  originCountry: "",
+  originContactNumber: "",
+  originAlternateContactNumber: "",
+  originEmailAddress: "",
+  originAdditionalNotes: "",
 
-  destinationCompanyName: "Torinit",
-  destinationFirstName: "Torinit",
-  destinationLastName: "Torinit",
-  destinationAddressLine1: "DA",
-  destinationAddressLine2: "DA",
-  destinationCity: "DC",
-  destinationPostalCode: "33",
-  destinationProvinceState: "asd",
-  destinationCountry: "Ca",
-  destinationContactNumber: "8888888888",
-  destinationAlternateContactNumber: "8888888888",
-  destinationEmailAddress: "torinit@gmail.com",
-  destinationAdditionalNotes: "asd",
+  destinationCompanyName: "",
+  destinationFirstName: "",
+  destinationLastName: "",
+  destinationAddressLine1: "",
+  destinationAddressLine2: "",
+  destinationCity: "",
+  destinationPostalCode: "",
+  destinationProvinceState: "",
+  destinationCountry: "",
+  destinationContactNumber: "",
+  destinationAlternateContactNumber: "",
+  destinationEmailAddress: "",
+  destinationAdditionalNotes: "",
 
-  categoryId: "1",
-
+  categoryId: "",
+  fragile: "1",
   shipementDeatials: [
     { ...shipmentDetailsItemInitValue }
   ],
@@ -59,6 +60,52 @@ export const singleShipmentInitValues = {
   shipmentDate: "",
   whatToDo: "",
 };
+
+
+
+// export const singleShipmentInitValues = {
+//   originCompanyName: "Torinit",
+//   originFirstName: "Amit",
+//   originLastName: "Wagh",
+//   originAddressLine1: "A",
+//   originAddressLine2: "A",
+//   originCity: "Ontario",
+//   originPostalCode: "333",
+//   originProvinceState: "A",
+//   originCountry: "Canada",
+//   originContactNumber: "9898989898",
+//   originAlternateContactNumber: "9898989898",
+//   originEmailAddress: "amit@torinit.ca",
+//   originAdditionalNotes: "asd",
+
+//   destinationCompanyName: "Torinit",
+//   destinationFirstName: "Torinit",
+//   destinationLastName: "Torinit",
+//   destinationAddressLine1: "DA",
+//   destinationAddressLine2: "DA",
+//   destinationCity: "DC",
+//   destinationPostalCode: "33",
+//   destinationProvinceState: "asd",
+//   destinationCountry: "Ca",
+//   destinationContactNumber: "8888888888",
+//   destinationAlternateContactNumber: "8888888888",
+//   destinationEmailAddress: "torinit@gmail.com",
+//   destinationAdditionalNotes: "asd",
+
+//   categoryId: "1",
+
+//   shipementDeatials: [
+//     { ...shipmentDetailsItemInitValue }
+//   ],
+
+
+
+
+//   // SCHEDULE SHIPMENT
+//   shipmentTime: "",
+//   shipmentDate: "",
+//   whatToDo: "",
+// };
 
 export const addShipmentForm = async (values: any, type: any) => {
   try {
@@ -119,6 +166,6 @@ export const transformPayloadToBackend = (values: any) => {
     items: values.shipementDeatials
   }
 
-   
+
   return payload
 }

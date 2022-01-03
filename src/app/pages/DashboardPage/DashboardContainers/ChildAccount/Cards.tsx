@@ -4,32 +4,22 @@ import { Input } from "app/components/Input";
 import { FormWrapper } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 import { Flex } from "app/components/Input/style";
-import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import CardSchema from "./CardSchema";
 import RadioGroup from "app/components/RadioGroup";
+import { cardSchema } from "../PaymentsContainer/cardSchema";
+
 
 export default function Cards({ title }) {
-  const dispatch = useDispatch();
   const Confirm = () => {};
   const {
     handleChange,
-    values: { CreditCardNumber },
     errors,
     touched,
     handleBlur,
     handleSubmit,
   } = useFormik({
-    initialValues: {
-      CreditCardNumber: "",
-      ExpirationDate: "",
-      CVC: "",
-      PinCode: "",
-      Nickname: "",
-      NameonCard: "",
-    },
-    validationSchema: CardSchema,
+    initialValues: { cardType: "1", cardNumber: "", expiryDate: "", cvc: "", nameOnCard: "", pinCode: "", nickName: "" },
+    validationSchema: cardSchema,
     onSubmit: Confirm,
   });
   return (
@@ -52,67 +42,67 @@ export default function Cards({ title }) {
             <Grid item xs={12}></Grid>
             <Grid item xs={5}>
               <Input
-                id="CreditCardNumber"
-                name="CreditCardNumber"
+                id="cardNumber"
+                name="cardNumber"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={touched.CreditCardNumber && errors.CreditCardNumber}
+                error={touched.cardNumber && errors.cardNumber}
                 label={"Credit Card Number"}
                 placeholder={"**** **** **** ****"}
               />
             </Grid>
             <Grid item xs={4}>
               <Input
-                id="ExpirationDate"
-                name="ExpirationDate"
+                id="expiryDate"
+                name="expiryDate"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={touched.ExpirationDate && errors.ExpirationDate}
+                error={touched.expiryDate && errors.expiryDate}
                 label={"Expiration Date"}
                 placeholder={"MM/YY"}
               />
             </Grid>
             <Grid item xs={2}>
               <Input
-                id="CVC"
-                name="CVC"
+                id="cvc"
+                name="cvc"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={touched.CVC && errors.CVC}
+                error={touched.cvc && errors.cvc}
                 label={"CVC"}
                 placeholder={"CVC"}
               />
             </Grid>
             <Grid item xs={5}>
               <Input
-                id="NameonCard"
-                name="NameonCard"
+                id="nameOnCard"
+                name="nameOnCard"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={touched.NameonCard && errors.NameonCard}
+                error={touched.nameOnCard && errors.nameOnCard}
                 label={"Name on Card"}
                 placeholder={"Start typing"}
               />
             </Grid>
             <Grid item xs={5}>
               <Input
-                id="PinCode"
-                name="PinCode"
+                id="pinCode"
+                name="pinCode"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={touched.PinCode && errors.PinCode}
+                error={touched.pinCode && errors.pinCode}
                 label={"Pin Code"}
                 placeholder={"Start typing"}
               />
             </Grid>
             <Grid item xs={5}>
               <Input
-                id="Nickname"
-                name="Nickname"
+                id="nickName"
+                name="nickName"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={touched.Nickname && errors.Nickname}
-                label={"Nickname (optional)"}
+                error={touched.nickName && errors.nickName}
+                label={"Nick name (optional)"}
                 placeholder={"Start typing"}
               />
               <div style={{ marginRight: 30, width: 140, justifyContent:'center'}}>

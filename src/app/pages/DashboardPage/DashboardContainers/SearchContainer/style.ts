@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const SearchFieldsWrapper = styled.div`
   margin-top: 54px;
-  margin-bottom:28px;
+  margin-bottom: 28px;
   display: flex;
   gap: 8px;
   align-items: flex-end;
-  
-  img{
-    align-self:center;
-    cursor:pointer;
+
+  img {
+    align-self: center;
+    cursor: pointer;
   }
   input {
     width: 152px;
@@ -20,21 +20,54 @@ export const SearchFieldsWrapper = styled.div`
 `;
 
 export const SearchTableTop = styled.div`
-  display:flex;
-  width:100%;
-  align-items:center;
-  padding:0 12px;
-  
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0 12px;
+
   justify-content: space-between;
-  img{
-      cursor:pointer;
+  img {
+    cursor: pointer;
   }
-  p{
-      color:#F99746;
+  p {
+    color: #f99746;
   }
-  button{
-      width:114.19px;
-      margin-right:16px;
-      height:32px;
+  button {
+    width: 114.19px;
+    margin-right: 16px;
+    height: 32px;
+  }
+`;
+
+export const FilterWrapper = styled.div`
+  border-bottom: 0.1px solid #dddddd;
+  margin-bottom: 20px;
+  padding-left: 10px;
+
+  &.bordernone {
+    border-bottom: none;
+  }
+
+  .heading {
+    margin-bottom: 20px;
+  }
+`;
+
+export const TabWrapper = styled.div`
+  .custom {
+    padding: 0px !important;
+    background-color: #fff !important;
+  }
+  .tab-content {
+    margin-top: 20px;
+    width: 100%;
+  }
+  .label {
+    padding: 6px 0px;
+    font-size: 12px;
+  }
+  .label-text {
+    font-weight: bold;
+    font-size: 14px;
   }
 `;

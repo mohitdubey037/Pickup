@@ -19,10 +19,11 @@ interface RadioGroupProps {
   ariaLabel?: string;
   name?: string;
   onChange?: React.ChangeEventHandler;
-  error?: string;
+  error?: string | boolean;
   id?: string;
   checked?:any
   onClick?:any
+  value?:any
 }
 
 function RadioGroup({
@@ -35,7 +36,8 @@ function RadioGroup({
   error,
   id,
   checked,
-  onClick
+  onClick,
+  value
 }: RadioGroupProps) {
   return (
     <Flex direction={"column"} style={{ alignItems: "start" }}>
@@ -48,8 +50,8 @@ function RadioGroup({
             aria-label={ariaLabel || "radio"}
             defaultValue={defaultValue}
             name={name}
-            onChange={onChange && onChange}
-            
+            onChange={onChange}
+            value={value}
           >
             <Flex >
               {options?.map(({ value, label }) => (

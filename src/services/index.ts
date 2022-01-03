@@ -3,13 +3,14 @@ import axios from "axios";
 import Cookies from 'js-cookie'
 import store from "store/configureStore";
 
-import { BASE_URL, USER_BASE_URL, ORDER_BASE_URL } from "../constants";
-type RequestType = "user" | "base" | "order";
+import { BASE_URL, USER_BASE_URL, ORDER_BASE_URL, PAYMENT_BASE_URL } from "../constants";
+type RequestType = "user" | "base" | "order" | "payment";
 
 const MODULE_URL_MAP = {
   "user": USER_BASE_URL,
   "base": BASE_URL,
-  "order": ORDER_BASE_URL
+  "order": ORDER_BASE_URL,
+  "payment": PAYMENT_BASE_URL
 }
 
 class Service {
