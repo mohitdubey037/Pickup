@@ -3,18 +3,17 @@ import * as yup from "yup";
 import { PHONE_NUMBER_REGX,PASSWORD_REGX } from "../../../../constants";
 
 export const signUpSchema = yup.object().shape({
-  email: yup.string().required("Email is a required field").email(),
+  email: yup.string().required("Email is a required field").email("Please enter a valid email")
 });
 
 export const companyDetailsSchema = yup.object().shape({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  companyName: yup.string().required(),
-  consent: yup.boolean().required().equals([true]),
-//   email: yup.string().required("Email is a required field").email(),
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  companyName: yup.string().required("Company name is required"),
+  consent: yup.boolean().required("Please agree to terms and policies").equals([true]),
   phoneNumber: yup
     .string()
-    .required()
+    .required("Phone number is required")
     .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
 });
 

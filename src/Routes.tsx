@@ -73,7 +73,7 @@ const Routes = () => {
         <OnHoldShipmentContainer path= "/holding-zone" />
         <InvoicesContainer path="/payments/invoices" />
         <ReportsContainer path={"/reports"}/>
-        <NotFoundPage default />
+        <NotFoundPage />
       </DashboardPage>
     </Router>
   );

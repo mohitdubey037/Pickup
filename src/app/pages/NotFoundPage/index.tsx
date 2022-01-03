@@ -6,7 +6,7 @@ import { NavBar } from 'app/components/NavBar';
 import { Helmet } from 'react-helmet-async';
 import { StyleConstants } from 'styles/StyleConstants';
 
-export function NotFoundPage({default:boolean}) {
+export function NotFoundPage() {
   return (
     <>
       <Helmet>
@@ -17,7 +17,7 @@ export function NotFoundPage({default:boolean}) {
       <Wrapper>
         <Title>
           4
-          <span role="img" >
+          <span role="img" title="404 Error Image" >
             😢
           </span>
           4
