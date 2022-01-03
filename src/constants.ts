@@ -8,19 +8,35 @@ export const PHONE_NUMBER_REGX =
 export const PASSWORD_REGX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+export const BILLING_TYPES = [
+  { label: "Individual", value: "0" },
+  { label: "Company", value: "1" },
+];
+
+export const DROP_OPTION = [
+  { label: "Front door", value: 10},
+  { label: "Safe drop", value: 11}
+];
+
+export const FRAGILE_OPTION = [
+  { label: "Yes", value: 1 },
+  { label: "No", value: 0 }
+];
+
 export const LOCATION_TYPES = [
   { label: "RESIDENTIAL", value: 1 },
   { label: "COMMERCIAL", value: 2 },
   { label: "RETAIL", value: 3 },
 ];
+
 export const PERMISSION_TYPES = [
   { label: "Executive", value: 1 },
   { label: "Superintendent", value: 2 },
   { label: "Manager", value: 3 },
   { label: "Admin", value: 4 },
 ];
+
 export const WEIGHTDIMENSION = [
-  
   {label: "KG" ,value: 14},
   {label: "POUND",value: 15},
 ];
@@ -31,4 +47,9 @@ export const WEIGHTDIMENSION = [
   {label:"CM",value:13}
 ];
 
+export const SCHEDULE_OPTIONS = [
+  { value: "16", label: "Ship Right Now" },
+  { value: "17", label: "Ship Later" },
+  { value: "22", label: "Move to Holding Zone" }
+]
 
