@@ -4,7 +4,7 @@ import services from "../";
 export const getShipmentDetails = async (orderId: number,) => {
 
     try {
-        const response = await services.post(`order/business/shipment/summary`, { shipmentIds: [orderId] }, "order");
+        const response = await services.post(`order/business/shipment/summary`, { shipmentIds: [orderId] });
         return { response: response, success: true }
     } catch (err) {
         return { response: err, sucess: false };

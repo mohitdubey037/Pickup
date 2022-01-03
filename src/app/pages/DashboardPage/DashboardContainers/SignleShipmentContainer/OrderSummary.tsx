@@ -9,25 +9,34 @@ import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
 import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments";
-import { useSelector } from "react-redux";
+
 
 // import { DataGrid } from "@mui/x-data-grid";
 
 import { navigate, useParams } from "@reach/router";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 function OrderSummary({path: string}) {
-    const [drawerOpen, setDrawerOpen] = useState(false);
+
     const { orderId } = useParams();
+    
+    const [drawerOpen, setDrawerOpen] = useState(false);
     const [drawerOpenOne, setDrawerOpenOne] = useState(false);
-    const orders = useSelector(
-        (state: { order: { orders: any[] } }) => state.order.orders
-    );
+    const [orderSummaryData, setOrderSummaryData] = useState([]);
+    
     useEffect(() => {
         (async () => {
             const res = (await getShipmentDetails(orderId)) as any;
             if (res.success) {
                 const shipmentDetails = res.response.data.data;
-                console.log("shipmentDetailsRes", shipmentDetails)
+                const data = shipmentDetails.shipmentSummary.map(item => {
+                    return {
+                        "Order Id": item.customerReferenceNumber,
+                        "Schedule": item.type,
+                        "Item Count": item.itemCount,
+                        "Order Cost": `$${item.total}`,
+                    }
+                });
+                setOrderSummaryData(data)
             }
         })()
     }, [orderId]);
@@ -38,7 +47,7 @@ function OrderSummary({path: string}) {
                 <ContainerTitle>Order Summary</ContainerTitle>
 
                 <Flex direction={"column"} top={20}>
-                    <Table data={orders} />
+                    <Table data={orderSummaryData} />
 
                     {/* <Table data={OrderSummaryTable} /> */}
                     {/* <DataGrid rows={rows} columns={columns} checkboxSelection /> */}
