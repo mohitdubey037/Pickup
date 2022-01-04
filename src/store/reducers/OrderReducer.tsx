@@ -1,13 +1,15 @@
 import { createReducer, createActions } from "reduxsauce";
 interface OrderType{
-'Shipping ID':string
-'Schedule':string
-'Item Count':string
-'Shipping Cost':string
+    'Shipping ID':string
+    'Schedule':string
+    'Item Count':string
+    'Shipping Cost':string
 }
+
 interface IntialStateType{
-orders:OrderType[]
+    orders:OrderType[]
 }
+
 const initialState :IntialStateType= {
   orders:[
      {'Shipping ID':'TOR-0607-123','Schedule':'Right Now','Item Count':'1','Shipping Cost':'$50',},

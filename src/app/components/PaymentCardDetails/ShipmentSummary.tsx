@@ -13,7 +13,8 @@ import {Grouppaymentsummary} from '../../assets/Icons'
 import { Drawer } from "app/components/Drawer";
 import { useState } from "react";
 import AddCardForm from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/AddCardForm";
-import { addNewCardHelper } from "./helper";
+import { addNewCardHelper, confirmPaymentHelper } from "./helper";
+import AddNewPaymentDrawer from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/AddNewPaymentDrawer";
 
 interface ShipmentSummaryProps {
   subTotal: number;
@@ -25,17 +26,18 @@ interface ShipmentSummaryProps {
 function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
   const { subTotal, taxes, addInsurance, total } = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [showInvoiceDrawer, setShowInvoiceDrawer] = useState(false);
   const classes = useStyles();
 
     const addNewCardHandler = async (values) => {
         console.log("SavedCard", values);
-        // const body = {
-        //     "name": values.nameOnCard,
-        //     "number": values.cardNumber,
-        //     "expiry_month": values.expiryDate.split("/")[0],
-        //     "expiry_year": values.expiryDate.split("/")[1],
-        //     "cvd": values.cvc
-        // }
+        const body = {
+            "name": values.nameOnCard,
+            "number": values.cardNumber,
+            "expiry_month": values.expiryDate.split("/")[0],
+            "expiry_year": values.expiryDate.split("/")[1],
+            "cvd": values.cvc
+        }
 
         
         // const body = {
@@ -45,13 +47,22 @@ function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
         //     "expiry_year": "2025",
         //     "cvd": "123"
         //   }
-        // const res: {response:any, error:any} = await addNewCardHelper(body);
+        const res: {response:any, error:any} = await addNewCardHelper(body);
         // if(!res.error){
-            // const state= {
-            //     nameOnCard: res.name,
-            //     cardNumber: 
-            // }
+            
         // }
+    };
+
+    const confirmPaymentHandler = async () => {
+        const body = {
+            "profileId" : "kkk",
+            "cardId" : "pp",
+            "amount" : 0
+        }
+        const res = await confirmPaymentHelper(body, 373);
+        if(!res.error){
+            setShowInvoiceDrawer(true);
+        }
     }
 
   return (
@@ -79,7 +90,7 @@ function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
         <span style={{fontWeight:700}}>Total</span>
         <span className={classes.totalCount}>{total}</span>
         <button onClick={() => setDrawerOpen(true)} >Add payment</button>
-        <button onClick={() => setDrawerOpen(true)} >Confirm Payment</button>
+        <button onClick={confirmPaymentHandler} >Confirm Payment</button>
             <Drawer
                 open={drawerOpen}
                 title="Add New Payment"
@@ -94,6 +105,15 @@ function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
                     submitButtonLabel="Add New Payment"
                     saveAction={addNewCardHandler}
                 />
+            </Drawer>
+            <Drawer
+                open={showInvoiceDrawer}
+                title="Payments"
+                setDrawerOpen={(flag) => setShowInvoiceDrawer(flag)}
+                closeIcon={true}
+                actionButtons={true}
+            >
+                <AddNewPaymentDrawer />
             </Drawer>
       </Total> 
      
