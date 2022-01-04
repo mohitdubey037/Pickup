@@ -29,3 +29,13 @@ export const deleteCard = async (deleteCardData: deleteCardData) => {
     const res = await Services.post("business/resetPassword", deleteCardData, type);
     return res;
 };
+
+export const addInsurance = async (invoiceId: string) => {
+    const res = await Services.post(`order/business/invoice/${invoiceId}/calculateInsurance`, {}, "order");
+    return res
+}
+
+export const removeInsurance = async (invoiceId: string) => {
+    const res = await Services.post(`order/business/invoice/${invoiceId}/removeInsurance`, {}, "order");
+    return res
+}

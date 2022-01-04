@@ -40,6 +40,8 @@ import LogoImg from './LogoImg';
 import alertOctagon from './alertOctagon.svg';
 import Grouppaymentsummary from './Grouppaymentsummary.svg'
 import InsuranceIcon from "./InsuranceIcon.svg";
+import selectedCardCheck from './selectedCardCheck.svg'
+
 export {
     analytics,
     clock,
@@ -81,5 +83,6 @@ export {
     starimage,
     alertOctagon,
     Grouppaymentsummary,
-    InsuranceIcon
+    InsuranceIcon,
+    selectedCardCheck
 };
