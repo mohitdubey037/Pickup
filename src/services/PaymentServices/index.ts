@@ -30,17 +30,29 @@ export const deleteCard = async (deleteCardData: deleteCardData) => {
     return res;
 };
 
-export const getInsurance = async (invoiceId: string) => {
-    const res = await Services.get(`order/business/invoice/${invoiceId}/calculateInsurance`, "order");
-    return res
+export const getInsuranceService = async (invoiceId: string) => {
+    try {
+        const res = await Services.get(`order/business/invoice/${invoiceId}/calculateInsurance`, "order");
+        return res
+    } catch (error) {
+        return error
+    }
 }
 
-export const addInsurance = async (invoiceId: string) => {
-    const res = await Services.post(`order/business/invoice/${invoiceId}/addInsurance`, {}, "order");
-    return res
+export const addInsuranceService = async (invoiceId: string) => {
+    try {
+        const res = await Services.post(`order/business/invoice/${invoiceId}/addInsurance`, {}, "order");
+        return res
+    } catch (error) {
+        return error
+    }
 }
 
-export const removeInsurance = async (invoiceId: string) => {
-    const res = await Services.post(`order/business/invoice/${invoiceId}/removeInsurance`, {}, "order");
-    return res
+export const removeInsuranceService = async (invoiceId: string) => {
+    try {
+        const res = await Services.put(`order/business/invoice/${invoiceId}/removeInsurance`, {}, "order");
+        return res
+    } catch (error) {
+        return error
+    }
 }
