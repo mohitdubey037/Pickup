@@ -14,23 +14,23 @@ export default function HelpContact() {
                 <Grid item lg={8}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
-                            <Input label="First Name" placeholder="Start typing" />
+                            <Input label="First Name" placeholder="John" />
                         </Grid>
                         <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
-                            <Input label="Last Name" placeholder="Start typing" />
+                            <Input label="Last Name" placeholder="Doe" />
                         </Grid>
                         <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
-                            <Input label="Phone Number" placeholder="Start typing" />
+                            <Input label="Phone Number" placeholder="+1 (999)-999-9999" />
                         </Grid>
                         <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
-                            <Input label="Email Address" placeholder="Start typing" />
+                            <Input label="Email Address" placeholder="johndoe@pickups.com" />
                         </Grid>
                         <Grid item xs={12} lg={12} md={12} sm={12} xl={12}>
                             <div style={{marginBottom:'0.5rem'}}>
                                 Message
                             </div>
                             <TextField
-                                placeholder='Start typing'
+                                placeholder='Add your message here'
                                 style={{width:'100%'}}
                                 multiline
                                 rows={4}

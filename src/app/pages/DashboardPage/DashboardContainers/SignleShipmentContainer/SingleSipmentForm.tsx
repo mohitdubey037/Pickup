@@ -59,7 +59,7 @@ function SingleSipmentForm({ title, formik }) {
                 name={title + "CompanyName"}
                 label={"Company Name"}
                 value={values[`${title}ComplanyName`]}
-                placeholder={"Start typing"}
+                placeholder={"Example Company"}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={
@@ -76,7 +76,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "FirstName"}
               initValue={values[`${title}FirstName`]}
               label={"First Name"}
-              placeholder={"Start typing"}
+              placeholder={"John"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
@@ -91,7 +91,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "LastName"}
               label={"Last Name"}
               initValue={values[`${title}LastName`]}
-              placeholder={"Start typing"}
+              placeholder={"Doe"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched[title + "LastName"] && errors[title + "LastName"]}
@@ -104,7 +104,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "AddressLine1"}
               label={"Address Line 1"}
               initValue={values[`${title}AddressLine1`]}
-              placeholder={"Start typing"}
+              placeholder={"123 Address Street"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
@@ -119,7 +119,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "AddressLine2"}
               name={title + "AddressLine2"}
               label={"Address Line 2"}
-              placeholder={"Start typing"}
+              placeholder={"123 Address Street"}
               initValue={values[`${title}AddressLine2`]}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -135,7 +135,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "City"}
               name={title + "City"}
               label={"City"}
-              placeholder={"Start typing"}
+              placeholder={"eg. Toronto"}
               initValue={values[`${title}City`]}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -149,7 +149,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "PostalCode"}
               label={"Postal Code"}
               initValue={values[`${title}PostalCode`]}
-              placeholder={"Start typing"}
+              placeholder={"ABC 123"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
@@ -163,7 +163,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "ProvinceState"}
               name={title + "ProvinceState"}
               label={"Province/State"}
-              placeholder={"Start typing"}
+              placeholder={"eg. Ontario"}
               initValue={values[`${title}ProvinceState`]}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -180,7 +180,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "Country"}
               label={"Country"}
               initValue={values[`${title}Country`]}
-              placeholder={"Start typing"}
+              placeholder={"eg. Canada"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched[title + "Country"] && errors[title + "Country"]}
@@ -193,7 +193,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "ContactNumber"}
               label={"Contact Number"}
               initValue={values[`${title}ContactNumber`]}
-              placeholder={"Start typing"}
+              placeholder={"(999)-999-9999"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
@@ -209,7 +209,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "ContactNumber"}
               initValue={values[`${title}ContactNumber`]}
               label={"Alternate Contact Number"}
-              placeholder={"Start typing"}
+              placeholder={"(999)-999-9999"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
@@ -225,7 +225,7 @@ function SingleSipmentForm({ title, formik }) {
               name={title + "EmailAddress"}
               label={"Email Address"}
               initValue={values[`${title}EmailAddress`]}
-              placeholder={"Start typing"}
+              placeholder={"johndoe@pickups.com"}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
@@ -240,7 +240,7 @@ function SingleSipmentForm({ title, formik }) {
               id={title + "AdditionalNotes"}
               name={title + "AdditionalNotes"}
               label={"Additional Notes"}
-              placeholder={"Start typing"}
+              placeholder={"Add any notes here"}
               onChange={handleChange}
               initValue={values[`${title}AdditionalNotes`]}
               onBlur={handleBlur}

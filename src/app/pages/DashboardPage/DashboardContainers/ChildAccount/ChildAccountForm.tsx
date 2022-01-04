@@ -52,7 +52,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.CompanyName && errors.CompanyName}
                 label={"Company Name"}
-                placeholder={"Start typing"}
+                placeholder={"Example Company"}
               />
             </Grid>
             <Grid item xs={3}>
@@ -63,7 +63,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.BusinessNumber && errors.BusinessNumber}
                 label={"Business Number"}
-                placeholder={"Start typing"}
+                placeholder={"eg. 123456"}
               />
             </Grid>
             <Grid item xs={3}>
@@ -74,7 +74,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Industry && errors.Industry}
                 label={"Industry"}
-                placeholder={"Retail"}
+                placeholder={"eg. Retail"}
               />
             </Grid>
             <Grid item xs={3}>
@@ -85,7 +85,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Employee && errors.Employee}
                 label={"Employee"}
-                placeholder={"Start typing"}
+                placeholder={"eg. John Doe"}
               />
             </Grid>
             <Grid item xs={5}>
@@ -96,7 +96,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.AddressLine1 && errors.AddressLine1}
                 label={"Address Line 1"}
-                placeholder={"Start typing"}
+                placeholder={"123 Address Street"}
               />
             </Grid>
             <Grid item xs={5}>
@@ -107,7 +107,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.AddressLine2 && errors.AddressLine2}
                 label={"Address Line 2"}
-                placeholder={"Start typing"}
+                placeholder={"123 Address Street"}
               />
             </Grid>
             <Grid item xs={3}>
@@ -118,7 +118,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Pincode && errors.Pincode}
                 label={"Pincode"}
-                placeholder={"Start typing"}
+                placeholder={"1234"}
               />
             </Grid>
             <Grid item xs={3}>
@@ -129,7 +129,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Province && errors.Province}
                 label={"Province"}
-                placeholder={"Start typing"}
+                placeholder={"eg. Ontario"}
               />
             </Grid>
 
@@ -141,7 +141,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.City && errors.City}
                 label={"City"}
-                placeholder={"Start typing"}
+                placeholder={"eg. Toronto"}
               />
             </Grid>
             <Grid item xs={3}>
@@ -152,7 +152,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Country && errors.Country}
                 label={"Country"}
-                placeholder={"Start typing"}
+                placeholder={"eg. Canada"}
               />
             </Grid>
           </Grid>

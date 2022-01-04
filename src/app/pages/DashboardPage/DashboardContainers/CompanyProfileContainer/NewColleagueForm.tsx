@@ -25,7 +25,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               onChange={handleChange}
               error={touched.firstName && errors.firstName}
               label={"First Name"}
-              placeholder={"Start typing"}
+              placeholder={"John"}
               style={{ flex: 1, marginRight: 30 }}
             />
             <CustomInput
@@ -35,7 +35,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               onChange={handleChange}
               error={touched.lastName && errors.lastName}
               label={"Last Name"}
-              placeholder={"Start typing"}
+              placeholder={"Doe"}
               style={{ flex: 1, marginRight: 30 }}
             />
 
@@ -46,7 +46,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               onChange={handleChange}
               error={touched.phoneNumber && errors.phoneNumber}
               label={"Phone Number"}
-              placeholder={"Start typing"}
+              placeholder={"(999)-999-9999"}
               style={{ flex: 1, marginRight: 30 }}
             />
           </Flex>
@@ -58,7 +58,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               onChange={handleChange}
               error={touched.Role && errors.Role}
               label={"Role/Designation"}
-              placeholder={"Start typing"}
+              placeholder={"eg. Manager"}
               style={{ flex: 1, marginRight: 30 }}
             />
             <CustomInput
@@ -68,7 +68,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               onChange={handleChange}
               error={touched.email && errors.email}
               label={"Email id"}
-              placeholder={"Start typing"}
+              placeholder={"johndoe@pickups.com"}
               style={{ flex: 1, marginRight: 30 }}
             />
             <CustomInput

@@ -34,7 +34,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
                 error={toucherItem?.weight && errorItem?.weight}
                 label={"order Weight"}
                 initValue={formItemValue.weight}
-                placeholder={"Start typing"}
+                placeholder={"eg. 100"}
               />
             </Flex>
             <Flex flex={1} left={30}>
@@ -58,7 +58,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
                 initValue={formItemValue.length}
                 error={toucherItem?.length && errorItem?.length}
                 label={"Length"}
-                placeholder={"Start typing"}
+                placeholder={"eg. 10"}
               />
             </Flex>
             <Flex flex={1} left={30}>
@@ -71,7 +71,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
                 label={"Width"}
                 initValue={formItemValue.width}
                 
-                placeholder={"Start typing"}
+                placeholder={"eg. 10"}
               />
             </Flex>
             <Flex flex={1} left={30}>
@@ -84,7 +84,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
                 onChange={handleChange}
                 error={toucherItem?.height && errorItem?.height}
                 label={"Height"}
-                placeholder={"Start typing"}
+                placeholder={"eg. 10"}
               />
             </Flex>
             <Flex flex={1} left={30}>
@@ -124,7 +124,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number }) {
             onChange={handleChange}
             error={toucherItem?.description && errorItem?.description}
             label={"order Description"}
-            placeholder={"Start typing"}
+            placeholder={"Add a description of the order"}
             type={"textarea"}
             value={values[`${formItem}.description`]}
             initValue={formItemValue.description}

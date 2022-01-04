@@ -43,7 +43,7 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.FirstName && errors.FirstName}
                 label={"First Name"}
-                placeholder={"Start typing"}
+                placeholder={"John"}
               />
             </Grid>
             <Grid item xs={3}>
@@ -54,7 +54,7 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.LastName && errors.LastName}
                 label={"Last Name"}
-                placeholder={"Start typing"}
+                placeholder={"Doe"}
               />
             </Grid>
             <Grid item xs={3}>
@@ -65,7 +65,7 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.PhoneNumber && errors.PhoneNumber}
                 label={"Phone Number"}
-                placeholder={"Retail"}
+                placeholder={"+1 (999)-999-9999"}
               />
             </Grid>
             <Grid item xs={3}>
@@ -76,7 +76,7 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Role && errors.Role}
                 label={"Role/Designation"}
-                placeholder={"Start typing"}
+                placeholder={"eg. Manager"}
               />
             </Grid>
             <Grid item xs={5}>
@@ -87,7 +87,7 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Email && errors.Email}
                 label={"Email id"}
-                placeholder={"Start typing"}
+                placeholder={"johndoe@pickups.com"}
               />
             </Grid>
           </Grid>
