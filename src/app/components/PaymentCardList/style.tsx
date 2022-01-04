@@ -13,6 +13,7 @@ interface CardProp {
 }
 
 export const CardWrapper = styled.div`
+  box-sizing: border-box;
   display: flex;
   padding: 20px;
   width: 100%;
