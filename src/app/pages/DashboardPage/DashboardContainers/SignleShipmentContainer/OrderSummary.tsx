@@ -125,7 +125,7 @@ function OrderSummary({ path: string }) {
         closeIcon={true}
         actionButtons={true}
       >
-        <OrderDetailsDrawer />
+        <OrderDetailsDrawer setDrawerOpen={setDrawerOpen} />
       </Drawer>
     </>
   );

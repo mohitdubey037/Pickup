@@ -4,9 +4,11 @@ import { Accordion } from "app/components/Accordion";
 import { getOrderDetails } from "services/SingleShipmentServices";
 import { Flex } from "app/components/Input/style";
 import { showToast } from "utils";
+import { useParams } from "@reach/router";
 
 interface orderDetails{
     referenceNumber?: string;
+    dropOption?: number;
     items?: any;
     image?: string;
     category?: string;
@@ -20,11 +22,12 @@ function OrderDetailsDrawer(props) {
     const [orderDetails, setOrderDetails] = useState<orderDetails>({})
     const [isFragile, setIsFragile] = useState<boolean>(false);
     const [showLoader, setShowLoader] = useState<boolean>(false)
+    const { orderId } = useParams()
 
     useEffect(() => {
         (async() => {
             setShowLoader(true)
-            const { response } = await getOrderDetails(props.orderId)
+            const { response } = await getOrderDetails(orderId)
             console.log('response', response)
             if(response) {
                 setOrderDetails(response.data.data)
@@ -70,7 +73,7 @@ function OrderDetailsDrawer(props) {
                         <Flex direction="row" justifyContent="space-between">
                             <Flex direction="column">
                                 <p>Delivery Options</p>
-                                <p>Door drop</p>
+                                <p>{orderDetails.dropOption === 10 ? "Door Drop" : "Safe Drop"}</p>
                             </Flex>
                             <Flex direction="column">
                                 <p>Fragile</p>
@@ -82,7 +85,7 @@ function OrderDetailsDrawer(props) {
                             <p>
                                 {orderDetails?.description}
                             </p>
-                            <img style={{ width: '120px', height: '100px' }} src={orderDetails?.picture ? orderDetails?.picture : 'https://5.imimg.com/data5/VH/KM/ZQ/SELLER-89149368/fish-feed-packaging-box-250x250.jpg'} alt="orderImage" />
+                            <img style={{ width: '120px', height: '100px' }} src={orderDetails?.picture && orderDetails?.picture} alt="orderImage" />
                         </div>
                     </div>
 
