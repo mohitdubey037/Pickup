@@ -39,8 +39,7 @@ function OrderDetailsDrawer(props) {
             }
 
         })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.orderId])
+    }, [orderId, props])
 
     useEffect(() => {
             const fragile = orderDetails?.items?.filter((item) => {
