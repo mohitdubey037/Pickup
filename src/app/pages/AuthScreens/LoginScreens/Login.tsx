@@ -93,7 +93,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
             id={"email"}
             name={"email"}
             label="Email"
-            placeholder={"Start typing"}
+            placeholder={"johndoe@pickups.com"}
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.email && errors.email}
@@ -102,6 +102,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
             onChange={handleChange}
             onBlur={handleBlur}
             label="Password"
+            placeholder={"•••••••••••••••"}
             id={"password"}
             name={"password"}
             error={touched.password && errors.password}

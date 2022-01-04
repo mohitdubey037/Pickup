@@ -88,7 +88,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     id={"firstName"}
                                     name={"firstName"}
                                     label={"First Name"}
-                                    placeholder={"Start typing"}
+                                    placeholder={"John"}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     error={touched['firstName'] && errors['firstName']}
@@ -100,7 +100,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     id={"lastName"}
                                     name={"lastName"}
                                     label={"Last Name"}
-                                    placeholder={"Start typing"}
+                                    placeholder={"Doe"}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     error={touched['lastName'] && errors['lastName']}
@@ -110,7 +110,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                             <Grid item xs={12}>
                                 <Input
                                     label="Company Name"
-                                    placeholder="Start typing"
+                                    placeholder="John Doe’s Company"
                                     id="companyName"
                                     name="companyName"
                                     onChange={handleChange}
@@ -121,7 +121,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                             <Grid item xs={12}>
                                 <Input
                                     label="Phone Number"
-                                    placeholder="Start typing"
+                                    placeholder="(999)-999-9999"
                                     id="phoneNumber"
                                     name="phoneNumber"
                                     onChange={handleChange}
