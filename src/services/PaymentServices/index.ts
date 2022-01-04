@@ -30,8 +30,13 @@ export const deleteCard = async (deleteCardData: deleteCardData) => {
     return res;
 };
 
+export const getInsurance = async (invoiceId: string) => {
+    const res = await Services.get(`order/business/invoice/${invoiceId}/calculateInsurance`, "order");
+    return res
+}
+
 export const addInsurance = async (invoiceId: string) => {
-    const res = await Services.post(`order/business/invoice/${invoiceId}/calculateInsurance`, {}, "order");
+    const res = await Services.post(`order/business/invoice/${invoiceId}/addInsurance`, {}, "order");
     return res
 }
 

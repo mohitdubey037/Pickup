@@ -1,4 +1,4 @@
-import { addInsurance, removeInsurance } from "services/PaymentServices";
+import { addInsurance, getInsurance, removeInsurance } from "services/PaymentServices";
 
 export const creditCardDetails = [
     {
@@ -48,18 +48,29 @@ export const debitCardDetails = [
     },
 ];
 
-export const addInsuranceHandler = async (orderId: string) => {
+
+
+export const getInsuranceHandler = async (invoiceId: string) => {
     try {
-      const res = await addInsurance(orderId)
+      const res = await getInsurance(invoiceId)
       return res
     } catch (err) {
       return err;
     }
 }
 
-export const removeInsuranceHandler = async (orderId: string) => {
+export const addInsuranceHandler = async (invoiceId: string) => {
     try {
-      const res = await removeInsurance(orderId)
+      const res = await addInsurance(invoiceId)
+      return res
+    } catch (err) {
+      return err;
+    }
+}
+
+export const removeInsuranceHandler = async (invoiceId: string) => {
+    try {
+      const res = await removeInsurance(invoiceId)
       return res
     } catch (err) {
       return err;

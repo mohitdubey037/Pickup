@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Typography } from "@material-ui/core";
 import { Checkbox } from "app/components/Checkbox";
@@ -7,11 +7,46 @@ import { Link } from "app/components/Link";
 import { Accordion } from "app/components/Accordion";
 
 import PaymentCardList from "app/components/PaymentCardList";
-import { creditCardDetails, debitCardDetails } from "./helper";
+import { addInsuranceHandler, creditCardDetails, debitCardDetails, removeInsuranceHandler, getInsuranceHandler } from "./helper";
+import { Flex } from '../../../../components/Input/style'
+interface InvoiceDataType {
+    insuranceAmount: number;
+    taxesOfAllShipments: number;
+    subTotalOfAllShipments: number;
+    total: number;
+}
 
 function ShipmentSummary({ path: string }) {
 
     const [selectedCard, setSelectedCard] = useState({})
+    const [invoiceData, setInvoiceData] = useState<InvoiceDataType>({
+        insuranceAmount: 0,
+        taxesOfAllShipments: 0,
+        subTotalOfAllShipments: 0,
+        total: 0,
+    })
+
+    useEffect(() => {
+        (async () => {
+            const res = await getInsuranceHandler("182")
+            console.log("getInsuranceHandler", res)
+            setInvoiceData(res.data.data)
+        })()
+    }, [])
+
+    const insuranceHandler = async (event) => {
+        if(event.target.checked){
+            // const res = await addInsuranceHandler(orderId)
+            const res = await addInsuranceHandler("182")
+            setInvoiceData(res.data.data)
+            console.log('addInsuranceHandler', res)
+        }else{
+            // const res = await removeInsuranceHandler(orderId)
+            const res = await removeInsuranceHandler("182")
+            setInvoiceData(res.data.data)
+            console.log('removeInsuranceHandler', res)
+        }
+    }
 
     return (
         <ModuleContainer>
@@ -37,7 +72,7 @@ function ShipmentSummary({ path: string }) {
                     >
                         Subtotal
                     </span>
-                    <span>$320.42</span>
+                    <span>{invoiceData.subTotalOfAllShipments}</span>
                 </div>
                 <div style={{ display: "flex" }}>
                     <span
@@ -51,16 +86,19 @@ function ShipmentSummary({ path: string }) {
                     >
                         Taxes(HST)
                     </span>
-                    <span>$12.00</span>
+                    <span>{invoiceData.taxesOfAllShipments}</span>
                 </div>
-                <div style={{ display: "flex" }}>
-                    <span style={{ padding: "0px 10px 0px 0px" }}>
-                        <Checkbox label="Add Insurance" />
-                    </span>
-                    <span style={{ display: "flex" }}>
-                        <img src={InsuranceIcon} />
-                    </span>
-                </div>
+                <Flex>
+                    <Flex>
+                        <span style={{ padding: "0px 10px 0px 0px" }}>
+                            <Checkbox onChange={(e) => insuranceHandler(e)} label="Add Insurance" />
+                        </span>
+                        <span style={{ display: "flex" }}>
+                            <img src={InsuranceIcon} alt="InsuranceIcon" />
+                        </span>
+                    </Flex>
+                        {invoiceData.insuranceAmount}
+                </Flex>
                 <div
                     style={{
                         textDecoration: "underline",
@@ -83,7 +121,7 @@ function ShipmentSummary({ path: string }) {
                     >
                         Total
                     </span>
-                    <span style={{ fontWeight: 700, fontSize: 14 }}>$332.42</span>
+                    <span style={{ fontWeight: 700, fontSize: 14 }}>{invoiceData.total}</span>
                 </div>
                 <div>
                     <hr />
