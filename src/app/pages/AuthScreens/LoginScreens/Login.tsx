@@ -17,14 +17,17 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { loginSchema } from "./loginSchemas";
 import { actions } from "store/reducers/SignInReducer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Login = ({ navigate }: RouteComponentProps) => {
+
   const dispatch = useDispatch();
+
+  const [errorMessage, setErrorMessage] = useState('')
 
   const signInUserResponse = useSelector(
     (state: {
-      signIn: { signInUserResponse: { status: number; data: { data: any } } };
+      signIn: { signInUserResponse };
     }) => state.signIn.signInUserResponse
   );
 
@@ -49,9 +52,11 @@ const Login = ({ navigate }: RouteComponentProps) => {
       Cookies.set("token", signInUserResponse?.data?.data?.token);
 
       navigate?.("/dashboard");
+    }else if(signInUserResponse?.status === 400){
+        setErrorMessage(signInUserResponse?.message)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signInUserResponse?.status]);
+  }, [signInUserResponse]);
 
   const onSignIn = () => {
     dispatch(
@@ -73,6 +78,10 @@ const Login = ({ navigate }: RouteComponentProps) => {
     validationSchema: loginSchema,
     onSubmit: onSignIn,
   });
+
+  useEffect(() => {
+    setErrorMessage('')
+  },[values])
 
   return (
     <LoginWrapper>
@@ -105,6 +114,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
               link={() => navigate?.("/forgot-password")}
             />
           </RememberDiv>
+          {errorMessage ? <span style={{ color: 'red' }}> {errorMessage} </span> : null}
           <Button
             showLoader={showLoader}
             label="Sign In"

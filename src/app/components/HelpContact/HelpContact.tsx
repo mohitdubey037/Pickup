@@ -45,11 +45,11 @@ export default function HelpContact() {
                             <h4 style={{marginTop:0}}>Contact Information</h4>
                         </div>
                         <div>
-                            <img src={ContactSvg}/>
+                            <img src={ContactSvg} alt="ContactSvg"/>
                         </div>
                         <Grid container justifyContent='center'>
                             <Grid item xs={3} style={{textAlign:'right'}}>
-                                <img style={{marginRight:'0.5rem'}} src={phone}/>
+                                <img style={{marginRight:'0.5rem'}} src={phone} alt="phone" />
                             </Grid>
                             <Grid item xs={9}>
                                 <StyledUl>
@@ -60,7 +60,7 @@ export default function HelpContact() {
                         </Grid>
                         <Grid container justifyContent='center' style={{marginTop:'1rem'}}>
                             <Grid item xs={3} style={{textAlign:'right'}}>
-                                 <img style={{marginRight:'0.5rem'}} src={email}/>
+                                 <img style={{marginRight:'0.5rem'}} src={email} alt="email" />
                             </Grid>
                             <Grid item xs={9}>
                                 <StyledUl>

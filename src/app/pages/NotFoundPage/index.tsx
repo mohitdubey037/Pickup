@@ -17,7 +17,7 @@ export function NotFoundPage({default:boolean}) {
       <Wrapper>
         <Title>
           4
-          <span role="img" >
+          <span role="img" title="404 Error Image" >
             😢
           </span>
           4

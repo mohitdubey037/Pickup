@@ -16,6 +16,7 @@ import { actions } from "store/reducers/SignUpReducer";
 import { Grid } from "@material-ui/core";
 import { Checkbox } from "app/components/Checkbox";
 import { getParamsFromUrl } from "utils/commonUtils";
+import { Flex } from "app/components/Input/style";
 
 
 type SignUpProps = RouteComponentProps;
@@ -113,7 +114,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     id="companyName"
                                     name="companyName"
                                     onChange={handleChange}
-
+                                    error={touched.companyName && errors.companyName}
                                     onBlur={handleBlur}
                                 />
                             </Grid>
@@ -125,18 +126,21 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     name="phoneNumber"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
+                                    error={touched.phoneNumber && errors.phoneNumber}
                                 />
                             </Grid>
-                            <div style={{ paddingLeft: 10, display: "flex" }}>
+                            <Flex style={{ paddingLeft: 10, marginBottom: '16px', alignItems: 'center' }}>
                                 <Checkbox
                                     isChecked={consent}
                                     id="consent"
                                     name="consent"
                                     onChange={() => setFieldValue('consent', !consent)}
                                     onBlur={handleBlur}
-                                    label="I agree to the Terms and Policies"
+                                    error={touched.consent && errors.consent}
+                                    // label="I agree to the Terms and Policies"
                                 />
-                            </div>
+                                <span>I agree to the <a href="#" target="_blank">Terms</a> and <a href="#" target="_blank">Policies</a></span>
+                            </Flex>
                             <Button label="Next" disabled={!(isValid && dirty)} showLoader={showLoader} onClick={handleSubmit} />
                         </Grid>
                     </FormContent>

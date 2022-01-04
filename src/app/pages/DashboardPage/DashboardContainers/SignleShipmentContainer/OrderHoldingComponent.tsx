@@ -4,7 +4,7 @@ function OrderHoldingComponent() {
   return (
     <div style={{ backgroundColor: "#FFDB6E"}}>
       <div style={{ display: "flex", paddingLeft: 30, paddingTop: 20 }}>
-        <img className="imageStyle" src={alertOctagon} />
+        <img className="imageStyle" src={alertOctagon} alt="alertOctagon"/>
         <div
           style={{
             fontWeight: 700,

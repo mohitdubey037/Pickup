@@ -18,7 +18,7 @@ interface RadioGroupProps {
   defaultValue?: number | string;
   ariaLabel?: string;
   name?: string;
-  onChange?: React.ChangeEventHandler;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   error?: string | boolean;
   id?: string;
   checked?:any
@@ -45,7 +45,6 @@ function RadioGroup({
       <Flex style={{ alignItems: "center" }}>
         <Flex>
           <RadioGroupComponent 
-         
             id={id}
             aria-label={ariaLabel || "radio"}
             defaultValue={defaultValue}

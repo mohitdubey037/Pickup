@@ -29,6 +29,7 @@ import masterCard from './masterCard.png'
 import ellipse from './Ellipse.svg'
 import scotiaBank from './scotiaBank.png'
 import starimage from './starimage.svg'
+import starImageEmpty from './starImageEmpty.svg'
 
 import cross from './cross.svg'
 import dots3 from './3Dots.svg';
@@ -81,6 +82,7 @@ export {
     sliders,
     warningIcon,
     starimage,
+    starImageEmpty,
     alertOctagon,
     Grouppaymentsummary,
     InsuranceIcon,

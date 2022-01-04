@@ -14,10 +14,11 @@ function* registerUserWorker(action) {
     const res = yield call(registerUserService, action.email);
     yield put(actions.registerUserResponse(res.data?.data));
     yield put(globalActions.showLoader(false));
-  } catch (err: any) {
+} catch (err: any) {
     yield put(globalActions.showLoader(false));
+    yield put(actions.registerUserResponse(err));
 
-    showToast(err.message, "error");
+    // showToast(err.message, "error");
   }
 }
 

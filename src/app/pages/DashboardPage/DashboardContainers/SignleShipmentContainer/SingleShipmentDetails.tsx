@@ -10,27 +10,29 @@ function SingleShipmentDetails(props: { formik: FormikValues }) {
   const { values, setFieldValue } = props.formik;
 
   const addMoreItemHandler = () => {
-    const shipementDeatials = values.shipementDeatials;
-    shipementDeatials.push(shipmentDetailsItemInitValue);
-    setFieldValue("shipementDeatials", shipementDeatials);
+    const shipmentDetails = values.shipmentDetails;
+    shipmentDetails.push(shipmentDetailsItemInitValue);
+    setFieldValue("shipmentDetails", shipmentDetails);
   };
 
   return (
-    <FormWrapper>
+    <FormWrapper style={{ width: "100%" }}>
       <>
         <DetailsForm
           formik={props.formik}
-          noOfItem={values.shipementDeatials.length}
+          noOfItem={values.shipmentDetails.length}
         />
       </>
-      <Flex top={20}>
-        <Button
-          label={"Add More Items"}
-          secondary={true}
-          style={{ width: 190 }}
-          onClick={addMoreItemHandler}
-        />
-      </Flex>
+      {values.categoryId && (
+        <Flex top={20}>
+          <Button
+            label={"Add More Items"}
+            secondary={true}
+            style={{ width: 190 }}
+            onClick={addMoreItemHandler}
+          />
+        </Flex>
+      )}
     </FormWrapper>
   );
 }
