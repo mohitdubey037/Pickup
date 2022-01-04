@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { dropdown, settings } from "app/assets/Icons";
 import { Avatar, Menu, MenuItem } from "@material-ui/core";
-import { AppbarContainer, MainAppBar } from "./style";
+import { AppbarContainer } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "types";
 import { useState } from "react";
@@ -48,7 +48,7 @@ export default function Appbar() {
   return (
     <>
       <AppbarContainer>
-        <img style={{ width: "1.5rem", cursor: "pointer" }} src={settings} />
+        <img style={{ width: "1.5rem", cursor: "pointer" }} src={settings} alt="settings" />
         <div style={{ textAlign: "right", marginLeft: "1rem" }}>
           <h5 style={{ margin: 0 }}>{user?.firstName}</h5>
           <span style={{ fontSize: "14px", color: "#343434" }}>Admin</span>

@@ -9,6 +9,13 @@ import {
   TearmsConditions,
 } from "./style";
 import {Grouppaymentsummary} from '../../assets/Icons'
+
+import { Drawer } from "app/components/Drawer";
+import { useState } from "react";
+import AddCardForm from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/AddCardForm";
+import { addNewCardHelper, confirmPaymentHelper } from "./helper";
+import AddNewPaymentDrawer from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/AddNewPaymentDrawer";
+
 interface ShipmentSummaryProps {
   subTotal: number;
   taxes: number;
@@ -18,7 +25,46 @@ interface ShipmentSummaryProps {
 
 function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
   const { subTotal, taxes, addInsurance, total } = props;
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [showInvoiceDrawer, setShowInvoiceDrawer] = useState(false);
   const classes = useStyles();
+
+    const addNewCardHandler = async (values) => {
+        console.log("SavedCard", values);
+        const body = {
+            "name": values.nameOnCard,
+            "number": values.cardNumber,
+            "expiry_month": values.expiryDate.split("/")[0],
+            "expiry_year": values.expiryDate.split("/")[1],
+            "cvd": values.cvc
+        }
+
+        
+        // const body = {
+        //     "name": "jonh check",
+        //     "number": "5100000010001004",
+        //     "expiry_month": "08",
+        //     "expiry_year": "2025",
+        //     "cvd": "123"
+        //   }
+        const res: {response:any, error:any} = await addNewCardHelper(body);
+        // if(!res.error){
+            
+        // }
+    };
+
+    const confirmPaymentHandler = async () => {
+        const body = {
+            "profileId" : "kkk",
+            "cardId" : "pp",
+            "amount" : 0
+        }
+        const res = await confirmPaymentHelper(body, 373);
+        if(!res.error){
+            setShowInvoiceDrawer(true);
+        }
+    }
+
   return (
     <>
     <div style={{position:"absolute",fontWeight:500}}>
@@ -43,6 +89,32 @@ function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
         <Total>
         <span style={{fontWeight:700}}>Total</span>
         <span className={classes.totalCount}>{total}</span>
+        <button onClick={() => setDrawerOpen(true)} >Add payment</button>
+        <button onClick={confirmPaymentHandler} >Confirm Payment</button>
+            <Drawer
+                open={drawerOpen}
+                title="Add New Payment"
+                setDrawerOpen={(flag) => setDrawerOpen(flag)}
+                closeIcon={true}
+                actionButtons={true}
+            >
+                <AddCardForm 
+                    title="Payment Details"
+                    setDrawerOpen={setDrawerOpen} 
+                    enableSave
+                    submitButtonLabel="Add New Payment"
+                    saveAction={addNewCardHandler}
+                />
+            </Drawer>
+            <Drawer
+                open={showInvoiceDrawer}
+                title="Payments"
+                setDrawerOpen={(flag) => setShowInvoiceDrawer(flag)}
+                closeIcon={true}
+                actionButtons={true}
+            >
+                <AddNewPaymentDrawer />
+            </Drawer>
       </Total> 
      
     </div>

@@ -34,6 +34,7 @@ import OrderSummary from "app/pages/DashboardPage/DashboardContainers/SignleShip
 import SignUpDetails from "app/pages/AuthScreens/SignUpScreens/SignUpDetails";
 import { ShipmentSummary } from "app/components/PaymentCardDetails";
 import ShipmentSummaryTable from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/ShipmentSummary";
+import BulkSummary from "app/components/Uploading/BulkSummary";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
@@ -57,6 +58,7 @@ const Routes = () => {
         <HelpContainer path="/my-account/help" />
         <CompanyProfileContainer path="/my-account/company-profile" />
         <Dashboard path="/" />
+        <BulkSummary path="/charter-shipment/bulk-summary" />
         <SingleShipment path="/charter-shipment/single-shipment" />
         <OrderSummary path="/charter-shipment/order-summary/:orderId" />
         <ShipmentSummary path="/charter-shipment/shipment-summary"/>

@@ -33,11 +33,11 @@ export const FormWrapper = styled.div`
   width: 486px;
   box-shadow: 0px 16px 40px 5px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
-  min-height: 519px;
+  min-height: 500px;
   position: relative;
   .mailLogo {
-    width: 170px;
-    height: 148px;
+    width: 260px;
+    height: 213px;
     margin: 20px 0;
   }
   ${(props: { isValidating?: boolean }) => {

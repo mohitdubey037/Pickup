@@ -29,6 +29,7 @@ import masterCard from './masterCard.png'
 import ellipse from './Ellipse.svg'
 import scotiaBank from './scotiaBank.png'
 import starimage from './starimage.svg'
+import starImageEmpty from './starImageEmpty.svg'
 
 import cross from './cross.svg'
 import dots3 from './3Dots.svg';
@@ -42,6 +43,8 @@ import Grouppaymentsummary from './Grouppaymentsummary.svg'
 import InsuranceIcon from "./InsuranceIcon.svg";
 import selectedCardCheck from './selectedCardCheck.svg'
 
+import Delete from "./Delete.svg";
+import checkSquare from "./checkSquare.svg"
 export {
     analytics,
     clock,
@@ -81,8 +84,11 @@ export {
     sliders,
     warningIcon,
     starimage,
+    starImageEmpty,
     alertOctagon,
     Grouppaymentsummary,
     InsuranceIcon,
-    selectedCardCheck
+    selectedCardCheck,
+    Delete,
+    checkSquare
 };

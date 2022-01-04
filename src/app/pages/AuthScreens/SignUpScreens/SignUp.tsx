@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,12 +20,17 @@ import { actions } from "store/reducers/SignUpReducer";
 type SignUpProps = RouteComponentProps;
 
 const SignUp = ({ navigate }: SignUpProps) => {
+
   const dispatch = useDispatch();
+
+  const [errorMessage, setErrorMessage] = useState('')
+
   const signUpResponse = useSelector(
-    (state: { signUp: { signUpResponse: { verifyEmailLink: string } } }) => {
+    (state: { signUp: { signUpResponse } }) => {
       return state.signUp.signUpResponse;
     }
   );
+
   const showLoader=useSelector((state:{globalState:{showLoader:boolean}})=>state.globalState.showLoader )
 
   useEffect(() => {
@@ -37,16 +42,18 @@ const SignUp = ({ navigate }: SignUpProps) => {
   useEffect(() => {
     if (signUpResponse.verifyEmailLink) {
       navigate?.("/email-sent");
+    }else if(signUpResponse.status === 400){
+        setErrorMessage(signUpResponse.message)
     }
-  }, [signUpResponse.verifyEmailLink, navigate]);
-
+  }, [signUpResponse, navigate]);
+  
   const onSignUp = () => {
-    dispatch(actions.registerUser(email));
+    dispatch(actions.registerUser(values.email));
   };
 
   const {
     handleChange,
-    values: { email },
+    values,
     errors,
     handleBlur,
     handleSubmit,
@@ -57,6 +64,10 @@ const SignUp = ({ navigate }: SignUpProps) => {
     validationSchema: signUpSchema,
     onSubmit: onSignUp,
   });
+ 
+  useEffect(() => {
+    setErrorMessage('')
+  },[values.email])
 
   return (
     <SignUpWrapper>
@@ -74,6 +85,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
             onBlur={handleBlur}
             autoComplete="off"
           />
+          {errorMessage ? <span style={{ color: 'red' }}> {errorMessage} </span> : null}
           <Button disabled={!(isValid && dirty)} label="Sign Up" showLoader={showLoader} onClick={handleSubmit} />
           <LoginLink>
             Already have an account?{" "}

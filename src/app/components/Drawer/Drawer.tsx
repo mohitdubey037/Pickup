@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { useState } from "react";
 import { cross } from "app/assets/Icons/index";
 import {
   CustomDrawer,
@@ -7,7 +6,6 @@ import {
   DrawerFooter,
   DrawerTitleDiv,
 } from "./style";
-import { Button } from "../Buttons";
 
 interface DrawerProps {
   open: boolean;
@@ -23,16 +21,12 @@ interface DrawerProps {
 }
 
 export default function Drawer({
-  cancelButtonType,
-  actionButtonType,
   open,
   setDrawerOpen,
   closeIcon,
   title,
   children,
   actionButtons,
-  cancelButtonText,
-  actionButtonText,
 }: DrawerProps) {
   return (
     <div>
@@ -48,6 +42,7 @@ export default function Drawer({
               style={{ cursor: "pointer" }}
               onClick={() => setDrawerOpen(false)}
               src={cross}
+              alt="cross"
             />
           )}
         </DrawerTitleDiv>

@@ -2,7 +2,10 @@ import * as yup from "yup";
 import { PHONE_NUMBER_REGX } from "../../../../../constants";
 
 export const singleShipmentFormSchema = yup.object().shape({
-  originCompanyName: yup.string().required("Company Name is a required field"),
+  originCompanyName: yup.string().when('originBillingType', {
+    is: (originBillingType) => originBillingType === 2,
+    then: yup.string().required('Company Name is a required field')
+  }),
   originFirstName: yup.string().required("First Name is a required field"),
   originLastName: yup.string().required("Last Name is a required field"),
   originAddressLine1: yup
@@ -20,21 +23,23 @@ export const singleShipmentFormSchema = yup.object().shape({
   originContactNumber: yup
     .string()
     .required("Phone number is not valid")
-    .matches(PHONE_NUMBER_REGX),
+    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
   originAlternateContactNumber: yup
     .string()
     .required("Alternate Contact Number is not valid")
-    .matches(PHONE_NUMBER_REGX),
+    .matches(PHONE_NUMBER_REGX, " AlternatePhone number is not valid"),
   originEmailAddress: yup
-    .string()
+    .string().email("Please enter valid email")
     .required("Email Address is a required field"),
   originAdditionalNotes: yup
     .string()
     .required("Additional Notes is a required field"),
 
-  destinationCompanyName: yup
-    .string()
-    .required("Company Name is a required field"),
+
+  destinationCompanyName: yup.string().when('destinationBillingType', {
+    is: (destinationBillingType) => destinationBillingType === 2,
+    then: yup.string().required('Company Name is a required field')
+  }),
   destinationFirstName: yup.string().required("First Name is a required field"),
   destinationLastName: yup.string().required("Last Name is a required field"),
   destinationAddressLine1: yup
@@ -54,23 +59,25 @@ export const singleShipmentFormSchema = yup.object().shape({
   destinationContactNumber: yup
     .string()
     .required("Phone number is not valid")
-    .matches(PHONE_NUMBER_REGX),
+    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
   destinationAlternateContactNumber: yup
     .string()
     .required("Alternate Contact Number is not valid")
-    .matches(PHONE_NUMBER_REGX),
+    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
   destinationEmailAddress: yup
-    .string()
-    .required("Email Address is a required field")
-    .email(),
+    .string().email("Please enter valid email")
+    .required("Email Address is a required field"),
   destinationAdditionalNotes: yup
     .string()
     .required("Additional Notes is a required field"),
 
   categoryId: yup.number().required("Category is required"),
+  customerRefNo: yup.string().required("Customer reference number is required"),
+  dropOption: yup.number().required("Delivery option is required"),
+
   fragile: yup.number(),
 
-  shipementDeatials: yup.array().of(
+  shipmentDetails: yup.array().of(
     yup.object({
       quantity: yup.number(),
       description: yup.string(),
@@ -82,4 +89,5 @@ export const singleShipmentFormSchema = yup.object().shape({
       document: yup.string(),
     })
   ),
+  scheduleType: yup.string().required("Please select one option"),
 });

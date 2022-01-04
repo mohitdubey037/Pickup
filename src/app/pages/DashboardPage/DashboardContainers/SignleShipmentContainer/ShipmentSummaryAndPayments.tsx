@@ -1,13 +1,11 @@
 import { Grid, Typography } from "@material-ui/core";
-import React, { useState } from "react";
-import { Accordion } from "app/components/Accordion";
-import {itempicture} from "../../../../assets/Images/index"
+import React from "react";
 import { InsuranceIcon } from "app/assets/Icons";
 import { Checkbox } from "app/components/Checkbox";
 import { Link } from "app/components/Link";
 import  PaymentDetails  from "./PaymentDetails";
 function ShipmentSummaryAndPayments() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
     <div >
       <Grid style={{ width: 540 ,}}>
@@ -23,7 +21,7 @@ function ShipmentSummaryAndPayments() {
             <Checkbox label="Add Insurance" />
           </span>
           <span style={{ display: "flex" }}>
-            <img src={InsuranceIcon} />
+            <img src={InsuranceIcon} alt="InsuranceIcon" />
           </span>
         </div>
         <div style={{ textDecoration: "underline", display: "flex", paddingBottom: 28 }}>
