@@ -4,7 +4,7 @@ import { CustomAccordion } from "./style";
 import { ChevronDown } from "app/assets/Icons";
 
 interface AccordionProps {
-	title: string;
+	title?: string;
 }
 
 const Accordion: React.FC<AccordionProps> = ({ title, children}) => {
@@ -12,13 +12,13 @@ const Accordion: React.FC<AccordionProps> = ({ title, children}) => {
         <div style={{width:'99%'}}>
             <CustomAccordion elevation={0}>
                 <AccordionSummary
-                    expandIcon={<img src={ChevronDown}/>}
+                    expandIcon={<img src={ChevronDown} alt={'ChevronDown'} />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
                 {title}
                 </AccordionSummary>
-                <AccordionDetails style={{textAlign:'left'}}>
+                <AccordionDetails style={{ flexDirection:"column" }}>
                     {children}
                 </AccordionDetails>
             </CustomAccordion>

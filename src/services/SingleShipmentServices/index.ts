@@ -33,4 +33,24 @@ export const addShipmentDetail = async (body: any) => {
         return { response: err, sucess: false };
     }
 };
+ 
 
+export const getOrderDetails = async (orderId: any) => {
+    try {
+        const res = await services.get(`order/business/shipment/${orderId}`)
+        return { response: res, success: true }
+    } catch (err) {
+        // const response = (err instanceof Error)
+        if (err.isAxiosError && err.response) {
+            const errResponse = err.response;
+            const errorMessage = errResponse?.data?.message?.message
+            ? errResponse?.data?.message.message
+            : errResponse?.data?.message
+            
+            return { response: errResponse, message: errorMessage, success: false };
+            // Handle your error type safe here
+        } else {
+              return { response: err.response, success: false };
+        }
+    }
+}

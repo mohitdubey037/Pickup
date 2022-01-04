@@ -17,4 +17,9 @@ export const getParamsFromUrl = (search:string) => {
     }, {});
 
     return params
- }
+}
+
+export const buildQueryParams = (queryParams: any) => {
+    const params = new URLSearchParams(queryParams);
+    return `?${params.toString()}`
+}
