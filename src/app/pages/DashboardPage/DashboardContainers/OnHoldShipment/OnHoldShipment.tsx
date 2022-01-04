@@ -7,14 +7,21 @@ import { OnHoldTable } from "./helper";
 import { OnHoldFieldsWrapper, OnHoldTableTop } from "./Style";
 import { dots3, sliders } from "app/assets/Icons";
 import Select from "app/components/Select";
+import { useState } from "react";
+import { Drawer } from "app/components/Drawer";
+import ScheduleShipmentsDrawer from "./ScheduleShipmentsDrawer";
+
 const OnHoldShipmentContainer = ({ path: string }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const tableTop = () => {
     return (
       <OnHoldTableTop>
         <p>{OnHoldTable.length} orders</p>
         <div>
           <Button label="Delete" secondary={true} onClick={() => {}} style={{borderColor:'#C94C43',color:'#C94C43'}} />
-          <Button label="Edit" onClick={() => {}} />
+          <Button label="Schedule" onClick={() => {
+                        setDrawerOpen(true);
+                    }} />
           <img src={dots3} alt="" />
         </div>
       </OnHoldTableTop>
@@ -42,6 +49,14 @@ const OnHoldShipmentContainer = ({ path: string }) => {
         perPageRows={15}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
+         <Drawer
+                open={drawerOpen}
+                title="Schedule Shipments"
+                setDrawerOpen={(flag) => setDrawerOpen(flag)}
+                closeIcon={true}
+                actionButtons={true}
+            ><ScheduleShipmentsDrawer/>
+               </Drawer>
     </ModuleContainer>
   );
 };
