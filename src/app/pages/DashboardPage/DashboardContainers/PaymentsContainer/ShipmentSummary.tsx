@@ -7,8 +7,11 @@ import { Link } from "app/components/Link";
 import { Accordion } from "app/components/Accordion";
 
 import PaymentCardList from "app/components/PaymentCardList";
-import { addInsuranceHandler, creditCardDetails, debitCardDetails, removeInsuranceHandler, getInsuranceHandler } from "./helper";
+import { creditCardDetails, debitCardDetails } from "./helper";
 import { Flex } from '../../../../components/Input/style'
+import { Drawer } from "app/components/Drawer";
+import AddCardForm from "./AddCardForm";
+import { addInsuranceService, getInsuranceService, removeInsuranceService } from "services/PaymentServices";
 interface InvoiceDataType {
     insuranceAmount: number;
     taxesOfAllShipments: number;
@@ -25,10 +28,11 @@ function ShipmentSummary({ path: string }) {
         subTotalOfAllShipments: 0,
         total: 0,
     })
+    const [showDrawer, setShowDrawer] = useState<boolean>(false)
 
     useEffect(() => {
         (async () => {
-            const res = await getInsuranceHandler("182")
+            const res = await getInsuranceService("182")
             console.log("getInsuranceHandler", res)
             setInvoiceData(res.data.data)
         })()
@@ -37,15 +41,19 @@ function ShipmentSummary({ path: string }) {
     const insuranceHandler = async (event) => {
         if(event.target.checked){
             // const res = await addInsuranceHandler(orderId)
-            const res = await addInsuranceHandler("182")
+            const res = await addInsuranceService("182")
             setInvoiceData(res.data.data)
             console.log('addInsuranceHandler', res)
         }else{
             // const res = await removeInsuranceHandler(orderId)
-            const res = await removeInsuranceHandler("182")
+            const res = await removeInsuranceService("182")
             setInvoiceData(res.data.data)
             console.log('removeInsuranceHandler', res)
         }
+    }
+
+    const addNewCardHandler = (values) => {
+        console.log("Values", values)
     }
 
     return (
@@ -127,16 +135,31 @@ function ShipmentSummary({ path: string }) {
                     <hr />
                 </div>
             </div>
-            <Typography
-                style={{
-                    fontWeight: 500,
-                    fontSize: 18,
-                    paddingTop: 15,
-                    paddingBottom: 15,
-                }}
-            >
-                Payment Details
-            </Typography>
+            <Flex justifyContent="space-between" style={{ alignItems: 'center', maxHeight: '60px' }}>
+                <Typography
+                    style={{
+                        fontWeight: 500,
+                        fontSize: 18,
+                        paddingTop: 15,
+                        paddingBottom: 15,
+                    }}
+                >
+                    Payment Details
+                </Typography>
+                <div style={{ cursor: "pointer" }} onClick={() => setShowDrawer(!showDrawer)}>
+                    <Typography
+                        style={{
+                            fontWeight: 500,
+                            fontSize: 14,
+                            paddingTop: 15,
+                            paddingBottom: 15,
+                            color: '#1B8AF0'
+                        }}
+                    >
+                        + <u>Add New Payment</u>
+                    </Typography>
+                </div>
+            </Flex>
             <Typography style={{ paddingBottom: 10 }}>
                 Saved cards and accounts
             </Typography>
@@ -146,6 +169,21 @@ function ShipmentSummary({ path: string }) {
             <Accordion title="Debit Card (4)">
                 <PaymentCardList cards={debitCardDetails} selectedCard={selectedCard}  setSelectedCard={setSelectedCard}/>
             </Accordion>
+            <Drawer
+                open={showDrawer}
+                title="Add New Payment"
+                setDrawerOpen={(flag) => setShowDrawer(flag)}
+                closeIcon={true}
+                actionButtons={true}
+            >
+                <AddCardForm
+                    title="Payment Details"
+                    setDrawerOpen={setShowDrawer} 
+                    enableSave
+                    submitButtonLabel="Add New Payment"
+                    saveAction={addNewCardHandler}
+                />
+            </Drawer>
         </ModuleContainer>
     );
 }

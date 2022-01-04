@@ -1,5 +1,3 @@
-import { addInsurance, getInsurance, removeInsurance } from "services/PaymentServices";
-
 export const creditCardDetails = [
     {
         cardId: 1,
@@ -47,36 +45,6 @@ export const debitCardDetails = [
         expiryDate: "09/28",
     },
 ];
-
-
-
-export const getInsuranceHandler = async (invoiceId: string) => {
-    try {
-      const res = await getInsurance(invoiceId)
-      return res
-    } catch (err) {
-      return err;
-    }
-}
-
-export const addInsuranceHandler = async (invoiceId: string) => {
-    try {
-      const res = await addInsurance(invoiceId)
-      return res
-    } catch (err) {
-      return err;
-    }
-}
-
-export const removeInsuranceHandler = async (invoiceId: string) => {
-    try {
-      const res = await removeInsurance(invoiceId)
-      return res
-    } catch (err) {
-      return err;
-    }
-}
-
 
 export const OnHoldTable = [
     {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
