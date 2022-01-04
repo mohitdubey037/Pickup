@@ -13,7 +13,6 @@ import {Grouppaymentsummary} from '../../assets/Icons'
 import { Drawer } from "app/components/Drawer";
 import { useState } from "react";
 import AddCardForm from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/AddCardForm";
-import { addNewCardHelper, confirmPaymentHelper } from "./helper";
 import AddNewPaymentDrawer from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/AddNewPaymentDrawer";
 
 interface ShipmentSummaryProps {
@@ -47,23 +46,23 @@ function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
         //     "expiry_year": "2025",
         //     "cvd": "123"
         //   }
-        const res: {response:any, error:any} = await addNewCardHelper(body);
+        // const res: {response:any, error:any} = await addNewCardHelper(body);
         // if(!res.error){
             
         // }
     };
 
-    const confirmPaymentHandler = async () => {
-        const body = {
-            "profileId" : "kkk",
-            "cardId" : "pp",
-            "amount" : 0
-        }
-        const res = await confirmPaymentHelper(body, 373);
-        if(!res.error){
-            setShowInvoiceDrawer(true);
-        }
-    }
+    // const confirmPaymentHandler = async () => {
+    //     const body = {
+    //         "profileId" : "kkk",
+    //         "cardId" : "pp",
+    //         "amount" : 0
+    //     }
+    //     const res = await confirmPaymentHelper(body, 373);
+    //     if(!res.error){
+    //         setShowInvoiceDrawer(true);
+    //     }
+    // }
 
   return (
     <>
@@ -90,7 +89,7 @@ function ShipmentSummary( {path: string},props: ShipmentSummaryProps ) {
         <span style={{fontWeight:700}}>Total</span>
         <span className={classes.totalCount}>{total}</span>
         <button onClick={() => setDrawerOpen(true)} >Add payment</button>
-        <button onClick={confirmPaymentHandler} >Confirm Payment</button>
+        {/* <button onClick={confirmPaymentHandler} >Confirm Payment</button> */}
             <Drawer
                 open={drawerOpen}
                 title="Add New Payment"

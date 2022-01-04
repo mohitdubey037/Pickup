@@ -1,7 +1,7 @@
 import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
-    getCardDetailResponse: {},
+    paymentCardsData: {},
     addNewCardResponse: null,
     updateCardResponse: null,
     deleteCardResponse: null,
@@ -10,7 +10,7 @@ const initialState = {
 
 const { Types, Creators } = createActions({
     getCards: ["getCards"],
-    getCardDetailResponse: ["res"],
+    paymentCardsData: ["res"],
     addNewCard: ["cardData"],
     addNewCardResponse: ["res"],
     updateCard: ["cardData"],
@@ -21,7 +21,7 @@ const { Types, Creators } = createActions({
 
 export const onGetAllCardSuccess = (state = initialState, action) => ({
     ...state,
-    getCardDetailResponse: action.res,
+    paymentCardsData: action.res,
 });
 
 export const onUpdateCardSucess = (state = initialState, action) => ({
@@ -45,7 +45,7 @@ export const onShowLoader = (state = initialState, action) => ({
 });
 
 const HANDLERS = {
-    [Types.GET_CARD_DETAIL_RESPONSE]: onGetAllCardSuccess,
+    [Types.PAYMENT_CARDS_DATA]: onGetAllCardSuccess,
     [Types.ADD_NEW_CARD_RESPONSE]: onAddNewCardSucess,
     [Types.UPDATE_CARD_RESPONSE]: onUpdateCardSucess,
     [Types.DELETE_CARD_RESPONSE]: onDeleteCardSucess,

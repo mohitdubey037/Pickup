@@ -1,5 +1,5 @@
 import { all, fork } from "redux-saga/effects";
-import { addNewCardWatcher, deleteCardWatcher, getAllCardWatcher, updateCardWatcher } from "./PaymentSaga";
+import { addNewCardWatcher, getAllCardWatcher } from "./PaymentSaga";
 import { forgotPasswordWatcher, resetPasswordWatcher, signInUserWatcher } from "./SignInSagas";
 import {
   registerUserWatcher,
@@ -18,7 +18,5 @@ export default function* rootSaga() {
     fork(submitShingleShipmentWatcher),
     fork(getAllCardWatcher),
     fork(addNewCardWatcher),
-    fork(updateCardWatcher),
-    fork(deleteCardWatcher),
   ]);
 }

@@ -5,9 +5,11 @@ import { creditCardDetails, debitCardDetails } from "./helper";
 import { Flex } from '../../../../components/Input/style'
 import { Drawer } from "app/components/Drawer";
 import AddCardForm from "./AddCardForm";
-import { addInsuranceService, getInsuranceService, removeInsuranceService } from "services/PaymentServices";
+import { addInsuranceService, addNewCardService, getInsuranceService, removeInsuranceService } from "services/PaymentServices";
 import InvoiceDetails from "./InvoiceDetails";
 import CreditDebitCardHolder from "./CreditDebitCardHolder";
+import { useDispatch } from "react-redux";
+import { actions } from "store/reducers/PaymentReducer";
 
 interface InvoiceDataType {
     insuranceAmount: number;
@@ -17,6 +19,8 @@ interface InvoiceDataType {
 }
 
 function ShipmentSummary({ path: string }) {
+
+    const dispatch = useDispatch()
 
     const [selectedCard, setSelectedCard] = useState({})
     const [invoiceData, setInvoiceData] = useState<InvoiceDataType>({
@@ -29,29 +33,45 @@ function ShipmentSummary({ path: string }) {
 
     useEffect(() => {
         (async () => {
-            const res = await getInsuranceService("182")
-            console.log("getInsuranceHandler", res)
-            setInvoiceData(res.data.data)
+            const res: {response:any, error:any} = await getInsuranceService("182")
+            if(!res.error){
+                setInvoiceData(res.response.data.data)
+            }
         })()
     }, [])
+
+    useEffect(() => {
+        onGetData()
+    },[])
 
     const insuranceHandler = async (event) => {
         if(event.target.checked){
             // const res = await addInsuranceHandler(orderId)
-            const res = await addInsuranceService("182")
-            setInvoiceData(res.data.data)
-            console.log('addInsuranceHandler', res)
+            const res: {response:any, error:any} = await addInsuranceService("182")
+            if(!res.error){
+                setInvoiceData(res.response.data.data)
+            }
         }else{
             // const res = await removeInsuranceHandler(orderId)
-            const res = await removeInsuranceService("182")
-            setInvoiceData(res.data.data)
-            console.log('removeInsuranceHandler', res)
+            const res: {response:any, error:any} = await removeInsuranceService("182")
+            if(!res.error){
+                setInvoiceData(res.response.data.data)
+            }
         }
     }
 
-    const addNewCardHandler = (values) => {
-        console.log("Values", values)
+    const addNewCardHandler = async (values) => {
+        const res: {response:any, error:any} = await addNewCardService(values);
+        if(!res.error){
+            console.log("Res", res.response)
+        }
     }
+
+    const onGetData = () => {
+        dispatch(
+            actions.getCards()
+        );
+    };
 
     return (
         <ModuleContainer>

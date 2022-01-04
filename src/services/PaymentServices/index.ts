@@ -10,49 +10,67 @@ export interface deleteCardData {
 }
 const type = "payment"
 
-export const getUserCards = async () => {
-    const res = await Services.get("/paymentprofile/userprofilecards", type);
-    return res;
+export const getUserCardsService = async () => {
+    try {
+        const res = await Services.get("/paymentprofile/userprofilecards", type);
+        return {response: res, error: null};
+    } catch (error) {
+        return {response: null, error: error};
+    }
 };
 
-export const addNewCard = async (cardData: cardData) => {
-    const res = await Services.post("business/forgotPassword", cardData, type);
-    return res;
-};
+export const addNewCardService = async (body: any) => {
+    try {
+        const res = await Services.post("/paymentprofile/adprofilecard", body, "payment")
+        return {response: res, error: null};
+    }catch(error){
+        return {response: null, error: error};
+    }
+}
 
-export const updateCard = async (cardData: cardData) => {
-    const res = await Services.post("business/forgotPassword", { emailId: cardData }, type);
-    return res;
-};
+// export const updateCard = async (cardData: cardData) => {
+//     const res = await Services.post("business/forgotPassword", { emailId: cardData }, type);
+//     return res;
+// };
 
-export const deleteCard = async (deleteCardData: deleteCardData) => {
-    const res = await Services.post("business/resetPassword", deleteCardData, type);
-    return res;
-};
+// export const deleteCard = async (deleteCardData: deleteCardData) => {
+//     const res = await Services.post("business/resetPassword", deleteCardData, type);
+//     return res;
+// };
+
+export const confirmPaymentService = async (body: any, invoiceId: number) => {
+    try {
+        const res = await Services.post(`/order/business/invoice/${invoiceId}/payment`, body, "order")
+        return {response: res, error: null};
+
+    }catch(error){
+        return {response: null, error: error};
+    }
+}
 
 export const getInsuranceService = async (invoiceId: string) => {
     try {
         const res = await Services.get(`order/business/invoice/${invoiceId}/calculateInsurance`, "order");
-        return res
+        return {response: res, error: null};
     } catch (error) {
-        return error
+        return {response: null, error: error};
     }
 }
 
 export const addInsuranceService = async (invoiceId: string) => {
     try {
         const res = await Services.post(`order/business/invoice/${invoiceId}/addInsurance`, {}, "order");
-        return res
+        return {response: res, error: null};
     } catch (error) {
-        return error
+        return {response: null, error: error};
     }
 }
 
 export const removeInsuranceService = async (invoiceId: string) => {
     try {
         const res = await Services.put(`order/business/invoice/${invoiceId}/removeInsurance`, {}, "order");
-        return res
+        return {response: res, error: null};
     } catch (error) {
-        return error
+        return {response: null, error: error};
     }
 }
