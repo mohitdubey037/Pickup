@@ -68,51 +68,56 @@ export const singleShipmentInitValues = {
     shipmentDate: "",
 };
 
+export const singleShipmentInitValues1 = {
 
+    originFavorite: false,
+    originBillingType: 1,
+    originLocationType: 1,
+    originCompanyName: "Torinit",
+    originFirstName: "First",
+    originLastName: "Last",
+    originAddressLine1: "Address 1",
+    originAddressLine2: "Address 2",
+    originCity: "City",
+    originPostalCode: "Post",
+    originProvinceState: "STate",
+    originCountry: "Country",
+    originContactNumber: "1111111",
+    originAlternateContactNumber: "2222222",
+    originEmailAddress: "a@a.com",
+    originAdditionalNotes: "Additional notes",
 
-// export const singleShipmentInitValues = {
-//   originCompanyName: "Torinit",
-//   originFirstName: "Amit",
-//   originLastName: "Wagh",
-//   originAddressLine1: "A",
-//   originAddressLine2: "A",
-//   originCity: "Ontario",
-//   originPostalCode: "333",
-//   originProvinceState: "A",
-//   originCountry: "Canada",
-//   originContactNumber: "9898989898",
-//   originAlternateContactNumber: "9898989898",
-//   originEmailAddress: "amit@torinit.ca",
-//   originAdditionalNotes: "asd",
+    destinationFavorite: false,
+    destinationBillingType: 1,
+    destinationLocationType: 1,
+    destinationCompanyName: "Company",
+    destinationFirstName: "Name",
+    destinationLastName: "Surname",
+    destinationAddressLine1: "Add 1",
+    destinationAddressLine2: "Add 2",
+    destinationCity: "Dest City",
+    destinationPostalCode: "111111",
+    destinationProvinceState: "State 2",
+    destinationCountry: "Country 2",
+    destinationContactNumber: "2222222222",
+    destinationAlternateContactNumber: "666666666",
+    destinationEmailAddress: "b@b.com",
+    destinationAdditionalNotes: "Additional notes",
 
-//   destinationCompanyName: "Torinit",
-//   destinationFirstName: "Torinit",
-//   destinationLastName: "Torinit",
-//   destinationAddressLine1: "DA",
-//   destinationAddressLine2: "DA",
-//   destinationCity: "DC",
-//   destinationPostalCode: "33",
-//   destinationProvinceState: "asd",
-//   destinationCountry: "Ca",
-//   destinationContactNumber: "8888888888",
-//   destinationAlternateContactNumber: "8888888888",
-//   destinationEmailAddress: "torinit@gmail.com",
-//   destinationAdditionalNotes: "asd",
+    categoryId: "2",
+    customerRefNo: "qqqq",
+    dropOption: "10",
+    fragile: 1,
 
-//   categoryId: "1",
+    shipmentDetails: [
+        { ...shipmentDetailsItemInitValue }
+    ],
 
-//   shipmentDetails: [
-//     { ...shipmentDetailsItemInitValue }
-//   ],
-
-
-
-
-//   // SCHEDULE SHIPMENT
-//   shipmentTime: "",
-//   shipmentDate: "",
-//   scheduleType: "",
-// };
+    // SCHEDULE SHIPMENT
+    scheduleType: "17",
+    shipmentTime: "",
+    shipmentDate: "",
+};
 
 export const addShipmentForm = async (values: any) => {
     try {
