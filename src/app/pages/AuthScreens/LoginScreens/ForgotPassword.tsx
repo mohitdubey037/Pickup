@@ -69,7 +69,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                         id={"email"}
                         name={"email"}
                         label="Email"
-                        placeholder="johndoe@pickups.com"
+                        placeholder="Start typing"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.email && errors.email}
