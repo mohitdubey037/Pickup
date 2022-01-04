@@ -74,7 +74,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
                         id="password"
                         name="password"
                         label="Password"
-                        placeholder="Password"
+                        placeholder="Start typing"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.password && errors.password}
@@ -85,7 +85,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
                         id="confirmPassword"
                         name="confirmPassword"
                         label="Confirm Password"
-                        placeholder="Password"
+                        placeholder="Start typing"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         autoComplete="off"

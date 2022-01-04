@@ -34,7 +34,7 @@ function PaymentDetails() {
             id={"ExpirationDate"}
             name={"ExpirationDate"}
             label={"Expiration Date"}
-            placeholder={"MM/YY"}
+            placeholder={"Expiration Date"}
           />
           <Grid item xs={4} >
             <Input id={"CVC"} name={"CVC"} label={"CVC"} placeholder={"CVC"} />
@@ -46,7 +46,7 @@ function PaymentDetails() {
             id={"NameonCard"}
             name={"NameonCard"}
             label={"Name on Card"}
-            placeholder={"John Doe"}
+            placeholder={"Name on Card"}
           /></Grid>
           <Grid item xs={11}>
           <Input

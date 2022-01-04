@@ -101,7 +101,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                         error={touched.password && errors.password}
-                        placeholder="Password"
+                        placeholder="Start typing"
                         validate
                     />
                     <PasswordInput
@@ -111,7 +111,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         label="Confirm Password"
-                        placeholder="Password"
+                        placeholder="Start typing"
                     />
                     <Button showLoader={showLoader} label="Confirm" onClick={handleSubmit} />
                 </FormContent>

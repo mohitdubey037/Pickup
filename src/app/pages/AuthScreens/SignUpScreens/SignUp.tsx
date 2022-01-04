@@ -77,7 +77,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
           <Header>SIGN UP</Header>
           <Input
             label="Business Email"
-            placeholder="johndoe@pickups.com"
+            placeholder="Start typing"
             id="email"
             name="email"
             onChange={handleChange}
