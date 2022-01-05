@@ -7,43 +7,32 @@ import { OnHoldTable } from "./helper";
 import { InvoicesWrapper, InvoiceTableTop } from "./InvoiceStyle";
 import { dots3, sliders } from "app/assets/Icons";
 import { useEffect, useState } from "react";
-import {getInvoiceList} from "../../../../../services/PaymentServices/index"
+import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 
 const InvoicesContainer = ({ path: string }) => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const [invoiceData, setInvoiceData] = useState([])
+  const [invoiceData, setInvoiceData] = useState([]);
 
-  useEffect(()=>{
-(async()=>{
-  const res = await getInvoiceList()
-  console.log(res,"resDATA")
-})()
-  },[])
-//   useEffect(() => {
-    
-// debugger;
-//     (async () => {
-      
-//         const res = (await getInvoiceList()) as any;
-//         if (!res.error) {
-//             const InvoiceDetails = res.response.data.data;
-//             console.log("data")
-//             console.log("shipmentDetailsRes", InvoiceDetails);
-//             const data = InvoiceDetails.map(item => {
-//                 return {
-                    
-//                     "Invoice Date": item.invoiceCreatedAt,
-//                    'Shipment Count': item.shipmentCount,
-//                   'Shipped by': item.shippedBy,
-//                   'Invoice Amount': `$ ${item.total}`,
-//                    'Invoice Number': item.invoiceNumber
-
-//                 }
-//             });
-//             setInvoiceData(data)
-//         }
-//     })()
-// }, []);
+  useEffect(() => {
+    (async () => {
+      const res = (await getInvoiceList()) as any;
+      if (!res.error) {
+        const InvoiceDetails = res.response.data.data;
+        console.log("data");
+        console.log("shipmentDetailsRes", InvoiceDetails);
+        const data = InvoiceDetails.map((item) => {
+          return {
+            "Invoice Date": item.invoiceCreatedAt,
+            "Shipment Count": item.shipmentCount,
+            "Shipped by": item.shippedBy,
+            "Invoice Amount": `$ ${item.total}`,
+            "Invoice Number": item.invoiceNumber,
+          };
+        });
+        setInvoiceData(data);
+      }
+    })();
+  }, []);
 
   const tableTop = () => {
     return (
@@ -71,8 +60,6 @@ const InvoicesContainer = ({ path: string }) => {
         <Input label="Invoice Number" placeholder="eg. 123,321" />
         <Input label="From Date" placeholder="Select" />
         <Input label="To Date" placeholder="Select" />
-
-        
       </InvoicesWrapper>
       {/* <Table
         data={OnHoldTable}
