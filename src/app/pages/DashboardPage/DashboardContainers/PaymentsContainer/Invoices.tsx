@@ -6,8 +6,45 @@ import { ContainerTitle } from "app/components/Typography/Typography";
 import { OnHoldTable } from "./helper";
 import { InvoicesWrapper, InvoiceTableTop } from "./InvoiceStyle";
 import { dots3, sliders } from "app/assets/Icons";
+import { useEffect, useState } from "react";
+import {getInvoiceList} from "../../../../../services/PaymentServices/index"
 
 const InvoicesContainer = ({ path: string }) => {
+  const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [invoiceData, setInvoiceData] = useState([])
+
+  useEffect(()=>{
+(async()=>{
+  const res = await getInvoiceList()
+  console.log(res,"resDATA")
+})()
+  },[])
+//   useEffect(() => {
+    
+// debugger;
+//     (async () => {
+      
+//         const res = (await getInvoiceList()) as any;
+//         if (!res.error) {
+//             const InvoiceDetails = res.response.data.data;
+//             console.log("data")
+//             console.log("shipmentDetailsRes", InvoiceDetails);
+//             const data = InvoiceDetails.map(item => {
+//                 return {
+                    
+//                     "Invoice Date": item.invoiceCreatedAt,
+//                    'Shipment Count': item.shipmentCount,
+//                   'Shipped by': item.shippedBy,
+//                   'Invoice Amount': `$ ${item.total}`,
+//                    'Invoice Number': item.invoiceNumber
+
+//                 }
+//             });
+//             setInvoiceData(data)
+//         }
+//     })()
+// }, []);
+
   const tableTop = () => {
     return (
       <InvoiceTableTop>
@@ -37,8 +74,17 @@ const InvoicesContainer = ({ path: string }) => {
 
         
       </InvoicesWrapper>
-      <Table
+      {/* <Table
         data={OnHoldTable}
+        tableTop={tableTop()}
+        showCheckbox
+        showPagination
+        perPageRows={15}
+        filterColumns={[0, 1, 2, 3, 4, 5]}
+      />
+      <hr/> */}
+      <Table
+        data={invoiceData}
         tableTop={tableTop()}
         showCheckbox
         showPagination
