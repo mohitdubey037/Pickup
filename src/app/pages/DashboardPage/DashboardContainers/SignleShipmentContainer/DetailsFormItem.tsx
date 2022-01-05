@@ -5,19 +5,23 @@ import { Flex } from "app/components/Input/style";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
 import { WEIGHTDIMENSION, DIMENSION2 } from "../../../../../constants";
-import { useEffect, useState } from "react";
 
 function DetailsFormItem(props: { formik: FormikValues; index: number, orderIndex: number, hasDimensions: boolean }) {
-    const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
+    const { handleChange, values, errors, touched, handleBlur } =
         props.formik;
     const { index } = props;
     const formItem = `shipmentDetails.${index}`;
-    const errorItem = errors.shipmentDetails && errors.shipmentDetails[index];
-    const toucherItem =
-        touched.shipmentDetails && touched.shipmentDetails[index];
-
+    
     const formFieldName = `orders.${props.orderIndex}`;
     const singleFormValues = values.orders[props.orderIndex];
+    const singleFormErrors = errors?.orders?.[index];
+    const singleFormTouched = touched?.orders?.[index];
+
+    const errorItem = singleFormErrors?.shipmentDetails?.[index];
+    const toucherItem = singleFormTouched?.shipmentDetails?.[index];
+
+    console.log("toucherItem", errorItem)
+
     const formItemValue = singleFormValues.shipmentDetails[index];
 
     return (
@@ -34,21 +38,26 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                 id={`${formFieldName}.${formItem}.weight`}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                error={toucherItem?.[`${formFieldName}.${formItem}.weight`] && errorItem?.weight[`${formFieldName}.${formItem}.weight`]}
+                                error={toucherItem?.weight && errorItem?.weight}
                                 label={"Order Weight"}
                                 initValue={formItemValue.weight}
+                                value={formItemValue.weight}
                                 placeholder={"eg. 100"}
+                                validate
                             />
                         </Flex>
-                        <Flex flex={1} left={30}>
+                        <Flex flex={1} left={30} direction="column" style={{ alignItems: "start"}}>
                             <Select
                                 id={`${formFieldName}.${formItem}.weightDimension`}
                                 name={`${formFieldName}.${formItem}.weightDimension`}
                                 label={"Unit"}
-                                value={formItemValue.weightDimension}
+                                value={Number(formItemValue.weightDimension)}
                                 onSelect={handleChange}
                                 options={WEIGHTDIMENSION}
                             />
+                            {errorItem?.weightDimension && toucherItem?.weightDimension && (
+                                <p style={{ margin: 0, color: "red" }}>{errorItem?.weightDimension}</p>
+                            )}
                         </Flex>
                     </Flex>
 
@@ -61,7 +70,8 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     initValue={formItemValue.length}
-                                    error={toucherItem?.[`${formFieldName}.${formItem}.length`] && errorItem?.[`${formFieldName}.${formItem}.length`]}
+                                    value={formItemValue.length}
+                                    error={toucherItem?.length && errorItem?.length}
                                     label={"Length"}
                                     placeholder={"Start typing"}
                                 />
@@ -72,10 +82,10 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     name={`${formFieldName}.${formItem}.width`}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
-                                    error={toucherItem?.[`${formFieldName}.${formItem}.width`] && errorItem?.[`${formFieldName}.${formItem}.width`]}
+                                    error={toucherItem?.width && errorItem?.width}
                                     label={"Width"}
                                     initValue={formItemValue.width}
-
+                                    value={formItemValue.width}
                                     placeholder={"Start typing"}
                                 />
                             </Flex>
@@ -85,9 +95,9 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     name={`${formFieldName}.${formItem}.height`}
                                     onBlur={handleBlur}
                                     initValue={formItemValue.height}
-
+                                    value={formItemValue.height}
                                     onChange={handleChange}
-                                    error={toucherItem?.[`${formFieldName}.${formItem}.height`] && errorItem?.[`${formFieldName}.${formItem}.height`]}
+                                    error={toucherItem?.height && errorItem?.height}
                                     label={"Height"}
                                     placeholder={"Start typing"}
                                 />
@@ -97,7 +107,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     id={`${formFieldName}.${formItem}.sizeDimension`}
                                     name={`${formFieldName}.${formItem}.sizeDimension`}
                                     label={"Unit"}
-                                    value={formItemValue.sizeDimension}
+                                    value={Number(formItemValue.sizeDimension)}
                                     onSelect={handleChange}
                                     options={DIMENSION2}
                                 />
@@ -113,10 +123,10 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                 name={`${formFieldName}.${formItem}.quantity`}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                error={toucherItem?.[`${formFieldName}.${formItem}.quantity`] && errorItem?.[`${formFieldName}.${formItem}.quantity`]}
+                                error={toucherItem?.quantity && errorItem?.quantity}
                                 label={"Pieces"}
                                 initValue={formItemValue.quantity}
-
+                                value={formItemValue.quantity}
                                 placeholder={"eg. 10"}
                             />
                         </Flex>
@@ -127,9 +137,10 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                             name={`${formFieldName}.${formItem}.orderCost`}
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            error={toucherItem?.[`${formFieldName}.${formItem}.orderCost`] && errorItem?.[`${formFieldName}.${formItem}.orderCost`]}
+                            error={toucherItem?.orderCost && errorItem?.orderCost}
                             label={"Order Cost"}
                             initValue={formItemValue.orderCost}
+                            value={formItemValue.orderCost}
                             placeholder={"eg. $300"}
                         />
                     </Flex>
@@ -144,11 +155,11 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                         name={`${formFieldName}.${formItem}.description`}
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        error={toucherItem?.[`${formFieldName}.${formItem}.description`] && errorItem?.[`${formFieldName}.${formItem}.description`]}
+                        error={toucherItem?.description && errorItem?.description}
                         label={"Order Description"}
                         placeholder={"Add a description of the order"}
                         type={"textarea"}
-                        value={singleFormValues[`${formFieldName}.${formItem}.description`]}
+                        value={formItemValue.description}
                         initValue={formItemValue.description}
 
                     />

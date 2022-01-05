@@ -17,6 +17,7 @@ function* submitShipmentWorker(action) {
                 orderIds= res.response.data.data
             }
         }
+        yield put(actions.setShipmentDetails(action.res));
         yield put(actions.setShipmentOrderIds(orderIds));
         yield put(globalActions.showLoader(false))
 

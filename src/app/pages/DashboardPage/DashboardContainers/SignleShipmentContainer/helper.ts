@@ -1,8 +1,3 @@
-/* eslint-disable no-debugger */
-
-import { addShipmentDetail, addMultipleShipment } from "services/SingleShipmentServices";
-
-
 export const shipmentDetailsItemInitValue = {
     quantity: '',
     orderCost: '',
@@ -104,7 +99,7 @@ export const singleShipmentInitValues1 = {
     destinationEmailAddress: "b@b.com",
     destinationAdditionalNotes: "Additional notes",
 
-    categoryId: "2",
+    categoryId: "",
     customerRefNo: "qqqq",
     dropOption: "10",
     fragile: 1,
@@ -121,7 +116,7 @@ export const singleShipmentInitValues1 = {
 
 export const shipmentInitValues = {
     orders: [
-        {...singleShipmentInitValues1}
+        {...singleShipmentInitValues}
     ]
 }
 
@@ -184,4 +179,31 @@ export const transformPayloadToBackend = (values: any) => {
 
 
     return payload
+}
+
+
+export const getNextOrderValues = (order: any) => {
+    return ({
+        ...order,
+        destinationFavorite: false,
+        destinationBillingType: 1,
+        destinationLocationType: 1,
+        destinationCompanyName: "",
+        destinationFirstName: "",
+        destinationLastName: "",
+        destinationAddressLine1: "",
+        destinationAddressLine2: "",
+        destinationCity: "",
+        destinationPostalCode: "",
+        destinationProvinceState: "",
+        destinationCountry: "",
+        destinationContactNumber: "",
+        destinationAlternateContactNumber: "",
+        destinationEmailAddress: "",
+        destinationAdditionalNotes: "",
+
+        shipmentDetails: [
+            { ...shipmentDetailsItemInitValue }
+        ],
+    })
 }

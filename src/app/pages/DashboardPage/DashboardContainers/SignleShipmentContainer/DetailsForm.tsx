@@ -27,11 +27,13 @@ interface SelectBoardType {
     updatedBy: number;
 }
 
-function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: number}) {
-    const { handleChange, values, handleBlur, setFieldValue } = props.formik;
+function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: number, disabled ?: boolean}) {
+    const { formik: {handleChange, values, handleBlur, setFieldValue, errors, touched}, disabled } = props;
 
     const formFieldName = `orders.${props.index}`;
     const singleFormValues = values.orders[props.index];
+    const singleFormErrors = errors?.orders?.[props.index];
+    const singleFormTouched = touched?.orders?.[props.index];
 
     const [categoryList, setCategoryList] = useState<SelectBoardType[]>([]);
 
@@ -46,7 +48,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
     }, []);
 
     const hasDimensions = () => {
-        const selectedCategory = categoryList.find(category => category.categoryId === singleFormValues.categoryId);
+        const selectedCategory = categoryList.find(category => category.categoryId === Number(singleFormValues.categoryId));
         return (selectedCategory?.setDimension || false)
     }
 
@@ -54,13 +56,14 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
         <>
             <Flex direction={"column"}>
                 <Flex top={20}>
-                    <Flex flex={1}>
+                    <Flex flex={1} direction="column" style={{ alignItems: "start"}}>
                         <Select
                             id={`${formFieldName}.categoryId`}
                             name={`${formFieldName}.categoryId`}
                             label={"Category"}
-                            value={singleFormValues?.categoryId}
+                            value={Number(singleFormValues?.categoryId)}
                             onSelect={handleChange}
+                            disabled={disabled}
                             options={
                                 categoryList
                                     ? categoryList.map((option) => ({
@@ -70,6 +73,9 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                                     : []
                             }
                         />
+                        {singleFormErrors?.categoryId && singleFormTouched?.categoryId && (
+                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.categoryId}</p>
+                        )}
                     </Flex>
                     <Flex flex={1} left={30}>
                         <CustomInput
@@ -77,29 +83,39 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             id={`${formFieldName}.customerRefNo`}
                             onBlur={handleBlur}
                             onChange={handleChange}
+                            value={singleFormValues?.customerRefNo}
+                            disabled={disabled}
+                            initValue={singleFormValues?.customerRefNo}
                             label={"Customer Reference Number"}
                             placeholder={"Start typing"}
+                            error={singleFormTouched?.customerRefNo && singleFormErrors?.customerRefNo}
+                            validate
                         />
                     </Flex>
                 </Flex>
                 <Flex top={20}>
-                    <Flex flex={1}>
+                    <Flex flex={1} direction="column" style={{ alignItems: "start"}}>
                         <Select
                             id={`${formFieldName}.dropOption`}
                             name={`${formFieldName}.dropOption`}
                             label={"Delivery options"}
-                            value={singleFormValues.dropOption}
+                            value={Number(singleFormValues.dropOption)}
                             onSelect={handleChange}
+                            disabled={disabled}
                             options={DROP_OPTION}
                         />
+                        {singleFormErrors?.dropOption && singleFormTouched?.dropOption && (
+                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.dropOption}</p>
+                        )}
                     </Flex>
                     <Flex flex={1} left={30}>
                         <RadioGroup
                             id={`${formFieldName}.fragile`}
                             name={`${formFieldName}.fragile`}
                             label={"Fragile Shipment"}
+                            defaultValue={singleFormValues?.fragile ? singleFormValues.fragile : 1}
                             value={singleFormValues.fragile}
-                            options={FRAGILE_OPTION}
+                            options={!disabled ? FRAGILE_OPTION : FRAGILE_OPTION.map(item => ({...item, disabled: true}))}
                             onChange={(e) => setFieldValue(`${formFieldName}.fragile`, Number(e.target.value))}
                         />
                     </Flex>

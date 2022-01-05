@@ -12,12 +12,15 @@ import { LOCATION_TYPES, BILLING_TYPES } from "../../../../../constants";
 import { FavouriateWrapper } from "./style";
 import { starimage, starImageEmpty } from "../../../../assets/Icons";
 
-function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destination", formik: any, index: number }) {
+function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "origin" | "destination", formik: any, index: number, disabled?: boolean }) {
     
     const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
 
     const formFieldName = `orders.${index}`;
     const singleFormValues = values.orders[index];
+
+    const singleFormErrors = errors?.orders?.[index];
+    const singleFormTouched = touched?.orders?.[index];
 
     return (
         <FormWrapper style={{ paddingRight: 35 }}>
@@ -25,7 +28,7 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                 <Typography className="typography" variant="h1" component="h3" style={{ textTransform: "capitalize" }}>
                     {title}
                     <FavouriateWrapper>
-                        {singleFormValues[`${title}Favorite`] ?
+                        {!disabled && (singleFormValues[`${title}Favorite`] ?
                             <div 
                                 role="button" 
                                 tabIndex={0} 
@@ -44,16 +47,20 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             >
                                 <img style={{ marginRight: "4px" }} className="imageStyle" src={starImageEmpty} alt="" />Add to Favorites
                             </div>
-                        }
+                        )}
                     </FavouriateWrapper>
                 </Typography>
 
                 <RadioGroup
-                    defaultValue="0"
+                    defaultValue={singleFormValues?.[`${title}BillingType`] ? String(singleFormValues?.[`${title}BillingType`]-1) : "0"}
                     name={`${formFieldName}.${title}BillingType`}
                     onChange={(e) => setFieldValue(`${formFieldName}.${title}BillingType`, Number(e.target.value) + 1)}
-                    options={BILLING_TYPES}
+                    options={!disabled ? BILLING_TYPES : BILLING_TYPES.map(item => ({...item, disabled: true}))}
+                    
                 />
+                {!disabled && (
+                    <>
+                    
                 <Grid style={{ paddingBottom: 20, width: 290 }}>
                     <div className="div_select">
                         <label htmlFor="cars">Location type</label>
@@ -65,6 +72,7 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                                 options={LOCATION_TYPES}
                                 onSelect={handleChange}
                                 value={singleFormValues[`${title}LocationType`]}
+                                disabled={disabled}
                             />
                         </div>
                     </div>
@@ -76,13 +84,15 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                                 id={`${formFieldName}.${title}CompanyName`}
                                 name={`${formFieldName}.${title}CompanyName`}
                                 label={"Company Name"}
-                                value={singleFormValues[`${formFieldName}.${title}CompanyName`]}
+                                initValue={singleFormValues[`${title}CompanyName`]}
+                                value={singleFormValues[`${title}CompanyName`]}
+                                disabled={disabled}
                                 placeholder={"Start typing"}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 error={
-                                    touched[`${formFieldName}.${title}CompanyName`] &&
-                                    errors[`${formFieldName}.${title}CompanyName`]
+                                    singleFormTouched?.[`${title}CompanyName`] &&
+                                    singleFormErrors?.[`${title}CompanyName`]
                                 }
                                 validate
                             />
@@ -92,13 +102,15 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                         <Input
                             id={`${formFieldName}.${title}FirstName`}
                             name={`${formFieldName}.${title}FirstName`}
-                            initValue={singleFormValues[`${formFieldName}.${title}FirstName`]}
+                            initValue={singleFormValues[`${title}FirstName`]}
+                            value={singleFormValues[`${title}FirstName`]}
+                            disabled={disabled}
                             label={"First Name"}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${formFieldName}.${title}FirstName`] && errors[`${formFieldName}.${title}FirstName`]
+                                singleFormTouched?.[`${title}FirstName`] && singleFormErrors?.[`${title}FirstName`]
                             }
                             validate
                         />
@@ -108,11 +120,13 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             id={`${formFieldName}.${title}LastName`}
                             name={`${formFieldName}.${title}LastName`}
                             label={"Last Name"}
-                            initValue={singleFormValues[`${formFieldName}.${title}LastName`]}
+                            initValue={singleFormValues[`${title}LastName`]}
+                            value={singleFormValues[`${title}LastName`]}
+                            disabled={disabled}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={touched[`${formFieldName}.${title}LastName`] && errors[`${formFieldName}.${title}LastName`]}
+                            error={singleFormTouched?.[`${title}LastName`] && singleFormErrors?.[`${title}LastName`]}
                             validate
                         />
                     </Grid>
@@ -121,13 +135,15 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             id={`${formFieldName}.${title}AddressLine1`}
                             name={`${formFieldName}.${title}AddressLine1`}
                             label={"Address Line 1"}
-                            initValue={singleFormValues[`${formFieldName}.${title}AddressLine1`]}
+                            initValue={singleFormValues[`${title}AddressLine1`]}
+                            value={singleFormValues[`${title}AddressLine1`]}
+                            disabled={disabled}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${formFieldName}.${title}AddressLine1`] &&
-                                errors[`${formFieldName}.${title}AddressLine1`]
+                                singleFormTouched?.[`${title}AddressLine1`] &&
+                                singleFormErrors?.[`${title}AddressLine1`]
                             }
                             validate
                         />
@@ -138,12 +154,14 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             name={`${formFieldName}.${title}AddressLine2`}
                             label={"Address Line 2"}
                             placeholder={"Start typing"}
-                            initValue={singleFormValues[`${formFieldName}.${title}AddressLine2`]}
+                            initValue={singleFormValues[`${title}AddressLine2`]}
+                            value={singleFormValues[`${title}AddressLine2`]}
+                            disabled={disabled}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${formFieldName}.${title}AddressLine2`] &&
-                                errors[`${formFieldName}.${title}AddressLine2`]
+                                singleFormTouched?.[`${title}AddressLine2`] &&
+                                singleFormErrors?.[`${title}AddressLine2`]
                             }
                             validate
                         />
@@ -154,10 +172,12 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             name={`${formFieldName}.${title}City`}
                             label={"City"}
                             placeholder={"Start typing"}
-                            initValue={singleFormValues[`${formFieldName}.${title}City`]}
+                            initValue={singleFormValues[`${title}City`]}
+                            value={singleFormValues[`${title}City`]}
+                            disabled={disabled}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={touched[`${formFieldName}.${title}City`] && errors[`${formFieldName}.${title}City`]}
+                            error={singleFormTouched?.[`${title}City`] && singleFormErrors?.[`${title}City`]}
                             validate
                         />
                     </Grid>
@@ -166,12 +186,14 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             id={`${formFieldName}.${title}PostalCode`}
                             name={`${formFieldName}.${title}PostalCode`}
                             label={"Postal Code"}
-                            initValue={singleFormValues[`${formFieldName}.${title}PostalCode`]}
+                            initValue={singleFormValues[`${title}PostalCode`]}
+                            value={singleFormValues[`${title}PostalCode`]}
+                            disabled={disabled}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${formFieldName}.${title}PostalCode`] && errors[`${formFieldName}.${title}PostalCode`]
+                                singleFormTouched?.[`${title}PostalCode`] && singleFormErrors?.[`${title}PostalCode`]
                             }
                             validate
                         />
@@ -182,12 +204,14 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             name={`${formFieldName}.${title}ProvinceState`}
                             label={"Province/State"}
                             placeholder={"Start typing"}
-                            initValue={singleFormValues[`${formFieldName}.${title}ProvinceState`]}
+                            initValue={singleFormValues[`${title}ProvinceState`]}
+                            value={singleFormValues[`${title}ProvinceState`]}
+                            disabled={disabled}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${formFieldName}.${title}ProvinceState`] &&
-                                errors[`${formFieldName}.${title}ProvinceState`]
+                                singleFormTouched?.[`${title}ProvinceState`] &&
+                                singleFormErrors?.[`${title}ProvinceState`]
                             }
                             validate
                         />
@@ -197,11 +221,13 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             id={`${formFieldName}.${title}Country`}
                             name={`${formFieldName}.${title}Country`}
                             label={"Country"}
-                            initValue={singleFormValues[`${formFieldName}.${title}Country`]}
+                            initValue={singleFormValues[`${title}Country`]}
+                            value={singleFormValues[`${title}Country`]}
                             placeholder={"Start typing"}
+                            disabled={disabled}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={touched[`${formFieldName}.${title}Country`] && errors[`${formFieldName}.${title}Country`]}
+                            error={singleFormTouched?.[`${title}Country`] && singleFormErrors?.[`${title}Country`]}
                             validate
                         />
                     </Grid>
@@ -210,13 +236,15 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             id={`${formFieldName}.${title}ContactNumber`}
                             name={`${formFieldName}.${title}ContactNumber`}
                             label={"Contact Number"}
-                            initValue={singleFormValues[`${formFieldName}.${title}ContactNumber`]}
+                            initValue={singleFormValues[`${title}ContactNumber`]}
+                            value={singleFormValues[`${title}ContactNumber`]}
                             placeholder={"Start typing"}
+                            disabled={disabled}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${formFieldName}.${title}ContactNumber`] &&
-                                errors[`${formFieldName}.${title}ContactNumber`]
+                                singleFormTouched?.[`${title}ContactNumber`] &&
+                                singleFormErrors?.[`${title}ContactNumber`]
                             }
                             validate
                         />
@@ -225,14 +253,16 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                         <Input
                             id={`${formFieldName}.${title}AlternateContactNumber`}
                             name={`${formFieldName}.${title}AlternateContactNumber`}
-                            initValue={singleFormValues[`${formFieldName}.${title}AlternateContactNumber`]}
+                            initValue={singleFormValues[`${title}AlternateContactNumber`]}
+                            value={singleFormValues[`${title}AlternateContactNumber`]}
                             label={"Alternate Contact Number"}
                             placeholder={"Start typing"}
+                            disabled={disabled}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${formFieldName}.${title}AlternateContactNumber`] &&
-                                errors[`${formFieldName}.${title}AlternateContactNumber`]
+                                singleFormTouched?.[`${title}AlternateContactNumber`] &&
+                                singleFormErrors?.[`${title}AlternateContactNumber`]
                             }
                             validate
                         />
@@ -242,13 +272,15 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             id={`${formFieldName}.${title}EmailAddress`}
                             name={`${formFieldName}.${title}EmailAddress`}
                             label={"Email Address"}
-                            initValue={singleFormValues[`${formFieldName}.${title}EmailAddress`]}
+                            initValue={singleFormValues[`${title}EmailAddress`]}
+                            value={singleFormValues[`${title}EmailAddress`]}
                             placeholder={"Start typing"}
+                            disabled={disabled}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${formFieldName}.${title}EmailAddress`] &&
-                                errors[`${formFieldName}.${title}EmailAddress`]
+                                singleFormTouched?.[`${title}EmailAddress`] &&
+                                singleFormErrors?.[`${title}EmailAddress`]
                             }
                             validate
                         />
@@ -260,16 +292,20 @@ function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destin
                             label={"Additional Notes"}
                             placeholder={"Start typing"}
                             onChange={handleChange}
-                            initValue={singleFormValues[`${formFieldName}.${title}AdditionalNotes`]}
+                            initValue={singleFormValues[`${title}AdditionalNotes`]}
+                            disabled={disabled}
+                            value={singleFormValues[`${title}AdditionalNotes`]}
                             onBlur={handleBlur}
                             error={
-                                touched[`${formFieldName}.${title}AdditionalNotes`] &&
-                                errors[`${formFieldName}.${title}AdditionalNotes`]
+                                singleFormTouched?.[`${title}AdditionalNotes`] &&
+                                singleFormErrors?.[`${title}AdditionalNotes`]
                             }
                             validate
                         />
                     </Grid>
                 </Grid>
+                </>
+                )}
             </form>
         </FormWrapper>
     );

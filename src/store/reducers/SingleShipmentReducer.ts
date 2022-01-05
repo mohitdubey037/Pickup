@@ -1,7 +1,7 @@
 import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
-    shipmentDetails: [],
+    shipmentDetails: null,
     orderIds: []
 };
 
@@ -15,7 +15,7 @@ const { Types, Creators } = createActions({
 
 const onSetShipmentDetails = (state=initialState, action) => ({
     ...state,
-    ...action.res
+    shipmentDetails: {...action.res}
 });
 
 const setShipmentOrderIds = (state = initialState, action) => ({ 

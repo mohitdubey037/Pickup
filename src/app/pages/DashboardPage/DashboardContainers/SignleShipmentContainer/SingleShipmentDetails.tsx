@@ -6,8 +6,8 @@ import DetailsForm from "./DetailsForm";
 
 import { shipmentDetailsItemInitValue } from "./helper";
 
-function SingleShipmentDetails(props: { formik: FormikValues, index: number }) {
-  const { values, setFieldValue } = props.formik;
+function SingleShipmentDetails(props: { formik: FormikValues, index: number, disabled ?: boolean }) {
+  const { formik: {values, setFieldValue}, disabled } = props;
 
   const singleFormValues = values.orders[props.index];
 
@@ -21,6 +21,7 @@ function SingleShipmentDetails(props: { formik: FormikValues, index: number }) {
     <FormWrapper style={{ width: "100%" }}>
       <>
         <DetailsForm
+            disabled={disabled}
           formik={props.formik}
           index={props.index}
           noOfItem={singleFormValues.shipmentDetails.length}
