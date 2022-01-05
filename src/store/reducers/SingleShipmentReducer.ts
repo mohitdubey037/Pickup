@@ -1,21 +1,37 @@
 import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
-  
-  singleShipmentResponse:null
+    shipmentDetails: [],
+    orderIds: []
 };
 
 const { Types, Creators } = createActions({
-  submitSingleShipment: ["request"],
-  submitSingleShipmentResponse: ["response"],
+    setShipmentDetails: ["res"],
+
+    submitShipment: ["res"],
+    setShipmentOrderIds: ["response"],
+    resetOrderIds: []
 });
 
-const onSubmitShipmentResponse = (state = initialState, action) => {
-   return { ...state, singleShipmentResponse:action.response };
-};
+const onSetShipmentDetails = (state=initialState, action) => ({
+    ...state,
+    ...action.res
+});
+
+const setShipmentOrderIds = (state = initialState, action) => ({ 
+    ...state, 
+    orderIds: action.response 
+});
+
+const resetOrderIds = (state = initialState, action) => ({ 
+    ...state, 
+    orderIds: [] 
+});
 
 const HANDLERS = {
-  [Types.SUBMIT_SINGLE_SHIPMENT_RESPONSE]: onSubmitShipmentResponse,
+    [Types.SET_SHIPMENT_DETAILS]: onSetShipmentDetails,
+    [Types.SET_SHIPMENT_ORDER_IDS]: setShipmentOrderIds,
+    [Types.RESET_ORDER_IDS]: resetOrderIds,
 };
 
 const singleShipment = createReducer(initialState, HANDLERS);

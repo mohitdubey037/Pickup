@@ -68,12 +68,6 @@ export const singleShipmentInitValues = {
     shipmentDate: "",
 };
 
-export const shipmentInitValues = {
-    orders: [
-        {...singleShipmentInitValues}
-    ]
-}
-
 export const singleShipmentInitValues1 = {
 
     originFavorite: false,
@@ -125,22 +119,11 @@ export const singleShipmentInitValues1 = {
     shipmentDate: "",
 };
 
-export const addShipmentForm = async (values: any) => {
-    try {
-        if(values.orders.length === 1){
-            const res = await addShipmentDetail(transformPayloadToBackend(values.orders[0]));
-            return res
-        }else{
-            const orders = values.orders.map(item => transformPayloadToBackend(item))
-            const body = {orders}
-            const res = await addMultipleShipment(body);
-            return res
-        }
-    } catch (err) {
-        return err;
-    }
+export const shipmentInitValues = {
+    orders: [
+        {...singleShipmentInitValues1}
+    ]
 }
-
 
 export const transformPayloadToBackend = (values: any) => {
     const payload = {

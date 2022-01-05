@@ -16,32 +16,46 @@ import { useFormik } from "formik";
 import { singleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import { Button } from "../../../../components/Buttons";
 
-import { singleShipmentInitValues, shipmentInitValues, addShipmentForm } from "./helper";
+import { singleShipmentInitValues, shipmentInitValues } from "./helper";
 import { Flex } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { navigate } from "@reach/router";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "store/reducers/SingleShipmentReducer";
 
 function SingleShipment({ path: string }) {
+
+    const dispatch = useDispatch();
+
+    const orderIds = useSelector((
+        state: { singleShipment: { orderIds } }) => {
+        return state.singleShipment.orderIds;
+      });
+    const loading = useSelector((
+        state: { globalState: { showLoader } }) => {
+        return state.globalState.showLoader;
+      })
+
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const redirect = (orderId: number) => {
-        navigate(`/dashboard/charter-shipment/order-summary/${orderId}`);
+    const redirect = () => {
+        navigate(`/dashboard/charter-shipment/order-summary`);
     };
+
+    useEffect(() => {
+        dispatch(actions.resetOrderIds());
+    }, [dispatch])
+
+    useEffect(() => {
+        if(orderIds?.length > 0){
+            redirect();
+        }
+    }, [orderIds])
 
     const formik = useFormik({
         initialValues: shipmentInitValues,
         // validationSchema: singleShipmentFormSchema,
         onSubmit: async () => {
-            setIsLoading(true);
-
-            //need to work
-            const res = await addShipmentForm(formik.values);
-
-            setIsLoading(false);
-            if (res.success) {
-                const orderId = res.response.data.data;
-                redirect(orderId);
-            }
+            dispatch(actions.submitShipment(formik.values))
         },
     });
 
@@ -85,7 +99,7 @@ function SingleShipment({ path: string }) {
                     style={{ width: 190 }}
                     label="Confirm Order"
                     onClick={formik.handleSubmit}
-                    showLoader={isLoading}
+                    showLoader={loading}
                 />
                 <Button
                     style={{ width: 190, marginRight: 20 }}
