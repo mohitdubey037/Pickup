@@ -1,7 +1,10 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
+interface SelectContainerType {
+    disabled ?: boolean;
+}
 
 export const ComponentContainer = styled.div`
 align-items: flex-start;
@@ -10,7 +13,7 @@ flex-direction: column;
 
 `
 
-export const SelectContainer = styled.div`
+export const SelectContainer = styled.div<SelectContainerType>`
     width: 100%;
     height: 35px;
     align-items: flex-start !important;
@@ -21,6 +24,10 @@ export const SelectContainer = styled.div`
     cursor:pointer !important;
     align-items: baseline !important;
     font-size: 20px !important;
+
+    ${props => props.disabled && css`
+        background-color: #c4c4c4;
+    `}
  }
 `
 

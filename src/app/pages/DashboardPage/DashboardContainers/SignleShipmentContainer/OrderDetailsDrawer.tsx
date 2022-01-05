@@ -21,11 +21,10 @@ interface orderDetails {
   picture?: string;
 }
 
-function OrderDetailsDrawer(props) {
+function OrderDetailsDrawer({orderId, setDrawerOpen}) {
   const [orderDetails, setOrderDetails] = useState<orderDetails>({});
   const [isFragile, setIsFragile] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const { orderId } = useParams();
 
   useEffect(() => {
     (async () => {
@@ -38,10 +37,10 @@ function OrderDetailsDrawer(props) {
       } else {
         setShowLoader(false);
         showToast("Could not get the data, Please try again!", "error");
-        props.setDrawerOpen(false);
+        setDrawerOpen(false);
       }
     })();
-  }, [orderId, props]);
+  }, [orderId]);
 
   useEffect(() => {
     const fragile = orderDetails?.items?.filter((item) => {

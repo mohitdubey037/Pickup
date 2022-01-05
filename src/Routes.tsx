@@ -60,15 +60,14 @@ const Routes = () => {
         <Dashboard path="/" />
         <BulkSummary path="/charter-shipment/bulk-summary" />
         <SingleShipment path="/charter-shipment/single-shipment" />
-        <OrderSummary path="/charter-shipment/order-summary/:orderId" />
-        <ShipmentSummary path="/charter-shipment/shipment-summary"/>
+        <OrderSummary path="/charter-shipment/order-summary" />
+        <ShipmentSummaryTable path="/charter-shipment/shipment-summary"/>
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
         <PaymentsPage path="/payments/cards" />
         <PersonalProfileContainer path="my-account/personal-profile" />   
         <ChildAccount path="my-account/child-account"/>
         <FavoriteLocations path={'my-account/favourite-locations'}/>
-        <ShipmentSummaryTable path="/payments" />
         <PaymentsPage path="/payments/cards" />
         <OnHoldShipmentContainer path= "/holding-zone" />
         <InvoicesContainer path="/payments/invoices" />

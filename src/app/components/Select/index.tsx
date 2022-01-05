@@ -16,16 +16,18 @@ interface SelectPropTypes {
   onSelect?: Function;
   id?: string;
   name?: string;
+  disabled?:boolean;
 }
 
 export default function Select(props: SelectPropTypes) {
-  const { label, id, name, onSelect, value, options = [], style } = props;
+  const { label, id, name, onSelect, value, options = [], style, disabled } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      if(disabled) return;
     setAnchorEl(event.currentTarget);
   };
 
@@ -44,6 +46,7 @@ export default function Select(props: SelectPropTypes) {
       <CustomLabel   >{label}</CustomLabel>
       <SelectContainer
         aria-describedby={parentId}
+        disabled={disabled}
         //@ts-ignore
         onClick={handleClick}
         style={style}
