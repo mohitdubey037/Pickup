@@ -12,7 +12,9 @@ import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 const InvoicesContainer = ({ path: string }) => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [invoiceData, setInvoiceData] = useState([]);
-
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
+  const [drawerType, setDrawerType] = useState("");
+  const [drawerOpen, setDrawerOpen] = useState(false);
   useEffect(() => {
     (async () => {
       const res = (await getInvoiceList()) as any;
@@ -33,6 +35,15 @@ const InvoicesContainer = ({ path: string }) => {
       }
     })();
   }, []);
+
+  // const openInvoiceDrawer = (id: any, type: any) => {
+  //   if (type == "orderDetails") {
+      
+  //   } else {
+  //     setSelectedInvoiceId(id);
+  //     setDrawerType(type);
+  //     setDrawerOpen(true);
+  //   }
 
   const tableTop = () => {
     return (
