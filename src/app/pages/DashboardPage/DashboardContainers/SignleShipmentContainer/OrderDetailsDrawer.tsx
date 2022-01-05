@@ -30,7 +30,7 @@ function OrderDetailsDrawer(props) {
   useEffect(() => {
     (async () => {
       setShowLoader(true);
-      const { response } = await getOrderDetails(orderId);
+      const { response } = await getOrderDetails(orderId ? orderId : props.orderId);
       console.log("response", response);
       if (response) {
         setOrderDetails(response.data.data);

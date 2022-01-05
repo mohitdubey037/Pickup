@@ -45,8 +45,11 @@ import selectedCardCheck from './selectedCardCheck.svg'
 
 import Delete from "./Delete.svg";
 import checkSquare from "./checkSquare.svg"
+import calendar from "./calendar.svg"
+
 export {
     analytics,
+    calendar,
     clock,
     congrats,
     creditCard,
