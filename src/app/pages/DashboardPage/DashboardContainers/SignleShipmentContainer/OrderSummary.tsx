@@ -15,17 +15,35 @@ import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments";
 
 import { navigate, useParams } from "@reach/router";
 import { getShipmentDetails } from "services/SingleShipmentServices";
+import { actions } from "store/reducers/SingleShipmentReducer";
+import { useDispatch, useSelector } from "react-redux";
 function OrderSummary({ path: string }) {
 
-    const { orderId } = useParams();
+    const dispatch = useDispatch();
+    const orderIds = useSelector((
+        state: { singleShipment: { orderIds } }) => {
+        return state.singleShipment.orderIds;
+      });
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [drawerOpenOne, setDrawerOpenOne] = useState(false);
     const [orderSummaryData, setOrderSummaryData] = useState([]);
+    const [selectedOrder, setSelectedOrder] = useState<null|number>(null);
+
+    const redirectBack = () => {
+        navigate?.("/dashboard/charter-shipment/single-shipment");
+    }
+
+    const redirectForward = () => {
+        navigate?.("/dashboard/charter-shipment/shipment-summary");
+    }
 
     useEffect(() => {
         (async () => {
-            const res = (await getShipmentDetails(orderId)) as any;
+            if(orderIds?.length <= 0){
+                redirectBack();
+            }
+            const res = (await getShipmentDetails(orderIds)) as any;
             if (res.success) {
                 const shipmentDetails = res.response.data.data;
                 console.log("shipmentDetailsRes", shipmentDetails);
@@ -35,12 +53,18 @@ function OrderSummary({ path: string }) {
                         "Schedule": item.type,
                         "Item Count": item.itemCount,
                         "Order Cost": `$${item.total}`,
+                        "OrderId": item.orderId
                     }
                 });
                 setOrderSummaryData(data)
             }
         })()
-    }, [orderId]);
+    }, [orderIds]);
+
+    const onBackHandler = () => {
+        dispatch(actions.resetOrderIds());
+        redirectBack();
+    }
 
     return (
         <>
@@ -48,7 +72,7 @@ function OrderSummary({ path: string }) {
                 <ContainerTitle>Order Summary</ContainerTitle>
 
                 <Flex direction={"column"} top={20}>
-                    <Table data={orderSummaryData} onRowSelect={(e) => {console.log("shipmentDetailsRes", e); setDrawerOpen(true);}} />
+                    <Table data={orderSummaryData} onRowSelect={(e) => {setSelectedOrder(e.OrderId); setDrawerOpen(true);}} />
 
                     {/* <Table data={OrderSummaryTable} /> */}
                     {/* <DataGrid rows={rows} columns={columns} checkboxSelection /> */}
@@ -94,15 +118,13 @@ function OrderSummary({ path: string }) {
                         // onClick={() => {
                         //   setDrawerOpen(true);
                         // }}
-                        onClick={() => {
-                            navigate?.("/dashboard/charter-shipment/shipment-summary");
-                        }}
+                        onClick={() => redirectForward()}
                     />
                     <Button
                         style={{ width: 190, marginRight: 20 }}
                         secondary
                         label="Back"
-                        onClick={() => navigate("/dashboard/charter-shipment/single-shipment")}
+                        onClick={onBackHandler}
                     />
                     <Button
                         style={{ width: 190, marginRight: 20 }}
@@ -132,7 +154,7 @@ function OrderSummary({ path: string }) {
                 closeIcon={true}
                 actionButtons={true}
             >
-                <OrderDetailsDrawer setDrawerOpen={setDrawerOpen} />
+                <OrderDetailsDrawer orderId={selectedOrder} setDrawerOpen={setDrawerOpen} />
             </Drawer>
         </>
     );
