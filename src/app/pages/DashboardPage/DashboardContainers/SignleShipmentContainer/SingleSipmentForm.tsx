@@ -12,9 +12,12 @@ import { LOCATION_TYPES, BILLING_TYPES } from "../../../../../constants";
 import { FavouriateWrapper } from "./style";
 import { starimage, starImageEmpty } from "../../../../assets/Icons";
 
-function SingleSipmentForm({ title, formik }: { title: "origin" | "destination", formik: any }) {
+function SingleSipmentForm({ title, formik, index }: { title: "origin" | "destination", formik: any, index: number }) {
     
     const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
+
+    const formFieldName = `orders.${index}`;
+    const singleFormValues = values.orders[index];
 
     return (
         <FormWrapper style={{ paddingRight: 35 }}>
@@ -22,17 +25,33 @@ function SingleSipmentForm({ title, formik }: { title: "origin" | "destination",
                 <Typography className="typography" variant="h1" component="h3" style={{ textTransform: "capitalize" }}>
                     {title}
                     <FavouriateWrapper>
-                        {values[`${title}Favorite`] ?
-                            <div style={{ cursor: "pointer" }} tabIndex={0} onClick={() => setFieldValue(`${title}Favorite`, false)}><img style={{ marginRight: "4px" }} className="imageStyle" src={starimage} alt="" />Added to Favorites</div>:
-                            <div style={{ cursor: "pointer" }} tabIndex={0} onClick={() => setFieldValue(`${title}Favorite`, true)}><img style={{ marginRight: "4px" }} className="imageStyle" src={starImageEmpty} alt="" />Add to Favorites</div>
+                        {singleFormValues[`${title}Favorite`] ?
+                            <div 
+                                role="button" 
+                                tabIndex={0} 
+                                style={{ cursor: "pointer" }} 
+                                onClick={() => setFieldValue(`${formFieldName}.${title}Favorite`, false)} 
+                                onKeyPress={() => setFieldValue(`${formFieldName}.${title}Favorite`, false)}
+                            >
+                                <img style={{ marginRight: "4px" }} className="imageStyle" src={starimage} alt="" />Added to Favorites
+                            </div>:
+                            <div 
+                                role="button" 
+                                tabIndex={0} 
+                                style={{ cursor: "pointer" }} 
+                                onClick={() => setFieldValue(`${formFieldName}.${title}Favorite`, true)} 
+                                onKeyPress={() => setFieldValue(`${formFieldName}.${title}Favorite`, false)}
+                            >
+                                <img style={{ marginRight: "4px" }} className="imageStyle" src={starImageEmpty} alt="" />Add to Favorites
+                            </div>
                         }
                     </FavouriateWrapper>
                 </Typography>
 
                 <RadioGroup
                     defaultValue="0"
-                    name={`${title}BillingType`}
-                    onChange={(e) => setFieldValue(`${title}BillingType`, Number(e.target.value) + 1)}
+                    name={`${formFieldName}.${title}BillingType`}
+                    onChange={(e) => setFieldValue(`${formFieldName}.${title}BillingType`, Number(e.target.value) + 1)}
                     options={BILLING_TYPES}
                 />
                 <Grid style={{ paddingBottom: 20, width: 290 }}>
@@ -41,29 +60,29 @@ function SingleSipmentForm({ title, formik }: { title: "origin" | "destination",
                         <br />
                         <div>
                             <Select
-                                id={`${title}LocationType`}
-                                name={`${title}LocationType`}
+                                id={`${formFieldName}.${title}LocationType`}
+                                name={`${formFieldName}.${title}LocationType`}
                                 options={LOCATION_TYPES}
                                 onSelect={handleChange}
-                                value={values[`${title}LocationType`]}
+                                value={singleFormValues[`${title}LocationType`]}
                             />
                         </div>
                     </div>
                 </Grid>
                 <Grid container spacing={3} style={{ marginRight: 30 }}>
-                    {values[`${title}BillingType`] === 2 && (
+                    {singleFormValues[`${title}BillingType`] === 2 && (
                         <Grid item xs={4}>
                             <Input
-                                id={`${title}CompanyName`}
-                                name={`${title}CompanyName`}
+                                id={`${formFieldName}.${title}CompanyName`}
+                                name={`${formFieldName}.${title}CompanyName`}
                                 label={"Company Name"}
-                                value={values[`${title}CompanyName`]}
+                                value={singleFormValues[`${formFieldName}.${title}CompanyName`]}
                                 placeholder={"Start typing"}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 error={
-                                    touched[`${title}CompanyName`] &&
-                                    errors[`${title}CompanyName`]
+                                    touched[`${formFieldName}.${title}CompanyName`] &&
+                                    errors[`${formFieldName}.${title}CompanyName`]
                                 }
                                 validate
                             />
@@ -71,181 +90,181 @@ function SingleSipmentForm({ title, formik }: { title: "origin" | "destination",
                     )}
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}FirstName`}
-                            name={`${title}FirstName`}
-                            initValue={values[`${title}FirstName`]}
+                            id={`${formFieldName}.${title}FirstName`}
+                            name={`${formFieldName}.${title}FirstName`}
+                            initValue={singleFormValues[`${formFieldName}.${title}FirstName`]}
                             label={"First Name"}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${title}FirstName`] && errors[`${title}FirstName`]
+                                touched[`${formFieldName}.${title}FirstName`] && errors[`${formFieldName}.${title}FirstName`]
                             }
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}LastName`}
-                            name={`${title}LastName`}
+                            id={`${formFieldName}.${title}LastName`}
+                            name={`${formFieldName}.${title}LastName`}
                             label={"Last Name"}
-                            initValue={values[`${title}LastName`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}LastName`]}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={touched[`${title}LastName`] && errors[`${title}LastName`]}
+                            error={touched[`${formFieldName}.${title}LastName`] && errors[`${formFieldName}.${title}LastName`]}
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}AddressLine1`}
-                            name={`${title}AddressLine1`}
+                            id={`${formFieldName}.${title}AddressLine1`}
+                            name={`${formFieldName}.${title}AddressLine1`}
                             label={"Address Line 1"}
-                            initValue={values[`${title}AddressLine1`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}AddressLine1`]}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${title}AddressLine1`] &&
-                                errors[`${title}AddressLine1`]
+                                touched[`${formFieldName}.${title}AddressLine1`] &&
+                                errors[`${formFieldName}.${title}AddressLine1`]
                             }
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}AddressLine2`}
-                            name={`${title}AddressLine2`}
+                            id={`${formFieldName}.${title}AddressLine2`}
+                            name={`${formFieldName}.${title}AddressLine2`}
                             label={"Address Line 2"}
                             placeholder={"Start typing"}
-                            initValue={values[`${title}AddressLine2`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}AddressLine2`]}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${title}AddressLine2`] &&
-                                errors[`${title}AddressLine2`]
+                                touched[`${formFieldName}.${title}AddressLine2`] &&
+                                errors[`${formFieldName}.${title}AddressLine2`]
                             }
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}City`}
-                            name={`${title}City`}
+                            id={`${formFieldName}.${title}City`}
+                            name={`${formFieldName}.${title}City`}
                             label={"City"}
                             placeholder={"Start typing"}
-                            initValue={values[`${title}City`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}City`]}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={touched[`${title}City`] && errors[`${title}City`]}
+                            error={touched[`${formFieldName}.${title}City`] && errors[`${formFieldName}.${title}City`]}
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}PostalCode`}
-                            name={`${title}PostalCode`}
+                            id={`${formFieldName}.${title}PostalCode`}
+                            name={`${formFieldName}.${title}PostalCode`}
                             label={"Postal Code"}
-                            initValue={values[`${title}PostalCode`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}PostalCode`]}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${title}PostalCode`] && errors[`${title}PostalCode`]
+                                touched[`${formFieldName}.${title}PostalCode`] && errors[`${formFieldName}.${title}PostalCode`]
                             }
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}ProvinceState`}
-                            name={`${title}ProvinceState`}
+                            id={`${formFieldName}.${title}ProvinceState`}
+                            name={`${formFieldName}.${title}ProvinceState`}
                             label={"Province/State"}
                             placeholder={"Start typing"}
-                            initValue={values[`${title}ProvinceState`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}ProvinceState`]}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${title}ProvinceState`] &&
-                                errors[`${title}ProvinceState`]
+                                touched[`${formFieldName}.${title}ProvinceState`] &&
+                                errors[`${formFieldName}.${title}ProvinceState`]
                             }
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}Country`}
-                            name={`${title}Country`}
+                            id={`${formFieldName}.${title}Country`}
+                            name={`${formFieldName}.${title}Country`}
                             label={"Country"}
-                            initValue={values[`${title}Country`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}Country`]}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={touched[`${title}Country`] && errors[`${title}Country`]}
+                            error={touched[`${formFieldName}.${title}Country`] && errors[`${formFieldName}.${title}Country`]}
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}ContactNumber`}
-                            name={`${title}ContactNumber`}
+                            id={`${formFieldName}.${title}ContactNumber`}
+                            name={`${formFieldName}.${title}ContactNumber`}
                             label={"Contact Number"}
-                            initValue={values[`${title}ContactNumber`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}ContactNumber`]}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${title}ContactNumber`] &&
-                                errors[`${title}ContactNumber`]
+                                touched[`${formFieldName}.${title}ContactNumber`] &&
+                                errors[`${formFieldName}.${title}ContactNumber`]
                             }
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}AlternateContactNumber`}
-                            name={`${title}AlternateContactNumber`}
-                            initValue={values[`${title}AlternateContactNumber`]}
+                            id={`${formFieldName}.${title}AlternateContactNumber`}
+                            name={`${formFieldName}.${title}AlternateContactNumber`}
+                            initValue={singleFormValues[`${formFieldName}.${title}AlternateContactNumber`]}
                             label={"Alternate Contact Number"}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${title}AlternateContactNumber`] &&
-                                errors[`${title}AlternateContactNumber`]
+                                touched[`${formFieldName}.${title}AlternateContactNumber`] &&
+                                errors[`${formFieldName}.${title}AlternateContactNumber`]
                             }
                             validate
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <Input
-                            id={`${title}EmailAddress`}
-                            name={`${title}EmailAddress`}
+                            id={`${formFieldName}.${title}EmailAddress`}
+                            name={`${formFieldName}.${title}EmailAddress`}
                             label={"Email Address"}
-                            initValue={values[`${title}EmailAddress`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}EmailAddress`]}
                             placeholder={"Start typing"}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                                touched[`${title}EmailAddress`] &&
-                                errors[`${title}EmailAddress`]
+                                touched[`${formFieldName}.${title}EmailAddress`] &&
+                                errors[`${formFieldName}.${title}EmailAddress`]
                             }
                             validate
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <Input
-                            id={`${title}AdditionalNotes`}
-                            name={`${title}AdditionalNotes`}
+                            id={`${formFieldName}.${title}AdditionalNotes`}
+                            name={`${formFieldName}.${title}AdditionalNotes`}
                             label={"Additional Notes"}
                             placeholder={"Start typing"}
                             onChange={handleChange}
-                            initValue={values[`${title}AdditionalNotes`]}
+                            initValue={singleFormValues[`${formFieldName}.${title}AdditionalNotes`]}
                             onBlur={handleBlur}
                             error={
-                                touched[`${title}AdditionalNotes`] &&
-                                errors[`${title}AdditionalNotes`]
+                                touched[`${formFieldName}.${title}AdditionalNotes`] &&
+                                errors[`${formFieldName}.${title}AdditionalNotes`]
                             }
                             validate
                         />

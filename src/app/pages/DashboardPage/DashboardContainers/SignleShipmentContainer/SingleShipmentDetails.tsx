@@ -6,11 +6,13 @@ import DetailsForm from "./DetailsForm";
 
 import { shipmentDetailsItemInitValue } from "./helper";
 
-function SingleShipmentDetails(props: { formik: FormikValues }) {
+function SingleShipmentDetails(props: { formik: FormikValues, index: number }) {
   const { values, setFieldValue } = props.formik;
 
+  const singleFormValues = values.orders[props.index];
+
   const addMoreItemHandler = () => {
-    const shipmentDetails = values.shipmentDetails;
+    const shipmentDetails = singleFormValues.shipmentDetails;
     shipmentDetails.push(shipmentDetailsItemInitValue);
     setFieldValue("shipmentDetails", shipmentDetails);
   };
@@ -20,10 +22,11 @@ function SingleShipmentDetails(props: { formik: FormikValues }) {
       <>
         <DetailsForm
           formik={props.formik}
-          noOfItem={values.shipmentDetails.length}
+          index={props.index}
+          noOfItem={singleFormValues.shipmentDetails.length}
         />
       </>
-      {values.categoryId && (
+      {singleFormValues.categoryId && (
         <Flex top={20}>
           <Button
             label={"Add More Items"}

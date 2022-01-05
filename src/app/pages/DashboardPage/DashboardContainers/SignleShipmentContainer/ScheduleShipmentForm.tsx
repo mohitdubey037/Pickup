@@ -12,10 +12,13 @@ import RadioGroup from "app/components/RadioGroup";
 
 import { SCHEDULE_OPTIONS } from "../../../../../constants";
 
-function ScheduleShipmentForm(props: { formik: FormikValues }) {
+function ScheduleShipmentForm(props: { formik: FormikValues, index: number }) {
 
   const { handleChange, values, errors, touched, setFieldValue } = props.formik;
-  const [value, setValue] = useState<Date | null>(new Date());
+
+  const formFieldName = `orders.${props.index}`;
+  const singleFormValues = values.orders[props.index]
+
   const [open, setOpen] = useState(false);
   const [openTime, setOpenTime] = useState(false);
 
@@ -23,24 +26,24 @@ function ScheduleShipmentForm(props: { formik: FormikValues }) {
     <FormWrapper>
       <Flex>
         <RadioGroup
-          id={"scheduleType"}
-          name={"scheduleType"}
-          defaultValue={values.scheduleType}
+          id={`${formFieldName}.scheduleType`}
+          name={`${formFieldName}.scheduleType`}
+          defaultValue={singleFormValues.scheduleType}
           label={"What do you want to do with the order?"}
           options={SCHEDULE_OPTIONS}
-          error={touched.scheduleType && errors.scheduleType}
+          error={touched?.[`${formFieldName}.scheduleType`] && errors?.[`${formFieldName}.scheduleType`]}
           onChange={handleChange}
         />
       </Flex>
-      {values.scheduleType === "17" && (
+      {singleFormValues.scheduleType === "17" && (
         <Flex top={20}>
           <Flex>
             <Flex flex={1}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label="Date"
-                  value={values.shipmentDate || undefined}
-                  onChange={(val) => setFieldValue("shipmentDate", val)}
+                  value={singleFormValues.shipmentDate || undefined}
+                  onChange={(val) => setFieldValue(`${formFieldName}.shipmentDate`, val)}
                   open={open}
                   onOpen={() => setOpen(true)}
                   onClose={() => setOpen(false)}
@@ -61,8 +64,8 @@ function ScheduleShipmentForm(props: { formik: FormikValues }) {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <TimePicker
                   label="Time"
-                  value={values.shipmentTime || undefined}
-                  onChange={(val) => setFieldValue("shipmentTime", val)}
+                  value={singleFormValues.shipmentTime || undefined}
+                  onChange={(val) => setFieldValue(`${formFieldName}.shipmentTime`, val)}
                   open={openTime}
                   onOpen={() => setOpenTime(true)}
                   onClose={() => setOpenTime(false)}
@@ -72,7 +75,7 @@ function ScheduleShipmentForm(props: { formik: FormikValues }) {
                       {...params}
                       onClick={(e) => setOpenTime(true)}
                       defaultValue={""}
-                      error={touched.shipmentTime && errors.shipmentTime}
+                      error={touched?.[`${formFieldName}.shipmentTime`] && errors?.[`${formFieldName}.shipmentTime`]}
                     />
                   )}
                 />

@@ -68,6 +68,12 @@ export const singleShipmentInitValues = {
     shipmentDate: "",
 };
 
+export const shipmentInitValues = {
+    orders: [
+        {...singleShipmentInitValues}
+    ]
+}
+
 export const singleShipmentInitValues1 = {
 
     originFavorite: false,
