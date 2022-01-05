@@ -120,8 +120,8 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                 )}
             </div>
             <Flex direction="row" justifyContent={'space-between'} style={{ alignItems: 'flex-end' }} >
-                <Button secondary style={{ width: '150px' }} onClick={() => setDrawerOpen(false)} label="Cancel"></Button>
-                <Button style={{ width: '150px' }} label={submitButtonLabel} onClick={handleSubmit}></Button>
+                <Button secondary style={{ width: 'fit-content', minWidth: '150px' }} onClick={() => setDrawerOpen(false)} label="Cancel"></Button>
+                <Button style={{ width: 'fit-content', minWidth: '150px' }} label={submitButtonLabel} onClick={handleSubmit}></Button>
             </Flex>
         </Flex>
     )
