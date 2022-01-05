@@ -1,6 +1,6 @@
 /* eslint-disable no-debugger */
 
-import { addShipmentDetail } from "services/SingleShipmentServices";
+import { addShipmentDetail, addMultipleShipment } from "services/SingleShipmentServices";
 
 
 export const shipmentDetailsItemInitValue = {
@@ -127,8 +127,15 @@ export const singleShipmentInitValues1 = {
 
 export const addShipmentForm = async (values: any) => {
     try {
-        const res = await addShipmentDetail(transformPayloadToBackend(values))
-        return res
+        if(values.orders.length === 1){
+            const res = await addShipmentDetail(transformPayloadToBackend(values.orders[0]));
+            return res
+        }else{
+            const orders = values.orders.map(item => transformPayloadToBackend(item))
+            const body = {orders}
+            const res = await addMultipleShipment(body);
+            return res
+        }
     } catch (err) {
         return err;
     }

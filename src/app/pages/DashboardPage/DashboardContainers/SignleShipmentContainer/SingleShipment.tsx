@@ -30,7 +30,7 @@ function SingleShipment({ path: string }) {
 
     const formik = useFormik({
         initialValues: shipmentInitValues,
-        validationSchema: singleShipmentFormSchema,
+        // validationSchema: singleShipmentFormSchema,
         onSubmit: async () => {
             setIsLoading(true);
 
