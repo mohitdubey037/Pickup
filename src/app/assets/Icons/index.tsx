@@ -41,6 +41,8 @@ import LogoImg from './LogoImg';
 import alertOctagon from './alertOctagon.svg';
 import Grouppaymentsummary from './Grouppaymentsummary.svg'
 import InsuranceIcon from "./InsuranceIcon.svg";
+import selectedCardCheck from './selectedCardCheck.svg'
+
 import Delete from "./Delete.svg";
 import checkSquare from "./checkSquare.svg"
 export {
@@ -86,6 +88,7 @@ export {
     alertOctagon,
     Grouppaymentsummary,
     InsuranceIcon,
+    selectedCardCheck,
     Delete,
     checkSquare
 };

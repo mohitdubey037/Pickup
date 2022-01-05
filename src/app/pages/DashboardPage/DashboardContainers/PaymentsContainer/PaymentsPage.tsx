@@ -41,18 +41,6 @@ export default function PaymentsPage({ path: string }) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [cardDetails, setCardDetails] = useState(initialState)
 
-    const getAllCardResponse = useSelector(
-        (state: {
-            paymentCard: { getCardDetailResponse: { status: number; data: { data: {} } } };
-        }) => state.paymentCard.getCardDetailResponse
-    );
-
-    useEffect(() => {
-        return () => {
-            dispatch(actions.getCardDetailResponse({}));
-        };
-    }, [dispatch]);
-
     const onGetData = () => {
         dispatch(
             actions.getCards()
