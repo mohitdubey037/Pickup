@@ -106,7 +106,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DatePicker
                             label="From Order Date"
-                            value={filters.fromDate || undefined}
+                            value={filters.fromDate || null}
                             onChange={(val) => onChangeHandler(null, "fromDate", val)}
                             open={fromDateOpen}
                             onOpen={() => setFromDateOpen(true)}
@@ -127,7 +127,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DatePicker
                             label="To Order Date"
-                            value={filters.toDate || undefined}
+                            value={filters.toDate || null}
                             onChange={(val) => onChangeHandler(null, "toDate", val)}
                             open={toDateOpen}
                             onOpen={() => setToDateOpen(true)}
