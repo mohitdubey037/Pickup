@@ -1,6 +1,16 @@
 import { calendar } from "app/assets/Icons"
 import { OnHoldDataType } from "./OnHoldShipment"
 
+export const getOrderIdFromIndex = (data: Array<OnHoldDataType>, index: number) => {
+    return data[index].orderId
+}
+
+export const getOrderIdListFromIndexList = (data: Array<OnHoldDataType>, index: Array<number>) => {
+    // const orderList = []
+    const orderList = index.map((i) => getOrderIdFromIndex(data, i))
+    return orderList
+}
+
 const getActionItem = (id: string, singleScheduleHandler, index) => {
     return (
         <div onClick={() => singleScheduleHandler(id, index)} style={{ display: 'flex', gap: '20px' }}>
@@ -12,7 +22,6 @@ const getActionItem = (id: string, singleScheduleHandler, index) => {
 const getOrderIdItem = (openInvoiceDrawer, value, id: any) => {
     return <span onClick={() => openInvoiceDrawer(id)}>{value}</span>;
 };
-
 
 export const onHoldTable = (
     searchRecordData: OnHoldDataType[],
