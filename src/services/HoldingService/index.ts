@@ -2,7 +2,6 @@ import { buildQueryParams } from "utils/commonUtils";
 import Services from "../";
 
 export const getHoldingShipments = async (params={}) => {
-
     try {
         const queryParams = buildQueryParams(params)
         const type = "order"
@@ -12,3 +11,14 @@ export const getHoldingShipments = async (params={}) => {
         return {response: null, error: error};
     }
 };
+
+export const scheduleShipment = async (data) => {
+    try {
+        const res = await Services.post(`order/business/shipment/schedule`, data, "order");
+        return {response: res, error: null};
+    } catch (error) {
+        return {response: null, error: error};
+    }
+};
+
+

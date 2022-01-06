@@ -6,7 +6,7 @@ import { ContainerTitle } from "app/components/Typography/Typography";
 import { OnHoldTableTop } from "./Style";
 import { sliders } from "app/assets/Icons";
 import { useEffect, useState } from "react";
-import { getHoldingShipments } from "services/HoldingService";
+import { getHoldingShipments, scheduleShipment } from "services/HoldingService";
 
 import { TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
@@ -76,7 +76,6 @@ const OnHoldShipmentContainer = ({ path: string }) => {
 
     const openInvoiceDrawer = (id: string) => {
         setOrderId(id);
-        setSelectedOrderId([...selectedOrderId, id])
         setDrawerOpen(true);
     }
 
@@ -86,14 +85,21 @@ const OnHoldShipmentContainer = ({ path: string }) => {
                 <p>{onHoldData.length} orders</p>
                 <div>
                     <Button label="Delete" secondary={true} onClick={() => { }} style={{ borderColor: '#C94C43', color: '#C94C43' }} />
-                    <Button label="Schedule" onClick={() => { }} />
+                    <Button label="Schedule" onClick={() => setScheduleDrawerOpen(true)} />
                 </div>
             </OnHoldTableTop>
         );
     };
 
-    const handleSubmitHandler = (shippingSchedule: string, date: string | null, time: string | null) => {
-        console.log("handleSubmitHandler", shippingSchedule, date, time)
+    const handleSubmitHandler = async (shippingSchedule: string, date: string | null, time: string | null) => {
+        //Call the api here
+        const data = {
+            scheduleType: shippingSchedule,
+            orderAt: date,
+            shipment: selectedOrderId
+        }
+        const res: { response: any, error: any } = await scheduleShipment(data)
+        console.log("handleSubmitHandler", res.response)
     }
 
     const singleScheduleHandler = (id: string) => {
