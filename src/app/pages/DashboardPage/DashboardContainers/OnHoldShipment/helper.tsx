@@ -1,7 +1,7 @@
 import { calendar } from "app/assets/Icons"
 import { OnHoldDataType } from "./OnHoldShipment"
 
-const getActionItem = (id: number, singleScheduleHandler) => {
+const getActionItem = (id: string, singleScheduleHandler) => {
     return (
         <div onClick={() => singleScheduleHandler(id)} style={{ display: 'flex', gap: '20px' }}>
             <img src={calendar} alt="calendar" />
@@ -14,7 +14,7 @@ const getOrderIdItem = (openInvoiceDrawer, value, id: any) => {
 };
 
 
-export const searchTable = (
+export const onHoldTable = (
     searchRecordData: OnHoldDataType[],
     openInvoiceDrawer: any,
     singleScheduleHandler: any
@@ -25,6 +25,7 @@ export const searchTable = (
             makeTableData.push({
                 "Source": "Uploaded",
                 "Category": item.category,
+                "Order Id": item.orderId,
                 "Item Count": getOrderIdItem(openInvoiceDrawer, item.itemCount, item.orderId),
                 "Order Date": item.shippingDate,
                 "Status": item.status ? item.status : "-",

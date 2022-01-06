@@ -97,13 +97,14 @@ const Table = ({
                                 <TableRow style={{ cursor: 'pointer' }} onClick={() => onRowSelect && onRowSelect(row)}>
                                     {Object.values(row).map((cellData: any, idx: number) => (
                                         <>
+                                            {/* {console.log('cellData', row["Order Id"])} */}
                                             {showCheckbox && idx === 0 && (
                                                 <Checkbox
                                                     label={""}
                                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                                        handleCheckboxClick(e, cellData, undefined)
+                                                        handleCheckboxClick(e, row["Order Id"], undefined)
                                                     }
-                                                    isChecked={selectedRows.includes(row)}
+                                                    isChecked={selectedRows.includes(row["Order Id"])}
                                                 />
                                             )}
                                             <TableCell>{cellData}</TableCell>

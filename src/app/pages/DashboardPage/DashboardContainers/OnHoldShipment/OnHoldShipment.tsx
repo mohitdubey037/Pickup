@@ -14,14 +14,15 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Grid } from "@material-ui/core";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
-import { searchTable } from "./helper";
+import { onHoldTable } from "./helper";
+import ScheduleShipmentsDrawer from "./ScheduleShipmentsDrawer";
 
 export interface OnHoldDataType {
     category: string;
     invoiceId: string;
     invoiceNumber: string;
     itemCount: number;
-    orderId: number;
+    orderId: string;
     shipmentCost: number;
     shippingDate: string;
     shippingReference: string;
@@ -51,7 +52,9 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     const [fromDateOpen, setFromDateOpen] = useState<boolean>(false)
     const [toDateOpen, setToDateOpen] = useState<boolean>(false)
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
+    const [singleScheduleDrawerOpen, setScheduleDrawerOpen] = useState<boolean>(false)
     const [orderId, setOrderId] = useState<string>("")
+    const [selectedOrderId, setSelectedOrderId] = useState<string[]>([])
 
     useEffect(() => {
         (async () => {
@@ -73,6 +76,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
 
     const openInvoiceDrawer = (id: string) => {
         setOrderId(id);
+        setSelectedOrderId([...selectedOrderId, id])
         setDrawerOpen(true);
     }
 
@@ -88,8 +92,19 @@ const OnHoldShipmentContainer = ({ path: string }) => {
         );
     };
 
-    const singleScheduleHandler = (id: number) => {
-        console.log("singleScheduleHandler", id)
+    const handleSubmitHandler = (shippingSchedule: string, date: string | null, time: string | null) => {
+        console.log("handleSubmitHandler", shippingSchedule, date, time)
+    }
+
+    const singleScheduleHandler = (id: string) => {
+        console.log("Id", id)
+        setOrderId(id);
+        setSelectedOrderId([id])
+        setScheduleDrawerOpen(true);
+    }
+
+    const multipleScheduleHandler = (values: any) => {
+        setSelectedOrderId([...values])
     }
 
     return (
@@ -150,12 +165,14 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             </Grid>
 
             <Table
-                data={searchTable(onHoldData, openInvoiceDrawer, singleScheduleHandler)}
+                data={onHoldTable(onHoldData, openInvoiceDrawer, singleScheduleHandler)}
                 tableTop={tableTop()}
                 showCheckbox
                 showPagination
-                perPageRows={15}
+                perPageRows={10}
                 filterColumns={[0, 1, 2, 3, 4, 5]}
+                getSelectedItems={multipleScheduleHandler}
+                selectedItems={selectedOrderId}
             />
 
             <Drawer
@@ -169,13 +186,13 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             </Drawer>
             
             <Drawer
-                open={drawerOpen}
+                open={singleScheduleDrawerOpen}
                 title={"Order Items"}
-                setDrawerOpen={(flag) => setDrawerOpen(flag)}
+                setDrawerOpen={(flag) => setScheduleDrawerOpen(flag)}
                 closeIcon={true}
                 actionButtons={true}
             >
-                <OrderDetailsDrawer orderId={orderId} setDrawerOpen={setDrawerOpen} />
+                <ScheduleShipmentsDrawer handleSubmit={handleSubmitHandler} submitButtonLabel={"Save"} setDrawerOpen={setScheduleDrawerOpen} />
             </Drawer>
 
         </ModuleContainer>
