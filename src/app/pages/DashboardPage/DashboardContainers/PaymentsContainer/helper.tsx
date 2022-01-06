@@ -50,14 +50,14 @@ const getInvoiceIdItem = (
     openInvoiceDrawer: (key: string, type: any) => void,
     id: any
   ) => {
-    return <div onClick={() => openInvoiceDrawer(id, "invoice")}>{id}</div>;
+    return <div onClick={() => openInvoiceDrawer(id, "invoice")} style={{color:"#1B8AF0"}}><u> {id}</u></div>;
   };
   
   const getOrderIdItem = (
     openInvoiceDrawer: (key: string, type: any) => void,
     id: any
   ) => {
-    return <div onClick={() => openInvoiceDrawer(id, "orderDetails")}>{id}</div>;
+    return <div onClick={() => openInvoiceDrawer(id, "orderDetails")} style={{color:"#1B8AF0"}}><u> {id}</u></div>;
   };
   
   export const invoiceTable = (

@@ -12,10 +12,12 @@ import { Drawer } from "app/components/Drawer";
 import AdvanceFilters from "../SearchContainer/AdvanceFilters";
 import SearchOrderDetailsDrawer from "../SearchContainer/SearchOrderDetailsDrawer";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
+import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 
 const InvoicesContainer = ({ path: string }) => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [invoiceData, setInvoiceData] = useState([]);
+
   const [searchRecordData, setSearchRecordData] = useState([{}]);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
   const [drawerType, setDrawerType] = useState("");
@@ -171,7 +173,7 @@ const getDrawerTitle = () => {
           <AddNewPaymentDrawer />
        
         ) : (
-          <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />
+          <OrderDetailsDrawer setDrawerOpen={setDrawerOpen}/>
         )}
         
       </Drawer>
