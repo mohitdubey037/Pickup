@@ -27,8 +27,13 @@ interface SelectBoardType {
     updatedBy: number;
 }
 
-function DetailsForm(props: { formik: FormikValues; noOfItem: number }) {
-    const { handleChange, values, handleBlur, setFieldValue } = props.formik;
+function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: number, disabled ?: boolean}) {
+    const { formik: {handleChange, values, handleBlur, setFieldValue, errors, touched}, disabled } = props;
+
+    const formFieldName = `orders.${props.index}`;
+    const singleFormValues = values.orders[props.index];
+    const singleFormErrors = errors?.orders?.[props.index];
+    const singleFormTouched = touched?.orders?.[props.index];
 
     const [categoryList, setCategoryList] = useState<SelectBoardType[]>([]);
 
@@ -43,7 +48,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number }) {
     }, []);
 
     const hasDimensions = () => {
-        const selectedCategory = categoryList.find(category => category.categoryId === values.categoryId);
+        const selectedCategory = categoryList.find(category => category.categoryId === Number(singleFormValues.categoryId));
         return (selectedCategory?.setDimension || false)
     }
 
@@ -51,13 +56,14 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number }) {
         <>
             <Flex direction={"column"}>
                 <Flex top={20}>
-                    <Flex flex={1}>
+                    <Flex flex={1} direction="column" style={{ alignItems: "start"}}>
                         <Select
-                            id="categoryId"
-                            name="categoryId"
+                            id={`${formFieldName}.categoryId`}
+                            name={`${formFieldName}.categoryId`}
                             label={"Category"}
-                            value={values?.categoryId}
+                            value={Number(singleFormValues?.categoryId)}
                             onSelect={handleChange}
+                            disabled={disabled}
                             options={
                                 categoryList
                                     ? categoryList.map((option) => ({
@@ -67,44 +73,58 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number }) {
                                     : []
                             }
                         />
+                        {singleFormErrors?.categoryId && singleFormTouched?.categoryId && (
+                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.categoryId}</p>
+                        )}
                     </Flex>
                     <Flex flex={1} left={30}>
                         <CustomInput
-                            name="customerRefNo"
-                            id="customerRefNo"
+                            name={`${formFieldName}.customerRefNo`}
+                            id={`${formFieldName}.customerRefNo`}
                             onBlur={handleBlur}
                             onChange={handleChange}
+                            value={singleFormValues?.customerRefNo}
+                            disabled={disabled}
+                            initValue={singleFormValues?.customerRefNo}
                             label={"Customer Reference Number"}
                             placeholder={"Start typing"}
+                            error={singleFormTouched?.customerRefNo && singleFormErrors?.customerRefNo}
+                            validate
                         />
                     </Flex>
                 </Flex>
                 <Flex top={20}>
-                    <Flex flex={1}>
+                    <Flex flex={1} direction="column" style={{ alignItems: "start"}}>
                         <Select
-                            id="dropOption"
-                            name="dropOption"
+                            id={`${formFieldName}.dropOption`}
+                            name={`${formFieldName}.dropOption`}
                             label={"Delivery options"}
-                            value={values.dropOption}
+                            value={Number(singleFormValues.dropOption)}
                             onSelect={handleChange}
+                            disabled={disabled}
                             options={DROP_OPTION}
                         />
+                        {singleFormErrors?.dropOption && singleFormTouched?.dropOption && (
+                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.dropOption}</p>
+                        )}
                     </Flex>
                     <Flex flex={1} left={30}>
                         <RadioGroup
-                            id="fragile"
-                            name="fragile"
+                            id={`${formFieldName}.fragile`}
+                            name={`${formFieldName}.fragile`}
                             label={"Fragile Shipment"}
-                            value={values.fragile}
-                            options={FRAGILE_OPTION}
-                            onChange={(e) => setFieldValue("fragile", Number(e.target.value))}
+                            defaultValue={singleFormValues?.fragile ? singleFormValues.fragile : 1}
+                            value={singleFormValues.fragile}
+                            options={!disabled ? FRAGILE_OPTION : FRAGILE_OPTION.map(item => ({...item, disabled: true}))}
+                            onChange={(e) => setFieldValue(`${formFieldName}.fragile`, Number(e.target.value))}
                         />
                     </Flex>
                 </Flex>
-                {values?.categoryId && new Array(props.noOfItem).fill("").map((_, index) => (
+                {singleFormValues?.categoryId && new Array(props.noOfItem).fill("").map((_, itemIndex) => (
                     <DetailsFormItem
-                        key={index}
-                        index={index}
+                        key={itemIndex}
+                        index={itemIndex}
+                        orderIndex={props.index}
                         hasDimensions={hasDimensions()}
                         formik={props.formik}
                     />

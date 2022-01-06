@@ -10,9 +10,10 @@ interface CheckboxPropsType extends CheckboxProps{
     style?:any;
     onClick?:any
     error?: string | boolean
+    value?: boolean | string;
 }
 
-const Button:React.FC<CheckboxPropsType>=({label,onChange,isChecked, style, error=''})=>{
+const Button:React.FC<CheckboxPropsType>=({label,onChange,isChecked, style, error='', value=''})=>{
     return(
         <>
             <div>
@@ -20,7 +21,7 @@ const Button:React.FC<CheckboxPropsType>=({label,onChange,isChecked, style, erro
                     color="primary" 
                     onChange={onChange}
                     checked={isChecked}
-                    // value={value}
+                    value={value}
                     style={style}
                 ></CheckboxPrimary>
                 {label}

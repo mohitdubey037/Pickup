@@ -1,8 +1,3 @@
-/* eslint-disable no-debugger */
-
-import { addShipmentDetail } from "services/SingleShipmentServices";
-
-
 export const shipmentDetailsItemInitValue = {
     quantity: '',
     orderCost: '',
@@ -68,61 +63,62 @@ export const singleShipmentInitValues = {
     shipmentDate: "",
 };
 
+export const singleShipmentInitValues1 = {
 
+    originFavorite: false,
+    originBillingType: 1,
+    originLocationType: 1,
+    originCompanyName: "Torinit",
+    originFirstName: "First",
+    originLastName: "Last",
+    originAddressLine1: "Address 1",
+    originAddressLine2: "Address 2",
+    originCity: "City",
+    originPostalCode: "Post",
+    originProvinceState: "STate",
+    originCountry: "Country",
+    originContactNumber: "1111111",
+    originAlternateContactNumber: "2222222",
+    originEmailAddress: "a@a.com",
+    originAdditionalNotes: "Additional notes",
 
-// export const singleShipmentInitValues = {
-//   originCompanyName: "Torinit",
-//   originFirstName: "Amit",
-//   originLastName: "Wagh",
-//   originAddressLine1: "A",
-//   originAddressLine2: "A",
-//   originCity: "Ontario",
-//   originPostalCode: "333",
-//   originProvinceState: "A",
-//   originCountry: "Canada",
-//   originContactNumber: "9898989898",
-//   originAlternateContactNumber: "9898989898",
-//   originEmailAddress: "amit@torinit.ca",
-//   originAdditionalNotes: "asd",
+    destinationFavorite: false,
+    destinationBillingType: 1,
+    destinationLocationType: 1,
+    destinationCompanyName: "Company",
+    destinationFirstName: "Name",
+    destinationLastName: "Surname",
+    destinationAddressLine1: "Add 1",
+    destinationAddressLine2: "Add 2",
+    destinationCity: "Dest City",
+    destinationPostalCode: "111111",
+    destinationProvinceState: "State 2",
+    destinationCountry: "Country 2",
+    destinationContactNumber: "2222222222",
+    destinationAlternateContactNumber: "666666666",
+    destinationEmailAddress: "b@b.com",
+    destinationAdditionalNotes: "Additional notes",
 
-//   destinationCompanyName: "Torinit",
-//   destinationFirstName: "Torinit",
-//   destinationLastName: "Torinit",
-//   destinationAddressLine1: "DA",
-//   destinationAddressLine2: "DA",
-//   destinationCity: "DC",
-//   destinationPostalCode: "33",
-//   destinationProvinceState: "asd",
-//   destinationCountry: "Ca",
-//   destinationContactNumber: "8888888888",
-//   destinationAlternateContactNumber: "8888888888",
-//   destinationEmailAddress: "torinit@gmail.com",
-//   destinationAdditionalNotes: "asd",
+    categoryId: "",
+    customerRefNo: "qqqq",
+    dropOption: "10",
+    fragile: 1,
 
-//   categoryId: "1",
+    shipmentDetails: [
+        { ...shipmentDetailsItemInitValue }
+    ],
 
-//   shipmentDetails: [
-//     { ...shipmentDetailsItemInitValue }
-//   ],
+    // SCHEDULE SHIPMENT
+    scheduleType: "17",
+    shipmentTime: "",
+    shipmentDate: "",
+};
 
-
-
-
-//   // SCHEDULE SHIPMENT
-//   shipmentTime: "",
-//   shipmentDate: "",
-//   scheduleType: "",
-// };
-
-export const addShipmentForm = async (values: any) => {
-    try {
-        const res = await addShipmentDetail(transformPayloadToBackend(values))
-        return res
-    } catch (err) {
-        return err;
-    }
+export const shipmentInitValues = {
+    orders: [
+        {...singleShipmentInitValues}
+    ]
 }
-
 
 export const transformPayloadToBackend = (values: any) => {
     const payload = {
@@ -183,4 +179,31 @@ export const transformPayloadToBackend = (values: any) => {
 
 
     return payload
+}
+
+
+export const getNextOrderValues = (order: any) => {
+    return ({
+        ...order,
+        destinationFavorite: false,
+        destinationBillingType: 1,
+        destinationLocationType: 1,
+        destinationCompanyName: "",
+        destinationFirstName: "",
+        destinationLastName: "",
+        destinationAddressLine1: "",
+        destinationAddressLine2: "",
+        destinationCity: "",
+        destinationPostalCode: "",
+        destinationProvinceState: "",
+        destinationCountry: "",
+        destinationContactNumber: "",
+        destinationAlternateContactNumber: "",
+        destinationEmailAddress: "",
+        destinationAdditionalNotes: "",
+
+        shipmentDetails: [
+            { ...shipmentDetailsItemInitValue }
+        ],
+    })
 }

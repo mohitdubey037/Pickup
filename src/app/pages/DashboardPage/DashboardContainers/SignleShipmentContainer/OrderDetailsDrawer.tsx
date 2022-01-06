@@ -1,76 +1,182 @@
-import { Grid } from "@material-ui/core";
-import React, { useState } from "react";
+import { CircularProgress } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import { Accordion } from "app/components/Accordion";
-import {itempicture} from "../../../../assets/Images/index"
-function OrderDetailsDrawer() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+import { getOrderDetails } from "services/SingleShipmentServices";
+import { Flex } from "app/components/Input/style";
+import { showToast } from "utils";
+import { useParams } from "@reach/router";
+import { LabelSpan, ContentSpan, MainDiv, InnerAccordion } from "./style";
+import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
+
+interface orderDetails {
+  refNo?: string;
+  customerReferenceNumber?: string;
+  shipmentReference?: string;
+  dropOption?: number;
+  items?: any;
+  image?: string;
+  category?: string;
+  fragile?: number;
+  description?: string;
+  picture?: string;
+}
+
+function OrderDetailsDrawer({orderId, setDrawerOpen}) {
+  const [orderDetails, setOrderDetails] = useState<orderDetails>({});
+  const [isFragile, setIsFragile] = useState<boolean>(false);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
+
+  useEffect(() => {
+    (async () => {
+      setShowLoader(true);
+      const { response } = await getOrderDetails(orderId ? orderId : orderId);
+      console.log("response", response);
+      if (response) {
+        setOrderDetails(response.data.data);
+        setShowLoader(false);
+      } else {
+        setShowLoader(false);
+        showToast("Could not get the data, Please try again!", "error");
+        setDrawerOpen(false);
+      }
+    })();
+  }, [orderId]);
+
+  useEffect(() => {
+    const fragile = orderDetails?.items?.filter((item) => {
+      if (item.fragile === 1) return true;
+      return false;
+    });
+    if (fragile?.length > 0) {
+      setIsFragile(true);
+    }
+  }, [orderDetails]);
+
+  const getLabelFromID = (id: number, list: any[]) => {
+    const foundLabel = list.find((item) =>item.value === id);
+    if(foundLabel) {
+        return `(${foundLabel.label.toLowerCase()})`
+    }
+    return null;
+  }
+
   return (
-    <div >
-      <Grid style={{ width: 540 ,}}>
-        
-        <Accordion  title="Order Items - TOR-0607-123">
-          
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex" }}>
-              
-              <span style={{ flex: 1 }}>Category</span>
-              <span style={{paddingLeft:200}}>Customer Ref. #</span>
-            </div>
+    <MainDiv>
+      {showLoader ? (
+        <CircularProgress style={{ color: "black" }} />
+      ) : (
+        <div style={{ border: "1px solid #DCDCDC" }}>
+          <Accordion
+            title={`Order Items - ${
+              orderDetails.shipmentReference
+                ? orderDetails.shipmentReference
+                : "-"
+            }`}
+          >
             <div>
-              <span>Electronics</span>
-              <span style={{paddingLeft:190}}>PO23451</span>
+              <Flex
+                direction="row"
+                justifyContent="space-between"
+                style={{ margin: "18px 0" }}
+              >
+                <Flex direction="column">
+                  <LabelSpan>Category</LabelSpan>
+                  <ContentSpan>{orderDetails?.category}</ContentSpan>
+                </Flex>
+                <Flex direction="column">
+                  <LabelSpan>Customer Ref. #</LabelSpan>
+                  <ContentSpan>
+                    {orderDetails.customerReferenceNumber
+                      ? orderDetails.customerReferenceNumber
+                      : "-"}
+                  </ContentSpan>
+                </Flex>
+              </Flex>
+              <Flex
+                direction="row"
+                justifyContent="space-between"
+                style={{ margin: "18px 0" }}
+              >
+                <Flex direction="column">
+                  <LabelSpan>Delivery Options</LabelSpan>
+                  <ContentSpan>
+                    {orderDetails.dropOption === 10 ? "Door Drop" : "Safe Drop"}
+                  </ContentSpan>
+                </Flex>
+                <Flex direction="column">
+                  <LabelSpan>Fragile</LabelSpan>
+                  <ContentSpan>{isFragile ? "Yes" : "No"}</ContentSpan>
+                </Flex>
+              </Flex>
+              <Flex
+                direction="column"
+                justifyContent="space-between"
+                style={{ margin: "18px 0" }}
+              >
+                <LabelSpan>Order Description</LabelSpan>
+                <ContentSpan>{orderDetails?.description}</ContentSpan>
+                {orderDetails?.picture ? (
+                  <img
+                    style={{ width: "120px", height: "100px" }}
+                    src={orderDetails?.picture && orderDetails?.picture}
+                    alt=""
+                  />
+                ) : (
+                  ""
+                )}
+              </Flex>
             </div>
-            <div style={{ display: "flex",paddingTop:20 }}>
-              
-              <span style={{ flex: 1 }}>Delivery options</span>
-              <span style={{paddingLeft:100}}>Fragile</span>
-            </div>
-            <div>
-              <span>Door drop</span>
-              <span style={{paddingLeft:190}}>Yes</span>
-            </div>
-          </div>
-          <div style={{paddingTop:130,position:"absolute"}}>
-          <span >Order Description</span>
-          </div>
-          <span style={{display:"flex",paddingTop:160,position:"absolute"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed libero in nulla maximus consequat. Aliquam dapibus est velit.</span>
-          <img style={{position:"absolute",paddingTop:220}} className= "imageStyle" src={itempicture} />
-        </Accordion>
 
-      </Grid>
-      <Grid style={{ width: 540 ,}}>
-        
-        <Accordion  title="Order Items - TOR-0607-123A">
-          
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex" }}>
-              
-              <span style={{ flex: 1 }}>Category</span>
-              <span style={{paddingLeft:200}}>Customer Ref. #</span>
-            </div>
-            <div>
-              <span>Electronics</span>
-              <span style={{paddingLeft:190}}>PO23451</span>
-            </div>
-            <div style={{ display: "flex",paddingTop:20 }}>
-              
-              <span style={{ flex: 1 }}>Delivery options</span>
-              <span style={{paddingLeft:100}}>Fragile</span>
-            </div>
-            <div>
-              <span>Door drop</span>
-              <span style={{paddingLeft:190}}>Yes</span>
-            </div>
-          </div>
-          <div style={{paddingTop:130,position:"absolute"}}>
-          <span >Order Description</span>
-          </div>
-          <span style={{display:"flex",paddingTop:160,position:"absolute"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed libero in nulla maximus consequat. Aliquam dapibus est velit.</span>
-          <img style={{position:"absolute",paddingTop:220}} className= "imageStyle" src={itempicture} />
-        </Accordion>
-
-      </Grid>
-    </div>
+            {orderDetails?.items?.length > 0 &&
+              orderDetails?.items.map((item, i) => {
+                return (
+                  <>
+                    <hr
+                      style={{ width: "100%", border: "1px solid #DCDCDC" }}
+                    />
+                    <InnerAccordion>
+                    <Accordion key={i} title={`Item #${i + 1} ${item.name}`}>
+                      <Flex direction="row" style={{ margin: "18px 0", width: "100%" }}>
+                        {item.weight && (
+                          <Flex direction="column">
+                            <LabelSpan>Weight {getLabelFromID(item.weightDimension, WEIGHTDIMENSION)}</LabelSpan>
+                            <ContentSpan>{item.weight}</ContentSpan>
+                          </Flex>
+                        )}
+                        {item.length >= 0 &&
+                          item.width >= 0 &&
+                          item.height >= 0 && (
+                            <Flex direction="column">
+                              <LabelSpan>LBH {getLabelFromID(item.sizeDimension, DIMENSION2)}</LabelSpan>
+                              <ContentSpan>
+                                {item.length} x {item.width} x {item.height}
+                              </ContentSpan>
+                            </Flex>
+                          )}
+                        {item.quantity && (
+                          <Flex direction="column">
+                            <LabelSpan>Pieces</LabelSpan>
+                            <ContentSpan>{item.quantity}</ContentSpan>
+                          </Flex>
+                        )}
+                      </Flex>
+                      <Flex direction="column">
+                        {item.description && (
+                          <Flex direction="column">
+                            <LabelSpan>Shipment Description</LabelSpan>
+                            <ContentSpan>{item.description}</ContentSpan>
+                          </Flex>
+                        )}
+                      </Flex>
+                    </Accordion>
+                    </InnerAccordion>
+                  </>
+                );
+              })}
+          </Accordion>
+        </div>
+      )}
+    </MainDiv>
   );
 }
 
