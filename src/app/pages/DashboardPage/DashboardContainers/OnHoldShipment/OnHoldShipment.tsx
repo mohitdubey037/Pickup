@@ -54,7 +54,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
     const [singleScheduleDrawerOpen, setScheduleDrawerOpen] = useState<boolean>(false)
     const [orderId, setOrderId] = useState<string>("")
-    const [selectedOrderId, setSelectedOrderId] = useState<string[]>([])
+    const [selectedOrderId, setSelectedOrderId] = useState<number[]>([])
 
     useEffect(() => {
         (async () => {
@@ -102,10 +102,10 @@ const OnHoldShipmentContainer = ({ path: string }) => {
         console.log("handleSubmitHandler", res.response)
     }
 
-    const singleScheduleHandler = (id: string) => {
+    const singleScheduleHandler = (id: string, index: number) => {
         console.log("Id", id)
         setOrderId(id);
-        setSelectedOrderId([id])
+        setSelectedOrderId([index])
         setScheduleDrawerOpen(true);
     }
 

@@ -93,7 +93,7 @@ const Table = ({
                     <TableBody>
                         {data
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row: any) => (
+                            .map((row: any, index: number) => (
                                 <TableRow style={{ cursor: 'pointer' }} onClick={() => onRowSelect && onRowSelect(row)}>
                                     {Object.values(row).map((cellData: any, idx: number) => (
                                         <>
@@ -102,9 +102,9 @@ const Table = ({
                                                 <Checkbox
                                                     label={""}
                                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                                        handleCheckboxClick(e, row["Order Id"], undefined)
+                                                        handleCheckboxClick(e, index, undefined)
                                                     }
-                                                    isChecked={selectedRows.includes(row["Order Id"])}
+                                                    isChecked={selectedRows.includes(index)}
                                                 />
                                             )}
                                             <TableCell>{cellData}</TableCell>
