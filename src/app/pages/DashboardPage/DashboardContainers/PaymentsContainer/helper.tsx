@@ -46,17 +46,41 @@ export const debitCardDetails = [
     },
 ];
 
-export const OnHoldTable = [
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'},
-    {'Invoice Date':'06/03/2021','Shipment Count':'32','Shipped by':'Paul Lennon','Invoice Amount':'$ 5,654.23','Invoice Number':'32'}
-]
+const getInvoiceIdItem = (
+    openInvoiceDrawer: (key: string, type: any) => void,
+    id: any
+  ) => {
+    return <div onClick={() => openInvoiceDrawer(id, "invoice")}>{id}</div>;
+  };
+  
+  const getOrderIdItem = (
+    openInvoiceDrawer: (key: string, type: any) => void,
+    id: any
+  ) => {
+    return <div onClick={() => openInvoiceDrawer(id, "orderDetails")}>{id}</div>;
+  };
+  
+  export const invoiceTable = (
+    searchRecordData: any,
+    openInvoiceDrawer: (key: string, type: any) => void
+  ) => {
+    let makeTableData: any = [];
+    if (searchRecordData && searchRecordData.length) {
+      searchRecordData.map((item: any) => {
+        makeTableData.push({
+        //   Source: "Uploaded",
+        //   "Invoice Id": getInvoiceIdItem(openInvoiceDrawer, item.invoiceId),
+        //   "Order Id": getOrderIdItem(openInvoiceDrawer, item.orderId),
+        //   "Order Date": item.shippingDate,
+        //   Status: item.status ? item.status : "-",
+        //   "Order Cost": "$" + item.shipmentCost,
+        "Invoice Date": item.invoiceCreatedAt,
+        "Shipment Count":  getOrderIdItem(openInvoiceDrawer, item.shipmentCount),
+            "Shipped by": item.shippedBy,
+           "Invoice Amount": `$ ${item.total}`,
+           "Invoice Number": getInvoiceIdItem(openInvoiceDrawer, item.invoiceNumber),
+        });
+      });
+    }
+    return makeTableData;
+  };

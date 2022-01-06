@@ -3,12 +3,15 @@ import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { ContainerTitle } from "app/components/Typography/Typography";
-import { OnHoldTable } from "./helper";
+import { invoiceTable } from "./helper";
 import { InvoicesWrapper, InvoiceTableTop } from "./InvoiceStyle";
 import { dots3, sliders } from "app/assets/Icons";
 import { useEffect, useState } from "react";
 import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 import { Drawer } from "app/components/Drawer";
+import AdvanceFilters from "../SearchContainer/AdvanceFilters";
+import SearchOrderDetailsDrawer from "../SearchContainer/SearchOrderDetailsDrawer";
+import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 
 const InvoicesContainer = ({ path: string }) => {
   const [showLoader, setShowLoader] = useState<boolean>(false);
@@ -80,18 +83,18 @@ const getDrawerTitle = () => {
       const res = (await getInvoiceList()) as any;
       if (!res.error) {
         const InvoiceDetails = res.response.data.data;
-        console.log("data");
-        console.log("shipmentDetailsRes", InvoiceDetails);
-        const data = InvoiceDetails.map((item) => {
-          return {
-            "Invoice Date": item.invoiceCreatedAt,
-            "Shipment Count": item.shipmentCount,
-            "Shipped by": item.shippedBy,
-            "Invoice Amount": `$ ${item.total}`,
-            "Invoice Number": item.invoiceNumber,
-          };
-        });
-        setInvoiceData(data);
+        // console.log("data");
+        // console.log("shipmentDetailsRes", InvoiceDetails);
+        // const data = InvoiceDetails.map((item) => {
+        //   return {
+        //     "Invoice Date": item.invoiceCreatedAt,
+        //     "Shipment Count": item.shipmentCount,
+        //     "Shipped by": item.shippedBy,
+        //     "Invoice Amount": `$ ${item.total}`,
+        //     "Invoice Number": item.invoiceNumber,
+        //   };
+        //});
+        setInvoiceData(InvoiceDetails);
       }
     })();
   }, []);
@@ -117,7 +120,7 @@ const getDrawerTitle = () => {
     return (
       <InvoiceTableTop>
         <p style={{ fontWeight: "bold", color: "black", fontSize: 19 }}>
-          {OnHoldTable.length} Invoices (0 Selected)
+          {invoiceTable.length} Invoices (0 Selected)
         </p>
         <div>
           <Button
@@ -150,7 +153,7 @@ const getDrawerTitle = () => {
       />
       <hr/> */}
       <Table
-        data={invoiceData}
+        data={invoiceTable(invoiceData,openInvoiceDrawer)}
         tableTop={tableTop()}
         showCheckbox
         showPagination
@@ -163,7 +166,15 @@ const getDrawerTitle = () => {
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
         actionButtons={true}
-      ></Drawer>
+      >
+        {drawerType == "invoice" ? (
+          <AddNewPaymentDrawer />
+       
+        ) : (
+          <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />
+        )}
+        
+      </Drawer>
     </ModuleContainer>
   );
 };
