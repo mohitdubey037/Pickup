@@ -124,7 +124,7 @@ export const transformPayloadToBackend = (values: any) => {
     const payload = {
         categoryId: values.categoryId,
         distance: 0,
-
+        customerReferenceNumber: values.customerRefNo,
         dropLocation: {
             latitude: 21.11704845,
             longitude: 79.04402281,
