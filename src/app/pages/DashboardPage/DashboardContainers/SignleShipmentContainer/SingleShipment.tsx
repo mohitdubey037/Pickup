@@ -22,6 +22,7 @@ import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SingleShipmentReducer";
+import { globalActions } from "store/reducers/GlobalReducer";
 
 function SingleShipment({ path: string }) {
 
@@ -47,6 +48,7 @@ function SingleShipment({ path: string }) {
 
     useEffect(() => {
         dispatch(actions.resetOrderIds());
+        dispatch(globalActions.showLoader(false));
     }, [dispatch])
 
     const formik = useFormik({
