@@ -30,38 +30,37 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                 Item#{index + 1}
             </Typography>
             <Flex direction={"column"}>
-                <Flex top={20}>
-                    <Flex flex={1}>
+                {props.hasDimensions && (
+                    <Flex top={20}>
                         <Flex flex={1}>
-                            <CustomInput
-                                name={`${formFieldName}.${formItem}.weight`}
-                                id={`${formFieldName}.${formItem}.weight`}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                error={toucherItem?.weight && errorItem?.weight}
-                                label={"Order Weight"}
-                                initValue={formItemValue.weight}
-                                value={formItemValue.weight}
-                                placeholder={"eg. 100"}
-                                validate
-                            />
+                            <Flex flex={1}>
+                                <CustomInput
+                                    name={`${formFieldName}.${formItem}.weight`}
+                                    id={`${formFieldName}.${formItem}.weight`}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    error={toucherItem?.weight && errorItem?.weight}
+                                    label={"Order Weight"}
+                                    initValue={formItemValue.weight}
+                                    value={formItemValue.weight}
+                                    placeholder={"eg. 100"}
+                                    validate
+                                />
+                            </Flex>
+                            <Flex flex={1} left={30} direction="column" style={{ alignItems: "start" }}>
+                                <Select
+                                    id={`${formFieldName}.${formItem}.weightDimension`}
+                                    name={`${formFieldName}.${formItem}.weightDimension`}
+                                    label={"Unit"}
+                                    value={Number(formItemValue.weightDimension)}
+                                    onSelect={handleChange}
+                                    options={WEIGHTDIMENSION}
+                                />
+                                {errorItem?.weightDimension && toucherItem?.weightDimension && (
+                                    <p style={{ margin: 0, color: "red" }}>{errorItem?.weightDimension}</p>
+                                )}
+                            </Flex>
                         </Flex>
-                        <Flex flex={1} left={30} direction="column" style={{ alignItems: "start"}}>
-                            <Select
-                                id={`${formFieldName}.${formItem}.weightDimension`}
-                                name={`${formFieldName}.${formItem}.weightDimension`}
-                                label={"Unit"}
-                                value={Number(formItemValue.weightDimension)}
-                                onSelect={handleChange}
-                                options={WEIGHTDIMENSION}
-                            />
-                            {errorItem?.weightDimension && toucherItem?.weightDimension && (
-                                <p style={{ margin: 0, color: "red" }}>{errorItem?.weightDimension}</p>
-                            )}
-                        </Flex>
-                    </Flex>
-
-                    {props.hasDimensions && (
                         <Flex flex={1} left={30}>
                             <Flex flex={1}>
                                 <CustomInput
@@ -113,8 +112,8 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                 />
                             </Flex>
                         </Flex>
-                    )}
-                </Flex>
+                    </Flex>
+                )}
                 <Flex top={20}>
                     <Flex flex={1}>
                         <Flex flex={1}>

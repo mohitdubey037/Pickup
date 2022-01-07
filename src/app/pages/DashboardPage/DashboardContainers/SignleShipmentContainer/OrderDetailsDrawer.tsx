@@ -86,7 +86,7 @@ function OrderDetailsDrawer({orderId, setDrawerOpen}) {
                 <Flex direction="column">
                   <LabelSpan>Customer Ref. #</LabelSpan>
                   <ContentSpan>
-                    {orderDetails.customerReferenceNumber
+                    {orderDetails?.customerReferenceNumber
                       ? orderDetails.customerReferenceNumber
                       : "-"}
                   </ContentSpan>
@@ -100,7 +100,8 @@ function OrderDetailsDrawer({orderId, setDrawerOpen}) {
                 <Flex direction="column">
                   <LabelSpan>Delivery Options</LabelSpan>
                   <ContentSpan>
-                    {orderDetails.dropOption === 10 ? "Door Drop" : "Safe Drop"}
+                    {orderDetails.dropOption === 10 ? "Door Drop" :
+                    (orderDetails.dropOption === 11 ? "Safe Drop" : "-")}
                   </ContentSpan>
                 </Flex>
                 <Flex direction="column">
@@ -113,8 +114,8 @@ function OrderDetailsDrawer({orderId, setDrawerOpen}) {
                 justifyContent="space-between"
                 style={{ margin: "18px 0" }}
               >
-                <LabelSpan>Order Description</LabelSpan>
-                <ContentSpan>{orderDetails?.description}</ContentSpan>
+                {/* <LabelSpan>Order Description</LabelSpan>
+                <ContentSpan>{orderDetails?.description}</ContentSpan> */}
                 {orderDetails?.picture ? (
                   <img
                     style={{ width: "120px", height: "100px" }}
@@ -137,15 +138,15 @@ function OrderDetailsDrawer({orderId, setDrawerOpen}) {
                     <InnerAccordion>
                     <Accordion key={i} title={`Item #${i + 1} ${item.name}`}>
                       <Flex direction="row" style={{ margin: "18px 0", width: "100%" }}>
-                        {item.weight && (
+                        {!!item.weight && item.weight !=="0"  && (
                           <Flex direction="column">
                             <LabelSpan>Weight {getLabelFromID(item.weightDimension, WEIGHTDIMENSION)}</LabelSpan>
                             <ContentSpan>{item.weight}</ContentSpan>
                           </Flex>
                         )}
-                        {item.length >= 0 &&
-                          item.width >= 0 &&
-                          item.height >= 0 && (
+                        {item.length > 0 &&
+                          item.width > 0 &&
+                          item.height > 0 && (
                             <Flex direction="column">
                               <LabelSpan>LBH {getLabelFromID(item.sizeDimension, DIMENSION2)}</LabelSpan>
                               <ContentSpan>
@@ -153,7 +154,7 @@ function OrderDetailsDrawer({orderId, setDrawerOpen}) {
                               </ContentSpan>
                             </Flex>
                           )}
-                        {item.quantity && (
+                        {!!item.quantity && (
                           <Flex direction="column">
                             <LabelSpan>Pieces</LabelSpan>
                             <ContentSpan>{item.quantity}</ContentSpan>
@@ -161,7 +162,7 @@ function OrderDetailsDrawer({orderId, setDrawerOpen}) {
                         )}
                       </Flex>
                       <Flex direction="column">
-                        {item.description && (
+                        {!!item.description && (
                           <Flex direction="column">
                             <LabelSpan>Shipment Description</LabelSpan>
                             <ContentSpan>{item.description}</ContentSpan>
