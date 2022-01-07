@@ -54,11 +54,12 @@ const SignUp = ({ navigate }: SignUpProps) => {
   const {
     handleChange,
     values,
+    touched,
     errors,
     handleBlur,
     handleSubmit,
     isValid,
-    dirty
+    validateForm
   } = useFormik({
     initialValues: { email: "" },
     validationSchema: signUpSchema,
@@ -68,6 +69,10 @@ const SignUp = ({ navigate }: SignUpProps) => {
   useEffect(() => {
     setErrorMessage('')
   },[values.email])
+
+  useEffect(() => {
+    (() => validateForm())();
+  }, []);
 
   return (
     <SignUpWrapper>
@@ -81,12 +86,12 @@ const SignUp = ({ navigate }: SignUpProps) => {
             id="email"
             name="email"
             onChange={handleChange}
-            error={ errors.email}
+            error={touched.email && errors.email}
             onBlur={handleBlur}
             autoComplete="off"
           />
           {errorMessage ? <span style={{ color: 'red' }}> {errorMessage} </span> : null}
-          <Button disabled={!(isValid && dirty)} label="Sign Up" showLoader={showLoader} onClick={handleSubmit} />
+          <Button disabled={!(isValid)} label="Sign Up" showLoader={showLoader} onClick={handleSubmit} />
           <LoginLink>
             Already have an account?{" "}
             <BlackLink

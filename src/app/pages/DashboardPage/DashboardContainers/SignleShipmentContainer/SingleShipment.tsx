@@ -60,6 +60,10 @@ function SingleShipment({ path: string }) {
     });
 
     useEffect(() => {
+        (() => formik.validateForm())();
+      }, []);
+
+    useEffect(() => {
         if(orderIds?.length > 0){
             if(formik.values?.orders?.[0]?.scheduleType === "22"){
                 redirect("holding-zone");
@@ -107,7 +111,7 @@ function SingleShipment({ path: string }) {
                 <Button
                     style={{ width: 190 }}
                     label="Confirm Order"
-                    disabled={!(formik.dirty && formik.isValid)}
+                    disabled={!(formik.isValid)}
                     onClick={formik.handleSubmit}
                     showLoader={loading}
                 />
@@ -115,7 +119,7 @@ function SingleShipment({ path: string }) {
                     style={{ width: 190, marginRight: 20 }}
                     secondary
                     label="Add New Order"
-                    disabled={!(formik.dirty && formik.isValid)}
+                    disabled={!(formik.isValid)}
                     onClick={addMoreItemHandler}
                 />
             </Flex>
