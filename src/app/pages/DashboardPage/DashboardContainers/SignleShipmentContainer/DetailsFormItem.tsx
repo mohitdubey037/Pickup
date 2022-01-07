@@ -1,6 +1,6 @@
 import { FormikValues } from "formik";
 import { Typography } from "@material-ui/core";
-import AddItemLabel from "app/components/AddItemLabel";
+
 import { Flex } from "app/components/Input/style";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
@@ -163,10 +163,6 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                         initValue={formItemValue.description}
 
                     />
-                </Flex>
-
-                <Flex top={20}>
-                    <AddItemLabel text={"Add order Picture"} />
                 </Flex>
             </Flex>
         </div>
