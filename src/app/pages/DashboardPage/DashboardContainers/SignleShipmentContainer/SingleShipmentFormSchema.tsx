@@ -54,9 +54,9 @@ export const singleShipmentFormSchema = yup.object().shape({
                     height: yup.number(),
                     length: yup.number(),
                     width: yup.number(),
-                    weight: yup.number().required("Weight is required"),
+                    weight: yup.number(),
                     sizeDimension: yup.number(),
-                    weightDimension: yup.number().required("Dimension is required"),
+                    weightDimension: yup.number(),
                     document: yup.string(),
                 })
             ),
