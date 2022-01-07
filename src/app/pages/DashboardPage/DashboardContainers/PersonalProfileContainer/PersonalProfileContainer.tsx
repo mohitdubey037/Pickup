@@ -1,17 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Drawer } from "app/components/Drawer";
 import ModuleContainer from "app/components/ModuleContainer";
 import { ContainerTitle } from "app/components/Typography/Typography";
+import { useSelector } from "react-redux";
 import PersonalProfile from "./PersonalProfile";
 import ChangePasswordForm from "./ChangePasswordForm";
 import EditPersonalDetailsForm from "./EditPersonalDetailsForm";
+import { getPersonalProfileDetails } from "services/PersonalProfileServices";
+import { AuthUser } from "types";
+import { ProfileState } from "./types";
 
 export default function PersonalProfileContainer({ path: string }) {
   const [passwordDrawerOpen, setPasswordDrawerOpen] = useState(false);
   const [editDetailsDrawerOpen, setEditDetailsDrawerOpen] = useState(false);
+  const [profileData, setProfileData] = useState<ProfileState | null>(null);
   const saveCard = () => {
     console.log("Save card called");
   };
+  const auth = useSelector((state: { auth: { user: AuthUser } }) => {
+    return state.auth;
+  });
+  const { user } = auth;
+  useEffect(() => {
+    (async () => {
+      const res = (await getPersonalProfileDetails(user?.userId)) as any;
+      console.log(res);
+      if (res.success) {
+        const profileDetails = res?.response?.data?.data;
+        console.log("profileDetailsRes", profileDetails);
+        setProfileData(profileDetails);
+      }
+    })();
+  }, []);
   return (
     <ModuleContainer>
       <ContainerTitle>Personal Profile</ContainerTitle>
@@ -26,6 +46,7 @@ export default function PersonalProfileContainer({ path: string }) {
         }}
         setPasswordDrawerOpen={setPasswordDrawerOpen}
         setEditDetailsDrawerOpen={setEditDetailsDrawerOpen}
+        profileData={profileData}
       />
       <Drawer
         open={passwordDrawerOpen}
@@ -49,6 +70,7 @@ export default function PersonalProfileContainer({ path: string }) {
         <EditPersonalDetailsForm
           setEditDetailsDrawerOpen={setEditDetailsDrawerOpen}
           saveAction={saveCard}
+          profileData={profileData}
         />
       </Drawer>
     </ModuleContainer>

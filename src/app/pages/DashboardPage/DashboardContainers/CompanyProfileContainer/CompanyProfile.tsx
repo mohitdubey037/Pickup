@@ -56,7 +56,7 @@ export default function CompanyProfile({ path: string }) {
           HSTNumber: "123 456 789",
         }}
       />
-      <PersonalProfile
+      {/* <PersonalProfile
         setPasswordDrawerOpen={setPasswordDrawerOpen}
         setEditDetailsDrawerOpen={setEditDetailsDrawerOpen}
         profile={{
@@ -67,7 +67,7 @@ export default function CompanyProfile({ path: string }) {
           role: "Manager",
           email: "johnjeo23@gmail.com",
         }}
-      />
+      /> */}
       {/* personal profile  */}
       <NewColleagueForm formik={formik} />
       <Drawer

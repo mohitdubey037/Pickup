@@ -4,6 +4,7 @@ import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 import { passwordSchema } from "./passwordSchema";
 import { Avatar } from "@material-ui/core";
+import { ProfileState } from "./types";
 
 const EditPersonalDetailsForm = ({
   title = "",
@@ -11,6 +12,7 @@ const EditPersonalDetailsForm = ({
   saveAction,
   enableSave = false,
   submitButtonLabel = "Save",
+  profileData,
 }) => {
   const {
     values,
@@ -22,15 +24,20 @@ const EditPersonalDetailsForm = ({
     setFieldValue,
   } = useFormik({
     initialValues: {
-      currentPassword: "",
-      newPassword: "",
-      newPasswordConfirmation: "",
-      saveCard: false,
+      firstName: profileData?.firstName,
+      lastName: profileData?.lastName,
+      emailId: profileData?.emailId,
+      phone: "",
+      role: "",
+      email: "",
+      permission: "",
+      saveProfile: false,
     },
     validationSchema: passwordSchema,
     onSubmit: (values) => saveAction(values),
   });
-
+  console.log(profileData);
+  console.log(values.firstName);
   return (
     <Flex direction="column" style={{ height: "100%", width: "540px" }}>
       <div>
@@ -59,10 +66,11 @@ const EditPersonalDetailsForm = ({
             id="firstName"
             name="firstName"
             onBlur={handleBlur}
+            value={values.firstName}
             onChange={handleChange}
             // error={touched.firstName && errors.firstName}
             label="First Name"
-            placeholder={"John"}
+            placeholder={profileData?.firstName}
           />
         </Flex>
         <Flex
@@ -75,9 +83,10 @@ const EditPersonalDetailsForm = ({
             name="lastName"
             onBlur={handleBlur}
             onChange={handleChange}
+            value={values.lastName}
             // error={touched.lastName && errors.lastName}
             label="Last Name"
-            placeholder={"Doe"}
+            placeholder={profileData?.lastName}
           />
         </Flex>
         <Flex
@@ -119,10 +128,11 @@ const EditPersonalDetailsForm = ({
             id="email"
             name="email"
             onBlur={handleBlur}
+            value={values.emailId}
             onChange={handleChange}
             // error={touched.email && errors.email}
             label="Email"
-            placeholder={"jonhdoe@gmail.com"}
+            placeholder={profileData?.emailId}
           />
         </Flex>
         <Flex

@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react";
 import { Paper, Avatar } from "@material-ui/core";
 import ModuleContainer from "app/components/ModuleContainer";
 import { FormContainerTitle } from "app/components/Typography/Typography";
 import EditIcon from "app/components/EditIcon";
 import { Typography } from "@material-ui/core";
-import { PersonalProfileType } from "./types";
+import { PersonalProfileType, ProfileState } from "./types";
 import { Button } from "../../../../components/Buttons";
 import { ComponentStyle } from "./styles";
 import { Block, Flex, FullCard } from "app/components/Input/style";
@@ -13,12 +14,15 @@ interface CardInterface {
   profile: PersonalProfileType;
   setPasswordDrawerOpen: (value: boolean) => void;
   setEditDetailsDrawerOpen: (value: boolean) => void;
+  profileData: ProfileState | null;
 }
 
 export default function PersonalProfile(props: CardInterface) {
   const { avatar, firstName, lastName, phoneNumber, role, email } =
     props.profile;
-  const { setPasswordDrawerOpen, setEditDetailsDrawerOpen } = props;
+  const { setPasswordDrawerOpen, setEditDetailsDrawerOpen, profileData } =
+    props;
+
   return (
     <FullCard style={{ marginLeft: 0 }}>
       <Flex direction={"column"} style={{ paddingRight: 20 }}>
@@ -38,13 +42,13 @@ export default function PersonalProfile(props: CardInterface) {
               <Block style={{ flex: 1, textAlign: "left" }}>
                 <span> First Name</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {firstName}
+                  {profileData?.firstName}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
                 <span> Last Name</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {lastName}
+                  {profileData?.lastName}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
@@ -62,7 +66,7 @@ export default function PersonalProfile(props: CardInterface) {
               <Block style={{ flex: 1, textAlign: "left" }}>
                 <span> Email Id</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {email}
+                  {profileData?.emailId}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
