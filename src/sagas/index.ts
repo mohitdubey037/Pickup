@@ -6,7 +6,7 @@ import {
   registerCompanyDetailsWatcher,
   registerPasswordWatcher,
 } from "./SignUpSagas/";
-import { submitShingleShipmentWatcher } from "./SingleShipmentSagas";
+import { submitShipmentWatcher } from "./SingleShipmentSagas";
 export default function* rootSaga() {
   yield all([
     fork(registerUserWatcher),
@@ -15,7 +15,7 @@ export default function* rootSaga() {
     fork(signInUserWatcher),
     fork(forgotPasswordWatcher),
     fork(resetPasswordWatcher),
-    fork(submitShingleShipmentWatcher),
+    fork(submitShipmentWatcher),
     fork(getAllCardWatcher),
     fork(addNewCardWatcher),
   ]);

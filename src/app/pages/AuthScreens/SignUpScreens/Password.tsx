@@ -57,12 +57,16 @@ const Password = ({ navigate }: RouteComponentProps) => {
         );
     };
 
-    const { handleChange, errors, touched, handleBlur, handleSubmit, isValid, dirty } =
+    const { handleChange, errors, touched, handleBlur, handleSubmit, isValid, validateForm } =
         useFormik({
             initialValues: { password: "", confirmPassword: "" },
             validationSchema: passwordSchema,
             onSubmit: onSubmit,
         });
+
+        useEffect(() => {
+            (() => validateForm())();
+          }, []);
 
     return (
         <SignUpWrapper>
@@ -92,7 +96,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
                         error={touched.confirmPassword && errors.confirmPassword}
                     />
                     <Button
-                        disabled={!(isValid && dirty)}
+                        disabled={!(isValid)}
                         showLoader={showLoader}
                         label="Confirm"
                         onClick={handleSubmit}

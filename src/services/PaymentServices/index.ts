@@ -27,6 +27,16 @@ export const addNewCardService = async (body: any) => {
         return {response: null, error: error};
     }
 }
+export const getInvoiceList = async ()=>{
+    try {
+        const res = await Services.get("order/business/invoices","order")
+        console.log("resdata",res)
+        return{response: res, error:null};
+    }catch(error){
+    return {response: null, error: error};
+    }
+}
+
 
 // export const updateCard = async (cardData: cardData) => {
 //     const res = await Services.post("business/forgotPassword", { emailId: cardData }, type);

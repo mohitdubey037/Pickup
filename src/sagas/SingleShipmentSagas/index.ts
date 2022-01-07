@@ -1,13 +1,32 @@
 import { call, put, takeLatest } from "redux-saga/effects";
+import { addShipmentForm } from "services/SingleShipmentServices";
+import { globalActions } from "store/reducers/GlobalReducer";
+import { showToast } from "utils";
 import { Types, actions } from "../../store/reducers/SingleShipmentReducer";
 
-// eslint-disable-next-line require-yield
-function* submitShingleShipmentWorker(action) {
-  const data={name:'amit'}
-  console.log({action})
-  yield put(actions.submitSingleShipmentResponse(data))
+function* submitShipmentWorker(action) {
+    try {
+        yield put(globalActions.showLoader(true))
 
+        const res = yield call(addShipmentForm, action.res);
+        let orderIds:any = [];
+        if(res?.response?.data?.data){
+            if(action?.res?.orders?.length === 1){
+                orderIds=[res.response.data.data]
+            }else{
+                orderIds= res.response.data.data
+            }
+        }
+        yield put(actions.setShipmentDetails(action.res));
+        yield put(actions.setShipmentOrderIds(orderIds));
+        yield put(globalActions.showLoader(false))
+
+    } catch (err: any) {
+        yield put(globalActions.showLoader(false))
+        showToast(err.message, "error");
+    }
 }
-export function* submitShingleShipmentWatcher() {
-  yield takeLatest(Types.SUBMIT_SINGLE_SHIPMENT, submitShingleShipmentWorker);
+
+export function* submitShipmentWatcher() {
+    yield takeLatest(Types.SUBMIT_SHIPMENT, submitShipmentWorker);
 }

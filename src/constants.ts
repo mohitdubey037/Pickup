@@ -14,7 +14,7 @@ export const BILLING_TYPES = [
 ];
 
 export const DROP_OPTION = [
-  { label: "Front door", value: 10},
+  { label: "Door drop", value: 10},
   { label: "Safe drop", value: 11}
 ];
 
