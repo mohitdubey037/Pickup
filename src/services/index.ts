@@ -16,7 +16,7 @@ const MODULE_URL_MAP = {
 class Service {
 
     getToken = () => {
-        //   return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM'
+        // return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM'
         return Cookies.get('token')
     }
 
@@ -24,6 +24,7 @@ class Service {
         Cookies.remove('token')
         return true
     }
+
     get = async (url: string, type: RequestType = "base") => {
         return new Promise((resolve, reject) => {
             const localToken = this.getToken()
@@ -131,6 +132,42 @@ class Service {
         });
     };
 
+    delete = async (url: string, type: RequestType = "base") => {
+        return new Promise((resolve, reject) => {
+            const localToken = this.getToken()
+            const baseUrl = MODULE_URL_MAP[type]
+
+            try {
+                axios
+                    .delete(`${baseUrl}${url}`, {
+                        headers: {
+                            Authorization: `${localToken}`
+                        }
+                    })
+                    .then((res) => {
+                        return resolve({ data: res.data, status: res.status });
+                    })
+                    .catch((err) => {
+                        console.log({ err })
+                        if (err.isAxiosError && err.response) {
+                            const errResponse = err.response;
+                            if (err.response.status === 401) {
+                                store.dispatch({ type: "LOGOUT_USER" });
+                                this.removeToken();
+                                navigate("/");
+
+                            }
+                            return reject({
+                                status: errResponse.status,
+                                message: errResponse?.data?.message || errResponse?.message,
+                            });
+                        }
+                    });
+            } catch (err) {
+                return reject(err);
+            }
+        });
+    };
 
 }
 export default new Service();

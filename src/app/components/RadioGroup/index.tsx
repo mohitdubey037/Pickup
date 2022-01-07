@@ -55,12 +55,12 @@ function RadioGroup({
             
           >
             <Flex >
-              {options?.map(({ value, label, disabled }) => (
+              {options?.map(({ value, label, disabled }, i) => (
                 <FormControlLabel
+                    key={i}
                   value={value}
                   control={<Radio disabled={disabled} />}
                   label={label}
-                  
                 />
               ))}
             </Flex>
