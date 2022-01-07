@@ -105,7 +105,7 @@ function OrderSummary({ path: string }) {
                             fontWeight: 700,
                             fontSize: '14px',
                             marginRight: "100px"
-                        }}>Total <span style={{ paddingLeft: "35px" }}>${totalCost}</span></p>
+                        }}>Total <span style={{ paddingLeft: "35px" }}>${Number(totalCost).toFixed(2)}</span></p>
                     </Flex>
 
                 </Flex>
