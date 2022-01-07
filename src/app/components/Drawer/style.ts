@@ -1,11 +1,15 @@
 import { Drawer } from "@material-ui/core";
 import styled from "styled-components";
 
-export const CustomDrawer = styled(Drawer)`
+interface CustomerDrawerProp {
+    maxWidth ?: string
+}
+
+export const CustomDrawer = styled(Drawer)<CustomerDrawerProp>`
     div.MuiDrawer-paper{
         overflow-x: hidden;
         min-width: 600px;
-        max-width: 600px;
+        max-width: ${props => props.maxWidth ?? "600px"};
     }
 `
 
