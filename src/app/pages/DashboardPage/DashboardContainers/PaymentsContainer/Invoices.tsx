@@ -173,7 +173,7 @@ const getDrawerTitle = () => {
           <AddNewPaymentDrawer />
        
         ) : (
-          <OrderDetailsDrawer setDrawerOpen={setDrawerOpen}/>
+          <OrderDetailsDrawer orderId={4150} setDrawerOpen={setDrawerOpen}/>
         )}
         
       </Drawer>
