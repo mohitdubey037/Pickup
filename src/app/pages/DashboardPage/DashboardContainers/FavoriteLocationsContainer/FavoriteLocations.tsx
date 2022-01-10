@@ -11,8 +11,17 @@ import { Button } from "app/components/Buttons";
 import ContactDetailsSidebar from "./ContactDetailsSidebar";
 import {getLocationList} from "../../../../../services/LocationServices/index"
 import { find } from "shelljs";
+import { edit,trash } from "app/assets/Icons"
 
 function FavoriteLocations(props: RouteComponentProps) {
+  const getActionItem = () => {
+    return(
+        <div style={{display:'flex', gap:'20px'}}>
+            <img src={edit} alt=''/>
+            <img src={trash} alt=''/>
+        </div>
+    )
+}
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [showLoader, setShowLoader] = useState<boolean>(false);
@@ -38,7 +47,8 @@ function FavoriteLocations(props: RouteComponentProps) {
         "Address": item.locationAddressLine1,
         "City": item.locationCity,
         "Provience/State": item.locationProvinceCode,
-        "Country":item.locationCountry
+        "Country":item.locationCountry,
+        "Action":getActionItem()
       };
     });
   }
