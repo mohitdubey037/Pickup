@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import OrderDetailPage from "./OrderDetailsPage";
 import ItemDetailsPage from "./ItemDetailsPage";
+import TrackingDetailsPage from "./TrackingDetailsPage";
 
 const styles = {
   tab: {
@@ -49,10 +50,11 @@ function SearchOrderDetailsDrawer(props: any) {
           />
         </Tabs>
         <div className="tab-content">
-          {value == "orderDetails" ? (
+          {value === "orderDetails" ? (
             <OrderDetailPage />
-          ) : (
+          ) : value === "itemDetails" ? (
             <ItemDetailsPage singleOrderData={singleOrderData} />
+          ) : (<TrackingDetailsPage singleOrderData={singleOrderData} />
           )}
         </div>
       </TabWrapper>

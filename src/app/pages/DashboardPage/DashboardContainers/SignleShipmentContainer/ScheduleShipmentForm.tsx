@@ -12,10 +12,15 @@ import RadioGroup from "app/components/RadioGroup";
 
 import { SCHEDULE_OPTIONS } from "../../../../../constants";
 
-function ScheduleShipmentForm(props: { formik: FormikValues }) {
+function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disabled ?: boolean }) {
 
-  const { handleChange, values, errors, touched, setFieldValue } = props.formik;
-  const [value, setValue] = useState<Date | null>(new Date());
+  const { formik: {handleChange, values, errors, touched, setFieldValue}, disabled } = props;
+
+  const formFieldName = `orders.${props.index}`;
+  const singleFormValues = values.orders[props.index]
+  const singleFormErrors = errors?.orders?.[props.index];
+    const singleFormTouched = touched?.orders?.[props.index];
+
   const [open, setOpen] = useState(false);
   const [openTime, setOpenTime] = useState(false);
 
@@ -23,31 +28,33 @@ function ScheduleShipmentForm(props: { formik: FormikValues }) {
     <FormWrapper>
       <Flex>
         <RadioGroup
-          id={"scheduleType"}
-          name={"scheduleType"}
-          defaultValue={values.scheduleType}
+          id={`${formFieldName}.scheduleType`}
+          name={`${formFieldName}.scheduleType`}
+          defaultValue={singleFormValues.scheduleType}
           label={"What do you want to do with the order?"}
-          options={SCHEDULE_OPTIONS}
-          error={touched.scheduleType && errors.scheduleType}
+          options={!disabled ? SCHEDULE_OPTIONS : SCHEDULE_OPTIONS.map(item => ({...item, disabled: true}))}
+          error={singleFormTouched?.scheduleType && singleFormErrors?.scheduleType}
           onChange={handleChange}
         />
       </Flex>
-      {values.scheduleType === "17" && (
+      {singleFormValues.scheduleType === "17" && (
         <Flex top={20}>
           <Flex>
-            <Flex flex={1}>
+            <Flex flex={1} direction="column" style={{ alignItems: "start"}}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label="Date"
-                  value={values.shipmentDate || undefined}
-                  onChange={(val) => setFieldValue("shipmentDate", val)}
+                  value={singleFormValues.shipmentDate || null}
+                  onChange={(val) => setFieldValue(`${formFieldName}.shipmentDate`, val)}
                   open={open}
+                  disabled={disabled}
                   onOpen={() => setOpen(true)}
                   onClose={() => setOpen(false)}
                   disablePast
                   renderInput={(params) => (
                     <TextField
                       label="Date"
+                      disabled={disabled}
                       placeholder={"e.g 06/06/2021"}
                       {...params}
                       onClick={(e) => setOpen(true)}
@@ -56,27 +63,35 @@ function ScheduleShipmentForm(props: { formik: FormikValues }) {
                   )}
                 />
               </LocalizationProvider>
+              {singleFormErrors?.shipmentDate && singleFormTouched?.shipmentDate && (
+                    <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.shipmentDate}</p>
+                )}
             </Flex>
-            <Flex left={30} flex={1}>
+            <Flex left={30} flex={1} direction="column" style={{ alignItems: "start"}}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <TimePicker
                   label="Time"
-                  value={values.shipmentTime || undefined}
-                  onChange={(val) => setFieldValue("shipmentTime", val)}
+                  value={singleFormValues.shipmentTime || null}
+                  onChange={(val) => setFieldValue(`${formFieldName}.shipmentTime`, val)}
                   open={openTime}
+                  disabled={disabled}
                   onOpen={() => setOpenTime(true)}
                   onClose={() => setOpenTime(false)}
                   renderInput={(params) => (
                     <TextField
                       placeholder={"e.g 12:32"}
+                      disabled={disabled}
                       {...params}
                       onClick={(e) => setOpenTime(true)}
                       defaultValue={""}
-                      error={touched.shipmentTime && errors.shipmentTime}
+                      error={touched?.[`${formFieldName}.shipmentTime`] && errors?.[`${formFieldName}.shipmentTime`]}
                     />
                   )}
                 />
               </LocalizationProvider>
+              {singleFormErrors?.shipmentTime && singleFormTouched?.shipmentTime && (
+                    <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.shipmentDate}</p>
+                )}
             </Flex>
           </Flex>
         <Flex flex={1}></Flex>

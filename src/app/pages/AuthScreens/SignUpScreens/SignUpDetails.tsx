@@ -68,12 +68,16 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
         handleSubmit,
         setFieldValue,
         isValid,
-        dirty
+        validateForm
     } = useFormik({
         initialValues: { firstName: '', lastName: '', companyName: '', phoneNumber: '', consent: false },
         validationSchema: companyDetailsSchema,
         onSubmit: onSignUp,
     });
+
+    useEffect(() => {
+        (() => validateForm())();
+      }, []);
 
     return (
         <SignUpWrapper>
@@ -141,7 +145,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                 />
                                 <span>I agree to the <a href="#" target="_blank">Terms</a> and <a href="#" target="_blank">Policies</a></span>
                             </Flex>
-                            <Button label="Next" disabled={!(isValid && dirty)} showLoader={showLoader} onClick={handleSubmit} />
+                            <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} />
                         </Grid>
                     </FormContent>
                 </form>

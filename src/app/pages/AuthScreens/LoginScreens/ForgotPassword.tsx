@@ -37,7 +37,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
         )
     };
 
-    const { handleChange, errors, values, touched, handleBlur, handleSubmit, isValid, dirty } =
+    const { handleChange, errors, values, touched, handleBlur, handleSubmit, isValid, validateForm } =
         useFormik({
             initialValues: { email: "" },
             validationSchema: ForgotPasswordSchema,
@@ -49,6 +49,10 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
             dispatch(actions.forgetPasswordResponse({}));
         };
     }, [dispatch])
+
+    useEffect(() => {
+        (() => validateForm())();
+      }, []);
 
     useEffect(() => {
         if (forgetPasswordResponse?.status === 200) {
@@ -78,7 +82,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                     <Button
                         showLoader={showLoader}
                         label="Recover Password"
-                        disabled={!(isValid && dirty)}
+                        disabled={!(isValid)}
                         onClick={() => handleSubmit()}
                     />
                 </FormContent>

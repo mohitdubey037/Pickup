@@ -5,8 +5,8 @@ import { Illustration } from "../../../../assets/Images/index"
 function AddNewPaymentDrawer() {
     return (
         <div style={{ width: 540 }}>
-            <img style={{ position: "absolute", paddingLeft: 200 }} className="imageStyle" src={Illustration} alt="" />
-            <Typography style={{ fontWeight: 700, paddingTop: 155, paddingLeft: 200 }}>Paid Sucessfully</Typography>
+            <img style={{ paddingLeft: 200 }} className="imageStyle" src={Illustration} alt="" />
+            <Typography style={{ fontWeight: 700, paddingTop: 15, paddingLeft: 200 }}>Paid Sucessfully</Typography>
             <Typography style={{ textAlign: "center", display: 'flex', fontWeight: 400 }}> Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor vel. Integer a ornare nisi.</Typography>
             <hr />
             <div style={{ paddingTop: 20, justifyContent: "space-between" }}>

@@ -45,8 +45,14 @@ import selectedCardCheck from './selectedCardCheck.svg'
 import trash from './trash.svg'
 import Delete from "./Delete.svg";
 import checkSquare from "./checkSquare.svg"
+import ShareIcon from "./ShareIcon.svg";
+import StepperCircleIcon from "./StepperCircleIcon.svg";
+import YellowTick from "./YellowTick.svg";
+import calendar from "./calendar.svg"
+
 export {
     analytics,
+    calendar,
     clock,
     congrats,
     creditCard,
@@ -78,7 +84,7 @@ export {
     scotiaBank,
     email,
     cross,
-     dots3,
+    dots3,
     imageIcon,
     printer,
     sliders,
@@ -92,5 +98,8 @@ export {
     Delete,
     checkSquare,
     trash,
-    edit
+    edit,
+    ShareIcon,
+    StepperCircleIcon,
+    YellowTick
 };

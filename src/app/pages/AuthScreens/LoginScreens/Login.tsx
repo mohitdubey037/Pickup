@@ -72,7 +72,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
     handleBlur,
     handleSubmit,
     isValid,
-    dirty,
+    validateForm,
   } = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: loginSchema,
@@ -82,6 +82,10 @@ const Login = ({ navigate }: RouteComponentProps) => {
   useEffect(() => {
     setErrorMessage('')
   },[values])
+
+  useEffect(() => {
+    (() => validateForm())();
+  }, []);
 
   return (
     <LoginWrapper>
@@ -118,7 +122,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
             showLoader={showLoader}
             label="Sign In"
             onClick={handleSubmit}
-            disabled={!(isValid && dirty)}
+            disabled={!(isValid)}
           />
           <LoginLink>
             Don't have an account?{" "}

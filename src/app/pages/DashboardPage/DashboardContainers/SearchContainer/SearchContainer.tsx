@@ -58,7 +58,8 @@ const SearchContainer = ({ path: string }) => {
       .then((response) => response.json())
       .then((resData) => {
         let data = resData.data;
-        // console.log("getSingleOrderData", data, resData);
+
+        console.log("getSingleOrderData", data, resData);
         setSingleOrderData(data);
         setSelectedInvoiceId(id);
         setDrawerType("orderDetails");
@@ -151,6 +152,7 @@ const SearchContainer = ({ path: string }) => {
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
         actionButtons={true}
+        maxWidth={"75%"}
       >
         {drawerType == "invoice" ? (
           <AddNewPaymentDrawer />

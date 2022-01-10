@@ -10,6 +10,7 @@ import { CustomLabel, ErrorLabel, Flex } from "../Input/style";
 interface RadioOptionItem {
   value: number | string;
   label: string;
+  disabled ?: boolean;
 }
 
 interface RadioGroupProps {
@@ -51,14 +52,15 @@ function RadioGroup({
             name={name}
             onChange={onChange}
             value={value}
+            
           >
             <Flex >
-              {options?.map(({ value, label }) => (
+              {options?.map(({ value, label, disabled }, i) => (
                 <FormControlLabel
+                    key={i}
                   value={value}
-                  control={<Radio />}
+                  control={<Radio disabled={disabled} />}
                   label={label}
-                  
                 />
               ))}
             </Flex>

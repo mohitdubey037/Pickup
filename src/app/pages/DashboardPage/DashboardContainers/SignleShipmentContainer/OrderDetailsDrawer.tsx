@@ -21,16 +21,15 @@ interface orderDetails {
   picture?: string;
 }
 
-function OrderDetailsDrawer(props) {
+function OrderDetailsDrawer({orderId, setDrawerOpen}) {
   const [orderDetails, setOrderDetails] = useState<orderDetails>({});
   const [isFragile, setIsFragile] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const { orderId } = useParams();
 
   useEffect(() => {
     (async () => {
       setShowLoader(true);
-      const { response } = await getOrderDetails(orderId);
+      const { response } = await getOrderDetails(orderId ? orderId : orderId);
       console.log("response", response);
       if (response) {
         setOrderDetails(response.data.data);
@@ -38,10 +37,10 @@ function OrderDetailsDrawer(props) {
       } else {
         setShowLoader(false);
         showToast("Could not get the data, Please try again!", "error");
-        props.setDrawerOpen(false);
+        setDrawerOpen(false);
       }
     })();
-  }, [orderId, props]);
+  }, [orderId]);
 
   useEffect(() => {
     const fragile = orderDetails?.items?.filter((item) => {
@@ -87,7 +86,7 @@ function OrderDetailsDrawer(props) {
                 <Flex direction="column">
                   <LabelSpan>Customer Ref. #</LabelSpan>
                   <ContentSpan>
-                    {orderDetails.customerReferenceNumber
+                    {orderDetails?.customerReferenceNumber
                       ? orderDetails.customerReferenceNumber
                       : "-"}
                   </ContentSpan>
@@ -101,7 +100,8 @@ function OrderDetailsDrawer(props) {
                 <Flex direction="column">
                   <LabelSpan>Delivery Options</LabelSpan>
                   <ContentSpan>
-                    {orderDetails.dropOption === 10 ? "Door Drop" : "Safe Drop"}
+                    {orderDetails.dropOption === 10 ? "Door Drop" :
+                    (orderDetails.dropOption === 11 ? "Safe Drop" : "-")}
                   </ContentSpan>
                 </Flex>
                 <Flex direction="column">
@@ -114,8 +114,8 @@ function OrderDetailsDrawer(props) {
                 justifyContent="space-between"
                 style={{ margin: "18px 0" }}
               >
-                <LabelSpan>Order Description</LabelSpan>
-                <ContentSpan>{orderDetails?.description}</ContentSpan>
+                {/* <LabelSpan>Order Description</LabelSpan>
+                <ContentSpan>{orderDetails?.description}</ContentSpan> */}
                 {orderDetails?.picture ? (
                   <img
                     style={{ width: "120px", height: "100px" }}
@@ -138,15 +138,15 @@ function OrderDetailsDrawer(props) {
                     <InnerAccordion>
                     <Accordion key={i} title={`Item #${i + 1} ${item.name}`}>
                       <Flex direction="row" style={{ margin: "18px 0", width: "100%" }}>
-                        {item.weight && (
+                        {!!item.weight && item.weight !=="0"  && (
                           <Flex direction="column">
                             <LabelSpan>Weight {getLabelFromID(item.weightDimension, WEIGHTDIMENSION)}</LabelSpan>
                             <ContentSpan>{item.weight}</ContentSpan>
                           </Flex>
                         )}
-                        {item.length >= 0 &&
-                          item.width >= 0 &&
-                          item.height >= 0 && (
+                        {item.length > 0 &&
+                          item.width > 0 &&
+                          item.height > 0 && (
                             <Flex direction="column">
                               <LabelSpan>LBH {getLabelFromID(item.sizeDimension, DIMENSION2)}</LabelSpan>
                               <ContentSpan>
@@ -154,7 +154,7 @@ function OrderDetailsDrawer(props) {
                               </ContentSpan>
                             </Flex>
                           )}
-                        {item.quantity && (
+                        {!!item.quantity && (
                           <Flex direction="column">
                             <LabelSpan>Pieces</LabelSpan>
                             <ContentSpan>{item.quantity}</ContentSpan>
@@ -162,7 +162,7 @@ function OrderDetailsDrawer(props) {
                         )}
                       </Flex>
                       <Flex direction="column">
-                        {item.description && (
+                        {!!item.description && (
                           <Flex direction="column">
                             <LabelSpan>Shipment Description</LabelSpan>
                             <ContentSpan>{item.description}</ContentSpan>

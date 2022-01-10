@@ -18,6 +18,7 @@ interface DrawerProps {
   actionButtonText?: string;
   cancelButtonType?: string;
   actionButtonType?: string;
+  maxWidth ?: string;
 }
 
 export default function Drawer({
@@ -27,12 +28,14 @@ export default function Drawer({
   title,
   children,
   actionButtons,
+  maxWidth
 }: DrawerProps) {
   return (
     <div>
       <CustomDrawer
         open={open}
         anchor={"right"}
+        maxWidth={maxWidth}
         onClose={() => setDrawerOpen(false)}
       >
         <DrawerTitleDiv>
