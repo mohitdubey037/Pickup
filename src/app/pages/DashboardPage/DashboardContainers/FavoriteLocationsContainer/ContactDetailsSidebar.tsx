@@ -3,18 +3,20 @@ import React from "react";
 interface ContactDetailsSidebarProps {
   contactInfo: any;
 }
-function ContactDetailsSidebar(props: ContactDetailsSidebarProps) {
+function ContactDetailsSidebar(props: any) {
+  let {locationdata}= props;
   console.log(props.contactInfo);
+  console.log(locationdata,"location")
   return (
     <Flex direction={"column"} style={{ width: 500, marginLeft: 20 }}>
       <Flex>
         <Block style={{ flex: 1 }}>
           <div>Company Name</div>
-          <b>Torinit</b>
+          <b>{locationdata.companyName}</b>
         </Block>
         <Block style={{ flex: 1 }}>
           <div>First Name</div>
-          <b>John</b>
+          <b>{locationdata.locationFirstName}</b>
         </Block>
         <Block style={{ flex: 1 }}>
           <div>Last Name</div>

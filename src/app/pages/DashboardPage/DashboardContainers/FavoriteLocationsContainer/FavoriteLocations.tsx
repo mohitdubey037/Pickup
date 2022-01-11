@@ -14,16 +14,17 @@ import { find } from "shelljs";
 import { edit,trash } from "app/assets/Icons"
 
 function FavoriteLocations(props: RouteComponentProps) {
-  const getActionItem = () => {
+  const getActionItem = (item) => {
     return(
         <div style={{display:'flex', gap:'20px'}}>
-            <img src={edit} alt=''/>
-            <img src={trash} alt=''/>
+            <img src={edit} alt='' onClick={()=>{console.log(item)}}/>
+            <img src={trash} alt='' onClick={()=>{console.log("deleted")}}/>
         </div>
     )
 }
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [LocationData, setLocationData] = useState<any[]>([]);
   useEffect(() => {
@@ -31,14 +32,17 @@ function FavoriteLocations(props: RouteComponentProps) {
       const res = (await getLocationList()) as any;
       if (!res.error) {
         const LocationDetails = res.response.data.data;
-        console.log("data");
+        console.log("data",LocationDetails);
         console.log("shipmentDetailsRes", LocationDetails);
         
         setLocationData(LocationDetails);
       }
     })();
   }, []);
-  const getTableData=()=>{
+  const getTableData=(
+    
+    
+  )=>{
     return LocationData.map((item) => {
       return {
         "Client": `${item.locationFirstName} ${item.locationLastName}`,
@@ -48,10 +52,12 @@ function FavoriteLocations(props: RouteComponentProps) {
         "City": item.locationCity,
         "Provience/State": item.locationProvinceCode,
         "Country":item.locationCountry,
-        "Action":getActionItem()
+        "Action":getActionItem(item)
       };
     });
   }
+  const onRowSelect={}
+  
   const tableTop = () => {
     
     return (
@@ -101,7 +107,8 @@ function FavoriteLocations(props: RouteComponentProps) {
         actionButtonText="Edit"
         cancelButtonType="secondary"
       >
-        <ContactDetailsSidebar contactInfo={selectedRow} />
+        <ContactDetailsSidebar contactInfo={selectedRow} locationdata={LocationData} />
+     
       </Drawer>
     </>
   );
