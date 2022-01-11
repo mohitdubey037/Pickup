@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Typography } from "@material-ui/core";
 import { creditCardDetails, debitCardDetails } from "./helper";
 import { Flex } from '../../../../components/Input/style'
 import { Drawer } from "app/components/Drawer";
 import AddCardForm from "./AddCardForm";
-import { addInsuranceService, addNewCardService, getInsuranceService, removeInsuranceService } from "services/PaymentServices";
+import { addInsuranceService, addNewCardService, getInsuranceService, getUserCardsService, removeInsuranceService } from "services/PaymentServices";
 import InvoiceDetails from "./InvoiceDetails";
 import CreditDebitCardHolder from "./CreditDebitCardHolder";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
+import { navigate } from "@reach/router";
 
 interface InvoiceDataType {
     insuranceAmount: number;
@@ -18,9 +19,16 @@ interface InvoiceDataType {
     total: number;
 }
 
-function ShipmentSummary({ path: string }) {
+// eslint-disable-next-line unused-imports/no-unused-vars
+function ShipmentSummary({ path }: { path: string }) {
 
     const dispatch = useDispatch()
+
+    const invoiceId = useSelector(
+        (state: {
+            singleShipment: { invoiceId };
+        }) => state.singleShipment.invoiceId
+    );
 
     const [selectedCard, setSelectedCard] = useState({})
     const [invoiceData, setInvoiceData] = useState<InvoiceDataType>({
@@ -31,29 +39,41 @@ function ShipmentSummary({ path: string }) {
     })
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
 
+    const redirectBack = () => {
+        navigate?.("/dashboard/charter-shipment/single-shipment");
+    }
+
     useEffect(() => {
         (async () => {
-            const res: {response:any, error:any} = await getInsuranceService("182")
+            if(!invoiceId){
+                redirectBack();
+                return
+            }
+            const res: {response:any, error:any} = await getInsuranceService(invoiceId)
             if(!res.error){
                 setInvoiceData(res.response.data.data)
             }
         })()
-    }, [])
+    }, [invoiceId])
+
+    const onGetDataCallback = useCallback(() => {
+        dispatch(
+            actions.getCards()
+        );
+    }, [dispatch])
 
     useEffect(() => {
-        onGetData()
-    },[])
+        onGetDataCallback()
+    },[onGetDataCallback])
 
     const insuranceHandler = async (event) => {
         if(event.target.checked){
-            // const res = await addInsuranceHandler(orderId)
-            const res: {response:any, error:any} = await addInsuranceService("182")
+            const res: {response:any, error:any} = await addInsuranceService(invoiceId)
             if(!res.error){
                 setInvoiceData(res.response.data.data)
             }
         }else{
-            // const res = await removeInsuranceHandler(orderId)
-            const res: {response:any, error:any} = await removeInsuranceService("182")
+            const res: {response:any, error:any} = await removeInsuranceService(invoiceId)
             if(!res.error){
                 setInvoiceData(res.response.data.data)
             }
@@ -61,17 +81,18 @@ function ShipmentSummary({ path: string }) {
     }
 
     const addNewCardHandler = async (values) => {
-        const res: {response:any, error:any} = await addNewCardService(values);
+        const body = {
+            "name": values.nameOnCard,
+            "number": values.cardNumber,
+            "expiry_month": values.expiryDate.split("/")[0],
+            "expiry_year": values.expiryDate.split("/")[1],
+            "cvd": values.cvc
+        }
+        const res: {response:any, error:any} = await addNewCardService(body);
         if(!res.error){
             console.log("Res", res.response)
         }
     }
-
-    const onGetData = () => {
-        dispatch(
-            actions.getCards()
-        );
-    };
 
     return (
         <ModuleContainer>
