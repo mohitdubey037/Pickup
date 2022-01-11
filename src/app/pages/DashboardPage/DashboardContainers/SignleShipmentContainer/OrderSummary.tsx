@@ -3,7 +3,6 @@ import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { ContainerTitle } from "app/components/Typography/Typography";
 import React, { useState, useEffect } from "react";
-import OrderHoldingComponent from "./OrderHoldingComponent";
 // import { rows, columns } from "./OrderSummaryHelper";
 import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
@@ -13,7 +12,7 @@ import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments";
 
 // import { DataGrid } from "@mui/x-data-grid";
 
-import { navigate, useParams } from "@reach/router";
+import { navigate } from "@reach/router";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +42,7 @@ function OrderSummary({ path: string }) {
         (async () => {
             if(orderIds?.length <= 0){
                 redirectBack();
+                return
             }
             const res = (await getShipmentDetails(orderIds)) as any;
             if (res.success) {
@@ -50,11 +50,12 @@ function OrderSummary({ path: string }) {
                 
                 const data = shipmentDetails.shipmentSummary;
                 const totalCost = data.reduce((acc, curr) => acc+curr.total, 0)
+                dispatch(actions.setInvoice(shipmentDetails.invoiceId))
                 setTotalCost(totalCost);
                 setOrderSummaryData(data)
             }
         })()
-    }, [orderIds]);
+    }, [orderIds, dispatch]);
 
     const onBackHandler = () => {
         dispatch(actions.resetOrderIds());
