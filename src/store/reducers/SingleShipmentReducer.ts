@@ -10,6 +10,7 @@ const { Types, Creators } = createActions({
 
     submitShipment: ["res"],
     setShipmentOrderIds: ["response"],
+    setInvoice: ["response"],
     resetOrderIds: []
 });
 
@@ -23,6 +24,11 @@ const setShipmentOrderIds = (state = initialState, action) => ({
     orderIds: action.response 
 });
 
+const setInvoiceId = (state=initialState, action) => ({
+    ...state,
+    invoiceId: action.response
+})
+
 const resetOrderIds = (state = initialState, action) => ({ 
     ...state, 
     orderIds: [] 
@@ -31,6 +37,7 @@ const resetOrderIds = (state = initialState, action) => ({
 const HANDLERS = {
     [Types.SET_SHIPMENT_DETAILS]: onSetShipmentDetails,
     [Types.SET_SHIPMENT_ORDER_IDS]: setShipmentOrderIds,
+    [Types.SET_INVOICE]: setInvoiceId,
     [Types.RESET_ORDER_IDS]: resetOrderIds,
 };
 

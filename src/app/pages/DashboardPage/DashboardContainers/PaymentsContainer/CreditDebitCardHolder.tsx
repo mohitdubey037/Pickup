@@ -16,7 +16,7 @@ const CreditDebitCardHolder = ({ debitCardDetails, creditCardDetails, selectedCa
             <Accordion style={{ border: "1px solid #C4C4C4", marginBottom: "20px", borderRadius: "8px" }} title={getTitle("Card Card", creditCardDetails)}>
                 <PaymentCardList cards={creditCardDetails} selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
             </Accordion>
-            <Accordion style={{ border: "1px solid #C4C4C4", marginBottom: "20px", borderRadius: "8px" }} title={getTitle("Card Card", debitCardDetails)}>
+            <Accordion style={{ border: "1px solid #C4C4C4", marginBottom: "20px", borderRadius: "8px" }} title={getTitle("Debit Card", debitCardDetails)}>
                 <PaymentCardList cards={debitCardDetails} selectedCard={selectedCard}  setSelectedCard={setSelectedCard}/>
             </Accordion> 
         </div>
