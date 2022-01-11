@@ -81,7 +81,14 @@ function ShipmentSummary({ path }: { path: string }) {
     }
 
     const addNewCardHandler = async (values) => {
-        const res: {response:any, error:any} = await addNewCardService(values);
+        const body = {
+            "name": values.nameOnCard,
+            "number": values.cardNumber,
+            "expiry_month": values.expiryDate.split("/")[0],
+            "expiry_year": values.expiryDate.split("/")[1],
+            "cvd": values.cvc
+        }
+        const res: {response:any, error:any} = await addNewCardService(body);
         if(!res.error){
             console.log("Res", res.response)
         }
