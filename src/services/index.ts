@@ -62,7 +62,7 @@ class Service {
         });
     };
 
-    post = (url: string, params: {}, type: RequestType = "base", token: string = '') => {
+    post = (url: string, params: {}, type: RequestType = "base", token: string = '', header={}) => {
         return new Promise((resolve, reject) => {
             const localToken = this.getToken()
             const baseUrl = MODULE_URL_MAP[type]
@@ -71,7 +71,8 @@ class Service {
                 axios
                     .post(`${baseUrl}${url}`, { ...params }, {
                         headers: {
-                            Authorization: `${token ? 'Bearer ' + token : localToken}`
+                            Authorization: `${token ? 'Bearer ' + token : localToken}`,
+                            ...header
                         }
 
                     })
