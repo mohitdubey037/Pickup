@@ -1,16 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Typography } from "@material-ui/core";
-import { creditCardDetails, debitCardDetails } from "./helper";
 import { Flex } from '../../../../components/Input/style'
 import { Drawer } from "app/components/Drawer";
 import AddCardForm from "./AddCardForm";
-import { addInsuranceService, addNewCardService, getInsuranceService, getUserCardsService, removeInsuranceService } from "services/PaymentServices";
+import { addInsuranceService, addNewCardService, confirmPaymentInDrawer, confirmPaymentService, getInsuranceService, removeInsuranceService } from "services/PaymentServices";
 import InvoiceDetails from "./InvoiceDetails";
 import CreditDebitCardHolder from "./CreditDebitCardHolder";
+import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
-import { navigate } from "@reach/router";
+import { Button } from "app/components/Buttons";
+import { showToast } from "utils";
+
+import { CardType } from "../../../../../types"
 
 interface InvoiceDataType {
     insuranceAmount: number;
@@ -29,8 +32,25 @@ function ShipmentSummary({ path }: { path: string }) {
             singleShipment: { invoiceId };
         }) => state.singleShipment.invoiceId
     );
+    
+    const paymentCards = useSelector(
+        (state: {
+            paymentCard: { paymentCardsData };
+        }) => state.paymentCard.paymentCardsData
+    );
+    
+    const addNewCardResponse = useSelector(
+        (state: {
+            paymentCard: { addNewCardResponse };
+        }) => state.paymentCard.addNewCardResponse
+    );
 
-    const [selectedCard, setSelectedCard] = useState({})
+    const loading = useSelector((
+        state: { globalState: { showLoader } }) => {
+        return state.globalState.showLoader;
+    });
+
+    const [selectedCard, setSelectedCard] = useState<CardType>({})
     const [invoiceData, setInvoiceData] = useState<InvoiceDataType>({
         insuranceAmount: 0,
         taxesOfAllShipments: 0,
@@ -56,15 +76,15 @@ function ShipmentSummary({ path }: { path: string }) {
         })()
     }, [invoiceId])
 
-    const onGetDataCallback = useCallback(() => {
-        dispatch(
-            actions.getCards()
-        );
-    }, [dispatch])
-
     useEffect(() => {
-        onGetDataCallback()
-    },[onGetDataCallback])
+        console.log("addNewCardResponse", addNewCardResponse)
+    }, [addNewCardResponse])
+    
+    useEffect(() => {
+        return () => {
+            dispatch(actions.addNewCardResponse(null))
+        }
+    }, [dispatch])
 
     const insuranceHandler = async (event) => {
         if(event.target.checked){
@@ -88,11 +108,45 @@ function ShipmentSummary({ path }: { path: string }) {
             "expiry_year": values.expiryDate.split("/")[1],
             "cvd": values.cvc
         }
-        const res: {response:any, error:any} = await addNewCardService(body);
-        if(!res.error){
-            console.log("Res", res.response)
+        if(values.saveCard){
+            dispatch(actions.addNewCard(body));
         }
-    }
+
+        const data = {
+            amount: invoiceData.subTotalOfAllShipments,
+            body: {
+                name: values.nameOnCard,
+                number: values.cardNumber,
+                expiryMonth: values.expiryDate.split("/")[0],
+                expiryYear: values.expiryDate.split("/")[1],
+                cvd: values.cvc,
+                complete: true,
+            }
+        }
+
+        const res: { response: any, error: any } = await confirmPaymentInDrawer(data);
+        // if(!res.error){
+            console.log("Res", res)
+        // }
+    };
+
+    const paymentHandler = async () => {
+        if(Object.keys(selectedCard).length === 0){
+            showToast("Please select a card or add one", "error")
+            return false
+        }
+        const data = {
+            profileId : paymentCards.customer_code,
+            cardId : selectedCard.card_id,
+            amount : invoiceData.subTotalOfAllShipments,
+        }
+        const res: { response: any, error: any } = await confirmPaymentService(data, invoiceId);
+        console.log("res", res)
+    };
+
+    const onBackHandler = () => {
+
+    };
 
     return (
         <ModuleContainer>
@@ -132,11 +186,27 @@ function ShipmentSummary({ path }: { path: string }) {
             </Flex>
             
             <CreditDebitCardHolder
-                debitCardDetails={debitCardDetails}
-                creditCardDetails={creditCardDetails}
+                // debitCardDetails={paymentCards?.card}
+                creditCardDetails={paymentCards?.card}
                 selectedCard={selectedCard}
                 setSelectedCard={setSelectedCard}
             />
+
+            <Flex justifyContent="flex-end">
+                <Button
+                    style={{ width: 190, marginRight: 20 }}
+                    secondary
+                    label="Back"
+                    onClick={onBackHandler}
+                />
+                <Button
+                    style={{ width: 190 }}
+                    label="Confirm Payment"
+                    // disabled={!(isValid)}
+                    onClick={paymentHandler}
+                    showLoader={loading}
+                />
+            </Flex>
 
             <Drawer
                 open={showDrawer}

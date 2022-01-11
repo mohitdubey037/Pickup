@@ -27,6 +27,7 @@ export const addNewCardService = async (body: any) => {
         return {response: null, error: error};
     }
 }
+
 export const getInvoiceList = async ()=>{
     try {
         const res = await Services.get("order/business/invoices","order")
@@ -56,6 +57,19 @@ export const confirmPaymentService = async (body: any, invoiceId: number) => {
     }catch(error){
         return {response: null, error: error};
     }
+};
+
+export const confirmPaymentInDrawer = async (body: any) => {
+    try {
+        const header = {
+            payment_gateway: "bambora"
+        }
+        const res = await Services.post(`/api/payments`, body, "payment", "",  header )
+        return {response: res, error: null};
+
+    }catch(error){
+        return {response: null, error: error};
+    }
 }
 
 export const getInsuranceService = async (invoiceId: string) => {
@@ -65,7 +79,7 @@ export const getInsuranceService = async (invoiceId: string) => {
     } catch (error) {
         return {response: null, error: error};
     }
-}
+};
 
 export const addInsuranceService = async (invoiceId: string) => {
     try {
@@ -74,7 +88,7 @@ export const addInsuranceService = async (invoiceId: string) => {
     } catch (error) {
         return {response: null, error: error};
     }
-}
+};
 
 export const removeInsuranceService = async (invoiceId: string) => {
     try {
@@ -83,4 +97,4 @@ export const removeInsuranceService = async (invoiceId: string) => {
     } catch (error) {
         return {response: null, error: error};
     }
-}
+};
