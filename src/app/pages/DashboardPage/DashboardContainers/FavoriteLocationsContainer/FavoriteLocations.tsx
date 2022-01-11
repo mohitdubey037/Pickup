@@ -1,72 +1,143 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Flex } from "app/components/Input/style";
-import Select from "app/components/Select";
+
 import { Drawer } from "app/components/Drawer";
 import { SearchTableTop } from "../SearchContainer/style";
 import { Table } from "app/components/Table";
-import { searchTable } from "./helper";
+
 import { Button } from "app/components/Buttons";
 import ContactDetailsSidebar from "./ContactDetailsSidebar";
+import { getLocationList } from "../../../../../services/LocationServices/index"
+
+import { edit, trash } from "app/assets/Icons"
+import EditContactDetails from "./EditContactDetails";
+import services from "services";
 
 function FavoriteLocations(props: RouteComponentProps) {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedRow, setSelectedRow] = useState(null);
+    
+    const [showDetailDrawer, setShowDetailDrawer] = useState(false);
+    const [showEditDrawer, setShowEditDrawer] = useState(false);
 
-  const tableTop = () => {
+    const [selectedRow, setSelectedRow] = useState(null);
+
+    const [locationData, setLocationData] = useState<any[]>([]);
+    useEffect(() => {
+        (async () => {
+            const res = (await getLocationList()) as any;
+            if (!res.error) {
+                const LocationDetails = res.response.data.data;
+                console.log("data", LocationDetails);
+                console.log("shipmentDetailsRes", LocationDetails);
+
+                setLocationData(LocationDetails);
+            }
+        })();
+    }, []);
+
+    const drawerCloseHandler = (flag) => {
+        setSelectedRow(null);
+        setShowDetailDrawer(flag);
+        setShowEditDrawer(flag);
+    }
+
+    const editClickHandler = (item: any) => {
+        setShowEditDrawer(true);
+        setSelectedRow(item);
+    }
+
+    const deleteClickHandler = async(item: any) => {
+        const res = await services.delete(`location/business/location/${item.locationId}`, 'location');
+        console.log("updateRes", res);
+    }
+
+    const getActionItem = (item) => {
+        return (
+            <div style={{ display: 'flex', gap: '20px' }} onClick={(e) => {e.preventDefault(); e.stopPropagation();}}>
+                <img src={edit} alt='' onClick={() => editClickHandler(item)} onKeyPress={(e) => e.key === "ENTER" && editClickHandler(item)} />
+                <img src={trash} alt='' onClick={() => deleteClickHandler(item)} onKeyPress={(e) => e.key === "ENTER" && deleteClickHandler(item)} />
+            </div>
+        )
+    }
+
+    const getTableData = () => {
+        return locationData.map((item) => {
+            return {
+                "Client": `${item.locationFirstName} ${item.locationLastName}`,
+                "Email": item.locationEmail,
+                "Date": item.createdDate,
+                "Address": item.locationAddressLine1,
+                "City": item.locationCity,
+                "Provience/State": item.locationProvinceCode,
+                "Country": item.locationCountry,
+                "Action": getActionItem(item)
+            };
+        });
+    }
+
+    const rowSelectHandler = (_, index) => {
+        const detail = locationData[index];
+        if(detail){
+            setSelectedRow(detail);
+            setShowDetailDrawer(true);
+        }
+    }
+
+    const tableTop = () => {
+        return (
+            <SearchTableTop>
+                <Flex style={{ alignItems: "center" }}>
+                    <p style={{ flex: 1, textAlign: "start" }}>
+                        {locationData.length} Shipments
+                    </p>
+                    <Button
+                        secondary={true}
+                        label="Import from CSV"
+                        onClick={() => { }}
+                        style={{ width: 150 }}
+                    />
+                </Flex>
+            </SearchTableTop>
+        );
+    };
+
     return (
-      <SearchTableTop>
-        <Flex style={{ alignItems: "center" }}>
-          <p style={{ flex: 1, textAlign: "start" }}>
-            {searchTable.length} Shipments
-          </p>
-          <Button
-            secondary={true}
-            label="Import from CSV"
-            onClick={() => {}}
-            style={{ width: 150 }}
-          />
-        </Flex>
-      </SearchTableTop>
-    );
-  };
+        <>
+            <ModuleContainer>
 
-  return (
-    <>
-      <ModuleContainer>
-        <Flex direction={"row-reverse"}>
-          <Select value={"Last 7 days"}  label={""} style={{ color:"black",backgroundColor: "white", width: 100  }} />
-        </Flex>
-        <Flex direction="column" style={{ marginTop: 20 }}>
-          <Table
-            data={searchTable}
-            tableTop={tableTop()}
-            showCheckbox={false}
-            showPagination
-            perPageRows={10}
-            filterColumns={[0, 1, 2, 3, 4, 5]}
-            onRowSelect={(row) => {
-              setSelectedRow(row);
-              setDrawerOpen(true);
-            }}
-          />
-        </Flex>
-      </ModuleContainer>
-      <Drawer
-        open={drawerOpen}
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
-        closeIcon={true}
-        title="Contact Details"
-        actionButtons={true}
-        cancelButtonText="Delete"
-        actionButtonText="Edit"
-        cancelButtonType="secondary"
-      >
-        <ContactDetailsSidebar contactInfo={selectedRow} />
-      </Drawer>
-    </>
-  );
+                <Flex direction="column" style={{ marginTop: 20 }}>
+                    <Table
+                        data={getTableData()}
+                        tableTop={tableTop()}
+                        showCheckbox={false}
+                        showPagination
+                        perPageRows={10}
+                        filterColumns={[0, 1, 2, 3, 4, 5]}
+                        onRowSelect={rowSelectHandler}
+                        getSelectedItems={(val) => console.log("rowselecthandler", val)}
+                    />
+                </Flex>
+            </ModuleContainer>
+            <Drawer
+                open={showDetailDrawer}
+                setDrawerOpen={(flag) => drawerCloseHandler(flag)}
+                closeIcon={true}
+                title="Contact Details"
+            >
+                <ContactDetailsSidebar contactInfo={selectedRow} />
+            </Drawer>
+
+            <Drawer
+                open={showEditDrawer}
+                setDrawerOpen={(flag) => drawerCloseHandler(flag)}
+                closeIcon={true}
+                title="Edit Contact Details"
+            >
+                <EditContactDetails contactInfo={selectedRow} onClose={drawerCloseHandler} />
+            </Drawer>
+        </>
+    );
 }
 
 export default FavoriteLocations;
