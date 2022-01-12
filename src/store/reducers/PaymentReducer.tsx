@@ -29,7 +29,7 @@ export const onUpdateCardSucess = (state = initialState, action) => ({
     updateCardResponse: action.res,
 });
 
-export const onAddNewCardSucess = (state = initialState, action) => ({
+export const addNewCardResponse = (state = initialState, action) => ({
     ...state,
     addNewCardResponse: action.res,
 });
@@ -46,7 +46,7 @@ export const onShowLoader = (state = initialState, action) => ({
 
 const HANDLERS = {
     [Types.PAYMENT_CARDS_DATA]: onGetAllCardSuccess,
-    [Types.ADD_NEW_CARD_RESPONSE]: onAddNewCardSucess,
+    [Types.ADD_NEW_CARD_RESPONSE]: addNewCardResponse,
     [Types.UPDATE_CARD_RESPONSE]: onUpdateCardSucess,
     [Types.DELETE_CARD_RESPONSE]: onDeleteCardSucess,
 };

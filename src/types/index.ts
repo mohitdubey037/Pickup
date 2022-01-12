@@ -21,3 +21,13 @@ export interface UserDetails {
   signUpStatus: number;
   phoneNo: string;
 }
+
+export interface CardType {
+  card_id?: number;
+  number?: string;
+  name?: string;
+  expiryDate?: string;
+  expiry_month?: string;
+  expiry_year?: string;
+  card_type?: string;
+}

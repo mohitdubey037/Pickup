@@ -32,6 +32,16 @@ export const addNewCardService = async (body: any) => {
   }
 };
 
+export const getInvoiceList = async () => {
+  try {
+    const res = await Services.get("order/business/invoices", "order");
+    console.log("resdata", res);
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
+};
+
 // export const updateCard = async (cardData: cardData) => {
 //     const res = await Services.post("business/forgotPassword", { emailId: cardData }, type);
 //     return res;
@@ -48,6 +58,24 @@ export const confirmPaymentService = async (body: any, invoiceId: number) => {
       `/order/business/invoice/${invoiceId}/payment`,
       body,
       "order"
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
+};
+
+export const confirmPaymentInDrawer = async (body: any) => {
+  try {
+    const header = {
+      payment_gateway: "bambora",
+    };
+    const res = await Services.post(
+      `/api/payments`,
+      body,
+      "payment",
+      "",
+      header
     );
     return { response: res, error: null };
   } catch (error) {
@@ -89,20 +117,6 @@ export const removeInsuranceService = async (invoiceId: string) => {
     );
     return { response: res, error: null };
   } catch (error) {
-    return { response: null, error: error };
-  }
-};
-
-export const getOrderDetails = async (invoiceId: string) => {
-  console.log(invoiceId);
-  try {
-    const res: any = await Services.get(
-      `order/business/invoice/${invoiceId}`,
-      "order"
-    );
-    return { response: res, error: null };
-  } catch (error) {
-    showToast(error.message, "error");
     return { response: null, error: error };
   }
 };

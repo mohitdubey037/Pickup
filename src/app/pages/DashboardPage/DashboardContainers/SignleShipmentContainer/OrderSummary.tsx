@@ -3,7 +3,6 @@ import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { ContainerTitle } from "app/components/Typography/Typography";
 import React, { useState, useEffect } from "react";
-import OrderHoldingComponent from "./OrderHoldingComponent";
 // import { rows, columns } from "./OrderSummaryHelper";
 import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
@@ -13,7 +12,7 @@ import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments";
 
 // import { DataGrid } from "@mui/x-data-grid";
 
-import { navigate, useParams } from "@reach/router";
+import { navigate } from "@reach/router";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +28,7 @@ function OrderSummary({ path: string }) {
     const [drawerOpenOne, setDrawerOpenOne] = useState(false);
     const [orderSummaryData, setOrderSummaryData] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState<null|number>(null);
+    const [totalCost, setTotalCost] = useState(0);
 
     const redirectBack = () => {
         navigate?.("/dashboard/charter-shipment/single-shipment");
@@ -42,29 +42,52 @@ function OrderSummary({ path: string }) {
         (async () => {
             if(orderIds?.length <= 0){
                 redirectBack();
+                return
             }
             const res = (await getShipmentDetails(orderIds)) as any;
             if (res.success) {
                 const shipmentDetails = res.response.data.data;
-                console.log("shipmentDetailsRes", shipmentDetails);
-                const data = shipmentDetails.shipmentSummary.map(item => {
-                    return {
-                        "Order Id": item.customerReferenceNumber,
-                        "Schedule": item.type,
-                        "Item Count": item.itemCount,
-                        "Order Cost": `$${item.total}`,
-                        "OrderId": item.orderId
-                    }
-                });
+                
+                const data = shipmentDetails.shipmentSummary;
+                const totalCost = data.reduce((acc, curr) => acc+curr.total, 0)
+                dispatch(actions.setInvoice(shipmentDetails.invoiceId))
+                setTotalCost(totalCost);
                 setOrderSummaryData(data)
             }
         })()
-    }, [orderIds]);
+    }, [orderIds, dispatch]);
 
     const onBackHandler = () => {
         dispatch(actions.resetOrderIds());
         redirectBack();
     }
+
+    const onItemCountSelectHandler = (id: number) => {
+        setDrawerOpen(true);
+        setSelectedOrder(id);
+    }
+
+    const getOrderIdItem = (openInvoiceDrawer, value, id: any) => {
+        return <span onClick={() => openInvoiceDrawer(id)} style={{ color: "#1B8AF0" }}><u>{value}</u></span>;
+    };
+
+    const onHoldTable = (
+        orderSummaryData: any[],
+        openOrderDrawer: any,
+    ) => {
+        let makeTableData: any = [];
+        if (orderSummaryData && orderSummaryData.length) {
+            orderSummaryData.map((item: any) => {
+                makeTableData.push({
+                    "Order Id": item.refNo,
+                    "Schedule": item.type,
+                    "Item Count": getOrderIdItem(openOrderDrawer, item.itemCount, item.orderId),
+                    "Order Cost": `$${item.total}`
+                });
+            });
+        }
+        return makeTableData;
+    };
 
     return (
         <>
@@ -72,42 +95,21 @@ function OrderSummary({ path: string }) {
                 <ContainerTitle>Order Summary</ContainerTitle>
 
                 <Flex direction={"column"} top={20}>
-                    <Table data={orderSummaryData} onRowSelect={(e) => {setSelectedOrder(e.OrderId); setDrawerOpen(true);}} />
+                    <Table 
+                        data={onHoldTable(orderSummaryData, onItemCountSelectHandler)} 
+                        
+                        getSelectedItems={(val) => console.log("OrderTableK", val)}
+                    />
+                    <Flex justifyContent="flex-end">
+                        <p style={{
+                            fontFamily: 'Roboto',
+                            fontWeight: 700,
+                            fontSize: '14px',
+                            marginRight: "100px"
+                        }}>Total <span style={{ paddingLeft: "35px" }}>${Number(totalCost).toFixed(2)}</span></p>
+                    </Flex>
 
-                    {/* <Table data={OrderSummaryTable} /> */}
-                    {/* <DataGrid rows={rows} columns={columns} checkboxSelection /> */}
                 </Flex>
-
-                <Flex>
-                    <div
-                        style={{
-                            display: "inline-flex",
-                            justifyContent: "space-evenly",
-                            paddingLeft: 400,
-                        }}
-                    >
-                        <ContainerTitle>Total</ContainerTitle>
-                    </div>
-                    <div
-                        style={{
-                            display: "inline-flex",
-                            justifyContent: "space-evenly",
-                            paddingLeft: 150,
-                        }}
-                    >
-                        <ContainerTitle>$250</ContainerTitle>
-                    </div>
-                </Flex>
-                {/* <div
-                    style={{
-                        marginLeft: 600,
-                        padding: 10,
-                        paddingTop: 30,
-                        paddingBottom: 40,
-                    }}
-                >
-                    <OrderHoldingComponent />
-                </div> */}
                 <Flex
                     style={{ marginBottom: 10, padding: "inherit" }}
                     direction={"row-reverse"}
@@ -115,9 +117,6 @@ function OrderSummary({ path: string }) {
                     <Button
                         style={{ width: 190 }}
                         label="Proceed to Payment"
-                        // onClick={() => {
-                        //   setDrawerOpen(true);
-                        // }}
                         onClick={() => redirectForward()}
                     />
                     <Button

@@ -8,21 +8,29 @@ import {
   USER_BASE_URL,
   ORDER_BASE_URL,
   PAYMENT_BASE_URL,
+  LOCATION_URL,
   USER_BASE_CR_URL,
 } from "../constants";
-type RequestType = "user" | "base" | "order" | "payment" | "user_cr";
+type RequestType =
+  | "user"
+  | "base"
+  | "order"
+  | "payment"
+  | "location"
+  | "user_cr";
 
 const MODULE_URL_MAP = {
   user: USER_BASE_URL,
   base: BASE_URL,
   order: ORDER_BASE_URL,
   payment: PAYMENT_BASE_URL,
+  location: LOCATION_URL,
   user_cr: USER_BASE_CR_URL,
 };
 
 class Service {
   getToken = () => {
-    //   return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM'
+    // return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM'
     return Cookies.get("token");
   };
 
@@ -30,6 +38,7 @@ class Service {
     Cookies.remove("token");
     return true;
   };
+
   get = async (url: string, type: RequestType = "base") => {
     return new Promise((resolve, reject) => {
       const localToken = this.getToken();
@@ -70,7 +79,8 @@ class Service {
     url: string,
     params: {},
     type: RequestType = "base",
-    token: string = ""
+    token: string = "",
+    header = {}
   ) => {
     return new Promise((resolve, reject) => {
       const localToken = this.getToken();
@@ -84,6 +94,7 @@ class Service {
             {
               headers: {
                 Authorization: `${token ? "Bearer " + token : localToken}`,
+                ...header,
               },
             }
           )
@@ -143,6 +154,42 @@ class Service {
               return reject({
                 status: errResponse.status,
                 message: errorMessage,
+              });
+            }
+          });
+      } catch (err) {
+        return reject(err);
+      }
+    });
+  };
+
+  delete = async (url: string, type: RequestType = "base") => {
+    return new Promise((resolve, reject) => {
+      const localToken = this.getToken();
+      const baseUrl = MODULE_URL_MAP[type];
+
+      try {
+        axios
+          .delete(`${baseUrl}${url}`, {
+            headers: {
+              Authorization: `${localToken}`,
+            },
+          })
+          .then((res) => {
+            return resolve({ data: res.data, status: res.status });
+          })
+          .catch((err) => {
+            console.log({ err });
+            if (err.isAxiosError && err.response) {
+              const errResponse = err.response;
+              if (err.response.status === 401) {
+                store.dispatch({ type: "LOGOUT_USER" });
+                this.removeToken();
+                navigate("/");
+              }
+              return reject({
+                status: errResponse.status,
+                message: errResponse?.data?.message || errResponse?.message,
               });
             }
           });

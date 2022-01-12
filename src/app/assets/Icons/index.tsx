@@ -30,7 +30,7 @@ import ellipse from './Ellipse.svg'
 import scotiaBank from './scotiaBank.png'
 import starimage from './starimage.svg'
 import starImageEmpty from './starImageEmpty.svg'
-
+import edit from './edit.svg'
 import cross from './cross.svg'
 import dots3 from './3Dots.svg';
 import imageIcon from './imageIcon.svg';
@@ -42,9 +42,12 @@ import alertOctagon from './alertOctagon.svg';
 import Grouppaymentsummary from './Grouppaymentsummary.svg'
 import InsuranceIcon from "./InsuranceIcon.svg";
 import selectedCardCheck from './selectedCardCheck.svg'
-
+import trash from './trash.svg'
 import Delete from "./Delete.svg";
 import checkSquare from "./checkSquare.svg"
+import ShareIcon from "./ShareIcon.svg";
+import StepperCircleIcon from "./StepperCircleIcon.svg";
+import YellowTick from "./YellowTick.svg";
 import calendar from "./calendar.svg"
 
 export {
@@ -81,7 +84,7 @@ export {
     scotiaBank,
     email,
     cross,
-     dots3,
+    dots3,
     imageIcon,
     printer,
     sliders,
@@ -93,5 +96,10 @@ export {
     InsuranceIcon,
     selectedCardCheck,
     Delete,
-    checkSquare
+    checkSquare,
+    trash,
+    edit,
+    ShareIcon,
+    StepperCircleIcon,
+    YellowTick
 };

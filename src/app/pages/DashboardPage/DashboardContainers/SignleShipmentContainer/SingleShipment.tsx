@@ -22,6 +22,7 @@ import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SingleShipmentReducer";
+import { globalActions } from "store/reducers/GlobalReducer";
 
 function SingleShipment({ path: string }) {
 
@@ -47,6 +48,7 @@ function SingleShipment({ path: string }) {
 
     useEffect(() => {
         dispatch(actions.resetOrderIds());
+        dispatch(globalActions.showLoader(false));
     }, [dispatch])
 
     const formik = useFormik({
@@ -56,6 +58,10 @@ function SingleShipment({ path: string }) {
             dispatch(actions.submitShipment(formik.values))
         },
     });
+
+    useEffect(() => {
+        (() => formik.validateForm())();
+      }, []);
 
     useEffect(() => {
         if(orderIds?.length > 0){
@@ -105,7 +111,7 @@ function SingleShipment({ path: string }) {
                 <Button
                     style={{ width: 190 }}
                     label="Confirm Order"
-                    disabled={!(formik.dirty && formik.isValid)}
+                    disabled={!(formik.isValid)}
                     onClick={formik.handleSubmit}
                     showLoader={loading}
                 />
@@ -113,7 +119,7 @@ function SingleShipment({ path: string }) {
                     style={{ width: 190, marginRight: 20 }}
                     secondary
                     label="Add New Order"
-                    disabled={!(formik.dirty && formik.isValid)}
+                    disabled={!(formik.isValid)}
                     onClick={addMoreItemHandler}
                 />
             </Flex>

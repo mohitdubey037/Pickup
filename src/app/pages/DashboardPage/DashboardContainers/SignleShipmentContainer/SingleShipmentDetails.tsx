@@ -19,14 +19,12 @@ function SingleShipmentDetails(props: { formik: FormikValues, index: number, dis
 
   return (
     <FormWrapper style={{ width: "100%" }}>
-      <>
         <DetailsForm
             disabled={disabled}
           formik={props.formik}
           index={props.index}
           noOfItem={singleFormValues.shipmentDetails.length}
         />
-      </>
       {singleFormValues.categoryId && (
         <Flex top={20}>
           <Button

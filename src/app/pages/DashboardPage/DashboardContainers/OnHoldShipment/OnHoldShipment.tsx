@@ -5,8 +5,8 @@ import { Table } from "app/components/Table";
 import { ContainerTitle } from "app/components/Typography/Typography";
 import { OnHoldTableTop } from "./Style";
 import { sliders } from "app/assets/Icons";
-import { useEffect, useState } from "react";
-import { getHoldingShipments } from "services/HoldingService";
+import { useCallback, useEffect, useState } from "react";
+import { getHoldingShipmentsService, scheduleShipmentService, deleteShipmentService } from "services/HoldingService";
 
 import { TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
@@ -14,14 +14,16 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Grid } from "@material-ui/core";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
-import { searchTable } from "./helper";
+import { getOrderIdListFromIndexList, onHoldTable } from "./helper";
+import ScheduleShipmentsDrawer from "./ScheduleShipmentsDrawer";
+import { showToast } from "utils";
 
 export interface OnHoldDataType {
     category: string;
     invoiceId: string;
     invoiceNumber: string;
     itemCount: number;
-    orderId: number;
+    orderId: string;
     shipmentCost: number;
     shippingDate: string;
     shippingReference: string;
@@ -51,16 +53,30 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     const [fromDateOpen, setFromDateOpen] = useState<boolean>(false)
     const [toDateOpen, setToDateOpen] = useState<boolean>(false)
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
+    const [singleScheduleDrawerOpen, setScheduleDrawerOpen] = useState<boolean>(false)
     const [orderId, setOrderId] = useState<string>("")
+    const [selectedIndex, setSelectedIndex] = useState<number[]>([])
 
-    useEffect(() => {
-        (async () => {
-            const res: { response: any, error: any } = await getHoldingShipments(filters)
+    const getOnHoldDataHandler = async () => {
+        const res: { response: any, error: any } = await getHoldingShipmentsService(filters)
             if (res.response) {
                 setHoldData(res.response.data.data)
-            }
-        })()
-    }, [filters]);
+        }
+    }
+
+    const deleteShipmentHandler = async () => {
+        const res: { response: any, error: any } = await deleteShipmentService(orderId)
+            if (res.response) {
+                showToast(`Order ${orderId} ${res.response.data.message}`, "success")
+                // setHoldData(res.response.data.data)
+        }
+    }
+
+    const getOnHoldDatahandlerCallback = useCallback(getOnHoldDataHandler, [filters])
+
+    useEffect(() => {
+        getOnHoldDatahandlerCallback()
+    }, [getOnHoldDatahandlerCallback]);
 
     const onChangeHandler = (e, type, val) => {
         const updatedFilter = { ...filters }
@@ -81,15 +97,36 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             <OnHoldTableTop>
                 <p>{onHoldData.length} orders</p>
                 <div>
-                    <Button label="Delete" secondary={true} onClick={() => { }} style={{ borderColor: '#C94C43', color: '#C94C43' }} />
-                    <Button label="Schedule" onClick={() => { }} />
+                    <Button label="Delete" secondary={true} onClick={() => deleteShipmentHandler()} style={{ borderColor: '#C94C43', color: '#C94C43' }} />
+                    <Button label="Schedule" onClick={() => setScheduleDrawerOpen(true)} />
                 </div>
             </OnHoldTableTop>
         );
     };
 
-    const singleScheduleHandler = (id: number) => {
-        console.log("singleScheduleHandler", id)
+    const handleSubmitHandler = async (shippingSchedule: string, date: string | null, time: string | null) => {
+        const orderIdList = await getOrderIdListFromIndexList(onHoldData, selectedIndex)
+        console.log('orderIdList', orderIdList)
+        const data = {
+            scheduleType: shippingSchedule,
+            orderAt: date,
+            shipment: orderIdList
+        }
+        const res: { response: any, error: any } = await scheduleShipmentService(data)
+        if(!res.error){
+            setSelectedIndex([])
+
+        }
+    }
+
+    const singleScheduleHandler = (id: string, index: number) => {
+        setOrderId(id);
+        setSelectedIndex([index]);
+        setScheduleDrawerOpen(true);
+    }
+
+    const multipleScheduleHandler = (values: any) => {
+        setSelectedIndex([...values]);
     }
 
     return (
@@ -150,12 +187,14 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             </Grid>
 
             <Table
-                data={searchTable(onHoldData, openInvoiceDrawer, singleScheduleHandler)}
+                data={onHoldTable(onHoldData, openInvoiceDrawer, singleScheduleHandler)}
                 tableTop={tableTop()}
                 showCheckbox
                 showPagination
-                perPageRows={15}
+                perPageRows={10}
                 filterColumns={[0, 1, 2, 3, 4, 5]}
+                getSelectedItems={multipleScheduleHandler}
+                selectedItems={selectedIndex}
             />
 
             <Drawer
@@ -169,13 +208,13 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             </Drawer>
             
             <Drawer
-                open={drawerOpen}
+                open={singleScheduleDrawerOpen}
                 title={"Order Items"}
-                setDrawerOpen={(flag) => setDrawerOpen(flag)}
+                setDrawerOpen={(flag) => setScheduleDrawerOpen(flag)}
                 closeIcon={true}
                 actionButtons={true}
             >
-                <OrderDetailsDrawer orderId={orderId} setDrawerOpen={setDrawerOpen} />
+                <ScheduleShipmentsDrawer handleSubmit={handleSubmitHandler} submitButtonLabel={"Save"} setDrawerOpen={setScheduleDrawerOpen} />
             </Drawer>
 
         </ModuleContainer>

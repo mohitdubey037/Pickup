@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { getUserCardsService, addNewCardService } from "services/PaymentServices";
+import { getUserCardsService, addNewCardService,  } from "services/PaymentServices";
 import { Types, actions } from "../../store/reducers/PaymentReducer";
 import { showToast } from "../../utils";
 import { globalActions } from "store/reducers/GlobalReducer";
@@ -8,8 +8,11 @@ import { globalActions } from "store/reducers/GlobalReducer";
 function* getAllCardsWorker() {
   try {
     yield put(globalActions.showLoader(true))
-    const res = yield call(getUserCardsService);
-    yield put(actions.paymentCardsData(res));
+    const res: { response: any, error: any } = yield call(getUserCardsService);
+    if(!res.error){
+        yield put(actions.paymentCardsData(res.response.data.data));
+        // yield put(actions.onGetAllCardSuccess(res.response.data.data))
+    }
     yield put(globalActions.showLoader(false))
 
   } catch (err: any) {
@@ -22,9 +25,13 @@ function* getAllCardsWorker() {
 function* addNewCardWorker(action) {
   try {
     yield put(globalActions.showLoader(true))
-    const res = yield call(addNewCardService, action.cardData);
- 
-    yield put(actions.addNewCardResponse(res));
+    const res: { response: any, error: any } = yield call(addNewCardService, action.cardData);
+    if(!res.error){
+        yield put(actions.paymentCardsData(res.response.data.data));
+        yield put(actions.addNewCardResponse(res.error))
+    }else{
+        yield put(actions.addNewCardResponse(res.error))
+    }
     yield put(globalActions.showLoader(false))
 
   } catch (err: any) {

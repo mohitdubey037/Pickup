@@ -3,7 +3,7 @@ export const USER_BASE_URL = process.env.REACT_APP_USER_BASE_URL;
 export const USER_BASE_CR_URL = process.env.REACT_APP_USER_BASE_CR_URL;
 export const PAYMENT_BASE_URL = process.env.REACT_APP_PAYMENT_BASE_URL;
 export const ORDER_BASE_URL = process.env.REACT_APP_ORDER_URL;
-
+export const LOCATION_URL = process.env.REACT_APP_LOCATION_URL;
 export const PHONE_NUMBER_REGX =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const PASSWORD_REGX =
@@ -15,7 +15,7 @@ export const BILLING_TYPES = [
 ];
 
 export const DROP_OPTION = [
-  { label: "Front door", value: 10 },
+  { label: "Door drop", value: 10 },
   { label: "Safe drop", value: 11 },
 ];
 

@@ -7,6 +7,7 @@ import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
 import { getCategoryList } from "services/SingleShipmentServices";
 import DetailsFormItem from "./DetailsFormItem";
+import AddItemLabel from "app/components/AddItemLabel";
 
 import { DROP_OPTION, FRAGILE_OPTION } from "../../../../../constants";
 
@@ -129,6 +130,11 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                         formik={props.formik}
                     />
                 ))}
+                {singleFormValues?.categoryId && (
+                    <Flex top={20}>
+                        <AddItemLabel text={"Add order Picture"} />
+                    </Flex>
+                )}
             </Flex>
         </>
     );
