@@ -40,7 +40,7 @@ const InvoicesContainer = ({ path: string }) => {
         setSearchRecordData(data);
       });
   };
-const getDrawerTitle = () => {
+  const getDrawerTitle = () => {
     if (drawerType == "invoice") {
       return "Invoice #" + selectedInvoiceId;
     } else if (drawerType == "advanceFilter") {
@@ -103,7 +103,7 @@ const getDrawerTitle = () => {
 
   // const openInvoiceDrawer = (id: any, type: any) => {
   //   if (type == "orderDetails") {
-      
+
   //   } else {
   //     setSelectedInvoiceId(id);
   //     setDrawerType(type);
@@ -155,7 +155,7 @@ const getDrawerTitle = () => {
       />
       <hr/> */}
       <Table
-        data={invoiceTable(invoiceData,openInvoiceDrawer)}
+        data={invoiceTable(invoiceData, openInvoiceDrawer)}
         tableTop={tableTop()}
         showCheckbox
         showPagination
@@ -170,12 +170,10 @@ const getDrawerTitle = () => {
         actionButtons={true}
       >
         {drawerType == "invoice" ? (
-          <AddNewPaymentDrawer />
-       
+          <AddNewPaymentDrawer invoiceId="" />
         ) : (
-          <OrderDetailsDrawer orderId={4150} setDrawerOpen={setDrawerOpen}/>
+          <OrderDetailsDrawer orderId={4150} setDrawerOpen={setDrawerOpen} />
         )}
-        
       </Drawer>
     </ModuleContainer>
   );

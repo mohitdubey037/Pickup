@@ -120,3 +120,17 @@ export const removeInsuranceService = async (invoiceId: string) => {
     return { response: null, error: error };
   }
 };
+
+export const getOrderDetails = async (invoiceId: string) => {
+  console.log(invoiceId);
+  try {
+    const res: any = await Services.get(
+      `order/business/invoice/${invoiceId}`,
+      "order"
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    showToast(error.message, "error");
+    return { response: null, error: error };
+  }
+};
