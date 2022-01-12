@@ -153,7 +153,7 @@ const SearchContainer = ({ path: string }) => {
         actionButtons={true}
       >
         {drawerType == "invoice" ? (
-          <AddNewPaymentDrawer />
+          <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
         ) : drawerType == "advanceFilter" ? (
           <AdvanceFilters formik={formik} />
         ) : (

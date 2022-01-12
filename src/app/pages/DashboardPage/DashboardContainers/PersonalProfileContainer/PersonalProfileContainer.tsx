@@ -1,37 +1,48 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Drawer } from "app/components/Drawer";
 import ModuleContainer from "app/components/ModuleContainer";
 import { ContainerTitle } from "app/components/Typography/Typography";
-import { useSelector } from "react-redux";
 import PersonalProfile from "./PersonalProfile";
+import { AuthUser } from "types";
 import ChangePasswordForm from "./ChangePasswordForm";
 import EditPersonalDetailsForm from "./EditPersonalDetailsForm";
-import { getPersonalProfileDetails } from "services/PersonalProfileServices";
-import { AuthUser } from "types";
-import { ProfileState } from "./types";
+import {
+  editPersonalProfileDetails,
+  changeProfilePassword,
+  getPersonalProfileDetails,
+} from "services/PersonalProfileServices";
 
 export default function PersonalProfileContainer({ path: string }) {
   const [passwordDrawerOpen, setPasswordDrawerOpen] = useState(false);
   const [editDetailsDrawerOpen, setEditDetailsDrawerOpen] = useState(false);
-  const [profileData, setProfileData] = useState<ProfileState | null>(null);
-  const saveCard = () => {
-    console.log("Save card called");
-  };
+  const dispatch = useDispatch();
   const auth = useSelector((state: { auth: { user: AuthUser } }) => {
     return state.auth;
   });
   const { user } = auth;
-  useEffect(() => {
-    (async () => {
-      const res = (await getPersonalProfileDetails(user?.userId)) as any;
-      console.log(res);
-      if (res.success) {
-        const profileDetails = res?.response?.data?.data;
-        console.log("profileDetailsRes", profileDetails);
-        setProfileData(profileDetails);
+  const editDetails = async (values) => {
+    console.log(values);
+    const res = await editPersonalProfileDetails(values).then(async () => {
+      const response: any = await getPersonalProfileDetails(user?.userId);
+      console.log(response);
+      console.log("herehere");
+      if (response?.success) {
+        console.log("here");
+        dispatch({
+          type: "UPDATE_USER",
+          user: response?.response?.data,
+        });
       }
-    })();
-  }, []);
+    });
+    console.log(res); // business/edit_personal_details
+    setEditDetailsDrawerOpen(false);
+  };
+  const changePassword = async (values) => {
+    const res = (await changeProfilePassword(values)) as any;
+    console.log(res);
+    setPasswordDrawerOpen(false);
+  };
   return (
     <ModuleContainer>
       <ContainerTitle>Personal Profile</ContainerTitle>
@@ -46,7 +57,6 @@ export default function PersonalProfileContainer({ path: string }) {
         }}
         setPasswordDrawerOpen={setPasswordDrawerOpen}
         setEditDetailsDrawerOpen={setEditDetailsDrawerOpen}
-        profileData={profileData}
       />
       <Drawer
         open={passwordDrawerOpen}
@@ -57,7 +67,7 @@ export default function PersonalProfileContainer({ path: string }) {
       >
         <ChangePasswordForm
           setPasswordDrawerOpen={setPasswordDrawerOpen}
-          saveAction={saveCard}
+          saveAction={changePassword}
         />
       </Drawer>
       <Drawer
@@ -69,8 +79,7 @@ export default function PersonalProfileContainer({ path: string }) {
       >
         <EditPersonalDetailsForm
           setEditDetailsDrawerOpen={setEditDetailsDrawerOpen}
-          saveAction={saveCard}
-          profileData={profileData}
+          saveAction={editDetails}
         />
       </Drawer>
     </ModuleContainer>

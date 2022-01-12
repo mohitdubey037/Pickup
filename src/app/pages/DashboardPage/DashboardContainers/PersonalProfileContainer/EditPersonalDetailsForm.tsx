@@ -2,9 +2,11 @@ import { Input, PasswordInput } from "app/components/Input";
 import { Flex } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
-import { passwordSchema } from "./passwordSchema";
+import { personalFormSchema } from "./personalFormSchema";
 import { Avatar } from "@material-ui/core";
 import { ProfileState } from "./types";
+import { useSelector } from "react-redux";
+import { AuthUser } from "types";
 
 const EditPersonalDetailsForm = ({
   title = "",
@@ -12,8 +14,11 @@ const EditPersonalDetailsForm = ({
   saveAction,
   enableSave = false,
   submitButtonLabel = "Save",
-  profileData,
 }) => {
+  const auth = useSelector((state: { auth: { user: AuthUser } }) => {
+    return state.auth;
+  });
+  const { user } = auth;
   const {
     values,
     handleChange,
@@ -24,20 +29,17 @@ const EditPersonalDetailsForm = ({
     setFieldValue,
   } = useFormik({
     initialValues: {
-      firstName: profileData?.firstName,
-      lastName: profileData?.lastName,
-      emailId: profileData?.emailId,
-      phone: "",
-      role: "",
-      email: "",
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      emailId: user?.emailId,
+      phone: user?.userDetails?.phoneNo,
+      role: user?.roleDesignation,
       permission: "",
-      saveProfile: false,
     },
-    validationSchema: passwordSchema,
+    validationSchema: personalFormSchema,
     onSubmit: (values) => saveAction(values),
   });
-  console.log(profileData);
-  console.log(values.firstName);
+
   return (
     <Flex direction="column" style={{ height: "100%", width: "540px" }}>
       <div>
@@ -67,10 +69,10 @@ const EditPersonalDetailsForm = ({
             name="firstName"
             onBlur={handleBlur}
             value={values.firstName}
+            initValue={values.firstName}
             onChange={handleChange}
-            // error={touched.firstName && errors.firstName}
+            error={touched.firstName && errors.firstName}
             label="First Name"
-            placeholder={profileData?.firstName}
           />
         </Flex>
         <Flex
@@ -84,9 +86,9 @@ const EditPersonalDetailsForm = ({
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.lastName}
-            // error={touched.lastName && errors.lastName}
+            initValue={values.lastName}
+            error={touched.lastName && errors.lastName}
             label="Last Name"
-            placeholder={profileData?.lastName}
           />
         </Flex>
         <Flex
@@ -95,13 +97,14 @@ const EditPersonalDetailsForm = ({
           }}
         >
           <Input
-            id="phoneNumber"
-            name="phoneNumber"
+            id="phone"
+            name="phone"
             onBlur={handleBlur}
             onChange={handleChange}
-            // error={touched.phoneNumber && errors.phoneNumber}
+            initValue={values.phone}
+            value={values.phone}
+            error={touched.phone && errors.phone}
             label="Phone Number"
-            placeholder={"+1 (231) 456-7890"}
           />
         </Flex>
         <Flex
@@ -114,9 +117,9 @@ const EditPersonalDetailsForm = ({
             name="role"
             onBlur={handleBlur}
             onChange={handleChange}
+            initValue={values.role}
             // error={touched.role && errors.role}
             label="Role/Designation"
-            placeholder={"Manager"}
           />
         </Flex>
         <Flex
@@ -125,14 +128,15 @@ const EditPersonalDetailsForm = ({
           }}
         >
           <Input
-            id="email"
-            name="email"
+            id="emailId"
+            name="emailId"
             onBlur={handleBlur}
             value={values.emailId}
+            initValue={values.emailId}
             onChange={handleChange}
-            // error={touched.email && errors.email}
+            placeholder={values?.emailId}
+            error={touched.emailId && errors.emailId}
             label="Email"
-            placeholder={profileData?.emailId}
           />
         </Flex>
         <Flex
@@ -145,9 +149,9 @@ const EditPersonalDetailsForm = ({
             name="permission"
             onBlur={handleBlur}
             onChange={handleChange}
+            placeholder="Permission"
             // error={touched.permission && errors.permission}
             label="Permission"
-            placeholder={"Select"}
           />
         </Flex>
       </div>

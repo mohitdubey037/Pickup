@@ -23,10 +23,9 @@ const ChangePasswordForm = ({
     initialValues: {
       currentPassword: "",
       newPassword: "",
-      newPasswordConfirmation: "",
-      saveCard: false,
+      newConfirmedPassword: "",
     },
-    validationSchema: passwordSchema,
+    // validationSchema: passwordSchema,
     onSubmit: (values) => saveAction(values),
   });
 
@@ -41,9 +40,9 @@ const ChangePasswordForm = ({
             label="Current Password"
             onBlur={handleBlur}
             onChange={handleChange}
-            // error={touched.password && errors.password}
+            value={values.currentPassword}
+            error={touched.currentPassword && errors.currentPassword}
             placeholder="Current Password"
-            validate
           />
         </Flex>
         <Flex style={{ marginBottom: 20 }}>
@@ -51,11 +50,11 @@ const ChangePasswordForm = ({
             id="newPassword"
             name="newPassword"
             label="New Password"
+            value={values.newPassword}
             onBlur={handleBlur}
             onChange={handleChange}
-            // error={touched.password && errors.password}
+            error={touched.newPassword && errors.newPassword}
             placeholder="New Password"
-            validate
           />
         </Flex>
         <Flex>
@@ -63,11 +62,11 @@ const ChangePasswordForm = ({
             id="confirmPassword"
             name="confirmPassword"
             label="Confirm Password"
+            value={values.newConfirmedPassword}
             onBlur={handleBlur}
             onChange={handleChange}
-            // error={touched.password && errors.password}
+            error={touched.newConfirmedPassword && errors.newConfirmedPassword}
             placeholder="Confirm New Password"
-            validate
           />
         </Flex>
       </div>
