@@ -1,14 +1,14 @@
 import Services from "../";
-
+import { showToast } from "utils";
 export interface cardData {
-    password: string;
-    token: string;
+  password: string;
+  token: string;
 }
 export interface deleteCardData {
-    password: string;
-    token: string;
+  password: string;
+  token: string;
 }
-const type = "payment"
+const type = "payment";
 
 export const getUserCardsService = async () => {
     try {
@@ -38,7 +38,6 @@ export const getInvoiceList = async ()=>{
     }
 }
 
-
 // export const updateCard = async (cardData: cardData) => {
 //     const res = await Services.post("business/forgotPassword", { emailId: cardData }, type);
 //     return res;
@@ -50,13 +49,16 @@ export const getInvoiceList = async ()=>{
 // };
 
 export const confirmPaymentService = async (body: any, invoiceId: number) => {
-    try {
-        const res = await Services.post(`/order/business/invoice/${invoiceId}/payment`, body, "order")
-        return {response: res, error: null};
-
-    }catch(error){
-        return {response: null, error: error};
-    }
+  try {
+    const res = await Services.post(
+      `/order/business/invoice/${invoiceId}/payment`,
+      body,
+      "order"
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
 };
 
 export const confirmPaymentInDrawer = async (body: any) => {
@@ -73,28 +75,53 @@ export const confirmPaymentInDrawer = async (body: any) => {
 }
 
 export const getInsuranceService = async (invoiceId: string) => {
-    try {
-        const res = await Services.get(`order/business/invoice/${invoiceId}/calculateInsurance`, "order");
-        return {response: res, error: null};
-    } catch (error) {
-        return {response: null, error: error};
-    }
+  try {
+    const res = await Services.get(
+      `order/business/invoice/${invoiceId}/calculateInsurance`,
+      "order"
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
 };
 
 export const addInsuranceService = async (invoiceId: string) => {
-    try {
-        const res = await Services.post(`order/business/invoice/${invoiceId}/addInsurance`, {}, "order");
-        return {response: res, error: null};
-    } catch (error) {
-        return {response: null, error: error};
-    }
+  try {
+    const res = await Services.post(
+      `order/business/invoice/${invoiceId}/addInsurance`,
+      {},
+      "order"
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
 };
 
 export const removeInsuranceService = async (invoiceId: string) => {
-    try {
-        const res = await Services.put(`order/business/invoice/${invoiceId}/removeInsurance`, {}, "order");
-        return {response: res, error: null};
-    } catch (error) {
-        return {response: null, error: error};
-    }
+  try {
+    const res = await Services.put(
+      `order/business/invoice/${invoiceId}/removeInsurance`,
+      {},
+      "order"
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
+};
+
+export const getOrderDetails = async (invoiceId: string) => {
+  console.log(invoiceId);
+  try {
+    const res: any = await Services.get(
+      `order/business/invoice/${invoiceId}`,
+      "order"
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    showToast(error.message, "error");
+    return { response: null, error: error };
+  }
 };

@@ -155,7 +155,7 @@ const SearchContainer = ({ path: string }) => {
         maxWidth={"75%"}
       >
         {drawerType == "invoice" ? (
-          <AddNewPaymentDrawer />
+          <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
         ) : drawerType == "advanceFilter" ? (
           <AdvanceFilters formik={formik} />
         ) : (
