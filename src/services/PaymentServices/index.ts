@@ -22,6 +22,7 @@ export const getUserCardsService = async () => {
 export const addNewCardService = async (body: any) => {
     try {
         const res = await Services.post("api/profiles/paymentprofile/adprofilecard", body, type)
+        if(res)showToast('Your card has been successfully added', "success");
         return {response: res, error: null};
     }catch(error){
         return {response: null, error: error};
@@ -73,6 +74,18 @@ export const confirmPaymentInDrawer = async (body: any, invoiceId: string) => {
         return {response: null, error: error};
     }
 }
+
+export const deleteCard = async (profileId: string, cardId: string) => {
+  try {
+    const res = await Services.delete(
+      `api/profiles/${profileId}/cards/${cardId}`,
+      "payment"
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
+};
 
 export const getInsuranceService = async (invoiceId: string) => {
   try {

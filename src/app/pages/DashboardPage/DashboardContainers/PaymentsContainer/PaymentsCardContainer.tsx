@@ -7,10 +7,13 @@ import { CardContainerDiv } from "./style"
 
 
 interface IndividualCardProp{
+    card_id: string;
+    card_type: string;
     name:string;
-    expiryDate:string;
-    cardNumber:string;
-    type:string;
+    expiry_month: string;
+    expiry_year: string;
+    function: string;
+    number:string;
 }
 
 interface PaymentCardContainerProps{
@@ -36,13 +39,13 @@ export default function PaymentCardContainer({heading, individualCardData}:Payme
     return (
         <div style={{marginTop: '2rem'}}>
             <CardContainerDiv>
-                <h3 style={{margin:'1rem 0 0 0'}}>
+                <h3 style={{margin:'1rem 0 0 0', fontSize: '24px'}}>
                     {heading}
                 </h3>
             </CardContainerDiv>
             <Grid container>
-                {individualCardData.map((value,idx)=>(
-                    <PaymentCard setDrawerOpen={setDrawerOpen} setCardData={setCardData} key={idx} name={value.name} expiryData={value.expiryDate} cardNumber={value.cardNumber} type={value.type}/>
+                {individualCardData?.map((value,idx)=>(
+                    <PaymentCard setDrawerOpen={setDrawerOpen} setCardData={setCardData} key={idx} id={value.card_id} name={value.name} expiryData={`${value.expiry_month}/${value.expiry_year}`} cardNumber={value.number.substring(12,16).padStart(16, '*').replace(/(.{4})/g, '$1 ').trim()}/>
                 ))}
             </Grid>
             <Drawer
