@@ -98,6 +98,42 @@ class Service {
             }
         });
     };
+
+    postImage = (url: string, data: {}, type: RequestType = "base", token: string = '', header={}) => {
+        return new Promise((resolve, reject) => {
+            const localToken = this.getToken()
+            const baseUrl = MODULE_URL_MAP[type]
+
+            try {
+                axios
+                    .post(`${baseUrl}${url}`, data, {
+                        headers: {
+                            Authorization: `${token ? 'Bearer ' + token : localToken}`,
+                            ...header
+                        }
+
+                    })
+                    .then((res) => {
+                        return resolve({ data: res.data, status: res.status });
+                    })
+                    .catch((err) => {
+                        console.log({ err });
+                        if (err.isAxiosError && err.response) {
+                            const errResponse = err.response;
+                            const errorMessage = errResponse?.data?.message?.message
+                                ? errResponse?.data?.message.message
+                                : errResponse?.data?.message
+                            return reject({
+                                status: errResponse.status,
+                                message: errorMessage,
+                            });
+                        }
+                    });
+            } catch (err) {
+                return reject(err);
+            }
+        });
+    };
     
     put = (url: string, params: {}, type: RequestType = "base", token: string = '') => {
         return new Promise((resolve, reject) => {
