@@ -94,8 +94,7 @@ function ShipmentSummary({ path }: { path: string }) {
         }
 
         const data = {
-            orderId: String(invoiceId),
-            amount: invoiceData.subTotalOfAllShipments,
+            amount: (invoiceData.total - invoiceData.insuranceAmount),
             card: {
                 name: values.nameOnCard,
                 number: values.cardNumber,
@@ -105,7 +104,8 @@ function ShipmentSummary({ path }: { path: string }) {
                 complete: true,
             }
         }
-        const res: { response: any, error: any } = await confirmPaymentInDrawer(data);
+        const res: { response: any, error: any } = await confirmPaymentInDrawer(data, invoiceId);
+        console.log("res", res);
         if(!res.error){
             showToast("Payment successful", "success");
             setShowInvoiceDrawer(true);
@@ -139,7 +139,7 @@ function ShipmentSummary({ path }: { path: string }) {
     };
 
     const onBackHandler = () => {
-        navigate?.("/dashboard/charter-shipment/shipment-summary");
+        navigate?.("/dashboard/charter-shipment/order-summary");
     }
 
     return (
