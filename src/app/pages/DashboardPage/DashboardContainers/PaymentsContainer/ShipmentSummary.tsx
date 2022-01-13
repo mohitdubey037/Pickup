@@ -225,7 +225,7 @@ function ShipmentSummary({ path }: { path: string }) {
                 setDrawerOpen={(flag) => onInvoiceDrawerClose(flag)}
                 closeIcon={true}
             >
-                <AddNewPaymentDrawer />
+                <AddNewPaymentDrawer invoiceId="791" />
             </Drawer>
         </ModuleContainer>
     );
