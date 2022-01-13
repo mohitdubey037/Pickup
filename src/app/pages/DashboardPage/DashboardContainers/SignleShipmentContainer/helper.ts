@@ -123,11 +123,10 @@ export const shipmentInitValues = {
 export const transformPayloadToBackend = (values: any) => {
     const payload = {
         categoryId: values.categoryId,
-        distance: 0,
         customerReferenceNumber: values.customerRefNo,
         dropLocation: {
-            latitude: 21.11704845,
-            longitude: 79.04402281,
+            latitude: 45.65,
+            longitude: 80.43,
             details: values.destinationAdditionalNotes,
             saveLocation: values.destinationFavorite ? 1 : 0,
             type: values.destinationBillingType,
@@ -147,8 +146,8 @@ export const transformPayloadToBackend = (values: any) => {
             locationCountry: values.destinationCountry
         },
         pickupLocation: {
-            latitude: 21.11704845,
-            longitude: 79.04402281,
+            latitude: 43.65,
+            longitude: 79.38,
             details: values.originAdditionalNotes,
             saveLocation: values.originFavorite ? 1 : 0,
             type: values.originBillingType,

@@ -12,7 +12,7 @@ const type = "payment"
 
 export const getUserCardsService = async () => {
     try {
-        const res = await Services.get("/paymentprofile/userprofilecards", type);
+        const res = await Services.get("api/profiles/paymentprofile/userprofilecards", type);
         return {response: res, error: null};
     } catch (error) {
         return {response: null, error: error};
@@ -21,7 +21,7 @@ export const getUserCardsService = async () => {
 
 export const addNewCardService = async (body: any) => {
     try {
-        const res = await Services.post("/paymentprofile/adprofilecard", body, "payment")
+        const res = await Services.post("api/profiles/paymentprofile/adprofilecard", body, type)
         return {response: res, error: null};
     }catch(error){
         return {response: null, error: error};
@@ -64,7 +64,7 @@ export const confirmPaymentInDrawer = async (body: any) => {
         const header = {
             payment_gateway: "bambora"
         }
-        const res = await Services.post(`/api/payments`, body, "payment", "",  header )
+        const res = await Services.post(`api/payments`, body, "payment", "",  header )
         return {response: res, error: null};
 
     }catch(error){
