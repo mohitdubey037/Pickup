@@ -6,19 +6,21 @@ import { CompanyDetailsType } from "./types";
 
 interface DetailInterface {
   details: CompanyDetailsType;
+  setCompanyDrawerOpen: (value: boolean) => void;
 }
 
 export default function CompanyDetails(props: DetailInterface) {
   const { avatar, CompanyName } = props.details;
+  const { setCompanyDrawerOpen } = props;
 
   return (
-    <FullCard>
+    <FullCard style={{ marginLeft: 0 }}>
       <Flex direction={"column"} style={{ paddingRight: 20 }}>
         <Flex>
           <FormContainerTitle style={{ flex: 1, textAlign: "left" }}>
             Company Details
           </FormContainerTitle>
-          <EditIcon />
+          <EditIcon onClick={setCompanyDrawerOpen} />
         </Flex>
 
         <Flex style={{ marginTop: 15 }}>
