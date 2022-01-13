@@ -31,7 +31,7 @@ function OrderSummary({ path: string }) {
     const [totalCost, setTotalCost] = useState(0);
 
     const redirectBack = () => {
-        navigate?.("/dashboard/charter-shipment/single-shipment");
+        navigate?.("/dashboard/charter-shipment/single-shipment", { replace: true });
     }
 
     const redirectForward = () => {
