@@ -61,12 +61,12 @@ export const confirmPaymentService = async (body: any, invoiceId: number) => {
   }
 };
 
-export const confirmPaymentInDrawer = async (body: any) => {
+export const confirmPaymentInDrawer = async (body: any, invoiceId: string) => {
     try {
-        const header = {
-            payment_gateway: "bambora"
-        }
-        const res = await Services.post(`api/payments`, body, "payment", "",  header )
+        // const header = {
+        //     payment_gateway: "bambora"
+        // }
+        const res = await Services.post(`order/business/invoice/${invoiceId}/cardPayment`, body, "order" )
         return {response: res, error: null};
 
     }catch(error){

@@ -51,7 +51,7 @@ export const singleShipmentInitValues = {
     categoryId: "",
     customerRefNo: "",
     dropOption: "",
-    fragile: 1,
+    fragile: 0,
 
     shipmentDetails: [
         { ...shipmentDetailsItemInitValue }
@@ -103,7 +103,7 @@ export const singleShipmentInitValues1 = {
     customerRefNo: "qqqq",
     dropOption: "10",
     fragile: 1,
-
+    picture: "",
     shipmentDetails: [
         { ...shipmentDetailsItemInitValue }
     ],
@@ -116,7 +116,7 @@ export const singleShipmentInitValues1 = {
 
 export const shipmentInitValues = {
     orders: [
-        {...singleShipmentInitValues}
+        {...singleShipmentInitValues1}
     ]
 }
 
@@ -171,8 +171,8 @@ export const transformPayloadToBackend = (values: any) => {
         shipmentDate: values.shipmentDate,
         note: "note",
         type: Number(values.scheduleType),
-        items: values.shipmentDetails,
-        picture: "",
+        items: values.shipmentDetails.map((item) => ({ ...item, fragile: values.fragile })),
+        picture: values.picture,
         dropOption: values.dropOption
     }
 

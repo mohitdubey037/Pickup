@@ -20,8 +20,6 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
     const errorItem = singleFormErrors?.shipmentDetails?.[index];
     const toucherItem = singleFormTouched?.shipmentDetails?.[index];
 
-    console.log("toucherItem", errorItem)
-
     const formItemValue = singleFormValues.shipmentDetails[index];
 
     return (
