@@ -94,7 +94,7 @@ function ShipmentSummary({ path }: { path: string }) {
         }
 
         const data = {
-            amount: (invoiceData.total - invoiceData.insuranceAmount),
+            amount: invoiceData.total,
             card: {
                 name: values.nameOnCard,
                 number: values.cardNumber,
