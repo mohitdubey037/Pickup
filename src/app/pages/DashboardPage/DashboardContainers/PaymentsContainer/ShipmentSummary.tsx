@@ -4,7 +4,7 @@ import { Typography } from "@material-ui/core";
 import { Flex } from '../../../../components/Input/style'
 import { Drawer } from "app/components/Drawer";
 import AddCardForm from "./AddCardForm";
-import { addInsuranceService, addNewCardService, confirmPaymentInDrawer, confirmPaymentService, getInsuranceService, removeInsuranceService } from "services/PaymentServices";
+import { addInsuranceService, confirmPaymentInDrawer, confirmPaymentService, getInsuranceService, removeInsuranceService } from "services/PaymentServices";
 import InvoiceDetails from "./InvoiceDetails";
 import CreditDebitCardHolder from "./CreditDebitCardHolder";
 import { navigate } from "@reach/router";
@@ -122,8 +122,7 @@ function ShipmentSummary({ path }: { path: string }) {
         const data = {
             profileId : paymentCards.customer_code,
             cardId : selectedCard.card_id,
-            amount : (invoiceData.total - invoiceData.insuranceAmount),
-            // amount : (invoiceData.subTotalOfAllShipments),
+            amount : invoiceData.total,
         }
         const res: { response: any, error: any } = await confirmPaymentService(data, invoiceId);
         if(!res.error){
@@ -225,7 +224,7 @@ function ShipmentSummary({ path }: { path: string }) {
                 setDrawerOpen={(flag) => onInvoiceDrawerClose(flag)}
                 closeIcon={true}
             >
-                <AddNewPaymentDrawer invoiceId="791" />
+                <AddNewPaymentDrawer invoiceId={invoiceId} />
             </Drawer>
         </ModuleContainer>
     );
