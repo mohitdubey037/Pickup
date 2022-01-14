@@ -130,7 +130,7 @@ export const singleShipmentInitValues1 = {
 
 export const shipmentInitValues = {
     orders: [
-        {...singleShipmentInitValues1}
+        {...singleShipmentInitValues}
     ]
 }
 
