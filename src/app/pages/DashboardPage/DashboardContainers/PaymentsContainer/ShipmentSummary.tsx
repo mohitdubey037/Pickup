@@ -1,16 +1,20 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Typography } from "@material-ui/core";
-import { creditCardDetails, debitCardDetails } from "./helper";
 import { Flex } from '../../../../components/Input/style'
 import { Drawer } from "app/components/Drawer";
 import AddCardForm from "./AddCardForm";
-import { addInsuranceService, addNewCardService, getInsuranceService, getUserCardsService, removeInsuranceService } from "services/PaymentServices";
+import { addInsuranceService, confirmPaymentInDrawer, confirmPaymentService, getInsuranceService, removeInsuranceService } from "services/PaymentServices";
 import InvoiceDetails from "./InvoiceDetails";
 import CreditDebitCardHolder from "./CreditDebitCardHolder";
+import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
-import { navigate } from "@reach/router";
+import { Button } from "app/components/Buttons";
+import { showToast } from "utils";
+
+import { CardType } from "../../../../../types"
+import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 
 interface InvoiceDataType {
     insuranceAmount: number;
@@ -24,24 +28,20 @@ function ShipmentSummary({ path }: { path: string }) {
 
     const dispatch = useDispatch()
 
-    const invoiceId = useSelector(
-        (state: {
-            singleShipment: { invoiceId };
-        }) => state.singleShipment.invoiceId
-    );
+    const invoiceId = useSelector((state: { singleShipment: { invoiceId }}) => state.singleShipment.invoiceId);
+    const paymentCards = useSelector((state: {paymentCard: { paymentCardsData }}) => state.paymentCard.paymentCardsData);
+    const addNewCardResponse = useSelector((state: { paymentCard: { addNewCardResponse } }) => state.paymentCard.addNewCardResponse );
+    const loading = useSelector(( state: { globalState: { showLoader } }) => ( state.globalState.showLoader));
 
-    const [selectedCard, setSelectedCard] = useState({})
+    const [showAddCard, setShowAddCard] = useState<boolean>(false)
+    const [showInvoiceDrawer, setShowInvoiceDrawer] = useState(false);
+    const [selectedCard, setSelectedCard] = useState<CardType>({})
     const [invoiceData, setInvoiceData] = useState<InvoiceDataType>({
         insuranceAmount: 0,
         taxesOfAllShipments: 0,
         subTotalOfAllShipments: 0,
         total: 0,
-    })
-    const [showDrawer, setShowDrawer] = useState<boolean>(false)
-
-    const redirectBack = () => {
-        navigate?.("/dashboard/charter-shipment/single-shipment");
-    }
+    });
 
     useEffect(() => {
         (async () => {
@@ -55,16 +55,16 @@ function ShipmentSummary({ path }: { path: string }) {
             }
         })()
     }, [invoiceId])
-
-    const onGetDataCallback = useCallback(() => {
-        dispatch(
-            actions.getCards()
-        );
+    
+    useEffect(() => {
+        return () => {
+            dispatch(actions.addNewCardResponse(null))
+        }
     }, [dispatch])
 
-    useEffect(() => {
-        onGetDataCallback()
-    },[onGetDataCallback])
+    function redirectBack(){
+        navigate?.("/dashboard/charter-shipment/single-shipment", {replace: true});
+    }
 
     const insuranceHandler = async (event) => {
         if(event.target.checked){
@@ -81,10 +81,65 @@ function ShipmentSummary({ path }: { path: string }) {
     }
 
     const addNewCardHandler = async (values) => {
-        const res: {response:any, error:any} = await addNewCardService(values);
-        if(!res.error){
-            console.log("Res", res.response)
+        
+        if(values.saveCard){
+            const body = {
+                "name": values.nameOnCard,
+                "number": values.cardNumber,
+                "expiry_month": values.expiryDate.split("/")[0],
+                "expiry_year": values.expiryDate.split("/")[1],
+                "cvd": values.cvc
+            }
+            dispatch(actions.addNewCard(body));
         }
+
+        const data = {
+            amount: invoiceData.total,
+            card: {
+                name: values.nameOnCard,
+                number: values.cardNumber,
+                expiryMonth: values.expiryDate.split("/")[0],
+                expiryYear: values.expiryDate.split("/")[1],
+                cvd: values.cvc,
+                complete: true,
+            }
+        }
+        const res: { response: any, error: any } = await confirmPaymentInDrawer(data, invoiceId);
+        console.log("res", res);
+        if(!res.error){
+            showToast("Payment successful", "success");
+            setShowInvoiceDrawer(true);
+        }else{
+            showToast((res.error?.message || "Oops! Something went wrong!"), "error");
+        }
+    };
+
+    const paymentHandler = async () => {
+        if(Object.keys(selectedCard).length === 0){
+            showToast("Please select a card or add one", "error")
+            return;
+        }
+        const data = {
+            profileId : paymentCards.customer_code,
+            cardId : selectedCard.card_id,
+            amount : invoiceData.total,
+        }
+        const res: { response: any, error: any } = await confirmPaymentService(data, invoiceId);
+        if(!res.error){
+            showToast("Payment successful", "success");
+            setShowInvoiceDrawer(true);
+        }else{
+            showToast((res.error?.message || "Oops! Something went wrong!"), "error");
+        }
+    };
+
+    const onInvoiceDrawerClose = (flag:boolean  ) => {
+        setShowInvoiceDrawer(flag);
+        navigate("/dashboard/search-shipment", { replace: true });
+    };
+
+    const onBackHandler = () => {
+        navigate?.("/dashboard/charter-shipment/order-summary");
     }
 
     return (
@@ -109,7 +164,7 @@ function ShipmentSummary({ path }: { path: string }) {
                 >
                     Payment Details
                 </Typography>
-                <div style={{ cursor: "pointer" }} onClick={() => setShowDrawer(!showDrawer)}>
+                <div style={{ cursor: "pointer" }} onClick={() => setShowAddCard(!showAddCard)}>
                     <Typography
                         style={{
                             fontWeight: 500,
@@ -125,26 +180,51 @@ function ShipmentSummary({ path }: { path: string }) {
             </Flex>
             
             <CreditDebitCardHolder
-                debitCardDetails={debitCardDetails}
-                creditCardDetails={creditCardDetails}
+                // debitCardDetails={paymentCards?.card}
+                creditCardDetails={paymentCards?.card}
                 selectedCard={selectedCard}
                 setSelectedCard={setSelectedCard}
             />
 
+            <Flex justifyContent="flex-end">
+                <Button
+                    style={{ width: 190, marginRight: 20 }}
+                    secondary
+                    label="Back"
+                    onClick={onBackHandler}
+                />
+                <Button
+                    style={{ width: 190 }}
+                    label="Confirm Payment"
+                    // disabled={!(isValid)}
+                    onClick={paymentHandler}
+                    showLoader={loading}
+                />
+            </Flex>
+
             <Drawer
-                open={showDrawer}
+                open={showAddCard}
                 title="Add New Payment"
-                setDrawerOpen={(flag) => setShowDrawer(flag)}
+                setDrawerOpen={(flag) => setShowAddCard(flag)}
                 closeIcon={true}
                 actionButtons={true}
             >
                 <AddCardForm
                     title="Payment Details"
-                    setDrawerOpen={setShowDrawer} 
+                    setDrawerOpen={setShowAddCard} 
                     enableSave
                     submitButtonLabel="Add New Payment"
                     saveAction={addNewCardHandler}
                 />
+            </Drawer>
+
+            <Drawer
+                open={showInvoiceDrawer}
+                title={`Invoice #${invoiceId}`}
+                setDrawerOpen={(flag) => onInvoiceDrawerClose(flag)}
+                closeIcon={true}
+            >
+                <AddNewPaymentDrawer invoiceId={invoiceId} />
             </Drawer>
         </ModuleContainer>
     );

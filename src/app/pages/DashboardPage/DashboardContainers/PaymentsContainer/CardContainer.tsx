@@ -36,7 +36,7 @@ export default function CardContainer({heading, individualCardData}:PaymentCardC
             
             <Grid container>
                 {individualCardData.map((value,idx)=>(
-                    <PaymentCard setDrawerOpen={setDrawerOpen} setCardData={setCardData} key={idx} name={value.name} expiryData={value.expiryDate} cardNumber={value.cardNumber} type={value.type}/>
+                    <PaymentCard setDrawerOpen={setDrawerOpen} setCardData={setCardData} key={idx} id={'1'} name={value.name} expiryData={value.expiryDate} cardNumber={value.cardNumber}/>
                 ))}
             </Grid>
             

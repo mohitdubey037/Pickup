@@ -5,19 +5,26 @@ import { FormContainerTitle } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { FormikValues } from "formik";
 import { CustomInput } from "./style";
-import {PERMISSION_TYPES} from '../../../../../constants'
+import { PERMISSION_TYPES } from "../../../../../constants";
 import Select from "app/components/Select";
 function NewColleagueForm(props: { formik: FormikValues }) {
-  const { handleChange, errors,title, touched,values, handleBlur, handleSubmit } =
-    props.formik;
+  const {
+    handleChange,
+    errors,
+    title,
+    touched,
+    values,
+    handleBlur,
+    handleSubmit,
+  } = props.formik;
   return (
-    <FullCard>
+    <FullCard style={{ marginLeft: 0 }}>
       <Flex direction={"column"}>
         <Typography className="typography" variant="h1" component="h3">
           <FormContainerTitle>New Colleague</FormContainerTitle>
         </Typography>
         <Flex direction={"column"}>
-          <Flex style={{marginTop:20}} >
+          <Flex style={{ marginTop: 20 }}>
             <CustomInput
               id="firstName"
               name="firstName"
@@ -50,7 +57,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               style={{ flex: 1, marginRight: 30 }}
             />
           </Flex>
-          <Flex style={{marginTop:20}} >
+          <Flex style={{ marginTop: 20 }}>
             <CustomInput
               id="Role"
               name="Role"
@@ -84,31 +91,32 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               style={{ flex: 1, marginRight: 30 }}
             />
           </Flex>
-          <Flex style={{marginTop:20}} >
-          <Grid item xs={11}>
-            <Select
-              id="Permission"
-              name="Permission"
-              options={PERMISSION_TYPES}
-              label={"Permission"}
-              value={values[title+"Permission"]}
-              
-            />
+          <Flex style={{ marginTop: 20 }}>
+            <Grid item xs={11}>
+              <Select
+                id="Permission"
+                name="Permission"
+                options={PERMISSION_TYPES}
+                label={"Permission"}
+                value={values[title + "Permission"]}
+                onSelect={(e) => console.log(e)}
+              />
             </Grid>
           </Flex>
-          <Flex direction={"row-reverse"} style={{marginTop:20}}  >
-            <div style={{ marginRight: 30,width:148}}>
+          <Flex direction={"row-reverse"} style={{ marginTop: 20 }}>
+            <div style={{ marginRight: 30, width: 148 }}>
               <Button label="Save" onClick={handleSubmit} />
-
             </div>
-            
           </Flex>
-          <div style={{marginLeft:5,width:130}} >
-            <Button label="Add Colleague" onClick={handleSubmit} style={{marginTop:100,width:150}}/>
+          <div style={{ marginLeft: 5, width: 130 }}>
+            <Button
+              label="Add Colleague"
+              onClick={handleSubmit}
+              style={{ marginTop: 100, width: 150 }}
+            />
           </div>
         </Flex>
       </Flex>
-      
     </FullCard>
   );
 }

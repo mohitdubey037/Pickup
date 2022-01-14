@@ -1,121 +1,19 @@
-import { imageIcon, printer } from "app/assets/Icons";
+import * as yup from "yup";
 
-const getActionItem = () => {
-  return (
-    <div style={{ display: "flex", gap: "20px" }}>
-      <img src={imageIcon} alt="" />
-      <img src={printer} alt="" />
-    </div>
-  );
-};
+import { PHONE_NUMBER_REGX } from "../../../../../constants";
+// import { imageIcon, printer } from "app/assets/Icons";
 
-export const searchTable = [
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-  {
-    Source: "Uploaded",
-    "Invoice Id": "32132",
-    "Shipment Id": "TOR-0607-123",
-    "Shipping Date": "06/06/21",
-    Status: "Pending",
-    "Shipping Cost": "$50",
-    Action: getActionItem(),
-  },
-];
+export const editContactDetailsSchema = yup.object().shape({
+    companyName: yup.string(),
+    firstName: yup.string().required("Firstname is required"),
+    lastName: yup.string().required("Lastname is required"),
+    address1: yup.string().required("Address Line 1 is required"),
+    address2: yup.string().required("Address Line 2 is required"),
+    city: yup.string().required("City is required"),
+    postal: yup.string().required("Postal Code is required"),
+    state: yup.string().required("State is required"),
+    country: yup.string().required("Country is required"),
+    phone: yup.string().required("Phone number is required").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+    alternate: yup.string().required("Phone number is required").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+    email: yup.string().email("Please enter valid email").required("Email Address is a required field")
+});
