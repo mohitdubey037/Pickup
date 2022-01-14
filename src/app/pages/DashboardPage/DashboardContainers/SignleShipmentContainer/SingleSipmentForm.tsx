@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Grid, Typography } from "@material-ui/core";
 
@@ -11,17 +11,19 @@ import { LOCATION_TYPES, BILLING_TYPES } from "../../../../../constants";
 
 import { FavouriateWrapper } from "./style";
 import { starimage, starImageEmpty } from "../../../../assets/Icons";
+import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 
 function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "origin" | "destination", formik: any, index: number, disabled?: boolean }) {
     
-    const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
+    const { handleChange, values, errors, touched, handleBlur, setFieldValue, setFieldError } = formik;
 
     const formFieldName = `orders.${index}`;
     const singleFormValues = values.orders[index];
 
     const singleFormErrors = errors?.orders?.[index];
     const singleFormTouched = touched?.orders?.[index];
-
+    console.log(singleFormErrors)
+    console.log(singleFormTouched?.[`${title}ProvinceState`])
     return (
         <FormWrapper style={{ paddingRight: 35 }}>
             <form>
@@ -129,8 +131,36 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             error={singleFormTouched?.[`${title}LastName`] && singleFormErrors?.[`${title}LastName`]}
                             validate
                         />
-                    </Grid>
-                    <Grid item xs={4}>
+                            </Grid>
+                            <Grid item xs={4} >
+                                    <AutoComplete
+                                    setFieldValue={setFieldValue}
+                                    formFieldName={formFieldName}
+                                    title={title}
+                                    handleChange={handleChange}
+                                    singleFormValues={singleFormValues}
+                                    disabled={disabled}
+                                    singleFormTouched={singleFormTouched}
+                                    singleFormErrors={singleFormErrors}
+                                    handleBlur={handleBlur}
+                                        onSelect={(value) => {
+                                            console.log("HERE MAPS", value?.location?.displayPosition?.latitude, value?.location?.displayPosition?.longitude,value?.location?.address?.country);
+                                            setFieldValue(`${formFieldName}.${title}Longitude`, value?.location?.displayPosition?.longitude || "");
+                                            setFieldValue(`${formFieldName}.${title}Latitude`, value?.location?.displayPosition?.latitude || "");
+                                            setFieldValue(`${formFieldName}.${title}Country`, value?.location?.address?.country || "");
+                                            setFieldValue(`${formFieldName}.${title}ProvinceState`, value?.location?.address?.state || value?.location?.address?.county || "");
+                                            setFieldValue(`${formFieldName}.${title}City`, value?.location?.address?.city || "");
+                                            setFieldValue(`${formFieldName}.${title}PostalCode`, value?.location?.address?.postalCode || "");
+                                            // setFieldValue(`${formFieldName}.${title}AddressLine1`, value?.location?.address?.label || "");
+                                            setFieldValue(`${formFieldName}.${title}AddressLine2`, value?.location?.address?.street || "");
+                                            `${formFieldName}.${title}Longitude` === null && setFieldError(`${formFieldName}.${title}Longitude`, "Longitude is a required value");
+                                            value?.location?.displayPosition?.longitude === null && setFieldError(`${formFieldName}.${title}Longitude`, "Longitude is a required value");
+                                            `${formFieldName}.${title}Latitude` === null && setFieldError(`${formFieldName}.${title}Latitude`, "Latitude is a required value")
+                                            value?.location?.displayPosition?.Latitude === null && setFieldError(`${formFieldName}.${title}Latitude`, "Latitude is a required value");
+                                            
+                                    }} />
+                            </Grid>
+                    {/* <Grid item xs={4}>
                         <Input
                             id={`${formFieldName}.${title}AddressLine1`}
                             name={`${formFieldName}.${title}AddressLine1`}
@@ -147,7 +177,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             }
                             validate
                         />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={4}>
                         <Input
                             id={`${formFieldName}.${title}AddressLine2`}

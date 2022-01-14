@@ -21,7 +21,8 @@ export const singleShipmentFormSchema = yup.object().shape({
             originAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").matches(PHONE_NUMBER_REGX, " AlternatePhone number is not valid"),
             originEmailAddress: yup.string().email("Please enter valid email").required("Email Address is a required field"),
             originAdditionalNotes: yup.string().required("Additional Notes is a required field"),
-
+            originLatitude:  yup.string().required("Latitude is a required field"),
+            originLongitude:  yup.string().required("Longitude is a required field"),
 
             destinationCompanyName: yup.string().when('destinationBillingType', {
                 is: (destinationBillingType) => destinationBillingType === 2,
@@ -39,7 +40,8 @@ export const singleShipmentFormSchema = yup.object().shape({
             destinationAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
             destinationEmailAddress: yup.string().email("Please enter valid email").required("Email Address is a required field"),
             destinationAdditionalNotes: yup.string().required("Additional Notes is a required field"),
-
+            destinationLatitude:  yup.string().required("Latitude is a required field"),
+            destinationLongitude:  yup.string().required("Longitude is a required field"),
 
             categoryId: yup.number().required("Category is required"),
             customerRefNo: yup.string().required("Customer reference number is required"),

@@ -14,6 +14,8 @@ export const shipmentDetailsItemInitValue = {
 
 export const singleShipmentInitValues = {
 
+    originLatitude: null,
+    originLongitude: null,
     originFavorite: false,
     originBillingType: 1,
     originLocationType: 1,
@@ -31,6 +33,8 @@ export const singleShipmentInitValues = {
     originEmailAddress: "",
     originAdditionalNotes: "",
 
+    destinationLatitude: null,
+    destinationLongitude: null,
     destinationFavorite: false,
     destinationBillingType: 1,
     destinationLocationType: 1,
@@ -65,6 +69,8 @@ export const singleShipmentInitValues = {
 
 export const singleShipmentInitValues1 = {
 
+    originLatitude: '34.53',
+    originLongitude: '-25.54',
     originFavorite: false,
     originBillingType: 1,
     originLocationType: 1,
@@ -82,6 +88,9 @@ export const singleShipmentInitValues1 = {
     originEmailAddress: "a@a.com",
     originAdditionalNotes: "Additional notes",
 
+
+    destinationLatitude: '34.53',
+    destinationLongitude: '-25.54',
     destinationFavorite: false,
     destinationBillingType: 1,
     destinationLocationType: 1,
