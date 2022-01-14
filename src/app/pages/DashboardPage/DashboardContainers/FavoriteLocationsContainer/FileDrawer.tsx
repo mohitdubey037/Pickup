@@ -3,8 +3,13 @@ import { Typography } from "@material-ui/core";
 import { Button } from "app/components/Buttons";
 import { csvIcon } from "app/assets/Icons";
 import { DropText, DropzoneBox, Wrapper, HelperText } from "./style";
+import { CSVLink, CSVDownload } from "react-csv";
 
 import Dropzone from "react-dropzone";
+const csvData = [
+  ["IndividualOrCompany", "LocationType", "CompanyName","FirstName","LastName","AddressLine1","AddressLine2","City","PostalCode","ProvinceOrState","Country","ContactNumber","AlternateNumber","EmailAddress","AdditionalNotes","Latitude","Longitude"],
+
+];
 function FileDrawer(onDrop) {
   return (
     <>
@@ -14,7 +19,9 @@ function FileDrawer(onDrop) {
           and we can import it
         </Typography>
         <div style={{ width: 200, paddingBottom: 40 }}>
+        <CSVLink data={csvData}>
           <Button label="Download Sample" />
+          </CSVLink>
         </div>
         <DropzoneBox>
           <Dropzone onDrop={(acceptedFiles) => onDrop(acceptedFiles)}>
