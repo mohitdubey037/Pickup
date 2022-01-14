@@ -1,10 +1,11 @@
+import services from "services";
 
 export const getTrackStatus = async (orderId: number) => {
   try {
     // const response = await services.get(`order/business/shipment/${orderId}/track`)
     const response = await
     fetch(
-      "https://staging-api.pickups.mobi/order/api/order/business/shipment/4582/track",
+      `https://staging-api.pickups.mobi/order/api/order/business/shipment/${orderId}/track`,
       {
         headers: {
           Authorization:
@@ -12,6 +13,15 @@ export const getTrackStatus = async (orderId: number) => {
         },
       }
     ).then(res => res.json());
+    return { response: response, success: true };
+  } catch (err) {
+    return { response: err, sucess: false };
+  }
+};
+
+export const getLocation = async (orderId: number) => {
+  try {
+    const response = await services.get(`order/business/shipments/${orderId}/liveLocation`);
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };

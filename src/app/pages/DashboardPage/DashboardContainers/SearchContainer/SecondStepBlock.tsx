@@ -9,11 +9,11 @@ import {
 import { DriverAvatar } from "../../../../assets/Images/index";
 import { Button } from "app/components/Buttons";
 
-interface DetailsProps {
-    details?: any;
-}
+function SecondStepBlock(props: any) {
+  let { details } = props;
+  // let { driverDetails } = trackData;
 
-function SecondStepBlock(props: DetailsProps) {
+  console.log("Driver: ", details);
   return (
     <SecondStepContent
       elevation={0}
@@ -21,12 +21,16 @@ function SecondStepBlock(props: DetailsProps) {
     >
       <div style={{ display: "flex" }}>
         <AvatarDiv>
-          <Avatar src={DriverAvatar} alt="" />
+          <Avatar src={details.driverDetails.profileImg} alt="" />
         </AvatarDiv>
         <NameAndCarDiv>
-          <span className="NameSpan">John Doe</span>
-          <span className="NumberSpan">BYNO 342</span>
-          <span className="NumberSpan">2020 Ford Ecosport</span>
+          <span className="NameSpan">
+            {details.driverDetails.firstName + details.driverDetails.lastName
+              ? details.driverDetails.firstName +" "+ details.driverDetails.lastName
+              : "-"}
+          </span>
+          <span className="NumberSpan">{details.driverDetails.licensePlate}</span>
+          <span className="NumberSpan">{details.driverDetails.make + " " + details.driverDetails.model}</span>
         </NameAndCarDiv>
       </div>
       <CallButtonDiv>
