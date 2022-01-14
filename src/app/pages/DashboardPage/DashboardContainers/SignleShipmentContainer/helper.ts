@@ -1,3 +1,17 @@
+import moment from "moment";
+
+const getSingleDate = ( appointmentDate, appointmentTime ) => {
+    let momentTime = moment(appointmentTime);
+    let momentDate = moment(appointmentDate);
+    return moment({
+        year: momentDate.year(),
+        month: momentDate.month(),
+        day: momentDate.date(),
+        hour: momentTime.hours(),
+        minute: momentTime.minutes()
+    });
+}
+
 export const shipmentDetailsItemInitValue = {
     quantity: '',
     // orderCost: '',
@@ -116,7 +130,7 @@ export const singleShipmentInitValues1 = {
 
 export const shipmentInitValues = {
     orders: [
-        {...singleShipmentInitValues}
+        {...singleShipmentInitValues1}
     ]
 }
 
@@ -167,6 +181,7 @@ export const transformPayloadToBackend = (values: any) => {
             locationCountry: values.originCountry
         },
         shipmentCost: "111",
+        orderedAt: getSingleDate(values.shipmentDate, values.shipmentTime),
         shipmentTime: values.shipmentTime,
         shipmentDate: values.shipmentDate,
         note: "note",

@@ -12,9 +12,9 @@ import { LOCATION_TYPES, BILLING_TYPES } from "../../../../../constants";
 import { FavouriateWrapper } from "./style";
 import { starimage, starImageEmpty } from "../../../../assets/Icons";
 
-function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "origin" | "destination", formik: any, index: number, disabled?: boolean }) {
+function SingleSipmentForm({ title, formik, index, disabled=false, canBeDisabled=false }: { title: "origin" | "destination", formik: any, index: number, disabled?: boolean, canBeDisabled ?: boolean }) {
     
-    const { values, errors, touched, handleBlur, setFieldValue } = formik;
+    const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
 
     const formFieldName = `orders.${index}`;
     const singleFormValues = values.orders[index];
@@ -40,8 +40,8 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                                 tabIndex={0} 
                                 style={{ cursor: "pointer", opacity: disabled ? 0.5 : 1 }} 
                                 // onClick={() => setFieldValue(`${formFieldName}.${title}Favorite`, false)} 
-                                onClick={() => !disabled && updateAllFieldsHandler(`${title}Favorite`, false)}
-                                onKeyPress={(e) => e.key === "Enter" && updateAllFieldsHandler(`${title}Favorite`, false)}
+                                onClick={() => !disabled && canBeDisabled ? updateAllFieldsHandler(`${title}Favorite`, false): setFieldValue(`${formFieldName}.${title}Favorite`, false)}
+                                onKeyPress={(e) => e.key === "Enter" && canBeDisabled ? updateAllFieldsHandler(`${title}Favorite`, false): setFieldValue(`${formFieldName}.${title}Favorite`, false)}
                             >
                                 <img style={{ marginRight: "4px" }} className="imageStyle" src={starimage} alt="" />Added to Favorites
                             </div>:
@@ -50,8 +50,8 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                                 tabIndex={0} 
                                 style={{ cursor: "pointer", opacity: disabled ? 0.5 : 1 }} 
                                 // onClick={() => setFieldValue(`${formFieldName}.${title}Favorite`, true)} 
-                                onClick={() => !disabled && updateAllFieldsHandler(`${title}Favorite`, true)}
-                                onKeyPress={(e) => e.key === "Enter" && updateAllFieldsHandler(`${title}Favorite`, true)}
+                                onClick={() => !disabled && canBeDisabled ? updateAllFieldsHandler(`${title}Favorite`, true): setFieldValue(`${formFieldName}.${title}Favorite`, true)}
+                                onKeyPress={(e) => e.key === "Enter" && canBeDisabled ? updateAllFieldsHandler(`${title}Favorite`, true): setFieldValue(`${formFieldName}.${title}Favorite`, true)}
                             >
                                 <img style={{ marginRight: "4px" }} className="imageStyle" src={starImageEmpty} alt="" />Add to Favorites
                             </div>
@@ -64,7 +64,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                     value={singleFormValues?.[`${title}BillingType`] ? String(singleFormValues?.[`${title}BillingType`]-1) : "0"}
                     name={`${formFieldName}.${title}BillingType`}
                     // onChange={(e) => setFieldValue(`${formFieldName}.${title}BillingType`, Number(e.target.value) + 1)}
-                    onChange={(event) => updateAllFieldsHandler(`${title}BillingType`, Number(event.target.value) + 1)}
+                    onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}BillingType`, Number(event.target.value) + 1) : setFieldValue(`${formFieldName}.${title}BillingType`, Number(event.target.value) + 1)}
                     options={!disabled ? BILLING_TYPES : BILLING_TYPES.map(item => ({...item, disabled: true}))}
                 />
                 {!disabled && (
@@ -79,7 +79,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                                 id={`${formFieldName}.${title}LocationType`}
                                 name={`${formFieldName}.${title}LocationType`}
                                 options={LOCATION_TYPES}
-                                onSelect={(event) => updateAllFieldsHandler(`${title}LocationType`, event.target.value)}
+                                onSelect={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}LocationType`, event.target.value): handleChange(event)}
                                 value={singleFormValues[`${title}LocationType`]}
                                 disabled={disabled}
                             />
@@ -97,7 +97,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                                 value={singleFormValues[`${title}CompanyName`]}
                                 disabled={disabled}
                                 placeholder={"Start typing"}
-                                onChange={(event) => updateAllFieldsHandler(`${title}CompanyName`, event.target.value)}
+                                onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}CompanyName`, event.target.value) : handleChange(event)}
                                 onBlur={handleBlur}
                                 error={
                                     singleFormTouched?.[`${title}CompanyName`] &&
@@ -116,7 +116,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             disabled={disabled}
                             label={"First Name"}
                             placeholder={"Start typing"}
-                            onChange={(event) => updateAllFieldsHandler(`${title}FirstName`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}FirstName`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={
                                 singleFormTouched?.[`${title}FirstName`] && singleFormErrors?.[`${title}FirstName`]
@@ -133,7 +133,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             value={singleFormValues[`${title}LastName`]}
                             disabled={disabled}
                             placeholder={"Start typing"}
-                            onChange={(event) => updateAllFieldsHandler(`${title}LastName`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}LastName`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={singleFormTouched?.[`${title}LastName`] && singleFormErrors?.[`${title}LastName`]}
                             validate
@@ -148,7 +148,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             value={singleFormValues[`${title}AddressLine1`]}
                             disabled={disabled}
                             placeholder={"Start typing"}
-                            onChange={(event) => updateAllFieldsHandler(`${title}AddressLine1`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}AddressLine1`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={
                                 singleFormTouched?.[`${title}AddressLine1`] &&
@@ -166,7 +166,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             initValue={singleFormValues[`${title}AddressLine2`]}
                             value={singleFormValues[`${title}AddressLine2`]}
                             disabled={disabled}
-                            onChange={(event) => updateAllFieldsHandler(`${title}AddressLine2`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}AddressLine2`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={
                                 singleFormTouched?.[`${title}AddressLine2`] &&
@@ -184,7 +184,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             initValue={singleFormValues[`${title}City`]}
                             value={singleFormValues[`${title}City`]}
                             disabled={disabled}
-                            onChange={(event) => updateAllFieldsHandler(`${title}City`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}City`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={singleFormTouched?.[`${title}City`] && singleFormErrors?.[`${title}City`]}
                             validate
@@ -199,7 +199,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             value={singleFormValues[`${title}PostalCode`]}
                             disabled={disabled}
                             placeholder={"Start typing"}
-                            onChange={(event) => updateAllFieldsHandler(`${title}PostalCode`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}PostalCode`, event.target.value): handleChange(event)}
                             onBlur={handleBlur}
                             error={
                                 singleFormTouched?.[`${title}PostalCode`] && singleFormErrors?.[`${title}PostalCode`]
@@ -216,7 +216,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             initValue={singleFormValues[`${title}ProvinceState`]}
                             value={singleFormValues[`${title}ProvinceState`]}
                             disabled={disabled}
-                            onChange={(event) => updateAllFieldsHandler(`${title}ProvinceState`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}ProvinceState`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={
                                 singleFormTouched?.[`${title}ProvinceState`] &&
@@ -234,7 +234,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             value={singleFormValues[`${title}Country`]}
                             placeholder={"Start typing"}
                             disabled={disabled}
-                            onChange={(event) => updateAllFieldsHandler(`${title}Country`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}Country`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={singleFormTouched?.[`${title}Country`] && singleFormErrors?.[`${title}Country`]}
                             validate
@@ -249,7 +249,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             value={singleFormValues[`${title}ContactNumber`]}
                             placeholder={"Start typing"}
                             disabled={disabled}
-                            onChange={(event) => updateAllFieldsHandler(`${title}ContactNumber`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}ContactNumber`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={
                                 singleFormTouched?.[`${title}ContactNumber`] &&
@@ -267,7 +267,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             label={"Alternate Contact Number"}
                             placeholder={"Start typing"}
                             disabled={disabled}
-                            onChange={(event) => updateAllFieldsHandler(`${title}AlternateContactNumber`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}AlternateContactNumber`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={
                                 singleFormTouched?.[`${title}AlternateContactNumber`] &&
@@ -285,7 +285,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             value={singleFormValues[`${title}EmailAddress`]}
                             placeholder={"Start typing"}
                             disabled={disabled}
-                            onChange={(event) => updateAllFieldsHandler(`${title}EmailAddress`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}EmailAddress`, event.target.value) : handleChange(event)}
                             onBlur={handleBlur}
                             error={
                                 singleFormTouched?.[`${title}EmailAddress`] &&
@@ -300,7 +300,7 @@ function SingleSipmentForm({ title, formik, index, disabled=false }: { title: "o
                             name={`${formFieldName}.${title}AdditionalNotes`}
                             label={"Additional Notes"}
                             placeholder={"Start typing"}
-                            onChange={(event) => updateAllFieldsHandler(`${title}AdditionalNotes`, event.target.value)}
+                            onChange={(event) => canBeDisabled ? updateAllFieldsHandler(`${title}AdditionalNotes`, event.target.value) : handleChange(event)}
                             initValue={singleFormValues[`${title}AdditionalNotes`]}
                             disabled={disabled}
                             value={singleFormValues[`${title}AdditionalNotes`]}
