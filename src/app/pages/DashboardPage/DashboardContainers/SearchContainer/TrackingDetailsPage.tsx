@@ -105,7 +105,7 @@ function TrackingDetailsPage(props: any) {
         <HeadSpanBlock>
           <img src={ShareIcon} alt="" className="ShareImageBlock" />
           <div className="ShareText">Share Tracking</div>
-          <DisplayMapFC/>
+          {/* <DisplayMapFC/> */}
         </HeadSpanBlock>
       </SubTitleDiv>
       <MapDiv>

@@ -24,7 +24,7 @@ import { useDispatch } from "react-redux";
 const SearchContainer = ({ path: string }) => {
 
     const dispatch = useDispatch();
-  const [searchRecordData, setSearchRecordData] = useState([{}]);
+  const [searchRecordData, setSearchRecordData] = useState<any>();
   const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
   const [singleOrderData, setSingleOrderData] = useState([{}]);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -144,7 +144,7 @@ const SearchContainer = ({ path: string }) => {
         />
       </SearchFieldsWrapper>
       <Table
-        data={searchTable(searchRecordData, openInvoiceDrawer)}
+        data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
         tableTop={tableTop()}
         showCheckbox
         showPagination
