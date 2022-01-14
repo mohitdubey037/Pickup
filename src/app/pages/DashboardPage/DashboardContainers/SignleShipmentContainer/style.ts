@@ -41,3 +41,26 @@ export const ContentSpan = styled.span`
   font-size: 16px;
   color: #343434;
 `;
+
+export const OrderImageWrapper = styled.div`
+    width: fit-content;
+    margin-top: 20px;
+    position: relative;
+`
+
+export const OrderImage = styled.img`
+    display: block;
+    max-width:180px;
+    max-height:95px;
+    width: auto;
+    height: auto;
+`;
+
+export const Remove = styled.img`
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    cursor: pointer;
+`
+
+

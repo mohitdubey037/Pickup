@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 
-import { FormikValues } from "formik";
+import { Formik, FormikValues } from "formik";
 
 import { Flex } from "app/components/Input/style";
 import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
-import { getCategoryList } from "services/SingleShipmentServices";
+import { getCategoryList, orderImageUploadService } from "services/SingleShipmentServices";
 import DetailsFormItem from "./DetailsFormItem";
-import AddItemLabel from "app/components/AddItemLabel";
+import AddImage from "app/components/AddImage";
 
 import { DROP_OPTION, FRAGILE_OPTION } from "../../../../../constants";
 
 import { CustomInput } from "../CompanyProfileContainer/style";
+import { showToast } from "utils";
+import { OrderImage, OrderImageWrapper, Remove } from "./style";
+
+import { remove } from "../../../../assets/Icons"
 
 interface SelectBoardType {
     categoryId: number;
@@ -37,6 +41,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
     const singleFormTouched = touched?.orders?.[props.index];
 
     const [categoryList, setCategoryList] = useState<SelectBoardType[]>([]);
+    // const [selectedImage, setSelectedImage] = useState<null | string>(null)
 
     useEffect(() => {
         (async () => {
@@ -51,6 +56,26 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
     const hasDimensions = () => {
         const selectedCategory = categoryList.find(category => category.categoryId === Number(singleFormValues.categoryId));
         return (selectedCategory?.setDimension || false)
+    }
+
+    const changeHandler = async (e) => {
+        const formData = new FormData();
+        const image = e.target.files[0];
+
+        formData.append("document", image, image.name);
+
+        const res: { response: any, error: any} = await orderImageUploadService(formData)
+
+        if(res.error){
+            showToast(res.error.message, "error")
+        }else{
+            setFieldValue(`${formFieldName}.picture`, res?.response?.data?.data || "")
+            // setSelectedImage(res?.response?.data?.data)
+        }
+    }
+
+    const imageHandler = (value) => {
+        setFieldValue(`${formFieldName}.picture`, value || "")
     }
 
     return (
@@ -130,10 +155,18 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                         formik={props.formik}
                     />
                 ))}
-                {singleFormValues?.categoryId && (
-                    <Flex top={20}>
-                        <AddItemLabel text={"Add order Picture"} />
-                    </Flex>
+                {
+                    singleFormValues.picture && 
+                    <OrderImageWrapper className="orderImageWrapper">
+                        <Remove onClick={() => imageHandler(null)} src={remove} alt="remove" />
+                        <OrderImage src={String(singleFormValues.picture)} alt="selectedImage" />
+                    </OrderImageWrapper>
+                }
+                {singleFormValues?.categoryId && !singleFormValues.picture && (
+                    <AddImage changeHandler={(e) => changeHandler(e)} text={"Add Shipment Picture"} />
+                )}
+                {singleFormValues?.categoryId && singleFormValues.picture && (
+                    <AddImage changeHandler={(e) => changeHandler(e)} text={"Replace Shipment Picture"} />
                 )}
             </Flex>
         </>

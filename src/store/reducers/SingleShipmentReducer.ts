@@ -2,7 +2,8 @@ import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
     shipmentDetails: null,
-    orderIds: []
+    orderIds: [],
+    invoiceId: null
 };
 
 const { Types, Creators } = createActions({
@@ -11,7 +12,8 @@ const { Types, Creators } = createActions({
     submitShipment: ["res"],
     setShipmentOrderIds: ["response"],
     setInvoice: ["response"],
-    resetOrderIds: []
+    resetOrderIds: [],
+    resetSingleShipment: []
 });
 
 const onSetShipmentDetails = (state=initialState, action) => ({
@@ -34,11 +36,18 @@ const resetOrderIds = (state = initialState, action) => ({
     orderIds: [] 
 });
 
+const resetSingleShipment = (state = initialState, action) => ({
+    shipmentDetails: null,
+    orderIds: [],
+    invoiceId: null
+}); 
+
 const HANDLERS = {
     [Types.SET_SHIPMENT_DETAILS]: onSetShipmentDetails,
     [Types.SET_SHIPMENT_ORDER_IDS]: setShipmentOrderIds,
     [Types.SET_INVOICE]: setInvoiceId,
     [Types.RESET_ORDER_IDS]: resetOrderIds,
+    [Types.RESET_SINGLE_SHIPMENT]: resetSingleShipment,
 };
 
 const singleShipment = createReducer(initialState, HANDLERS);
