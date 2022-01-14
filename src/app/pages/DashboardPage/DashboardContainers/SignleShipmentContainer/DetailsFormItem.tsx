@@ -128,7 +128,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                             />
                         </Flex>
                     </Flex>
-                    <Flex flex={1} left={30}>
+                    {/* <Flex flex={1} left={30}>
                         <CustomInput
                             id={`${formFieldName}.${formItem}.orderCost`}
                             name={`${formFieldName}.${formItem}.orderCost`}
@@ -140,7 +140,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                             value={formItemValue.orderCost}
                             placeholder={"eg. $300"}
                         />
-                    </Flex>
+                    </Flex> */}
                     <Flex flex={1} left={30}></Flex>
                     <Flex flex={1} left={30}></Flex>
                     <Flex flex={1} left={30}></Flex>

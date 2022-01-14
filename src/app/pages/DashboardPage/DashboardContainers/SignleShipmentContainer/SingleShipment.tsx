@@ -80,14 +80,12 @@ function SingleShipment({ path: string }) {
             ...orderDetails,
             nextOrderValue
         ]
-        console.log("shipmentDetailsRes", updatedOrderDetails)
         formik.setFieldValue("orders", updatedOrderDetails);
       };
 
     return (
         <ModuleContainer>
             <ContainerTitle>Single order</ContainerTitle>
-            {/* <pre style={{ textAlign: "left", fontSize: 16 }}>{JSON.stringify(formik.values, null, 2)}</pre> */}
             {new Array(formik.values.orders.length).fill("").map((_, index) => ( 
                 <FormContainer elevation={2}>
                     <FormContainerTitle>Address Details</FormContainerTitle>
