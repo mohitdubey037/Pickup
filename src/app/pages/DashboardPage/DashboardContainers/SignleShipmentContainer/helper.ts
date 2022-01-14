@@ -1,6 +1,6 @@
 export const shipmentDetailsItemInitValue = {
     quantity: '',
-    orderCost: '',
+    // orderCost: '',
     description: "",
     height: '',
     length: '',
