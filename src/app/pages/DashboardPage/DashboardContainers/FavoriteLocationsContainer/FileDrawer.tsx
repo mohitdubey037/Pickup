@@ -3,11 +3,11 @@ import { Typography } from "@material-ui/core";
 import { Button } from "app/components/Buttons";
 import { csvIcon } from "app/assets/Icons";
 import { DropText, DropzoneBox, Wrapper, HelperText } from "./style";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
 import Dropzone from "react-dropzone";
 const csvData = [
-  ["IndividualOrCompany", "LocationType", "CompanyName","FirstName","LastName","AddressLine1","AddressLine2","City","PostalCode","ProvinceOrState","Country","ContactNumber","AlternateNumber","EmailAddress","AdditionalNotes","Latitude","Longitude"],
+  ["Favourites","IndividualOrCompany", "LocationType", "CompanyName","FirstName","LastName","AddressLine1","AddressLine2","City","PostalCode","ProvinceOrState","Country","ContactNumber","AlternateNumber","EmailAddress","AdditionalNotes","Latitude","Longitude"],
 
 ];
 function FileDrawer(onDrop) {
@@ -19,12 +19,13 @@ function FileDrawer(onDrop) {
           and we can import it
         </Typography>
         <div style={{ width: 200, paddingBottom: 40 }}>
-        <CSVLink data={csvData}>
+        <CSVLink filename={"Bulk-Location-Sample.csv"} data={csvData} target="_blank" >
           <Button label="Download Sample" />
           </CSVLink>
         </div>
         <DropzoneBox>
-          <Dropzone onDrop={(acceptedFiles) => onDrop(acceptedFiles)}>
+          <Dropzone onDrop={(acceptedFiles) => onDrop(acceptedFiles)} accept="image/png, Excel/csv" minSize={0}
+  maxSize={5242880}>
             {({ getRootProps, getInputProps }) => (
               <section>
                 <img src={csvIcon} alt="" />
