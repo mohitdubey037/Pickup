@@ -1,46 +1,44 @@
 /* eslint-disable no-debugger */
-import { useState, useEffect, Fragment } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
+import { useState, useEffect } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { HERE_MAPS_AKI_KEY } from "../../../../../constants";
 import { Input } from "app/components/Input";
+import { fetchSuggestions, fetchLatLong } from "../../../../../services/HereMapsService";
 
-function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
+// function sleep(delay = 0) {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, delay);
+//   });
+// }
 
-interface Suggestion {
-  address: string;
-  countryCode: string;
-  label: string;
-  language: string;
-  locationId: string;
-  matchLevel: string;
-}
+// interface Suggestion {
+//   address: string;
+//   countryCode: string;
+//   label: string;
+//   language: string;
+//   locationId: string;
+//   matchLevel: string;
+// }
 
 const AutoComplete = ({
+  id,
+  name,
+  label,
+  initValue,
+  value,
+  error,
+  placeholder,
   onSelect,
   setFieldValue,
-  formFieldName,
-  title,
-  singleFormValues,
   handleBlur,
-  singleFormTouched,
-  singleFormErrors,
   disabled,
-  handleChange,
+  onChange,
 }) => {
   const [suggestionsList, setSuggestionsList] = useState<any>([]);
   const [addressData, setAddressData] = useState<any>(null);
-  // console.log(addressData);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [input, setInput] = useState("");
 
   const [open, setOpen] = useState<boolean>(false);
-  const loading = open && suggestionsList?.length === 0;
+  // const loading = open && suggestionsList?.length === 0;
 
   const ref = useOnclickOutside(() => {
     setOpen(false);
@@ -55,86 +53,42 @@ const AutoComplete = ({
     onSelect && onSelect(null);
     const delayDebounceFn = setTimeout(() => {
       if (
-        singleFormValues[`${title}AddressLine1`] &&
-        singleFormValues[`${title}AddressLine1`] !==
+        value &&
+        value !==
           addressData?.location?.address?.label
       ) {
-        console.log(singleFormValues[`${title}AddressLine1`]);
-        // write your logic here
-        searchService(singleFormValues[`${title}AddressLine1`]);
+        searchService(value);
       }
     }, 500);
     return () => clearTimeout(delayDebounceFn);
-  }, [singleFormValues[`${title}AddressLine1`]]);
+  }, [value]);
 
   const getLatLn = async (value) => {
-    console.log(value)
-    // setSuggestionsList([]);
-    //   if (value?.label !== "" || value?.label !== null) {
-    //       console.log(value?.label)
-    //       setsingleFormValues[`${title}AddressLine1`](value?.label);
-    // }
-    try {
-      await fetch(
-        `https://geocoder.ls.hereapi.com/6.2/geocode.json?locationid=${value?.locationId}&jsonattributes=1&apiKey=${HERE_MAPS_AKI_KEY}`,
-        {
-          method: "get",
-        }
-      )
-        .then((res) => res.json())
-        // .then((res) => console.log(res?.suggestions))
-        //@ts-ignore
-        .then((res) => {
-          // setSuggestionsList(res?.suggestions);
-          console.log(res);
-          onSelect && onSelect(res?.response?.view?.[0]?.result?.[0] || null);
-          // setsingleFormValues[`${title}AddressLine1`](value?.label);
-          setAddressData(res?.response?.view?.[0]?.result?.[0] || null);
-          // onSelect && onSelect(addressData);
-          // console.log(onSelect(addressData))
-        });
-      // .then(() => console.log(suggestionsList));
-    } catch (err) {
-      console.log(err);
-    }
+    let res = await fetchLatLong(value);
+    console.log(res);
+    onSelect && onSelect(res?.response?.view?.[0]?.result?.[0] || null);
+    setAddressData(res?.response?.view?.[0]?.result?.[0] || null);
   };
 
   const searchService = async (value) => {
     setAddressData(null);
-    // onSelect && onSelect(null)
-    try {
-      await fetch(
-        `https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=${HERE_MAPS_AKI_KEY}&query=${value}`,
-        {
-          method: "get",
-        }
-      )
-        .then((res) => res.json())
-        // .then((res) => console.log(res?.suggestions))
-        //@ts-ignore
-        .then((res) => {
-          setSuggestionsList(res?.suggestions || []);
-          setOpen(true);
-          console.log(res);
-        });
-    } catch (err) {
-      console.log(err);
-    }
+    let res = await fetchSuggestions(value);
+    console.log(res);
+    setSuggestionsList(res?.suggestions || []);
+    setOpen(true);
   };
 
   // const getLocationId = (value) => {
   //   if (value !== "" || value !== null) {
-  //     setsingleFormValues[`${title}AddressLine1`](value);
+  //     setvalue(value);
   //     const suggestion = suggestionsList.filter((item) => item?.label === value);
   //     console.log(suggestion);
   //     getLatLn(suggestion[0]?.locationId);
   //     setSuggestionsList([]);
   //   }
-
   // };
 
   const onKeyDown = e => {
-    // const { activeSuggestion, filteredSuggestions } = this.state;
   
     if (e.keyCode === 13) {
       setOpen(false);
@@ -142,7 +96,7 @@ const AutoComplete = ({
       console.log("tab label",suggestionsList?.[activeSuggestionIndex]?.label)
       getLatLn(suggestionsList?.[activeSuggestionIndex]?.locationId);
       setFieldValue(
-        `${formFieldName}.${title}AddressLine1`, suggestionsList?.[activeSuggestionIndex]?.label);
+        name, suggestionsList?.[activeSuggestionIndex]?.label);
     } else if (e.keyCode === 38) {
       if (activeSuggestionIndex === 0) {
         return;
@@ -166,7 +120,6 @@ const AutoComplete = ({
         <ul className="suggestions" ref={ref} tabIndex={activeSuggestionIndex}>
           {suggestionsList?.map((suggestion, index) => {
             let className;
-            console.log(suggestion);
             // Flag the active suggestion with a class
             if (index === activeSuggestionIndex) {
               className = "suggestion-active";
@@ -174,13 +127,13 @@ const AutoComplete = ({
             return (
               <li
                 className={className}
-                key={suggestion}
+                key={suggestion?.locationId}
                 onKeyDown={onKeyDown}
                 onClick={(e: any) => {
                   getLatLn(suggestion);
                   setOpen(false);
                   setFieldValue(
-                    `${formFieldName}.${title}AddressLine1`,
+                    name,
                     e?.target?.innerHTML || ""
                   );
                 }} // getLocationId(e?.target?.innerHTML)
@@ -194,24 +147,20 @@ const AutoComplete = ({
       )
     );
   };
-  console.log(singleFormTouched)
+  
   return (
     <div style={{ position: "relative" }}>
       <Input
-        onChange={handleChange}
-        id={`${formFieldName}.${title}AddressLine1`}
-        name={`${formFieldName}.${title}AddressLine1`}
-        label={"Address Line 1"}
-        initValue={singleFormValues[`${title}AddressLine1`]}
-        value={singleFormValues[`${title}AddressLine1`]}
+        onChange={onChange}
+        id={id}
+        name={name}
+        label={label}
+        initValue={initValue}
+        value={value}
         disabled={disabled}
-        placeholder={"Start typing"}
-        // onChange={handleChange}
+        placeholder={placeholder}
         onBlur={handleBlur}
-        error={
-          singleFormTouched?.[`${title}Longitude`] &&
-          singleFormErrors?.[`${title}Longitude`]
-        }
+        error={error}
         validate
       />
       {open && renderSuggestions()}

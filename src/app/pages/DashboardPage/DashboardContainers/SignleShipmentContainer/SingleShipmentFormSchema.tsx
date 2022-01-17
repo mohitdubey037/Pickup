@@ -11,7 +11,13 @@ export const singleShipmentFormSchema = yup.object().shape({
             }),
             originFirstName: yup.string().required("First Name is a required field"),
             originLastName: yup.string().required("Last Name is a required field"),
-            originAddressLine1: yup.string().required("Address Line 1 is a required field"),
+            originAddressLine1: yup.string().required("Address Line 1 is a required field").test(
+                'Please',
+                'Please enter a valid address',
+                function (item) {
+                  return (this.parent.originLatitude || this.parent.originLongitude)
+                }
+              ),
             originAddressLine2: yup.string().required("Address Line 2 is a required field"),
             originCity: yup.string().required("City is a required field"),
             originPostalCode: yup.string().required("Postal Code is a required field"),
@@ -30,7 +36,13 @@ export const singleShipmentFormSchema = yup.object().shape({
             }),
             destinationFirstName: yup.string().required("First Name is a required field"),
             destinationLastName: yup.string().required("Last Name is a required field"),
-            destinationAddressLine1: yup.string().required("Address Line 1 is a required field"),
+            destinationAddressLine1: yup.string().required("Address Line 1 is a required field").test(
+                'Please',
+                'Please enter a valid address',
+                function (item) {
+                  return (this.parent.destinationLatitude || this.parent.destinationLongitude)
+                }
+              ),
             destinationAddressLine2: yup.string().required("Address Line 2 is a required field"),
             destinationCity: yup.string().required("City is a required field"),
             destinationPostalCode: yup.string().required("Postal Code is a required field"),

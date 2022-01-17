@@ -14,8 +14,8 @@ export const shipmentDetailsItemInitValue = {
 
 export const singleShipmentInitValues = {
 
-    originLatitude: null,
-    originLongitude: null,
+    originLatitude: "",
+    originLongitude: "",
     originFavorite: false,
     originBillingType: 1,
     originLocationType: 1,
@@ -33,8 +33,8 @@ export const singleShipmentInitValues = {
     originEmailAddress: "",
     originAdditionalNotes: "",
 
-    destinationLatitude: null,
-    destinationLongitude: null,
+    destinationLatitude: "",
+    destinationLongitude: "",
     destinationFavorite: false,
     destinationBillingType: 1,
     destinationLocationType: 1,

@@ -2,6 +2,8 @@ import { Input, PasswordInput } from "app/components/Input";
 import { Flex, Block } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
+
+import { useSelector } from "react-redux";
 // import { passwordSchema } from "./passwordSchema";
 import { Avatar, Grid } from "@material-ui/core";
 import { COUNTRY, INDUSTRY } from "../../../../../constants";
@@ -14,6 +16,7 @@ const EditCompanyDetailsForm = ({
   enableSave = false,
   submitButtonLabel = "Save",
 }) => {
+  const companyDetails = useSelector((state:any) => state?.auth?.user?.companyDetails?.[0]);
   const {
     values,
     handleChange,
@@ -24,15 +27,23 @@ const EditCompanyDetailsForm = ({
     setFieldValue,
   } = useFormik({
     initialValues: {
-      currentPassword: "",
-      newPassword: "",
-      newPasswordConfirmation: "",
+      companyName: companyDetails?.companyName,
+      businessNumber: companyDetails?.businessNumber,
+      industry: companyDetails?.industry,
+      employeeStrength: companyDetails?.employeeStrength,
+      address1: companyDetails?.addressLine1,
+      address2: companyDetails?.addressLine2,
+      city: companyDetails?.city,
+      pincode: companyDetails?.pincode,
+      province: companyDetails?.province,
+      country: companyDetails?.country,
+      hstNumber: companyDetails?.hstNumber,
       saveCard: false,
     },
     // validationSchema: passwordSchema,
     onSubmit: (values) => saveAction(values),
   });
-
+  console.log(companyDetails)
   return (
     <Flex direction="column" style={{ height: "100%", width: "540px" }}>
       <div>
@@ -61,6 +72,8 @@ const EditCompanyDetailsForm = ({
             id="companyName"
             name="companyName"
             onBlur={handleBlur}
+            value={values.companyName}
+            initValue={values.companyName}
             onChange={handleChange}
             // error={touched.companyName && errors.companyName}
             label="Company Name"
@@ -75,6 +88,8 @@ const EditCompanyDetailsForm = ({
           <Input
             id="address1"
             name="address1"
+            value={values.address1}
+            initValue={values.address1}
             onBlur={handleBlur}
             onChange={handleChange}
             // error={touched.address1 && errors.address1}
@@ -90,6 +105,8 @@ const EditCompanyDetailsForm = ({
           <Input
             id="address2"
             name="address2"
+            value={values.address2}
+            initValue={values.address2}
             onBlur={handleBlur}
             onChange={handleChange}
             // error={touched.address2 && errors.address2}
@@ -103,6 +120,8 @@ const EditCompanyDetailsForm = ({
               <Input
                 id="city"
                 name="city"
+                value={values.city}
+            initValue={values.city}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 // error={touched.city && errors.city}
@@ -116,6 +135,8 @@ const EditCompanyDetailsForm = ({
               <Input
                 id="province"
                 name="province"
+                value={values.province}
+            initValue={values.province}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 // error={touched.province && errors.province}
@@ -145,6 +166,8 @@ const EditCompanyDetailsForm = ({
           <Input
             id="hstNumber"
             name="hstNumber"
+            value={values.hstNumber}
+            initValue={values.hstNumber}
             onBlur={handleBlur}
             onChange={handleChange}
             // error={touched.hstNumber && errors.hstNumber}
@@ -160,6 +183,8 @@ const EditCompanyDetailsForm = ({
           <Input
             id="businessNumber"
             name="businessNumber"
+            value={values.businessNumber}
+            initValue={values.businessNumber}
             onBlur={handleBlur}
             onChange={handleChange}
             // error={touched.businessNumber && errors.businessNumber}
@@ -175,6 +200,8 @@ const EditCompanyDetailsForm = ({
           <Input
             id="pincode"
             name="pincode"
+            value={values.pincode}
+            initValue={values.pincode}
             onBlur={handleBlur}
             onChange={handleChange}
             // error={touched.pincode && errors.pincode}
@@ -202,6 +229,8 @@ const EditCompanyDetailsForm = ({
               <Input
                 id="employeeStrength"
                 name="employeeStrength"
+                value={values.employeeStrength}
+            initValue={values.employeeStrength}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 // error={touched.employeeStrength && errors.employeeStrength}
