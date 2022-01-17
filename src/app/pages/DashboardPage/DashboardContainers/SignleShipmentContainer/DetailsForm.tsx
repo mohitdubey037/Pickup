@@ -5,13 +5,17 @@ import { FormikValues } from "formik";
 import { Flex } from "app/components/Input/style";
 import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
-import { getCategoryList } from "services/SingleShipmentServices";
+import { getCategoryList, orderImageUploadService } from "services/SingleShipmentServices";
 import DetailsFormItem from "./DetailsFormItem";
-import AddItemLabel from "app/components/AddItemLabel";
+import AddImage from "app/components/AddImage";
 
 import { DROP_OPTION, FRAGILE_OPTION } from "../../../../../constants";
 
 import { CustomInput } from "../CompanyProfileContainer/style";
+import { showToast } from "utils";
+import { OrderImage, OrderImageWrapper, Remove } from "./style";
+
+import { remove } from "../../../../assets/Icons"
 
 interface SelectBoardType {
     categoryId: number;
@@ -29,7 +33,7 @@ interface SelectBoardType {
 }
 
 function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: number, disabled ?: boolean}) {
-    const { formik: {handleChange, values, handleBlur, setFieldValue, errors, touched}, disabled } = props;
+    const { formik: { values, handleBlur, setFieldValue, errors, touched}, disabled } = props;
 
     const formFieldName = `orders.${props.index}`;
     const singleFormValues = values.orders[props.index];
@@ -37,6 +41,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
     const singleFormTouched = touched?.orders?.[props.index];
 
     const [categoryList, setCategoryList] = useState<SelectBoardType[]>([]);
+    // const [selectedImage, setSelectedImage] = useState<null | string>(null)
 
     useEffect(() => {
         (async () => {
@@ -53,6 +58,32 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
         return (selectedCategory?.setDimension || false)
     }
 
+    const changeHandler = async (e) => {
+        const formData = new FormData();
+        const image = e.target.files[0];
+
+        formData.append("document", image, image.name);
+
+        const res: { response: any, error: any} = await orderImageUploadService(formData)
+
+        if(res.error){
+            showToast(res.error.message, "error")
+        }else{
+            setFieldValue(`${formFieldName}.picture`, res?.response?.data?.data || "")
+            // setSelectedImage(res?.response?.data?.data)
+        }
+    }
+
+    const imageHandler = (value) => {
+        setFieldValue(`${formFieldName}.picture`, value || "")
+    }
+
+    const updateAllFieldsHandler = (name: string, value: string | number) => {
+        values.orders.forEach((item, idx) => {
+            setFieldValue(`orders.${idx}.${name}`, value)
+        })
+    }
+
     return (
         <>
             <Flex direction={"column"}>
@@ -63,7 +94,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             name={`${formFieldName}.categoryId`}
                             label={"Category"}
                             value={Number(singleFormValues?.categoryId)}
-                            onSelect={handleChange}
+                            onSelect={(event) => updateAllFieldsHandler("categoryId", event.target.value)}
                             disabled={disabled}
                             options={
                                 categoryList
@@ -83,7 +114,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             name={`${formFieldName}.customerRefNo`}
                             id={`${formFieldName}.customerRefNo`}
                             onBlur={handleBlur}
-                            onChange={handleChange}
+                            onChange={(event) => updateAllFieldsHandler("customerRefNo", event.target.value)}
                             value={singleFormValues?.customerRefNo}
                             disabled={disabled}
                             initValue={singleFormValues?.customerRefNo}
@@ -101,7 +132,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             name={`${formFieldName}.dropOption`}
                             label={"Delivery options"}
                             value={Number(singleFormValues.dropOption)}
-                            onSelect={handleChange}
+                            onSelect={(event) => updateAllFieldsHandler("dropOption", event.target.value)}
                             disabled={disabled}
                             options={DROP_OPTION}
                         />
@@ -117,7 +148,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             defaultValue={singleFormValues?.fragile ? singleFormValues.fragile : 1}
                             value={singleFormValues.fragile}
                             options={!disabled ? FRAGILE_OPTION : FRAGILE_OPTION.map(item => ({...item, disabled: true}))}
-                            onChange={(e) => setFieldValue(`${formFieldName}.fragile`, Number(e.target.value))}
+                            onChange={(event) => updateAllFieldsHandler("fragile", Number(event.target.value))}
                         />
                     </Flex>
                 </Flex>
@@ -130,10 +161,18 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                         formik={props.formik}
                     />
                 ))}
-                {singleFormValues?.categoryId && (
-                    <Flex top={20}>
-                        <AddItemLabel text={"Add order Picture"} />
-                    </Flex>
+                {
+                    singleFormValues.picture && 
+                    <OrderImageWrapper className="orderImageWrapper">
+                        <Remove onClick={() => imageHandler(null)} src={remove} alt="remove" />
+                        <OrderImage src={String(singleFormValues.picture)} alt="selectedImage" />
+                    </OrderImageWrapper>
+                }
+                {singleFormValues?.categoryId && !singleFormValues.picture && (
+                    <AddImage changeHandler={(e) => changeHandler(e)} text={"Add Shipment Picture"} />
+                )}
+                {singleFormValues?.categoryId && singleFormValues.picture && (
+                    <AddImage changeHandler={(e) => changeHandler(e)} text={"Replace Shipment Picture"} />
                 )}
             </Flex>
         </>

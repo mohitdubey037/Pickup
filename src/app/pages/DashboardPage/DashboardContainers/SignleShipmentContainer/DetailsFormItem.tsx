@@ -1,6 +1,8 @@
 import { FormikValues } from "formik";
 import { Typography } from "@material-ui/core";
 
+import { remove } from "app/assets/Icons"
+
 import { Flex } from "app/components/Input/style";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
@@ -20,12 +22,21 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
     const errorItem = singleFormErrors?.shipmentDetails?.[index];
     const toucherItem = singleFormTouched?.shipmentDetails?.[index];
 
-    console.log("toucherItem", errorItem)
-
     const formItemValue = singleFormValues.shipmentDetails[index];
 
+    const deleteItemHandler = (idx: number) => {
+        const orderDetails = [...props.formik.values.orders];
+        orderDetails[props.orderIndex].shipmentDetails.splice(idx, 1);
+        props.formik.setFieldValue("orders", orderDetails)
+    }
+
     return (
-        <div style={{ marginTop: "48px" }}>
+        <div style={{ marginTop: "48px", position: "relative" }}>
+            {props?.formik?.values?.orders?.[props.orderIndex].shipmentDetails?.length > 1 && (
+                <div role="button" tabIndex={0} onKeyPress={(e) => e.key === "Enter" && deleteItemHandler(index)} onClick={() => deleteItemHandler(index)} style={{ cursor: "pointer", position: 'absolute', top: "20px", right: "20px" }}>
+                    <img src={remove} alt="delete" />
+                </div>
+            )}
             <Typography className="typography" variant="h1" component="h3">
                 Item#{index + 1}
             </Typography>
@@ -130,7 +141,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                             />
                         </Flex>
                     </Flex>
-                    <Flex flex={1} left={30}>
+                    {/* <Flex flex={1} left={30}>
                         <CustomInput
                             id={`${formFieldName}.${formItem}.orderCost`}
                             name={`${formFieldName}.${formItem}.orderCost`}
@@ -142,7 +153,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                             value={formItemValue.orderCost}
                             placeholder={"eg. $300"}
                         />
-                    </Flex>
+                    </Flex> */}
                     <Flex flex={1} left={30}></Flex>
                     <Flex flex={1} left={30}></Flex>
                     <Flex flex={1} left={30}></Flex>

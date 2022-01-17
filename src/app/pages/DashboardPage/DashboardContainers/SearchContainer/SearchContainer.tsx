@@ -18,8 +18,12 @@ import AdvanceFilters from "./AdvanceFilters";
 import { useFormik } from "formik";
 import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import SearchOrderDetailsDrawer from "./SearchOrderDetailsDrawer";
+import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
+import { useDispatch } from "react-redux";
 
 const SearchContainer = ({ path: string }) => {
+
+    const dispatch = useDispatch();
   const [searchRecordData, setSearchRecordData] = useState([{}]);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
   const [singleOrderData, setSingleOrderData] = useState([{}]);
@@ -73,8 +77,9 @@ const SearchContainer = ({ path: string }) => {
   };
 
   useEffect(() => {
+    dispatch(singleActions.resetSingleShipment());
     getSearchOrderListData();
-  }, []);
+  }, [dispatch]);
 
   const tableTop = () => {
     return (

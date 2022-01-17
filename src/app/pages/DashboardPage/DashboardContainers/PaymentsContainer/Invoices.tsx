@@ -170,7 +170,7 @@ const InvoicesContainer = ({ path: string }) => {
         actionButtons={true}
       >
         {drawerType == "invoice" ? (
-          <AddNewPaymentDrawer invoiceId="" />
+          <AddNewPaymentDrawer invoiceId="791" />
         ) : (
           <OrderDetailsDrawer orderId={4150} setDrawerOpen={setDrawerOpen} />
         )}

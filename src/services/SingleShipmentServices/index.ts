@@ -11,11 +11,13 @@ export const getShipmentDetails = async (orderId: number,) => {
         return { response: err, sucess: false };
     }
 
-}
+};
+
 export const registerUserService = async (email: string) => {
     const res = await services.post("sign_up", { emailId: email });
     return res;
 };
+
 export const getCategoryList = async () => {
     try {
         const response = await services.get("order/business/category")
@@ -75,5 +77,14 @@ export const getOrderDetails = async (orderId: any) => {
         } else {
             return { response: err.response, success: false };
         }
+    }
+};
+
+export const orderImageUploadService = async (data: any) => {
+    try {
+        const res = await services.postImage(`order/business/uploadDocument`, data, "order", "", { "Content-Type": "multipart/form-data; boundary=???" })
+        return { response: res, error: null }
+    } catch (err) {
+        return {response: null, error: err};
     }
 }

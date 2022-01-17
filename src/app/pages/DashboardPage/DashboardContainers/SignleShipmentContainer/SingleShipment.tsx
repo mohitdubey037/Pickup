@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Drawer } from "app/components/Drawer";
 import ModuleContainer from "app/components/ModuleContainer";
 import { FormContainer } from "app/components/ModuleContainer/style";
-
+import { remove } from "app/assets/Icons"
 import {
     ContainerTitle,
     FormContainerTitle,
@@ -80,19 +80,28 @@ function SingleShipment({ path: string }) {
             ...orderDetails,
             nextOrderValue
         ]
-        console.log("shipmentDetailsRes", updatedOrderDetails)
         formik.setFieldValue("orders", updatedOrderDetails);
       };
+
+      const deleteOrderHandler = (index: number) => {
+        const orderDetails = [...formik.values.orders];
+        orderDetails.splice(index, 1)
+        formik.setFieldValue("orders", orderDetails)
+      }
 
     return (
         <ModuleContainer>
             <ContainerTitle>Single order</ContainerTitle>
-            {/* <pre style={{ textAlign: "left", fontSize: 16 }}>{JSON.stringify(formik.values, null, 2)}</pre> */}
             {new Array(formik.values.orders.length).fill("").map((_, index) => ( 
-                <FormContainer elevation={2}>
+                <FormContainer key={index} elevation={2} style={{ position: "relative" }} >
+                    {formik.values.orders.length > 1 && (
+                        <div role="button" tabIndex={0} onKeyPress={(e) => e.key === "Enter" && deleteOrderHandler(index)} onClick={() => deleteOrderHandler(index)} style={{ cursor: "pointer", position: 'absolute', top: "20px", right: "20px" }}>
+                            <img src={remove} alt="delete" />
+                        </div>
+                    )}
                     <FormContainerTitle>Address Details</FormContainerTitle>
                     <div style={{ marginBottom: "30px" }}>
-                        <SingleSipmentForm disabled={index > 0} index={index} title={"origin"} formik={formik} />
+                        <SingleSipmentForm canBeDisabled disabled={index > 0} index={index} title={"origin"} formik={formik} />
                         <SingleSipmentForm index={index} title={"destination"} formik={formik} />
 
                         <FormContainerTitle style={{ textAlign: "left", marginTop: "95px" }}>Order Details</FormContainerTitle>
@@ -108,6 +117,7 @@ function SingleShipment({ path: string }) {
                 style={{ marginBottom: 10, padding: "inherit" }}
                 direction={"row-reverse"}
             >
+                {loading && <div style={{ position: "absolute", zIndex: 100000, top: 0, left: 0, width: "100vw", height: "100vh" }}></div>}
                 <Button
                     style={{ width: 190 }}
                     label="Confirm Order"

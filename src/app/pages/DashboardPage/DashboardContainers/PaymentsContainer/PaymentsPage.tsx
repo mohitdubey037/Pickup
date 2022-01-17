@@ -40,6 +40,11 @@ export default function PaymentsPage({ path: string }) {
     const dispatch = useDispatch()
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [cardDetails, setCardDetails] = useState(initialState)
+	const cardsData = useSelector((state: any) => state.paymentCard.paymentCardsData);
+
+    useEffect(()=>{
+        onGetData()
+    },[])
 
     const onGetData = () => {
         dispatch(
@@ -47,10 +52,17 @@ export default function PaymentsPage({ path: string }) {
         );
     };
 
-    const saveCard = (values) => {
-        // dispatch(actions.addNewCard)
-        console.log("save card clicked", values)
-    }
+    const addNewCardHandler = async (values) => {
+        const body = {
+            "name": values.nameOnCard,
+            "number": values.cardNumber,
+            "expiry_month": values.expiryDate.split("/")[0],
+            "expiry_year": values.expiryDate.split("/")[1],
+            "cvd": values.cvc,
+        }
+            dispatch(actions.addNewCard(body));
+            setDrawerOpen(false)
+    };
 
     return (
         <ModuleContainer>
@@ -74,13 +86,13 @@ export default function PaymentsPage({ path: string }) {
                         />
                     </div>
                     <PaymentCardContainer
-                        heading="Credit Card"
-                        individualCardData={individualCardData}
+                        heading="Card"
+                        individualCardData={cardsData?.card}
                     />
-                    <PaymentCardContainer
+                    {/* <PaymentCardContainer
                         heading="Debit Card"
                         individualCardData={individualCardData}
-                    />
+                    /> */}
                 </Grid>
             </Grid>
             <Drawer
@@ -90,7 +102,7 @@ export default function PaymentsPage({ path: string }) {
                 closeIcon={true}
                 actionButtons={true}
             >
-                <AddCardForm setDrawerOpen={setDrawerOpen} saveAction={saveCard}/>
+                <AddCardForm setDrawerOpen={setDrawerOpen} saveAction={addNewCardHandler}/>
             </Drawer>
         </ModuleContainer>
     );

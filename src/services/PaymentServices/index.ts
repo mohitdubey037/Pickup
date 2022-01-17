@@ -11,36 +11,33 @@ export interface deleteCardData {
 const type = "payment";
 
 export const getUserCardsService = async () => {
-  try {
-    const res = await Services.get("/paymentprofile/userprofilecards", type);
-    return { response: res, error: null };
-  } catch (error) {
-    return { response: null, error: error };
-  }
+    try {
+        const res = await Services.get("api/profiles/paymentprofile/userprofilecards", type);
+        return {response: res, error: null};
+    } catch (error) {
+        return {response: null, error: error};
+    }
 };
 
 export const addNewCardService = async (body: any) => {
-  try {
-    const res = await Services.post(
-      "/paymentprofile/adprofilecard",
-      body,
-      "payment"
-    );
-    return { response: res, error: null };
-  } catch (error) {
-    return { response: null, error: error };
-  }
-};
+    try {
+        const res = await Services.post("api/profiles/paymentprofile/adprofilecard", body, type)
+        if(res)showToast('Your card has been successfully added', "success");
+        return {response: res, error: null};
+    }catch(error){
+        return {response: null, error: error};
+    }
+}
 
-export const getInvoiceList = async () => {
-  try {
-    const res = await Services.get("order/business/invoices", "order");
-    console.log("resdata", res);
-    return { response: res, error: null };
-  } catch (error) {
-    return { response: null, error: error };
-  }
-};
+export const getInvoiceList = async ()=>{
+    try {
+        const res = await Services.get("order/business/invoices","order")
+        console.log("resdata",res)
+        return{response: res, error:null};
+    }catch(error){
+    return {response: null, error: error};
+    }
+}
 
 // export const updateCard = async (cardData: cardData) => {
 //     const res = await Services.post("business/forgotPassword", { emailId: cardData }, type);
@@ -65,17 +62,24 @@ export const confirmPaymentService = async (body: any, invoiceId: number) => {
   }
 };
 
-export const confirmPaymentInDrawer = async (body: any) => {
+export const confirmPaymentInDrawer = async (body: any, invoiceId: string) => {
+    try {
+        // const header = {
+        //     payment_gateway: "bambora"
+        // }
+        const res = await Services.post(`order/business/invoice/${invoiceId}/cardPayment`, body, "order" )
+        return {response: res, error: null};
+
+    }catch(error){
+        return {response: null, error: error};
+    }
+}
+
+export const deleteCard = async (profileId: string, cardId: string) => {
   try {
-    const header = {
-      payment_gateway: "bambora",
-    };
-    const res = await Services.post(
-      `/api/payments`,
-      body,
-      "payment",
-      "",
-      header
+    const res = await Services.delete(
+      `api/profiles/${profileId}/cards/${cardId}`,
+      "payment"
     );
     return { response: res, error: null };
   } catch (error) {

@@ -15,14 +15,6 @@ import { actions } from "store/reducers/PaymentReducer";
 export function App() {
     const { i18n } = useTranslation();
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(
-            actions.getCards()
-        );
-    },[dispatch])
-
     return (
         <div className="App">
             <ToastContainer position={"top-right"} />

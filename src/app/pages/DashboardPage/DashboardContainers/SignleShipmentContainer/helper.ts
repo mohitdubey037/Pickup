@@ -1,6 +1,20 @@
+import moment from "moment";
+
+const getSingleDate = ( appointmentDate, appointmentTime ) => {
+    let momentTime = moment(appointmentTime);
+    let momentDate = moment(appointmentDate);
+    return moment({
+        year: momentDate.year(),
+        month: momentDate.month(),
+        day: momentDate.date(),
+        hour: momentTime.hours(),
+        minute: momentTime.minutes()
+    });
+}
+
 export const shipmentDetailsItemInitValue = {
     quantity: '',
-    orderCost: '',
+    // orderCost: '',
     description: "",
     height: '',
     length: '',
@@ -55,7 +69,7 @@ export const singleShipmentInitValues = {
     categoryId: "",
     customerRefNo: "",
     dropOption: "",
-    fragile: 1,
+    fragile: 0,
 
     shipmentDetails: [
         { ...shipmentDetailsItemInitValue }
@@ -112,7 +126,7 @@ export const singleShipmentInitValues1 = {
     customerRefNo: "qqqq",
     dropOption: "10",
     fragile: 1,
-
+    picture: "",
     shipmentDetails: [
         { ...shipmentDetailsItemInitValue }
     ],
@@ -132,11 +146,10 @@ export const shipmentInitValues = {
 export const transformPayloadToBackend = (values: any) => {
     const payload = {
         categoryId: values.categoryId,
-        distance: 0,
         customerReferenceNumber: values.customerRefNo,
         dropLocation: {
-            latitude: 21.11704845,
-            longitude: 79.04402281,
+            latitude: 45.65,
+            longitude: 80.43,
             details: values.destinationAdditionalNotes,
             saveLocation: values.destinationFavorite ? 1 : 0,
             type: values.destinationBillingType,
@@ -156,8 +169,8 @@ export const transformPayloadToBackend = (values: any) => {
             locationCountry: values.destinationCountry
         },
         pickupLocation: {
-            latitude: 21.11704845,
-            longitude: 79.04402281,
+            latitude: 43.65,
+            longitude: 79.38,
             details: values.originAdditionalNotes,
             saveLocation: values.originFavorite ? 1 : 0,
             type: values.originBillingType,
@@ -177,12 +190,13 @@ export const transformPayloadToBackend = (values: any) => {
             locationCountry: values.originCountry
         },
         shipmentCost: "111",
+        orderedAt: getSingleDate(values.shipmentDate, values.shipmentTime),
         shipmentTime: values.shipmentTime,
         shipmentDate: values.shipmentDate,
         note: "note",
         type: Number(values.scheduleType),
-        items: values.shipmentDetails,
-        picture: "",
+        items: values.shipmentDetails.map((item) => ({ ...item, fragile: values.fragile })),
+        picture: values.picture,
         dropOption: values.dropOption
     }
 

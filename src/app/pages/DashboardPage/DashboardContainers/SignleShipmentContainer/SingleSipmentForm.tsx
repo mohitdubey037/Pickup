@@ -18,21 +18,16 @@ function SingleSipmentForm({
   formik,
   index,
   disabled = false,
+  canBeDisabled = false,
 }: {
   title: "origin" | "destination";
   formik: any;
   index: number;
   disabled?: boolean;
+  canBeDisabled?: boolean;
 }) {
-  const {
-    handleChange,
-    values,
-    errors,
-    touched,
-    handleBlur,
-    setFieldValue,
-    setFieldError,
-  } = formik;
+  const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
+    formik;
 
   const formFieldName = `orders.${index}`;
   const singleFormValues = values.orders[index];
@@ -40,10 +35,14 @@ function SingleSipmentForm({
   const singleFormErrors = errors?.orders?.[index];
   const singleFormTouched = touched?.orders?.[index];
 
-  //   useEffect(() => {
-  //     console.log("errors !@#", formik?.errors);
-  //     console.log("values !@#", formik?.values);
-  //   }, [formik?.errors, formik?.values]);
+  const updateAllFieldsHandler = (
+    name: string,
+    value: string | number | boolean
+  ) => {
+    values.orders.forEach((item, idx) => {
+      setFieldValue(`orders.${idx}.${name}`, value);
+    });
+  };
 
   const handler = (value) => {
     if (
@@ -91,6 +90,7 @@ function SingleSipmentForm({
       setFieldValue(`${formFieldName}.${title}AddressLine2`, "");
     }
   };
+
   return (
     <FormWrapper style={{ paddingRight: 35 }}>
       <form>
@@ -102,48 +102,57 @@ function SingleSipmentForm({
         >
           {title}
           <FavouriateWrapper>
-            {!disabled &&
-              (singleFormValues[`${title}Favorite`] ? (
-                <div
-                  role="button"
-                  tabIndex={0}
-                  style={{ cursor: "pointer" }}
-                  onClick={() =>
-                    setFieldValue(`${formFieldName}.${title}Favorite`, false)
-                  }
-                  onKeyPress={() =>
-                    setFieldValue(`${formFieldName}.${title}Favorite`, false)
-                  }
-                >
-                  <img
-                    style={{ marginRight: "4px" }}
-                    className="imageStyle"
-                    src={starimage}
-                    alt=""
-                  />
-                  Added to Favorites
-                </div>
-              ) : (
-                <div
-                  role="button"
-                  tabIndex={0}
-                  style={{ cursor: "pointer" }}
-                  onClick={() =>
-                    setFieldValue(`${formFieldName}.${title}Favorite`, true)
-                  }
-                  onKeyPress={() =>
-                    setFieldValue(`${formFieldName}.${title}Favorite`, false)
-                  }
-                >
-                  <img
-                    style={{ marginRight: "4px" }}
-                    className="imageStyle"
-                    src={starImageEmpty}
-                    alt=""
-                  />
-                  Add to Favorites
-                </div>
-              ))}
+            {singleFormValues[`${title}Favorite`] ? (
+              <div
+                role="button"
+                tabIndex={0}
+                style={{ cursor: "pointer", opacity: disabled ? 0.5 : 1 }}
+                // onClick={() => setFieldValue(`${formFieldName}.${title}Favorite`, false)}
+                onClick={() =>
+                  !disabled && canBeDisabled
+                    ? updateAllFieldsHandler(`${title}Favorite`, false)
+                    : setFieldValue(`${formFieldName}.${title}Favorite`, false)
+                }
+                onKeyPress={(e) =>
+                  e.key === "Enter" && canBeDisabled
+                    ? updateAllFieldsHandler(`${title}Favorite`, false)
+                    : setFieldValue(`${formFieldName}.${title}Favorite`, false)
+                }
+              >
+                <img
+                  style={{ marginRight: "4px" }}
+                  className="imageStyle"
+                  src={starimage}
+                  alt=""
+                />
+                Added to Favorites
+              </div>
+            ) : (
+              <div
+                role="button"
+                tabIndex={0}
+                style={{ cursor: "pointer", opacity: disabled ? 0.5 : 1 }}
+                // onClick={() => setFieldValue(`${formFieldName}.${title}Favorite`, true)}
+                onClick={() =>
+                  !disabled && canBeDisabled
+                    ? updateAllFieldsHandler(`${title}Favorite`, true)
+                    : setFieldValue(`${formFieldName}.${title}Favorite`, true)
+                }
+                onKeyPress={(e) =>
+                  e.key === "Enter" && canBeDisabled
+                    ? updateAllFieldsHandler(`${title}Favorite`, true)
+                    : setFieldValue(`${formFieldName}.${title}Favorite`, true)
+                }
+              >
+                <img
+                  style={{ marginRight: "4px" }}
+                  className="imageStyle"
+                  src={starImageEmpty}
+                  alt=""
+                />
+                Add to Favorites
+              </div>
+            )}
           </FavouriateWrapper>
         </Typography>
 
@@ -153,12 +162,23 @@ function SingleSipmentForm({
               ? String(singleFormValues?.[`${title}BillingType`] - 1)
               : "0"
           }
+          value={
+            singleFormValues?.[`${title}BillingType`]
+              ? String(singleFormValues?.[`${title}BillingType`] - 1)
+              : "0"
+          }
           name={`${formFieldName}.${title}BillingType`}
-          onChange={(e) =>
-            setFieldValue(
-              `${formFieldName}.${title}BillingType`,
-              Number(e.target.value) + 1
-            )
+          // onChange={(e) => setFieldValue(`${formFieldName}.${title}BillingType`, Number(e.target.value) + 1)}
+          onChange={(event) =>
+            canBeDisabled
+              ? updateAllFieldsHandler(
+                  `${title}BillingType`,
+                  Number(event.target.value) + 1
+                )
+              : setFieldValue(
+                  `${formFieldName}.${title}BillingType`,
+                  Number(event.target.value) + 1
+                )
           }
           options={
             !disabled
@@ -177,7 +197,14 @@ function SingleSipmentForm({
                     id={`${formFieldName}.${title}LocationType`}
                     name={`${formFieldName}.${title}LocationType`}
                     options={LOCATION_TYPES}
-                    onSelect={handleChange}
+                    onSelect={(event) =>
+                      canBeDisabled
+                        ? updateAllFieldsHandler(
+                            `${title}LocationType`,
+                            event.target.value
+                          )
+                        : handleChange(event)
+                    }
                     value={singleFormValues[`${title}LocationType`]}
                     disabled={disabled}
                   />
@@ -195,7 +222,14 @@ function SingleSipmentForm({
                     value={singleFormValues[`${title}CompanyName`]}
                     disabled={disabled}
                     placeholder={"Start typing"}
-                    onChange={handleChange}
+                    onChange={(event) =>
+                      canBeDisabled
+                        ? updateAllFieldsHandler(
+                            `${title}CompanyName`,
+                            event.target.value
+                          )
+                        : handleChange(event)
+                    }
                     onBlur={handleBlur}
                     error={
                       singleFormTouched?.[`${title}CompanyName`] &&
@@ -214,7 +248,14 @@ function SingleSipmentForm({
                   disabled={disabled}
                   label={"First Name"}
                   placeholder={"Start typing"}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}FirstName`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}FirstName`] &&
@@ -232,7 +273,14 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}LastName`]}
                   disabled={disabled}
                   placeholder={"Start typing"}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}LastName`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}LastName`] &&
@@ -269,7 +317,14 @@ function SingleSipmentForm({
                   initValue={singleFormValues[`${title}AddressLine2`]}
                   value={singleFormValues[`${title}AddressLine2`]}
                   disabled={disabled}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}AddressLine2`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}AddressLine2`] &&
@@ -287,7 +342,14 @@ function SingleSipmentForm({
                   initValue={singleFormValues[`${title}City`]}
                   value={singleFormValues[`${title}City`]}
                   disabled={disabled}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}City`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}City`] &&
@@ -305,7 +367,14 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}PostalCode`]}
                   disabled={disabled}
                   placeholder={"Start typing"}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}PostalCode`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}PostalCode`] &&
@@ -323,7 +392,14 @@ function SingleSipmentForm({
                   initValue={singleFormValues[`${title}ProvinceState`]}
                   value={singleFormValues[`${title}ProvinceState`]}
                   disabled={disabled}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}ProvinceState`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}ProvinceState`] &&
@@ -341,7 +417,14 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}Country`]}
                   placeholder={"Start typing"}
                   disabled={disabled}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}Country`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}Country`] &&
@@ -359,7 +442,14 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}ContactNumber`]}
                   placeholder={"Start typing"}
                   disabled={disabled}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}ContactNumber`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}ContactNumber`] &&
@@ -377,7 +467,14 @@ function SingleSipmentForm({
                   label={"Alternate Contact Number"}
                   placeholder={"Start typing"}
                   disabled={disabled}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}AlternateContactNumber`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}AlternateContactNumber`] &&
@@ -395,7 +492,14 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}EmailAddress`]}
                   placeholder={"Start typing"}
                   disabled={disabled}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}EmailAddress`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}EmailAddress`] &&
@@ -410,7 +514,14 @@ function SingleSipmentForm({
                   name={`${formFieldName}.${title}AdditionalNotes`}
                   label={"Additional Notes"}
                   placeholder={"Start typing"}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}AdditionalNotes`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
                   initValue={singleFormValues[`${title}AdditionalNotes`]}
                   disabled={disabled}
                   value={singleFormValues[`${title}AdditionalNotes`]}

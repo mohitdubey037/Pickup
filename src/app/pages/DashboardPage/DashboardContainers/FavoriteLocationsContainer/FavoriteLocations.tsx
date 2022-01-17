@@ -14,9 +14,10 @@ import { getLocationList } from "../../../../../services/LocationServices/index"
 import { edit, trash } from "app/assets/Icons"
 import EditContactDetails from "./EditContactDetails";
 import services from "services";
+import FileDrawer from "./FileDrawer";
 
 function FavoriteLocations(props: RouteComponentProps) {
-    
+    const [drawerOpenOne, setDrawerOpenOne] = useState(false);
     const [showDetailDrawer, setShowDetailDrawer] = useState(false);
     const [showEditDrawer, setShowEditDrawer] = useState(false);
 
@@ -94,8 +95,10 @@ function FavoriteLocations(props: RouteComponentProps) {
                     <Button
                         secondary={true}
                         label="Import from CSV"
-                        onClick={() => { }}
                         style={{ width: 150 }}
+                        onClick={() => {
+                            setDrawerOpenOne(true);
+                        }}
                     />
                 </Flex>
             </SearchTableTop>
@@ -135,6 +138,15 @@ function FavoriteLocations(props: RouteComponentProps) {
                 title="Edit Contact Details"
             >
                 <EditContactDetails contactInfo={selectedRow} onClose={drawerCloseHandler} />
+            </Drawer>
+            <Drawer
+                open={drawerOpenOne}
+                title="Import CSV"
+                setDrawerOpen={(flag) => setDrawerOpenOne(flag)}
+                closeIcon={true}
+                actionButtons={true}
+            >
+                <FileDrawer/>
             </Drawer>
         </>
     );

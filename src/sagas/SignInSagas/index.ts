@@ -7,6 +7,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { Types, actions } from "../../store/reducers/SignInReducer";
 import { showToast } from "../../utils";
 import { globalActions } from "store/reducers/GlobalReducer";
+import { actions as paymentActions } from "store/reducers/PaymentReducer";
 
 // eslint-disable-next-line require-yield
 function* signInUserWorker(action) {
@@ -16,9 +17,10 @@ function* signInUserWorker(action) {
 
     yield put(actions.signInUserResponse(res));
     yield put(globalActions.showLoader(false));
-  } catch (err: any) {
-    yield put(actions.signInUserResponse(err));
-    yield put(globalActions.showLoader(false));
+    yield put(paymentActions.getCards());
+} catch (err: any) {
+      yield put(actions.signInUserResponse(err));
+        yield put(globalActions.showLoader(false))
 
     // showToast(err.message, "error");
   }

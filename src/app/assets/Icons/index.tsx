@@ -49,6 +49,7 @@ import ShareIcon from "./ShareIcon.svg";
 import StepperCircleIcon from "./StepperCircleIcon.svg";
 import YellowTick from "./YellowTick.svg";
 import calendar from "./calendar.svg"
+import remove from "./Remove.svg"
 
 export {
     analytics,
@@ -101,5 +102,6 @@ export {
     edit,
     ShareIcon,
     StepperCircleIcon,
-    YellowTick
+    YellowTick,
+    remove,
 };
