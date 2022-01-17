@@ -22,7 +22,24 @@ export const getTrackStatus = async (orderId: number) => {
 export const getLocation = async (orderId: number) => {
   try {
     const response = await Service.get(`order/business/shipment/${orderId}/liveLocation`, "order");
-    // order/business/shipment/:shipmentId/liveLocation
+    return { response: response, success: true };
+  } catch (err) {
+    return { response: err, sucess: false };
+  }
+};
+
+export const getSearchOrderList = async () => {
+  try {
+    const response = await Service.get(`order/business/shipments`, "order");
+    return { response: response, success: true };
+  } catch (err) {
+    return { response: err, sucess: false };
+  }
+}
+
+export const getSearchOrderListById = async (orderId: number) => {
+  try {
+    const response = await Service.get(`order/business/shipment/${orderId}`, "order");
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };

@@ -20,6 +20,7 @@ import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import SearchOrderDetailsDrawer from "./SearchOrderDetailsDrawer";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import { useDispatch } from "react-redux";
+import { getSearchOrderList, getSearchOrderListById } from "../../../../../services/SearchItemService";
 
 const SearchContainer = ({ path: string }) => {
 
@@ -30,22 +31,31 @@ const SearchContainer = ({ path: string }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerType, setDrawerType] = useState("");
 
+  // const getSearchOrderListData = async () => {
+  //   fetch(
+  //     "https://staging-api.pickups.mobi/order/v1/api/order/business/shipments",
+  //     {
+  //       headers: {
+  //         Authorization:
+  //           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM",
+  //       },
+  //     }
+  //   )
+  //     .then((response) => response.json())
+  //     .then((resData) => {
+  //       console.log("resData", resData);
+  //       let data = resData.data;
+  //       setSearchRecordData(data);
+  //     });
+  // };
+
   const getSearchOrderListData = async () => {
-    fetch(
-      "https://staging-api.pickups.mobi/order/v1/api/order/business/shipments",
-      {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((resData) => {
-        console.log("resData", resData);
-        let data = resData.data;
-        setSearchRecordData(data);
-      });
+    const res = (await getSearchOrderList()) as any;
+    if (res.success) {
+      const orderList = res.response.data;
+      console.log("Order List", orderList);
+      setSearchRecordData(orderList);
+    }
   };
 
   const getSingleOrderData = async (id: any) => {
@@ -75,6 +85,16 @@ const SearchContainer = ({ path: string }) => {
         setDrawerOpen(true);
       });
   };
+
+  // const getLongLat = async () => {
+  //   if (!singleOrderData?.shippingId) return;
+  //   const res = (await getSearchOrderListById(singleOrderData.shippingId)) as any;
+  //   if (res.success) {
+  //     const location = res.response.data;
+  //     console.log("Longitude & Latitude", location);
+  //     setTrackData(location);
+  //   }
+  // };
 
   useEffect(() => {
     dispatch(singleActions.resetSingleShipment());
