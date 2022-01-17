@@ -3,6 +3,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 export const CheckboxPrimary = styled(Checkbox)`
 &.MuiCheckbox-root{
-    padding: 3px;
+    padding: 0;
+    margin-right:8px;
 }
 `

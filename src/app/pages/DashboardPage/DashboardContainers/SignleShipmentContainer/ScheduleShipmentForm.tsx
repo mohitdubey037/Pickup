@@ -72,7 +72,7 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
                 />
               </LocalizationProvider>
               {singleFormErrors?.shipmentDate && singleFormTouched?.shipmentDate && (
-                    <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.shipmentDate}</p>
+                    <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.shipmentDate}</p>
                 )}
             </Flex>
             <Flex left={30} flex={1} direction="column" style={{ alignItems: "start"}}>
@@ -98,7 +98,7 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
                 />
               </LocalizationProvider>
               {singleFormErrors?.shipmentTime && singleFormTouched?.shipmentTime && (
-                    <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.shipmentDate}</p>
+                    <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.shipmentDate}</p>
                 )}
             </Flex>
           </Flex>

@@ -10,12 +10,14 @@ import {
   FormContent,
   LogoImage,
   LoginLink,
+  SignUpBackgroundWrapper,
 } from "../style";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
-import { BlackLink } from "../../../components/Typography/Typography";
+import { BlackLink, PageTitle } from "../../../components/Typography/Typography";
 import { signUpSchema } from "./signUpSchemas";
 import { actions } from "store/reducers/SignUpReducer";
+import { Box } from "@material-ui/core";
 
 type SignUpProps = RouteComponentProps;
 
@@ -76,10 +78,11 @@ const SignUp = ({ navigate }: SignUpProps) => {
 
   return (
     <SignUpWrapper>
+       <SignUpBackgroundWrapper>
       <LogoImage />
       <FormWrapper>
         <FormContent>
-          <Header>SIGN UP</Header>
+          <PageTitle title="SIGN UP" />
           <Input
             label="Business Email"
             placeholder="Start typing"
@@ -90,7 +93,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
             onBlur={handleBlur}
             autoComplete="off"
           />
-          {errorMessage ? <span style={{ color: 'red' }}> {errorMessage} </span> : null}
+          {errorMessage ? <span style={{ color: '#c94c43' }}> {errorMessage} </span> : null}
           <Button disabled={!(isValid)} label="Sign Up" showLoader={showLoader} onClick={handleSubmit} />
           <LoginLink>
             Already have an account?{" "}
@@ -101,6 +104,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
           </LoginLink>
         </FormContent>
       </FormWrapper>
+      </SignUpBackgroundWrapper>
     </SignUpWrapper>
   );
 };

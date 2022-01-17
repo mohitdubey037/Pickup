@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { CustomInput, CustomLabel, ErrorLabel, InputWrapper } from "./style";
+import { CustomInput, ErrorLabel, InputWrapper } from "./style";
 import { InputProps } from "./type";
 import { eyeIcon } from "../../assets/Icons";
 import { PasswordValidate } from "../PasswordValidate";
+import { SmallLabel } from "../Typography/Typography";
 
 const PasswordInput = ({
   label,
@@ -42,7 +43,9 @@ const PasswordInput = ({
 
   return (
     <InputWrapper ref={ref}>
-      <CustomLabel>{label}</CustomLabel>
+
+      <SmallLabel text={label} />
+
       <CustomInput
         autoComplete={autoComplete}
         onBlur={onBlur}

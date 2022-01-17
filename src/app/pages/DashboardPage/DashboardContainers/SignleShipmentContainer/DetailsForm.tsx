@@ -106,7 +106,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             }
                         />
                         {singleFormErrors?.categoryId && singleFormTouched?.categoryId && (
-                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.categoryId}</p>
+                            <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.categoryId}</p>
                         )}
                     </Flex>
                     <Flex flex={1} left={30}>
@@ -137,7 +137,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             options={DROP_OPTION}
                         />
                         {singleFormErrors?.dropOption && singleFormTouched?.dropOption && (
-                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.dropOption}</p>
+                            <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.dropOption}</p>
                         )}
                     </Flex>
                     <Flex flex={1} left={30}>

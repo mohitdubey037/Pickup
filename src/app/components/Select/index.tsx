@@ -2,7 +2,7 @@ import React from "react";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import { SelectContainer, ComponentContainer, useStyles } from "./style";
-import { CustomLabel } from "../Input/style";
+import { SmallLabel } from "../Typography/Typography";
 
 interface SelectOption {
   value: string | number;
@@ -43,7 +43,9 @@ export default function Select(props: SelectPropTypes) {
 
   return (
     <ComponentContainer style={{ width:'100%'}} >
-      <CustomLabel   >{label}</CustomLabel>
+
+      <SmallLabel text={label} />
+
       <SelectContainer
         aria-describedby={parentId}
         disabled={disabled}

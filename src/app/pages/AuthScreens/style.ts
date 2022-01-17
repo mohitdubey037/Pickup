@@ -5,12 +5,18 @@ import { LogoImg } from "../../assets/Icons";
 export const SignUpWrapper = styled.div`
   background: url(${bgImage}) no-repeat center center fixed;
   background-size: cover;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
+  min-height: 100vh;
+ 
+`;
+export const SignUpBackgroundWrapper = styled.div`
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 20px;
+background: rgba(102, 102, 102, 0.6);
+ 
 `;
 
 export const LoginWrapper = styled.div`
@@ -29,16 +35,16 @@ export const LogoImage = styled(LogoImg)`
 `;
 
 export const FormWrapper = styled.div`
-  background: white;
+  background: #fff;
   width: 486px;
   box-shadow: 0px 16px 40px 5px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
   min-height: 500px;
   position: relative;
+
   .mailLogo {
-    width: 260px;
-    height: 213px;
-    margin: 20px 0;
+    width: 190px;
+    height: 204px;
   }
   ${(props: { isValidating?: boolean }) => {
     return props.isValidating && `justify-content: center;
@@ -51,9 +57,12 @@ export const FormWrapper = styled.div`
 export const FormContent = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 30px 52px 30px 52px;
-  gap: 14px;
+  padding: 40px 32px 32px;
+  // gap: 14px;
   align-items: flex-start;
+  &.CenterContent{
+    align-items: center;
+  }
 `;
 
 export const CenterContent = styled.div`
@@ -71,8 +80,8 @@ export const Header = styled.div`
   font-size: 32px;
   color: #343434;
   line-height: 37px;
-  text-align: center;
-  margin: 1rem 0;
+  // text-align: center;
+  // margin: 1rem 0;
 `;
 
 export const LoginLink = styled.div`
@@ -80,7 +89,7 @@ export const LoginLink = styled.div`
   align-items: center;
   position: absolute;
   gap: 4px;
-  bottom: 20px;
+  bottom: 32px;
 `;
 
 export const RememberDiv = styled.div`
@@ -88,4 +97,5 @@ export const RememberDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin-bottom:32px;
 `;

@@ -3,6 +3,16 @@
   src: local("Roboto-Regular"), url('./app/assets/fonts/Roboto/Roboto-Regular.ttf') format('opentype');
 }
 
+@font-face {
+  font-family: "Roboto-Bold";
+  src: local("Roboto-Bold"), url('./app/assets/fonts/Roboto/Roboto-Bold.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: "Roboto-Medium";
+  src: local("Roboto-Medium"), url('./app/assets/fonts/Roboto/Roboto-Medium.ttf') format('opentype');
+}
+
 body {
   margin: 0;
   font-family: 'Roboto', 'Segoe UI',  'Oxygen',

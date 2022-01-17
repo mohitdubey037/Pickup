@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { SmallLabel } from "../Typography/Typography";
 import {
   CustomInput,
   CustomInputTextArea,
-  CustomLabel,
   ErrorLabel,
   InputWrapper,
 } from "./style";
@@ -37,7 +37,8 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <InputWrapper style={style}>
-      <CustomLabel>{label} </CustomLabel>
+      
+      <SmallLabel text={label} />
 
       {type === "textarea" ? (
         <CustomInputTextArea
