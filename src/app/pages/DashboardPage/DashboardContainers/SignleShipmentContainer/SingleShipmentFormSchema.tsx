@@ -23,8 +23,8 @@ export const singleShipmentFormSchema = yup.object().shape({
             originPostalCode: yup.string().required("Postal Code is a required field"),
             originProvinceState: yup.string().required("Province/State is a required field"),
             originCountry: yup.string().required("Country is a required field"),
-            originContactNumber: yup.string().required("Phone number is not valid").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
-            originAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").matches(PHONE_NUMBER_REGX, " Alternate Phone number is not valid"),
+            originContactNumber: yup.string().required("Phone number is not valid").min(10,"Must be minimum 10 digits").max(10,"Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+            originAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").min(10,"Must be minimum 10 digits").max(10,"Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, " Alternate Phone number is not valid"),
             originEmailAddress: yup.string().email("Please enter valid email").required("Email Address is a required field"),
             originAdditionalNotes: yup.string().required("Additional Notes is a required field"),
             originLatitude:  yup.string().required("Latitude is a required field"),
@@ -48,8 +48,8 @@ export const singleShipmentFormSchema = yup.object().shape({
             destinationPostalCode: yup.string().required("Postal Code is a required field"),
             destinationProvinceState: yup.string().required("Province/State is a required field"),
             destinationCountry: yup.string().required("Country is a required field"),
-            destinationContactNumber: yup.string().required("Phone number is not valid").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
-            destinationAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+            destinationContactNumber: yup.string().required("Phone number is not valid").min(10,"Must be minimum 10 digits").max(10,"Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+            destinationAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").min(10,"Must be minimum 10 digits").max(10,"Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
             destinationEmailAddress: yup.string().email("Please enter valid email").required("Email Address is a required field"),
             destinationAdditionalNotes: yup.string().required("Additional Notes is a required field"),
             destinationLatitude:  yup.string().required("Latitude is a required field"),
@@ -62,14 +62,52 @@ export const singleShipmentFormSchema = yup.object().shape({
 
             shipmentDetails: yup.array().of(
                 yup.object({
-                    quantity: yup.number().required("Quantity is required"),
+                    quantity: yup.number().integer("Quantity must be an integer")
+                        .typeError('Quantity must be a number').min(1, "Invalid Quantity")
+                        .required("Quantity is required"),
                     description: yup.string(),
-                    height: yup.number(),
-                    length: yup.number(),
-                    width: yup.number(),
-                    weight: yup.number(),
-                    sizeDimension: yup.number(),
-                    weightDimension: yup.number(),
+                    height: yup.number().typeError('Height must be a number').min(1, "Invalid Height")
+                    .required("Height is required")
+                        .test(
+                        "maxDigitsAfterDecimal",
+                        "Height could only have maximum of 2 digits after decimal or less",
+                        (number:any) => /^\d+(\.\d{1,2})?$/.test(number)
+                      ),
+                    length: yup.number().typeError('Length must be a number').min(1,"Invalid Length")
+                    .required("Length is required")
+                        .test(
+                        "maxDigitsAfterDecimal",
+                        "Length could only have maximum of 2 digits after decimal or less",
+                        (number:any) => /^\d+(\.\d{1,2})?$/.test(number)
+                      ),
+                    width: yup.number().typeError('Width must be a number').min(1,"Invalid Width")
+                    .required("Width is required")
+                        .test(
+                        "maxDigitsAfterDecimal",
+                        "Width could only have maximum of 2 digits after decimal or less",
+                        (number:any) => /^\d+(\.\d{1,2})?$/.test(number)
+                      ),
+                    weight: yup.number().typeError('Weight must be a number').min(1,"Invalid Weight")
+                    .required("Weight is required")
+                        .test(
+                        "maxDigitsAfterDecimal",
+                        "Weight could only have maximum of 2 digits after decimal or less",
+                        (number:any) => /^\d+(\.\d{1,2})?$/.test(number)
+                      ),
+                    sizeDimension: yup.number().typeError('Size Dimension must be a number').min(1,"Invalid Size Dimension")
+                    .required("Size Dimension is required")
+                        .test(
+                        "maxDigitsAfterDecimal",
+                        "Size Dimension could only have maximum of 2 digits after decimal or less",
+                        (number:any) => /^\d+(\.\d{1,2})?$/.test(number)
+                      ),
+                    weightDimension: yup.number().typeError('Weight Dimension must be a number').min(1,"Invalid Weight Dimension")
+                    .required("Weight Dimension is required")
+                        .test(
+                        "maxDigitsAfterDecimal",
+                        "Weight Dimension could only have maximum of 2 digits after decimal or less",
+                        (number:any) => /^\d+(\.\d{1,2})?$/.test(number)
+                      ),
                     document: yup.string(),
                 })
             ),
