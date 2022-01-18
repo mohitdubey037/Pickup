@@ -5,7 +5,7 @@ import { FormikValues } from "formik";
 import { Flex } from "app/components/Input/style";
 import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
-import { getCategoryList, orderImageUploadService } from "services/SingleShipmentServices";
+import { getCategoryList, imageUploadService } from "services/SingleShipmentServices";
 import DetailsFormItem from "./DetailsFormItem";
 import AddImage from "app/components/AddImage";
 
@@ -64,7 +64,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
 
         formData.append("document", image, image.name);
 
-        const res: { response: any, error: any} = await orderImageUploadService(formData)
+        const res: { response: any, error: any} = await imageUploadService(formData)
 
         if(res.error){
             showToast(res.error.message, "error")
