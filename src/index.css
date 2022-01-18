@@ -1,18 +1,49 @@
 @font-face {
   font-family: "Roboto";
-  src: local("Roboto-Regular"), url('./app/assets/fonts/Roboto/Roboto-Regular.ttf') format('opentype');
+  src: local("Roboto-Regular"),
+    url("./app/assets/fonts/Roboto/Roboto-Regular.ttf") format("opentype");
 }
 
 body {
   margin: 0;
-  font-family: 'Roboto', 'Segoe UI',  'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Roboto", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.suggestions {
+  position: absolute;
+  z-index: 50;
+  background: white;
+  /* background-color: #c2c2be; */
+  outline: 1px solid #999;
+  /* border: 1px solid #999; */
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0px;
+  /* max-height: 143px; */
+  overflow-y: auto;
+  padding-left: 0;
+  width: 100%;
+}
+.suggestions li {
+  padding: 0.5rem;
+  text-align: left;
+  color: #000;
+}
+.suggestion-active,
+.suggestions li:hover {
+  background-color: #lightgrey; 
+  /* color: #000; */
+    cursor: pointer;
+  font-weight: 700;
+}
+.suggestions li:not(:last-of-type) {
+  border-bottom: 1px solid #999;
 }
