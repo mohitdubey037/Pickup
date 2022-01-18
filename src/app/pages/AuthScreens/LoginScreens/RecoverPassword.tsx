@@ -7,15 +7,14 @@ import {
     FormContent,
     FormWrapper,
     LogoImage,
-    Header,
     LoginWrapper,
 } from "../style";
-import { recoverPasswordSchema } from "./recoverPasswordSchema";
 import { actions } from "store/reducers/SignInReducer";
 import { useEffect, useState } from "react";
 import { getParamsFromUrl } from "utils/commonUtils";
 import { verifyToken } from "./helper";
 import { PageTitle } from "app/components/Typography/Typography";
+import { passwordSchema } from "../SignUpScreens/signUpSchemas";
 
 const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     const dispatch = useDispatch();
@@ -48,13 +47,19 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
         handleChange,
         errors,
         touched,
+        isValid,
         handleBlur,
         handleSubmit,
+        validateForm
     } = useFormik({
-        initialValues: { password: "", confirmpassword: "" },
-        validationSchema: recoverPasswordSchema,
+        initialValues: { password: "", confirmPassword: "" },
+        validationSchema: passwordSchema,
         onSubmit: onResetPassword,
     });
+
+    useEffect(() => {
+        (() => validateForm())();
+    }, []);
 
     useEffect(() => {
         const params = getParamsFromUrl(location.search)
@@ -103,18 +108,20 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                         onChange={handleChange}
                         error={touched.password && errors.password}
                         placeholder="Password"
+                        autoComplete="off"
                         validate
                     />
                     <PasswordInput
-                        id="confirmpassword"
-                        name="confirmpassword"
-                        error={touched.confirmpassword && errors.confirmpassword}
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        error={touched.confirmPassword && errors.confirmPassword}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         label="Confirm Password"
                         placeholder="Password"
+                        autoComplete="off"
                     />
-                    <Button showLoader={showLoader} label="Confirm" onClick={handleSubmit} />
+                    <Button disabled={!isValid} showLoader={showLoader} label="Confirm" onClick={handleSubmit} />
                 </FormContent>
             </FormWrapper>
         </LoginWrapper>

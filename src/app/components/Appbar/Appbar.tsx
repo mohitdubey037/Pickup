@@ -56,7 +56,7 @@ export default function Appbar() {
         <Avatar
           style={{ margin: "1rem 1rem 1rem 1rem" }}
           alt="dummy avatar"
-          src="https://i.pravatar.cc/300"
+          src={user?.profileImage}
         />
 
         <Menu
