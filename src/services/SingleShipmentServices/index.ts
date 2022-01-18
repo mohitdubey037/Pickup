@@ -1,6 +1,7 @@
 /* eslint-disable no-debugger */
 import { transformPayloadToBackend } from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer/helper";
 import services from "../";
+import { showToast } from "utils";
 
 export const getShipmentDetails = async (orderId: number,) => {
 
@@ -31,6 +32,8 @@ export const addShipmentDetail = async (body: any) => {
         const response = await services.post("order/business/create/single", body)
         return { response: response, success: true }
     } catch (err) {
+        console.log(err)
+        showToast(err.message,"error")
         return { response: err, sucess: false };
     }
 };
@@ -40,6 +43,8 @@ export const addMultipleShipment = async (body: any) => {
         const response = await services.post("order/business/create/multiple", body)
         return { response: response, success: true }
     } catch (err) {
+        console.log(err)
+        showToast(err.message,"error")
         return { response: err, sucess: false };
     }
 }
@@ -56,6 +61,8 @@ export const addShipmentForm = async (values: any) => {
             return res
         }
     } catch (err) {
+        console.log(err)
+        showToast(err.message,"error")
         return err;
     }
 }
