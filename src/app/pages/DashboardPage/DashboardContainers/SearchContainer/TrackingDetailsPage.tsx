@@ -124,14 +124,14 @@ function TrackingDetailsPage(props: any) {
             mapOptions={{
               center: { lat: 18.516726, lng: 73.856255 },
               // center: { lat: coordinates.latitude, lng: coordinates.longitude },
-              zoom: 12,
+              zoom: 16,
               pixelRatio: window.devicePixelRatio || 1,
             }}
           >
-            <Marker>
+            {/* <Marker>
             coordinate={{ lat: coordinates.latitude, lng: coordinates.longitude }},
             </Marker>
-            <HMapLayer mapLayerType="terrain.traffic" />
+            <HMapLayer mapLayerType="terrain.traffic" /> */}
             {/* <HMapPolyLine points={points} /> */}
           </HMap>
         </HPlatform>
