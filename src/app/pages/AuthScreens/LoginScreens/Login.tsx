@@ -85,7 +85,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
 
   useEffect(() => {
     (() => validateForm())();
-  }, []);
+  }, [validateForm]);
 
   return (
     <LoginWrapper>
