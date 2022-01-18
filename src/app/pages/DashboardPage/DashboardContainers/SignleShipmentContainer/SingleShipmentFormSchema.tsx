@@ -24,7 +24,7 @@ export const singleShipmentFormSchema = yup.object().shape({
             originProvinceState: yup.string().required("Province/State is a required field"),
             originCountry: yup.string().required("Country is a required field"),
             originContactNumber: yup.string().required("Phone number is not valid").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
-            originAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").matches(PHONE_NUMBER_REGX, " AlternatePhone number is not valid"),
+            originAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").matches(PHONE_NUMBER_REGX, " Alternate Phone number is not valid"),
             originEmailAddress: yup.string().email("Please enter valid email").required("Email Address is a required field"),
             originAdditionalNotes: yup.string().required("Additional Notes is a required field"),
             originLatitude:  yup.string().required("Latitude is a required field"),
