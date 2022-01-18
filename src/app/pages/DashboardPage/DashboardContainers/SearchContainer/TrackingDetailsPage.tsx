@@ -24,7 +24,7 @@ import {
 } from "../../../../../services/SearchItemService";
 import moment from "moment";
 // import HEREMap, { Marker } from 'here-maps-react';
-import HPlatform, { HMap } from "react-here-map";
+import HPlatform, { HMap, HMapLayer, Marker } from "react-here-map";
 
 function TrackingDetailsPage(props: any) {
   const [activeStep, setActiveStep] = useState(0);
@@ -128,7 +128,10 @@ function TrackingDetailsPage(props: any) {
               pixelRatio: window.devicePixelRatio || 1,
             }}
           >
-            {/* <HMapLayer mapLayerType="terrain.traffic" /> */}
+            <Marker>
+            coordinate={{ lat: coordinates.latitude, lng: coordinates.longitude }},
+            </Marker>
+            <HMapLayer mapLayerType="terrain.traffic" />
             {/* <HMapPolyLine points={points} /> */}
           </HMap>
         </HPlatform>

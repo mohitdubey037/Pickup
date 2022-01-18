@@ -30,24 +30,6 @@ const SearchContainer = ({ path: string }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerType, setDrawerType] = useState("");
 
-  // const getSearchOrderListData = async () => {
-  //   fetch(
-  //     "https://staging-api.pickups.mobi/order/v1/api/order/business/shipments",
-  //     {
-  //       headers: {
-  //         Authorization:
-  //           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM",
-  //       },
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((resData) => {
-  //       console.log("resData", resData);
-  //       let data = resData.data;
-  //       setSearchRecordData(data);
-  //     });
-  // };
-
   const getSearchOrderListData = async () => {
     const res = (await getSearchOrderList()) as any;
     if (res.success) {
@@ -72,43 +54,6 @@ const SearchContainer = ({ path: string }) => {
         setDrawerOpen(true);
     }
   };
-  // const getSingleOrderData = async (id: any) => {
-  //   fetch(
-  //     "https://staging-api.pickups.mobi/order/v1/api/order/business/shipment/" +
-  //       id,
-  //     {
-  //       headers: {
-  //         Authorization:
-  //           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM",
-  //       },
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((resData) => {
-  //       let data = resData.data;
-
-  //       console.log("getSingleOrderData", data, resData);
-  //       setSingleOrderData(data);
-  //       setSelectedInvoiceId(id);
-  //       setDrawerType("orderDetails");
-  //       setDrawerOpen(true);
-  //     })
-  //     .catch(() => {
-  //       setSelectedInvoiceId(id);
-  //       setDrawerType("orderDetails");
-  //       setDrawerOpen(true);
-  //     });
-  // };
-
-  // const getLongLat = async () => {
-  //   if (!singleOrderData?.shippingId) return;
-  //   const res = (await getSearchOrderListById(singleOrderData.shippingId)) as any;
-  //   if (res.success) {
-  //     const location = res.response.data;
-  //     console.log("Longitude & Latitude", location);
-  //     setTrackData(location);
-  //   }
-  // };
 
   useEffect(() => {
     dispatch(singleActions.resetSingleShipment());
