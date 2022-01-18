@@ -54,7 +54,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
     }, []);
 
     const hasDimensions = () => {
-        const selectedCategory = categoryList.find(category => category.categoryId === Number(singleFormValues.categoryId));
+        const selectedCategory = categoryList.find(category => category.categoryId === Number(singleFormValues.categoryId.categoryId));
         return (selectedCategory?.setDimension || false)
     }
 
@@ -78,7 +78,14 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
         setFieldValue(`${formFieldName}.picture`, value || "")
     }
 
-    const updateAllFieldsHandler = (name: string, value: string | number) => {
+    const updateCategoryHandler = (name: string, value: number) => {
+        const newValue = categoryList.find(item => item.categoryId === value);
+        if(newValue){
+            updateAllFieldsHandler(name, newValue);
+        }
+    }
+
+    const updateAllFieldsHandler = (name: string, value: string | number | SelectBoardType) => {
         values.orders.forEach((item, idx) => {
             setFieldValue(`orders.${idx}.${name}`, value)
         })
@@ -93,8 +100,8 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             id={`${formFieldName}.categoryId`}
                             name={`${formFieldName}.categoryId`}
                             label={"Category"}
-                            value={Number(singleFormValues?.categoryId)}
-                            onSelect={(event) => updateAllFieldsHandler("categoryId", event.target.value)}
+                            value={Number(singleFormValues?.categoryId?.categoryId)}
+                            onSelect={(event) => updateCategoryHandler("categoryId", event.target.value)}
                             disabled={disabled}
                             options={
                                 categoryList

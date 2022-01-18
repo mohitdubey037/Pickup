@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Drawer } from "app/components/Drawer";
+import { useEffect } from "react";
 import ModuleContainer from "app/components/ModuleContainer";
 import { FormContainer } from "app/components/ModuleContainer/style";
 import { remove } from "app/assets/Icons";
@@ -10,9 +9,7 @@ import {
 
 import SingleShipmentDetails from "./SingleShipmentDetails";
 import SingleSipmentForm from "./SingleSipmentForm";
-import { CardDetails } from "app/components/PaymentCardDetails";
-import { masterCard } from "../../../../assets/Images/index";
-import { useFormik } from "formik";
+import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
 import { singleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import { Button } from "../../../../components/Buttons";
 
@@ -39,7 +36,6 @@ function SingleShipment({ path: string }) {
     return state.globalState.showLoader;
   });
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const redirect = (url: string) => {
     navigate(`/dashboard/${url}`);
   };
@@ -51,7 +47,13 @@ function SingleShipment({ path: string }) {
 
   const formik = useFormik({
     initialValues: shipmentDetails || shipmentInitValues,
-    validationSchema: singleShipmentFormSchema,
+    validate: (values: any) => {
+        try {
+            validateYupSchema(values, singleShipmentFormSchema, true, values);
+        } catch (err) {
+            return yupToFormErrors(err);
+        }
+    },
     onSubmit: async () => {
       dispatch(actions.submitShipment(formik.values));
     },
@@ -189,24 +191,6 @@ function SingleShipment({ path: string }) {
           onClick={addMoreItemHandler}
         />
       </Flex>
-
-      <Drawer
-        open={drawerOpen}
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
-        closeIcon={true}
-        title="Payment"
-        actionButtons={true}
-        cancelButtonText="Cancel"
-        actionButtonText="Save"
-      >
-        <CardDetails
-          cardNumber={"1234 5678 1234 3421"}
-          nameOnCard={"Deepak Pathak"}
-          expiryDate={new Date()}
-          cardImage={masterCard}
-          cardType={"Master Card"}
-        />
-      </Drawer>
     </ModuleContainer>
   );
 }
