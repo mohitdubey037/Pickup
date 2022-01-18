@@ -7,13 +7,13 @@ import {
     FormContent,
     FormWrapper,
     LogoImage,
-    Header,
     LoginWrapper,
 } from "../style";
 import { actions } from "store/reducers/SignInReducer";
 import { useEffect, useState } from "react";
 import { getParamsFromUrl } from "utils/commonUtils";
 import { verifyToken } from "./helper";
+import { PageTitle } from "app/components/Typography/Typography";
 import { passwordSchema } from "../SignUpScreens/signUpSchemas";
 
 const RecoverPassword = ({ navigate }: RouteComponentProps) => {
@@ -99,7 +99,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
             <LogoImage />
             <FormWrapper>
                 <FormContent>
-                    <Header>RECOVER PASSWORD</Header>
+                    <PageTitle title="RECOVER PASSWORD" />
                     <PasswordInput
                         id="password"
                         name="password"
@@ -107,7 +107,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                         onBlur={handleBlur}
                         onChange={handleChange}
                         error={touched.password && errors.password}
-                        placeholder="Start typing"
+                        placeholder="Password"
                         autoComplete="off"
                         validate
                     />
@@ -118,7 +118,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         label="Confirm Password"
-                        placeholder="Start typing"
+                        placeholder="Password"
                         autoComplete="off"
                     />
                     <Button disabled={!isValid} showLoader={showLoader} label="Confirm" onClick={handleSubmit} />

@@ -68,7 +68,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     options={WEIGHTDIMENSION}
                                 />
                                 {errorItem?.weightDimension && toucherItem?.weightDimension && (
-                                    <p style={{ margin: 0, color: "red" }}>{errorItem?.weightDimension}</p>
+                                    <p style={{ margin: 0, color: "#c94c43" }}>{errorItem?.weightDimension}</p>
                                 )}
                             </Flex>
                         </Flex>

@@ -4,37 +4,35 @@ import {
   LogoImage,
   SignUpWrapper,
   FormContent,
-  CenterContent,
-  Header,
+  SignUpBackgroundWrapper,
 } from "../style";
-import { RedLink } from "app/components/Typography/Typography";
+import { PageTitle, RedLink, SmallLabel } from "app/components/Typography/Typography";
 import { congrats } from "app/assets/Icons";
-import { Center } from "app/components/Typography/style";
+import { Box } from "@material-ui/core";
 
 const Congratulations = ({ navigate }: RouteComponentProps) => {
   return (
     <SignUpWrapper>
+      <SignUpBackgroundWrapper>
       <LogoImage />
       <FormWrapper>
-        <FormContent>
-          <CenterContent>
+        <FormContent className="CenterContent">
             <img src={congrats} alt="" className="mailLogo" />
-            <Header>CONGRATULATIONS</Header>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            <Box mt={3} mb={2}>
+            <PageTitle title="FORGOT PASSWORD" />
+            <SmallLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi
-              mollis tempus
-            </p>
-            <Center>
+              mollis tempus" />
+              </Box>
+
               <RedLink
                 label="Back to Login"
                 link={() => navigate?.("/dashboard/charter-shipment/single-shipment/order-summary")}
               />
-            </Center>
-          </CenterContent>
         </FormContent>
       </FormWrapper>
+      </SignUpBackgroundWrapper>
     </SignUpWrapper>
   );
 };

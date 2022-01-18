@@ -5,7 +5,7 @@ import { FormikValues } from "formik";
 import { Flex } from "app/components/Input/style";
 import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
-import { getCategoryList, orderImageUploadService } from "services/SingleShipmentServices";
+import { getCategoryList, imageUploadService } from "services/SingleShipmentServices";
 import DetailsFormItem from "./DetailsFormItem";
 import AddImage from "app/components/AddImage";
 
@@ -64,7 +64,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
 
         formData.append("document", image, image.name);
 
-        const res: { response: any, error: any} = await orderImageUploadService(formData)
+        const res: { response: any, error: any} = await imageUploadService(formData)
 
         if(res.error){
             showToast(res.error.message, "error")
@@ -106,7 +106,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             }
                         />
                         {singleFormErrors?.categoryId && singleFormTouched?.categoryId && (
-                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.categoryId}</p>
+                            <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.categoryId}</p>
                         )}
                     </Flex>
                     <Flex flex={1} left={30}>
@@ -137,7 +137,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             options={DROP_OPTION}
                         />
                         {singleFormErrors?.dropOption && singleFormTouched?.dropOption && (
-                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.dropOption}</p>
+                            <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.dropOption}</p>
                         )}
                     </Flex>
                     <Flex flex={1} left={30}>
