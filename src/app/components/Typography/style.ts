@@ -52,6 +52,15 @@ color: #343434;
 font-family: "Roboto";
 margin:0 0 8px 0;
 `
+export const ListLabeltext = styled.p`
+font-size: 18px;
+line-height: 21px;
+color: #343434;
+font-family: "Roboto-Medium";
+margin:0;
+text-transform:capitalize;
+`
+
 
 export const Paratext = styled.p`
 font-size: 14px;

@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { CustomRedLink, CustomBlackLink, ContainerTitleLabel, PageTitleText, Smalllabeltext, Paratext} from "./style"
+import { CustomRedLink, CustomBlackLink, ContainerTitleLabel, PageTitleText, Smalllabeltext, Paratext, ListLabeltext} from "./style"
 
 interface TypoProps {
     label?: string;
@@ -19,6 +19,12 @@ export const PageTitle: FC<TypoProps> = ({ title, className }) => {
 export const SmallLabel: FC<TypoProps> = ({ text, className }) => {
     return (
         <Smalllabeltext className={className}>{text}</Smalllabeltext>
+    )
+}
+
+export const ListLabel: FC<TypoProps> = ({ text, className }) => {
+    return (
+        <ListLabeltext className={className}>{text}</ListLabeltext>
     )
 }
 
