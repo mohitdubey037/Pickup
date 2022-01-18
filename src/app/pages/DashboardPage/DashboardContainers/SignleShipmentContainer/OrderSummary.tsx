@@ -125,7 +125,7 @@ function OrderSummary({ path: string }) {
                         label="Back"
                         onClick={onBackHandler}
                     />
-                    <Button
+                    {/* <Button
                         style={{ width: 190, marginRight: 20 }}
                         secondary
                         label="drawer"
@@ -133,7 +133,7 @@ function OrderSummary({ path: string }) {
                         onClick={() => {
                             setDrawerOpenOne(true);
                         }}
-                    />
+                    /> */}
                 </Flex>
             </ModuleContainer>
 
