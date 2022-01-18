@@ -11,7 +11,13 @@ export const singleShipmentFormSchema = yup.object().shape({
             }),
             originFirstName: yup.string().required("First Name is a required field"),
             originLastName: yup.string().required("Last Name is a required field"),
-            originAddressLine1: yup.string().required("Address Line 1 is a required field"),
+            originAddressLine1: yup.string().required("Address Line 1 is a required field").test(
+                'Please',
+                'Please enter a valid address',
+                function (item) {
+                  return (this.parent.originLatitude || this.parent.originLongitude)
+                }
+              ),
             originAddressLine2: yup.string().required("Address Line 2 is a required field"),
             originCity: yup.string().required("City is a required field"),
             originPostalCode: yup.string().required("Postal Code is a required field"),
@@ -21,7 +27,8 @@ export const singleShipmentFormSchema = yup.object().shape({
             originAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").matches(PHONE_NUMBER_REGX, " AlternatePhone number is not valid"),
             originEmailAddress: yup.string().email("Please enter valid email").required("Email Address is a required field"),
             originAdditionalNotes: yup.string().required("Additional Notes is a required field"),
-
+            originLatitude:  yup.string().required("Latitude is a required field"),
+            originLongitude:  yup.string().required("Longitude is a required field"),
 
             destinationCompanyName: yup.string().when('destinationBillingType', {
                 is: (destinationBillingType) => destinationBillingType === 2,
@@ -29,7 +36,13 @@ export const singleShipmentFormSchema = yup.object().shape({
             }),
             destinationFirstName: yup.string().required("First Name is a required field"),
             destinationLastName: yup.string().required("Last Name is a required field"),
-            destinationAddressLine1: yup.string().required("Address Line 1 is a required field"),
+            destinationAddressLine1: yup.string().required("Address Line 1 is a required field").test(
+                'Please',
+                'Please enter a valid address',
+                function (item) {
+                  return (this.parent.destinationLatitude || this.parent.destinationLongitude)
+                }
+              ),
             destinationAddressLine2: yup.string().required("Address Line 2 is a required field"),
             destinationCity: yup.string().required("City is a required field"),
             destinationPostalCode: yup.string().required("Postal Code is a required field"),
@@ -39,7 +52,8 @@ export const singleShipmentFormSchema = yup.object().shape({
             destinationAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
             destinationEmailAddress: yup.string().email("Please enter valid email").required("Email Address is a required field"),
             destinationAdditionalNotes: yup.string().required("Additional Notes is a required field"),
-
+            destinationLatitude:  yup.string().required("Latitude is a required field"),
+            destinationLongitude:  yup.string().required("Longitude is a required field"),
 
             categoryId: yup.number().required("Category is required"),
             customerRefNo: yup.string().required("Customer reference number is required"),

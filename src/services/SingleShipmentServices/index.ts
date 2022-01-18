@@ -80,7 +80,7 @@ export const getOrderDetails = async (orderId: any) => {
     }
 };
 
-export const orderImageUploadService = async (data: any) => {
+export const imageUploadService = async (data: any) => {
     try {
         const res = await services.postImage(`order/business/uploadDocument`, data, "order", "", { "Content-Type": "multipart/form-data; boundary=???" })
         return { response: res, error: null }

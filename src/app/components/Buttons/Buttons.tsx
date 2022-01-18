@@ -31,11 +31,11 @@ const ThemeButton: React.FC<ButtonProps> = ({
         onClick={onClick}
         size={size}
         variant="contained"
-        style={{ ...style, backgroundColor: secondary ? "white" : "" }}
+        style={{ ...style, backgroundColor: secondary ? "#fff" : "" }}
         secondary={secondary}
         
       >
-        {showLoader ? <CircularProgress style={{ color: "black" }} /> : label}
+        {showLoader ? <CircularProgress style={{ color: "#000" }} /> : label}
       </CustomButton>
     </>
   );

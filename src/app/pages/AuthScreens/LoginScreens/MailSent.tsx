@@ -1,40 +1,30 @@
 import React from "react";
 import { RouteComponentProps } from "@reach/router";
 import {
-  Header,
   LogoImage,
   FormContent,
-  CenterContent,
   FormWrapper,
   LoginWrapper,
 } from "../style";
 import { mailLogo } from "../../../assets/Icons/";
-import { RedLink } from "../../../components/Typography/Typography";
+import { PageTitle, RedLink, SmallLabel } from "../../../components/Typography/Typography";
+import { Box } from "@material-ui/core";
 
 const MailSent = ({ navigate }: RouteComponentProps) => {
   return (
     <LoginWrapper>
       <LogoImage />
       <FormWrapper>
-        <FormContent>
-          <CenterContent>
-            <div>
-              <img
-                src={mailLogo}
-                alt=""
-                className="mailLogo"
-                style={{ padding: "25px 0px 0px 0px" }}
-              />
-            </div>
-            <Header>EMAIL SENT</Header>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <FormContent className="CenterContent">
+        <img src={mailLogo} alt="" className="mailLogo" />
+            <Box mt={3} mb={2}>
+            <PageTitle title="EMAIL SENT" />
+            <SmallLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi
-              mollis tempus
-            </p>
+              mollis tempus" />
+              </Box>
             <RedLink label="Back to Login" link={() => navigate?.("/")} />
-          </CenterContent>
         </FormContent>
       </FormWrapper>
     </LoginWrapper>

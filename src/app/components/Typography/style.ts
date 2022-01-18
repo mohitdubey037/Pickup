@@ -14,11 +14,10 @@ padding:15px
 export const CustomRedLink = styled.div`
   cursor: pointer;
   color: #c94c43;
-  font-weight: 400;
+  font-family: "Roboto";
   font-size: 14px;
   text-decoration: underline;
   line-height: 16px;
-  bottom: 35px;
 `;
 
 export const CustomBlackLink = styled.div`
@@ -37,4 +36,36 @@ font-weight: bold !important;
 font-size: ${(props: { large?: boolean }) => props.large ? '24px' : '18px'} !important;
 line-height: 28px !important;
 color:#343434;
+`
+
+export const PageTitleText = styled.p`
+font-size: 32px;
+line-height: 37px;
+color: #343434;
+margin:0 0 24px 0;
+font-family: "Roboto-Bold";
+`
+export const Smalllabeltext = styled.p`
+font-size: 16px;
+line-height: 19px;
+color: #343434;
+font-family: "Roboto";
+margin:0 0 8px 0;
+`
+export const ListLabeltext = styled.p`
+font-size: 18px;
+line-height: 21px;
+color: #343434;
+font-family: "Roboto-Medium";
+margin:0;
+text-transform:capitalize;
+`
+
+
+export const Paratext = styled.p`
+font-size: 14px;
+line-height: 16px;
+color: #343434;
+font-family: "Roboto";
+margin:0;
 `

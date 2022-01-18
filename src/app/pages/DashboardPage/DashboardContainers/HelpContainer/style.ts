@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
 export const test = styled.div`
-    color: red
+    color: #c94c43
 `
