@@ -11,8 +11,7 @@ import { Button } from "app/components/Buttons";
 
 function SecondStepBlock(props: any) {
   let { details } = props;
-  // let { driverDetails } = trackData;
-
+  
   console.log("Driver: ", details);
   return (
     <SecondStepContent
