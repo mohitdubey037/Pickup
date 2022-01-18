@@ -7,7 +7,6 @@ import {
   StepContent,
   Paper,
   Typography,
-  Button,
 } from "@mui/material";
 import { ShareIcon } from "../../../../assets/Icons/index";
 import { TorontoMap } from "../../../../assets/Images/index";
@@ -19,27 +18,20 @@ import {
   MapDiv,
 } from "./style";
 import SecondStepBlock from "./SecondStepBlock";
-import { getLocation, getTrackStatus } from "../../../../../services/SearchItemService";
+import {
+  getLocation,
+  getTrackStatus,
+} from "../../../../../services/SearchItemService";
 import moment from "moment";
-import { DisplayMapFC } from "./HereMapComponent";
+// import HEREMap, { Marker } from 'here-maps-react';
+import HPlatform, { HMap } from "react-here-map";
 
 function TrackingDetailsPage(props: any) {
   const [activeStep, setActiveStep] = useState(0);
   const [trackData, setTrackData] = useState<any>([]);
+  const [coordinates, setCoordinates] = useState<any>([]);
   let { singleOrderData } = props;
 
-  const getLongLat = async () => {
-    if (!singleOrderData?.shippingId) return;
-    const res = (await getLocation(singleOrderData.shippingId)) as any;
-    if (res.success) {
-      const location = res.response.data;
-      console.log("Longitude & Latitude", location);
-      setTrackData(location);
-    }
-  };
-  useEffect(() => {
-    getLongLat();
-  }, []);
   useEffect(() => {
     (async () => {
       if (!singleOrderData?.shippingId) return;
@@ -50,6 +42,19 @@ function TrackingDetailsPage(props: any) {
         setTrackData(trackDetails);
       }
     })();
+  }, []);
+
+  const getLongLat = async () => {
+    if (!singleOrderData?.shippingId) return;
+    const res = (await getLocation(singleOrderData.shippingId)) as any;
+    if (res.success) {
+      const location = res.response.data;
+      console.log("Longitude & Latitude", location);
+      setCoordinates(location);
+    }
+  };
+  useEffect(() => {
+    getLongLat();
   }, []);
 
   // const handleNext = () => {
@@ -75,25 +80,6 @@ function TrackingDetailsPage(props: any) {
         ) : (
           ""
         )}
-
-        {/* <Box sx={{ mb: 2 }}>
-          <div>
-            <Button
-              variant="contained"
-              onClick={handleNext}
-              sx={{ mt: 1, mr: 1 }}
-            >
-              {index === trackData?.logs?.length - 1 ? "Finish" : "Continue"}
-            </Button>
-            <Button
-              disabled={index === 0}
-              onClick={handleBack}
-              sx={{ mt: 1, mr: 1 }}
-            >
-              Back
-            </Button>
-          </div>
-        </Box> */}
       </StepContent>
     );
   };
@@ -105,11 +91,47 @@ function TrackingDetailsPage(props: any) {
         <HeadSpanBlock>
           <img src={ShareIcon} alt="" className="ShareImageBlock" />
           <div className="ShareText">Share Tracking</div>
-          {/* <DisplayMapFC/> */}
+          {/* <TempMap /> */}
+          {/* <HEREMap
+            // appId="YvqYrJu5S467BPHcFyMN"
+            // appCode="B4jlx7y6SDu-jf1Qmv_rHw"
+            apikey="3f_xhnX1L-r8ZlIAc2UwGZ35o5Gi7BPpOVB72t9PIYo"
+            // center={{ lat: 10.998666, lng: -63.79841 }}
+            // zoom={12}
+          >
+             <Marker>
+                    <div className="circle-marker"></div>
+                </Marker>
+          </HEREMap> */}
         </HeadSpanBlock>
       </SubTitleDiv>
-      <MapDiv>
-        <img src={TorontoMap} alt="" />
+      <MapDiv style={{ borderRadius: "8px"}}>
+        {/* <img src={TorontoMap} alt="" /> */}
+        <HPlatform
+          app_id="YvqYrJu5S467BPHcFyMN"
+          app_code="B4jlx7y6SDu-jf1Qmv_rHw"
+          useCIT
+          useHTTPS
+          includeUI
+          includePlaces
+          interactive
+        >
+          <HMap
+            style={{
+              height: "200px",
+              borderRadius: "8px",
+            }}
+            mapOptions={{
+              center: { lat: 18.516726, lng: 73.856255 },
+              // center: { lat: coordinates.latitude, lng: coordinates.longitude },
+              zoom: 12,
+              pixelRatio: window.devicePixelRatio || 1,
+            }}
+          >
+            {/* <HMapLayer mapLayerType="terrain.traffic" /> */}
+            {/* <HMapPolyLine points={points} /> */}
+          </HMap>
+        </HPlatform>
       </MapDiv>
       <Box sx={{ maxWidth: 400 }}>
         <Stepper activeStep={activeStep} orientation="vertical">
