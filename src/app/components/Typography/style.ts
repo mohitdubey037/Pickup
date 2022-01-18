@@ -58,5 +58,5 @@ font-size: 14px;
 line-height: 16px;
 color: #343434;
 font-family: "Roboto";
-margin:00;
+margin:0;
 `

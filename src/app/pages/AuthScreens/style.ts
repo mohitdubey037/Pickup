@@ -39,7 +39,7 @@ export const FormWrapper = styled.div`
   width: 486px;
   box-shadow: 0px 16px 40px 5px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
-  min-height: 500px;
+  min-height: 520px;
   position: relative;
 
   .mailLogo {
@@ -99,3 +99,14 @@ export const RememberDiv = styled.div`
   width: 100%;
   margin-bottom:32px;
 `;
+
+export const Termslink = styled.div`
+font-size: 16px;
+line-height: 19px;
+color: #343434;
+font-family: "Roboto";
+a{
+  color: #1B8AF0;
+}
+`;
+

@@ -78,7 +78,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
 
   return (
     <SignUpWrapper>
-       <SignUpBackgroundWrapper>
+      <SignUpBackgroundWrapper>
       <LogoImage />
       <FormWrapper>
         <FormContent>

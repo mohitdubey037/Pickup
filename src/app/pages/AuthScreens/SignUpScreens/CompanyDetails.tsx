@@ -8,7 +8,7 @@ import {
   FormWrapper,
   LogoImage,
   Row,
-  Header,
+  SignUpBackgroundWrapper,
 } from "../style";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
@@ -19,6 +19,7 @@ import { CircularProgress } from "@material-ui/core";
 import { showToast } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SignUpReducer";
+import { PageTitle } from "app/components/Typography/Typography";
 
 const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   const { userId } = useParams();
@@ -87,13 +88,14 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
 
   return (
     <SignUpWrapper>
+      <SignUpBackgroundWrapper>
       <LogoImage />
       <FormWrapper isValidating={isValidating}>
         {isValidating ? (
           <CircularProgress />
         ) : (
           <FormContent>
-            <Header>COMPANY DETAILS</Header>
+            <PageTitle title="COMPANY DETAILS" />
             <Row>
               <Input
                 id={"firstName"}
@@ -148,6 +150,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
           </FormContent>
         )}
       </FormWrapper>
+      </SignUpBackgroundWrapper>
     </SignUpWrapper>
   );
 };

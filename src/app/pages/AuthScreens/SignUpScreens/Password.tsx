@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { RouteComponentProps, useLocation } from "@reach/router";
+import { PageTitle } from "app/components/Typography/Typography";
 import { useFormik } from "formik";
 
 import { useEffect } from "react";
@@ -13,6 +14,7 @@ import {
     FormWrapper,
     LogoImage,
     Header,
+    SignUpBackgroundWrapper,
 } from "../style";
 import { passwordSchema } from "./signUpSchemas";
 
@@ -70,10 +72,11 @@ const Password = ({ navigate }: RouteComponentProps) => {
 
     return (
         <SignUpWrapper>
+        <SignUpBackgroundWrapper>
             <LogoImage />
             <FormWrapper>
                 <FormContent>
-                    <Header>PASSWORD</Header>
+                    <PageTitle title="PASSWORD" />
                     <PasswordInput
                         id="password"
                         name="password"
@@ -103,6 +106,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
                     />
                 </FormContent>
             </FormWrapper>
+            </SignUpBackgroundWrapper>
         </SignUpWrapper>
     );
 };

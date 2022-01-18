@@ -106,3 +106,15 @@ export const Block = styled.div`
   display: block;
   text-align: start;
 `;
+
+export const VisibilityBox = styled.div`
+ position:absolute;
+ right:12px;
+ top:36px;
+
+ svg{
+   fill:#C0C0C0;
+   width:22px;
+   height:22px;
+ }
+`;
