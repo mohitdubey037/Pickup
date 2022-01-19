@@ -1,4 +1,4 @@
-import { Paper } from "@material-ui/core";
+import { Box, Grid, Paper } from "@material-ui/core";
 import styled from "styled-components";
 
 interface FlexProps {
@@ -9,6 +9,7 @@ interface FlexProps {
   top?: number
   right?: number,
   bottom?: number
+  alignItems?: any;
 }
 export const FormWrapper = styled.div`
  margin-top:20px;
@@ -78,21 +79,19 @@ export const ErrorLabel = styled.span`
   color: #c94c43;
 `;
 
-export const FullCard = styled(Paper)`
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  justify-content: "flex-start";
-  margin-top: ${(props: { marginBottom?: number }) =>
-    props.marginBottom || 20}px;
-  margin-left: ${(props: { marginBottom?: number; marginLeft?: number }) =>
-    props.marginLeft || 20}px;
+export const FullCard = styled(Box)`
+  padding: 24px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);
+  border-radius: 8px;
+  margin:24px 0;
 `;
 
 export const Flex = styled.div`
   display: flex;
   flex-direction: ${(props: FlexProps) => props.direction || "row"};
   justify-content: ${(props: FlexProps) => props.justifyContent};
+  align-items: ${(props: FlexProps) => props.alignItems};
   width: 100%;
   margin-left: ${(props: FlexProps) => props.left || 0}px;
   margin-top: ${(props: FlexProps) => props.top || 0}px;
@@ -101,6 +100,24 @@ export const Flex = styled.div`
 
   flex: ${(props: FlexProps) => props.flex || 0}px;
 `;
+
+
+export const FlexBox= styled(Box)`
+  display: flex;
+  align-items: center;
+  width:calc(100% - 300px);
+  justify-content:space-between;
+  flex-flow:wrap;
+
+  .value{
+    margin-top:4px;
+    font-family: "Roboto-Bold";
+  }
+  div{
+    margin:0 24px;
+  }
+`;
+
 
 export const Block = styled.div`
   display: block;

@@ -15,7 +15,7 @@ export default function CompanyDetails(props: DetailInterface) {
   const { setCompanyDrawerOpen, companyDetails } = props;
 
   return (
-    <FullCard style={{ marginLeft: 0 }}>
+    <FullCard>
       <Flex direction={"column"} style={{ paddingRight: 20 }}>
         <Flex>
           <FormContainerTitle style={{ flex: 1, textAlign: "left" }}>

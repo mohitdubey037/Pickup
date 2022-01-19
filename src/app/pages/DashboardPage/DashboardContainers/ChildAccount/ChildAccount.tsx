@@ -7,10 +7,9 @@ import AdminDetails from './AdminDetails'
 import Cards from './Cards'
 export default function ChildAccount({path:string}) {
     return (
-        <ModuleContainer >
-        <ContainerTitle>
-        Create New Child
-        </ContainerTitle>
+        <ModuleContainer>
+        <ContainerTitle title="Create New Child" />
+        
         <FormContainer elevation={2}>
             <FormContainerTitle>
             Create Child

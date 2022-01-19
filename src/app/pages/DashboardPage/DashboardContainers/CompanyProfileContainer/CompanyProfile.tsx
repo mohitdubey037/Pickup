@@ -42,7 +42,8 @@ export default function CompanyProfile({ path: string }) {
   console.log(companyDetails)
   return (
     <ModuleContainer>
-      <ContainerTitle>Company Profile</ContainerTitle>
+      <ContainerTitle title="Company Profile" />
+
       <CompanyDetails
         setCompanyDrawerOpen={setCompanyDrawerOpen}
         companyDetails={ companyDetails}

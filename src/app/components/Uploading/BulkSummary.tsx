@@ -26,7 +26,7 @@ const BulkSummary = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle>On Hold Shipments</ContainerTitle>
+      <ContainerTitle title="On Hold Shipments" />
       <div style={{paddingTop:10,paddingBottom:20}}>
       <Box style={{ backgroundColor: "#CFFFE8",borderRadius:5,display:'flex'}}>
           <div style={{paddingTop:20}}>

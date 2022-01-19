@@ -92,7 +92,7 @@ function OrderSummary({ path: string }) {
     return (
         <>
             <ModuleContainer>
-                <ContainerTitle>Order Summary</ContainerTitle>
+                <ContainerTitle title="Order Summary" />
 
                 <Flex direction={"column"} top={20}>
                     <Table 
