@@ -57,18 +57,6 @@ function TrackingDetailsPage(props: any) {
     getLongLat();
   }, []);
 
-  // const handleNext = () => {
-  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  // };
-
-  // const handleBack = () => {
-  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  // };
-
-  // const handleReset = () => {
-  //   setActiveStep(0);
-  // };
-
   const getStepContent = (step: any, index: number) => {
     return (
       <StepContent>
@@ -91,18 +79,6 @@ function TrackingDetailsPage(props: any) {
         <HeadSpanBlock>
           <img src={ShareIcon} alt="" className="ShareImageBlock" />
           <div className="ShareText">Share Tracking</div>
-          {/* <TempMap /> */}
-          {/* <HEREMap
-            // appId="YvqYrJu5S467BPHcFyMN"
-            // appCode="B4jlx7y6SDu-jf1Qmv_rHw"
-            apikey="3f_xhnX1L-r8ZlIAc2UwGZ35o5Gi7BPpOVB72t9PIYo"
-            // center={{ lat: 10.998666, lng: -63.79841 }}
-            // zoom={12}
-          >
-             <Marker>
-                    <div className="circle-marker"></div>
-                </Marker>
-          </HEREMap> */}
         </HeadSpanBlock>
       </SubTitleDiv>
       <MapDiv style={{ borderRadius: "8px"}}>
@@ -128,10 +104,7 @@ function TrackingDetailsPage(props: any) {
               pixelRatio: window.devicePixelRatio || 1,
             }}
           >
-            {/* <Marker>
-            coordinate={{ lat: coordinates.latitude, lng: coordinates.longitude }},
-            </Marker>
-            <HMapLayer mapLayerType="terrain.traffic" /> */}
+            <HMapLayer mapLayerType="terrain.traffic" />
             {/* <HMapPolyLine points={points} /> */}
           </HMap>
         </HPlatform>
@@ -139,11 +112,6 @@ function TrackingDetailsPage(props: any) {
       <Box sx={{ maxWidth: 400 }}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {trackData?.logs?.map((step, index) => {
-            // if(!step.timestamp){
-            //   if(index >= 1 && trackData[index-1]){
-            //     setActiveStep(index-1);
-            //   }
-            // }
             if (index === 0 && !step.timestamp) {
               setActiveStep(index);
             } else if (!step.timestamp) {
@@ -154,7 +122,6 @@ function TrackingDetailsPage(props: any) {
             return (
               <Step
                 key={index}
-                // active={index === activeStep - 1 || index === activeStep}
                 expanded={true}
                 completed={step.timestamp ? true : false}
               >
@@ -172,14 +139,10 @@ function TrackingDetailsPage(props: any) {
         {activeStep === trackData?.logs?.length && (
           <Paper square elevation={0} sx={{ p: 7 }}>
             <Typography>Shiment Delivered Successfully !</Typography>
-            {/* <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-              Reset
-            </Button> */}
           </Paper>
         )}
       </Box>
     </PaperBlock>
   );
 }
-
 export default TrackingDetailsPage;
