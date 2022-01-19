@@ -97,8 +97,8 @@ export const singleShipmentInitValues1 = {
     originPostalCode: "Post",
     originProvinceState: "STate",
     originCountry: "Country",
-    originContactNumber: "1111111",
-    originAlternateContactNumber: "2222222",
+    originContactNumber: "1111111111",
+    originAlternateContactNumber: "2222222111",
     originEmailAddress: "a@a.com",
     originAdditionalNotes: "Additional notes",
 
@@ -118,7 +118,7 @@ export const singleShipmentInitValues1 = {
     destinationProvinceState: "State 2",
     destinationCountry: "Country 2",
     destinationContactNumber: "2222222222",
-    destinationAlternateContactNumber: "666666666",
+    destinationAlternateContactNumber: "6666666661",
     destinationEmailAddress: "b@b.com",
     destinationAdditionalNotes: "Additional notes",
 
@@ -145,11 +145,11 @@ export const shipmentInitValues = {
 
 export const transformPayloadToBackend = (values: any) => {
     const payload = {
-        categoryId: values.categoryId,
+        categoryId: values.categoryId.categoryId,
         customerReferenceNumber: values.customerRefNo,
         dropLocation: {
-            latitude: 45.65,
-            longitude: 80.43,
+            latitude: values.destinationLatitude,
+            longitude: values.destinationLongitude,
             details: values.destinationAdditionalNotes,
             saveLocation: values.destinationFavorite ? 1 : 0,
             type: values.destinationBillingType,
@@ -169,8 +169,8 @@ export const transformPayloadToBackend = (values: any) => {
             locationCountry: values.destinationCountry
         },
         pickupLocation: {
-            latitude: 43.65,
-            longitude: 79.38,
+            latitude: values.originLatitude,
+            longitude: values.originLongitude,
             details: values.originAdditionalNotes,
             saveLocation: values.originFavorite ? 1 : 0,
             type: values.originBillingType,
@@ -189,11 +189,9 @@ export const transformPayloadToBackend = (values: any) => {
             locationProvinceCode: values.originProvinceState,
             locationCountry: values.originCountry
         },
-        shipmentCost: "111",
         orderedAt: getSingleDate(values.shipmentDate, values.shipmentTime),
         shipmentTime: values.shipmentTime,
         shipmentDate: values.shipmentDate,
-        note: "note",
         type: Number(values.scheduleType),
         items: values.shipmentDetails.map((item) => ({ ...item, fragile: values.fragile })),
         picture: values.picture,
