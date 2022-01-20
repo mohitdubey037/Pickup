@@ -23,7 +23,7 @@ export const getEmailUserId = async (userId) => {
 
 export const getTermsAndConditions = async (id: number) => {
   try {
-    const response = await Services.get(`https://staging-api.pickups.mobi/user/api/legaldocs/page/${id}/3`);
+    const response = await Services.get(`legaldocs/page/${id}/3`, "user_cr");
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };

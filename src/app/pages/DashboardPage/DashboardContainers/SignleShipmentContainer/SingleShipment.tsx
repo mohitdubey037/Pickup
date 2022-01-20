@@ -89,11 +89,7 @@ function SingleShipment({ path: string }) {
   return (
     <ModuleContainer>
       {formik?.values?.orders.length === 1 && (
-
-        <ContainerTitle title="Single order" />
-
-        <ContainerTitle>Single Order</ContainerTitle>
-
+          <ContainerTitle title="Single Order" />
       )}
       {new Array(formik.values.orders.length).fill("").map((_, index) => (
         <>
