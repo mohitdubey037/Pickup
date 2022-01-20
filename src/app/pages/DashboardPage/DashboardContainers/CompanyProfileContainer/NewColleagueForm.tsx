@@ -10,6 +10,8 @@ import { CustomInput } from "./style";
 import { PERMISSION_TYPES } from "../../../../../constants";
 import Select from "app/components/Select";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import Switches from "app/components/Input/SwitchButton";
+import EditAvatar from "app/components/Avatar/EditAvatar";
 function NewColleagueForm(props: { formik: FormikValues }) {
   const {
     handleChange,
@@ -81,6 +83,9 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             label={"Email id"}
             placeholder={"johndoe@pickups.com"}
           />
+        </Grid>
+        <Grid item md={3}>
+        <Switches />
         </Grid>
         <Grid item md={3}>
           <CustomInput
