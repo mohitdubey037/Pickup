@@ -17,6 +17,8 @@ import NewColleagueForm from "./NewColleagueForm";
 import PersonalProfile from "../PersonalProfileContainer/PersonalProfile";
 import { Drawer } from "app/components/Drawer";
 import EditCompanyDetailsForm from "./EditCompanyDetailsForm";
+import AdminDetails from "./AdminDetails";
+import NewColleague from "./NewColleague";
 
 export default function CompanyProfile({ path: string }) {
   const [passwordDrawerOpen, setPasswordDrawerOpen] = useState(false);
@@ -62,19 +64,10 @@ export default function CompanyProfile({ path: string }) {
           HSTNumber: "123 456 789",
         }}
       />
-      {/* <PersonalProfile
-        setPasswordDrawerOpen={setPasswordDrawerOpen}
-        setEditDetailsDrawerOpen={setEditDetailsDrawerOpen}
-        profile={{
-          avatar: "https://i.pravatar.cc/300",
-          firstName: "John",
-          lastName: "jeo",
-          phoneNumber: "9876543215",
-          role: "Manager",
-          email: "johnjeo23@gmail.com",
-        }}
-      /> */}
-      {/* personal profile  */}
+      <AdminDetails />
+
+      <NewColleague />
+
       <NewColleagueForm formik={formik} />
       <Drawer
         open={companyDrawerOpen}

@@ -50,6 +50,8 @@ import StepperCircleIcon from "./StepperCircleIcon.svg";
 import YellowTick from "./YellowTick.svg";
 import calendar from "./calendar.svg"
 import remove from "./Remove.svg"
+import editavatar from "./edit-avatar.svg"
+
 
 export {
     analytics,
@@ -104,4 +106,5 @@ export {
     StepperCircleIcon,
     YellowTick,
     remove,
+    editavatar
 };

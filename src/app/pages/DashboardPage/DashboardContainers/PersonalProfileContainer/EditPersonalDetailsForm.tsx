@@ -12,6 +12,7 @@ import { imageUploadService } from "services/SingleShipmentServices";
 import { showToast } from "utils";
 import { Avatar, Box } from "@material-ui/core";
 import { DrawerFooter } from "app/components/Drawer/style";
+import EditAvatar from "app/components/Avatar/EditAvatar";
 
 const EditPersonalDetailsForm = ({
   title = "",
@@ -67,14 +68,17 @@ const EditPersonalDetailsForm = ({
   return (
     <>
       <Box display="flex" justifyContent="center">
-        <Avatar
+        {/* <Avatar
           src={values?.profileImage}
           onChange={(e) => changeHandler(e)}
           style={{
             width: 86,
             height: 86,
           }}
-        />
+        /> */}
+        
+        <EditAvatar  />
+
       </Box>
       <Input
         id="firstName"
