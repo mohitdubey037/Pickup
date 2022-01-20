@@ -107,7 +107,7 @@ const SearchContainer = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle>Search</ContainerTitle>
+      <ContainerTitle title="Search" />
       <SearchFieldsWrapper>
         <Input label="Invoice Number" placeholder="eg. 123,321" />
         <Input label="Shipping Id" placeholder="eg. 123,321" />

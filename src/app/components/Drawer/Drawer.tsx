@@ -6,6 +6,9 @@ import {
   DrawerFooter,
   DrawerTitleDiv,
 } from "./style";
+import { DrawerTitle } from "../Typography/Typography";
+import { Button } from "@material-ui/core";
+import ThemeButton from "../Buttons/Buttons";
 
 interface DrawerProps {
   open: boolean;
@@ -39,7 +42,7 @@ export default function Drawer({
         onClose={() => setDrawerOpen(false)}
       >
         <DrawerTitleDiv>
-          <h3 style={{ margin: 0 }}>{title}</h3>
+          <DrawerTitle title={title} />
           {closeIcon && (
             <img
               style={{ cursor: "pointer" }}
@@ -50,24 +53,10 @@ export default function Drawer({
           )}
         </DrawerTitleDiv>
         <DrawerContent>{children}</DrawerContent>
-        {actionButtons && (
+        {/* {actionButtons && (
           <DrawerFooter>
-            <div>
-              {/* <Button
-                secondary={cancelButtonType === "secondary"}
-                label={cancelButtonText}
-                size="small"
-              />
-            </div>
-            <div>
-              <Button
-                secondary={actionButtonType === "secondary"}
-                label={actionButtonText}
-                size="small"
-              /> */}
-            </div>
           </DrawerFooter>
-        )}
+        )} */}
       </CustomDrawer>
     </div>
   );

@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { CustomRedLink, CustomBlackLink, ContainerTitleLabel, PageTitleText, Smalllabeltext, Paratext, ListLabeltext} from "./style"
+import { CustomRedLink, CustomBlackLink, ContainerTitleLabel, PageTitleText, Smalllabeltext, Paratext, ListLabeltext, DrawerTitletext} from "./style"
 
 interface TypoProps {
     label?: string;
@@ -9,6 +9,17 @@ interface TypoProps {
     text?:string;
 }
 
+export const ContainerTitle: FC<TypoProps> = ({ title, className }) => {
+    return (
+        <ContainerTitleLabel className={className}>{title}</ContainerTitleLabel>
+    )
+}
+
+export const DrawerTitle: FC<TypoProps> = ({ title, className }) => {
+    return (
+        <DrawerTitletext className={className}>{title}</DrawerTitletext>
+    )
+}
 
 export const PageTitle: FC<TypoProps> = ({ title, className }) => {
     return (
@@ -46,11 +57,6 @@ export const BlackLink = ({ label, link }: TypoProps) => {
     return (
         <CustomBlackLink onClick={link}>{label}</CustomBlackLink>
     )
-}
-
-export const ContainerTitle = (props) => {
-    return <ContainerTitleLabel large={true}>{props.children}</ContainerTitleLabel>
-
 }
 
 

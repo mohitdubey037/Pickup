@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 export const LeftDashboardWrapper = styled.div`
 	text-align: left;
 	// flex: 1.27;
-width:18.26%;
+width:263px;
 	color: #343434;
 	height: 100%;
 
@@ -14,7 +14,7 @@ width:18.26%;
 export const DashboardRightWrapper = styled.div`
 	min-height:100vh;
 	// flex: 5;
-  width:81.74%;
+width:calc(100% - 263px);
 	border-top-left-radius: 40;
 `
 

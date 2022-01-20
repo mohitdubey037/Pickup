@@ -18,7 +18,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
     handleSubmit,
   } = props.formik;
   return (
-    <FullCard style={{ marginLeft: 0 }}>
+    <FullCard>
       <Flex direction={"column"}>
         <Typography className="typography" variant="h1" component="h3">
           <FormContainerTitle>New Colleague</FormContainerTitle>

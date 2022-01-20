@@ -139,6 +139,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                             </Grid>
                             <Grid item xs={12} className={classes.gridColspacing}>
                                 <Input
+                                    
                                     label="Phone Number"
                                     placeholder="+1 (999)-999-9999"
                                     id="phoneNumber"
@@ -176,7 +177,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                             </Modal>
                             </Grid>
                             <Grid item xs={12} className={classes.gridColspacing}>
-                            <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} />
+                            <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
                             </Grid>
                         </Grid>
                     </FormContent>

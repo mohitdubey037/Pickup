@@ -94,7 +94,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
             autoComplete="off"
           />
           {errorMessage ? <span style={{ color: '#c94c43' }}> {errorMessage} </span> : null}
-          <Button disabled={!(isValid)} label="Sign Up" showLoader={showLoader} onClick={handleSubmit} />
+          <Button disabled={!(isValid)} label="Sign Up" showLoader={showLoader} onClick={handleSubmit} size="large" />
           <LoginLink>
             Already have an account?{" "}
             <BlackLink

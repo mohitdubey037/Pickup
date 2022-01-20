@@ -29,7 +29,7 @@ const BulkShipment = ({ navigate }: RouteComponentProps) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle>Bulk order</ContainerTitle>
+      <ContainerTitle title="Bulk order" />
       <FormContainer elevation={2}>
         <FormContainerTitle>Bulk order</FormContainerTitle>
         <BulkShipmentWrapper>

@@ -139,7 +139,7 @@ const InvoicesContainer = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle>Invoices</ContainerTitle>
+      <ContainerTitle title="Invoices" />
       <InvoicesWrapper>
         <Input label="Invoice Number" placeholder="eg. 123,321" />
         <Input label="From Date" placeholder="Select" />
