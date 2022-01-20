@@ -5,14 +5,14 @@ const getInvoiceIdItem = (
   openInvoiceDrawer: (key: string, type: any) => void,
   id: any
 ) => {
-  return <div onClick={() => openInvoiceDrawer(id, "invoice")}>{id}</div>;
+  return <div onClick={() => openInvoiceDrawer(id, "invoice")} style={{ color: "#1B8AF0", textDecoration: "underline" }}>{id}</div>;
 };
 
 const getOrderIdItem = (
   openInvoiceDrawer: (key: string, type: any) => void,
   id: any
 ) => {
-  return <div onClick={() => openInvoiceDrawer(id, "orderDetails")}>{id}</div>;
+  return <div onClick={() => openInvoiceDrawer(id, "orderDetails")} style={{ color: "#1B8AF0", textDecoration: "underline" }}>{id}</div>;
 };
 
 export const searchTable = (
@@ -35,22 +35,22 @@ export const searchTable = (
   return makeTableData;
 };
 
-export const getSearchOrderData = async () => {
-  fetch(
-    "https://staging-api.pickups.mobi/order/v1/api/order/business/shipments",
-    {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM",
-      },
-    }
-  )
-    .then((response) => response.json())
-    .then((resData) => {
-      console.log("response", resData, JSON.stringify(resData));
-      return resData.data.data;
-    });
-};
+// export const getSearchOrderData = async () => {
+//   fetch(
+//     "https://staging-api.pickups.mobi/order/v1/api/order/business/shipments",
+//     {
+//       headers: {
+//         Authorization:
+//           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM",
+//       },
+//     }
+//   )
+//     .then((response) => response.json())
+//     .then((resData) => {
+//       console.log("response", resData, JSON.stringify(resData));
+//       return resData.data.data;
+//     });
+// };
 
 export const advanceFilterInitValues = {
   from_shipping: new Date(),

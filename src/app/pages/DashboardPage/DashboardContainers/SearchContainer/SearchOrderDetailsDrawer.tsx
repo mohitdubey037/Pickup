@@ -51,7 +51,7 @@ function SearchOrderDetailsDrawer(props: any) {
         </Tabs>
         <div className="tab-content">
           {value === "orderDetails" ? (
-            <OrderDetailPage />
+            <OrderDetailPage singleOrderData={singleOrderData}/>
           ) : value === "itemDetails" ? (
             <ItemDetailsPage singleOrderData={singleOrderData} />
           ) : (<TrackingDetailsPage singleOrderData={singleOrderData} />

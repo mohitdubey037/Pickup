@@ -129,6 +129,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                             </Grid>
                             <Grid item xs={12} className={classes.gridColspacing}>
                                 <Input
+                                    
                                     label="Phone Number"
                                     placeholder="+1 (999)-999-9999"
                                     id="phoneNumber"
