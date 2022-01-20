@@ -1,7 +1,8 @@
-import { Avatar, Button, Paper, Typography } from "@material-ui/core";
+import { Avatar, Box, Grid} from "@material-ui/core";
 import EditIcon from "app/components/EditIcon";
-import { Block, Flex, FullCard } from "app/components/Input/style";
-import { FormContainerTitle } from "app/components/Typography/Typography";
+import { Flex, FullCard } from "app/components/Input/style";
+import { ListLabel, Para, SmallLabel } from "app/components/Typography/Typography";
+import { FlexGrid } from "./style";
 import { CompanyDetailsType } from "./types";
 
 interface DetailInterface {
@@ -15,95 +16,81 @@ export default function CompanyDetails(props: DetailInterface) {
   const { setCompanyDrawerOpen, companyDetails } = props;
 
   return (
-    <FullCard>
-      <Flex direction={"column"} style={{ paddingRight: 20 }}>
-        <Flex>
-          <FormContainerTitle style={{ flex: 1, textAlign: "left" }}>
-            Company Details
-          </FormContainerTitle>
-          <EditIcon onClick={setCompanyDrawerOpen} />
-        </Flex>
+    <>
 
-        <Flex style={{ marginTop: 15 }}>
-          <Avatar style={{ width: 86, height: 86 }}>
-            <img src={avatar} width={86} />
-          </Avatar>
-          <Flex direction={"column"} style={{ marginLeft: 20 }}>
-            <Flex>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.companyName ? companyDetails?.companyName : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Business Number</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.businessNumber ? companyDetails?.businessNumber : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Industry</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.industry ? companyDetails?.industry: "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Employee Strength</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.employeeStrength ? companyDetails?.employeeStrength : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Address Line 1</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.addressLine1 ? companyDetails?.addressLine1 : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Address Line 2</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.addressLine2 ? companyDetails?.addressLine2 : "-"}
-                </Typography>
-              </Block>
-            </Flex>
-            <Flex style={{ marginTop: 10 }}>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> City</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.city ? companyDetails?.city  : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Pincode</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.pincode ? companyDetails?.pincode : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Province</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.province ? companyDetails?.province : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Country</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.country ? companyDetails?.country : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> HST Number</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {companyDetails?.hstNumber ? companyDetails?.hstNumber : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}></Block>
-              <Block></Block>
-            </Flex>
-          </Flex>
-        </Flex>
-      </Flex>
-    </FullCard>
+
+
+  <FullCard> 
+      <Box mb={4} display="flex" justifyContent="space-between">
+          <ListLabel text="Company Details" />
+          <EditIcon onClick={setCompanyDrawerOpen} />
+      </Box>
+      <Box display="flex" justifyContent="space-between">
+      <Box mr={4}>
+          <Avatar style={{ width: 86, height: 86 }} src={avatar} />
+      </Box>
+<FlexGrid>
+      <Grid container spacing={2}>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="Company Name" />
+          <SmallLabel text={companyDetails?.companyName ? companyDetails?.companyName : "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="Business Number" />
+          <SmallLabel text={companyDetails?.businessNumber ? companyDetails?.businessNumber : "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="Industry" />
+          <SmallLabel text=  {companyDetails?.industry ? companyDetails?.industry: "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="Employee Strength" />
+          <SmallLabel text={companyDetails?.employeeStrength ? companyDetails?.employeeStrength : "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="Address Line 1" />
+          <SmallLabel text={companyDetails?.addressLine1 ? companyDetails?.addressLine1 : "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="Address Line 2" />
+          <SmallLabel text={companyDetails?.addressLine2 ? companyDetails?.addressLine2 : "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="City" />
+          <SmallLabel text= {companyDetails?.city ? companyDetails?.city  : "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="Pincode" />
+          <SmallLabel text={companyDetails?.pincode ? companyDetails?.pincode : "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="Province" />
+          <SmallLabel text={companyDetails?.province ? companyDetails?.province : "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="Country" />
+          <SmallLabel text={companyDetails?.country ? companyDetails?.country : "-"} className="value" />
+          </Grid>
+
+          <Grid item lg={2} sm={3}>
+          <Para text="HST Number" />
+          <SmallLabel text= {companyDetails?.hstNumber ? companyDetails?.hstNumber : "-"} className="value" />
+          </Grid>
+      </Grid>
+      </FlexGrid>
+      </Box>
+  </FullCard>
+
+</>
   );
 }
