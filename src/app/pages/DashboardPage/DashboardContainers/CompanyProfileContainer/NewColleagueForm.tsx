@@ -1,22 +1,41 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
+import { Input } from "app/components/Input";
 import { Flex, FullCard } from "app/components/Input/style";
 import { FormContainerTitle } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { FormikValues } from "formik";
-import { CustomInput } from "./style";
-import { PERMISSION_TYPES } from "../../../../../constants";
+import { useFormik } from "formik";
+// import { Input } from "./style";
+import {
+  PERMISSION_TYPES,
+  NOTIFICATION_FREQUENCY_TYPES,
+} from "../../../../../constants";
 import Select from "app/components/Select";
-function NewColleagueForm(props: { formik: FormikValues }) {
+import { addNewColleague } from "./CompanyProfileSchema";
+function NewColleagueForm({ saveAction }) {
   const {
+    values,
     handleChange,
     errors,
-    title,
     touched,
-    values,
     handleBlur,
     handleSubmit,
-  } = props.formik;
+    isValid,
+  } = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      roleDesignation: "",
+      emailId: "",
+      notificationFrequency: "",
+      permission: "",
+      notification: 1,
+      type: 17,
+    },
+    validationSchema: addNewColleague,
+    onSubmit: (values) => saveAction(values),
+  });
   return (
     <FullCard style={{ marginLeft: 0 }}>
       <Flex direction={"column"}>
@@ -25,7 +44,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
         </Typography>
         <Flex direction={"column"}>
           <Flex style={{ marginTop: 20 }}>
-            <CustomInput
+            <Input
               id="firstName"
               name="firstName"
               onBlur={handleBlur}
@@ -35,7 +54,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               placeholder={"Start typing"}
               style={{ flex: 1, marginRight: 30 }}
             />
-            <CustomInput
+            <Input
               id="lastName"
               name="lastName"
               onBlur={handleBlur}
@@ -46,7 +65,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               style={{ flex: 1, marginRight: 30 }}
             />
 
-            <CustomInput
+            <Input
               id="phoneNumber"
               name="phoneNumber"
               onBlur={handleBlur}
@@ -58,27 +77,27 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             />
           </Flex>
           <Flex style={{ marginTop: 20 }}>
-            <CustomInput
-              id="Role"
-              name="Role"
+            <Input
+              id="roleDesignation"
+              name="roleDesignation"
               onBlur={handleBlur}
               onChange={handleChange}
-              error={touched.Role && errors.Role}
-              label={"Role/Designation"}
+              error={touched.roleDesignation && errors.roleDesignation}
+              label={"Role / Designation"}
               placeholder={"Start typing"}
               style={{ flex: 1, marginRight: 30 }}
             />
-            <CustomInput
-              id="email"
-              name="email"
+            <Input
+              id="emailId"
+              name="emailId"
               onBlur={handleBlur}
               onChange={handleChange}
-              error={touched.email && errors.email}
+              error={touched.emailId && errors.emailId}
               label={"Email id"}
               placeholder={"Start typing"}
               style={{ flex: 1, marginRight: 30 }}
             />
-            <CustomInput
+            {/* <Input
               id="notificationFrequency"
               name="notificationFrequency"
               onBlur={handleBlur}
@@ -89,32 +108,42 @@ function NewColleagueForm(props: { formik: FormikValues }) {
               label={"Notification Frequency"}
               placeholder={"Start typing"}
               style={{ flex: 1, marginRight: 30 }}
-            />
+            /> */}
+            <Grid item xs={4}>
+              <Select
+                id="notificationFrequency"
+                name="notificationFrequency"
+                options={NOTIFICATION_FREQUENCY_TYPES}
+                label={"Notification Frequency"}
+                value={values["notificationFrequency"]}
+                onSelect={handleChange}
+              />
+            </Grid>
           </Flex>
           <Flex style={{ marginTop: 20 }}>
             <Grid item xs={11}>
               <Select
-                id="Permission"
-                name="Permission"
+                id="permission"
+                name="permission"
                 options={PERMISSION_TYPES}
                 label={"Permission"}
-                value={values[title + "Permission"]}
-                onSelect={(e) => console.log(e)}
+                value={values["permission"]}
+                onSelect={handleChange}
               />
             </Grid>
           </Flex>
           <Flex direction={"row-reverse"} style={{ marginTop: 20 }}>
             <div style={{ marginRight: 30, width: 148 }}>
-              <Button label="Save" onClick={handleSubmit} />
+              <Button label="Save" onClick={handleSubmit} disabled={!isValid} />
             </div>
           </Flex>
-          <div style={{ marginLeft: 5, width: 130 }}>
+          {/* <div style={{ marginLeft: 5, width: 130 }}>
             <Button
               label="Add Colleague"
               onClick={handleSubmit}
               style={{ marginTop: 100, width: 150 }}
             />
-          </div>
+          </div> */}
         </Flex>
       </Flex>
     </FullCard>

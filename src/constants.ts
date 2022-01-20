@@ -38,6 +38,12 @@ export const PERMISSION_TYPES = [
   { label: "Admin", value: 4 },
 ];
 
+export const NOTIFICATION_FREQUENCY_TYPES = [
+  { label: "Monthly", value: "Monthly" },
+  { label: "Weekly", value: "Weekly" },
+  { label: "Hourly", value: "Hourly" },
+];
+
 export const WEIGHTDIMENSION = [
   { label: "KG", value: 14 },
   { label: "POUND", value: 15 },
@@ -60,8 +66,20 @@ export const COUNTRY = [
   { label: "Algeria", value: 3 },
 ];
 
+export const COUNTRY_TEXT = [
+  { label: "Afghanistan", value: "Afghanistan" },
+  { label: "Albania", value: "Albania" },
+  { label: "Algeria", value: "Algeria" },
+];
+
 export const INDUSTRY = [
   { label: "Agriculture", value: 1 },
   { label: "Construction", value: 2 },
   { label: "Manufacturing", value: 3 },
+];
+
+export const INDUSTRY_TEXT = [
+  { label: "Agriculture", value: "Agriculture" },
+  { label: "Construction", value: "Construction" },
+  { label: "Manufacturing", value: "Manufacturing" },
 ];
