@@ -102,21 +102,6 @@ export const Flex = styled.div`
 `;
 
 
-export const FlexBox= styled(Box)`
-  display: flex;
-  align-items: center;
-  width:calc(100% - 300px);
-  justify-content:space-between;
-  flex-flow:wrap;
-
-  .value{
-    margin-top:4px;
-    font-family: "Roboto-Bold";
-  }
-  div{
-    margin:0 24px;
-  }
-`;
 
 
 export const Block = styled.div`

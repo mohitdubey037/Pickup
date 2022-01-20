@@ -9,7 +9,7 @@ import { COUNTRY, INDUSTRY } from "../../../../../constants";
 import Select from "app/components/Select";
 import { DrawerFooter } from "app/components/Drawer/style";
 
-const EditCompanyDetailsForm = ({
+const EditNewColleagueForm = ({
   title = "",
   setCompanyDrawerOpen,
   saveAction,
@@ -213,4 +213,4 @@ const EditCompanyDetailsForm = ({
   );
 };
 
-export default EditCompanyDetailsForm;
+export default EditNewColleagueForm;
