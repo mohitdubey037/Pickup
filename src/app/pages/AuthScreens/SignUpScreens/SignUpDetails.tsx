@@ -153,7 +153,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                             </Box>
                             </Grid>
                             <Grid item xs={12} className={classes.gridColspacing}>
-                            <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} />
+                            <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
                             </Grid>
                         </Grid>
                     </FormContent>

@@ -2,18 +2,11 @@ import styled from "styled-components";
 import { Paper } from "@material-ui/core";
 
 export const ModuleContainerWrapper = styled.div`
-  max-height: 100vh;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: flex-start;
   background-color: #fafafa;
   overflow:hidden;
   overflow-y: auto;
-  max-height: calc(100vh - 121px);
-    min-height: calc(100vh - 121px);
+  height: calc(100vh - 121px);
   padding:24px 32px;
-  padding-right:70px;
 
 &::-webkit-scrollbar {
   width: 5px;

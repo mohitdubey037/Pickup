@@ -3,6 +3,8 @@ import { Flex } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 import { passwordSchema } from "./passwordSchema";
+import { DrawerFooter } from "app/components/Drawer/style";
+import { Box } from "@material-ui/core";
 
 const ChangePasswordForm = ({
   title = "",
@@ -30,10 +32,8 @@ const ChangePasswordForm = ({
   });
 
   return (
-    <Flex direction="column" style={{ height: "100%", width: "540px" }}>
-      <div>
-        <h3>{title}</h3>
-        <Flex style={{ marginBottom: 20 }}>
+    <Flex direction="column" justifyContent="space-between" style={{height:'100%'}}>
+      <Box>
           <PasswordInput
             id="currentPassword"
             name="currentPassword"
@@ -44,8 +44,7 @@ const ChangePasswordForm = ({
             error={touched.currentPassword && errors.currentPassword}
             placeholder="Current Password"
           />
-        </Flex>
-        <Flex style={{ marginBottom: 20 }}>
+       
           <PasswordInput
             id="newPassword"
             name="newPassword"
@@ -56,8 +55,7 @@ const ChangePasswordForm = ({
             error={touched.newPassword && errors.newPassword}
             placeholder="New Password"
           />
-        </Flex>
-        <Flex>
+      
           <PasswordInput
             id="confirmPassword"
             name="confirmPassword"
@@ -68,13 +66,9 @@ const ChangePasswordForm = ({
             error={touched.newConfirmedPassword && errors.newConfirmedPassword}
             placeholder="Confirm New Password"
           />
-        </Flex>
-      </div>
-      <Flex
-        direction="row"
-        justifyContent={"space-between"}
-        style={{ alignItems: "flex-end" }}
-      >
+      </Box>
+
+      <DrawerFooter>
         <Button
           secondary
           style={{ width: "fit-content", minWidth: "150px" }}
@@ -86,7 +80,8 @@ const ChangePasswordForm = ({
           label={submitButtonLabel}
           onClick={handleSubmit}
         ></Button>
-      </Flex>
+      </DrawerFooter>
+
     </Flex>
   );
 };

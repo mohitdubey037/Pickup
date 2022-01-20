@@ -42,7 +42,7 @@ export default function Select(props: SelectPropTypes) {
     : "Select";
 
   return (
-    <ComponentContainer style={{ width:'100%'}} >
+    <ComponentContainer>
 
       <SmallLabel text={label} />
 

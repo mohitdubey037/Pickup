@@ -1,4 +1,3 @@
-import { Typography } from "@material-ui/core";
 import styled from "styled-components";
 
 export const Center=styled.div`
@@ -27,16 +26,25 @@ export const CustomBlackLink = styled.div`
   color: #343434;
   text-decoration: underline;
   line-height: 16px;
+  margin:0;
 `;
 
 
-export const ContainerTitleLabel = styled(Typography)`
-font-style: normal !important;
-font-weight: bold !important;
-font-size: ${(props: { large?: boolean }) => props.large ? '24px' : '18px'} !important;
-line-height: 28px !important;
+export const ContainerTitleLabel = styled.p`
+font-size: 24px;
+line-height: 28px;
 color:#343434;
+font-family: "Roboto-Bold";
+margin:0;
 `
+export const DrawerTitletext = styled.p`
+font-size: 20px;
+line-height: 23px;
+color:#343434;
+font-family: "Roboto-Bold";
+margin:0;
+`
+
 
 export const PageTitleText = styled.p`
 font-size: 32px;

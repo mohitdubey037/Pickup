@@ -103,6 +103,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
                         showLoader={showLoader}
                         label="Confirm"
                         onClick={handleSubmit}
+                        size="large"
                     />
                 </FormContent>
             </FormWrapper>
