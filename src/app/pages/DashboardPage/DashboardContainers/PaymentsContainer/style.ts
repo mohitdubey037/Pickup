@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    color:'red'
+    color:#c94c43
 `
 
 export const CardContainerDiv = styled.div`

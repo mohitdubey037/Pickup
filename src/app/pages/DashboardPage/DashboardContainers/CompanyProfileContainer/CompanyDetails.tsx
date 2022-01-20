@@ -7,14 +7,15 @@ import { CompanyDetailsType } from "./types";
 interface DetailInterface {
   details: CompanyDetailsType;
   setCompanyDrawerOpen: (value: boolean) => void;
+  companyDetails: any;
 }
 
 export default function CompanyDetails(props: DetailInterface) {
   const { avatar, CompanyName } = props.details;
-  const { setCompanyDrawerOpen } = props;
+  const { setCompanyDrawerOpen, companyDetails } = props;
 
   return (
-    <FullCard style={{ marginLeft: 0 }}>
+    <FullCard>
       <Flex direction={"column"} style={{ paddingRight: 20 }}>
         <Flex>
           <FormContainerTitle style={{ flex: 1, textAlign: "left" }}>
@@ -32,37 +33,37 @@ export default function CompanyDetails(props: DetailInterface) {
               <Block style={{ flex: 1, textAlign: "left" }}>
                 <span> Company Name</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.companyName ? companyDetails?.companyName : "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
+                <span> Business Number</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.businessNumber ? companyDetails?.businessNumber : "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
+                <span> Industry</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.industry ? companyDetails?.industry: "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
+                <span> Employee Strength</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.employeeStrength ? companyDetails?.employeeStrength : "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
+                <span> Address Line 1</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.addressLine1 ? companyDetails?.addressLine1 : "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
+                <span> Address Line 2</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.addressLine2 ? companyDetails?.addressLine2 : "-"}
                 </Typography>
               </Block>
             </Flex>
@@ -70,31 +71,31 @@ export default function CompanyDetails(props: DetailInterface) {
               <Block style={{ flex: 1, textAlign: "left" }}>
                 <span> City</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.city ? companyDetails?.city  : "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
+                <span> Pincode</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.pincode ? companyDetails?.pincode : "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
+                <span> Province</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.province ? companyDetails?.province : "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
+                <span> Country</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.country ? companyDetails?.country : "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Company Name</span>
+                <span> HST Number</span>
                 <Typography className="typography" variant="h1" component="h3">
-                  {CompanyName}
+                  {companyDetails?.hstNumber ? companyDetails?.hstNumber : "-"}
                 </Typography>
               </Block>
               <Block style={{ flex: 1, textAlign: "left" }}></Block>

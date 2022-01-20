@@ -11,7 +11,7 @@ import services from "services";
 
 export default function Appbar() {
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const pathname = window?.location?.pathname;
   const dispatch = useDispatch();
 
   const auth = useSelector((state: { auth: { user: AuthUser } }) => {
@@ -48,7 +48,22 @@ export default function Appbar() {
   return (
     <>
       <AppbarContainer>
-        <img style={{ width: "1.5rem", cursor: "pointer" }} src={settings} alt="settings" />
+        {pathname.includes("/order-summary") && (
+          <h3
+            style={{
+              marginRight: "auto",
+              paddingLeft: "32px",
+              fontSize: "24px",
+            }}
+          >
+            Order Confirmation
+          </h3>
+        )}
+        <img
+          style={{ width: "1.5rem", cursor: "pointer" }}
+          src={settings}
+          alt="settings"
+        />
         <div style={{ textAlign: "right", marginLeft: "1rem" }}>
           <h5 style={{ margin: 0 }}>{user?.firstName}</h5>
           <span style={{ fontSize: "14px", color: "#343434" }}>Admin</span>
@@ -56,7 +71,7 @@ export default function Appbar() {
         <Avatar
           style={{ margin: "1rem 1rem 1rem 1rem" }}
           alt="dummy avatar"
-          src="https://i.pravatar.cc/300"
+          src={user?.profileImage}
         />
 
         <Menu

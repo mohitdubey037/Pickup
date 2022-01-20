@@ -18,6 +18,7 @@ export const editPersonalProfileDetails = async (values: {
   firstName: string;
   lastName: string;
   phone: string;
+  profileImage: string;
 }) => {
   try {
     const response: any = await services.patch(
@@ -27,6 +28,7 @@ export const editPersonalProfileDetails = async (values: {
         fName: values?.firstName,
         lName: values?.lastName,
         phoneNumber: values?.phone,
+        profileImage: values?.profileImage,
         // notificationFrequency: "SomeThingString",
         // notification: 1,
         // roleDesignation: "super",

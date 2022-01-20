@@ -1,5 +1,6 @@
 import { Paper } from "@material-ui/core";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Grid, Typography } from "@material-ui/core";
 import { Input } from "app/components/Input";
@@ -36,11 +37,16 @@ export default function CompanyProfile({ path: string }) {
     validationSchema: companyProfileSchema,
     onSubmit: Save,
   });
+
+  const companyDetails = useSelector((state:any) => state?.auth?.user?.companyDetails?.[0]);
+  console.log(companyDetails)
   return (
     <ModuleContainer>
-      <ContainerTitle>Company Profile</ContainerTitle>
+      <ContainerTitle title="Company Profile" />
+
       <CompanyDetails
         setCompanyDrawerOpen={setCompanyDrawerOpen}
+        companyDetails={ companyDetails}
         details={{
           avatar: require("../../../../assets/Icons/logoImg.svg").default,
           CompanyName: "DDT",

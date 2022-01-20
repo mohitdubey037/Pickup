@@ -3,26 +3,30 @@ import { RouteComponentProps, useLocation } from "@reach/router";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    Header,
     SignUpWrapper,
     FormWrapper,
     FormContent,
     LogoImage,
+    SignUpBackgroundWrapper,
+    RememberDiv,
+    Termslink,
 } from "../style";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
 import { companyDetailsSchema } from "./signUpSchemas";
 import { actions } from "store/reducers/SignUpReducer";
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { Checkbox } from "app/components/Checkbox";
 import { getParamsFromUrl } from "utils/commonUtils";
+import { PageTitle } from "app/components/Typography/Typography";
+import { GridSpacing } from "app/components/GridSpacing/GridSpacing";
 import { Flex } from "app/components/Input/style";
 
 
 type SignUpProps = RouteComponentProps;
 
 const SignUpDetails = ({ navigate }: SignUpProps) => {
-
+    const classes = GridSpacing();
     const dispatch = useDispatch();
 
     const location = useLocation();
@@ -81,40 +85,41 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     return (
         <SignUpWrapper>
+        <SignUpBackgroundWrapper>
             <LogoImage />
             <FormWrapper>
                 <form>
                     <FormContent>
-                        <Header>SIGN UP</Header>
-                        <Grid container spacing={4} style={{ marginRight: 30 }}>
-                            <Grid item xs={6}>
+                    <PageTitle title="SIGN UP" />
+                        <Grid container spacing={2}>
+                            <Grid item xs={6} className={classes.gridColspacing} >
                                 <Input
                                     id={"firstName"}
                                     name={"firstName"}
                                     label={"First Name"}
-                                    placeholder={"Start typing"}
+                                    placeholder={"John"}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     error={touched['firstName'] && errors['firstName']}
                                     validate
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={6} className={classes.gridColspacing} >
                                 <Input
                                     id={"lastName"}
                                     name={"lastName"}
                                     label={"Last Name"}
-                                    placeholder={"Start typing"}
+                                    placeholder={"Doe"}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     error={touched['lastName'] && errors['lastName']}
                                     validate
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} className={classes.gridColspacing}>
                                 <Input
                                     label="Company Name"
-                                    placeholder="Start typing"
+                                    placeholder="John Doe’s Company"
                                     id="companyName"
                                     name="companyName"
                                     onChange={handleChange}
@@ -122,10 +127,11 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     onBlur={handleBlur}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} className={classes.gridColspacing}>
                                 <Input
+                                    
                                     label="Phone Number"
-                                    placeholder="Start typing"
+                                    placeholder="+1 (999)-999-9999"
                                     id="phoneNumber"
                                     name="phoneNumber"
                                     onChange={handleChange}
@@ -133,23 +139,27 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     error={touched.phoneNumber && errors.phoneNumber}
                                 />
                             </Grid>
-                            <Flex style={{ paddingLeft: 10, marginBottom: '16px', alignItems: 'center' }}>
+                            <Grid item xs={12} className={classes.gridColspacing}>
+                            <Box mt={1} mb={4}>
                                 <Checkbox
                                     isChecked={consent}
                                     id="consent"
+                                    label={<Termslink>I agree to the <a href="#" target="_blank">Terms</a> and <a href="#" target="_blank">Policies</a></Termslink>}
                                     name="consent"
                                     onChange={() => setFieldValue('consent', !consent)}
                                     onBlur={handleBlur}
                                     error={touched.consent && errors.consent}
-                                    // label="I agree to the Terms and Policies"
-                                />
-                                <span>I agree to the <a href="#" target="_blank">Terms</a> and <a href="#" target="_blank">Policies</a></span>
-                            </Flex>
-                            <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} />
+                                />   
+                            </Box>
+                            </Grid>
+                            <Grid item xs={12} className={classes.gridColspacing}>
+                            <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
+                            </Grid>
                         </Grid>
                     </FormContent>
                 </form>
             </FormWrapper>
+            </SignUpBackgroundWrapper>
         </SignUpWrapper>
     );
 };

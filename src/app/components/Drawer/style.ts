@@ -8,35 +8,58 @@ interface CustomerDrawerProp {
 export const CustomDrawer = styled(Drawer)<CustomerDrawerProp>`
     div.MuiDrawer-paper{
         overflow-x: hidden;
-        min-width: 600px;
-        max-width: ${props => props.maxWidth ?? "600px"};
+        width: 555px;
+        // max-width: ${props => props.maxWidth ?? "600px"};
     }
 `
 
 export const DrawerTitleDiv = styled.div`
-    padding: 1rem;
+    padding: 24px 32px 16px 32px;
     display: flex;
     align-items: center;
+    position:sticky;
+    right:0;
+    left:0;
     justify-content: space-between;
     border-bottom: 1px solid #DDDDDD;
  `
 
 
 export const DrawerContent = styled.div`
-    padding: 1rem;
-    height: 100vh;
+    padding: 24px 32px 0 32px;
+    height: calc(100vh - 65px);
     overflow-y: auto;
+    position:relative;
+    &::-webkit-scrollbar {
+        width: 5px;
+      }
+      
+      
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px #ddd;
+        border-radius: 10px;
+      }
+      
+      
+      &::-webkit-scrollbar-thumb {
+        background: #aaa;
+        border-radius: 10px;
+      }
+      
+      
+      &::-webkit-scrollbar-thumb:hover {
+        background: #aaa;
+      }
 `
 
 export const DrawerFooter = styled.div`
-    padding: 1rem;
+    padding: 24px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-     div{
-        width: 30%;
-        button{
-            padding: 0.5rem !important;
-        }
-    }
+    position: sticky;
+    right: 0;
+    left: 0;
+    bottom:0;
+    background:#fff;
 `

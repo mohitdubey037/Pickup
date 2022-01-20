@@ -29,7 +29,7 @@ function ReportsContainer({ path: string }) {
     <ModuleContainer>
       <Flex>
         <Flex flex={1}>
-          <ContainerTitle>Reports</ContainerTitle>
+          <ContainerTitle title="Reports" />
         </Flex>
         <div style={{ width: 300 }}>
           <Select style={{ backgroundColor: "white" }} />

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { Formik, FormikValues } from "formik";
+import { FormikValues } from "formik";
 
 import { Flex } from "app/components/Input/style";
 import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
-import { getCategoryList, orderImageUploadService } from "services/SingleShipmentServices";
+import { getCategoryList, imageUploadService } from "services/SingleShipmentServices";
 import DetailsFormItem from "./DetailsFormItem";
 import AddImage from "app/components/AddImage";
 
@@ -33,7 +33,7 @@ interface SelectBoardType {
 }
 
 function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: number, disabled ?: boolean}) {
-    const { formik: {handleChange, values, handleBlur, setFieldValue, errors, touched}, disabled } = props;
+    const { formik: { values, handleBlur, setFieldValue, errors, touched}, disabled } = props;
 
     const formFieldName = `orders.${props.index}`;
     const singleFormValues = values.orders[props.index];
@@ -54,7 +54,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
     }, []);
 
     const hasDimensions = () => {
-        const selectedCategory = categoryList.find(category => category.categoryId === Number(singleFormValues.categoryId));
+        const selectedCategory = categoryList.find(category => category.categoryId === Number(singleFormValues.categoryId.categoryId));
         return (selectedCategory?.setDimension || false)
     }
 
@@ -64,7 +64,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
 
         formData.append("document", image, image.name);
 
-        const res: { response: any, error: any} = await orderImageUploadService(formData)
+        const res: { response: any, error: any} = await imageUploadService(formData)
 
         if(res.error){
             showToast(res.error.message, "error")
@@ -78,6 +78,19 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
         setFieldValue(`${formFieldName}.picture`, value || "")
     }
 
+    const updateCategoryHandler = (name: string, value: number) => {
+        const newValue = categoryList.find(item => item.categoryId === value);
+        if(newValue){
+            updateAllFieldsHandler(name, newValue);
+        }
+    }
+
+    const updateAllFieldsHandler = (name: string, value: string | number | SelectBoardType) => {
+        values.orders.forEach((item, idx) => {
+            setFieldValue(`orders.${idx}.${name}`, value)
+        })
+    }
+
     return (
         <>
             <Flex direction={"column"}>
@@ -87,8 +100,8 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             id={`${formFieldName}.categoryId`}
                             name={`${formFieldName}.categoryId`}
                             label={"Category"}
-                            value={Number(singleFormValues?.categoryId)}
-                            onSelect={handleChange}
+                            value={Number(singleFormValues?.categoryId?.categoryId)}
+                            onSelect={(event) => updateCategoryHandler("categoryId", event.target.value)}
                             disabled={disabled}
                             options={
                                 categoryList
@@ -100,7 +113,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             }
                         />
                         {singleFormErrors?.categoryId && singleFormTouched?.categoryId && (
-                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.categoryId}</p>
+                            <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.categoryId}</p>
                         )}
                     </Flex>
                     <Flex flex={1} left={30}>
@@ -108,7 +121,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             name={`${formFieldName}.customerRefNo`}
                             id={`${formFieldName}.customerRefNo`}
                             onBlur={handleBlur}
-                            onChange={handleChange}
+                            onChange={(event) => updateAllFieldsHandler("customerRefNo", event.target.value)}
                             value={singleFormValues?.customerRefNo}
                             disabled={disabled}
                             initValue={singleFormValues?.customerRefNo}
@@ -126,12 +139,12 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             name={`${formFieldName}.dropOption`}
                             label={"Delivery options"}
                             value={Number(singleFormValues.dropOption)}
-                            onSelect={handleChange}
+                            onSelect={(event) => updateAllFieldsHandler("dropOption", event.target.value)}
                             disabled={disabled}
                             options={DROP_OPTION}
                         />
                         {singleFormErrors?.dropOption && singleFormTouched?.dropOption && (
-                            <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.dropOption}</p>
+                            <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.dropOption}</p>
                         )}
                     </Flex>
                     <Flex flex={1} left={30}>
@@ -142,7 +155,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             defaultValue={singleFormValues?.fragile ? singleFormValues.fragile : 1}
                             value={singleFormValues.fragile}
                             options={!disabled ? FRAGILE_OPTION : FRAGILE_OPTION.map(item => ({...item, disabled: true}))}
-                            onChange={(e) => setFieldValue(`${formFieldName}.fragile`, Number(e.target.value))}
+                            onChange={(event) => updateAllFieldsHandler("fragile", Number(event.target.value))}
                         />
                     </Flex>
                 </Flex>

@@ -14,7 +14,7 @@ import { SCHEDULE_OPTIONS } from "../../../../../constants";
 
 function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disabled ?: boolean }) {
 
-  const { formik: {handleChange, values, errors, touched, setFieldValue}, disabled } = props;
+  const { formik: {values, errors, touched, setFieldValue}, disabled } = props;
 
   const formFieldName = `orders.${props.index}`;
   const singleFormValues = values.orders[props.index]
@@ -24,6 +24,13 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
   const [open, setOpen] = useState(false);
   const [openTime, setOpenTime] = useState(false);
 
+    const updateAllFieldsHandler = (name: string, value: string | number) => {
+        console.log("SomeValue", value)
+        values.orders.forEach((item, idx) => {
+            setFieldValue(`orders.${idx}.${name}`, value)
+        })
+    }
+
   return (
     <FormWrapper>
       <Flex>
@@ -31,10 +38,11 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
           id={`${formFieldName}.scheduleType`}
           name={`${formFieldName}.scheduleType`}
           defaultValue={singleFormValues.scheduleType}
+          value={singleFormValues.scheduleType}
           label={"What do you want to do with the order?"}
           options={!disabled ? SCHEDULE_OPTIONS : SCHEDULE_OPTIONS.map(item => ({...item, disabled: true}))}
           error={singleFormTouched?.scheduleType && singleFormErrors?.scheduleType}
-          onChange={handleChange}
+          onChange={(event) => updateAllFieldsHandler("scheduleType", event.target.value)}
         />
       </Flex>
       {singleFormValues.scheduleType === "17" && (
@@ -45,7 +53,7 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
                 <DatePicker
                   label="Date"
                   value={singleFormValues.shipmentDate || null}
-                  onChange={(val) => setFieldValue(`${formFieldName}.shipmentDate`, val)}
+                  onChange={(val) => updateAllFieldsHandler("shipmentDate", val)}
                   open={open}
                   disabled={disabled}
                   onOpen={() => setOpen(true)}
@@ -57,14 +65,14 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
                       disabled={disabled}
                       placeholder={"e.g 06/06/2021"}
                       {...params}
-                      onClick={(e) => setOpen(true)}
+                      onClick={(e) => !disabled && setOpen(true)}
                       defaultValue={""}
                     />
                   )}
                 />
               </LocalizationProvider>
               {singleFormErrors?.shipmentDate && singleFormTouched?.shipmentDate && (
-                    <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.shipmentDate}</p>
+                    <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.shipmentDate}</p>
                 )}
             </Flex>
             <Flex left={30} flex={1} direction="column" style={{ alignItems: "start"}}>
@@ -72,7 +80,7 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
                 <TimePicker
                   label="Time"
                   value={singleFormValues.shipmentTime || null}
-                  onChange={(val) => setFieldValue(`${formFieldName}.shipmentTime`, val)}
+                  onChange={(val) => updateAllFieldsHandler("shipmentTime", val)}
                   open={openTime}
                   disabled={disabled}
                   onOpen={() => setOpenTime(true)}
@@ -82,7 +90,7 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
                       placeholder={"e.g 12:32"}
                       disabled={disabled}
                       {...params}
-                      onClick={(e) => setOpenTime(true)}
+                      onClick={(e) => !disabled && setOpenTime(true)}
                       defaultValue={""}
                       error={touched?.[`${formFieldName}.shipmentTime`] && errors?.[`${formFieldName}.shipmentTime`]}
                     />
@@ -90,7 +98,7 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
                 />
               </LocalizationProvider>
               {singleFormErrors?.shipmentTime && singleFormTouched?.shipmentTime && (
-                    <p style={{ margin: 0, color: "red" }}>{singleFormErrors?.shipmentDate}</p>
+                    <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.shipmentDate}</p>
                 )}
             </Flex>
           </Flex>

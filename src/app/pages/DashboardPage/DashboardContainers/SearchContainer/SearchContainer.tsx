@@ -1,13 +1,10 @@
+/* eslint-disable no-debugger */
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { ContainerTitle } from "app/components/Typography/Typography";
-import {
-  searchTable,
-  getSearchOrderData,
-  advanceFilterInitValues,
-} from "./helper";
+import { searchTable, advanceFilterInitValues } from "./helper";
 import { SearchFieldsWrapper, SearchTableTop } from "./style";
 import { dots3, sliders } from "app/assets/Icons";
 import Select from "app/components/Select";
@@ -20,60 +17,42 @@ import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import SearchOrderDetailsDrawer from "./SearchOrderDetailsDrawer";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import { useDispatch } from "react-redux";
+import {
+  getSearchOrderList,
+  getSearchOrderListById,
+} from "../../../../../services/SearchItemService";
 
 const SearchContainer = ({ path: string }) => {
-
-    const dispatch = useDispatch();
-  const [searchRecordData, setSearchRecordData] = useState([{}]);
+  const dispatch = useDispatch();
+  const [searchRecordData, setSearchRecordData] = useState<any>();
   const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
   const [singleOrderData, setSingleOrderData] = useState([{}]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerType, setDrawerType] = useState("");
 
   const getSearchOrderListData = async () => {
-    fetch(
-      "https://staging-api.pickups.mobi/order/v1/api/order/business/shipments",
-      {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((resData) => {
-        console.log("resData", resData);
-        let data = resData.data;
-        setSearchRecordData(data);
-      });
+    const res = (await getSearchOrderList()) as any;
+    if (res.success) {
+      const orderList = res.response.data.data;
+      console.log("Order List", orderList);
+      setSearchRecordData(orderList);
+    }
   };
 
   const getSingleOrderData = async (id: any) => {
-    fetch(
-      "https://staging-api.pickups.mobi/order/v1/api/order/business/shipment/" +
-        id,
-      {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMTgxLCJ0eXBlIjoibG9naW4iLCJyb2xlIjoxNywiaWF0IjoxNjI4NTA3ODUzfQ.nmXM8_mkHwehZIFi7XX6_g8tR2o4l3EPsUufRIXQpLM",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((resData) => {
-        let data = resData.data;
-
-        console.log("getSingleOrderData", data, resData);
-        setSingleOrderData(data);
-        setSelectedInvoiceId(id);
+    const res = (await getSearchOrderListById(id)) as any;
+    if (res.success) {
+      const orderListByID = res.response.data.data;
+      console.log("Order by Id", orderListByID);
+      setSingleOrderData(orderListByID);
+      setSelectedInvoiceId(id);
+      setDrawerType("orderDetails");
+      setDrawerOpen(true);
+    } else {
+      setSelectedInvoiceId(id);
         setDrawerType("orderDetails");
         setDrawerOpen(true);
-      })
-      .catch(() => {
-        setSelectedInvoiceId(id);
-        setDrawerType("orderDetails");
-        setDrawerOpen(true);
-      });
+    }
   };
 
   useEffect(() => {
@@ -128,7 +107,7 @@ const SearchContainer = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle>Search</ContainerTitle>
+      <ContainerTitle title="Search" />
       <SearchFieldsWrapper>
         <Input label="Invoice Number" placeholder="eg. 123,321" />
         <Input label="Shipping Id" placeholder="eg. 123,321" />
@@ -144,7 +123,7 @@ const SearchContainer = ({ path: string }) => {
         />
       </SearchFieldsWrapper>
       <Table
-        data={searchTable(searchRecordData, openInvoiceDrawer)}
+        data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
         tableTop={tableTop()}
         showCheckbox
         showPagination

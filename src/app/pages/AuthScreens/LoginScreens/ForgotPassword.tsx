@@ -2,11 +2,12 @@ import { RouteComponentProps } from "@reach/router";
 import { LeftAlign } from "app/components/Typography/style";
 import { Button } from "../../../components/Buttons";
 import { Input } from "../../../components/Input";
-import { RedLink } from "../../../components/Typography/Typography";
+import { PageTitle, RedLink } from "../../../components/Typography/Typography";
 import {
     FormContent,
     FormWrapper,
     Header,
+    LoginLink,
     LoginWrapper,
     LogoImage,
 } from "../style";
@@ -68,12 +69,12 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
             <LogoImage />
             <FormWrapper>
                 <FormContent>
-                    <Header>FORGOT PASSWORD</Header>
+                    <PageTitle title="FORGOT PASSWORD" />
                     <Input
                         id={"email"}
                         name={"email"}
                         label="Email"
-                        placeholder="Start typing"
+                        placeholder="johndoe@pickups.com"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.email && errors.email}
@@ -83,12 +84,13 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                         showLoader={showLoader}
                         label="Recover Password"
                         disabled={!(isValid)}
+                        size="large"
                         onClick={() => handleSubmit()}
                     />
+                    <LoginLink>
+                        <RedLink label="Back to Login" link={() => navigate?.("/")} />
+                    </LoginLink>
                 </FormContent>
-                <LeftAlign>
-                    <RedLink label="Back to Login" link={() => navigate?.("/")} />
-                </LeftAlign>
             </FormWrapper>
         </LoginWrapper>
     );

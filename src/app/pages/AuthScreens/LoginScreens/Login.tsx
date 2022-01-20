@@ -4,13 +4,12 @@ import { RouteComponentProps } from "@reach/router";
 import { Button } from "../../../components/Buttons";
 import { Checkbox } from "../../../components/Checkbox";
 import { PasswordInput, Input } from "../../../components/Input";
-import { BlackLink } from "../../../components/Typography/Typography";
+import { BlackLink, PageTitle, Para } from "../../../components/Typography/Typography";
 import {
   LoginWrapper,
   LogoImage,
   FormWrapper,
   FormContent,
-  Header,
   LoginLink,
   RememberDiv,
 } from "../style";
@@ -92,12 +91,12 @@ const Login = ({ navigate }: RouteComponentProps) => {
       <LogoImage />
       <FormWrapper>
         <FormContent>
-          <Header>LOGIN</Header>
+          <PageTitle title="LOGIN" />
           <Input
             id={"email"}
             name={"email"}
             label="Email"
-            placeholder={"Start typing"}
+            placeholder={"johndoe@pickups.com"}
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.email && errors.email}
@@ -106,6 +105,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
             onChange={handleChange}
             onBlur={handleBlur}
             label="Password"
+            placeholder="•••••••••••••••"
             id={"password"}
             name={"password"}
             error={touched.password && errors.password}
@@ -117,15 +117,16 @@ const Login = ({ navigate }: RouteComponentProps) => {
               link={() => navigate?.("/forgot-password")}
             />
           </RememberDiv>
-          {errorMessage ? <span style={{ color: 'red' }}> {errorMessage} </span> : null}
+          {errorMessage ? <span style={{ color: '#c94c43' }}> {errorMessage} </span> : null}
           <Button
             showLoader={showLoader}
             label="Sign In"
+            size="large"
             onClick={handleSubmit}
             disabled={!(isValid)}
           />
           <LoginLink>
-            Don't have an account?{" "}
+            <Para text="Don't have an account?" />
             <BlackLink
               label="Sign Up Here"
               link={() => navigate?.("/sign-up")}

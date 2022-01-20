@@ -14,6 +14,7 @@ export const companyDetailsSchema = yup.object().shape({
   phoneNumber: yup
     .string()
     .required("Phone number is required")
+    .max(10, "Phone number should not greater than 10 digit")
     .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
 });
 

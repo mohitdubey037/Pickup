@@ -1,8 +1,9 @@
 import { useState,useEffect } from "react";
-import {LeftDashboardWrapper,LeftContent,CustomListItem,ChildLink,ParentLink,Row} from "./style";
+import {LeftDashboardWrapper,LeftContent,CustomListItem,ChildLink, LogoIcon, ListItem} from "./style";
 import { dashboardHelper } from "../helper";
 import { Link } from "../type";
 import { LogoImg } from "app/assets/Icons";
+import { ListLabel, SmallLabel } from "app/components/Typography/Typography";
 
 interface LeftDashboardProps {
     onDrawerItemSelect: (link: string) => void;
@@ -23,7 +24,7 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
  
   return (
     <LeftDashboardWrapper>
-      <LogoImg width={"62px"} margin={"10px"} />
+      <LogoImg width={"62px"} padding={"10px 10px 5px 10px"} />
       <LeftContent>
         {dashboardHelper.map((parent: Link) => {
           const isSelected =
@@ -41,10 +42,12 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
               }
               selected={isSelected}
              >
-              <Row>
-                <img src={parent.logo} alt="" className="logoIcon" />
-                <ParentLink>{parent.label}</ParentLink>
-              </Row>
+              <ListItem>
+                <LogoIcon>
+                <img src={parent.logo} alt=""  />
+                </LogoIcon>
+                <ListLabel text={parent.label} />
+              </ListItem>
               {parent.children?.map((child: Link) => {
                 return (
                   <ChildLink
@@ -54,7 +57,7 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
                     }}
                     selected={selectedLink === child.link}
                   >
-                    {child.label}
+                    <p className="labeltext">{child.label}</p>
                   </ChildLink>
                 );
               })}

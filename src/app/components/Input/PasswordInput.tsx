@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { CustomInput, CustomLabel, ErrorLabel, InputWrapper } from "./style";
+import { CustomInput, ErrorLabel, InputWrapper, VisibilityBox } from "./style";
 import { InputProps } from "./type";
-import { eyeIcon } from "../../assets/Icons";
 import { PasswordValidate } from "../PasswordValidate";
+import { SmallLabel } from "../Typography/Typography";
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
+
 
 const PasswordInput = ({
   label,
@@ -42,7 +45,9 @@ const PasswordInput = ({
 
   return (
     <InputWrapper ref={ref}>
-      <CustomLabel>{label}</CustomLabel>
+
+      <SmallLabel text={label} />
+
       <CustomInput
         autoComplete={autoComplete}
         onBlur={onBlur}
@@ -53,16 +58,15 @@ const PasswordInput = ({
         value={value}
         onChange={onChangeHandler}
       />
-      <img
+      {/* <img
         src={eyeIcon}
         alt=""
         onClick={() => setShowPass(!showPass)}
-        style={{
-          opacity: showPass ? 0.3 : 1,
-          height: "15px",
-          padding: "6px 12px",
-        }}
-      />
+        style={{opacity: showPass ? 0.3 : 1}}
+      /> */}
+      <VisibilityBox onClick={() => setShowPass(!showPass)}>
+         {showPass ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
+      </VisibilityBox>
       {validate && (
         <PasswordValidate isOpen={!!value?.length && open} input={value} />
       )}

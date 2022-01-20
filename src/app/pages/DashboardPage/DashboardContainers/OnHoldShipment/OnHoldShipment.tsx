@@ -131,7 +131,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
 
     return (
         <ModuleContainer>
-            <ContainerTitle>On Hold Shipments</ContainerTitle>
+            <ContainerTitle title="On Hold Shipments" />
             <Grid container spacing={4} alignItems="center" style={{ marginTop: "20px", marginBottom: "20px" }}>
                 <Grid item xs={2}>
                     <Input label="Invoice Number" value={filters.invoiceNumber} onChange={(e) => onChangeHandler(e, 'invoiceNumber', null)} placeholder="eg. 123,321" />

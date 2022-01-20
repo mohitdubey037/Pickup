@@ -2,6 +2,7 @@ import React from 'react';
 import { CheckboxPrimary } from './style';
 import { CheckboxProps } from '@material-ui/core/Checkbox';
 import { ErrorLabel } from '../Input/style';
+import { Box } from '@material-ui/core';
 
 interface CheckboxPropsType extends CheckboxProps{
     onChange?:(e:React.ChangeEvent<HTMLInputElement>)=>void;
@@ -16,7 +17,7 @@ interface CheckboxPropsType extends CheckboxProps{
 const Button:React.FC<CheckboxPropsType>=({label,onChange,isChecked, style, error='', value=''})=>{
     return(
         <>
-            <div>
+            <Box display="flex" alignItems="center">
                 <CheckboxPrimary 
                     color="primary" 
                     onChange={onChange}
@@ -25,7 +26,7 @@ const Button:React.FC<CheckboxPropsType>=({label,onChange,isChecked, style, erro
                     style={style}
                 ></CheckboxPrimary>
                 {label}
-            </div>
+            </Box>
         {!!error && <ErrorLabel>{error}</ErrorLabel>}
         </>
     )

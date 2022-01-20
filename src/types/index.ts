@@ -1,4 +1,5 @@
 export interface AuthUser {
+    profileImage?: string;
   userId: number;
   firstName: string;
   lastName: string;

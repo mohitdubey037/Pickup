@@ -4,11 +4,11 @@ export const USER_BASE_CR_URL = process.env.REACT_APP_USER_BASE_CR_URL;
 export const PAYMENT_BASE_URL = process.env.REACT_APP_PAYMENT_BASE_URL;
 export const ORDER_BASE_URL = process.env.REACT_APP_ORDER_URL;
 export const LOCATION_URL = process.env.REACT_APP_LOCATION_URL;
+export const HERE_MAPS_API_KEY = process.env.REACT_APP_HERE_MAPS_API_KEY;
 export const PHONE_NUMBER_REGX =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const PASSWORD_REGX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
 export const BILLING_TYPES = [
   { label: "Individual", value: "0" },
   { label: "Company", value: "1" },
