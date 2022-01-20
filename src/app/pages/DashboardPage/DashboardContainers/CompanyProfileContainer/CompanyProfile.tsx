@@ -47,6 +47,9 @@ export default function CompanyProfile({ path: string }) {
     console.log(values);
     const res = await inviteColleague(values);
     console.log(res);
+    const colleagueResponse = await fetchColleagues();
+    console.log("colleagueResponse", colleagueResponse);
+    setColleagueList(colleagueResponse?.response?.data?.data);
   };
   const updateCompanyDetails = async (values) => {
     console.log(companyDetails?.companyId);
@@ -143,11 +146,6 @@ export default function CompanyProfile({ path: string }) {
           saveAction={updateColleagueDetails}
         />
       </Drawer>
-      <AdminDetails AdminDetails={adminDetails} />
-
-      <NewColleague />
-
-      <NewColleagueForm saveAction={saveColleague} />
       <Drawer
         open={companyDrawerOpen}
         title="Edit Company Details"

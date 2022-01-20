@@ -47,7 +47,7 @@ export default function AdminDetails(props: DetailInterface) {
               <Grid item lg={2} sm={3}>
                 <Para text="Phone Number" />
                 <SmallLabel
-                  text={AdminDetails?.phone ? AdminDetails?.phone : "-"}
+                  text={AdminDetails?.phoneNo ? AdminDetails?.phoneNo : "-"}
                   className="value"
                 />
               </Grid>

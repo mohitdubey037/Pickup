@@ -18,7 +18,7 @@ export interface AdminDetailsType {
   emailId: string;
   firstName: string;
   lastName: string;
-  phone: string;
+  phoneNo: string;
   role: string;
 }
 
