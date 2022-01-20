@@ -24,7 +24,7 @@ const Dashboard = ({ path: string }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <ModuleContainer>
-      <ContainerTitle>Dashboard</ContainerTitle>
+      <ContainerTitle title="Dashboard" />
       <InnerContainer> 
       <DashboardCardContainer>
         <CardContainer>

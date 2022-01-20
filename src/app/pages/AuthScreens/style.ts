@@ -62,6 +62,7 @@ export const FormContent = styled.div`
   align-items: flex-start;
   &.CenterContent{
     align-items: center;
+    text-align:center;
   }
 `;
 

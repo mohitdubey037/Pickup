@@ -1,7 +1,11 @@
-import { Avatar, Button, Paper, Typography } from "@material-ui/core";
-import EditIcon from "app/components/EditIcon";
-import { Block, Flex, FullCard } from "app/components/Input/style";
-import { FormContainerTitle } from "app/components/Typography/Typography";
+import { Avatar, Box, Grid } from "@material-ui/core";
+import { FullCard } from "app/components/Input/style";
+import {
+  ListLabel,
+  Para,
+  SmallLabel,
+} from "app/components/Typography/Typography";
+import { FlexGrid } from "./style";
 import { AdminDetailsType } from "./types";
 
 interface DetailInterface {
@@ -11,51 +15,60 @@ interface DetailInterface {
 export default function AdminDetails(props: DetailInterface) {
   const { AdminDetails } = props;
   return (
-    <FullCard style={{ marginLeft: 0 }}>
-      <Flex direction={"column"} style={{ paddingRight: 20 }}>
-        <Flex style={{ marginTop: 15 }}>
-          <Avatar style={{ width: 86, height: 86 }}>
-            <img
+    <>
+      <FullCard>
+        <Box mb={4}>
+          <ListLabel text="Admin Details" />
+        </Box>
+
+        <Box display="flex" justifyContent="space-between">
+          <Box mr={4}>
+            <Avatar
+              style={{ width: 86, height: 86 }}
               src={require("../../../../assets/Icons/logoImg.svg").default}
-              width={86}
             />
-          </Avatar>
-          <Flex direction={"column"} style={{ marginLeft: 20 }}>
-            <Flex>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> First Name</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {AdminDetails?.firstName ? AdminDetails?.firstName : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Last Name</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {AdminDetails?.lastName ? AdminDetails?.lastName : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Phone Number</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {AdminDetails?.phone ? AdminDetails?.phone : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Role/Designation</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {AdminDetails?.role ? AdminDetails?.role : "-"}
-                </Typography>
-              </Block>
-              <Block style={{ flex: 1, textAlign: "left" }}>
-                <span> Email Id</span>
-                <Typography className="typography" variant="h1" component="h3">
-                  {AdminDetails?.emailId ? AdminDetails?.emailId : "-"}
-                </Typography>
-              </Block>
-            </Flex>
-          </Flex>
-        </Flex>
-      </Flex>
-    </FullCard>
+          </Box>
+          <FlexGrid>
+            <Grid container spacing={2}>
+              <Grid item lg={2} sm={3}>
+                <Para text="First Name" />
+                <SmallLabel
+                  text={AdminDetails?.firstName ? AdminDetails?.firstName : "-"}
+                  className="value"
+                />
+              </Grid>
+              <Grid item lg={2} sm={3}>
+                <Para text="Last Name" />
+                <SmallLabel
+                  text={AdminDetails?.lastName ? AdminDetails?.lastName : "-"}
+                  className="value"
+                />
+              </Grid>
+              <Grid item lg={2} sm={3}>
+                <Para text="Phone Number" />
+                <SmallLabel
+                  text={AdminDetails?.phone ? AdminDetails?.phone : "-"}
+                  className="value"
+                />
+              </Grid>
+              <Grid item lg={3} sm={3}>
+                <Para text="Role/Designation" />
+                <SmallLabel
+                  text={AdminDetails?.role ? AdminDetails?.role : "-"}
+                  className="value"
+                />
+              </Grid>
+              <Grid item lg={3} sm={3}>
+                <Para text="Email Id" />
+                <SmallLabel
+                  text={AdminDetails?.emailId ? AdminDetails?.emailId : "-"}
+                  className="value"
+                />
+              </Grid>
+            </Grid>
+          </FlexGrid>
+        </Box>
+      </FullCard>
+    </>
   );
 }

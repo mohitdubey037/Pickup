@@ -84,6 +84,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                         showLoader={showLoader}
                         label="Recover Password"
                         disabled={!(isValid)}
+                        size="large"
                         onClick={() => handleSubmit()}
                     />
                     <LoginLink>

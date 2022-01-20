@@ -29,6 +29,7 @@ import AdminDetails from "./AdminDetails";
 import ColleagueDetails from "./ColleagueDetails";
 import { ColleagueDetailsType } from "./types";
 import EditColleagueDetailsForm from "./EditColleagueDetailsForm";
+import NewColleague from "./NewColleague";
 
 export default function CompanyProfile({ path: string }) {
   const [colleagueDetails, setColleagueDetails] = useState<any>(null);
@@ -96,7 +97,8 @@ export default function CompanyProfile({ path: string }) {
 
   return (
     <ModuleContainer>
-      <ContainerTitle>Company Profile</ContainerTitle>
+      <ContainerTitle title="Company Profile" />
+
       <CompanyDetails
         setCompanyDrawerOpen={setCompanyDrawerOpen}
         companyDetails={companyDetails}
@@ -141,6 +143,11 @@ export default function CompanyProfile({ path: string }) {
           saveAction={updateColleagueDetails}
         />
       </Drawer>
+      <AdminDetails AdminDetails={adminDetails} />
+
+      <NewColleague />
+
+      <NewColleagueForm saveAction={saveColleague} />
       <Drawer
         open={companyDrawerOpen}
         title="Edit Company Details"

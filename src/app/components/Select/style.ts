@@ -10,12 +10,13 @@ export const ComponentContainer = styled.div`
 align-items: flex-start;
 display: flex;
 flex-direction: column;
+margin-bottom:16px;
 
 `
 
 export const SelectContainer = styled.div<SelectContainerType>`
     width: 100%;
-    height: 35px;
+    height: 42px;
     align-items: flex-start !important;
     display: flex !important;
     padding: 4px !important;
@@ -24,6 +25,7 @@ export const SelectContainer = styled.div<SelectContainerType>`
     cursor:pointer !important;
     align-items: baseline !important;
     font-size: 20px !important;
+    box-sizing:border-box;
 
     ${props => props.disabled && css`
         background-color: #c4c4c4;
@@ -36,7 +38,7 @@ export const CustomSelect = styled.select`
 outline: none;
     border: none;
     background-color: white;
-    width: 97%;
+    width: 100%;
 `
 
 

@@ -1,4 +1,4 @@
-import { Paper } from "@material-ui/core";
+import { Box, Grid, Paper } from "@material-ui/core";
 import styled from "styled-components";
 
 interface FlexProps {
@@ -9,6 +9,7 @@ interface FlexProps {
   top?: number
   right?: number,
   bottom?: number
+  alignItems?: any;
 }
 export const FormWrapper = styled.div`
  margin-top:20px;
@@ -78,21 +79,19 @@ export const ErrorLabel = styled.span`
   color: #c94c43;
 `;
 
-export const FullCard = styled(Paper)`
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  justify-content: "flex-start";
-  margin-top: ${(props: { marginBottom?: number }) =>
-    props.marginBottom || 20}px;
-  margin-left: ${(props: { marginBottom?: number; marginLeft?: number }) =>
-    props.marginLeft || 20}px;
+export const FullCard = styled(Box)`
+  padding: 24px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);
+  border-radius: 8px;
+  margin:24px 0;
 `;
 
 export const Flex = styled.div`
   display: flex;
   flex-direction: ${(props: FlexProps) => props.direction || "row"};
   justify-content: ${(props: FlexProps) => props.justifyContent};
+  align-items: ${(props: FlexProps) => props.alignItems};
   width: 100%;
   margin-left: ${(props: FlexProps) => props.left || 0}px;
   margin-top: ${(props: FlexProps) => props.top || 0}px;
@@ -101,6 +100,9 @@ export const Flex = styled.div`
 
   flex: ${(props: FlexProps) => props.flex || 0}px;
 `;
+
+
+
 
 export const Block = styled.div`
   display: block;
@@ -117,4 +119,54 @@ export const VisibilityBox = styled.div`
    width:22px;
    height:22px;
  }
+`;
+
+
+export const SwitchBox = styled.div`
+.MuiSwitch-root {
+  width: 82px;
+  height: 42px;
+  padding: 0;
+}
+.MuiSwitch-switchBase {
+  color: #f5f5f5;
+  padding:3px;
+}
+.MuiSwitch-thumb {
+  width: 36px;
+  height: 36px;
+}
+.MuiSwitch-track {
+  opacity: 1;
+  background-color: #e5e5e5;
+  border-radius: 300px;
+}
+.MuiSwitch-colorSecondary.Mui-checked {
+  color: #FECE3E;
+}
+.MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track{
+  background: rgba(254, 206, 62, 0.2);
+  border-radius: 300px;
+}
+.MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+  opacity: 1;
+  border-radius: 300px;
+}
+.MuiSwitch-colorSecondary.Mui-checked {
+ padding:3px;
+}
+.MuiSwitch-switchBase.Mui-checked {
+  transform: translateX(38px);
+}
+.MuiFormControlLabel-labelPlacementTop {
+  margin-left: 0;
+  align-items: flex-start;
+}
+.MuiTypography-root {
+  font-size: 16px;
+    line-height: 19px;
+    color: #343434;
+    font-family: "Roboto";
+    margin: 0 0 8px 0;
+}
 `;

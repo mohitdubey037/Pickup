@@ -68,7 +68,7 @@ function OrderSummary({ path: string }) {
     }
 
     const getOrderIdItem = (openInvoiceDrawer, value, id: any) => {
-        return <span onClick={() => openInvoiceDrawer(id)} style={{ color: "#1B8AF0" }}><u>{value}</u></span>;
+        return <span onClick={() => openInvoiceDrawer(id)} style={{ color: "#1B8AF0", cursor: "pointer" }}><u>{value}</u></span>;
     };
 
     const onHoldTable = (
@@ -92,7 +92,7 @@ function OrderSummary({ path: string }) {
     return (
         <>
             <ModuleContainer>
-                <ContainerTitle>Order Summary</ContainerTitle>
+                <ContainerTitle title="Order Summary" />
 
                 <Flex direction={"column"} top={20}>
                     <Table 

@@ -1,14 +1,15 @@
-import { Input, PasswordInput } from "app/components/Input";
-import { Flex, Block } from "app/components/Input/style";
+import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 // import { passwordSchema } from "./passwordSchema";
-import { Avatar, Grid } from "@material-ui/core";
 import { COUNTRY_TEXT, INDUSTRY_TEXT } from "../../../../../constants";
 import Select from "app/components/Select";
 import { editCompanySchema } from "./CompanyProfileSchema";
 import { useEffect, useState } from "react";
 import { ColleagueDetailsType } from "./types";
+import { Avatar, Box, Grid } from "@material-ui/core";
+import { COUNTRY, INDUSTRY } from "../../../../../constants";
+import { DrawerFooter } from "app/components/Drawer/style";
 
 const EditCompanyDetailsForm = ({
   title = "",
@@ -50,212 +51,161 @@ const EditCompanyDetailsForm = ({
   useEffect(() => {
     console.log(values);
   }, [values]);
+
   return (
-    <Flex direction="column" style={{ height: "100%", width: "540px" }}>
-      <div>
-        <Flex
+    <>
+      <Box display="flex" justifyContent="center">
+        <Avatar
           style={{
-            marginBottom: 20,
+            width: 86,
+            height: 86,
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
-        >
-          <Avatar
-            style={{
-              width: 86,
-              height: 86,
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            <img src="https://i.pravatar.cc/300" width={86} />
-          </Avatar>
-        </Flex>
-        <Flex
-          style={{
-            marginBottom: 20,
-          }}
-        >
+        ></Avatar>
+      </Box>
+      <Input
+        id="companyName"
+        name="companyName"
+        onBlur={handleBlur}
+        value={values.companyName}
+        initValue={values.companyName}
+        onChange={handleChange}
+        error={touched.companyName && errors?.companyName?.toString()}
+        // error={touched?.companyName && errors.companyName}
+        label="Company Name"
+        placeholder={"Torinit"}
+      />
+
+      <Input
+        id="address1"
+        name="address1"
+        value={values.address1}
+        initValue={values.address1}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        error={touched.address1 && errors?.address1?.toString()}
+        label="Adresss Line 1"
+        placeholder={"100 Bond Street"}
+      />
+
+      <Input
+        id="address2"
+        name="address2"
+        value={values.address2}
+        initValue={values.address2}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        error={touched.address2 && errors?.address2?.toString()}
+        label="Address Line 2"
+        placeholder={"123 Avebue"}
+      />
+
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
           <Input
-            id="companyName"
-            name="companyName"
-            onBlur={handleBlur}
-            value={values.companyName}
-            initValue={values.companyName}
-            onChange={handleChange}
-            error={touched.companyName && errors?.companyName?.toString()}
-            // error={touched?.companyName && errors.companyName}
-            label="Company Name"
-            placeholder={"Torinit"}
-          />
-        </Flex>
-        <Flex
-          style={{
-            marginBottom: 20,
-          }}
-        >
-          <Input
-            id="address1"
-            name="address1"
-            value={values.address1}
-            initValue={values.address1}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.address1 && errors?.address1?.toString()}
-            label="Adresss Line 1"
-            placeholder={"100 Bond Street"}
-          />
-        </Flex>
-        <Flex
-          style={{
-            marginBottom: 20,
-          }}
-        >
-          <Input
-            id="address2"
-            name="address2"
-            value={values.address2}
-            initValue={values.address2}
+            id="city"
+            name="city"
+            value={values.city}
+            initValue={values.city}
             onBlur={handleBlur}
             onChange={handleChange}
-            error={touched.address2 && errors?.address2?.toString()}
-            label="Address Line 2"
-            placeholder={"123 Avebue"}
+            error={touched.city && errors?.city?.toString()}
+            label="City"
+            placeholder={"Toronto"}
           />
-        </Flex>
-        <Flex style={{ marginBottom: 20 }}>
-          <Flex direction={"column"}>
-            <Block style={{ flex: 1, textAlign: "left" }}>
-              <Input
-                id="city"
-                name="city"
-                value={values.city}
-                initValue={values.city}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.city && errors?.city?.toString()}
-                label="City"
-                placeholder={"Toronto"}
-              />
-            </Block>
-          </Flex>
-          <Flex direction={"column"}>
-            <Block style={{ flex: 1, textAlign: "left" }}>
-              <Input
-                id="province"
-                name="province"
-                value={values.province}
-                initValue={values.province}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.province && errors?.province?.toString()}
-                label="Province"
-                placeholder={"Ontario"}
-              />
-            </Block>
-          </Flex>
-        </Flex>
-        <Flex style={{ marginBottom: 20 }}>
-          <Grid item xs={11}>
-            <Select
-              id="country"
-              name="country"
-              options={COUNTRY_TEXT}
-              label={"Country"}
-              value={values["country"]}
-              onSelect={handleChange}
-            />
-          </Grid>
-        </Flex>
-        <Flex
-          style={{
-            marginBottom: 20,
-          }}
-        >
+        </Grid>
+
+        <Grid item xs={6}>
           <Input
-            id="hstNumber"
-            name="hstNumber"
-            value={values.hstNumber}
-            initValue={values.hstNumber}
+            id="province"
+            name="province"
+            value={values.province}
+            initValue={values.province}
             onBlur={handleBlur}
             onChange={handleChange}
-            error={touched.hstNumber && errors?.hstNumber?.toString()}
-            label="HST Number"
-            placeholder={"1245567842185"}
+            error={touched.province && errors?.province?.toString()}
+            label="Province"
+            placeholder={"Ontario"}
           />
-        </Flex>
-        <Flex
-          style={{
-            marginBottom: 20,
-          }}
-        >
+        </Grid>
+      </Grid>
+
+      <Select
+        id="country"
+        name="country"
+        options={COUNTRY_TEXT}
+        label={"Country"}
+        value={values["country"]}
+        onSelect={handleChange}
+      />
+
+      <Input
+        id="hstNumber"
+        name="hstNumber"
+        value={values.hstNumber}
+        initValue={values.hstNumber}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        error={touched.hstNumber && errors?.hstNumber?.toString()}
+        label="HST Number"
+        placeholder={"1245567842185"}
+      />
+
+      <Input
+        id="businessNumber"
+        name="businessNumber"
+        value={values.businessNumber}
+        initValue={values.businessNumber}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        error={touched.businessNumber && errors?.businessNumber?.toString()}
+        label="Business Number"
+        placeholder={"5421369"}
+      />
+
+      <Input
+        id="pincode"
+        name="pincode"
+        value={values.pincode}
+        initValue={values.pincode}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        error={touched.pincode && errors?.pincode?.toString()}
+        label="Pincode"
+        placeholder={"554787"}
+      />
+
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <Select
+            id="industry"
+            name="industry"
+            options={INDUSTRY_TEXT}
+            label={"Industry"}
+            value={values[title + "industry"]}
+            onSelect={handleChange}
+          />
+        </Grid>
+
+        <Grid item xs={6}>
           <Input
-            id="businessNumber"
-            name="businessNumber"
-            value={values.businessNumber}
-            initValue={values.businessNumber}
+            id="employeeStrength"
+            name="employeeStrength"
+            value={values.employeeStrength}
+            initValue={values.employeeStrength}
             onBlur={handleBlur}
             onChange={handleChange}
-            error={touched.businessNumber && errors?.businessNumber?.toString()}
-            label="Business Number"
-            placeholder={"5421369"}
+            error={
+              touched.employeeStrength && errors?.employeeStrength?.toString()
+            }
+            label="Employee Strength"
+            placeholder={"32"}
           />
-        </Flex>
-        <Flex
-          style={{
-            marginBottom: 20,
-          }}
-        >
-          <Input
-            id="pincode"
-            name="pincode"
-            value={values.pincode}
-            initValue={values.pincode}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.pincode && errors?.pincode?.toString()}
-            label="Pincode"
-            placeholder={"554787"}
-          />
-        </Flex>
-        <Flex style={{ marginBottom: 20 }}>
-          <Flex direction={"column"}>
-            <Block style={{ flex: 1, textAlign: "left" }}>
-              <Grid item xs={11}>
-                <Select
-                  id="industry"
-                  name="industry"
-                  options={INDUSTRY_TEXT}
-                  label={"Industry"}
-                  value={values[title + "industry"]}
-                  onSelect={handleChange}
-                />
-              </Grid>
-            </Block>
-          </Flex>
-          <Flex direction={"column"}>
-            <Block style={{ flex: 1, textAlign: "left" }}>
-              <Input
-                id="employeeStrength"
-                name="employeeStrength"
-                value={values.employeeStrength}
-                initValue={values.employeeStrength}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={
-                  touched.employeeStrength &&
-                  errors?.employeeStrength?.toString()
-                }
-                label="Employee Strength"
-                placeholder={"32"}
-              />
-            </Block>
-          </Flex>
-        </Flex>
-      </div>
-      <Flex
-        direction="row"
-        justifyContent={"space-between"}
-        style={{ alignItems: "flex-end" }}
-      >
+        </Grid>
+      </Grid>
+
+      <DrawerFooter>
         <Button
           secondary
           style={{ width: "fit-content", minWidth: "150px" }}
@@ -268,8 +218,8 @@ const EditCompanyDetailsForm = ({
           onClick={handleSubmit}
           disabled={!isValid}
         ></Button>
-      </Flex>
-    </Flex>
+      </DrawerFooter>
+    </>
   );
 };
 

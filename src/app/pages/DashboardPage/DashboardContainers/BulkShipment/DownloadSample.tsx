@@ -34,7 +34,7 @@ const DownloadSample = ({ navigate }: RouteComponentProps) => {
     return (
         <div>
        <ModuleContainer>
-      <ContainerTitle>Bulk order</ContainerTitle>
+      <ContainerTitle title="Bulk order" />
       <FormContainer elevation={2}>
         <FormContainerTitle>Bulk order</FormContainerTitle>
         <BulkShipmentWrapper>
