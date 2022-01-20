@@ -21,6 +21,14 @@ export const getEmailUserId = async (userId) => {
   return res.data?.data;
 };
 
+export const getTermsAndConditions = async (id: number) => {
+  try {
+    const response = await Services.get(`https://staging-api.pickups.mobi/user/api/legaldocs/page/${id}/3`);
+    return { response: response, success: true };
+  } catch (err) {
+    return { response: err, sucess: false };
+  }
+}
 // export const SendSignUpDetails = async (values: any) => {
 //   try {
 //     const params = {

@@ -21,7 +21,9 @@ import { getParamsFromUrl } from "utils/commonUtils";
 import { PageTitle } from "app/components/Typography/Typography";
 import { GridSpacing } from "app/components/GridSpacing/GridSpacing";
 import { Flex } from "app/components/Input/style";
-
+import { Link } from "app/components/Link";
+import Modal from 'react-modal';
+import TermsAndPolicies from "./Terms&Policies";
 
 type SignUpProps = RouteComponentProps;
 
@@ -38,6 +40,14 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
     const showLoader = useSelector((state: { globalState: { showLoader: boolean } }) => state.globalState.showLoader)
 
     const [email, setEmail] = useState<string>('')
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [policyModal, setPolicyModal] = useState(false);
+    function openModal() {
+        setIsOpen(true);
+      }
+    function closeModal() {
+        setIsOpen(false);
+      }
 
     useEffect(() => {
         const params = getParamsFromUrl(location.search)
@@ -143,13 +153,27 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                 <Checkbox
                                     isChecked={consent}
                                     id="consent"
-                                    label={<Termslink>I agree to the <a href="#" target="_blank">Terms</a> and <a href="#" target="_blank">Policies</a></Termslink>}
+                                    label={<Termslink>I agree to the <Link to="" onClick={openModal}>Terms</Link> and <Link to="">Policies</Link></Termslink>}
                                     name="consent"
                                     onChange={() => setFieldValue('consent', !consent)}
                                     onBlur={handleBlur}
                                     error={touched.consent && errors.consent}
                                 />   
                             </Box>
+                            <Modal
+                                isOpen={modalIsOpen}
+                                onRequestClose={closeModal}
+                                // contentLabel="Example Modal"
+                            >
+                                <TermsAndPolicies />
+                            </Modal>
+                            <Modal
+                                isOpen={modalIsOpen}
+                                onRequestClose={closeModal}
+                                // contentLabel="Example Modal"
+                            >
+                                <TermsAndPolicies />
+                            </Modal>
                             </Grid>
                             <Grid item xs={12} className={classes.gridColspacing}>
                             <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} />
