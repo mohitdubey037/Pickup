@@ -53,46 +53,51 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
 
     useEffect(() => {
         (() => validateForm())();
-      }, []);
+    }, []);
 
     useEffect(() => {
         if (forgetPasswordResponse?.status === 200) {
-            navigate?.("/mail-sent", { state: {
-                emailId: values.email
-            } });
+            navigate?.("/mail-sent", {
+                state: {
+                    emailId: values.email
+                }
+            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [forgetPasswordResponse?.status]);    
+    }, [forgetPasswordResponse?.status]);
 
     return (
-        <LoginWrapper>
-            <LogoImage />
-            <FormWrapper>
-                <FormContent>
-                    <PageTitle title="FORGOT PASSWORD" />
-                    <Input
-                        id={"email"}
-                        name={"email"}
-                        label="Email"
-                        placeholder="johndoe@pickups.com"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.email && errors.email}
-                        autoComplete="off"
-                    />
-                    <Button
-                        showLoader={showLoader}
-                        label="Recover Password"
-                        disabled={!(isValid)}
-                        size="large"
-                        onClick={() => handleSubmit()}
-                    />
-                    <LoginLink>
-                        <RedLink label="Back to Login" link={() => navigate?.("/")} />
-                    </LoginLink>
-                </FormContent>
-            </FormWrapper>
-        </LoginWrapper>
+        <form onSubmit={handleSubmit} >
+            <LoginWrapper>
+                <LogoImage />
+                <FormWrapper>
+                    <FormContent>
+                        <PageTitle title="FORGOT PASSWORD" />
+                        <Input
+                            id={"email"}
+                            name={"email"}
+                            label="Email"
+                            placeholder="johndoe@pickups.com"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={touched.email && errors.email}
+                            autoComplete="off"
+                        />
+                        <Button
+                            showLoader={showLoader}
+                            label="Recover Password"
+                            disabled={!(isValid)}
+                            size="large"
+                            onClick={() => handleSubmit()}
+                            type="submit"
+                        />
+                        <LoginLink>
+                            <RedLink label="Back to Login" link={() => navigate?.("/")} />
+                        </LoginLink>
+                    </FormContent>
+                </FormWrapper>
+            </LoginWrapper>
+        </form>
     );
 };
 
