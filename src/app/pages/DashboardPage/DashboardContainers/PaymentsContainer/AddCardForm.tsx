@@ -1,3 +1,4 @@
+import React from "react"
 import { Input } from "app/components/Input"
 import { Flex } from "app/components/Input/style"
 import { Button } from "app/components/Buttons"
@@ -5,8 +6,19 @@ import { useFormik } from "formik"
 import { cardSchema } from "./cardSchema"
 import { Checkbox } from "app/components/Checkbox";
 import RadioGroup from "app/components/RadioGroup"
+import {IndividualCard} from "./PaymentsCardContainer"
 
-const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, submitButtonLabel="Save" }) => {
+interface AddCardFromProps {
+    title?:string;
+    setDrawerOpen:React.Dispatch<React.SetStateAction<boolean>>;
+    saveAction:(data)=> void;
+    enableSave?:boolean;
+    submitButtonLabel?:string;
+    cardData?:IndividualCard;
+
+}
+const AddCardForm:React.FC<AddCardFromProps> = ({ title = '', setDrawerOpen, saveAction, enableSave=false, submitButtonLabel="Save" , cardData={}}) => {
+
 
     const {
         values,
@@ -17,7 +29,7 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
         handleSubmit,
         setFieldValue
     } = useFormik({
-        initialValues: { cardType: "1", cardNumber: "", expiryDate: "", cvc: "", nameOnCard: "", pinCode: "", nickName: "", saveCard: false },
+        initialValues: { cardType: "1", cardNumber: cardData.number|| "", expiryDate:`${cardData.expiry_month?cardData.expiry_month+"/":""}${cardData.expiry_year||""}`, cvc:"", nameOnCard: cardData.name||"", pinCode:"", nickName:"", saveCard: false },
         validationSchema: cardSchema,
         onSubmit: (values) => saveAction(values),
     });
@@ -26,7 +38,7 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
         <Flex direction="column" style={{ height: '100%', width: '540px' }}>
             <div>
                 <h3>{title}</h3>
-                <Flex direction="row">
+                {/* <Flex direction="row">
                     <RadioGroup
                         value={values.cardType}
                         onChange={handleChange}
@@ -38,10 +50,11 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                         name={"cardType"}
                         error={touched.cardType && errors.cardType}
                     />
-                </Flex>
+                </Flex> */}
                 <Flex>
                     <Input
                         id="cardNumber"
+                        initValue={values.cardNumber}
                         name="cardNumber"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -54,6 +67,7 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                     <Input
                         id="expiryDate"
                         name="expiryDate"
+                        initValue={values.expiryDate}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         error={touched.expiryDate && errors.expiryDate}
@@ -62,6 +76,7 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                     />
                     <Input
                         id="cvc"
+                        initValue={values.cvc}
                         name="cvc"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -73,6 +88,7 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                 <Flex>
                     <Input
                         id="nameOnCard"
+                        initValue={values.nameOnCard}
                         name="nameOnCard"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -84,6 +100,7 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                 <Flex>
                     <Input
                         id="pinCode"
+                        initValue={values.pinCode}
                         name="pinCode"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -95,6 +112,7 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                 <Flex>
                     <Input
                         id="nickName"
+                        initValue={values.nickName}
                         name="nickName"
                         onBlur={handleBlur}
                         onChange={handleChange}

@@ -54,9 +54,11 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         if (companyResponse) {
-            navigate?.("/password", { state: {
-                email: email
-            } });
+            navigate?.("/password", {
+                state: {
+                    email: email
+                }
+            });
         }
     }, [companyResponse, navigate, email]);
 
@@ -83,7 +85,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         (() => validateForm())();
-      }, []);
+    }, []);
 
     return (
         <SignUpWrapper>
