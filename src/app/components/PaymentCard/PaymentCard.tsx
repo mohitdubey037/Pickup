@@ -76,7 +76,7 @@ export default function PaymentCard({cardData,setDrawerOpen, setCardData}:Paymen
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => handleEditCard()}>Edit Card</MenuItem>
+                {/* <MenuItem onClick={() => handleEditCard()}>Edit Card</MenuItem> */}
                 <MenuItem onClick={handleDeleteCard}>Delete Card</MenuItem>
             </Menu>
         </>

@@ -138,3 +138,21 @@ export const getOrderDetails = async (invoiceId: string) => {
     return { response: null, error: error };
   }
 };
+// export const editCardService = async (values: any) => {
+//   try {
+//     const body = {
+      
+//       "function": values.function,
+//       "name": values.name,
+//       "number": values.number,
+//       "expiry_month": values.expiry_month,
+//       "expiry_year": values.expiry_year,
+//       "card_type": values.card_type
+//     }
+//       const res = await Services.put(`profiles/${values.customer_code}/cards/${values.cardId}`, body, type)
+//       if(res)showToast('Your card has been edited successfully', "success");
+//       return {response: res, error: null};
+//   }catch(error){
+//       return {response: null, error: error};
+//   }
+// }

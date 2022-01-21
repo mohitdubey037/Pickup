@@ -92,7 +92,6 @@ function SingleShipment({ path: string }) {
 
         <ContainerTitle title="Single order" />
 
-        <ContainerTitle>Single Order</ContainerTitle>
 
       )}
       {new Array(formik.values.orders.length).fill("").map((_, index) => (

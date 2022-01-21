@@ -38,7 +38,7 @@ const AddCardForm:React.FC<AddCardFromProps> = ({ title = '', setDrawerOpen, sav
         <Flex direction="column" style={{ height: '100%', width: '540px' }}>
             <div>
                 <h3>{title}</h3>
-                <Flex direction="row">
+                {/* <Flex direction="row">
                     <RadioGroup
                         value={values.cardType}
                         onChange={handleChange}
@@ -50,7 +50,7 @@ const AddCardForm:React.FC<AddCardFromProps> = ({ title = '', setDrawerOpen, sav
                         name={"cardType"}
                         error={touched.cardType && errors.cardType}
                     />
-                </Flex>
+                </Flex> */}
                 <Flex>
                     <Input
                         id="cardNumber"
