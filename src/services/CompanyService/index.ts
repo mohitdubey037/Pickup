@@ -29,10 +29,7 @@ export const fetchUserAdmin = async () => {
 
 export const fetchColleagues = async () => {
   try {
-    const response = await services.get(
-      `v1/api/business/inviteColleague`,
-      "user_cr"
-    );
+    const response = await services.get(`business/inviteColleague`, "user_cr");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
@@ -107,7 +104,7 @@ export const inviteColleague = async (values: {
         notification: values?.notification,
         type: values?.type,
       },
-      "user"
+      "user_cr"
     );
     showToast(response?.data?.message, "success");
     return { response: response, success: true };
@@ -134,9 +131,9 @@ export const updateColleague = async (values: {
   try {
     console.log(values);
     const response: any = await services.put(
-      `v1/api/business/inviteColleague/${values.inviteId}`,
+      `business/inviteColleague/${values.inviteId}`,
       {
-        emailId: "utsav.pandey+3@torinit.ca",
+        emailId: values?.emailId,
         fName: values?.firstName,
         lName: values?.lastName,
         phoneNumber: values?.phoneNumber,

@@ -37,6 +37,27 @@ export const PERMISSION_TYPES = [
   { label: "Admin", value: 4 },
 ];
 
+export const NEW_PERMISSION_TYPES = [
+  { title: "Executive", value: 1, subtitle: "Can place orders only" },
+  {
+    title: "Superintendent",
+    value: 2,
+    subtitle: "Can place orders and view reports of self account",
+  },
+  {
+    title: "Manager",
+    value: 3,
+    subtitle:
+      "Can place orders of self account and view reports of all accounts",
+  },
+  {
+    title: "Admin",
+    value: 4,
+    subtitle:
+      "Can place orders of self account, view reports, add colleagues and manage permissions of all accounts",
+  },
+];
+
 export const NOTIFICATION_FREQUENCY_TYPES = [
   { label: "Monthly", value: "Monthly" },
   { label: "Weekly", value: "Weekly" },

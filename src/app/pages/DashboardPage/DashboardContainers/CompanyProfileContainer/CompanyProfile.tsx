@@ -41,35 +41,35 @@ export default function CompanyProfile({ path: string }) {
   const [colleagueList, setColleagueList] = useState<any>(null);
 
   const saveColleague = async (values) => {
-    console.log(values);
-    console.log(companyDetails?.companyId);
+    // console.log(values);
+    // console.log(companyDetails?.companyId);
     values["companyId"] = companyDetails?.companyId;
     console.log(values);
-    const res = await inviteColleague(values);
-    console.log(res);
+    // const res = await inviteColleague(values);
+    // console.log(res);
     const colleagueResponse = await fetchColleagues();
-    console.log("colleagueResponse", colleagueResponse);
+    // console.log("colleagueResponse", colleagueResponse);
     setColleagueList(colleagueResponse?.response?.data?.data);
   };
   const updateCompanyDetails = async (values) => {
-    console.log(companyDetails?.companyId);
+    // console.log(companyDetails?.companyId);
     values["companyId"] = companyDetails?.companyId;
-    console.log(values);
+    // console.log(values);
     const res = await updateCompanyProfile(values);
-    console.log(res);
+    // console.log(res);
     setCompanyDrawerOpen(false);
     const companyResponse = await fetchCompanyDetails();
     setCompanyDetails(companyResponse?.response?.data?.data?.[0]);
   };
   const updateColleagueDetails = async (values) => {
-    console.log(companyDetails?.companyId);
+    // console.log(companyDetails?.companyId);
     values["companyId"] = companyDetails?.companyId;
-    console.log(values);
+    // console.log(values);
     const res = await updateColleague(values);
-    console.log(res);
+    // console.log(res);
     setColleagueDrawerOpen(false);
     const colleagueResponse = await fetchColleagues();
-    console.log(colleagueResponse);
+    // console.log(colleagueResponse);
     setColleagueList(colleagueResponse?.response?.data?.data);
   };
 
@@ -80,7 +80,7 @@ export default function CompanyProfile({ path: string }) {
       const adminResponse = await fetchUserAdmin();
       setAdminDetails(adminResponse?.response?.data?.data?.[0]);
       const colleagueResponse = await fetchColleagues();
-      console.log(colleagueResponse);
+      // console.log(colleagueResponse);
       setColleagueList(colleagueResponse?.response?.data?.data);
     })();
   }, []);
@@ -123,7 +123,7 @@ export default function CompanyProfile({ path: string }) {
       <AdminDetails AdminDetails={adminDetails} />
       {colleagueList?.length > 0 &&
         colleagueList?.map((data: ColleagueDetailsType, index: number) => (
-          <ColleagueDetails
+          <NewColleague
             setColleagueDrawerOpen={setColleagueDrawerOpen}
             colleagueDetails={data}
             key={data?.inviteId}
@@ -131,6 +131,14 @@ export default function CompanyProfile({ path: string }) {
             setSelectedColleague={setSelectedColleague}
             selectedColleague={selectedColleague}
           />
+          // <ColleagueDetails
+          //   setColleagueDrawerOpen={setColleagueDrawerOpen}
+          //   colleagueDetails={data}
+          //   key={data?.inviteId}
+          //   index={index}
+          //   setSelectedColleague={setSelectedColleague}
+          //   selectedColleague={selectedColleague}
+          // />
         ))}
       <NewColleagueForm saveAction={saveColleague} />
       <Drawer

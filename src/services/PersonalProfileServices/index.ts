@@ -4,11 +4,12 @@ import { showToast } from "utils";
 export const getPersonalProfileDetails = async (userId: number) => {
   try {
     const response = await services.get(
-      `business/user/${userId}/profile`,
-      "user"
+      `v1/api/business/user/${userId}/profile`,
+      "user_cr"
     );
     return { response: response, success: true };
   } catch (err) {
+    showToast(err.message, "error");
     return { response: err, sucess: false };
   }
 };

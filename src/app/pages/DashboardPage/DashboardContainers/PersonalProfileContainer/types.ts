@@ -1,13 +1,16 @@
 export interface PersonalProfileType {
-  avatar: string;
+  emailId: string;
+  profileImage: any;
+  roleId: number;
+  roleName: string;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
-  role: string;
-  email: string;
+  userDetails: { phoneNo: string };
 }
 export interface ProfileState {
   emailId: string;
   firstName: string;
   lastName: string;
 }
+
+// export interface PersonalProfile
