@@ -157,7 +157,6 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                             <Modal
                                 isOpen={!!showTermsPolicies}
                                 onRequestClose={()=>setShowTermsPolicies('')}
-                                // contentLabel="Example Modal"
                             >
                                 <TermsAndPolicies name={showTermsPolicies}/>
                             </Modal>
