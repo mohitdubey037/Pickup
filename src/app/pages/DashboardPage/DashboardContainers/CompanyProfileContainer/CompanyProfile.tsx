@@ -132,7 +132,7 @@ export default function CompanyProfile({ path: string }) {
             selectedColleague={selectedColleague}
           />
         ))}
-      {/* <NewColleagueForm saveAction={saveColleague} /> */}
+      <NewColleagueForm saveAction={saveColleague} />
       <Drawer
         open={colleagueDrawerOpen}
         title="Edit Colleague Details"
