@@ -6,6 +6,7 @@ export interface ButtonProps {
   label?: string;
   onClick?: () => void;
   size?: 'small' | 'medium' | 'large';
+  type?: "button" | "submit" | "reset" | undefined;
   secondary?: boolean;
   disabled?: boolean;
   showLoader?: boolean;
@@ -18,6 +19,7 @@ const ThemeButton: React.FC<ButtonProps> = ({
   secondary,
   onClick,
   size,
+  type,
   disabled,
   showLoader,
   style,
@@ -34,6 +36,7 @@ const ThemeButton: React.FC<ButtonProps> = ({
         color={secondary ? "inherit" : "primary"}
         onClick={onClick}
         size={size}
+        type={type}
         variant="contained"
         style={{ ...style, backgroundColor: secondary ? "#fff" : "" }}
         secondary={secondary}
