@@ -130,6 +130,9 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"johndoe@pickups.com"}
           />
         </Grid>
+        </GridContainer>
+        
+        <GridContainer container>
         <Grid item md={3}>
           <Switches />
         </Grid>
@@ -143,6 +146,9 @@ function NewColleagueForm({ saveAction }) {
             onSelect={handleChange}
           />
         </Grid>
+        </GridContainer>
+
+        <GridContainer container>
         <Grid item md={12}>
           <Select
             id="permission"

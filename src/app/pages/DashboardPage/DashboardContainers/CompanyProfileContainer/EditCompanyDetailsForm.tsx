@@ -208,12 +208,12 @@ const EditCompanyDetailsForm = ({
       <DrawerFooter>
         <Button
           secondary
-          style={{ width: "fit-content", minWidth: "150px" }}
+          size="medium"
           onClick={() => setCompanyDrawerOpen(false)}
           label="Cancel"
         ></Button>
         <Button
-          style={{ width: "fit-content", minWidth: "150px" }}
+          size="medium"
           label={submitButtonLabel}
           onClick={handleSubmit}
           disabled={!isValid}
