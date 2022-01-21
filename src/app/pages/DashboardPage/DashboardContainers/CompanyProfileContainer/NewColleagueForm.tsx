@@ -12,7 +12,6 @@ import Select from "app/components/Select";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import Switches from "app/components/Input/SwitchButton";
 import EditAvatar from "app/components/Avatar/EditAvatar";
-import SelectBox from "app/components/Select/SelectBox";
 function NewColleagueForm(props: { formik: FormikValues }) {
   const {
     handleChange,
