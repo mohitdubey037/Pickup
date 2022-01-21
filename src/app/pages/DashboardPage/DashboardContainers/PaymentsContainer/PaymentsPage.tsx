@@ -74,7 +74,7 @@ export default function PaymentsPage({ path: string }) {
           }}
         />
       </Box>
-      <PaymentCardContainer individualCardData={cardsData?.card} />
+      <PaymentCardContainer  individualCardData={cardsData?.card} />
 
       <Drawer
         open={drawerOpen}

@@ -208,7 +208,7 @@ class Service {
     });
   };
 
-  delete = async (url: string, body, type: RequestType = "base") => {
+  delete = async (url: string, body={}, type: RequestType = "base") => {
     return new Promise((resolve, reject) => {
       const localToken = this.getToken();
       const baseUrl = MODULE_URL_MAP[type];
