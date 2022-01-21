@@ -33,7 +33,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
     }
   );
 
-  const showLoader=useSelector((state:{globalState:{showLoader:boolean}})=>state.globalState.showLoader )
+  const showLoader = useSelector((state: { globalState: { showLoader: boolean } }) => state.globalState.showLoader)
 
   useEffect(() => {
     return () => {
@@ -44,11 +44,11 @@ const SignUp = ({ navigate }: SignUpProps) => {
   useEffect(() => {
     if (signUpResponse.verifyEmailLink) {
       navigate?.("/email-sent");
-    }else if(signUpResponse.status === 400){
-        setErrorMessage(signUpResponse.message)
+    } else if (signUpResponse.status === 400) {
+      setErrorMessage(signUpResponse.message)
     }
   }, [signUpResponse, navigate]);
-  
+
   const onSignUp = () => {
     dispatch(actions.registerUser(values.email));
   };
@@ -67,45 +67,47 @@ const SignUp = ({ navigate }: SignUpProps) => {
     validationSchema: signUpSchema,
     onSubmit: onSignUp,
   });
- 
+
   useEffect(() => {
     setErrorMessage('')
-  },[values.email])
+  }, [values.email])
 
   useEffect(() => {
     (() => validateForm())();
   }, []);
 
   return (
-    <SignUpWrapper>
-      <SignUpBackgroundWrapper>
-      <LogoImage />
-      <FormWrapper>
-        <FormContent>
-          <PageTitle title="SIGN UP" />
-          <Input
-            label="Business Email"
-            placeholder="Start typing"
-            id="email"
-            name="email"
-            onChange={handleChange}
-            error={touched.email && errors.email}
-            onBlur={handleBlur}
-            autoComplete="off"
-          />
-          {errorMessage ? <span style={{ color: '#c94c43' }}> {errorMessage} </span> : null}
-          <Button disabled={!(isValid)} label="Sign Up" showLoader={showLoader} onClick={handleSubmit} size="large" />
-          <LoginLink>
-            Already have an account?{" "}
-            <BlackLink
-              link={() => navigate?.("/")}
-              label={"Login Here"}
-            />
-          </LoginLink>
-        </FormContent>
-      </FormWrapper>
-      </SignUpBackgroundWrapper>
-    </SignUpWrapper>
+    <form onSubmit={handleSubmit} >
+      <SignUpWrapper>
+        <SignUpBackgroundWrapper>
+          <LogoImage />
+          <FormWrapper>
+            <FormContent>
+              <PageTitle title="SIGN UP" />
+              <Input
+                label="Business Email"
+                placeholder="Start typing"
+                id="email"
+                name="email"
+                onChange={handleChange}
+                error={touched.email && errors.email}
+                onBlur={handleBlur}
+                autoComplete="off"
+              />
+              {errorMessage ? <span style={{ color: '#c94c43' }}> {errorMessage} </span> : null}
+              <Button type="submit" disabled={!(isValid)} label="Sign Up" showLoader={showLoader} size="large" />
+              <LoginLink>
+                Already have an account?{" "}
+                <BlackLink
+                  link={() => navigate?.("/")}
+                  label={"Login Here"}
+                />
+              </LoginLink>
+            </FormContent>
+          </FormWrapper>
+        </SignUpBackgroundWrapper>
+      </SignUpWrapper>
+    </form>
   );
 };
 

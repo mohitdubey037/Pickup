@@ -74,7 +74,6 @@ const Login = ({ navigate }: RouteComponentProps) => {
       setErrorMessage(signInUserResponse?.message)
     }
     else if (signInUserResponse?.status === 422) {
-      console.log(signInUserResponse);
       setErrorMessage("Password must be at least 4 character")
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,62 +109,67 @@ const Login = ({ navigate }: RouteComponentProps) => {
     (() => validateForm())();
   }, []);
 
+
   return (
-    <LoginWrapper>
-      <LogoImage />
-      <FormWrapper>
-        <FormContent>
-          {console.log(values)}
-          <PageTitle title="LOGIN" />
-          <Input
-            id={"email"}
-            name={"email"}
-            label="Email"
-            placeholder={"johndoe@pickups.com"}
-            onChange={handleChange}
-            initValue={values?.email}
-            onBlur={handleBlur}
-            error={touched.email && errors?.email}
-          />
-          <PasswordInput
-            id={"password"}
-            name={"password"}
-            label="Password"
-            placeholder={"•••••••••••••••"}
-            onChange={handleChange}
-            initValue={values?.password}
-            onBlur={handleBlur}
-            error={touched.password && errors?.password?.toString()}
-          />
-          <RememberDiv>
-            <Checkbox
-              id="checked"
-              name="checked"
-              onChange={() => setFieldValue("checked", !values.checked)}
-              label="Remember me" />
-            <BlackLink
-              label="Forgot my password"
-              link={() => navigate?.("/forgot-password")}
+    <form onSubmit={handleSubmit} >
+      <LoginWrapper>
+        <LogoImage />
+        <FormWrapper>
+          <FormContent>
+            <PageTitle title="LOGIN" />
+            {/* <form onSubmit={handleSubmit}> */}
+            <Input
+              id={"email"}
+              name={"email"}
+              label="Email"
+              placeholder={"johndoe@pickups.com"}
+              onChange={handleChange}
+              initValue={values?.email}
+              onBlur={handleBlur}
+              error={touched.email && errors?.email}
             />
-          </RememberDiv>
-          {errorMessage ? <span style={{ color: '#c94c43' }}> {errorMessage} </span> : null}
-          <Button
-            showLoader={showLoader}
-            label="Sign In"
-            size="large"
-            onClick={handleSubmit}
-            disabled={!(isValid)}
-          />
-          <LoginLink>
-            <Para text="Don't have an account?" />
-            <BlackLink
-              label="Sign Up Here"
-              link={() => navigate?.("/sign-up")}
+            <PasswordInput
+              id={"password"}
+              name={"password"}
+              label="Password"
+              placeholder={"•••••••••••••••"}
+              onChange={handleChange}
+              initValue={values?.password}
+              onBlur={handleBlur}
+              error={touched.password && errors?.password?.toString()}
             />
-          </LoginLink>
-        </FormContent>
-      </FormWrapper>
-    </LoginWrapper>
+            <RememberDiv>
+              <Checkbox
+                id="checked"
+                name="checked"
+                onChange={() => setFieldValue("checked", !values.checked)}
+                label="Remember me" />
+              <BlackLink
+                label="Forgot my password"
+                link={() => navigate?.("/forgot-password")}
+              />
+            </RememberDiv>
+            {errorMessage ? <span style={{ color: '#c94c43' }}> {errorMessage} </span> : null}
+            <Button
+              showLoader={showLoader}
+              label="Sign In"
+              size="large"
+              type="submit"
+              // onClick={handleSubmit}
+              disabled={!(isValid)}
+            />
+            <LoginLink>
+              <Para text="Don't have an account?" />
+              <BlackLink
+                label="Sign Up Here"
+                link={() => navigate?.("/sign-up")}
+              />
+            </LoginLink>
+            {/* </form > */}
+          </FormContent>
+        </FormWrapper>
+      </LoginWrapper>
+    </form>
   );
 };
 
