@@ -17,12 +17,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginSchema } from "./loginSchemas";
 import { actions } from "store/reducers/SignInReducer";
 import { useEffect, useState } from "react";
+import CryptoJS from 'crypto-js';
 
 const Login = ({ navigate }: RouteComponentProps) => {
 
+  let tempCookie = Cookies.get('password');
+
+  function getPassword() {
+    if (tempCookie) {
+      let newTempCookie = CryptoJS?.AES?.decrypt(tempCookie, 'message');
+      let latestCookie = newTempCookie.toString(CryptoJS.enc.Utf8);
+      return latestCookie;
+    }
+    else return ""
+  }
+
   const dispatch = useDispatch();
 
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('');
+  const [checked, setChecked] = useState(true);
 
   const signInUserResponse = useSelector(
     (state: {
@@ -42,6 +55,12 @@ const Login = ({ navigate }: RouteComponentProps) => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (Cookies.get('token')) {
+      navigate?.("/dashboard");
+    }
+  }, [])
+
+  useEffect(() => {
     if (signInUserResponse?.status === 200) {
       dispatch({
         type: "SET_LOGEDIN_USER",
@@ -51,15 +70,19 @@ const Login = ({ navigate }: RouteComponentProps) => {
       Cookies.set("token", signInUserResponse?.data?.data?.token);
 
       navigate?.("/dashboard");
-    }else if(signInUserResponse?.status === 400){
-        setErrorMessage(signInUserResponse?.message)
+    } else if (signInUserResponse?.status === 400) {
+      setErrorMessage(signInUserResponse?.message)
+    }
+    else if (signInUserResponse?.status === 422) {
+      console.log(signInUserResponse);
+      setErrorMessage("Password must be at least 4 character")
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signInUserResponse]);
 
   const onSignIn = () => {
     dispatch(
-      actions.signInUser({ email: values.email, password: values.password })
+      actions.signInUser({ email: values.email, password: values.password, checked: values.checked })
     );
   };
 
@@ -72,15 +95,16 @@ const Login = ({ navigate }: RouteComponentProps) => {
     handleSubmit,
     isValid,
     validateForm,
+    setFieldValue
   } = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { email: Cookies.get('email') || "", password: getPassword(), checked: false },
     validationSchema: loginSchema,
     onSubmit: onSignIn,
   });
 
   useEffect(() => {
     setErrorMessage('')
-  },[values])
+  }, [values])
 
   useEffect(() => {
     (() => validateForm())();
@@ -91,6 +115,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
       <LogoImage />
       <FormWrapper>
         <FormContent>
+          {console.log(values)}
           <PageTitle title="LOGIN" />
           <Input
             id={"email"}
@@ -98,20 +123,26 @@ const Login = ({ navigate }: RouteComponentProps) => {
             label="Email"
             placeholder={"johndoe@pickups.com"}
             onChange={handleChange}
+            initValue={values?.email}
             onBlur={handleBlur}
-            error={touched.email && errors.email}
+            error={touched.email && errors?.email}
           />
           <PasswordInput
-            onChange={handleChange}
-            onBlur={handleBlur}
-            label="Password"
-            placeholder="•••••••••••••••"
             id={"password"}
             name={"password"}
-            error={touched.password && errors.password}
+            label="Password"
+            placeholder={"•••••••••••••••"}
+            onChange={handleChange}
+            initValue={values?.password}
+            onBlur={handleBlur}
+            error={touched.password && errors?.password?.toString()}
           />
           <RememberDiv>
-            <Checkbox label="Remember me" />
+            <Checkbox
+              id="checked"
+              name="checked"
+              onChange={() => setFieldValue("checked", !values.checked)}
+              label="Remember me" />
             <BlackLink
               label="Forgot my password"
               link={() => navigate?.("/forgot-password")}

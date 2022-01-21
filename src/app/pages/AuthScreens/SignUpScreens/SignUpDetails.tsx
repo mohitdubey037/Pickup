@@ -19,7 +19,7 @@ import { Box, Grid } from "@material-ui/core";
 import { Checkbox } from "app/components/Checkbox";
 import { getParamsFromUrl } from "utils/commonUtils";
 import { PageTitle } from "app/components/Typography/Typography";
-import { GridSpacing } from "app/components/GridSpacing/GridSpacing";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Flex } from "app/components/Input/style";
 import { Link } from "app/components/Link";
 import Modal from 'react-modal';
@@ -28,7 +28,6 @@ import TermsAndPolicies from "./Terms&Policies";
 type SignUpProps = RouteComponentProps;
 
 const SignUpDetails = ({ navigate }: SignUpProps) => {
-    const classes = GridSpacing();
     const dispatch = useDispatch();
 
     const location = useLocation();
@@ -94,8 +93,8 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                 <form>
                     <FormContent>
                     <PageTitle title="SIGN UP" />
-                        <Grid container spacing={2}>
-                            <Grid item xs={6} className={classes.gridColspacing} >
+                        <GridContainer container spacing={2}>
+                            <Grid item xs={6}>
                                 <Input
                                     id={"firstName"}
                                     name={"firstName"}
@@ -107,7 +106,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     validate
                                 />
                             </Grid>
-                            <Grid item xs={6} className={classes.gridColspacing} >
+                            <Grid item xs={6}>
                                 <Input
                                     id={"lastName"}
                                     name={"lastName"}
@@ -119,7 +118,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     validate
                                 />
                             </Grid>
-                            <Grid item xs={12} className={classes.gridColspacing}>
+                            <Grid item xs={12}>
                                 <Input
                                     label="Company Name"
                                     placeholder="John Doe’s Company"
@@ -130,7 +129,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     onBlur={handleBlur}
                                 />
                             </Grid>
-                            <Grid item xs={12} className={classes.gridColspacing}>
+                            <Grid item xs={12}>
                                 <Input
                                     
                                     label="Phone Number"
@@ -142,7 +141,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                     error={touched.phoneNumber && errors.phoneNumber}
                                 />
                             </Grid>
-                            <Grid item xs={12} className={classes.gridColspacing}>
+                            <Grid item xs={12}>
                             <Box mt={1} mb={4}>
                                 <Checkbox
                                     isChecked={consent}
@@ -161,10 +160,10 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                 <TermsAndPolicies name={showTermsPolicies}/>
                             </Modal>
                             </Grid>
-                            <Grid item xs={12} className={classes.gridColspacing}>
+                            <Grid item xs={12}>
                             <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
                             </Grid>
-                        </Grid>
+                        </GridContainer>
                     </FormContent>
                 </form>
             </FormWrapper>

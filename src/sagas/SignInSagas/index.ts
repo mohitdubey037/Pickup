@@ -8,19 +8,33 @@ import { Types, actions } from "../../store/reducers/SignInReducer";
 import { showToast } from "../../utils";
 import { globalActions } from "store/reducers/GlobalReducer";
 import { actions as paymentActions } from "store/reducers/PaymentReducer";
+import Cookies from "js-cookie";
+import CryptoJS from 'crypto-js';
+
 
 // eslint-disable-next-line require-yield
 function* signInUserWorker(action) {
   try {
+    if (action.signInRequest.checked === true) {
+      Cookies.remove('email');
+      Cookies.remove('password');
+      Cookies.set('email',action.signInRequest.email);
+      Cookies.set("password", CryptoJS.AES.encrypt(action.signInRequest.password, "message"));
+    }
+    else {
+      Cookies.remove('email');
+      Cookies.remove("password");
+    }
     yield put(globalActions.showLoader(true));
+
     const res = yield call(signInUserService, action.signInRequest);
 
     yield put(actions.signInUserResponse(res));
     yield put(globalActions.showLoader(false));
     yield put(paymentActions.getCards());
-} catch (err: any) {
-      yield put(actions.signInUserResponse(err));
-        yield put(globalActions.showLoader(false))
+  } catch (err: any) {
+    yield put(actions.signInUserResponse(err));
+    yield put(globalActions.showLoader(false))
 
     // showToast(err.message, "error");
   }
