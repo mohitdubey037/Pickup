@@ -136,6 +136,7 @@
     "react-helmet-async": "1.0.9",
     "react-here-map": "4.0.0-0",
     "react-i18next": "11.11.1",
+    "react-modal": "^3.14.4",
     "react-redux": "7.2.4",
     "react-to-pdf": "0.0.14",
     "react-toastify": "^8.0.2",
