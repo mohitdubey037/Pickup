@@ -12,6 +12,7 @@ import Select from "app/components/Select";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import Switches from "app/components/Input/SwitchButton";
 import EditAvatar from "app/components/Avatar/EditAvatar";
+import SelectBox from "app/components/Select/SelectBox";
 function NewColleagueForm(props: { formik: FormikValues }) {
   const {
     handleChange,
@@ -73,6 +74,12 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             placeholder={"+1 (999)-999-9999"}
           />
         </Grid>
+        
+        </GridContainer>
+
+
+
+        <GridContainer container spacing={2}>
         <Grid item md={3}>
           <CustomInput
             id="email"
@@ -84,6 +91,11 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             placeholder={"johndoe@pickups.com"}
           />
         </Grid>
+        </GridContainer>
+
+
+        
+        <GridContainer container spacing={2}>
         <Grid item md={3}>
         <Switches />
         </Grid>
@@ -110,6 +122,9 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             onSelect={(e) => console.log(e)}
           />
         </Grid>
+        
+        </GridContainer>
+        <GridContainer container spacing={2}>
         <Grid item md={12}>
           <Button
             label="Save"

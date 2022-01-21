@@ -1,9 +1,9 @@
-import { Grid } from "@material-ui/core"
+import { Box, Grid } from "@material-ui/core"
 import { Drawer } from "app/components/Drawer"
+import { ContainerTitle } from "app/components/Typography/Typography"
 import { useState } from "react"
 import { PaymentCard }  from "../../../../components/PaymentCard/index"
 import AddCardForm from "./AddCardForm"
-import { CardContainerDiv } from "./style"
 
 
 interface IndividualCardProp{
@@ -17,7 +17,6 @@ interface IndividualCardProp{
 }
 
 interface PaymentCardContainerProps{
-    heading: string;
     individualCardData: Array<IndividualCardProp>
 }
 
@@ -27,7 +26,7 @@ interface cardData {
     nameOnCard?: string;
 }
 
-export default function PaymentCardContainer({heading, individualCardData}:PaymentCardContainerProps) {
+export default function PaymentCardContainer({ individualCardData}:PaymentCardContainerProps) {
 
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
     const [cardData, setCardData] = useState<cardData>({})
@@ -37,13 +36,10 @@ export default function PaymentCardContainer({heading, individualCardData}:Payme
     }
 
     return (
-        <div style={{marginTop: '2rem'}}>
-            <CardContainerDiv>
-                <h3 style={{margin:'1rem 0 0 0', fontSize: '24px'}}>
-                    {heading}
-                </h3>
-            </CardContainerDiv>
-            <Grid container>
+     <Box>
+            
+            <ContainerTitle title="Card"  />
+            <Grid container spacing={2}>
                 {individualCardData?.map((value,idx)=>(
                     <PaymentCard setDrawerOpen={setDrawerOpen} setCardData={setCardData} key={idx} id={value.card_id} name={value.name} expiryData={`${value.expiry_month}/${value.expiry_year}`} cardNumber={value.number.substring(12,16).padStart(16, '*').replace(/(.{4})/g, '$1 ').trim()}/>
                 ))}
@@ -57,6 +53,6 @@ export default function PaymentCardContainer({heading, individualCardData}:Payme
             >
                 <AddCardForm setDrawerOpen={setDrawerOpen} saveAction={saveCard}/>
             </Drawer>
-        </div>
+        </Box>
     )
 }

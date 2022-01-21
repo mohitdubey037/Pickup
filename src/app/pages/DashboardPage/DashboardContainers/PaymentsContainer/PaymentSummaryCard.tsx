@@ -1,6 +1,7 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import { CardEllipse, CardOption, IndividualCardDetailsContainer, IndividualCardDiv, IndividualCardNumberContainer } from './style'
-import { Menu, MenuItem } from '@material-ui/core'
+import React, { Dispatch, SetStateAction } from 'react';
+import { Box } from '@material-ui/core';
+import { CardNumber } from 'app/components/Card/style';
+import { Carddetails, IndividualCardDiv } from 'app/components/PaymentCard/style';
 
 interface cardData {
     cardNumber?: string;
@@ -33,24 +34,13 @@ export default function PaymentSummaryCard({type,name,expiryData,cardNumber,setD
     return (
         <>
             <IndividualCardDiv>
-                
-               
-                <div style={{display:'flex', width:'100%'}}>
-                    <img src={type} alt={'payment-icon'}/>
-                </div>
-                <IndividualCardNumberContainer>
-                    <strong>
-                        {cardNumber}
-                    </strong>
-                </IndividualCardNumberContainer>
-                <IndividualCardDetailsContainer>
-                    <span>
-                        {name}
-                    </span>
-                    <span>
-                        {expiryData}
-                    </span>
-                </IndividualCardDetailsContainer>
+                <Box mt={10}>
+                <CardNumber>{cardNumber}</CardNumber>
+                </Box>
+                <Box>
+                <Carddetails>{name}</Carddetails>
+                <Carddetails>{expiryData}</Carddetails>
+                </Box>
                 <div>
                 </div>
             </IndividualCardDiv>

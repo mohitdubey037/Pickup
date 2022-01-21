@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Roboto:wght@900&display=swap');
+
 @font-face {
   font-family: "Roboto";
   src: local("Roboto-Regular"),
@@ -13,6 +15,9 @@
   font-family: "Roboto-Medium";
   src: local("Roboto-Medium"), url('./app/assets/fonts/Roboto/Roboto-Medium.ttf') format('opentype');
 }
+
+
+
 
 body {
   margin: 0;

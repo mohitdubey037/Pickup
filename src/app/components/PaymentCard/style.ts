@@ -1,30 +1,64 @@
+import { Box, Menu } from "@material-ui/core";
 import styled from "styled-components";
 
-export const CardContainerDiv = styled.div`
-    display: flex;
-`
 
-export const IndividualCardDiv = styled.div`
-    /* background: #FAFAFA; */
+
+export const IndividualCardDiv = styled(Box)`
     background: #F6F9F9;
-    border: 1.5px solid #C1D4D7;
-    margin-top: 1rem;
-    display: block;
-    width: 370px;
+    border: 1px solid #C1D4D7;
+    margin: 24px 0;
     border-radius: 8px;
-    padding: 2rem;
-    margin-right: 1rem;
+    padding: 24px 32px;
     position: relative;
     overflow: hidden;
-`
+    height:190px;
 
-export const IndividualCardNumberContainer = styled.div`
-    text-align:left; 
-    margin-top:2.5rem;
-    strong{
-        font-size: 22px;
+    .menulist{
+        right:0 !important;
     }
 `
+
+
+
+
+export const MenuBox = styled(Menu)`
+right:20px !important;
+left:-140px !important;
+top:40px !important;
+
+.MuiPaper-rounded {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 20px rgb(0 0 0 / 10%) !important;
+    border-radius: 16px;
+    width: 150px;
+}
+.MuiMenuItem-root {
+    font-size: 16px;
+    line-height: 19px;
+    color: #343434;
+}
+`
+
+
+export const CardNumber = styled(Box)`
+font-size: 18px;
+font-family: 'Nunito', sans-serif;
+letter-spacing: 3.0502px;
+color: #132A30;
+font-weight:700;
+`
+
+export const Carddetails = styled(Box)`
+font-size: 12px;
+letter-spacing: 1.06547px;
+text-transform: uppercase;
+color: #132A30;
+font-family: 'Nunito', sans-serif;
+font-weight:400;
+`
+
+
+
 export const CardEllipse = styled.img`
     position:absolute;
     top: -2px;
@@ -36,12 +70,4 @@ export const CardOption = styled.img`
     cursor:pointer;
     top: 20px;
     right: 20px;
-`
-
-export const IndividualCardDetailsContainer = styled.div`
-    text-align:left; 
-    margin-top:0.5rem;
-    span{
-        margin-right: 4rem;
-    }
 `

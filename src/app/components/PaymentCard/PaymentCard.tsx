@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { CardEllipse, CardOption, IndividualCardDetailsContainer, IndividualCardDiv, IndividualCardNumberContainer } from './style'
-import { dots, masterCard, ellipse } from '../../assets/Icons/index'
-import { Menu, MenuItem } from '@material-ui/core'
+import { Carddetails, CardEllipse,CardNumber, CardOption, IndividualCardDiv, MenuBox } from './style'
+import { dots, ellipse } from '../../assets/Icons/index'
+import { Box, Grid, Menu, MenuItem } from '@material-ui/core'
 import { deleteCard } from 'services/PaymentServices';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from 'store/reducers/PaymentReducer';
@@ -58,38 +58,30 @@ export default function PaymentCard({id,name,expiryData,cardNumber,setDrawerOpen
     }
     return (
         <>
+        <Grid item md={4}>
             <IndividualCardDiv>
                 <CardEllipse src={ellipse} />
                 <CardOption src={dots} onClick={handleClick}/>
-                <div style={{display:'flex', width:'100%'}}>
-                    <img src={masterCard} alt={'payment-icon'}/>
-                </div>
-                <IndividualCardNumberContainer>
-                    <strong>
-                        {cardNumber}
-                    </strong>
-                </IndividualCardNumberContainer>
-                <IndividualCardDetailsContainer>
-                    <span>
-                        {name}
-                    </span>
-                    <span>
-                        {expiryData}
-                    </span>
-                </IndividualCardDetailsContainer>
-                <div>
-                </div>
-            </IndividualCardDiv>
-            <Menu
+                <Box mt={14}>
+                <CardNumber>{cardNumber}</CardNumber>
+                </Box>
+                <Box mt={1} display="flex" alignItems="center">
+                <Carddetails>{name}</Carddetails>
+                <Carddetails ml={5}>{expiryData}</Carddetails>
+                </Box>
+                <MenuBox
                 id="simple-menu"
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+                className="menulist"
             >
                 <MenuItem onClick={() => handleEditCard()}>Edit Card</MenuItem>
                 <MenuItem onClick={handleDeleteCard}>Delete Card</MenuItem>
-            </Menu>
+            </MenuBox>
+            </IndividualCardDiv>
+            </Grid>
         </>
     )
 }

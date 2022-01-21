@@ -3,8 +3,6 @@ import { Drawer } from "app/components/Drawer"
 import { useState } from "react"
 import { PaymentCard }  from "../../../../components/PaymentCard/index"
 import AddCardForm from "./AddCardForm"
-import { CardContainerDiv } from "./style"
-
 
 interface IndividualCardProp{
     name:string;
@@ -24,7 +22,7 @@ interface cardData {
     nameOnCard?: string;
 }
 
-export default function CardContainer({heading, individualCardData}:PaymentCardContainerProps) {
+export default function CardContainer({individualCardData}:PaymentCardContainerProps) {
 
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
     const [cardData, setCardData] = useState<cardData>({})
@@ -32,7 +30,6 @@ export default function CardContainer({heading, individualCardData}:PaymentCardC
    
 
     return (
-        <div style={{marginTop: '2rem'}}>
             
             <Grid container>
                 {individualCardData.map((value,idx)=>(
@@ -40,6 +37,6 @@ export default function CardContainer({heading, individualCardData}:PaymentCardC
                 ))}
             </Grid>
             
-        </div>
+     
     )
 }

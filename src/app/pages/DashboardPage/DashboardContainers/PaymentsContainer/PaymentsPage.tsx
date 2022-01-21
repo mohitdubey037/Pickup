@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ModuleContainer from "app/components/ModuleContainer";
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { Button } from "app/components/Buttons";
 import PaymentCardContainer from "./PaymentsCardContainer";
 import { masterCard, scotiaBank } from "app/assets/Icons";
@@ -11,99 +11,83 @@ import { actions } from "store/reducers/PaymentReducer";
 import AddCardForm from "./AddCardForm";
 
 const individualCardData = [
-    {
-        name: "John Doe",
-        type: masterCard,
-        cardNumber: "**** **** **** 1734",
-        expiryDate: "05/24",
-    },
-    {
-        name: "John Doe",
-        type: scotiaBank,
-        cardNumber: "**** **** **** 1734",
-        expiryDate: "05/24",
-    },
+  {
+    name: "John Doe",
+    type: masterCard,
+    cardNumber: "**** **** **** 1734",
+    expiryDate: "05/24",
+  },
+  {
+    name: "John Doe",
+    type: scotiaBank,
+    cardNumber: "**** **** **** 1734",
+    expiryDate: "05/24",
+  },
 ];
 
 export default function PaymentsPage({ path: string }) {
+  const initialState = {
+    cardType: 0,
+    cardNumber: "",
+    expiryDate: "",
+    cvc: "",
+    nameOnCard: "",
+    pinCOde: "",
+    nickName: "",
+  };
 
-    const initialState = {
-        cardType: 0,
-        cardNumber: '',
-        expiryDate: '',
-        cvc: '',
-        nameOnCard: '',
-        pinCOde: '',
-        nickName: ''
-    }
+  const dispatch = useDispatch();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [cardDetails, setCardDetails] = useState(initialState);
+  const cardsData = useSelector(
+    (state: any) => state.paymentCard.paymentCardsData
+  );
 
-    const dispatch = useDispatch()
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const [cardDetails, setCardDetails] = useState(initialState)
-	const cardsData = useSelector((state: any) => state.paymentCard.paymentCardsData);
+  useEffect(() => {
+    onGetData();
+  }, []);
 
-    useEffect(()=>{
-        onGetData()
-    },[])
+  const onGetData = () => {
+    dispatch(actions.getCards());
+  };
 
-    const onGetData = () => {
-        dispatch(
-            actions.getCards()
-        );
+  const addNewCardHandler = async (values) => {
+    const body = {
+      name: values.nameOnCard,
+      number: values.cardNumber,
+      expiry_month: values.expiryDate.split("/")[0],
+      expiry_year: values.expiryDate.split("/")[1],
+      cvd: values.cvc,
     };
+    dispatch(actions.addNewCard(body));
+    setDrawerOpen(false);
+  };
 
-    const addNewCardHandler = async (values) => {
-        const body = {
-            "name": values.nameOnCard,
-            "number": values.cardNumber,
-            "expiry_month": values.expiryDate.split("/")[0],
-            "expiry_year": values.expiryDate.split("/")[1],
-            "cvd": values.cvc,
-        }
-            dispatch(actions.addNewCard(body));
-            setDrawerOpen(false)
-    };
+  return (
+    <ModuleContainer>
+      <Box textAlign="right">
+        <Button
+          label="+ Add New Card"
+          size="small"
+          onClick={() => {
+            setDrawerOpen(true);
+          }}
+        />
+      </Box>
+      <PaymentCardContainer individualCardData={cardsData?.card} />
 
-    return (
-        <ModuleContainer>
-            <Grid container justifyContent="flex-end">
-                <Grid
-                    item
-                    xl={12}
-                    lg={12}
-                    sm={12}
-                    md={12}
-                    xs={12}
-                    style={{ textAlign: "right" }}
-                >
-                    <div style={{ maxWidth: "160px", display: "inline-flex" }}>
-                        <Button
-                            label="+ Add New Card"
-                            size="small"
-                            onClick={() => {
-                                setDrawerOpen(true);
-                            }}
-                        />
-                    </div>
-                    <PaymentCardContainer
-                        heading="Card"
-                        individualCardData={cardsData?.card}
-                    />
-                    {/* <PaymentCardContainer
-                        heading="Debit Card"
-                        individualCardData={individualCardData}
-                    /> */}
-                </Grid>
-            </Grid>
-            <Drawer
-                open={drawerOpen}
-                title="Add New Card"
-                setDrawerOpen={(flag) => setDrawerOpen(flag)}
-                closeIcon={true}
-                actionButtons={true}
-            >
-                <AddCardForm setDrawerOpen={setDrawerOpen} saveAction={addNewCardHandler}/>
-            </Drawer>
-        </ModuleContainer>
-    );
+      <Drawer
+        open={drawerOpen}
+        title="Add New Card"
+        setDrawerOpen={(flag) => setDrawerOpen(flag)}
+        closeIcon={true}
+        actionButtons={true}
+      >
+        <AddCardForm
+          setDrawerOpen={setDrawerOpen}
+          saveAction={addNewCardHandler}
+        />
+      </Drawer>
+    </ModuleContainer>
+  );
 }
