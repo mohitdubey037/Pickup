@@ -40,14 +40,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
     const showLoader = useSelector((state: { globalState: { showLoader: boolean } }) => state.globalState.showLoader)
 
     const [email, setEmail] = useState<string>('')
-    const [modalIsOpen, setIsOpen] = useState(false);
-    const [policyModal, setPolicyModal] = useState(false);
-    function openModal() {
-        setIsOpen(true);
-      }
-    function closeModal() {
-        setIsOpen(false);
-      }
+    const [showTermsPolicies, setShowTermsPolicies] = useState('');
 
     useEffect(() => {
         const params = getParamsFromUrl(location.search)
@@ -154,7 +147,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                 <Checkbox
                                     isChecked={consent}
                                     id="consent"
-                                    label={<Termslink>I agree to the <Link to="" onClick={openModal}>Terms</Link> and <Link to="">Policies</Link></Termslink>}
+                                    label={<Termslink>I agree to the <Link to="" onClick={()=>setShowTermsPolicies('terms')}>Terms</Link> and <Link to=""onClick={()=>setShowTermsPolicies('policies')}>Policies</Link></Termslink>}
                                     name="consent"
                                     onChange={() => setFieldValue('consent', !consent)}
                                     onBlur={handleBlur}
@@ -162,18 +155,11 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                 />   
                             </Box>
                             <Modal
-                                isOpen={modalIsOpen}
-                                onRequestClose={closeModal}
+                                isOpen={!!showTermsPolicies}
+                                onRequestClose={()=>setShowTermsPolicies('')}
                                 // contentLabel="Example Modal"
                             >
-                                <TermsAndPolicies />
-                            </Modal>
-                            <Modal
-                                isOpen={modalIsOpen}
-                                onRequestClose={closeModal}
-                                // contentLabel="Example Modal"
-                            >
-                                <TermsAndPolicies />
+                                <TermsAndPolicies name={showTermsPolicies}/>
                             </Modal>
                             </Grid>
                             <Grid item xs={12} className={classes.gridColspacing}>
