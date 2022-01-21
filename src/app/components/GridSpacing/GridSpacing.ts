@@ -1,10 +1,11 @@
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
+import styled from 'styled-components';
 
-export const GridSpacing = makeStyles((theme: Theme) =>
-	createStyles({
-		gridColspacing: {
-			paddingBottom: '0px !important',
-			paddingTop: '0px !important',
-		}
-	}),
-);
+
+
+export const GridContainer= styled(Grid)`
+.MuiGrid-item{
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+}
+`;

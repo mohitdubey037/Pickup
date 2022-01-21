@@ -8,8 +8,9 @@ export interface resetPassword {
 export const signInUserService = async (signInRequest: {
     email: string;
     password: string;
+    checked: boolean
 }) => {
-    const res = await Services.post("business/login", { password: signInRequest.password, emailId: signInRequest.email }, "user");
+    const res = await Services.post("business/login", { password: signInRequest.password, emailId: signInRequest.email, checked: signInRequest.checked }, "user");
     return res;
 };
 
