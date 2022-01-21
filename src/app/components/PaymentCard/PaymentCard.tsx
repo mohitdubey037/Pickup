@@ -5,23 +5,16 @@ import { Menu, MenuItem } from '@material-ui/core'
 import { deleteCard } from 'services/PaymentServices';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from 'store/reducers/PaymentReducer';
+import {IndividualCard} from "../../pages/DashboardPage/DashboardContainers/PaymentsContainer/PaymentsCardContainer"
 
-interface cardData {
-    cardNumber?: string;
-    expiryDate?: string;
-    nameOnCard?: string;
-}
 interface PaymentCardProps{
-    id:string;
-    name: string;
-    expiryData: string;
-    cardNumber: string;
+    cardData:IndividualCard;
     setDrawerOpen: Dispatch<SetStateAction<boolean>>;
-    setCardData: Dispatch<SetStateAction<cardData>>;
+    setCardData: Dispatch<SetStateAction<IndividualCard>>;
 }
 
 
-export default function PaymentCard({id,name,expiryData,cardNumber,setDrawerOpen, setCardData}:PaymentCardProps) {
+export default function PaymentCard({cardData,setDrawerOpen, setCardData}:PaymentCardProps) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const customerCode = useSelector((state: any) => state.paymentCard.paymentCardsData.customer_code);
     const dispatch = useDispatch();
@@ -35,11 +28,7 @@ export default function PaymentCard({id,name,expiryData,cardNumber,setDrawerOpen
 
     const handleEditCard = () => {
         handleClose();
-        const cardData = {
-            cardNumber: cardNumber,
-            expiryDate: expiryData,
-            nameOnCard: name,
-        }
+        
         setCardData(cardData)
         setDrawerOpen(true)
     }
@@ -47,7 +36,7 @@ export default function PaymentCard({id,name,expiryData,cardNumber,setDrawerOpen
     const handleDeleteCard = async () => {
         handleClose();
         try{
-        const res: { response: any, error: any } = await deleteCard(customerCode,id);
+        const res: { response: any, error: any } = await deleteCard(customerCode,cardData.card_id);
         if(res) {
             dispatch(actions.getCards());
         }
@@ -66,15 +55,15 @@ export default function PaymentCard({id,name,expiryData,cardNumber,setDrawerOpen
                 </div>
                 <IndividualCardNumberContainer>
                     <strong>
-                        {cardNumber}
+                        {cardData.number}
                     </strong>
                 </IndividualCardNumberContainer>
                 <IndividualCardDetailsContainer>
                     <span>
-                        {name}
+                        {cardData.name}
                     </span>
                     <span>
-                        {expiryData}
+                        {`${cardData.expiry_month}/${cardData.expiry_year}`}
                     </span>
                 </IndividualCardDetailsContainer>
                 <div>

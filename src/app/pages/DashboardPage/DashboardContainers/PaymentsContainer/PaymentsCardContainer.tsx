@@ -6,7 +6,7 @@ import AddCardForm from "./AddCardForm"
 import { CardContainerDiv } from "./style"
 
 
-interface IndividualCardProp{
+export interface IndividualCard{
     card_id: string;
     card_type: string;
     name:string;
@@ -18,19 +18,31 @@ interface IndividualCardProp{
 
 interface PaymentCardContainerProps{
     heading: string;
-    individualCardData: Array<IndividualCardProp>
+    individualCardData: Array<IndividualCard>
 }
 
-interface cardData {
+export interface cardData {
     cardNumber?: string;
     expiryDate?: string;
     nameOnCard?: string;
+    cvc?:string;
+    pinCode?:string;
+    nickName?:string;
 }
 
 export default function PaymentCardContainer({heading, individualCardData}:PaymentCardContainerProps) {
 
+    const initialCardValue={
+        card_id: "",
+    card_type: "",
+    name:"",
+    expiry_month: "",
+    expiry_year: "",
+    function: "",
+    number:""
+    }
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
-    const [cardData, setCardData] = useState<cardData>({})
+    const [cardData, setCardData] = useState<IndividualCard>(initialCardValue)
 
     const saveCard = () => {
         console.log("Save card called")
@@ -45,7 +57,9 @@ export default function PaymentCardContainer({heading, individualCardData}:Payme
             </CardContainerDiv>
             <Grid container>
                 {individualCardData?.map((value,idx)=>(
-                    <PaymentCard setDrawerOpen={setDrawerOpen} setCardData={setCardData} key={idx} id={value.card_id} name={value.name} expiryData={`${value.expiry_month}/${value.expiry_year}`} cardNumber={value.number.substring(12,16).padStart(16, '*').replace(/(.{4})/g, '$1 ').trim()}/>
+                    // <PaymentCard setDrawerOpen={setDrawerOpen} setCardData={setCardData} key={idx} id={value.card_id} name={value.name} expiryData={`${value.expiry_month}/${value.expiry_year}`} cardNumber={value.number.substring(12,16).padStart(16, '*').replace(/(.{4})/g, '$1 ').trim()}/>
+                    <PaymentCard setDrawerOpen={setDrawerOpen} setCardData={setCardData} key={idx} cardData={value}/>
+                    
                 ))}
             </Grid>
             <Drawer
@@ -55,7 +69,7 @@ export default function PaymentCardContainer({heading, individualCardData}:Payme
                 closeIcon={true}
                 actionButtons={true}
             >
-                <AddCardForm setDrawerOpen={setDrawerOpen} saveAction={saveCard}/>
+                <AddCardForm setDrawerOpen={setDrawerOpen} saveAction={saveCard} cardData={cardData}/>
             </Drawer>
         </div>
     )
