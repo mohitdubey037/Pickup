@@ -1,27 +1,61 @@
 import React from "react";
 import { Box, Grid } from "@material-ui/core";
 import { FullCard } from "app/components/Input/style";
-import {
-  ListLabel,
-} from "app/components/Typography/Typography";
+import { ListLabel } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { FormikValues } from "formik";
-import { CustomInput } from "./style";
-import { PERMISSION_TYPES } from "../../../../../constants";
+import { useFormik } from "formik";
+// import { Input } from "./style";
+import {
+  PERMISSION_TYPES,
+  NOTIFICATION_FREQUENCY_TYPES,
+} from "../../../../../constants";
 import Select from "app/components/Select";
+import { addNewColleague } from "./CompanyProfileSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import Switches from "app/components/Input/SwitchButton";
 import EditAvatar from "app/components/Avatar/EditAvatar";
-function NewColleagueForm(props: { formik: FormikValues }) {
+import { Input } from "app/components/Input";
+import { CustomInput } from "./style";
+function NewColleagueForm({ saveAction }) {
   const {
+    values,
     handleChange,
     errors,
-    title,
     touched,
-    values,
     handleBlur,
     handleSubmit,
-  } = props.formik;
+    isValid,
+    resetForm,
+  } = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      roleDesignation: "",
+      emailId: "",
+      notificationFrequency: "",
+      permission: "",
+      notification: 1,
+      type: 17,
+    },
+    validationSchema: addNewColleague,
+    onSubmit: (values, actions) => {
+      saveAction(values);
+      actions.resetForm({
+        values: {
+          firstName: "",
+          lastName: "",
+          phoneNumber: "",
+          roleDesignation: "",
+          emailId: "",
+          notificationFrequency: "",
+          permission: "",
+          notification: 1,
+          type: 17,
+        },
+      });
+    },
+  });
   return (
     <FullCard>
       <Box mb={4}>
@@ -34,7 +68,9 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             name="firstName"
             onBlur={handleBlur}
             onChange={handleChange}
-            error={touched.firstName && errors.firstName}
+            value={values?.firstName}
+            initValue={values?.firstName}
+            error={touched.firstName && errors?.firstName?.toString()}
             label={"First Name"}
             placeholder={"John"}
           />
@@ -46,9 +82,11 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             name="lastName"
             onBlur={handleBlur}
             onChange={handleChange}
-            error={touched.lastName && errors.lastName}
+            value={values?.lastName}
+            initValue={values?.lastName}
+            error={touched.lastName && errors?.lastName}
             label={"Last Name"}
-            placeholder={"Start typing"}
+            placeholder={"Doe"}
           />
         </Grid>
         <Grid item md={3}>
@@ -57,57 +95,62 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             name="phoneNumber"
             onBlur={handleBlur}
             onChange={handleChange}
-            error={touched.phoneNumber && errors.phoneNumber}
+            value={values?.phoneNumber}
+            initValue={values?.phoneNumber}
+            error={touched.phoneNumber && errors?.phoneNumber?.toString()}
             label={"Phone Number"}
-            placeholder={"Doe"}
-          />
-        </Grid>
-        <Grid item md={3}>
-          <CustomInput
-            id="Role"
-            name="Role"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.Role && errors.Role}
-            label={"Role/Designation"}
             placeholder={"+1 (999)-999-9999"}
           />
         </Grid>
         <Grid item md={3}>
           <CustomInput
-            id="email"
-            name="email"
+            id="roleDesignation"
+            name="roleDesignation"
             onBlur={handleBlur}
             onChange={handleChange}
-            error={touched.email && errors.email}
+            value={values?.roleDesignation}
+            initValue={values?.roleDesignation}
+            error={
+              touched.roleDesignation && errors?.roleDesignation?.toString()
+            }
+            label={"Role / Designation"}
+            placeholder={"Manager"}
+          />
+        </Grid>
+        <Grid item md={3}>
+          <CustomInput
+            id="emailId"
+            name="emailId"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={values?.emailId}
+            initValue={values?.emailId}
+            error={touched.emailId && errors?.emailId?.toString()}
             label={"Email id"}
             placeholder={"johndoe@pickups.com"}
           />
         </Grid>
         <Grid item md={3}>
-        <Switches />
+          <Switches />
         </Grid>
         <Grid item md={3}>
-          <CustomInput
+          <Select
             id="notificationFrequency"
             name="notificationFrequency"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={
-              touched.notificationFrequency && errors.notificationFrequency
-            }
+            options={NOTIFICATION_FREQUENCY_TYPES}
             label={"Notification Frequency"}
-            placeholder={"Start typing"}
+            value={values["notificationFrequency"]}
+            onSelect={handleChange}
           />
         </Grid>
         <Grid item md={12}>
           <Select
-            id="Permission"
-            name="Permission"
+            id="permission"
+            name="permission"
             options={PERMISSION_TYPES}
             label={"Permission"}
-            value={values[title + "Permission"]}
-            onSelect={(e) => console.log(e)}
+            value={values["permission"]}
+            onSelect={handleChange}
           />
         </Grid>
         <Grid item md={12}>
@@ -115,6 +158,7 @@ function NewColleagueForm(props: { formik: FormikValues }) {
             label="Save"
             onClick={handleSubmit}
             size="medium"
+            disabled={!isValid}
             style={{ float: "right" }}
           />
         </Grid>
