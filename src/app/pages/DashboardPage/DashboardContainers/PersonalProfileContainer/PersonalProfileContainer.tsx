@@ -49,7 +49,7 @@ export default function PersonalProfileContainer({ path: string }) {
 
     return (
         <ModuleContainer>
-            <ContainerTitle>Personal Profile</ContainerTitle>
+            <ContainerTitle title="Personal Profile" />
             <PersonalProfile
                 user={user}
                 setPasswordDrawerOpen={setPasswordDrawerOpen}

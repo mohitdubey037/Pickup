@@ -152,6 +152,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
           <Button
             showLoader={showLoader}
             label="Sign In"
+            size="large"
             onClick={handleSubmit}
             disabled={!(isValid)}
           />
