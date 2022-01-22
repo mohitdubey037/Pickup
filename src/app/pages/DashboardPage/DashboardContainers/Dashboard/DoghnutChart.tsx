@@ -16,7 +16,7 @@ export default function DoghnutChart({title,onTimePercentage,delayedPercentage,d
             <h3 style={{textAlign:'left', margin:'0 0 1rem 0'}}>
                 {title}
             </h3>
-            <Grid container justifyContent='center' alignItems='center' style={{display: 'flex'}}>
+            <Grid container justifyContent='center' alignItems='center'>
                 <Grid item lg={6} xs={12} md={12} xl={6} sm={12}>
                     <ReactApexChart
                         options={{
