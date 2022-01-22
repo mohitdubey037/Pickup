@@ -12,7 +12,7 @@ interface DoghnutProps{
 
 export default function DoghnutChart({title,onTimePercentage,delayedPercentage,doghnutData}:DoghnutProps) {
     return (
-        <DoghnutContainer elevation={0}>
+        <DoghnutContainer elevation={1}>
             <h3 style={{textAlign:'left', margin:'0 0 1rem 0'}}>
                 {title}
             </h3>

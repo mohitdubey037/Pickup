@@ -1,6 +1,6 @@
 export interface CardProps {
 	title: string;
-	numberValue: number;
+	numberValue: any;
 	label: string;
     onClick:()=>void;
 	type?: string;

@@ -2,7 +2,7 @@ import { CustomProgressCard, ProgressRow, ProgressCardHeader } from "./style"
 import { Progressbar } from "../Progressbar"
 
 interface ProgressCategory{
-    category:any;
+    category:string;
     progressValue:number;
     cost:number;
 }
