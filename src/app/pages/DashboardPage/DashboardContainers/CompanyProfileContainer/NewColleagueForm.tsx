@@ -142,9 +142,6 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"johndoe@pickups.com"}
           />
         </Grid>
-      </GridContainer>
-
-      <GridContainer container>
         <Grid item md={3}>
           <Select
             id="notificationFrequency"
@@ -156,6 +153,9 @@ function NewColleagueForm({ saveAction }) {
             disabled={isChecked}
           />
         </Grid>
+      </GridContainer>
+
+      <GridContainer container>
         {/* <Grid item md={12}>
           <Select
             id="permission"

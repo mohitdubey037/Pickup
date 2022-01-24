@@ -37,7 +37,6 @@ import imageIcon from './imageIcon.svg';
 import printer from './printer.svg';
 import sliders from './sliders.svg';
 import warningIcon from './warningIcon.svg'
-import LogoImg from './LogoImg';
 import alertOctagon from './alertOctagon.svg';
 import Grouppaymentsummary from './Grouppaymentsummary.svg'
 import InsuranceIcon from "./InsuranceIcon.svg";
@@ -51,6 +50,7 @@ import YellowTick from "./YellowTick.svg";
 import calendar from "./calendar.svg"
 import remove from "./Remove.svg"
 import editavatar from "./edit-avatar.svg"
+import logo from './logoImg.svg'
 
 
 export {
@@ -64,7 +64,7 @@ export {
     delivery,
     eyeIcon,
     greenCheck,
-    LogoImg,
+    logo,
     mailLogo,
     myAccount,
     redCross,

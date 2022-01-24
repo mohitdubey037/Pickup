@@ -1,9 +1,10 @@
 import { useState,useEffect } from "react";
-import {LeftDashboardWrapper,LeftContent,CustomListItem,ChildLink, LogoIcon, ListItem} from "./style";
+import {LeftDashboardWrapper,LeftContent,CustomListItem,ChildLink, LogoIcon, ListItem, SidebarLogo} from "./style";
 import { dashboardHelper } from "../helper";
 import { Link } from "../type";
-import { LogoImg } from "app/assets/Icons";
-import { ListLabel, SmallLabel } from "app/components/Typography/Typography";
+import { ListLabel } from "app/components/Typography/Typography";
+import { logo } from "app/assets/Icons";
+import { Box } from "@material-ui/core";
 
 interface LeftDashboardProps {
     onDrawerItemSelect: (link: string) => void;
@@ -24,7 +25,9 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
  
   return (
     <LeftDashboardWrapper>
-      <LogoImg width={"62px"} padding={"10px 10px 5px 10px"} />
+      <SidebarLogo >
+      <img src={logo} alt="logo"  />
+      </SidebarLogo>
       <LeftContent>
         {dashboardHelper.map((parent: Link) => {
           const isSelected =

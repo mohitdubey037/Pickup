@@ -24,9 +24,6 @@ interface Token {
   userId: number;
 }
 
-const token = Cookies?.get("token") || "";
-const decoded: Token = jwt_decode(token);
-
 export default function PersonalProfileContainer({ path: string }) {
   const [passwordDrawerOpen, setPasswordDrawerOpen] = useState(false);
   const [editDetailsDrawerOpen, setEditDetailsDrawerOpen] = useState(false);
@@ -35,6 +32,8 @@ export default function PersonalProfileContainer({ path: string }) {
 
   useEffect(() => {
     (async () => {
+      const token = Cookies?.get("token") || "";
+      const decoded: Token | null = token ? jwt_decode(token) : null;
       const res: any = await getPersonalProfileDetails(decoded?.userId);
       setPersonalProfileDetails(res?.response?.data?.data);
     })();
@@ -44,10 +43,10 @@ export default function PersonalProfileContainer({ path: string }) {
     console.log("values", values);
 
     await editPersonalProfileDetails(values).then(async () => {
-      const response: any = await getPersonalProfileDetails(decoded?.userId);
-      if (response?.success) {
-        setPersonalProfileDetails(response?.response?.data?.data);
-      }
+      // const response: any = await getPersonalProfileDetails(decoded?.userId);
+      // if (response?.success) {
+      //   setPersonalProfileDetails(response?.response?.data?.data);
+      // }
     });
     setEditDetailsDrawerOpen(false);
   };

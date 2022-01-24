@@ -22,13 +22,19 @@ const fontSize = {
 }
 
 
+const height = {
+  'small': '40px',
+  'medium': '40px',
+	'large': '56px',
+}
 
 
 export const useStyles = makeStyles<Theme, ButtonProps>({
 	root: {
 		width: ({ size }) => (size ? sizes[size] : '100%'),
-    padding: ({ size }) => (size ? padding[size] : '12px'),
+    padding: ({ size }) => (size ? padding[size] : '12px 16px'),
     fontSize: ({ size }) => (size ? fontSize[size] : '14px'),
+    height: ({ size }) => (size ? height[size] : '40px'),
 		'@media (max-width:600px)': {
 			width: '100% !important',
 		},

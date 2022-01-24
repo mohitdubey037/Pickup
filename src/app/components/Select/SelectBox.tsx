@@ -44,8 +44,6 @@ export default function SelectBox(props: SelectPropTypes) {
     disabled,
   } = props;
 
-  console.log(value);
-
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null

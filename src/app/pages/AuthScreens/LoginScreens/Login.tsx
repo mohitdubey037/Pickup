@@ -18,6 +18,7 @@ import { loginSchema } from "./loginSchemas";
 import { actions } from "store/reducers/SignInReducer";
 import { useEffect, useState } from "react";
 import CryptoJS from 'crypto-js';
+import { CommonError } from "app/components/Input/style";
 
 const Login = ({ navigate }: RouteComponentProps) => {
 
@@ -149,7 +150,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
                 link={() => navigate?.("/forgot-password")}
               />
             </RememberDiv>
-            {errorMessage ? <span style={{ color: '#c94c43' }}> {errorMessage} </span> : null}
+            {errorMessage ? <CommonError>{errorMessage} </CommonError> : null}
             <Button
               showLoader={showLoader}
               label="Sign In"
