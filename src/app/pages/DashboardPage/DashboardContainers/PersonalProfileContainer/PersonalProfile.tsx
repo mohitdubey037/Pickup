@@ -6,7 +6,7 @@ import {
 } from "app/components/Typography/Typography";
 import EditIcon from "app/components/EditIcon";
 import { Button } from "../../../../components/Buttons";
-import { Flex, FullCard } from "app/components/Input/style";
+import { FullCard } from "app/components/Input/style";
 import { FlexBox } from "./styles";
 import { PersonalProfileType } from "./types";
 interface CardInterface {
@@ -30,7 +30,7 @@ export default function PersonalProfile(props: CardInterface) {
       </Box>
 
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box mr={2}>
+        <Box>
           <Avatar
             style={{ width: 86, height: 86 }}
             src={personalProfileDetails?.profileImage}

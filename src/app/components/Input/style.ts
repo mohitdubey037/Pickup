@@ -77,7 +77,15 @@ export const CustomInputTextArea = styled.textarea`
 
 export const ErrorLabel = styled.span`
   color: #c94c43;
+  font-size:12px;
 `;
+
+export const CommonError = styled(Box)`
+  color: #c94c43;
+  font-size:12px;
+  margin-bottom:16px;
+`;
+
 
 export const FullCard = styled(Box)`
   padding: 24px;

@@ -46,6 +46,7 @@ export const SelectBoxStyle = styled(FormControl)`
     height: 42px;
     box-sizing: border-box;
     display: flex;
+    z-index: 1;
   }
 
   .MuiInput-underline:hover:not(.Mui-disabled):before,
@@ -103,20 +104,21 @@ export const SelectBoxStyle = styled(FormControl)`
     position: absolute;
     right: 12px;
     top: 38px;
+    z-index: 0;
   }
 `;
 
 export const SelectContainer = styled.div<SelectContainerType>`
     width: 100%;
     height: 42px;
-    align-items: flex-start !important;
-    display: flex !important;
-    padding: 4px !important;
-    border-radius: 4px !important;
-    border: 1px solid #C4C4C4 !important;
-    cursor:pointer !important;
-    align-items: baseline !important;
-    font-size: 20px !important;
+    align-items: flex-start;
+    display: flex;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid #C4C4C4;
+    cursor:pointer;
+    align-items: center ;
+    font-size: 20px;
     box-sizing:border-box;
     ${(props) =>
       props.disabled &&
@@ -134,7 +136,7 @@ export const CustomSelect = styled.select`
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     typography: {
-      padding: theme.spacing(2),
+      padding: "8px 12px",
     },
     placeholder: {
       flex: 1,
