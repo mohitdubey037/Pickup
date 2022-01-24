@@ -45,8 +45,8 @@ export default function CompanyProfile({ path: string }) {
     // console.log(companyDetails?.companyId);
     values["companyId"] = companyDetails?.companyId;
     console.log(values);
-    // const res = await inviteColleague(values);
-    // console.log(res);
+    const res = await inviteColleague(values);
+    console.log(res);
     const colleagueResponse = await fetchColleagues();
     // console.log("colleagueResponse", colleagueResponse);
     setColleagueList(colleagueResponse?.response?.data?.data);
