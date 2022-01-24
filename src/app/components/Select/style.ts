@@ -1,7 +1,9 @@
 import { FormControl } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+
 import styled, { css } from "styled-components";
 import { SmallLabel } from "../Typography/Typography";
+
 interface SelectContainerType {
   disabled?: boolean;
 }
@@ -18,14 +20,17 @@ export const SmallLabeltext = styled(SmallLabel)`
   min-width: 75%;
   white-space: break-spaces;
 `;
+
 export const MenuLabel = styled(SmallLabel)`
   color: #414141;
+  margin: 0;
   min-width: 25%;
   white-space: break-spaces;
 `;
 
 export const SelectBoxStyle = styled(FormControl)`
   width: 100% !important;
+
   .MuiAutocomplete-endAdornment,
   .MuiSelect-icon {
     display: none;
@@ -33,6 +38,7 @@ export const SelectBoxStyle = styled(FormControl)`
   span {
     color: #c5c5c5;
   }
+
   .MuiSelect-select.MuiSelect-select {
     padding: 12px 8px !important;
     border-radius: 4px !important;
@@ -40,6 +46,7 @@ export const SelectBoxStyle = styled(FormControl)`
     height: 42px;
     box-sizing: border-box;
   }
+
   .MuiInput-underline:hover:not(.Mui-disabled):before,
   .MuiSelect-nativeInput,
   .MuiInput-underline:before {
@@ -54,6 +61,7 @@ export const SelectBoxStyle = styled(FormControl)`
     -ms-transform: none;
     transform: none;
   }
+
   .MuiInputBase-input,
   .MuiFormLabel-root {
     font-size: 16px;
@@ -66,11 +74,11 @@ export const SelectBoxStyle = styled(FormControl)`
     color: #c94c43;
     margin: 0;
     font-size: 14px;
-    z-index: 0;
     text-align: left;
     font-family: "Roboto";
     line-height: 1;
   }
+
   .MuiInputLabel-formControl {
     position: relative;
   }
@@ -80,6 +88,7 @@ export const SelectBoxStyle = styled(FormControl)`
   .MuiInput-underline:before {
     border-bottom: none;
   }
+
   .MuiInput-underline:hover:not(.Mui-disabled):before {
     border-bottom: none;
   }
@@ -93,9 +102,9 @@ export const SelectBoxStyle = styled(FormControl)`
     position: absolute;
     right: 12px;
     top: 38px;
-    z-index: 1;
   }
 `;
+
 export const SelectContainer = styled.div<SelectContainerType>`
     width: 100%;
     height: 42px;

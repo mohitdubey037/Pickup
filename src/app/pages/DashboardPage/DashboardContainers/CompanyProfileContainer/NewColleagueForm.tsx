@@ -142,6 +142,9 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"johndoe@pickups.com"}
           />
         </Grid>
+      </GridContainer>
+
+      <GridContainer container>
         <Grid item md={3}>
           <Select
             id="notificationFrequency"

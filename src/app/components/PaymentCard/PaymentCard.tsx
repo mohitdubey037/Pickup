@@ -1,27 +1,20 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { CardEllipse, CardOption, IndividualCardDetailsContainer, IndividualCardDiv, IndividualCardNumberContainer } from './style'
-import { dots, masterCard, ellipse } from '../../assets/Icons/index'
-import { Menu, MenuItem } from '@material-ui/core'
+import { Carddetails, CardEllipse,CardNumber, CardOption, IndividualCardDiv, MenuBox } from './style'
+import { dots, ellipse } from '../../assets/Icons/index'
+import { Box, Grid, Menu, MenuItem } from '@material-ui/core'
 import { deleteCard } from 'services/PaymentServices';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from 'store/reducers/PaymentReducer';
+import {IndividualCard} from "../../pages/DashboardPage/DashboardContainers/PaymentsContainer/PaymentsCardContainer"
 
-interface cardData {
-    cardNumber?: string;
-    expiryDate?: string;
-    nameOnCard?: string;
-}
 interface PaymentCardProps{
-    id:string;
-    name: string;
-    expiryData: string;
-    cardNumber: string;
+    cardData:IndividualCard;
     setDrawerOpen: Dispatch<SetStateAction<boolean>>;
-    setCardData: Dispatch<SetStateAction<cardData>>;
+    setCardData: Dispatch<SetStateAction<IndividualCard>>;
 }
 
 
-export default function PaymentCard({id,name,expiryData,cardNumber,setDrawerOpen, setCardData}:PaymentCardProps) {
+export default function PaymentCard({cardData,setDrawerOpen, setCardData}:PaymentCardProps) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const customerCode = useSelector((state: any) => state.paymentCard.paymentCardsData.customer_code);
     const dispatch = useDispatch();
@@ -35,11 +28,7 @@ export default function PaymentCard({id,name,expiryData,cardNumber,setDrawerOpen
 
     const handleEditCard = () => {
         handleClose();
-        const cardData = {
-            cardNumber: cardNumber,
-            expiryDate: expiryData,
-            nameOnCard: name,
-        }
+        
         setCardData(cardData)
         setDrawerOpen(true)
     }
@@ -47,7 +36,7 @@ export default function PaymentCard({id,name,expiryData,cardNumber,setDrawerOpen
     const handleDeleteCard = async () => {
         handleClose();
         try{
-        const res: { response: any, error: any } = await deleteCard(customerCode,id);
+        const res: { response: any, error: any } = await deleteCard(customerCode,cardData.card_id);
         if(res) {
             dispatch(actions.getCards());
         }
@@ -58,38 +47,30 @@ export default function PaymentCard({id,name,expiryData,cardNumber,setDrawerOpen
     }
     return (
         <>
+        <Grid item md={4}>
             <IndividualCardDiv>
                 <CardEllipse src={ellipse} />
                 <CardOption src={dots} onClick={handleClick}/>
-                <div style={{display:'flex', width:'100%'}}>
-                    <img src={masterCard} alt={'payment-icon'}/>
-                </div>
-                <IndividualCardNumberContainer>
-                    <strong>
-                        {cardNumber}
-                    </strong>
-                </IndividualCardNumberContainer>
-                <IndividualCardDetailsContainer>
-                    <span>
-                        {name}
-                    </span>
-                    <span>
-                        {expiryData}
-                    </span>
-                </IndividualCardDetailsContainer>
-                <div>
-                </div>
-            </IndividualCardDiv>
-            <Menu
+                <Box mt={14}>
+                <CardNumber>{cardData.number}</CardNumber>
+                </Box>
+                <Box mt={1} display="flex" alignItems="center">
+                <Carddetails>{cardData.name}</Carddetails>
+                <Carddetails ml={5}>{`${cardData.expiry_month}/${cardData.expiry_year}`}</Carddetails>
+                </Box>
+                <MenuBox
                 id="simple-menu"
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+                className="menulist"
             >
-                <MenuItem onClick={() => handleEditCard()}>Edit Card</MenuItem>
+                {/* <MenuItem onClick={() => handleEditCard()}>Edit Card</MenuItem> */}
                 <MenuItem onClick={handleDeleteCard}>Delete Card</MenuItem>
-            </Menu>
+            </MenuBox>
+            </IndividualCardDiv>
+            </Grid>
         </>
     )
 }

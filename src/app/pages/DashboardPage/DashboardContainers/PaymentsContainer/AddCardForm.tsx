@@ -1,3 +1,4 @@
+import React from "react"
 import { Input } from "app/components/Input"
 import { Flex } from "app/components/Input/style"
 import { Button } from "app/components/Buttons"
@@ -5,8 +6,21 @@ import { useFormik } from "formik"
 import { cardSchema } from "./cardSchema"
 import { Checkbox } from "app/components/Checkbox";
 import RadioGroup from "app/components/RadioGroup"
+import { Box } from "@material-ui/core"
+import { DrawerFooter } from "app/components/Drawer/style"
+import {IndividualCard} from "./PaymentsCardContainer"
 
-const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, submitButtonLabel="Save" }) => {
+interface AddCardFromProps {
+    title?:string;
+    setDrawerOpen:React.Dispatch<React.SetStateAction<boolean>>;
+    saveAction:(data)=> void;
+    enableSave?:boolean;
+    submitButtonLabel?:string;
+    cardData?:IndividualCard;
+
+}
+const AddCardForm:React.FC<AddCardFromProps> = ({ title = '', setDrawerOpen, saveAction, enableSave=false, submitButtonLabel="Save" , cardData={}}) => {
+
 
     const {
         values,
@@ -17,31 +31,16 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
         handleSubmit,
         setFieldValue
     } = useFormik({
-        initialValues: { cardType: "1", cardNumber: "", expiryDate: "", cvc: "", nameOnCard: "", pinCode: "", nickName: "", saveCard: false },
+        initialValues: { cardType: "1", cardNumber: cardData.number|| "", expiryDate:`${cardData.expiry_month?cardData.expiry_month+"/":""}${cardData.expiry_year||""}`, cvc:"", nameOnCard: cardData.name||"", pinCode:"", nickName:"", saveCard: false },
         validationSchema: cardSchema,
         onSubmit: (values) => saveAction(values),
     });
 
     return (
-        <Flex direction="column" style={{ height: '100%', width: '540px' }}>
-            <div>
-                <h3>{title}</h3>
-                <Flex direction="row">
-                    <RadioGroup
-                        value={values.cardType}
-                        onChange={handleChange}
-                        label="Method of payments"
-                        options={[
-                            { label: "Credit Card", value: "1" },
-                            { label: "Debit Card", value: "0" },
-                        ]}
-                        name={"cardType"}
-                        error={touched.cardType && errors.cardType}
-                    />
-                </Flex>
-                <Flex>
+        <Box>
                     <Input
                         id="cardNumber"
+                        initValue={values.cardNumber}
                         name="cardNumber"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -49,11 +48,10 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                         label="Card Number"
                         placeholder={"**** **** **** ****"}
                     />
-                </Flex>
-                <Flex direction="row" style={{ gap: '20px', gridGap: '20px' }}>
                     <Input
                         id="expiryDate"
                         name="expiryDate"
+                        initValue={values.expiryDate}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         error={touched.expiryDate && errors.expiryDate}
@@ -62,6 +60,7 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                     />
                     <Input
                         id="cvc"
+                        initValue={values.cvc}
                         name="cvc"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -69,10 +68,9 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                         label="CVC"
                         placeholder={"CVC"}
                     />
-                </Flex>
-                <Flex>
                     <Input
                         id="nameOnCard"
+                        initValue={values.nameOnCard}
                         name="nameOnCard"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -80,10 +78,9 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                         label="Name on Card"
                         placeholder={"Start typing"}
                     />
-                </Flex>
-                <Flex>
                     <Input
                         id="pinCode"
+                        initValue={values.pinCode}
                         name="pinCode"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -91,10 +88,9 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                         label="Pin Code"
                         placeholder={"1234"}
                     />
-                </Flex>
-                <Flex>
                     <Input
                         id="nickName"
+                        initValue={values.nickName}
                         name="nickName"
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -102,28 +98,20 @@ const AddCardForm = ({ title = '', setDrawerOpen, saveAction, enableSave=false, 
                         label="Nickname (optional)"
                         placeholder={"Name your card"}
                     />
-                </Flex>
                 {enableSave && (
-                    <div style={{ display: "flex" }}>
-                        <span style={{ padding: "0px 10px 0px 0px" }}>
+                  
                             <Checkbox  
                                 id="saveCard"
                                 name="saveCard"
                                 label="Save Card for Future" 
                                 onChange={() => setFieldValue("saveCard", !values.saveCard)}
                             />
-                        </span>
-                        <span style={{ display: "flex" }}>
-
-                        </span>
-                    </div>
                 )}
-            </div>
-            <Flex direction="row" justifyContent={'space-between'} style={{ alignItems: 'flex-end' }} >
-                <Button secondary style={{ width: 'fit-content', minWidth: '150px' }} onClick={() => setDrawerOpen(false)} label="Cancel"></Button>
-                <Button style={{ width: 'fit-content', minWidth: '150px' }} label={submitButtonLabel} onClick={handleSubmit}></Button>
-            </Flex>
-        </Flex>
+            <DrawerFooter>
+                <Button secondary size="medium" onClick={() => setDrawerOpen(false)} label="Cancel"></Button>
+                <Button size="medium" label={submitButtonLabel} onClick={handleSubmit}></Button>
+            </DrawerFooter>
+        </Box>
     )
 }
 

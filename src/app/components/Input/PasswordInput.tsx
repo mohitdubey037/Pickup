@@ -16,9 +16,10 @@ const PasswordInput = ({
   id,
   name,
   onBlur,
-  autoComplete
+  autoComplete,
+  initValue
 }: InputProps) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(initValue);
   const [open, setOpen] = useState(true);
   const [showPass, setShowPass] = useState(false);
   const ref = useRef(null);

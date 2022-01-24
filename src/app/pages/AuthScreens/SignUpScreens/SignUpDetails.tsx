@@ -21,7 +21,9 @@ import { getParamsFromUrl } from "utils/commonUtils";
 import { PageTitle } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Flex } from "app/components/Input/style";
-
+import { Link } from "app/components/Link";
+import Modal from 'react-modal';
+import TermsAndPolicies from "./Terms&Policies";
 
 type SignUpProps = RouteComponentProps;
 
@@ -37,6 +39,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
     const showLoader = useSelector((state: { globalState: { showLoader: boolean } }) => state.globalState.showLoader)
 
     const [email, setEmail] = useState<string>('')
+    const [showTermsPolicies, setShowTermsPolicies] = useState('');
 
     useEffect(() => {
         const params = getParamsFromUrl(location.search)
@@ -51,9 +54,11 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         if (companyResponse) {
-            navigate?.("/password", { state: {
-                email: email
-            } });
+            navigate?.("/password", {
+                state: {
+                    email: email
+                }
+            });
         }
     }, [companyResponse, navigate, email]);
 
@@ -80,7 +85,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         (() => validateForm())();
-      }, []);
+    }, []);
 
     return (
         <SignUpWrapper>
@@ -143,13 +148,19 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                 <Checkbox
                                     isChecked={consent}
                                     id="consent"
-                                    label={<Termslink>I agree to the <a href="#" target="_blank">Terms</a> and <a href="#" target="_blank">Policies</a></Termslink>}
+                                    label={<Termslink>I agree to the <Link to="" onClick={()=>setShowTermsPolicies('terms')}>Terms</Link> and <Link to=""onClick={()=>setShowTermsPolicies('policies')}>Policies</Link></Termslink>}
                                     name="consent"
                                     onChange={() => setFieldValue('consent', !consent)}
                                     onBlur={handleBlur}
                                     error={touched.consent && errors.consent}
                                 />   
                             </Box>
+                            <Modal
+                                isOpen={!!showTermsPolicies}
+                                onRequestClose={()=>setShowTermsPolicies('')}
+                            >
+                                <TermsAndPolicies name={showTermsPolicies}/>
+                            </Modal>
                             </Grid>
                             <Grid item xs={12}>
                             <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
