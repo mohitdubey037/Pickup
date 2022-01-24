@@ -1,6 +1,7 @@
 import { navigate } from "@reach/router";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 import store from "store/configureStore";
 
 import {
@@ -59,6 +60,7 @@ class Service {
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               if (err.response.status === 401) {
+                toast.error(err?.response?.data?.message);
                 store.dispatch({ type: "LOGOUT_USER" });
                 this.removeToken();
                 navigate("/");
