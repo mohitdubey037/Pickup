@@ -55,23 +55,23 @@ const Routes = () => {
       </AuthPages>
 
       <DashboardPage path="/dashboard">
-        <HelpContainer path="/my-account/help" />
+        {/* <HelpContainer path="/my-account/help" /> */}
         <CompanyProfileContainer path="/my-account/company-profile" />
         <Dashboard path="/" />
-        <BulkSummary path="/charter-shipment/bulk-summary" />
+        {/* <BulkSummary path="/charter-shipment/bulk-summary" />
         <SingleShipment path="/charter-shipment/single-shipment" />
         <OrderSummary path="/charter-shipment/order-summary" />
         <ShipmentSummaryTable path="/charter-shipment/shipment-summary"/>
-        <BulkShipment path="/charter-shipment/bulk-shipment" />
-        <SearchContainer path="/search-shipment" />
-        <PaymentsPage path="/payments/cards" />
+        <BulkShipment path="/charter-shipment/bulk-shipment" /> */}
+        {/* <SearchContainer path="/search-shipment" /> */}
+        {/* <PaymentsPage path="/payments/cards" /> */}
         <PersonalProfileContainer path="my-account/personal-profile" />   
-        <ChildAccount path="my-account/child-account"/>
-        <FavoriteLocations path={'my-account/favourite-locations'}/>
-        <PaymentsPage path="/payments/cards" />
-        <OnHoldShipmentContainer path= "/holding-zone" />
+        {/* <ChildAccount path="my-account/child-account"/>
+        <FavoriteLocations path={'my-account/favourite-locations'}/> */}
+        {/* <PaymentsPage path="/payments/cards" /> */}
+        {/* <OnHoldShipmentContainer path= "/holding-zone" />
         <InvoicesContainer path="/payments/invoices" />
-        <ReportsContainer path={"/reports"}/>
+        <ReportsContainer path={"/reports"}/> */}
         <NotFoundPage default />
       </DashboardPage>
     </Router>
