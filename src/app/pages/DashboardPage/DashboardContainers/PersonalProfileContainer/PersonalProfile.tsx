@@ -8,15 +8,20 @@ import EditIcon from "app/components/EditIcon";
 import { Button } from "../../../../components/Buttons";
 import { Flex, FullCard } from "app/components/Input/style";
 import { FlexBox } from "./styles";
+import { PersonalProfileType } from "./types";
 interface CardInterface {
-  user: any;
+  personalProfileDetails: PersonalProfileType;
   setPasswordDrawerOpen: (value: boolean) => void;
   setEditDetailsDrawerOpen: (value: boolean) => void;
 }
 
 export default function PersonalProfile(props: CardInterface) {
-  const { setPasswordDrawerOpen, setEditDetailsDrawerOpen } = props;
-  const { user } = props;
+  const {
+    setPasswordDrawerOpen,
+    setEditDetailsDrawerOpen,
+    personalProfileDetails,
+  } = props;
+
   return (
     <FullCard>
       <Box mb={4} display="flex" justifyContent="space-between">
@@ -26,33 +31,48 @@ export default function PersonalProfile(props: CardInterface) {
 
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box mr={2}>
-          <Avatar style={{ width: 86, height: 86 }} src={user?.profileImage} />
+          <Avatar
+            style={{ width: 86, height: 86 }}
+            src={personalProfileDetails?.profileImage}
+          />
         </Box>
 
         <FlexBox>
           <Grid container spacing={2}>
             <Grid item lg={2} sm={3}>
               <Para text="First Name" />
-              <SmallLabel text={user?.firstName || "-"} className="value" />
+              <SmallLabel
+                text={personalProfileDetails?.firstName || "-"}
+                className="value"
+              />
             </Grid>
             <Grid item lg={2} sm={3}>
               <Para text="Last Name" />
-              <SmallLabel text={user?.lastName || "-"} className="value" />
+              <SmallLabel
+                text={personalProfileDetails?.lastName || "-"}
+                className="value"
+              />
             </Grid>
             <Grid item lg={2} sm={3}>
               <Para text="Phone Number" />
-              <SmallLabel text={user?.phoneNo || "-"} className="value" />
+              <SmallLabel
+                text={personalProfileDetails?.userDetails?.phoneNo || "-"}
+                className="value"
+              />
             </Grid>
             <Grid item xs={3}>
               <Para text="Role/Designation" />
               <SmallLabel
-                text={user?.roleDesignation || "-"}
+                text={personalProfileDetails?.roleName || "-"}
                 className="value"
               />
             </Grid>
             <Grid item xs={3}>
               <Para text="Email Id" />
-              <SmallLabel text={user?.emailId || "-"} className="value" />
+              <SmallLabel
+                text={personalProfileDetails?.emailId || "-"}
+                className="value"
+              />
             </Grid>
           </Grid>
         </FlexBox>

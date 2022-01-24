@@ -1,116 +1,109 @@
-import { FormControl } from '@material-ui/core';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { FormControl } from "@material-ui/core";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import styled, { css } from "styled-components";
-import { SmallLabel } from '../Typography/Typography';
+import { SmallLabel } from "../Typography/Typography";
 
 interface SelectContainerType {
-    disabled ?: boolean;
+  disabled?: boolean;
 }
-
 export const ComponentContainer = styled.div`
-align-items: flex-start;
-display: flex;
-flex-direction: column;
-margin-bottom:16px;
-
-`
-
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+`;
 export const SmallLabeltext = styled(SmallLabel)`
-color: #878787;
-margin:0;
-width:75%;
-min-width:75%;
-white-space: break-spaces;
+  color: #878787;
+  margin: 0;
+  width: 75%;
+  min-width: 75%;
+  white-space: break-spaces;
+`;
 
-`
 export const MenuLabel = styled(SmallLabel)`
-color: #414141;
-margin:0;
-min-width:25%;
-white-space: break-spaces;
-
-`
-
-
+  color: #414141;
+  margin: 0;
+  min-width: 25%;
+  white-space: break-spaces;
+`;
 
 export const SelectBoxStyle = styled(FormControl)`
-width: 100% !important;
+  width: 100% !important;
 
-.MuiAutocomplete-endAdornment,
-	.MuiSelect-icon {
-		display: none;
-	}
-  span{
-    color:#c5c5c5;
+  .MuiAutocomplete-endAdornment,
+  .MuiSelect-icon {
+    display: none;
+  }
+  span {
+    color: #c5c5c5;
   }
 
-.MuiSelect-select.MuiSelect-select
+  .MuiSelect-select.MuiSelect-select {
+    padding: 12px 8px !important;
+    border-radius: 4px !important;
+    border: 1px solid #c4c4c4 !important;
+    height: 42px;
+    box-sizing: border-box;
+  }
 
-{
-  padding: 12px 8px !important;
-  border-radius: 4px !important;
-  border: 1px solid #C4C4C4 !important;
-  height: 42px;
-  box-sizing: border-box;
-}
+  .MuiInput-underline:hover:not(.Mui-disabled):before,
+  .MuiSelect-nativeInput,
+  .MuiInput-underline:before {
+    border: none !important;
+    outline: none !important;
+  }
+  .MuiInputBase-root {
+    outline: none;
+  }
+  label {
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
 
-.MuiInput-underline:hover:not(.Mui-disabled):before, .MuiSelect-nativeInput, .MuiInput-underline:before{
-  border:none !important;
-  outline:none !important;
-}
-.MuiInputBase-root{
-  outline:none;
-}
-label {
-  -webkit-transform: none;
-  -ms-transform: none;
-  transform: none;
-}
+  .MuiInputBase-input,
+  .MuiFormLabel-root {
+    font-size: 16px;
+    line-height: 19px;
+    color: #343434 !important;
+    font-family: "Roboto";
+    margin-bottom: 8px;
+  }
+  .MuiFormHelperText-root {
+    color: #c94c43;
+    margin: 0;
+    font-size: 14px;
+    text-align: left;
+    font-family: "Roboto";
+    line-height: 1;
+  }
 
-.MuiInputBase-input, .MuiFormLabel-root{
-  font-size: 16px;
-  line-height: 19px;
-  color: #343434 !important;
-  font-family: "Roboto";
-  margin-bottom:8px;
-}
-.MuiFormHelperText-root {
-  color: #c94c43;
-  margin: 0;
-  font-size: 14px;
-  text-align: left;
-  font-family: "Roboto";
-  line-height: 1;
-}
+  .MuiInputLabel-formControl {
+    position: relative;
+  }
+  label + .MuiInput-formControl {
+    margin: 0;
+  }
+  .MuiInput-underline:before {
+    border-bottom: none;
+  }
 
-.MuiInputLabel-formControl{
-  position:relative;
-}
-label + .MuiInput-formControl{
-  margin:0;
-}
-.MuiInput-underline:before {
-  border-bottom: none;
-}
-
-.MuiInput-underline:hover:not(.Mui-disabled):before {
-  border-bottom: none;
-}
-.MuiInput-underline:after {
-  border-bottom: none;
-}
-.Mui-error:after{
-  border-bottom: none;
-}
-.dropdownicon{
-  position:absolute;
-  right:12px;
-  top:38px;
-}
-
-`
-
+  .MuiInput-underline:hover:not(.Mui-disabled):before {
+    border-bottom: none;
+  }
+  .MuiInput-underline:after {
+    border-bottom: none;
+  }
+  .Mui-error:after {
+    border-bottom: none;
+  }
+  .dropdownicon {
+    position: absolute;
+    right: 12px;
+    top: 38px;
+  }
+`;
 
 export const SelectContainer = styled.div<SelectContainerType>`
     width: 100%;
@@ -124,35 +117,29 @@ export const SelectContainer = styled.div<SelectContainerType>`
     align-items: baseline !important;
     font-size: 20px !important;
     box-sizing:border-box;
-
-    ${props => props.disabled && css`
+    ${(props) =>
+      props.disabled &&
+      css`
         background-color: #c4c4c4;
-    `}
+      `}
  }
-`
-
-
+`;
 export const CustomSelect = styled.select`
-outline: none;
-    border: none;
-    background-color: white;
-    width: 100%;
-`
-
-
+  outline: none;
+  border: none;
+  background-color: white;
+  width: 100%;
+`;
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     typography: {
       padding: theme.spacing(2),
     },
     placeholder: {
-      flex: 1, textAlign: 'initial', color: '#C4C4C4',
-      fontSize: 16
-    }
-  }),
+      flex: 1,
+      textAlign: "initial",
+      color: "#C4C4C4",
+      fontSize: 16,
+    },
+  })
 );
-
-
-
-
-

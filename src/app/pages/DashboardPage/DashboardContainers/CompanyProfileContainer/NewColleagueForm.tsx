@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid } from "@material-ui/core";
 import { FullCard } from "app/components/Input/style";
 import { ListLabel } from "app/components/Typography/Typography";
@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import {
   PERMISSION_TYPES,
   NOTIFICATION_FREQUENCY_TYPES,
+  NEW_PERMISSION_TYPES,
 } from "../../../../../constants";
 import Select from "app/components/Select";
 import { addNewColleague } from "./CompanyProfileSchema";
@@ -16,7 +17,9 @@ import Switches from "app/components/Input/SwitchButton";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { Input } from "app/components/Input";
 import { CustomInput } from "./style";
+import SelectBox from "app/components/Select/SelectBox";
 function NewColleagueForm({ saveAction }) {
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   const {
     values,
     handleChange,
@@ -25,7 +28,6 @@ function NewColleagueForm({ saveAction }) {
     handleBlur,
     handleSubmit,
     isValid,
-    resetForm,
   } = useFormik({
     initialValues: {
       firstName: "",
@@ -40,6 +42,10 @@ function NewColleagueForm({ saveAction }) {
     },
     validationSchema: addNewColleague,
     onSubmit: (values, actions) => {
+      if (isChecked) {
+        values.notificationFrequency = "";
+      }
+      console.log("permission", values?.permission);
       saveAction(values);
       actions.resetForm({
         values: {
@@ -54,8 +60,11 @@ function NewColleagueForm({ saveAction }) {
           type: 17,
         },
       });
+      values.permission = "";
+      console.log("permission", values?.permission);
     },
   });
+
   return (
     <FullCard>
       <Box mb={4}>
@@ -117,6 +126,9 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"Manager"}
           />
         </Grid>
+        <Grid item md={12} style={{ marginBottom: 15 }}>
+          <Switches value={isChecked} setIsChecked={setIsChecked} />
+        </Grid>
         <Grid item md={3}>
           <CustomInput
             id="emailId"
@@ -130,32 +142,37 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"johndoe@pickups.com"}
           />
         </Grid>
-        </GridContainer>
-        
-        <GridContainer container>
-        <Grid item md={3}>
-          <Switches />
-        </Grid>
+      </GridContainer>
+
+      <GridContainer container>
         <Grid item md={3}>
           <Select
             id="notificationFrequency"
             name="notificationFrequency"
             options={NOTIFICATION_FREQUENCY_TYPES}
             label={"Notification Frequency"}
-            value={values["notificationFrequency"]}
+            value={!isChecked ? values["notificationFrequency"] : ""}
             onSelect={handleChange}
+            disabled={isChecked}
           />
         </Grid>
-        </GridContainer>
-
-        <GridContainer container>
-        <Grid item md={12}>
+        {/* <Grid item md={12}>
           <Select
             id="permission"
             name="permission"
             options={PERMISSION_TYPES}
             label={"Permission"}
             value={values["permission"]}
+            onSelect={handleChange}
+          />
+        </Grid> */}
+        <Grid item md={12}>
+          <SelectBox
+            id="permission"
+            name="permission"
+            options={NEW_PERMISSION_TYPES}
+            label={"Permission"}
+            value={values?.permission}
             onSelect={handleChange}
           />
         </Grid>

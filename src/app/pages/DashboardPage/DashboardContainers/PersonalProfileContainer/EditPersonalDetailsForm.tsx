@@ -13,18 +13,17 @@ import { showToast } from "utils";
 import { Avatar, Box } from "@material-ui/core";
 import { DrawerFooter } from "app/components/Drawer/style";
 import EditAvatar from "app/components/Avatar/EditAvatar";
+import { PersonalProfileType } from "./types";
 
-const EditPersonalDetailsForm = ({
-  title = "",
-  setEditDetailsDrawerOpen,
-  saveAction,
-  submitButtonLabel = "Save",
-}) => {
-  const auth = useSelector((state: { auth: { user: AuthUser } }) => {
-    return state.auth;
-  });
+interface EditPersonalInterface {
+  personalProfileDetails: PersonalProfileType;
+  setEditDetailsDrawerOpen: (value: boolean) => void;
+  saveAction: any;
+}
 
-  const { user } = auth;
+const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
+  const { personalProfileDetails, setEditDetailsDrawerOpen, saveAction } =
+    props;
 
   const {
     values,
@@ -34,15 +33,16 @@ const EditPersonalDetailsForm = ({
     handleBlur,
     handleSubmit,
     setFieldValue,
+    isValid,
   } = useFormik({
     initialValues: {
-      profileImage: user?.profileImage,
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      emailId: user?.emailId,
-      phone: user?.userDetails?.phoneNo,
-      role: user?.roleDesignation,
-      permission: "",
+      profileImage: personalProfileDetails?.profileImage || "", // personalProfileDetails?.profileImage ||
+      firstName: personalProfileDetails?.firstName,
+      lastName: personalProfileDetails?.lastName,
+      emailId: personalProfileDetails?.emailId,
+      phone: personalProfileDetails?.userDetails?.phoneNo,
+      role: personalProfileDetails?.roleName,
+      permission: personalProfileDetails?.roleId,
     },
     validationSchema: personalFormSchema,
     onSubmit: (values) => saveAction(values),
@@ -50,9 +50,9 @@ const EditPersonalDetailsForm = ({
 
   const changeHandler = async (e) => {
     const formData = new FormData();
-    const image = e.target.files[0];
+    const image = e?.target?.files[0];
 
-    formData.append("document", image, image.name);
+    formData.append("document", image, image?.name);
 
     const res: { response: any; error: any } = await imageUploadService(
       formData
@@ -64,7 +64,6 @@ const EditPersonalDetailsForm = ({
       setFieldValue("profileImage", res?.response?.data?.data || "");
     }
   };
-
   return (
     <>
       <Box display="flex" justifyContent="center">
@@ -76,9 +75,8 @@ const EditPersonalDetailsForm = ({
             height: 86,
           }}
         /> */}
-        
-        <EditAvatar  />
 
+        <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
       </Box>
       <Input
         id="firstName"
@@ -137,24 +135,24 @@ const EditPersonalDetailsForm = ({
         name="Permission"
         options={PERMISSION_TYPES}
         label={"Permission"}
-        value={values[title + "Permission"]}
+        value={values?.permission}
         onSelect={(e) => console.log(e)}
       />
 
       <DrawerFooter>
-          <Button
-            secondary
-            onClick={() => setEditDetailsDrawerOpen(false)}
-            label="Cancel"
-            size="medium"
-          ></Button>
-          <Button
-            label={submitButtonLabel}
-            onClick={handleSubmit}
-            size="medium"
-          ></Button>
+        <Button
+          secondary
+          onClick={() => setEditDetailsDrawerOpen(false)}
+          label="Cancel"
+          size="medium"
+        ></Button>
+        <Button
+          label={"Save"}
+          onClick={handleSubmit}
+          disabled={!isValid}
+          size="medium"
+        ></Button>
       </DrawerFooter>
-
     </>
   );
 };
