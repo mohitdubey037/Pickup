@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactApexChart from 'react-apexcharts';
 import { CardContainer, GeneralTypo, GeneralTypoheading, GeneralTypolabel, LabelContainer } from './style'
-import { AreaChartOptions } from './helper'
+// import { AreaChartOptions } from './helper'
 import { arrowUp } from 'app/assets/Icons'
 import { Grid } from '@material-ui/core'
 
@@ -61,7 +61,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                               }
                             },
                             dataLabels: {
-                              enabled: false
+                              enabled: true
                             },
                             fill: {
                               type: "gradient",
