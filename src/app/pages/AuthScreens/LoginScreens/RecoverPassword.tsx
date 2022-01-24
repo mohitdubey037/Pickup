@@ -68,18 +68,18 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     }, [location.search])
 
     useEffect(() => {
-        (async () =>{
-            if(token){
+        (async () => {
+            if (token) {
                 const res = await verifyToken(token)
-                if(!res.success){
+                if (!res.success) {
                     navigate?.('/forgot-password')
                 }
                 setJWTToken(res?.response?.data?.data?.jwtToken)
             }
-         }
+        }
         )()
 
-    },[token, navigate])
+    }, [token, navigate])
 
     useEffect(() => {
         return () => {
@@ -92,39 +92,41 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
             navigate?.("/congratulations");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [resetPasswordResponse?.status]);    
+    }, [resetPasswordResponse?.status]);
 
     return (
-        <LoginWrapper>
-            <LogoImage />
-            <FormWrapper>
-                <FormContent>
-                    <PageTitle title="RECOVER PASSWORD" />
-                    <PasswordInput
-                        id="password"
-                        name="password"
-                        label="Password"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        error={touched.password && errors.password}
-                        placeholder="Password"
-                        autoComplete="off"
-                        validate
-                    />
-                    <PasswordInput
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        error={touched.confirmPassword && errors.confirmPassword}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        label="Confirm Password"
-                        placeholder="Password"
-                        autoComplete="off"
-                    />
-                    <Button disabled={!isValid} showLoader={showLoader} label="Confirm" onClick={handleSubmit} size="large" />
-                </FormContent>
-            </FormWrapper>
-        </LoginWrapper>
+        <form onSubmit={handleSubmit} >
+            <LoginWrapper>
+                <LogoImage />
+                <FormWrapper>
+                    <FormContent>
+                        <PageTitle title="RECOVER PASSWORD" />
+                        <PasswordInput
+                            id="password"
+                            name="password"
+                            label="Password"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            error={touched.password && errors.password}
+                            placeholder="Password"
+                            autoComplete="off"
+                            validate
+                        />
+                        <PasswordInput
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            error={touched.confirmPassword && errors.confirmPassword}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            label="Confirm Password"
+                            placeholder="Password"
+                            autoComplete="off"
+                        />
+                        <Button disabled={!isValid} showLoader={showLoader} label="Confirm" onClick={handleSubmit} size="large" />
+                    </FormContent>
+                </FormWrapper>
+            </LoginWrapper>
+        </form>
     );
 };
 
