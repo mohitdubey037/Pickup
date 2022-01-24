@@ -18,6 +18,7 @@ import { BlackLink, PageTitle } from "../../../components/Typography/Typography"
 import { signUpSchema } from "./signUpSchemas";
 import { actions } from "store/reducers/SignUpReducer";
 import { Box } from "@material-ui/core";
+import { CommonError } from "app/components/Input/style";
 
 type SignUpProps = RouteComponentProps;
 
@@ -86,7 +87,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
               <PageTitle title="SIGN UP" />
               <Input
                 label="Business Email"
-                placeholder="Start typing"
+                placeholder="johndoe@pickups.com"
                 id="email"
                 name="email"
                 onChange={handleChange}
@@ -94,7 +95,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
                 onBlur={handleBlur}
                 autoComplete="off"
               />
-              {errorMessage ? <span style={{ color: '#c94c43' }}> {errorMessage} </span> : null}
+              {errorMessage ? <CommonError> {errorMessage} </CommonError> : null}
               <Button type="submit" disabled={!(isValid)} label="Sign Up" showLoader={showLoader} size="large" />
               <LoginLink>
                 Already have an account?{" "}

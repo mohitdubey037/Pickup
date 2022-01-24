@@ -3,8 +3,8 @@ import { Appbar } from "app/components/Appbar";
 import {
   DashboardRightWrapper,
   RightDashboardWrapper,
-  DashboardContainer,
 } from "./style";
+import { Box } from "@material-ui/core";
 
 interface RightDashboardProps {
   children?: ReactNode;
@@ -15,7 +15,7 @@ const RightDashboard = ({ children }: RightDashboardProps) => {
     <DashboardRightWrapper>
       <RightDashboardWrapper>
         <Appbar />
-        <DashboardContainer>{children}</DashboardContainer>
+        <Box>{children}</Box>
       </RightDashboardWrapper>
     </DashboardRightWrapper>
   );

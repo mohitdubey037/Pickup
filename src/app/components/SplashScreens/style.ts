@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Card } from "@material-ui/core";
-import { LogoImg } from "../../assets/Icons";
 
 export const CustomCard = styled(Card)`
   width: 998px;
@@ -8,16 +7,12 @@ export const CustomCard = styled(Card)`
   background: #ffffff;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 16px !important;
-  
   position: relative;
-  
 `;
 
 export const CardContent = styled.div`
   display: flex;
   gap: 20px;
-  
-   
 `;
 
 export const LeftContent = styled.div`
