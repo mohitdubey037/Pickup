@@ -30,6 +30,8 @@ import ColleagueDetails from "./ColleagueDetails";
 import { ColleagueDetailsType } from "./types";
 import EditColleagueDetailsForm from "./EditColleagueDetailsForm";
 import NewColleague from "./NewColleague";
+import CompanyDetailsSkeleton from "./CompanyDetailsSkeleton";
+import AdminDetailsSkeleton from "./AdminDetailsSkeleton";
 
 export default function CompanyProfile({ path: string }) {
   const [colleagueDetails, setColleagueDetails] = useState<any>(null);
@@ -39,6 +41,7 @@ export default function CompanyProfile({ path: string }) {
   const [companyDetails, setCompanyDetails] = useState<any>(null);
   const [adminDetails, setAdminDetails] = useState<any>(null);
   const [colleagueList, setColleagueList] = useState<any>(null);
+	const [loading, setLoading] = useState<boolean>(false);
 
   const saveColleague = async (values) => {
     // console.log(values);
@@ -75,6 +78,7 @@ export default function CompanyProfile({ path: string }) {
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const companyResponse = await fetchCompanyDetails();
       setCompanyDetails(companyResponse?.response?.data?.data?.[0]);
       const adminResponse = await fetchUserAdmin();
@@ -82,6 +86,7 @@ export default function CompanyProfile({ path: string }) {
       const colleagueResponse = await fetchColleagues();
       // console.log(colleagueResponse);
       setColleagueList(colleagueResponse?.response?.data?.data);
+      setLoading(false);
     })();
   }, []);
 
@@ -101,8 +106,10 @@ export default function CompanyProfile({ path: string }) {
   return (
     <ModuleContainer>
       <ContainerTitle title="Company Profile" />
-
-      <CompanyDetails
+      {loading ?  (
+				<CompanyDetailsSkeleton />
+			) : (
+        <CompanyDetails
         setCompanyDrawerOpen={setCompanyDrawerOpen}
         companyDetails={companyDetails}
         details={{
@@ -120,7 +127,14 @@ export default function CompanyProfile({ path: string }) {
           HSTNumber: "123 456 789",
         }}
       />
-      <AdminDetails AdminDetails={adminDetails} />
+      )}
+
+      {loading ?  (
+         <AdminDetailsSkeleton />
+      ) : (
+         <AdminDetails AdminDetails={adminDetails} />
+      )}
+
       {colleagueList?.length > 0 &&
         colleagueList?.map((data: ColleagueDetailsType, index: number) => (
           <NewColleague

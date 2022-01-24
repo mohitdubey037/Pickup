@@ -3,6 +3,7 @@ import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import { SelectContainer, ComponentContainer, useStyles } from "./style";
 import { SmallLabel } from "../Typography/Typography";
+import { dropdown } from "app/assets/Icons";
 
 interface SelectOption {
   value: string | number;
@@ -59,7 +60,7 @@ export default function Select(props: SelectPropTypes) {
         >
           {valueLabel}
         </span>
-        <span style={{fontWeight:'bold'}}>&#8964;</span>
+        <img src={dropdown}  alt=""  />
       </SelectContainer>
       <Popover
         id={parentId}

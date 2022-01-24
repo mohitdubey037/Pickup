@@ -6,7 +6,7 @@ import {
 } from "app/components/Typography/Typography";
 import EditIcon from "app/components/EditIcon";
 import { Button } from "../../../../components/Buttons";
-import { Flex, FullCard } from "app/components/Input/style";
+import { FullCard } from "app/components/Input/style";
 import { FlexBox } from "./styles";
 import { PersonalProfileType } from "./types";
 interface CardInterface {
