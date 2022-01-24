@@ -1,7 +1,7 @@
 import services from "../";
 import { showToast } from "utils";
 
-export const getPersonalProfileDetails = async (userId: number) => {
+export const getPersonalProfileDetails = async (userId: number | undefined) => {
   try {
     const response = await services.get(
       `v1/api/business/user/${userId}/profile`,
