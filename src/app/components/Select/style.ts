@@ -136,7 +136,7 @@ export const CustomSelect = styled.select`
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     typography: {
-      padding: '8px 12px',
+      padding: "8px 12px",
     },
     placeholder: {
       flex: 1,

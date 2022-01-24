@@ -9,7 +9,7 @@ import createSagaMiddleware from "redux-saga";
 import { auth } from "./reducers/AuthReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { orderReducer } from "./reducers/OrderReducer"
+import { orderReducer } from "./reducers/OrderReducer";
 import { createReducer } from "./reducers";
 import { localStore } from "./reducers/LocalStoreReducer";
 import { signUp } from "./reducers/SignUpReducer";
@@ -35,18 +35,26 @@ export function configureAppStore() {
   ] as StoreEnhancer[];
   const persistConfig = {
     key: "root",
-    blacklist: ["signUp", "signIn", "globalState","auth", "singleShipment", "order"],
+    whitelist: ["auth"],
+    blacklist: [
+      "signUp",
+      "localStore",
+      "signIn",
+      "globalState",
+      "singleShipment",
+      "order",
+    ],
     storage,
   };
   const rootReducer = combineReducers({
     auth: auth,
     localStore: localStore,
     signUp: signUp,
-    signIn:signIn,
-    globalState:globalState,
-    singleShipment:singleShipment,
-    order:orderReducer,
-    paymentCard:paymentCardReducer,
+    signIn: signIn,
+    globalState: globalState,
+    singleShipment: singleShipment,
+    order: orderReducer,
+    paymentCard: paymentCardReducer,
   });
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);
