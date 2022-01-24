@@ -8,7 +8,8 @@ import {
 } from "./style";
 import { InputProps } from "./type";
 
-const Input: React.FC<InputProps> = ({
+const Input = React.forwardRef<any,InputProps>(
+  ({
   initValue,
   label,
   placeholder,
@@ -22,8 +23,8 @@ const Input: React.FC<InputProps> = ({
   style,
   inputStyles,
   type,
-  autoComplete
-}) => {
+  autoComplete,
+},ref) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <InputWrapper style={style}>
-      
+
       <SmallLabel text={label} />
 
       {type === "textarea" ? (
@@ -53,6 +54,7 @@ const Input: React.FC<InputProps> = ({
         />
       ) : (
         <CustomInput
+          ref={ref}
           placeholder={placeholder}
           onChange={onChangeHandler}
           onBlur={onBlur}
@@ -67,6 +69,6 @@ const Input: React.FC<InputProps> = ({
       {!!error && <ErrorLabel>{error}</ErrorLabel>}
     </InputWrapper>
   );
-};
+});
 
 export default Input;

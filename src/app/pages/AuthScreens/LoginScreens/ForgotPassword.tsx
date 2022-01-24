@@ -15,9 +15,15 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SignInReducer";
 import { ForgotPasswordSchema } from "./ForgotPasswordSchema";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const ForgotPassword = ({ navigate }: RouteComponentProps) => {
+
+    const firstFieldRef = useRef<any>();
+
+    useEffect(() => {
+      firstFieldRef.current?.focus();
+    }, []);
 
     const dispatch = useDispatch();
 
@@ -82,6 +88,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                             onBlur={handleBlur}
                             error={touched.email && errors.email}
                             autoComplete="off"
+                            ref = {firstFieldRef}
                         />
                         <Button
                             showLoader={showLoader}
