@@ -11,23 +11,32 @@ interface SelectOption {
 interface SelectPropTypes {
   label?: string;
   options?: Array<SelectOption>;
-  value?: string | number;
+  value?: string | number | null;
   style?: React.CSSProperties;
   onSelect?: Function;
   id?: string;
   name?: string;
-  disabled?:boolean;
+  disabled?: boolean;
 }
 
 export default function Select(props: SelectPropTypes) {
-  const { label, id, name, onSelect, value, options = [], style, disabled } = props;
+  const {
+    label,
+    id,
+    name,
+    onSelect,
+    value,
+    options = [],
+    style,
+    disabled,
+  } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      if(disabled) return;
+    if (disabled) return;
     setAnchorEl(event.currentTarget);
   };
 
@@ -43,7 +52,6 @@ export default function Select(props: SelectPropTypes) {
 
   return (
     <ComponentContainer>
-
       <SmallLabel text={label} />
 
       <SelectContainer
@@ -55,11 +63,11 @@ export default function Select(props: SelectPropTypes) {
       >
         <span
           className={classes.placeholder}
-          style={{ color: value ? "black" : "",marginLeft:5 }}
+          style={{ color: value ? "black" : "", marginLeft: 5 }}
         >
           {valueLabel}
         </span>
-        <span style={{fontWeight:'bold'}}>&#8964;</span>
+        <span style={{ fontWeight: "bold" }}>&#8964;</span>
       </SelectContainer>
       <Popover
         id={parentId}
@@ -75,7 +83,7 @@ export default function Select(props: SelectPropTypes) {
           horizontal: "left",
         }}
         style={{ width: 400 }}
-        PaperProps={{ style: { width: '100%' } }}
+        PaperProps={{ style: { width: "100%" } }}
       >
         {options.map((option) => (
           <Typography
@@ -86,7 +94,7 @@ export default function Select(props: SelectPropTypes) {
             }}
             className={classes.typography}
             key={option.value}
-            style={{cursor:'pointer'}}
+            style={{ cursor: "pointer" }}
           >
             {option.label}
           </Typography>

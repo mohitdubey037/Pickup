@@ -16,15 +16,15 @@ export const ComponentContainer = styled.div`
 export const SmallLabeltext = styled(SmallLabel)`
   color: #878787;
   margin: 0;
-  width: 75%;
-  min-width: 75%;
+  width: 85%;
+  min-width: 85%;
   white-space: break-spaces;
 `;
 
 export const MenuLabel = styled(SmallLabel)`
   color: #414141;
   margin: 0;
-  min-width: 25%;
+  min-width: 15%;
   white-space: break-spaces;
 `;
 
@@ -45,6 +45,7 @@ export const SelectBoxStyle = styled(FormControl)`
     border: 1px solid #c4c4c4 !important;
     height: 42px;
     box-sizing: border-box;
+    display: flex;
   }
 
   .MuiInput-underline:hover:not(.Mui-disabled):before,
