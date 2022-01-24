@@ -11,48 +11,48 @@ import {
 
 export const dashboardHelper: Array<Link> = [
   { id: 0, label: "Dashboard", link: "/dashboard", logo: dashboard },
-  {
-    id: 1,
-    label: "Charter Order",
-    link: "/dashboard/charter-shipment",
-    logo: delivery,
+  // {
+  //   id: 1,
+  //   label: "Charter Order",
+  //   link: "/dashboard/charter-shipment",
+  //   logo: delivery,
 
-    children: [
-      {
-        id: 0,
-        label: "Single Order",
-        link: "/dashboard/charter-shipment/single-shipment",
-      },
-      {
-        id: 1,
-        label: "Bulk Order",
-        link: "/dashboard/charter-shipment/bulk-shipment",
-      },
-    ],
-  },
-  {
-    id: 2,
-    label: "Holding Zone",
-    link: "/dashboard/holding-zone",
-    logo: clock,
-  },
-  {
-    id: 3,
-    label: "Search Orders",
-    link: "/dashboard/search-shipment",
-    logo: search,
-  },
+  //   children: [
+  //     {
+  //       id: 0,
+  //       label: "Single Order",
+  //       link: "/dashboard/charter-shipment/single-shipment",
+  //     },
+  //     {
+  //       id: 1,
+  //       label: "Bulk Order",
+  //       link: "/dashboard/charter-shipment/bulk-shipment",
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: 2,
+  //   label: "Holding Zone",
+  //   link: "/dashboard/holding-zone",
+  //   logo: clock,
+  // },
+  // {
+  //   id: 3,
+  //   label: "Search Orders",
+  //   link: "/dashboard/search-shipment",
+  //   logo: search,
+  // },
   {
     id: 4,
     label: "Payments",
     link: "/dashboard/payments",
     logo: creditCard,
     children: [
-      { id: 0, label: "Invoices", link: "/dashboard/payments/invoices" },
+      // { id: 0, label: "Invoices", link: "/dashboard/payments/invoices" },
       { id: 1, label: "Cards", link: "/dashboard/payments/cards" },
     ],
   },
-  { id: 5, label: "Reports", link: "/dashboard/reports", logo: reports },
+  // { id: 5, label: "Reports", link: "/dashboard/reports", logo: reports },
   {
     id: 6,
     label: "My Account",
@@ -69,21 +69,21 @@ export const dashboardHelper: Array<Link> = [
         label: "Personal Profile",
         link: "/dashboard/my-account/personal-profile",
       },
-      {
-        id: 2,
-        label: "Child Account",
-        link: "/dashboard/my-account/child-account",
-      },
-      {
-        id: 3,
-        label: "Favourite Locations",
-        link: "/dashboard/my-account/favourite-locations",
-      },
-      {
-        id: 4,
-        label: "Help",
-        link: "/dashboard/my-account/help",
-      }
+      // {
+      //   id: 2,
+      //   label: "Child Account",
+      //   link: "/dashboard/my-account/child-account",
+      // },
+      // {
+      //   id: 3,
+      //   label: "Favourite Locations",
+      //   link: "/dashboard/my-account/favourite-locations",
+      // },
+      // {
+      //   id: 4,
+      //   label: "Help",
+      //   link: "/dashboard/my-account/help",
+      // }
     ],
   },
 ];
