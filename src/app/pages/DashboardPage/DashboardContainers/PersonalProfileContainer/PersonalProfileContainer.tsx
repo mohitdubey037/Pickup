@@ -14,6 +14,8 @@ import {
   changeProfilePassword,
   getPersonalProfileDetails,
 } from "services/PersonalProfileServices";
+import FullCardSkeleton from "./PersonalProfileSkeleton";
+import PersonalProfileSkeleton from "./PersonalProfileSkeleton";
 
 interface Token {
   company: number;
@@ -27,15 +29,18 @@ interface Token {
 export default function PersonalProfileContainer({ path: string }) {
   const [passwordDrawerOpen, setPasswordDrawerOpen] = useState(false);
   const [editDetailsDrawerOpen, setEditDetailsDrawerOpen] = useState(false);
+	const [loading, setLoading] = useState<boolean>(false);
   const [personalProfileDetails, setPersonalProfileDetails] =
     useState<any>(null);
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const token = Cookies?.get("token") || "";
       const decoded: Token | null = token ? jwt_decode(token) : null;
       const res: any = await getPersonalProfileDetails(decoded?.userId);
       setPersonalProfileDetails(res?.response?.data?.data);
+      setLoading(false);
     })();
   }, []);
 
@@ -60,11 +65,15 @@ export default function PersonalProfileContainer({ path: string }) {
   return (
     <ModuleContainer>
       <ContainerTitle title="Personal Profile" />
+      {loading ?  (
+				<PersonalProfileSkeleton />
+			) : (
       <PersonalProfile
         personalProfileDetails={personalProfileDetails}
         setPasswordDrawerOpen={setPasswordDrawerOpen}
         setEditDetailsDrawerOpen={setEditDetailsDrawerOpen}
       />
+      )}
       <Drawer
         open={passwordDrawerOpen}
         title="Change Password"
