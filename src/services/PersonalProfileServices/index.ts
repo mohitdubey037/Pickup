@@ -47,13 +47,16 @@ export const editPersonalProfileDetails = async (values: {
 export const changeProfilePassword = async (values: {
   currentPassword: string;
   newPassword: string;
+  newConfirmedPassword: string;
 }) => {
   try {
+    console.log(values);
     const response: any = await services.post(
       `business/changePassword`,
       {
         newPassword: values.newPassword,
-        tempPassword: values.currentPassword,
+        currentPassword: values.currentPassword,
+        confirmPassword: values?.newConfirmedPassword,
       },
       "user_cr"
     );
