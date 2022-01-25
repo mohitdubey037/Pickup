@@ -52,6 +52,7 @@ line-height: 37px;
 color: #343434;
 margin:0 0 24px 0;
 font-family: "Roboto-Bold";
+
 `
 export const Smalllabeltext = styled.p`
 font-size: 16px;
@@ -59,6 +60,7 @@ line-height: 19px;
 color: #343434;
 font-family: "Roboto";
 margin:0 0 8px 0;
+word-break: break-word;
 `
 export const ListLabeltext = styled.p`
 font-size: 18px;
@@ -67,6 +69,7 @@ color: #343434;
 font-family: "Roboto-Medium";
 margin:0;
 text-transform:capitalize;
+word-break: break-word;
 `
 
 
@@ -75,5 +78,6 @@ font-size: 14px;
 line-height: 16px;
 color: #343434;
 font-family: "Roboto";
-margin:0;
+margin:0;   
+word-break: break-word;
 `

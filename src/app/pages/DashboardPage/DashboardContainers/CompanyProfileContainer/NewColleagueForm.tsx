@@ -35,7 +35,7 @@ function NewColleagueForm({ saveAction }) {
       phoneNumber: "",
       roleDesignation: "",
       emailId: "",
-      notificationFrequency: "",
+      notificationFrequency: null,
       permission: "",
       notification: 1,
       type: 17,
@@ -43,9 +43,9 @@ function NewColleagueForm({ saveAction }) {
     validationSchema: addNewColleague,
     onSubmit: (values, actions) => {
       if (isChecked) {
-        values.notificationFrequency = "";
+        values.notificationFrequency = null;
       }
-      console.log("permission", values?.permission);
+      // console.log("permission", values?.permission);
       saveAction(values);
       actions.resetForm({
         values: {
@@ -54,14 +54,14 @@ function NewColleagueForm({ saveAction }) {
           phoneNumber: "",
           roleDesignation: "",
           emailId: "",
-          notificationFrequency: "",
+          notificationFrequency: null,
           permission: "",
           notification: 1,
           type: 17,
         },
       });
-      values.permission = "";
-      console.log("permission", values?.permission);
+      // values.permission = "";
+      // console.log("permission", values?.permission);
     },
   });
 
@@ -148,7 +148,7 @@ function NewColleagueForm({ saveAction }) {
             name="notificationFrequency"
             options={NOTIFICATION_FREQUENCY_TYPES}
             label={"Notification Frequency"}
-            value={!isChecked ? values["notificationFrequency"] : ""}
+            value={!isChecked ? values["notificationFrequency"] : null}
             onSelect={handleChange}
             disabled={isChecked}
           />
@@ -156,16 +156,6 @@ function NewColleagueForm({ saveAction }) {
       </GridContainer>
 
       <GridContainer container>
-        {/* <Grid item md={12}>
-          <Select
-            id="permission"
-            name="permission"
-            options={PERMISSION_TYPES}
-            label={"Permission"}
-            value={values["permission"]}
-            onSelect={handleChange}
-          />
-        </Grid> */}
         <Grid item md={12}>
           <SelectBox
             id="permission"
@@ -174,6 +164,7 @@ function NewColleagueForm({ saveAction }) {
             label={"Permission"}
             value={values?.permission}
             onSelect={handleChange}
+            error={touched.permission && errors?.permission?.toString()}
           />
         </Grid>
         <Grid item md={12}>
@@ -185,13 +176,6 @@ function NewColleagueForm({ saveAction }) {
             style={{ float: "right" }}
           />
         </Grid>
-        {/* <div style={{ marginLeft: 5, width: 130 }}>
-            <Button
-              label="Add Colleague"
-              onClick={handleSubmit}
-              style={{ marginTop: 100, width: 150 }}
-            />
-          </div> */}
       </GridContainer>
     </FullCard>
   );

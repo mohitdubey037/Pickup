@@ -30,7 +30,7 @@ export interface ColleagueDetailsType {
   inviteId: number;
   lastName: string;
   notification: number;
-  notificationFrequency: string;
+  notificationFrequency: string | null;
   phoneNo: string;
   role: number;
   roleDesignation: string;
