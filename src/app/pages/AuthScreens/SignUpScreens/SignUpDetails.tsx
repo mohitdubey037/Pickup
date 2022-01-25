@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { RouteComponentProps, useLocation } from "@reach/router";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +28,13 @@ import TermsAndPolicies from "./Terms&Policies";
 type SignUpProps = RouteComponentProps;
 
 const SignUpDetails = ({ navigate }: SignUpProps) => {
+
+    const firstFieldRef = useRef<any>(null);
+
+    useEffect(() => {
+        firstFieldRef.current?.focus();
+    },[])
+
     const dispatch = useDispatch();
 
     const location = useLocation();
@@ -38,7 +45,6 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     const showLoader = useSelector((state: { globalState: { showLoader: boolean } }) => state.globalState.showLoader)
 
-    // const [email, setEmail] = useState<string>('');
     const [token, setToken] = useState<string>('');
     const [showTermsPolicies, setShowTermsPolicies] = useState('');
 
@@ -55,14 +61,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         if (companyResponse) {
-            navigate?.("/password")
-            // {
-            //     state: {
-            //         email: email
-            //     }
-            // }
-            // );
-}
+            navigate?.("/password")}
     }, [companyResponse, navigate]);
 
 const onSignUp = (values: any) => {
@@ -90,91 +89,92 @@ useEffect(() => {
     (() => validateForm())();
 }, []);
 
-return (
-    <SignUpWrapper>
-        <SignUpBackgroundWrapper>
-            <LogoImage />
-            <FormWrapper>
-                <form>
-                    <FormContent>
-                        <PageTitle title="SIGN UP" />
-                        <GridContainer container spacing={2}>
-                            <Grid item xs={6}>
-                                <Input
-                                    id={"firstName"}
-                                    name={"firstName"}
-                                    label={"First Name"}
-                                    placeholder={"John"}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={touched['firstName'] && errors['firstName']}
-                                    validate
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Input
-                                    id={"lastName"}
-                                    name={"lastName"}
-                                    label={"Last Name"}
-                                    placeholder={"Doe"}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={touched['lastName'] && errors['lastName']}
-                                    validate
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Input
-                                    label="Company Name"
-                                    placeholder="John Doe’s Company"
-                                    id="companyName"
-                                    name="companyName"
-                                    onChange={handleChange}
-                                    error={touched.companyName && errors.companyName}
-                                    onBlur={handleBlur}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Input
-
-                                    label="Phone Number"
-                                    placeholder="+1 (999)-999-9999"
-                                    id="phoneNumber"
-                                    name="phoneNumber"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={touched.phoneNumber && errors.phoneNumber}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Box mt={1} mb={4}>
-                                    <Checkbox
-                                        isChecked={consent}
-                                        id="consent"
-                                        label={<Termslink>I agree to the <Link to="" onClick={() => setShowTermsPolicies('terms')}>Terms</Link> and <Link to="" onClick={() => setShowTermsPolicies('policies')}>Policies</Link></Termslink>}
-                                        name="consent"
-                                        onChange={() => setFieldValue('consent', !consent)}
+    return (
+        <SignUpWrapper>
+            <SignUpBackgroundWrapper>
+                <LogoImage />
+                <FormWrapper>
+                    <form>
+                        <FormContent>
+                            <PageTitle title="SIGN UP" />
+                            <GridContainer container spacing={2}>
+                                <Grid item xs={6}>
+                                    <Input
+                                        ref={firstFieldRef}
+                                        id={"firstName"}
+                                        name={"firstName"}
+                                        label={"First Name"}
+                                        placeholder={"John"}
+                                        onChange={handleChange}
                                         onBlur={handleBlur}
-                                        error={touched.consent && errors.consent}
+                                        error={touched['firstName'] && errors['firstName']}
+                                        validate
                                     />
-                                </Box>
-                                <Modal
-                                    isOpen={!!showTermsPolicies}
-                                    onRequestClose={() => setShowTermsPolicies('')}
-                                >
-                                    <TermsAndPolicies name={showTermsPolicies} />
-                                </Modal>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
-                            </Grid>
-                        </GridContainer>
-                    </FormContent>
-                </form>
-            </FormWrapper>
-        </SignUpBackgroundWrapper>
-    </SignUpWrapper>
-);
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Input
+                                        id={"lastName"}
+                                        name={"lastName"}
+                                        label={"Last Name"}
+                                        placeholder={"Doe"}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        error={touched['lastName'] && errors['lastName']}
+                                        validate
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Input
+                                        label="Company Name"
+                                        placeholder="John Doe’s Company"
+                                        id="companyName"
+                                        name="companyName"
+                                        onChange={handleChange}
+                                        error={touched.companyName && errors.companyName}
+                                        onBlur={handleBlur}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Input
+
+                                        label="Phone Number"
+                                        placeholder="+1 (999)-999-9999"
+                                        id="phoneNumber"
+                                        name="phoneNumber"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        error={touched.phoneNumber && errors.phoneNumber}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Box mt={1} mb={4}>
+                                        <Checkbox
+                                            isChecked={consent}
+                                            id="consent"
+                                            label={<Termslink>I agree to the <Link to="" onClick={() => setShowTermsPolicies('terms')}>Terms</Link> and <Link to="" onClick={() => setShowTermsPolicies('policies')}>Policies</Link></Termslink>}
+                                            name="consent"
+                                            onChange={() => setFieldValue('consent', !consent)}
+                                            onBlur={handleBlur}
+                                            error={touched.consent && errors.consent}
+                                        />
+                                    </Box>
+                                    <Modal
+                                        isOpen={!!showTermsPolicies}
+                                        onRequestClose={() => setShowTermsPolicies('')}
+                                    >
+                                        <TermsAndPolicies name={showTermsPolicies} />
+                                    </Modal>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
+                                </Grid>
+                            </GridContainer>
+                        </FormContent>
+                    </form>
+                </FormWrapper>
+            </SignUpBackgroundWrapper>
+        </SignUpWrapper>
+    );
 };
 
 export default SignUpDetails;

@@ -7,6 +7,7 @@ import Select from "@material-ui/core/Select";
 import { MenuLabel, SelectBoxStyle, SmallLabeltext } from "./style";
 import { dropdown } from "app/assets/Icons";
 import { StringMap } from "i18next";
+import { ErrorLabel } from "../Input/style";
 
 interface SelectOption {
   value: number;
@@ -22,6 +23,7 @@ interface SelectPropTypes {
   id?: string;
   name?: string;
   disabled?: boolean;
+  error: any;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -41,6 +43,7 @@ export default function SelectBox(props: SelectPropTypes) {
     value,
     options = [],
     style,
+    error,
     disabled,
   } = props;
 
@@ -71,70 +74,47 @@ export default function SelectBox(props: SelectPropTypes) {
       // console.log("i.title", i.title);
     }
   });
-  return (
-    <SelectBoxStyle>
-      <InputLabel id="demo-simple-select-placeholder-label-label">
-        {label}
-      </InputLabel>
-      <Select
-        labelId="demo-simple-select-placeholder-label-label"
-        id="demo-simple-select-placeholder-label"
-        value={value === "" ? "" : age}
-        onChange={handleChange}
-        displayEmpty
-        className={classes.selectEmpty}
-        aria-describedby={parentId}
-        disabled={disabled}
-      >
-        {/* <MenuItem value={options?.[valueLabel]?.value}>
-          <span>{options?.[valueLabel]?.value}</span>
-        </MenuItem> */}
-        {options.map((option) => {
-          // console.log("option", option);
-          return (
-            <MenuItem
-              value={option?.value}
-              onClick={() => {
-                handleClose();
-                onSelect &&
-                  onSelect({ target: { value: option.value, id, name } });
-                // console.log(id, name, option.value);
-              }}
-              key={option?.value}
-            >
-              <MenuLabel text={option?.title} />
-              <SmallLabeltext text={option?.subtitle} />
-            </MenuItem>
-          );
 
-          // <Typography
-          //   onClick={() => {
-          //     handleClose();
-          //     onSelect &&
-          //       onSelect({ target: { value: option.value, id, name } });
-          //   }}
-          //   className={classes.typography}
-          //   key={option.value}
-          //   style={{ cursor: "pointer" }}
-          // >
-          //   {option.label}
-          // </Typography>
-        })}
-        {/* <MenuItem value={10}>
-          <MenuLabel text="Ten" />
-          <SmallLabeltext text="Can place orders and view reports of self account" />
-        </MenuItem>
-        <MenuItem value={20}>
-          <MenuLabel text="Twenty" />
-          <SmallLabeltext text="Can place orders and view reports of self account" />
-        </MenuItem>
-        <MenuItem value={30}>
-          <MenuLabel text="Thirty" />
-          <SmallLabeltext text="Can place orders and view reports of self account" />
-        </MenuItem> */}
-      </Select>
-      <img src={dropdown} alt="" className="dropdownicon" />
-      {/* <FormHelperText>Error message</FormHelperText> */}
-    </SelectBoxStyle>
+  return (
+    <>
+      <SelectBoxStyle>
+        <InputLabel id="demo-simple-select-placeholder-label-label">
+          {label}
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-placeholder-label-label"
+          id="demo-simple-select-placeholder-label"
+          value={value === "" ? "" : age}
+          onChange={handleChange}
+          displayEmpty
+          renderValue={(value: any) =>
+            value !== "" ? options?.[age - 1]?.title : "Select"
+          }
+          className={classes.selectEmpty}
+          aria-describedby={parentId}
+          disabled={disabled}
+        >
+          {options.map((option) => {
+            return (
+              <MenuItem
+                value={option?.value}
+                onClick={() => {
+                  handleClose();
+                  onSelect &&
+                    onSelect({ target: { value: option.value, id, name } });
+                  // console.log(id, name, option.value);
+                }}
+                key={option?.value}
+              >
+                <MenuLabel text={option?.title} />
+                <SmallLabeltext text={option?.subtitle} />
+              </MenuItem>
+            );
+          })}
+        </Select>
+        <img src={dropdown} alt="" className="dropdownicon" />
+      </SelectBoxStyle>
+      {!!error && <ErrorLabel>{error}</ErrorLabel>}
+    </>
   );
 }

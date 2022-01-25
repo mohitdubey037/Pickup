@@ -16,11 +16,17 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { loginSchema } from "./loginSchemas";
 import { actions } from "store/reducers/SignInReducer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import CryptoJS from 'crypto-js';
 import { CommonError } from "app/components/Input/style";
 
 const Login = ({ navigate }: RouteComponentProps) => {
+
+  const firstFieldRef = useRef<any>(null);
+
+  useEffect(() => {
+    firstFieldRef.current.focus();
+  }, [])
 
   let tempCookie = Cookies.get('password');
 
@@ -120,6 +126,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
             <PageTitle title="LOGIN" />
             {/* <form onSubmit={handleSubmit}> */}
             <Input
+              ref={firstFieldRef}
               id={"email"}
               name={"email"}
               label="Email"

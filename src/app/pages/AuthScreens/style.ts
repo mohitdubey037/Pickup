@@ -135,3 +135,12 @@ export const Termslink = styled.div`
     color: #1b8af0;
   }
 `;
+
+
+
+
+
+
+
+
+

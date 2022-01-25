@@ -5,49 +5,52 @@
  * code.
  */
 
-import 'react-app-polyfill/ie11';
-import 'react-app-polyfill/stable';
+import "react-app-polyfill/ie11";
+import "react-app-polyfill/stable";
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import FontFaceObserver from 'fontfaceobserver';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import FontFaceObserver from "fontfaceobserver";
 
-import { App } from './app';
+import { App } from "./app";
 
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from "react-helmet-async";
 
-import { configureAppStore } from './store/configureStore';
+import { configureAppStore, persistor } from "./store/configureStore";
 
-import { ThemeProviderWraper } from './styles/theme/ThemeProvider';
+import { ThemeProviderWraper } from "./styles/theme/ThemeProvider";
 
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
 
 // Initialize languages
-import './locales/i18n';
-import './index.css'
+import "./locales/i18n";
+import "./index.css";
+import { PersistGate } from "redux-persist/integration/react";
 // Observe loading of Inter (to remove 'Inter', remove the <link> tag in
 // the index.html file and this observer)
-const openSansObserver = new FontFaceObserver('Inter', {});
+const openSansObserver = new FontFaceObserver("Inter", {});
 
 // When Inter is loaded, add a font-family using Inter to the body
 openSansObserver.load().then(() => {
-  document.body.classList.add('fontLoaded');
+  document.body.classList.add("fontLoaded");
 });
 
 const store = configureAppStore();
-const MOUNT_NODE = document.getElementById('root') as HTMLElement;
+const MOUNT_NODE = document.getElementById("root") as HTMLElement;
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProviderWraper>
-      <HelmetProvider>
-        <React.StrictMode>
-           <App />
-         </React.StrictMode>
-      </HelmetProvider>
-    </ThemeProviderWraper>
+    <PersistGate persistor={persistor} loading={null}>
+      <ThemeProviderWraper>
+        <HelmetProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </HelmetProvider>
+      </ThemeProviderWraper>
+    </PersistGate>
   </Provider>,
-  MOUNT_NODE,
+  MOUNT_NODE
 );
 
 // Hot reloadable translation json files
