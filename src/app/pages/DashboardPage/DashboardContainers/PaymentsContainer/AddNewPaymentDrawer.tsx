@@ -71,7 +71,7 @@ function AddNewPaymentDrawer({ invoiceId }) {
     console.log(ordersArray);
 
     return (
-        <div style={{ width: 540 }}>
+        <div>
             <img
                 style={{ paddingLeft: 200 }}
                 className="imageStyle"

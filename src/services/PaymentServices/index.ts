@@ -32,7 +32,6 @@ export const addNewCardService = async (body: any) => {
 export const getInvoiceList = async ()=>{
     try {
         const res = await Services.get("order/business/invoices","order")
-        console.log("resdata",res)
         return{response: res, error:null};
     }catch(error){
     return {response: null, error: error};

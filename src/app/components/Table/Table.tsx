@@ -72,12 +72,14 @@ const Table = ({
                     <TableHead>
                         <TableRow>
                             {showCheckbox && (
-                                <Checkbox
-                                    label={""}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                        handleCheckboxClick(e, undefined, "header")
-                                    }
-                                />
+                                <TableCell padding="checkbox">
+                                    <Checkbox
+                                        label={null}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                            handleCheckboxClick(e, undefined, "header")
+                                        }
+                                    />
+                                </TableCell>
                             )}
                             {!!data?.length &&
                                 Object.keys(data[0] as object).map((title, idx: number) => (
@@ -99,13 +101,15 @@ const Table = ({
                                         <>
                                             {/* {console.log('cellData', row["Order Id"])} */}
                                             {showCheckbox && idx === 0 && (
-                                                <Checkbox
-                                                    label={""}
-                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                                        handleCheckboxClick(e, index, undefined)
-                                                    }
-                                                    isChecked={selectedRows.includes(index)}
-                                                />
+                                                <TableCell>
+                                                    <Checkbox
+                                                        label={""}
+                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                                            handleCheckboxClick(e, index, undefined)
+                                                        }
+                                                        isChecked={selectedRows.includes(index)}
+                                                    />
+                                                </TableCell>
                                             )}
                                             <TableCell>{cellData}</TableCell>
                                         </>
