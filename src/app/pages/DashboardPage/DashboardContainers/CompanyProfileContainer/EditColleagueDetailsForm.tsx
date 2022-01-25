@@ -54,16 +54,7 @@ const EditColleagueDetailsForm = ({
             marginBottom: 20,
           }}
         >
-          <Avatar
-            style={{
-              width: 86,
-              height: 86,
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            <img src="https://i.pravatar.cc/300" width={86} />
-          </Avatar>
+          <Avatar style={{ width: 86, height: 86 }} />
         </Flex>
         <Flex
           style={{
