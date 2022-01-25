@@ -8,6 +8,7 @@ import {
     FormWrapper,
     LogoImage,
     LoginWrapper,
+    LoginBackgroundWrapper,
 } from "../style";
 import { actions } from "store/reducers/SignInReducer";
 import { useEffect, useState } from "react";
@@ -97,6 +98,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     return (
         <form onSubmit={handleSubmit} >
             <LoginWrapper>
+            <LoginBackgroundWrapper>
                 <LogoImage />
                 <FormWrapper>
                     <FormContent>
@@ -125,6 +127,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                         <Button disabled={!isValid} showLoader={showLoader} label="Confirm" onClick={handleSubmit} size="large" />
                     </FormContent>
                 </FormWrapper>
+                </LoginBackgroundWrapper>
             </LoginWrapper>
         </form>
     );

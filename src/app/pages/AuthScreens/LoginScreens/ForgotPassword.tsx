@@ -7,6 +7,7 @@ import {
     FormContent,
     FormWrapper,
     Header,
+    LoginBackgroundWrapper,
     LoginLink,
     LoginWrapper,
     LogoImage,
@@ -75,6 +76,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
     return (
         <form onSubmit={handleSubmit} >
             <LoginWrapper>
+                <LoginBackgroundWrapper>
                 <LogoImage />
                 <FormWrapper>
                     <FormContent>
@@ -103,6 +105,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                         </LoginLink>
                     </FormContent>
                 </FormWrapper>
+                </LoginBackgroundWrapper>
             </LoginWrapper>
         </form>
     );

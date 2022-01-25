@@ -51,6 +51,10 @@ import calendar from "./calendar.svg"
 import remove from "./Remove.svg"
 import editavatar from "./edit-avatar.svg"
 import logo from './logoImg.svg'
+import superintendent from './Superintendent.svg'
+import manager from './manager.svg'
+import executive from './executive.svg'
+import admin from './admin.svg'
 
 
 export {
@@ -106,5 +110,9 @@ export {
     StepperCircleIcon,
     YellowTick,
     remove,
-    editavatar
+    editavatar,
+    superintendent,
+    manager,
+    executive,
+    admin
 };

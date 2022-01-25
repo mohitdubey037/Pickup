@@ -1,3 +1,5 @@
+import { admin, executive, manager, superintendent } from "app/assets/Icons";
+
 export const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const USER_BASE_URL = process.env.REACT_APP_USER_BASE_URL;
 export const USER_BASE_CR_URL = process.env.REACT_APP_USER_BASE_CR_URL;
@@ -38,23 +40,29 @@ export const PERMISSION_TYPES = [
 ];
 
 export const NEW_PERMISSION_TYPES = [
-  { title: "Executive", value: 1, subtitle: "Can place orders only" },
+  { 
+    title: "Executive", 
+    value: 1, 
+    subtitle: "Can place orders only",
+    icon: executive
+   },
   {
     title: "Superintendent",
     value: 2,
     subtitle: "Can place orders and view reports of self account",
+    icon: superintendent
   },
   {
     title: "Manager",
     value: 3,
-    subtitle:
-      "Can place orders of self account and view reports of all accounts",
+    subtitle: "Can place orders of self account and view reports of all accounts",
+    icon: manager
   },
   {
     title: "Admin",
     value: 4,
-    subtitle:
-      "Can place orders of self account, view reports, add colleagues and manage permissions of all accounts",
+    subtitle: "Can place orders of self account, view reports, add colleagues and manage permissions of all accounts",
+    icon: admin
   },
 ];
 

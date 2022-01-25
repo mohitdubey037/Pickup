@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Select from "@material-ui/core/Select";
-import { MenuLabel, SelectBoxStyle, SmallLabeltext } from "./style";
+import { MenuIcon, MenuLabel, SelectBoxStyle, SmallLabeltext } from "./style";
 import { dropdown } from "app/assets/Icons";
-import { StringMap } from "i18next";
 import { ErrorLabel } from "../Input/style";
 
 interface SelectOption {
   value: number;
   title?: string;
   subtitle?: string;
+  icon?: string;
 }
 interface SelectPropTypes {
   label?: string;
@@ -106,6 +105,7 @@ export default function SelectBox(props: SelectPropTypes) {
                 }}
                 key={option?.value}
               >
+                <MenuIcon><img src={option?.icon} alt="menuicon" /> </MenuIcon>
                 <MenuLabel text={option?.title} />
                 <SmallLabeltext text={option?.subtitle} />
               </MenuItem>
