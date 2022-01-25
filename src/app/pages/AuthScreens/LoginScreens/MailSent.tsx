@@ -5,6 +5,7 @@ import {
   FormContent,
   FormWrapper,
   LoginWrapper,
+  LoginBackgroundWrapper,
 } from "../style";
 import { mailLogo } from "../../../assets/Icons/";
 import { PageTitle, RedLink, SmallLabel } from "../../../components/Typography/Typography";
@@ -13,6 +14,8 @@ import { Box } from "@material-ui/core";
 const MailSent = ({ navigate }: RouteComponentProps) => {
   return (
     <LoginWrapper>
+      
+      <LoginBackgroundWrapper>
       <LogoImage />
       <FormWrapper>
         <FormContent className="CenterContent">
@@ -27,6 +30,7 @@ const MailSent = ({ navigate }: RouteComponentProps) => {
             <RedLink label="Back to Login" link={() => navigate?.("/")} />
         </FormContent>
       </FormWrapper>
+      </LoginBackgroundWrapper>
     </LoginWrapper>
   );
 };
