@@ -32,9 +32,11 @@ export default function Appbar() {
 
   const profileHandler =()=>{
     navigate("/dashboard/my-account/personal-profile")
+    setAnchorEl(null);
   }
   const accountHandler =()=>{
     navigate("/dashboard/my-account/company-profile")
+    setAnchorEl(null);
   }
   const handleClose = (e) => {
     const { id } = e.target;
