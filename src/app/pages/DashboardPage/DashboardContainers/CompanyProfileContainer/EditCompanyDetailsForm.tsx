@@ -108,8 +108,8 @@ const EditCompanyDetailsForm = ({
         value={values.companyName}
         initValue={values.companyName}
         onChange={handleChange}
+        required={true}
         error={touched.companyName && errors?.companyName?.toString()}
-        // error={touched?.companyName && errors.companyName}
         label="Company Name"
         placeholder={"Torinit"}
       />
@@ -138,7 +138,6 @@ const EditCompanyDetailsForm = ({
         label="Adresss Line 1"
         placeholder={"100 Bond Street"}
       /> */}
-
       <Input
         id="address2"
         name="address2"
@@ -146,11 +145,11 @@ const EditCompanyDetailsForm = ({
         initValue={values.address2}
         onBlur={handleBlur}
         onChange={handleChange}
+        required={true}
         error={touched.address2 && errors?.address2?.toString()}
         label="Address Line 2"
         placeholder={"123 Avebue"}
       />
-
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Input
@@ -160,6 +159,7 @@ const EditCompanyDetailsForm = ({
             initValue={values.city}
             onBlur={handleBlur}
             onChange={handleChange}
+            required={true}
             error={touched.city && errors?.city?.toString()}
             label="City"
             placeholder={"Toronto"}
@@ -174,6 +174,7 @@ const EditCompanyDetailsForm = ({
             initValue={values.province}
             onBlur={handleBlur}
             onChange={handleChange}
+            required={true}
             error={touched.province && errors?.province?.toString()}
             label="Province"
             placeholder={"Ontario"}
@@ -188,6 +189,7 @@ const EditCompanyDetailsForm = ({
           initValue={values.country}
           onBlur={handleBlur}
           onChange={handleChange}
+          required={true}
           error={touched.country && errors?.country?.toString()}
           label="Country"
           placeholder={"Start typing"}
@@ -201,7 +203,6 @@ const EditCompanyDetailsForm = ({
         value={values["country"]}
         onSelect={handleChange}
       /> */}
-
       <Input
         id="hstNumber"
         name="hstNumber"
@@ -209,11 +210,11 @@ const EditCompanyDetailsForm = ({
         initValue={values.hstNumber}
         onBlur={handleBlur}
         onChange={handleChange}
+        required={true}
         error={touched.hstNumber && errors?.hstNumber?.toString()}
         label="HST Number"
         placeholder={"1245567842185"}
       />
-
       <Input
         id="businessNumber"
         name="businessNumber"
@@ -221,11 +222,11 @@ const EditCompanyDetailsForm = ({
         initValue={values.businessNumber}
         onBlur={handleBlur}
         onChange={handleChange}
+        required={true}
         error={touched.businessNumber && errors?.businessNumber?.toString()}
         label="Business Number"
         placeholder={"5421369"}
       />
-
       <Input
         id="pincode"
         name="pincode"
@@ -233,11 +234,11 @@ const EditCompanyDetailsForm = ({
         initValue={values.pincode}
         onBlur={handleBlur}
         onChange={handleChange}
+        required={true}
         error={touched.pincode && errors?.pincode?.toString()}
         label="Pincode"
         placeholder={"554787"}
       />
-
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Select
@@ -258,6 +259,7 @@ const EditCompanyDetailsForm = ({
             initValue={values.employeeStrength}
             onBlur={handleBlur}
             onChange={handleChange}
+            required={true}
             error={
               touched.employeeStrength && errors?.employeeStrength?.toString()
             }
@@ -266,7 +268,6 @@ const EditCompanyDetailsForm = ({
           />
         </Grid>
       </Grid>
-
       <DrawerFooter>
         <Button
           secondary

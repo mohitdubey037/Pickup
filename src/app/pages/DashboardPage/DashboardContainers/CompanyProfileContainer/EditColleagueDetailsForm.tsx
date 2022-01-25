@@ -71,6 +71,7 @@ const EditColleagueDetailsForm = ({
             error={touched?.firstName && errors?.firstName?.toString()}
             label="First Name"
             placeholder={"Torinit"}
+            required={true}
           />
         </Flex>
         <Flex
@@ -88,6 +89,7 @@ const EditColleagueDetailsForm = ({
             error={touched?.lastName && errors?.lastName?.toString()}
             label="Last Name"
             placeholder={"100 Bond Street"}
+            required={true}
           />
         </Flex>
         <Flex
@@ -105,6 +107,7 @@ const EditColleagueDetailsForm = ({
             error={touched.emailId && errors?.emailId?.toString()}
             label="Email Id"
             placeholder={"123 Avebue"}
+            required={true}
           />
         </Flex>
         <Flex style={{ marginBottom: 20 }}>
@@ -120,6 +123,7 @@ const EditColleagueDetailsForm = ({
                 error={touched.phoneNumber && errors?.phoneNumber?.toString()}
                 label="Phone Number"
                 placeholder={"9987451169"}
+                required={true}
               />
             </Block>
           </Flex>
@@ -139,6 +143,7 @@ const EditColleagueDetailsForm = ({
                 }
                 label="Role/Designation"
                 placeholder={"Manager"}
+                required={true}
               />
             </Block>
           </Flex>
@@ -152,6 +157,7 @@ const EditColleagueDetailsForm = ({
               label={"Permissions"}
               value={values["role"]}
               onSelect={handleChange}
+              required={true}
             />
           </Grid>
         </Flex>
@@ -167,10 +173,11 @@ const EditColleagueDetailsForm = ({
             label={"Notification Frequency"}
             value={values["notificationFrequency"]}
             onSelect={handleChange}
-            error={
-              touched.notificationFrequency &&
-              errors?.notificationFrequency?.toString()
-            }
+            // error={
+            //   touched.notificationFrequency &&
+            //   errors?.notificationFrequency?.toString()
+            // }
+            // required={true}
           />
           {/* <Input
             id="notificationFrequency"

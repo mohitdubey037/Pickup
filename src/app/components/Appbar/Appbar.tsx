@@ -24,8 +24,6 @@ export default function Appbar() {
   let getRole = (roleId) =>
     PERMISSION_TYPES.filter((role) => role.value === roleId);
 
-  console.log("getRole", getRole(1));
-
   useEffect(() => {
     const authToken = services.getToken();
     if (!authToken) {

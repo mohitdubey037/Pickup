@@ -90,6 +90,7 @@ function NewColleagueForm({ saveAction }) {
             error={touched.firstName && errors?.firstName?.toString()}
             label={"First Name"}
             placeholder={"John"}
+            required={true}
           />
         </Grid>
 
@@ -104,6 +105,7 @@ function NewColleagueForm({ saveAction }) {
             error={touched.lastName && errors?.lastName}
             label={"Last Name"}
             placeholder={"Doe"}
+            required={true}
           />
         </Grid>
         <Grid item md={3}>
@@ -117,6 +119,7 @@ function NewColleagueForm({ saveAction }) {
             error={touched.phoneNumber && errors?.phoneNumber?.toString()}
             label={"Phone Number"}
             placeholder={"+1 (999)-999-9999"}
+            required={true}
           />
         </Grid>
         <Grid item md={3}>
@@ -132,6 +135,7 @@ function NewColleagueForm({ saveAction }) {
             }
             label={"Role / Designation"}
             placeholder={"Manager"}
+            required={true}
           />
         </Grid>
         <Grid item md={12} style={{ marginBottom: 15 }}>
@@ -148,6 +152,7 @@ function NewColleagueForm({ saveAction }) {
             error={touched.emailId && errors?.emailId?.toString()}
             label={"Email id"}
             placeholder={"johndoe@pickups.com"}
+            required={true}
           />
         </Grid>
         <Grid item md={3}>
@@ -160,6 +165,7 @@ function NewColleagueForm({ saveAction }) {
             onSelect={handleChange}
             disabled={!isChecked}
             error={errors?.notificationFrequency?.toString()}
+            required={isChecked && true}
           />
         </Grid>
       </GridContainer>
@@ -178,6 +184,7 @@ function NewColleagueForm({ saveAction }) {
               // touched?.notificationFrequency &&
               errors?.permission?.toString()
             }
+            required={true}
           />
         </Grid>
         <Grid item md={12}>
