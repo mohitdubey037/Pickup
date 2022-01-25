@@ -127,17 +127,6 @@ const EditCompanyDetailsForm = ({
         initValue={values.address1}
         disabled={undefined}
       />
-      {/* <Input
-        id="address1"
-        name="address1"
-        value={values.address1}
-        initValue={values.address1}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        error={touched.address1 && errors?.address1?.toString()}
-        label="Adresss Line 1"
-        placeholder={"100 Bond Street"}
-      /> */}
 
       <Input
         id="address2"
@@ -180,7 +169,7 @@ const EditCompanyDetailsForm = ({
           />
         </Grid>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <Input
           id="country"
           name="country"

@@ -79,7 +79,7 @@ function NewColleagueForm({ saveAction }) {
         <ListLabel text="Add New Colleague" />
       </Box>
       <GridContainer container spacing={2}>
-        <Grid item md={3}>
+        <Grid item lg={3} md={6}>
           <CustomInput
             id="firstName"
             name="firstName"
@@ -93,7 +93,7 @@ function NewColleagueForm({ saveAction }) {
           />
         </Grid>
 
-        <Grid item md={3}>
+        <Grid item lg={3} md={6}>
           <CustomInput
             id="lastName"
             name="lastName"
@@ -106,7 +106,7 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"Doe"}
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item lg={3} md={6}>
           <CustomInput
             id="phoneNumber"
             name="phoneNumber"
@@ -119,7 +119,7 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"+1 (999)-999-9999"}
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item lg={3} md={6}>
           <CustomInput
             id="roleDesignation"
             name="roleDesignation"
@@ -134,10 +134,16 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"Manager"}
           />
         </Grid>
-        <Grid item md={12} style={{ marginBottom: 15 }}>
+        </GridContainer>
+
+        <GridContainer container spacing={2}>
+        <Grid item lg={12}>
           <Switches value={isChecked} setIsChecked={setIsChecked} />
         </Grid>
-        <Grid item md={3}>
+        </GridContainer>
+
+        <GridContainer container spacing={2}>
+        <Grid item lg={3} md={6}>
           <CustomInput
             id="emailId"
             name="emailId"
@@ -150,7 +156,7 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"johndoe@pickups.com"}
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item lg={3} md={6}>
           <Select
             id="notificationFrequency"
             name="notificationFrequency"
@@ -164,8 +170,8 @@ function NewColleagueForm({ saveAction }) {
         </Grid>
       </GridContainer>
 
-      <GridContainer container>
-        <Grid item md={12}>
+      <GridContainer container spacing={2}>
+        <Grid item xs={12}>
           <SelectBox
             id="permission"
             name="permission"
@@ -180,7 +186,7 @@ function NewColleagueForm({ saveAction }) {
             }
           />
         </Grid>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <Button
             label="Save"
             onClick={handleSubmit}
