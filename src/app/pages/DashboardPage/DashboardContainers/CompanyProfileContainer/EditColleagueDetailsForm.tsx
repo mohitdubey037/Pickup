@@ -7,6 +7,7 @@ import { Avatar, Grid } from "@material-ui/core";
 import {
   COUNTRY_TEXT,
   INDUSTRY_TEXT,
+  NOTIFICATION_FREQUENCY_TYPES,
   PERMISSION_TYPES,
 } from "../../../../../constants";
 import Select from "app/components/Select";
@@ -168,7 +169,19 @@ const EditColleagueDetailsForm = ({
             marginBottom: 20,
           }}
         >
-          <Input
+          <Select
+            id="notificationFrequency"
+            name="notificationFrequency"
+            options={NOTIFICATION_FREQUENCY_TYPES}
+            label={"Notification Frequency"}
+            value={values["notificationFrequency"]}
+            onSelect={handleChange}
+            error={
+              touched.notificationFrequency &&
+              errors?.notificationFrequency?.toString()
+            }
+          />
+          {/* <Input
             id="notificationFrequency"
             name="notificationFrequency"
             value={values.notificationFrequency}
@@ -181,7 +194,7 @@ const EditColleagueDetailsForm = ({
             }
             label="Notification Frequency"
             placeholder={"Monthly"}
-          />
+          /> */}
         </Flex>
       </div>
       <Flex

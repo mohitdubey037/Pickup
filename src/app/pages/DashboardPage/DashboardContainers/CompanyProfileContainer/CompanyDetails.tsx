@@ -27,7 +27,7 @@ export default function CompanyDetails(props: DetailInterface) {
         </Box>
         <Box display="flex" justifyContent="space-between">
           <Box mr={4}>
-            <Avatar style={{ width: 86, height: 86 }} src={avatar} />
+            <Avatar style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
