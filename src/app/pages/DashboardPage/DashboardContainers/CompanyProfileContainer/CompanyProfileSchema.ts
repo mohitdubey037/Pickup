@@ -89,7 +89,7 @@ export const addNewColleague = yup.object().shape({
   roleDesignation: yup
     .string()
     .required(" Role/Designation is a required field"),
-  emailId: yup.string().email().required("Email Id is a required field"),
+  emailId: yup.string().email().required("Email is a required field"),
   // notificationFrequency: yup.string(),
   permission: yup.string().required(" Permission is a required field"),
   // notification: yup.string().required(" Company Name is a required field"),
