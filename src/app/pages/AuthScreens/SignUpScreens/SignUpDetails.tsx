@@ -38,12 +38,15 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     const showLoader = useSelector((state: { globalState: { showLoader: boolean } }) => state.globalState.showLoader)
 
-    const [email, setEmail] = useState<string>('')
+    // const [email, setEmail] = useState<string>('');
+    const [token, setToken] = useState<string>('');
     const [showTermsPolicies, setShowTermsPolicies] = useState('');
 
     useEffect(() => {
-        const params = getParamsFromUrl(location.search)
-        setEmail(params['emailId'])
+        const params = getParamsFromUrl(location.search);
+        // console.log(params['p']);
+        console.log(params);
+        setToken(params['p'])
     }, [location.search])
 
     useEffect(() => {
@@ -54,47 +57,49 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         if (companyResponse) {
-            navigate?.("/password", {
-                state: {
-                    email: email
-                }
-            });
-        }
-    }, [companyResponse, navigate, email]);
+            navigate?.("/password")
+            // {
+            //     state: {
+            //         email: email
+            //     }
+            // }
+            // );
+}
+    }, [companyResponse, navigate]);
 
-    const onSignUp = (values: any) => {
-        const data = { ...values, emailId: email }
-        dispatch(actions.registerCompany(data));
-    };
+const onSignUp = (values: any) => {
+    const data = { ...values, token: token }
+    dispatch(actions.registerCompany(data));
+};
 
-    const {
-        handleChange,
-        values: { consent },
-        errors,
-        touched,
-        handleBlur,
-        handleSubmit,
-        setFieldValue,
-        isValid,
-        validateForm
-    } = useFormik({
-        initialValues: { firstName: '', lastName: '', companyName: '', phoneNumber: '', consent: false },
-        validationSchema: companyDetailsSchema,
-        onSubmit: onSignUp,
-    });
+const {
+    handleChange,
+    values: { consent },
+    errors,
+    touched,
+    handleBlur,
+    handleSubmit,
+    setFieldValue,
+    isValid,
+    validateForm
+} = useFormik({
+    initialValues: { firstName: '', lastName: '', companyName: '', phoneNumber: '', consent: false },
+    validationSchema: companyDetailsSchema,
+    onSubmit: onSignUp,
+});
 
-    useEffect(() => {
-        (() => validateForm())();
-    }, []);
+useEffect(() => {
+    (() => validateForm())();
+}, []);
 
-    return (
-        <SignUpWrapper>
+return (
+    <SignUpWrapper>
         <SignUpBackgroundWrapper>
             <LogoImage />
             <FormWrapper>
                 <form>
                     <FormContent>
-                    <PageTitle title="SIGN UP" />
+                        <PageTitle title="SIGN UP" />
                         <GridContainer container spacing={2}>
                             <Grid item xs={6}>
                                 <Input
@@ -133,7 +138,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                             </Grid>
                             <Grid item xs={12}>
                                 <Input
-                                    
+
                                     label="Phone Number"
                                     placeholder="+1 (999)-999-9999"
                                     id="phoneNumber"
@@ -144,34 +149,34 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                            <Box mt={1} mb={4}>
-                                <Checkbox
-                                    isChecked={consent}
-                                    id="consent"
-                                    label={<Termslink>I agree to the <Link to="" onClick={()=>setShowTermsPolicies('terms')}>Terms</Link> and <Link to=""onClick={()=>setShowTermsPolicies('policies')}>Policies</Link></Termslink>}
-                                    name="consent"
-                                    onChange={() => setFieldValue('consent', !consent)}
-                                    onBlur={handleBlur}
-                                    error={touched.consent && errors.consent}
-                                />   
-                            </Box>
-                            <Modal
-                                isOpen={!!showTermsPolicies}
-                                onRequestClose={()=>setShowTermsPolicies('')}
-                            >
-                                <TermsAndPolicies name={showTermsPolicies}/>
-                            </Modal>
+                                <Box mt={1} mb={4}>
+                                    <Checkbox
+                                        isChecked={consent}
+                                        id="consent"
+                                        label={<Termslink>I agree to the <Link to="" onClick={() => setShowTermsPolicies('terms')}>Terms</Link> and <Link to="" onClick={() => setShowTermsPolicies('policies')}>Policies</Link></Termslink>}
+                                        name="consent"
+                                        onChange={() => setFieldValue('consent', !consent)}
+                                        onBlur={handleBlur}
+                                        error={touched.consent && errors.consent}
+                                    />
+                                </Box>
+                                <Modal
+                                    isOpen={!!showTermsPolicies}
+                                    onRequestClose={() => setShowTermsPolicies('')}
+                                >
+                                    <TermsAndPolicies name={showTermsPolicies} />
+                                </Modal>
                             </Grid>
                             <Grid item xs={12}>
-                            <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
+                                <Button label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
                             </Grid>
                         </GridContainer>
                     </FormContent>
                 </form>
             </FormWrapper>
-            </SignUpBackgroundWrapper>
-        </SignUpWrapper>
-    );
+        </SignUpBackgroundWrapper>
+    </SignUpWrapper>
+);
 };
 
 export default SignUpDetails;
