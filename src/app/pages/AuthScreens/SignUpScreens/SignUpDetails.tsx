@@ -44,9 +44,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         const params = getParamsFromUrl(location.search);
-        // console.log(params['p']);
-        console.log(params);
-        setToken(params['p'])
+        setToken(params['token'])
     }, [location.search])
 
     useEffect(() => {

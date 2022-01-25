@@ -25,10 +25,17 @@ const Password = ({ navigate }: RouteComponentProps) => {
     //     (state: { signUp: { passwordRegisterResponse: {} } }) =>
     //         state.signUp.passwordRegisterResponse
     // );
+    const companyRegisterResponse = useSelector((state: any) => {
+        console.log(state);
+        return state?.signUp?.companyRegisterResponse?.emailId;
+    });
+
     const passwordRegisterResponse = useSelector((state: any) => {
+        console.log(state);
         return state?.signUp?.passwordRegisterResponse;
     });
-    
+
+
     const showLoader = useSelector(
         (state: { globalState: { showLoader: boolean } }) =>
             state.globalState.showLoader
@@ -44,14 +51,11 @@ const Password = ({ navigate }: RouteComponentProps) => {
 
     useEffect(() => {
         //This logic needs to improve or something better needs to be thought of to show user in case of missing email in navigation state
-        // if (!state?.email) {
-        //     navigate?.('/sign-up')
-        // }
-        if (!passwordRegisterResponse?.email) {
+
+        if (!companyRegisterResponse) {
             navigate?.('/sign-up')
         }
-
-    }, [passwordRegisterResponse?.email]);
+    }, [companyRegisterResponse]);
 
     useEffect(() => {
         if (passwordRegisterResponse) {
@@ -63,7 +67,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
         dispatch(
             actions.registerPassword({
                 // emailId: state?.email,
-                emailId: passwordRegisterResponse?.email,
+                emailId: companyRegisterResponse,
                 password: values.password,
             })
         );
