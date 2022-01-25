@@ -11,6 +11,7 @@ import services from "services";
 
 export default function Appbar() {
   const [anchorEl, setAnchorEl] = useState(null);
+  // const [profileImage, setProfileImage] = useState(null);
   const pathname = window?.location?.pathname;
   const dispatch = useDispatch();
 

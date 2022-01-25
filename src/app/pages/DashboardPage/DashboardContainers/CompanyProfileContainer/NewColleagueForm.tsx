@@ -28,6 +28,7 @@ function NewColleagueForm({ saveAction }) {
     handleBlur,
     handleSubmit,
     isValid,
+    setFieldValue,
   } = useFormik({
     initialValues: {
       firstName: "",
@@ -35,15 +36,18 @@ function NewColleagueForm({ saveAction }) {
       phoneNumber: "",
       roleDesignation: "",
       emailId: "",
-      notificationFrequency: null,
+      notificationFrequency: "",
       permission: "",
-      notification: 1,
+      notification: 0,
       type: 17,
     },
     validationSchema: addNewColleague,
     onSubmit: (values, actions) => {
-      if (isChecked) {
-        values.notificationFrequency = null;
+      if (!isChecked) {
+        values.notification = 0;
+        values.notificationFrequency = "";
+      } else {
+        values.notification = 1;
       }
       // console.log("permission", values?.permission);
       saveAction(values);
@@ -54,17 +58,21 @@ function NewColleagueForm({ saveAction }) {
           phoneNumber: "",
           roleDesignation: "",
           emailId: "",
-          notificationFrequency: null,
+          notificationFrequency: "",
           permission: "",
-          notification: 1,
+          notification: 0,
           type: 17,
         },
       });
-      // values.permission = "";
-      // console.log("permission", values?.permission);
     },
   });
-
+  useEffect(() => {
+    if (isChecked) {
+      setFieldValue("notification", 1);
+    } else {
+      setFieldValue("notification", 0);
+    }
+  }, [isChecked]);
   return (
     <FullCard>
       <Box mb={4}>
@@ -148,9 +156,10 @@ function NewColleagueForm({ saveAction }) {
             name="notificationFrequency"
             options={NOTIFICATION_FREQUENCY_TYPES}
             label={"Notification Frequency"}
-            value={!isChecked ? values["notificationFrequency"] : null}
+            value={isChecked ? values["notificationFrequency"] : ""}
             onSelect={handleChange}
-            disabled={isChecked}
+            disabled={!isChecked}
+            error={errors?.notificationFrequency?.toString()}
           />
         </Grid>
       </GridContainer>
@@ -164,7 +173,11 @@ function NewColleagueForm({ saveAction }) {
             label={"Permission"}
             value={values?.permission}
             onSelect={handleChange}
-            error={touched.permission && errors?.permission?.toString()}
+            error={
+              touched.permission &&
+              // touched?.notificationFrequency &&
+              errors?.permission?.toString()
+            }
           />
         </Grid>
         <Grid item md={12}>

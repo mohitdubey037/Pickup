@@ -21,11 +21,11 @@ const DashboardPage = ({ children, navigate }: DashboardProps) => {
 
   return (
     <DasboardWrapper>
-      {showSplash && (
+      {/* {showSplash && (
         <Overlay>
           <SplashScreens onHide={hideSplashScreens} />
         </Overlay>
-      )}
+      )} */}
       <LeftDashboard
         onDrawerItemSelect={(id) => {
           navigate?.(id);
