@@ -67,7 +67,9 @@ export default function PersonalProfileContainer({ path: string }) {
   const changePassword = async (values) => {
     const res = (await changeProfilePassword(values)) as any;
     console.log(res);
-    setPasswordDrawerOpen(false);
+    if (res?.success) {
+      setPasswordDrawerOpen(false);
+    }
   };
 
   return (
