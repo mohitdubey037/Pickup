@@ -10,11 +10,24 @@ export const passwordSchema = yup.object().shape({
   newPassword: yup
     .string()
     .matches(PASSWORD_REGX, "Invalid Password")
-    .required("New Password is required"),
+    .required("New Password is required")
+    .test("newPassword", "Please enter new password", function (value) {
+      return this.parent.currentPassword !== value;
+    }),
   newConfirmedPassword: yup
     .string()
     .matches(PASSWORD_REGX, "Invalid Password")
     .required("New Confirm Password is required")
-    .oneOf([yup.ref("newPassword"), null], "Passwords must match"),
+    .oneOf(
+      [yup.ref("newPassword"), null],
+      "New Password and Confirm Password must match"
+    )
+    .test(
+      "newConfirmedPassword",
+      "Please enter new password",
+      function (value) {
+        return this.parent.currentPassword !== value;
+      }
+    ),
   // }),
 });
