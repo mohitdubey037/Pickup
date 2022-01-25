@@ -1,4 +1,4 @@
-import { FormControl } from "@material-ui/core";
+import { Box, FormControl } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import styled, { css } from "styled-components";
@@ -17,16 +17,23 @@ export const SmallLabeltext = styled(SmallLabel)`
   color: #878787;
   margin: 0;
   width: 85%;
-  min-width: 85%;
+  min-width: 80%;
   white-space: break-spaces;
 `;
 
 export const MenuLabel = styled(SmallLabel)`
   color: #414141;
   margin: 0;
-  min-width: 15%;
+  min-width: 13%;
   white-space: break-spaces;
 `;
+
+export const MenuIcon = styled(Box)`
+  min-width: 4%;
+  display:flex;
+  align-items:center;
+`;
+
 
 export const SelectBoxStyle = styled(FormControl)`
   width: 100% !important;
