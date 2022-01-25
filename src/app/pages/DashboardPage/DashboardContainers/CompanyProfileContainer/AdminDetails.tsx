@@ -23,42 +23,39 @@ export default function AdminDetails(props: DetailInterface) {
 
         <Box display="flex" justifyContent="space-between">
           <Box mr={4}>
-            <Avatar
-              style={{ width: 86, height: 86 }}
-              src={require("../../../../assets/Icons/logoImg.svg").default}
-            />
+            <Avatar style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="First Name" />
                 <SmallLabel
                   text={AdminDetails?.firstName ? AdminDetails?.firstName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Last Name" />
                 <SmallLabel
                   text={AdminDetails?.lastName ? AdminDetails?.lastName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Phone Number" />
                 <SmallLabel
                   text={AdminDetails?.phoneNo ? AdminDetails?.phoneNo : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={3} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Role/Designation" />
                 <SmallLabel
                   text={AdminDetails?.role ? AdminDetails?.role : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={3} sm={3}>
+              <Grid item lg={4} sm={8}>
                 <Para text="Email Id" />
                 <SmallLabel
                   text={AdminDetails?.emailId ? AdminDetails?.emailId : "-"}

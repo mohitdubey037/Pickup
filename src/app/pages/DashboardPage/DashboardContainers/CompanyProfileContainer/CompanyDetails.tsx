@@ -27,11 +27,11 @@ export default function CompanyDetails(props: DetailInterface) {
         </Box>
         <Box display="flex" justifyContent="space-between">
           <Box mr={4}>
-            <Avatar style={{ width: 86, height: 86 }} src={avatar} />
+            <Avatar style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Company Name" />
                 <SmallLabel
                   text={
@@ -43,7 +43,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Business Number" />
                 <SmallLabel
                   text={
@@ -55,7 +55,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Industry" />
                 <SmallLabel
                   text={
@@ -65,7 +65,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Employee Strength" />
                 <SmallLabel
                   text={
@@ -77,7 +77,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Address Line 1" />
                 <SmallLabel
                   text={
@@ -89,7 +89,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Address Line 2" />
                 <SmallLabel
                   text={
@@ -101,7 +101,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="City" />
                 <SmallLabel
                   text={companyDetails?.city ? companyDetails?.city : "-"}
@@ -109,7 +109,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Pincode" />
                 <SmallLabel
                   text={companyDetails?.pincode ? companyDetails?.pincode : "-"}
@@ -117,7 +117,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Province" />
                 <SmallLabel
                   text={
@@ -127,7 +127,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="Country" />
                 <SmallLabel
                   text={companyDetails?.country ? companyDetails?.country : "-"}
@@ -135,7 +135,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4}>
                 <Para text="HST Number" />
                 <SmallLabel
                   text={

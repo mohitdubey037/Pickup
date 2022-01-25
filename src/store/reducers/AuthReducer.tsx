@@ -19,10 +19,23 @@ export const auth = (state = initState, action: any) => {
     }
     case "UPDATE_USER": {
       console.log(action.user);
-      const { emailId, firstName, lastName, roleName, userDetails } =
-        action?.user?.data;
+      console.log(
+        action.user.emailId,
+        action.user.firstName,
+        action.user.lastName,
+        action.user.roleName,
+        action.user.userDetails
+      );
+      const {
+        emailId,
+        firstName,
+        lastName,
+        roleName,
+        userDetails,
+        profileImage,
+      } = action.user;
       const { phoneNo } = userDetails;
-      console.log(phoneNo);
+      // console.log(phoneNo);
       return {
         ...state,
         user: {
@@ -30,6 +43,7 @@ export const auth = (state = initState, action: any) => {
           emailId,
           firstName,
           lastName,
+          profileImage,
           roleDesignation: roleName,
           userDetails: {
             phoneNo: phoneNo,

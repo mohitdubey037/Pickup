@@ -11,6 +11,7 @@ import services from "services";
 
 export default function Appbar() {
   const [anchorEl, setAnchorEl] = useState(null);
+  // const [profileImage, setProfileImage] = useState(null);
   const pathname = window?.location?.pathname;
   const dispatch = useDispatch();
 
@@ -30,6 +31,14 @@ export default function Appbar() {
     setAnchorEl(event.currentTarget);
   };
 
+  const profileHandler =()=>{
+    navigate("/dashboard/my-account/personal-profile")
+    setAnchorEl(null);
+  }
+  const accountHandler =()=>{
+    navigate("/dashboard/my-account/company-profile")
+    setAnchorEl(null);
+  }
   const handleClose = (e) => {
     const { id } = e.target;
     if (id === "logout") {
@@ -83,8 +92,8 @@ export default function Appbar() {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={profileHandler} >Profile</MenuItem>
+          <MenuItem onClick={accountHandler}>My account</MenuItem>
           <MenuItem id={"logout"} onClick={handleClose}>
             Logout
           </MenuItem>

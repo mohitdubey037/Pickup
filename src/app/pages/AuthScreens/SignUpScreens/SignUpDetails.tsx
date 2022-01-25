@@ -45,12 +45,12 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     const showLoader = useSelector((state: { globalState: { showLoader: boolean } }) => state.globalState.showLoader)
 
-    const [email, setEmail] = useState<string>('')
+    const [token, setToken] = useState<string>('');
     const [showTermsPolicies, setShowTermsPolicies] = useState('');
 
     useEffect(() => {
-        const params = getParamsFromUrl(location.search)
-        setEmail(params['emailId'])
+        const params = getParamsFromUrl(location.search);
+        setToken(params['token'])
     }, [location.search])
 
     useEffect(() => {
@@ -61,38 +61,33 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         if (companyResponse) {
-            navigate?.("/password", {
-                state: {
-                    email: email
-                }
-            });
-        }
-    }, [companyResponse, navigate, email]);
+            navigate?.("/password")}
+    }, [companyResponse, navigate]);
 
-    const onSignUp = (values: any) => {
-        const data = { ...values, emailId: email }
-        dispatch(actions.registerCompany(data));
-    };
+const onSignUp = (values: any) => {
+    const data = { ...values, token: token }
+    dispatch(actions.registerCompany(data));
+};
 
-    const {
-        handleChange,
-        values: { consent },
-        errors,
-        touched,
-        handleBlur,
-        handleSubmit,
-        setFieldValue,
-        isValid,
-        validateForm
-    } = useFormik({
-        initialValues: { firstName: '', lastName: '', companyName: '', phoneNumber: '', consent: false },
-        validationSchema: companyDetailsSchema,
-        onSubmit: onSignUp,
-    });
+const {
+    handleChange,
+    values: { consent },
+    errors,
+    touched,
+    handleBlur,
+    handleSubmit,
+    setFieldValue,
+    isValid,
+    validateForm
+} = useFormik({
+    initialValues: { firstName: '', lastName: '', companyName: '', phoneNumber: '', consent: false },
+    validationSchema: companyDetailsSchema,
+    onSubmit: onSignUp,
+});
 
-    useEffect(() => {
-        (() => validateForm())();
-    }, []);
+useEffect(() => {
+    (() => validateForm())();
+}, []);
 
     return (
         <SignUpWrapper>

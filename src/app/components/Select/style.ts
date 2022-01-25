@@ -37,6 +37,7 @@ export const MenuIcon = styled(Box)`
 
 export const SelectBoxStyle = styled(FormControl)`
   width: 100% !important;
+  margin-bottom:16px !important;
 
   .MuiAutocomplete-endAdornment,
   .MuiSelect-icon {

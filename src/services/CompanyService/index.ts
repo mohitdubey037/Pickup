@@ -90,6 +90,10 @@ export const inviteColleague = async (values: {
   companyId: number;
 }) => {
   try {
+    const notificationFrequency =
+      values?.notificationFrequency !== null
+        ? values?.notificationFrequency
+        : undefined;
     const response: any = await services.post(
       `business/inviteColleague`,
       {
@@ -97,7 +101,7 @@ export const inviteColleague = async (values: {
         fName: values?.firstName,
         lName: values?.lastName,
         phoneNumber: values?.phoneNumber,
-        notificationFrequency: values?.notificationFrequency,
+        notificationFrequency,
         roleId: values?.permission,
         roleDesignation: values?.roleDesignation,
         companyId: values?.companyId,

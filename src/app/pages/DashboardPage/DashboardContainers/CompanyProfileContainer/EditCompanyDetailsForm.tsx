@@ -10,6 +10,7 @@ import { ColleagueDetailsType } from "./types";
 import { Avatar, Box, Grid } from "@material-ui/core";
 import { COUNTRY, INDUSTRY } from "../../../../../constants";
 import { DrawerFooter } from "app/components/Drawer/style";
+import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 
 const EditCompanyDetailsForm = ({
   title = "",
@@ -26,6 +27,7 @@ const EditCompanyDetailsForm = ({
     touched,
     handleBlur,
     handleSubmit,
+    setFieldValue,
     isValid,
   } = useFormik({
     initialValues: {
@@ -52,6 +54,41 @@ const EditCompanyDetailsForm = ({
     console.log(values);
   }, [values]);
 
+  const handler = (value) => {
+    if (
+      value?.location?.displayPosition?.longitude &&
+      value?.location?.displayPosition?.latitude
+    ) {
+      // setFieldValue(
+      //   `${formFieldName}.${title}Longitude`,
+      //   value?.location?.displayPosition?.longitude || ""
+      // );
+      // setFieldValue(
+      //   `${formFieldName}.${title}Latitude`,
+      //   value?.location?.displayPosition?.latitude || ""
+      // );
+      setFieldValue("country", value?.location?.address?.country || "");
+      setFieldValue(
+        "province",
+        value?.location?.address?.state ||
+          value?.location?.address?.county ||
+          ""
+      );
+      setFieldValue("city", value?.location?.address?.city || "");
+      setFieldValue("pincode", value?.location?.address?.postalCode || "");
+      // setFieldValue(`${formFieldName}.${title}AddressLine1`, value?.location?.address?.label || "");
+      setFieldValue("address2", value?.location?.address?.street || "");
+    } else {
+      // setFieldValue(`${formFieldName}.${title}Longitude`, "");
+      // setFieldValue(`${formFieldName}.${title}Latitude`, "");
+      setFieldValue("country", values.country);
+      setFieldValue("province", values.province);
+      setFieldValue("city", values.city);
+      setFieldValue("pincode", values.pincode);
+      setFieldValue("address2", values.address2);
+    }
+  };
+
   return (
     <>
       <Box display="flex" justifyContent="center">
@@ -76,17 +113,19 @@ const EditCompanyDetailsForm = ({
         label="Company Name"
         placeholder={"Torinit"}
       />
-
-      <Input
+      <AutoComplete
         id="address1"
         name="address1"
+        label={"Address Line 1"}
         value={values.address1}
-        initValue={values.address1}
-        onBlur={handleBlur}
-        onChange={handleChange}
         error={touched.address1 && errors?.address1?.toString()}
-        label="Adresss Line 1"
-        placeholder={"100 Bond Street"}
+        placeholder={"Start typing"}
+        setFieldValue={setFieldValue}
+        onChange={handleChange}
+        handleBlur={handleBlur}
+        onSelect={handler}
+        initValue={values.address1}
+        disabled={undefined}
       />
 
       <Input
@@ -130,15 +169,27 @@ const EditCompanyDetailsForm = ({
           />
         </Grid>
       </Grid>
-
-      <Select
+      <Grid item xs={12}>
+        <Input
+          id="country"
+          name="country"
+          value={values.country}
+          initValue={values.country}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          error={touched.country && errors?.country?.toString()}
+          label="Country"
+          placeholder={"Start typing"}
+        />
+      </Grid>
+      {/* <Select
         id="country"
         name="country"
         options={COUNTRY_TEXT}
         label={"Country"}
         value={values["country"]}
         onSelect={handleChange}
-      />
+      /> */}
 
       <Input
         id="hstNumber"
