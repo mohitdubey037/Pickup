@@ -2,6 +2,7 @@
 import { RouteComponentProps, useLocation } from "@reach/router";
 import { PageTitle } from "app/components/Typography/Typography";
 import { useFormik } from "formik";
+import { stat } from "fs";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,11 +20,22 @@ import {
 import { passwordSchema } from "./signUpSchemas";
 
 const Password = ({ navigate }: RouteComponentProps) => {
-    const { state } = useLocation() as { state: { email: string } };
-    const passwordRegisterResponse = useSelector(
-        (state: { signUp: { passwordRegisterResponse: {} } }) =>
-            state.signUp.passwordRegisterResponse
-    );
+    // const { state } = useLocation() as { state: { email: string } };
+    // const passwordRegisterResponse = useSelector(
+    //     (state: { signUp: { passwordRegisterResponse: {} } }) =>
+    //         state.signUp.passwordRegisterResponse
+    // );
+    const companyRegisterResponse = useSelector((state: any) => {
+        console.log(state);
+        return state?.signUp?.companyRegisterResponse?.emailId;
+    });
+
+    const passwordRegisterResponse = useSelector((state: any) => {
+        console.log(state);
+        return state?.signUp?.passwordRegisterResponse;
+    });
+
+
     const showLoader = useSelector(
         (state: { globalState: { showLoader: boolean } }) =>
             state.globalState.showLoader
@@ -39,10 +51,11 @@ const Password = ({ navigate }: RouteComponentProps) => {
 
     useEffect(() => {
         //This logic needs to improve or something better needs to be thought of to show user in case of missing email in navigation state
-        if (!state?.email) {
+
+        if (!companyRegisterResponse) {
             navigate?.('/sign-up')
         }
-    }, [state?.email]);
+    }, [companyRegisterResponse]);
 
     useEffect(() => {
         if (passwordRegisterResponse) {
@@ -53,7 +66,8 @@ const Password = ({ navigate }: RouteComponentProps) => {
     const onSubmit = (values) => {
         dispatch(
             actions.registerPassword({
-                emailId: state?.email,
+                // emailId: state?.email,
+                emailId: companyRegisterResponse,
                 password: values.password,
             })
         );
@@ -66,47 +80,47 @@ const Password = ({ navigate }: RouteComponentProps) => {
             onSubmit: onSubmit,
         });
 
-        useEffect(() => {
-            (() => validateForm())();
-          }, []);
+    useEffect(() => {
+        (() => validateForm())();
+    }, []);
 
     return (
         <SignUpWrapper>
-        <SignUpBackgroundWrapper>
-            <LogoImage />
-            <FormWrapper>
-                <FormContent>
-                    <PageTitle title="PASSWORD" />
-                    <PasswordInput
-                        id="password"
-                        name="password"
-                        label="Password"
-                        placeholder="Start typing"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.password && errors.password}
-                        autoComplete="off"
-                        validate
-                    />
-                    <PasswordInput
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        label="Confirm Password"
-                        placeholder="Start typing"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        autoComplete="off"
-                        error={touched.confirmPassword && errors.confirmPassword}
-                    />
-                    <Button
-                        disabled={!(isValid)}
-                        showLoader={showLoader}
-                        label="Confirm"
-                        onClick={handleSubmit}
-                        size="large"
-                    />
-                </FormContent>
-            </FormWrapper>
+            <SignUpBackgroundWrapper>
+                <LogoImage />
+                <FormWrapper>
+                    <FormContent>
+                        <PageTitle title="PASSWORD" />
+                        <PasswordInput
+                            id="password"
+                            name="password"
+                            label="Password"
+                            placeholder="Start typing"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={touched.password && errors.password}
+                            autoComplete="off"
+                            validate
+                        />
+                        <PasswordInput
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            label="Confirm Password"
+                            placeholder="Start typing"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            autoComplete="off"
+                            error={touched.confirmPassword && errors.confirmPassword}
+                        />
+                        <Button
+                            disabled={!(isValid)}
+                            showLoader={showLoader}
+                            label="Confirm"
+                            onClick={handleSubmit}
+                            size="large"
+                        />
+                    </FormContent>
+                </FormWrapper>
             </SignUpBackgroundWrapper>
         </SignUpWrapper>
     );

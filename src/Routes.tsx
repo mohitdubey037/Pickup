@@ -35,6 +35,7 @@ import SignUpDetails from "app/pages/AuthScreens/SignUpScreens/SignUpDetails";
 import { ShipmentSummary } from "app/components/PaymentCardDetails";
 import ShipmentSummaryTable from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/ShipmentSummary";
 import BulkSummary from "app/components/Uploading/BulkSummary";
+import TokenExpire from "app/pages/AuthScreens/TokenExpire";
 const Routes = () => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
@@ -52,6 +53,7 @@ const Routes = () => {
         <MailSent path="/mail-sent" />
         <RecoverPassword path="/recover-password" />
         <SignUpDetails path ="/sign-up-details/" />
+        <TokenExpire path="/sign-up/verify-account" />
       </AuthPages>
 
       <DashboardPage path="/dashboard">

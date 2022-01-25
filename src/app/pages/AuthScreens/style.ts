@@ -16,19 +16,16 @@ export const SignUpBackgroundWrapper = styled.div`
   align-items: center;
   gap: 20px;
   background: rgba(102, 102, 102, 0.6);
-  padding: 10px 0;
 `;
 
 export const LoginWrapper = styled.div`
   background: url(${bgImage2}) no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 10px 0;
+`;
+
+export const LoginBackgroundWrapper = styled(SignUpBackgroundWrapper)`
+  background: rgba(102, 102, 102, 0.3);
 `;
 
 export const LogoImage = styled.div`
@@ -36,6 +33,7 @@ export const LogoImage = styled.div`
   background-size: contain;
   height: 126px;
   width: 126px;
+  margin-top:10px;
   @media (max-width: 1366px) {
     width: 100px;
     height: 100px;
@@ -135,3 +133,12 @@ export const Termslink = styled.div`
     color: #1b8af0;
   }
 `;
+
+
+
+
+
+
+
+
+

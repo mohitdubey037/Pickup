@@ -19,7 +19,7 @@ export const validationSchema = Yup.object({
     .required("Please enter phone number")
     .matches(phoneRegExp, "Phone number is not valid")
     .min(10, "Phone no. must be of at least 10 digits")
-    .max(10, "Phone no cannot be less than 10 digits"),
+    .max(10, "Phone no. cannot be less than 10 digits"),
   emailId: Yup.string()
     .email("Invalid email")
     .required("Please enter email address"),
