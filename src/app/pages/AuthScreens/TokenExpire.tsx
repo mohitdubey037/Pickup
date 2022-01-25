@@ -3,8 +3,14 @@ import { Box } from "@material-ui/core";
 import { DrawerTitle } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { FormWrapper, LoginWrapper, LogoImage } from "./style";
+import { RouteComponentProps } from "@reach/router";
 
-const TokenExpire: React.FC = () => {
+type TokenExpireProps = RouteComponentProps;
+
+const TokenExpire= ({ navigate }: TokenExpireProps) => {
+  const LoginHandler = () => {
+    navigate?.("/");
+}
   return (
     <LoginWrapper>
       <LogoImage />
@@ -17,11 +23,13 @@ const TokenExpire: React.FC = () => {
           height="350px"
         >
           <DrawerTitle title="You have already verified your account." />
+          
           <Button
             type="button"
             size="small"
             label="Login Here"
             style={{ marginTop: "20px" }}
+            onClick={LoginHandler}
           />
         </Box>
       </FormWrapper>
