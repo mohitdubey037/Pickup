@@ -60,9 +60,7 @@ export default function NewColleague(props: DetailInterface) {
 
         <Box display="flex" justifyContent="space-between">
           <Box mr={4}>
-            <Avatar style={{ width: 86, height: 86 }}>
-              <img src={`https://i.pravatar.cc/${inviteId}`} width={86} />
-            </Avatar>
+            <Avatar style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>

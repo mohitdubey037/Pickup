@@ -23,10 +23,7 @@ export default function AdminDetails(props: DetailInterface) {
 
         <Box display="flex" justifyContent="space-between">
           <Box mr={4}>
-            <Avatar
-              style={{ width: 86, height: 86 }}
-              src={require("../../../../assets/Icons/logoImg.svg").default}
-            />
+            <Avatar style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
