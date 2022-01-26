@@ -23,6 +23,7 @@ const Input = React.forwardRef<any, InputProps>(
       onBlur,
       disabled,
       width,
+      required,
       style,
       inputStyles,
       type,
@@ -44,7 +45,7 @@ const Input = React.forwardRef<any, InputProps>(
 
     return (
       <InputWrapper style={style}>
-        <SmallLabel text={label} />
+        <SmallLabel text={label} required={required} />
 
         {type === "textarea" ? (
           <CustomInputTextArea

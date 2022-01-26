@@ -79,7 +79,7 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 placeholder={"Start typing"}
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={5}>
               <Input
                 id="Email"
                 name="Email"

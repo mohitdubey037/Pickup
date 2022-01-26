@@ -110,7 +110,7 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
                 onChange={handleChange}
                 error={touched.nameOnCard && errors.nameOnCard}
                 label="Name on Card"
-                placeholder={"John Doe"}
+                placeholder={"Start typing"}
             />
             <Input
                 id="pinCode"

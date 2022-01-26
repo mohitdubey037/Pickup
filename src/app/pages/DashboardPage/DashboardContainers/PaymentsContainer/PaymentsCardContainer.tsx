@@ -6,8 +6,6 @@ import services from "services";
 import { PaymentCard } from "../../../../components/PaymentCard/index";
 import AddCardForm from "./AddCardForm";
 import { showToast } from "utils";
-import PaymentCardNullState from "app/components/PaymentCard/PaymentCardNullState";
-import NullState from "app/components/NullState/NullState";
 
 export interface IndividualCard {
   card_id: string;
@@ -77,36 +75,31 @@ export default function PaymentCardContainer({
   };
 
     return (
-        <Box>
+     <Box>
+  
             <ContainerTitle title="Card"  />
             <Grid container spacing={2}>
-                {individualCardData?.length > 0 ?
-                  
-                (individualCardData?.map((value, idx) => (
-                <PaymentCard
-                setDrawerOpen={setDrawerOpen}
-                setCardData={setCardData}
-                key={idx}
-                cardData={value}
-                />
-                )))
-              :
-              
-              <NullState message="No Card Added" />
-              }
+            {individualCardData?.map((value, idx) => (
+          <PaymentCard
+            setDrawerOpen={setDrawerOpen}
+            setCardData={setCardData}
+            key={idx}
+            cardData={value}
+          />
+        ))}
             </Grid>
             <Drawer
-              open={drawerOpen}
-              title="Edit you card"
-              setDrawerOpen={(flag) => setDrawerOpen(flag)}
-              closeIcon={true}
-              actionButtons={true}
+                open={drawerOpen}
+                title="Edit you card"
+                setDrawerOpen={(flag) => setDrawerOpen(flag)}
+                closeIcon={true}
+                actionButtons={true}
             >
-            <AddCardForm
-            setDrawerOpen={setDrawerOpen}
-            saveAction={saveCard}
-            cardData={cardData}
-            />
+                <AddCardForm
+          setDrawerOpen={setDrawerOpen}
+          saveAction={saveCard}
+          cardData={cardData}
+        />
             </Drawer>
         </Box>
     )

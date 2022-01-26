@@ -81,7 +81,7 @@ export default function Cards({ title }) {
                 onChange={handleChange}
                 error={touched.nameOnCard && errors.nameOnCard}
                 label={"Name on Card"}
-                placeholder={"John Doe"}
+                placeholder={"Start typing"}
               />
             </Grid>
             <Grid item xs={5}>

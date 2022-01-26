@@ -79,7 +79,7 @@ function NewColleagueForm({ saveAction }) {
         <ListLabel text="Add New Colleague" />
       </Box>
       <GridContainer container spacing={2}>
-        <Grid item lg={3} md={6}>
+        <Grid item md={3}>
           <CustomInput
             id="firstName"
             name="firstName"
@@ -90,10 +90,11 @@ function NewColleagueForm({ saveAction }) {
             error={touched.firstName && errors?.firstName?.toString()}
             label={"First Name"}
             placeholder={"John"}
+            required={true}
           />
         </Grid>
 
-        <Grid item lg={3} md={6}>
+        <Grid item md={3}>
           <CustomInput
             id="lastName"
             name="lastName"
@@ -104,9 +105,10 @@ function NewColleagueForm({ saveAction }) {
             error={touched.lastName && errors?.lastName}
             label={"Last Name"}
             placeholder={"Doe"}
+            required={true}
           />
         </Grid>
-        <Grid item lg={3} md={6}>
+        <Grid item md={3}>
           <CustomInput
             id="phoneNumber"
             name="phoneNumber"
@@ -117,9 +119,10 @@ function NewColleagueForm({ saveAction }) {
             error={touched.phoneNumber && errors?.phoneNumber?.toString()}
             label={"Phone Number"}
             placeholder={"+1 (999)-999-9999"}
+            required={true}
           />
         </Grid>
-        <Grid item lg={3} md={6}>
+        <Grid item md={3}>
           <CustomInput
             id="roleDesignation"
             name="roleDesignation"
@@ -132,18 +135,13 @@ function NewColleagueForm({ saveAction }) {
             }
             label={"Role / Designation"}
             placeholder={"Manager"}
+            required={true}
           />
         </Grid>
-        </GridContainer>
-
-        <GridContainer container spacing={2}>
-        <Grid item lg={12}>
+        <Grid item md={12} style={{ marginBottom: 15 }}>
           <Switches value={isChecked} setIsChecked={setIsChecked} />
         </Grid>
-        </GridContainer>
-
-        <GridContainer container spacing={2}>
-        <Grid item lg={3} md={6}>
+        <Grid item md={3}>
           <CustomInput
             id="emailId"
             name="emailId"
@@ -154,9 +152,10 @@ function NewColleagueForm({ saveAction }) {
             error={touched.emailId && errors?.emailId?.toString()}
             label={"Email id"}
             placeholder={"johndoe@pickups.com"}
+            required={true}
           />
         </Grid>
-        <Grid item lg={3} md={6}>
+        <Grid item md={3}>
           <Select
             id="notificationFrequency"
             name="notificationFrequency"
@@ -166,12 +165,13 @@ function NewColleagueForm({ saveAction }) {
             onSelect={handleChange}
             disabled={!isChecked}
             error={errors?.notificationFrequency?.toString()}
+            required={isChecked && true}
           />
         </Grid>
       </GridContainer>
 
-      <GridContainer container spacing={2}>
-        <Grid item xs={12}>
+      <GridContainer container>
+        <Grid item md={12}>
           <SelectBox
             id="permission"
             name="permission"
@@ -184,9 +184,10 @@ function NewColleagueForm({ saveAction }) {
               // touched?.notificationFrequency &&
               errors?.permission?.toString()
             }
+            required={true}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item md={12}>
           <Button
             label="Save"
             onClick={handleSubmit}

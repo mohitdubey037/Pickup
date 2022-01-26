@@ -29,7 +29,7 @@
     "// ---DEFAULT CRA---": "",
     "start": "react-scripts start",
     "deploy-staging": "aws s3 sync build/ s3://pickup-staging-admin --profile pickups && aws cloudfront create-invalidation --distribution-id E16RBASFJGXWBH --paths /* --profile pickups",
-    "deploy-qa-torinit": "aws s3 sync build/ s3://pickups-qa --profile dbatra && aws cloudfront create-invalidation --distribution-id E2B9FD2ZN135T0 --paths /index.html --profile dbatra",
+    "deploy-qa-torinit": "aws s3 sync build/ s3://pickups-qa --profile dbatra && aws cloudfront create-invalidation --distribution-id E2B9FD2ZN135T0 --paths /* --profile dbatra",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "// ---TEMPLATE---": "Scripts will be also in the template",
