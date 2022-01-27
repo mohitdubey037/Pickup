@@ -39,35 +39,35 @@ export default function PersonalProfile(props: CardInterface) {
 
         <FlexBox>
           <Grid container spacing={2}>
-            <Grid item lg={2} sm={3}>
+            <Grid item lg={2} sm={4}>
               <Para text="First Name" />
               <SmallLabel
                 text={personalProfileDetails?.firstName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={2} sm={3}>
+            <Grid item lg={2} sm={4}>
               <Para text="Last Name" />
               <SmallLabel
                 text={personalProfileDetails?.lastName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={2} sm={3}>
+            <Grid item lg={2} sm={4}>
               <Para text="Phone Number" />
               <SmallLabel
                 text={personalProfileDetails?.userDetails?.phoneNo || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item lg={3} sm={5}>
               <Para text="Role/Designation" />
               <SmallLabel
                 text={personalProfileDetails?.roleName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item lg={3} sm={7}>
               <Para text="Email Id" />
               <SmallLabel
                 text={personalProfileDetails?.emailId || "-"}
