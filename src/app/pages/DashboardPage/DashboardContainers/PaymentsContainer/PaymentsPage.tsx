@@ -9,6 +9,7 @@ import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
 import AddCardForm from "./AddCardForm";
+import { ContainerTitle } from "app/components/Typography/Typography";
 
 const individualCardData = [
   {
@@ -65,7 +66,8 @@ export default function PaymentsPage({ path: string }) {
 
   return (
     <ModuleContainer>
-      <Box textAlign="right">
+      <Box display="flex" justifyContent="space-between">
+      <ContainerTitle title="Cards"  />
         <Button
           label="+ Add New Card"
           size="small"

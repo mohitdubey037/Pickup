@@ -79,7 +79,7 @@ function NewColleagueForm({ saveAction }) {
         <ListLabel text="Add New Colleague" />
       </Box>
       <GridContainer container spacing={2}>
-        <Grid item md={3}>
+      <Grid item lg={3} md={6}>
           <CustomInput
             id="firstName"
             name="firstName"
@@ -94,7 +94,7 @@ function NewColleagueForm({ saveAction }) {
           />
         </Grid>
 
-        <Grid item md={3}>
+        <Grid item lg={3} md={6}>
           <CustomInput
             id="lastName"
             name="lastName"
@@ -108,7 +108,7 @@ function NewColleagueForm({ saveAction }) {
             required={true}
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item lg={3} md={6}>
           <CustomInput
             id="phoneNumber"
             name="phoneNumber"
@@ -122,7 +122,7 @@ function NewColleagueForm({ saveAction }) {
             required={true}
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item lg={3} md={6}>
           <CustomInput
             id="roleDesignation"
             name="roleDesignation"
@@ -137,12 +137,15 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"Manager"}
             required={true}
           />
-        </Grid>
-        <Grid item md={12} style={{ marginBottom: 15 }}>
-          <Switches value={isChecked} setIsChecked={setIsChecked} />
-        </Grid>
-        <Grid item md={3}>
-          <CustomInput
+          </Grid>
+        </GridContainer>
+
+        <GridContainer container spacing={2}>
+            <Grid item lg={12}>
+            <Switches value={isChecked} setIsChecked={setIsChecked} />
+            </Grid>
+            <Grid item md={3}>
+            <CustomInput
             id="emailId"
             name="emailId"
             onBlur={handleBlur}
@@ -172,8 +175,8 @@ function NewColleagueForm({ saveAction }) {
         }
       </GridContainer>
 
-      <GridContainer container>
-        <Grid item md={12}>
+      <GridContainer container spacing={2}>
+        <Grid item xs={12}>
           <SelectBox
             id="permission"
             name="permission"
@@ -189,7 +192,7 @@ function NewColleagueForm({ saveAction }) {
             required={true}
           />
         </Grid>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <Button
             label="Save"
             onClick={handleSubmit}
