@@ -41,7 +41,7 @@ export default function CompanyProfile({ path: string }) {
   const [companyDetails, setCompanyDetails] = useState<any>(null);
   const [adminDetails, setAdminDetails] = useState<any>(null);
   const [colleagueList, setColleagueList] = useState<any>(null);
-	const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const saveColleague = async (values) => {
     // console.log(values);
@@ -106,33 +106,33 @@ export default function CompanyProfile({ path: string }) {
   return (
     <ModuleContainer>
       <ContainerTitle title="Company Profile" />
-      {loading ?  (
-				<CompanyDetailsSkeleton />
-			) : (
+      {loading ? (
+        <CompanyDetailsSkeleton />
+      ) : (
         <CompanyDetails
-        setCompanyDrawerOpen={setCompanyDrawerOpen}
-        companyDetails={companyDetails}
-        details={{
-          avatar: require("../../../../assets/Icons/logoImg.svg").default,
-          CompanyName: "DDT",
-          BusinessNumber: "212421",
-          Industry: "Retail",
-          EmployeeStrength: "32",
-          AddressLine1: "100 Broadview Avenue",
-          AddressLine2: "Address Line 2",
-          City: "Toronto",
-          Pincode: "123421",
-          Province: "Province",
-          Country: "Canada",
-          HSTNumber: "123 456 789",
-        }}
-      />
+          setCompanyDrawerOpen={setCompanyDrawerOpen}
+          companyDetails={companyDetails}
+          details={{
+            avatar: require("../../../../assets/Icons/logoImg.svg").default,
+            CompanyName: "DDT",
+            BusinessNumber: "212421",
+            Industry: "Retail",
+            EmployeeStrength: "32",
+            AddressLine1: "100 Broadview Avenue",
+            AddressLine2: "Address Line 2",
+            City: "Toronto",
+            Pincode: "123421",
+            Province: "Province",
+            Country: "Canada",
+            HSTNumber: "123 456 789",
+          }}
+        />
       )}
 
-      {loading ?  (
-         <AdminDetailsSkeleton />
+      {loading ? (
+        <AdminDetailsSkeleton />
       ) : (
-         <AdminDetails AdminDetails={adminDetails} />
+        <AdminDetails AdminDetails={adminDetails} />
       )}
 
       {colleagueList?.length > 0 &&

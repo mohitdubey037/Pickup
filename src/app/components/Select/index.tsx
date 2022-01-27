@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { SelectContainer, ComponentContainer, useStyles } from "./style";
 import { SmallLabel } from "../Typography/Typography";
 import { dropdown } from "app/assets/Icons";
+import { ErrorLabel } from "../Input/style";
 
 interface SelectOption {
   value: string | number;
@@ -18,6 +19,8 @@ interface SelectPropTypes {
   id?: string;
   name?: string;
   disabled?: boolean;
+  error?: any;
+  required?: boolean;
 }
 
 export default function Select(props: SelectPropTypes) {
@@ -29,7 +32,9 @@ export default function Select(props: SelectPropTypes) {
     value,
     options = [],
     style,
+    error,
     disabled,
+    required,
   } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
@@ -52,55 +57,58 @@ export default function Select(props: SelectPropTypes) {
     : "Select";
 
   return (
-    <ComponentContainer>
-      <SmallLabel text={label} />
+    <>
+      <ComponentContainer>
+        <SmallLabel text={label} required={required} />
 
-      <SelectContainer
-        aria-describedby={parentId}
-        disabled={disabled}
-        //@ts-ignore
-        onClick={handleClick}
-        style={style}
-      >
-        <span
-          className={classes.placeholder}
-          style={{ color: value ? "black" : "", marginLeft: 5 }}
+        <SelectContainer
+          aria-describedby={parentId}
+          disabled={disabled}
+          //@ts-ignore
+          onClick={handleClick}
+          style={style}
         >
-          {valueLabel}
-        </span>
-        <img src={dropdown} alt="" />
-      </SelectContainer>
-      <Popover
-        id={parentId}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        style={{ width: 400 }}
-        PaperProps={{ style: { width: "100%" } }}
-      >
-        {options.map((option) => (
-          <Typography
-            onClick={() => {
-              handleClose();
-              onSelect &&
-                onSelect({ target: { value: option.value, id, name } });
-            }}
-            className={classes.typography}
-            key={option.value}
-            style={{ cursor: "pointer" }}
+          <span
+            className={classes.placeholder}
+            style={{ color: value ? "black" : "", marginLeft: 5 }}
           >
-            {option.label}
-          </Typography>
-        ))}
-      </Popover>
-    </ComponentContainer>
+            {valueLabel}
+          </span>
+          <img src={dropdown} alt="" />
+        </SelectContainer>
+        <Popover
+          id={parentId}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          style={{ width: 400 }}
+          PaperProps={{ style: { width: "100%" } }}
+        >
+          {options.map((option) => (
+            <Typography
+              onClick={() => {
+                handleClose();
+                onSelect &&
+                  onSelect({ target: { value: option.value, id, name } });
+              }}
+              className={classes.typography}
+              key={option.value}
+              style={{ cursor: "pointer" }}
+            >
+              {option.label}
+            </Typography>
+          ))}
+        </Popover>
+      </ComponentContainer>
+      {!!error && <ErrorLabel>{error}</ErrorLabel>}
+    </>
   );
 }

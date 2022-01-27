@@ -8,9 +8,11 @@ import { useState } from "react";
 import { navigate } from "@reach/router";
 import { useEffect } from "react";
 import services from "services";
+import { PERMISSION_TYPES } from "../../../constants";
 
 export default function Appbar() {
   const [anchorEl, setAnchorEl] = useState(null);
+  // const [profileImage, setProfileImage] = useState(null);
   const pathname = window?.location?.pathname;
   const dispatch = useDispatch();
 
@@ -18,6 +20,9 @@ export default function Appbar() {
     return state.auth;
   });
   const { user } = auth;
+
+  let getRole = (roleId) =>
+    PERMISSION_TYPES.filter((role) => role.value === roleId);
 
   useEffect(() => {
     const authToken = services.getToken();
@@ -30,14 +35,14 @@ export default function Appbar() {
     setAnchorEl(event.currentTarget);
   };
 
-  const profileHandler =()=>{
-    navigate("/dashboard/my-account/personal-profile")
+  const profileHandler = () => {
+    navigate("/dashboard/my-account/personal-profile");
     setAnchorEl(null);
-  }
-  const accountHandler =()=>{
-    navigate("/dashboard/my-account/company-profile")
+  };
+  const accountHandler = () => {
+    navigate("/dashboard/my-account/company-profile");
     setAnchorEl(null);
-  }
+  };
   const handleClose = (e) => {
     const { id } = e.target;
     if (id === "logout") {
@@ -74,7 +79,11 @@ export default function Appbar() {
         />
         <div style={{ textAlign: "right", marginLeft: "1rem" }}>
           <h5 style={{ margin: 0 }}>{user?.firstName}</h5>
-          <span style={{ fontSize: "14px", color: "#343434" }}>Admin</span>
+          <span style={{ fontSize: "14px", color: "#343434" }}>
+            {user?.roleId
+              ? getRole(user?.roleId)?.[0]?.label
+              : getRole(4)?.[0]?.label}
+          </span>
         </div>
         <Avatar
           style={{ margin: "1rem 1rem 1rem 1rem" }}
@@ -91,7 +100,7 @@ export default function Appbar() {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={profileHandler} >Profile</MenuItem>
+          <MenuItem onClick={profileHandler}>Profile</MenuItem>
           <MenuItem onClick={accountHandler}>My account</MenuItem>
           <MenuItem id={"logout"} onClick={handleClose}>
             Logout

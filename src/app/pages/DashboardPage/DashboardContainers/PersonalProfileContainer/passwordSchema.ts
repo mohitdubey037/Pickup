@@ -1,18 +1,33 @@
 import * as yup from "yup";
 
+import { PHONE_NUMBER_REGX, PASSWORD_REGX } from "../../../../../constants";
+
 export const passwordSchema = yup.object().shape({
   currentPassword: yup
     .string()
-    .required("Current password is a required field"),
-  newpassword: yup.string().required("New password is required"),
-  // newConfirmedPassword: yup
-  //   .string()
-  //   .oneOf(
-  //     [yup.ref("newpassword"), null],
-  //     "New Password and Confirm Password must match"
-  //   ),
+    .matches(PASSWORD_REGX, "Invalid Password")
+    .required("Current Password is a required field"),
+  newPassword: yup
+    .string()
+    .matches(PASSWORD_REGX, "Invalid Password")
+    .required("New Password is required")
+    .test("newPassword", "Please enter new password", function (value) {
+      return this.parent.currentPassword !== value;
+    }),
   newConfirmedPassword: yup
     .string()
-    .oneOf([yup.ref("newpassword"), null], "Passwords must match")
-    .required("Passwords must match"),
+    .matches(PASSWORD_REGX, "Invalid Password")
+    .required("New Confirm Password is required")
+    .oneOf(
+      [yup.ref("newPassword"), null],
+      "New Password and Confirm Password must match"
+    )
+    .test(
+      "newConfirmedPassword",
+      "Please enter new password",
+      function (value) {
+        return this.parent.currentPassword !== value;
+      }
+    ),
+  // }),
 });

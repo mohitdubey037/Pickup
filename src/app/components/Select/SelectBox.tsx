@@ -6,6 +6,7 @@ import Select from "@material-ui/core/Select";
 import { MenuIcon, MenuLabel, SelectBoxStyle, SmallLabeltext } from "./style";
 import { dropdown } from "app/assets/Icons";
 import { ErrorLabel } from "../Input/style";
+import { SmallLabel } from "../Typography/Typography";
 
 interface SelectOption {
   value: number;
@@ -23,6 +24,7 @@ interface SelectPropTypes {
   name?: string;
   disabled?: boolean;
   error: any;
+  required?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -41,7 +43,7 @@ export default function SelectBox(props: SelectPropTypes) {
     onSelect,
     value,
     options = [],
-    style,
+    required,
     error,
     disabled,
   } = props;
@@ -77,9 +79,13 @@ export default function SelectBox(props: SelectPropTypes) {
   return (
     <>
       <SelectBoxStyle>
-        <InputLabel id="demo-simple-select-placeholder-label-label">
+        {/* <InputLabel
+          id="demo-simple-select-placeholder-label-label"
+          required={true}
+        >
           {label}
-        </InputLabel>
+        </InputLabel> */}
+        <SmallLabel text={label} required={required} />
         <Select
           labelId="demo-simple-select-placeholder-label-label"
           id="demo-simple-select-placeholder-label"
@@ -89,7 +95,7 @@ export default function SelectBox(props: SelectPropTypes) {
           renderValue={(value: any) =>
             value !== "" ? options?.[age - 1]?.title : "Select"
           }
-          className={classes.selectEmpty}
+          // className={classes.selectEmpty}
           aria-describedby={parentId}
           disabled={disabled}
         >
@@ -105,7 +111,9 @@ export default function SelectBox(props: SelectPropTypes) {
                 }}
                 key={option?.value}
               >
-                <MenuIcon><img src={option?.icon} alt="menuicon" /> </MenuIcon>
+                <MenuIcon>
+                  <img src={option?.icon} alt="menuicon" />{" "}
+                </MenuIcon>
                 <MenuLabel text={option?.title} />
                 <SmallLabeltext text={option?.subtitle} />
               </MenuItem>
