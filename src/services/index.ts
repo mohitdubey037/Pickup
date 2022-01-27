@@ -56,7 +56,6 @@ class Service {
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
-            console.log({ err });
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               if (err.response.status === 401) {
@@ -70,8 +69,10 @@ class Service {
                 message: errResponse?.data?.message || errResponse?.message,
               });
             }
+            toast.error("Something went wrong");
           });
       } catch (err) {
+        toast.error("Something went wrong");
         return reject(err);
       }
     });
