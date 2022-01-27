@@ -8,6 +8,7 @@ import {
   Paratext,
   ListLabeltext,
   DrawerTitletext,
+  SmalltextStyle,
 } from "./style";
 
 interface TypoProps {
@@ -17,6 +18,7 @@ interface TypoProps {
   className?: string;
   text?: string;
   required?: boolean;
+  onClick?: ()=>void;
 }
 
 export const ContainerTitle: FC<TypoProps> = ({ title, className }) => {
@@ -49,6 +51,9 @@ export const Para: FC<TypoProps> = ({ text, className }) => {
   return <Paratext className={className}>{text}</Paratext>;
 };
 
+export const Smalltext: FC<TypoProps> = ({ text, className, onClick }) => {
+  return <SmalltextStyle className={className} onClick={onClick}>{text}</SmalltextStyle>;
+};
 export const RedLink = ({ label, link }: TypoProps) => {
   return <CustomRedLink onClick={link}>{label}</CustomRedLink>;
 };

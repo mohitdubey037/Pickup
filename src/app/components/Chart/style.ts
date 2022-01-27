@@ -2,29 +2,25 @@ import styled from "styled-components";
 import { Paper } from '@material-ui/core'
 
 export const CardContainer = styled.div`
-    padding: 1rem;
-     width: 100%;
-    border-radius: 8px;
+  
+.count{
+    margin:8px 0;
+}
+.markerprice{
+    color:#F99746;
+}
+.spentNumber{
+    color:#2FC87F;
+}
+.savedNumber{
+    color:#1B8AF0;
+}
+.icon{
+    margin-right:5px;
+}
 `
 
-export const GeneralTypo = styled.h2`
-    margin: 0;
-`
-
-export const GeneralTypoheading = styled.h3`
-    margin: 0;
-`
-export const GeneralTypolabel = styled.p`
-    margin: 0 5px;
-`
-export const LabelContainer = styled.div`
-    display: flex;
-    font-size: 12px;
-`
-
-export const DoghnutContainer = styled(Paper)`
-    padding: 1rem;
-    border-radius: 8px;
+export const DoghnutContainer = styled.div`
 `
 
 export const DoghnutChip = styled.div`
