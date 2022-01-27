@@ -155,19 +155,21 @@ function NewColleagueForm({ saveAction }) {
             required={true}
           />
         </Grid>
-        <Grid item md={3}>
-          <Select
-            id="notificationFrequency"
-            name="notificationFrequency"
-            options={NOTIFICATION_FREQUENCY_TYPES}
-            label={"Notification Frequency"}
-            value={isChecked ? values["notificationFrequency"] : ""}
-            onSelect={handleChange}
-            disabled={!isChecked}
-            error={errors?.notificationFrequency?.toString()}
-            required={isChecked && true}
-          />
-        </Grid>
+        {isChecked &&
+          <Grid item md={3}>
+            <Select
+              id="notificationFrequency"
+              name="notificationFrequency"
+              options={NOTIFICATION_FREQUENCY_TYPES}
+              label={"Notification Frequency"}
+              value={isChecked ? values["notificationFrequency"] : ""}
+              onSelect={handleChange}
+              disabled={!isChecked}
+              error={errors?.notificationFrequency?.toString()}
+              required={isChecked && true}
+            />
+          </Grid>
+        }
       </GridContainer>
 
       <GridContainer container>
