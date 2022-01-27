@@ -77,8 +77,8 @@ export default function PaymentCardContainer({
 
     return (
      <Box>
-  
-            <ContainerTitle title="Card"  />
+{/*   
+            <ContainerTitle title="Card"  /> */}
             <Grid container spacing={2}>
                 {individualCardData?.length > 0 ?
                 (individualCardData?.map((value, idx) => (
