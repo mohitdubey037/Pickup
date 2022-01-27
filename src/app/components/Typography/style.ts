@@ -91,3 +91,12 @@ export const Paratext = styled.p`
   margin: 0;
   word-break: break-word;
 `;
+
+export const SmalltextStyle = styled.p`
+  font-size: 12px;
+  line-height: 14px;
+  color: #656565;
+  font-family: "Roboto";
+  margin: 0;
+  word-break: break-word;
+`;

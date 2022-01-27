@@ -1,35 +1,55 @@
-import { Paper } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import styled from "styled-components";
 
-export const CardDiv = styled(Paper)`
-    padding: 1rem;
-     border-radius: 11px;
-    text-align: center;
-    background-color:${(props:{backgroundColor?:string}) =>props.backgroundColor || 'white'}
+interface StyledProps {
+	isOrangeBox?: boolean;
+}
+
+
     
+export const PaperBox = styled(Box)`
+box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.4);
+border-radius: 8px;
+padding:24px 16px;   
+background:#fff;  
 `
 
-export const CardTitle = styled.h3`
-    margin: 0;
-    font-size: 18px;
-    text-align: left;
-    color:${(props:{color?:string})=>props.color||'black'};
-    
+export const CardDiv = styled(PaperBox)`
+box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);
+border-radius: 8px;
+padding:24px 16px;  
+background: ${(props: StyledProps) => props.isOrangeBox ? '#F99746' : ''};
+
+.heading{
+    color: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : ''};
+}
+
+.count{
+    color: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : '#F99746'};
+    margin-top: 12px;
+    line-height: 56px;
+    font-size:48px;
+    font-family:"Robot-Medium";
+    margin:12px 0 20px;
+}
+.viewall{
+    color: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : '#2D9CDB'};
+    text-decoration:underline;
+    cursor:pointer;
+}
+.icon{
+    fill: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : ''};
+}
+.label{
+    color: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : ''};
+    margin-left:5px;
+}
     
 `
-
 export const CardNumber = styled.h1`
     color: #F99746;
-    margin: 0;
+    margin-top: 12px;
     font-size: 48px;
-    text-align: left;
     
 `
 
-export const CardFooter = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 12px;
-    
-`

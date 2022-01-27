@@ -11,6 +11,7 @@ export const NullStateBox = styled.div`
 	min-height:200px;
     width:100%;
     margin-top:24px;
+	box-sizing:border-box;
     
     svg{
         width:40px;
