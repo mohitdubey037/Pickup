@@ -156,25 +156,24 @@ function NewColleagueForm({ saveAction }) {
             label={"Email id"}
             placeholder={"johndoe@pickups.com"}
             required={true}
-            />
-            </Grid>
-        </GridContainer>
-
-        <GridContainer container spacing={2}>
-            <Grid item lg={3} md={6}>
+          />
+        </Grid>
+        {isChecked &&
+          <Grid item md={3}>
             <Select
-            id="notificationFrequency"
-            name="notificationFrequency"
-            options={NOTIFICATION_FREQUENCY_TYPES}
-            label={"Notification Frequency"}
-            value={isChecked ? values["notificationFrequency"] : ""}
-            onSelect={handleChange}
-            disabled={!isChecked}
-            error={errors?.notificationFrequency?.toString()}
-            required={isChecked && true}
+              id="notificationFrequency"
+              name="notificationFrequency"
+              options={NOTIFICATION_FREQUENCY_TYPES}
+              label={"Notification Frequency"}
+              value={isChecked ? values["notificationFrequency"] : ""}
+              onSelect={handleChange}
+              disabled={!isChecked}
+              error={errors?.notificationFrequency?.toString()}
+              required={isChecked && true}
             />
-            </Grid>
-        </GridContainer>
+          </Grid>
+        }
+      </GridContainer>
 
       <GridContainer container spacing={2}>
         <Grid item xs={12}>
