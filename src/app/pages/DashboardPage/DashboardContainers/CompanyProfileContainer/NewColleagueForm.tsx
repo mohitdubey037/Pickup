@@ -137,14 +137,15 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"Manager"}
             required={true}
           />
+          </Grid>
         </GridContainer>
 
-<GridContainer container spacing={2}>
-<Grid item lg={12}>
-          <Switches value={isChecked} setIsChecked={setIsChecked} />
-        </Grid>
-        <Grid item md={3}>
-          <CustomInput
+        <GridContainer container spacing={2}>
+            <Grid item lg={12}>
+            <Switches value={isChecked} setIsChecked={setIsChecked} />
+            </Grid>
+            <Grid item md={3}>
+            <CustomInput
             id="emailId"
             name="emailId"
             onBlur={handleBlur}
@@ -155,12 +156,13 @@ function NewColleagueForm({ saveAction }) {
             label={"Email id"}
             placeholder={"johndoe@pickups.com"}
             required={true}
-          />
-      </GridContainer>
+            />
+            </Grid>
+        </GridContainer>
 
-<GridContainer container spacing={2}>
-<Grid item lg={3} md={6}>
-          <Select
+        <GridContainer container spacing={2}>
+            <Grid item lg={3} md={6}>
+            <Select
             id="notificationFrequency"
             name="notificationFrequency"
             options={NOTIFICATION_FREQUENCY_TYPES}
@@ -170,9 +172,9 @@ function NewColleagueForm({ saveAction }) {
             disabled={!isChecked}
             error={errors?.notificationFrequency?.toString()}
             required={isChecked && true}
-          />
-        </Grid>
-      </GridContainer>
+            />
+            </Grid>
+        </GridContainer>
 
       <GridContainer container spacing={2}>
         <Grid item xs={12}>
