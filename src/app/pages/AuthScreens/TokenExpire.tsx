@@ -2,7 +2,7 @@ import React from "react";
 import { Box } from "@material-ui/core";
 import { DrawerTitle } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { FormWrapper, LoginWrapper, LogoImage } from "./style";
+import { FormWrapper, LoginBackgroundWrapper, LoginWrapper, LogoImage } from "./style";
 import { RouteComponentProps } from "@reach/router";
 
 type TokenExpireProps = RouteComponentProps;
@@ -13,6 +13,7 @@ const TokenExpire= ({ navigate }: TokenExpireProps) => {
 }
   return (
     <LoginWrapper>
+      <LoginBackgroundWrapper>
       <LogoImage />
       <FormWrapper style={{ minHeight: "350px" }}>
         <Box
@@ -33,6 +34,7 @@ const TokenExpire= ({ navigate }: TokenExpireProps) => {
           />
         </Box>
       </FormWrapper>
+      </LoginBackgroundWrapper>
     </LoginWrapper>
   );
 };
