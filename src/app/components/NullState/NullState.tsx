@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
 import { NullStateBox } from './style';
-import { DrawerTitle } from '../Typography/Typography';
 
 
 interface nullStateProps {
