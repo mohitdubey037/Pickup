@@ -16,6 +16,7 @@ import {
 import DashboardPage from "./app/pages/DashboardPage";
 import { useSelector } from "react-redux";
 import { NotFoundPage } from "app/pages/NotFoundPage";
+import { PageNotFound } from 'app/components/PageNotFound/PageNotFound';
 import { BulkShipment } from "app/pages/DashboardPage/DashboardContainers/BulkShipment";
 import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
@@ -52,8 +53,9 @@ const Routes = () => {
         <ForgotPassword path="/forgot-password" />
         <MailSent path="/mail-sent" />
         <RecoverPassword path="/recover-password" />
-        <SignUpDetails path ="/sign-up-details/" />
+        <SignUpDetails path="/sign-up-details/" />
         <TokenExpire path="/sign-up/verify-account" />
+        <PageNotFound default />
       </AuthPages>
 
       <DashboardPage path="/dashboard">
@@ -63,18 +65,18 @@ const Routes = () => {
         <BulkSummary path="/charter-shipment/bulk-summary" />
         <SingleShipment path="/charter-shipment/single-shipment" />
         <OrderSummary path="/charter-shipment/order-summary" />
-        <ShipmentSummaryTable path="/charter-shipment/shipment-summary"/>
+        <ShipmentSummaryTable path="/charter-shipment/shipment-summary" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
         <SearchContainer path="/search-shipment" />
         <PaymentsPage path="/payments/cards" />
-        <PersonalProfileContainer path="my-account/personal-profile" />   
-        <ChildAccount path="my-account/child-account"/>
-        <FavoriteLocations path={'my-account/favourite-locations'}/>
+        <PersonalProfileContainer path="my-account/personal-profile" />
+        <ChildAccount path="my-account/child-account" />
+        <FavoriteLocations path={'my-account/favourite-locations'} />
         <PaymentsPage path="/payments/cards" />
-        <OnHoldShipmentContainer path= "/holding-zone" />
+        <OnHoldShipmentContainer path="/holding-zone" />
         <InvoicesContainer path="/payments/invoices" />
-        <ReportsContainer path={"/reports"}/>
-        <NotFoundPage default />
+        <ReportsContainer path={"/reports"} />
+        <PageNotFound default />
       </DashboardPage>
     </Router>
   );
