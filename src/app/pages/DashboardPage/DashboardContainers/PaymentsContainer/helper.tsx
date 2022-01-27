@@ -86,7 +86,7 @@ export const invoiceTable = (
                 "Invoice Date": item.invoiceCreatedAt,
                 // "Shipment Count": getOrderIdItem(openInvoiceDrawer, item.shipmentCount),
                 "Shipment Count": item.shipmentCount,
-                "Shipped by": item.shippedBy,
+                "Shipped By": item.shippedBy,
                 "Invoice Amount": `$ ${item.total}`,
                 "Invoice Number": getInvoiceIdItem(
                     openInvoiceDrawer,

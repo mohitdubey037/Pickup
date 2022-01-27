@@ -47,7 +47,7 @@ export const CustomInput = styled.input`
   border-radius: 4px;
   outline-style: none;
   position: relative;
-  padding: 0 5px;
+  padding: 0 10px;
   box-sizing:border-box;
   margin-bottom:6px;
   &::placeholder {

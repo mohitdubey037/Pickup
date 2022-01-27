@@ -8,6 +8,12 @@ export const InvoicesWrapper = styled.div`
   div {
     width: 192px;
   }
+  .search-btn-wrapper {
+    padding-top: 25px;
+  }
+  .search-btn-wrapper button {
+    height: 42px;
+  }
 `;
 
 export const InvoiceTableTop = styled.div`

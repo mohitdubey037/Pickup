@@ -71,7 +71,7 @@ const Table = ({
                 <CustomTable>
                     <TableHead>
                         <TableRow>
-                            {showCheckbox && (
+                            {!!data?.length && showCheckbox && (
                                 <TableCell padding="checkbox">
                                     <Checkbox
                                         label={null}

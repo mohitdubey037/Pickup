@@ -29,9 +29,9 @@ export const addNewCardService = async (body: any) => {
     }
 }
 
-export const getInvoiceList = async ()=>{
+export const getInvoiceList = async (urlParams: string)=>{
     try {
-        const res = await Services.get("order/business/invoices","order")
+        const res = await Services.get(`order/business/invoices${urlParams}`,"order")
         return{response: res, error:null};
     }catch(error){
     return {response: null, error: error};

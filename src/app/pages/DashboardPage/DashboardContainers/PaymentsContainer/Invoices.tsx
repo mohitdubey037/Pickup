@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useFormik } from "formik";
 
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
@@ -51,8 +52,19 @@ const InvoicesContainer = ({ path: string }) => {
     );
   };
 
-  const getInvoiceListData = async () => {
-    const res: any = await getInvoiceList();
+  const getInvoiceListData = async (values?: object) => {
+    let urlParams = "";
+    if (values) {
+      urlParams += "?";
+      let tempLen = Object.entries(values).length;
+      Object.entries(values).forEach(
+        ([key, value], index) =>
+          (urlParams += value
+            ? `${key}=${value}${index === tempLen - 1 ? "" : "&"}`
+            : "")
+      );
+    }
+    const res: any = await getInvoiceList(urlParams);
     if (!res.error) {
       const InvoiceList = res.response.data.data.list;
       setInvoiceData(InvoiceList);
@@ -63,13 +75,63 @@ const InvoicesContainer = ({ path: string }) => {
     getInvoiceListData();
   }, []);
 
+  const { values, handleChange, errors, touched, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        invoiceNumber: "",
+        fromDate: "",
+        toDate: "",
+      },
+      onSubmit: (values) => getInvoiceListData(values),
+    });
+
   return (
     <ModuleContainer>
       <ContainerTitle title="Invoices" />
       <InvoicesWrapper>
-        <Input label="Invoice Number" placeholder="eg. 123,321" />
-        <Input label="From Date" placeholder="Select" />
-        <Input label="To Date" placeholder="Select" />
+        <Input
+          id="invoiceNumber"
+          name="invoiceNumber"
+          initValue={values.invoiceNumber}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          error={touched.invoiceNumber && errors.invoiceNumber}
+          label="Invoice Number"
+          placeholder="eg. 123,321"
+        />
+        <Input
+          id="fromDate"
+          name="fromDate"
+          initValue={values.fromDate}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          error={touched.fromDate && errors.fromDate}
+          label="From Date"
+          placeholder="YYYY-MM-DD"
+          type="mask"
+          maskProps={{
+            mask: "9999-99-99",
+            maskPlaceholder: null,
+          }}
+        />
+        <Input
+          id="toDate"
+          name="toDate"
+          initValue={values.toDate}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          error={touched.toDate && errors.toDate}
+          label="To Date"
+          placeholder="YYYY-MM-DD"
+          type="mask"
+          maskProps={{
+            mask: "9999-99-99",
+            maskPlaceholder: null,
+          }}
+        />
+        <div className="search-btn-wrapper">
+          <Button label="Search" onClick={handleSubmit} />
+        </div>
       </InvoicesWrapper>
       <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
