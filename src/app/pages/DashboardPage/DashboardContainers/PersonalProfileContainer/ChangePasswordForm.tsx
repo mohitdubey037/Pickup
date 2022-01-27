@@ -47,6 +47,7 @@ const ChangePasswordForm = ({
           value={values.currentPassword}
           error={touched.currentPassword && errors.currentPassword}
           placeholder="Current Password"
+          required={true}
         />
 
         <PasswordInput
@@ -58,6 +59,7 @@ const ChangePasswordForm = ({
           onChange={handleChange}
           error={touched.newPassword && errors.newPassword}
           placeholder="New Password"
+          required={true}
         />
 
         <PasswordInput
@@ -69,6 +71,7 @@ const ChangePasswordForm = ({
           onChange={handleChange}
           error={touched.newConfirmedPassword && errors?.newConfirmedPassword}
           placeholder="Confirm New Password"
+          required={true}
         />
       </Box>
 

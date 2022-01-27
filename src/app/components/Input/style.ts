@@ -131,7 +131,6 @@ export const VisibilityBox = styled.div`
 
 
 export const SwitchBox = styled.div`
-margin-bottom:16px;
 .MuiSwitch-root {
   width: 82px;
   height: 42px;

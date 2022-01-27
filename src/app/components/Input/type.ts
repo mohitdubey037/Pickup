@@ -18,4 +18,5 @@ export interface InputProps {
   autoComplete?: string;
   maskProps?: any;
   ref?: any;
+  required?: boolean;
 }

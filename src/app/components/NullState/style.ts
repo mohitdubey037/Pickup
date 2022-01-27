@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 
-
-
 export const NullStateBox = styled.div`
     background:#F4F4F4;
 	padding:24px;
@@ -27,7 +25,4 @@ export const NullStateBox = styled.div`
         font-family:"Roboto-Medium"
 	}
 `;
-
-
-
 

@@ -20,6 +20,7 @@ interface SelectPropTypes {
   name?: string;
   disabled?: boolean;
   error?: any;
+  required?: boolean;
 }
 
 export default function Select(props: SelectPropTypes) {
@@ -33,6 +34,7 @@ export default function Select(props: SelectPropTypes) {
     style,
     error,
     disabled,
+    required,
   } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
@@ -57,7 +59,7 @@ export default function Select(props: SelectPropTypes) {
   return (
     <>
       <ComponentContainer>
-        <SmallLabel text={label} />
+        <SmallLabel text={label} required={required} />
 
         <SelectContainer
           aria-describedby={parentId}

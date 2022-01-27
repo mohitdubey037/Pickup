@@ -91,6 +91,7 @@ export const inviteColleague = async (values: {
 }) => {
   try {
     const notificationFrequency =
+      values?.notificationFrequency !== "" &&
       values?.notificationFrequency !== null
         ? values?.notificationFrequency
         : undefined;

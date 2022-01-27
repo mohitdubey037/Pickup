@@ -87,6 +87,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         onChange={handleChange}
         error={touched.firstName && errors.firstName}
         label="First Name"
+        required={true}
       />
       <Input
         id="lastName"
@@ -97,6 +98,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         initValue={values.lastName}
         error={touched.lastName && errors.lastName}
         label="Last Name"
+        required={true}
       />
       <Input
         id="phone"
@@ -107,6 +109,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         value={values.phone}
         error={touched.phone && errors.phone}
         label="Phone Number"
+        required={true}
       />
       <Input
         id="role"
@@ -128,6 +131,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         placeholder={values?.emailId}
         error={touched.emailId && errors.emailId}
         label="Email"
+        required={true}
       />
       <Select
         disabled
