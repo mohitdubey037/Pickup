@@ -12,8 +12,10 @@ interface DetailInterface {
   AdminDetails: AdminDetailsType;
 }
 
-export default function AdminDetails(props: DetailInterface) {
+export default function AdminDetails(props: any) {
   const { AdminDetails } = props;
+  const { user } = props;
+  console.log(user);
   return (
     <>
       <FullCard>
@@ -23,7 +25,7 @@ export default function AdminDetails(props: DetailInterface) {
 
         <Box display="flex" justifyContent="space-between">
           <Box mr={4}>
-            <Avatar style={{ width: 86, height: 86 }} />
+            <Avatar src={user?.profileImage} style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>

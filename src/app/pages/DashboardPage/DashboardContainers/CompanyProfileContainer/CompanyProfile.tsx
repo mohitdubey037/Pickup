@@ -32,8 +32,16 @@ import EditColleagueDetailsForm from "./EditColleagueDetailsForm";
 import NewColleague from "./NewColleague";
 import CompanyDetailsSkeleton from "./CompanyDetailsSkeleton";
 import AdminDetailsSkeleton from "./AdminDetailsSkeleton";
+import { AuthUser } from "types";
 
 export default function CompanyProfile({ path: string }) {
+
+  const auth = useSelector((state: { auth: { user: AuthUser } }) => {
+    return state.auth;
+  });
+
+  const { user } = auth;
+
   const [colleagueDetails, setColleagueDetails] = useState<any>(null);
   const [companyDrawerOpen, setCompanyDrawerOpen] = useState(false);
   const [colleagueDrawerOpen, setColleagueDrawerOpen] = useState(false);
@@ -80,8 +88,10 @@ export default function CompanyProfile({ path: string }) {
     (async () => {
       setLoading(true);
       const companyResponse = await fetchCompanyDetails();
+      console.log(companyResponse);
       setCompanyDetails(companyResponse?.response?.data?.data?.[0]);
       const adminResponse = await fetchUserAdmin();
+      console.log(adminResponse);
       setAdminDetails(adminResponse?.response?.data?.data?.[0]);
       const colleagueResponse = await fetchColleagues();
       // console.log(colleagueResponse);
@@ -132,7 +142,7 @@ export default function CompanyProfile({ path: string }) {
       {loading ? (
         <AdminDetailsSkeleton />
       ) : (
-        <AdminDetails AdminDetails={adminDetails} />
+        <AdminDetails AdminDetails={adminDetails} user={user} />
       )}
 
       {colleagueList?.length > 0 &&
