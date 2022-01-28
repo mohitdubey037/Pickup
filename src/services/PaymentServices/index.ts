@@ -25,7 +25,7 @@ export const addNewCardService = async (body: any) => {
         if(res)showToast('Your card has been successfully added', "success");
         return {response: res, error: null};
     }catch(error){
-        showToast(error.message, "error");
+        showToast("Invalid card details. Please check your information and try again.", "error");
         return {response: null, error: error};
     }
 }
