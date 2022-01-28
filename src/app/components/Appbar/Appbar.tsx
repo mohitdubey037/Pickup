@@ -9,6 +9,7 @@ import { navigate } from "@reach/router";
 import { useEffect } from "react";
 import services from "services";
 import { PERMISSION_TYPES } from "../../../constants";
+import { globalActions } from 'store/reducers/GlobalReducer';
 
 export default function Appbar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -47,6 +48,7 @@ export default function Appbar() {
     const { id } = e.target;
     if (id === "logout") {
       dispatch({ type: "LOGOUT_USER" });
+      dispatch(globalActions.showLoader(false));
       services.removeToken();
       setTimeout(() => {
         navigate("/");
