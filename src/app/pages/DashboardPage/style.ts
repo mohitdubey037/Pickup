@@ -4,6 +4,9 @@ export const DasboardWrapper = styled.div`
 	display: flex;
 	background: #fece3e;
   width:100%;
+  @media (max-width:1023px){
+    background: #fff;
+  }
 `
 
 

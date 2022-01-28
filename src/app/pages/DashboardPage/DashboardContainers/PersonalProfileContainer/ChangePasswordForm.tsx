@@ -35,7 +35,7 @@ const ChangePasswordForm = ({
     <Flex
       direction="column"
       justifyContent="space-between"
-      style={{ height: "100%" }}
+      // style={{ height: "100%" }}
     >
       <Box>
         <PasswordInput
@@ -78,14 +78,14 @@ const ChangePasswordForm = ({
       <DrawerFooter>
         <Button
           secondary
-          style={{ width: "fit-content", minWidth: "150px" }}
           onClick={() => setPasswordDrawerOpen(false)}
           label="Cancel"
+          size="medium"
         ></Button>
         <Button
-          style={{ width: "fit-content", minWidth: "150px" }}
           label={submitButtonLabel}
           onClick={handleSubmit}
+          size="medium"
         ></Button>
       </DrawerFooter>
     </Flex>

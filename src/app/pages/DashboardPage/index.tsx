@@ -4,6 +4,8 @@ import { LeftDashboard, RightDashboard } from "./DashboardComponents";
 import { DasboardWrapper, Overlay } from "./style";
 import SplashScreens from "app/components/SplashScreens/SplashScreens";
 import { useDispatch, useSelector } from "react-redux";
+import { LeftDashboardWrapper, SidebarLogo } from "./DashboardComponents/style";
+import { logo } from "app/assets/Icons";
 
 interface DashboardProps extends RouteComponentProps {
   children?: any;
@@ -26,12 +28,18 @@ const DashboardPage = ({ children, navigate }: DashboardProps) => {
           <SplashScreens onHide={hideSplashScreens} />
         </Overlay>
       )} */}
+        <LeftDashboardWrapper>
+          
+      <SidebarLogo >
+      <img src={logo} alt="logo"  />
+      </SidebarLogo>
       <LeftDashboard
         onDrawerItemSelect={(id) => {
           navigate?.(id);
           setLink(id);
         }}
       />
+      </LeftDashboardWrapper>
       <RightDashboard>{children}</RightDashboard>
     </DasboardWrapper>
   );

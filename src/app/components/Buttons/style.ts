@@ -9,6 +9,13 @@ const sizes = {
 	'large': '100%',
 }
 
+const mobilesizes = {
+	'small': 'auto',
+  'medium': '124px',
+	'large': '100% !important',
+}
+
+
 const padding = {
 	'small': '12px 16px',
   'medium': '12px 16px',
@@ -36,7 +43,7 @@ export const useStyles = makeStyles<Theme, ButtonProps>({
     fontSize: ({ size }) => (size ? fontSize[size] : '14px'),
     height: ({ size }) => (size ? height[size] : '40px'),
 		'@media (max-width:600px)': {
-			width: '100% !important',
+      width: ({ size }) => (size ? mobilesizes[size] : '100%'),
 		},
 	},
 });

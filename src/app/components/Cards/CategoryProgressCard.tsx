@@ -1,6 +1,6 @@
 import { CustomProgressCard, ProgressRow } from "./style"
 import { Progressbar } from "../Progressbar"
-import { ListLabel } from "../Typography/Typography"
+import { ListLabel, Para } from "../Typography/Typography"
 
 interface ProgressCategory{
     category:string;
@@ -15,13 +15,13 @@ interface ProgressCardProps{
 const CategoryProgressCard = ({contents}:ProgressCardProps) => {
     return (
         <CustomProgressCard>
-            <ListLabel text="Spent by Category"  />
+            <ListLabel text="Spent by Category" className="heading" />
             {contents.map((category:ProgressCategory)=>{
                 return(
                     <ProgressRow>
-                        <span>{category.category} </span>
+                        <Para className="name" text={category.category} />
                         <Progressbar value={category.progressValue}/>
-                        <span>$ {category.cost}</span>
+                        <Para className="cost" text={`${category.cost}`} />
                     </ProgressRow> 
                 )
             })}   

@@ -1,17 +1,21 @@
 import { useState,useEffect } from "react";
-import {LeftDashboardWrapper,LeftContent,CustomListItem,ChildLink, LogoIcon, ListItem, SidebarLogo} from "./style";
+import {LeftContent,CustomListItem,ChildLink, LogoIcon, ListItem} from "./style";
 import { dashboardHelper } from "../helper";
 import { Link } from "../type";
 import { ListLabel } from "app/components/Typography/Typography";
-import { logo } from "app/assets/Icons";
-import { Box } from "@material-ui/core";
+import services from "services";
+import { navigate } from "@reach/router";
+import { useDispatch } from "react-redux";
+
 
 interface LeftDashboardProps {
     onDrawerItemSelect: (link: string) => void;
 }
 
-const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
+const LeftDashboard = ({ onDrawerItemSelect}: LeftDashboardProps) => {
   const [selectedLink, setSelectedLink] = useState('');
+  const dispatch = useDispatch();
+  
 
   useEffect(()=>{
     const url = window.location.pathname;
@@ -22,12 +26,17 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
     setSelectedLink(link);
     onDrawerItemSelect(link);
   };
+
+  const handleLogOut = () => {
+      dispatch({ type: "LOGOUT_USER" });
+      services.removeToken();
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
+  };
  
   return (
-    <LeftDashboardWrapper>
-      <SidebarLogo >
-      <img src={logo} alt="logo"  />
-      </SidebarLogo>
+
       <LeftContent>
         {dashboardHelper.map((parent: Link) => {
           const isSelected =
@@ -38,7 +47,7 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
             
           return (
             <CustomListItem
-              onClick={() =>
+              onClick={() => parent?.isLogOut === true ? handleLogOut() : 
                 onLinkSelectHandler(
                   parent.children ? parent.children[0].link : parent.link
                 )
@@ -68,7 +77,6 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
           );
         })}
       </LeftContent>
-    </LeftDashboardWrapper>
   );
 };
 

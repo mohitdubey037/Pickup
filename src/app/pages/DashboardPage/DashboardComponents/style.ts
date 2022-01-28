@@ -6,7 +6,10 @@ export const LeftDashboardWrapper = styled.div`
   text-align: left;
   width: 263px;
   color: #343434;
-  height: 100%;
+  height: 100%; 
+  @media (max-width:1023px){
+    display:none
+  }
 `;
 
 export const SidebarLogo = styled(Box)`
@@ -21,6 +24,11 @@ export const DashboardRightWrapper = styled.div`
   min-height: 100vh;
   width: calc(100% - 263px);
   border-top-left-radius: 40;
+  
+  @media (max-width:1023px){
+    width:100%;
+    height:auto;
+  }
 `;
 
 export const RightDashboardWrapper = styled.div`
@@ -51,11 +59,33 @@ export const LeftContent = styled.div`
   }
 `;
 
-export const CustomListItem = styled.li`
+interface StyledProps {
+	// isMobileMenu?: boolean;
+  selected?: boolean;
+}
+
+
+
+export const CustomListItem = styled.li<StyledProps>`
   cursor: pointer;
   list-style: none;
   padding: 16px 24px;
-  background: ${(props: { selected: boolean }) => props.selected && "#ffdb6f"};
+  background: ${(props) => props.selected && "#ffdb6f"};
+  @media (max-width: 1023px) {
+  border-bottom:1px solid #ffe79e;
+  }
+ 
+  &: last-child{
+    display:none;
+    p{
+      text-align:center;
+      width:100%;
+      color: #c94c43;
+    }
+    @media (max-width: 1023px) {
+      display:block;
+      }
+  }
 `;
 
 export const LogoIcon = styled.div`
@@ -64,16 +94,25 @@ export const LogoIcon = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 12px;
+  @media (max-width: 1023px) {
+    display:none;
+  }
 `;
 
 export const ChildLink = styled.div`
   margin-left: 42px;
+  @media (max-width: 1023px) {
+    margin-left: 16px;
+  }
   text-decoration: ${(props: { selected: boolean }) =>
     props.selected && "underline"};
   .labeltext {
     margin: 0;
     text-transform: capitalize;
     padding: 8px 0;
+    @media (max-width: 1023px) {
+      padding: 4px 0;
+      }
     &:nth-child(1) {
       margin-top: 8px;
     }

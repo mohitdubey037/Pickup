@@ -93,6 +93,10 @@ export const FullCard = styled(Box)`
   box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);
   border-radius: 8px;
   margin:24px 0;
+  @media (max-width:1023px){
+    padding: 24px 16px;
+    margin:16px 0;
+    }
 `;
 
 export const Flex = styled.div`

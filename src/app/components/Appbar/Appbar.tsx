@@ -1,16 +1,29 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { dropdown, settings } from "app/assets/Icons";
-import { Avatar, Menu, MenuItem } from "@material-ui/core";
-import { AppbarContainer } from "./style";
+/* eslint-disable no-debugger */
+import React, { useEffect, useState } from 'react';
+import { dropdown, logo, settings } from "app/assets/Icons";
+import { Avatar, Box, IconButton, ListItem, Menu, MenuItem } from "@material-ui/core";
+import { AppbarContainer, LeftBox, MenuLinks, ProfileBox, RightBox } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "types";
-import { useState } from "react";
 import { navigate } from "@reach/router";
-import { useEffect } from "react";
 import services from "services";
 import { PERMISSION_TYPES } from "../../../constants";
+import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
+import { ChildLink, CustomListItem, SidebarLogo } from "app/pages/DashboardPage/DashboardComponents/style";
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
+import { ListLabel, SmallLabel, Smalltext } from "../Typography/Typography";
+import { dashboardHelper } from "app/pages/DashboardPage/helper";
+import { Link } from "app/pages/DashboardPage/type";
+import { LeftDashboard } from "app/pages/DashboardPage/DashboardComponents";
+
 
 export default function Appbar() {
+
+	const [menuVisibility, setMenuVisibility] = React.useState(false);
+  const [link, setLink] = useState("");
+  const [showMenu, setShowMenu] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   // const [profileImage, setProfileImage] = useState(null);
   const pathname = window?.location?.pathname;
@@ -61,6 +74,10 @@ export default function Appbar() {
   return (
     <>
       <AppbarContainer>
+        <LeftBox>
+      <SidebarLogo >
+      <img src={logo} alt="logo"  />
+      </SidebarLogo>
         {pathname.includes("/order-summary") && (
           <h3
             style={{
@@ -72,25 +89,22 @@ export default function Appbar() {
             Order Confirmation
           </h3>
         )}
-        <img
-          style={{ width: "1.5rem", cursor: "pointer" }}
-          src={settings}
-          alt="settings"
-        />
-        <div style={{ textAlign: "right", marginLeft: "1rem" }}>
-          <h5 style={{ margin: 0 }}>{user?.firstName}</h5>
-          <span style={{ fontSize: "14px", color: "#343434" }}>
+        </LeftBox>
+        <RightBox>
+        {/* <SettingsOutlinedIcon /> */}
+        <ProfileBox>
+          <SmallLabel text={user?.firstName} className="profilename" />
+          <Smalltext  className="designation"  text=
             {user?.roleId
               ? getRole(user?.roleId)?.[0]?.label
               : getRole(4)?.[0]?.label}
-          </span>
-        </div>
+          />
+        </ProfileBox>
         <Avatar
-          style={{ margin: "1rem 1rem 1rem 1rem" }}
-          alt="dummy avatar"
+          alt="profile picture"
           src={user?.profileImage}
+          className="avatar"
         />
-
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
@@ -107,12 +121,48 @@ export default function Appbar() {
           </MenuItem>
         </Menu>
         <img
-          style={{ margin: "1rem 2rem 1rem 0rem", cursor: "pointer" }}
           src={dropdown}
           alt="dropdown"
           aria-describedby={id}
           onClick={handleClick}
+          className="drodwonicon"
         />
+
+        
+        <IconButton
+        className="menuicon"
+								edge="start" color="inherit" aria-label="menu"
+								onClick={() => setMenuVisibility((previous) => !previous) }
+								// id={isMobile ? "navigation_menu" : "no-step_navigation_menu"}
+							>
+								{menuVisibility ? (
+									<CloseIcon />
+								) : (
+									<MenuIcon />
+								)}
+							</IconButton>
+
+
+              {/* {showMenu && ( */}
+    <MenuLinks display={menuVisibility ? 'block' : 'none'}>
+     <LeftDashboard    
+         onDrawerItemSelect={(id) => {
+          navigate?.(id);
+          setLink(id);
+          // setShowMenu(false);
+          setMenuVisibility(false)
+        }} 
+        />
+      
+
+          </MenuLinks>
+              {/* ) */}
+      {/* } */}
+      
+        </RightBox>
+
+     
+
       </AppbarContainer>
     </>
   );

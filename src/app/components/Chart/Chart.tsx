@@ -22,7 +22,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
     return (
         <CardContainer>
             <Grid container spacing={2}>
-                <Grid item sm={2}>
+                <Grid item sm={2} xs={12}>
                         <ListLabel text="Market Price" />
                         <ContainerTitle title={`${marketPriceNumber}`} className='markerprice count' />
                         <Box display="flex" mb={2.5}>
@@ -44,7 +44,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                             <Smalltext text={labelSavedNumber} />
                         </Box>
                 </Grid>
-                <Grid item sm={10}>
+                <Grid item sm={10} xs={12}>
                     <ReactApexChart
                         options={{
                             stroke: {

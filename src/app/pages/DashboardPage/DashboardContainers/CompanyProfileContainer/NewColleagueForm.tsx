@@ -79,7 +79,7 @@ function NewColleagueForm({ saveAction }) {
         <ListLabel text="Add New Colleague" />
       </Box>
       <GridContainer container spacing={2}>
-      <Grid item lg={3} md={6}>
+      <Grid item lg={3} md={6} xs={12}>
           <CustomInput
             id="firstName"
             name="firstName"
@@ -94,7 +94,7 @@ function NewColleagueForm({ saveAction }) {
           />
         </Grid>
 
-        <Grid item lg={3} md={6}>
+        <Grid item lg={3} md={6} xs={12}>
           <CustomInput
             id="lastName"
             name="lastName"
@@ -108,7 +108,7 @@ function NewColleagueForm({ saveAction }) {
             required={true}
           />
         </Grid>
-        <Grid item lg={3} md={6}>
+        <Grid item lg={3} md={6} xs={12}>
           <CustomInput
             id="phoneNumber"
             name="phoneNumber"
@@ -122,7 +122,7 @@ function NewColleagueForm({ saveAction }) {
             required={true}
           />
         </Grid>
-        <Grid item lg={3} md={6}>
+        <Grid item lg={3} md={6} xs={12}>
           <CustomInput
             id="roleDesignation"
             name="roleDesignation"
@@ -141,10 +141,10 @@ function NewColleagueForm({ saveAction }) {
         </GridContainer>
 
         <GridContainer container spacing={2}>
-            <Grid item lg={12}>
+            <Grid item lg={12} xs={12}>
             <Switches value={isChecked} setIsChecked={setIsChecked} />
             </Grid>
-            <Grid item md={3}>
+            <Grid item md={3} xs={12}>
             <CustomInput
             id="emailId"
             name="emailId"
@@ -159,7 +159,7 @@ function NewColleagueForm({ saveAction }) {
           />
         </Grid>
         {isChecked &&
-          <Grid item md={3}>
+          <Grid item md={3} xs={12}>
             <Select
               id="notificationFrequency"
               name="notificationFrequency"

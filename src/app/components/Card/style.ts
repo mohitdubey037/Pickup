@@ -14,18 +14,18 @@ padding:24px 16px;
 background:#fff;  
 `
 
-export const CardDiv = styled(PaperBox)`
+export const CardDiv = styled(PaperBox)<StyledProps>`
 box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);
 border-radius: 8px;
 padding:24px 16px;  
-background: ${(props: StyledProps) => props.isOrangeBox ? '#F99746' : ''};
+background: ${props => props.isOrangeBox ? '#F99746' : ''};
 
 .heading{
-    color: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : ''};
+    color: ${props => props.isOrangeBox ? '#fff' : ''};
 }
 
 .count{
-    color: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : '#F99746'};
+    color: ${props => props.isOrangeBox ? '#fff' : '#F99746'};
     margin-top: 12px;
     line-height: 56px;
     font-size:48px;
@@ -33,15 +33,15 @@ background: ${(props: StyledProps) => props.isOrangeBox ? '#F99746' : ''};
     margin:12px 0 20px;
 }
 .viewall{
-    color: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : '#2D9CDB'};
+    color: ${props => props.isOrangeBox ? '#fff' : '#2D9CDB'};
     text-decoration:underline;
     cursor:pointer;
 }
 .icon{
-    fill: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : ''};
+    fill: ${props => props.isOrangeBox ? '#fff' : ''};
 }
 .label{
-    color: ${(props: StyledProps) => props.isOrangeBox ? '#fff' : ''};
+    color: ${props => props.isOrangeBox ? '#fff' : ''};
     margin-left:5px;
 }
     

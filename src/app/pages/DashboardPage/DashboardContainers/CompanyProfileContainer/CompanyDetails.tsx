@@ -1,4 +1,5 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
+import { FlexBox } from "app/components/CommonCss/CommonCss";
 import EditIcon from "app/components/EditIcon";
 import { Flex, FullCard } from "app/components/Input/style";
 import {
@@ -25,13 +26,13 @@ export default function CompanyDetails(props: DetailInterface) {
           <ListLabel text="Company Details" />
           <EditIcon onClick={setCompanyDrawerOpen} />
         </Box>
-        <Box display="flex" justifyContent="space-between">
+        <FlexBox justifyContent="space-between">
           <Box mr={4}>
             <Avatar style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Company Name" />
                 <SmallLabel
                   text={
@@ -43,7 +44,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Business Number" />
                 <SmallLabel
                   text={
@@ -55,7 +56,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Industry" />
                 <SmallLabel
                   text={
@@ -65,7 +66,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Employee Strength" />
                 <SmallLabel
                   text={
@@ -77,7 +78,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Address Line 1" />
                 <SmallLabel
                   text={
@@ -89,7 +90,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Address Line 2" />
                 <SmallLabel
                   text={
@@ -101,7 +102,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="City" />
                 <SmallLabel
                   text={companyDetails?.city ? companyDetails?.city : "-"}
@@ -109,7 +110,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Pincode" />
                 <SmallLabel
                   text={companyDetails?.pincode ? companyDetails?.pincode : "-"}
@@ -117,7 +118,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Province" />
                 <SmallLabel
                   text={
@@ -127,7 +128,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Country" />
                 <SmallLabel
                   text={companyDetails?.country ? companyDetails?.country : "-"}
@@ -135,7 +136,7 @@ export default function CompanyDetails(props: DetailInterface) {
                 />
               </Grid>
 
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="HST Number" />
                 <SmallLabel
                   text={
@@ -146,7 +147,7 @@ export default function CompanyDetails(props: DetailInterface) {
               </Grid>
             </Grid>
           </FlexGrid>
-        </Box>
+        </FlexBox>
       </FullCard>
     </>
   );

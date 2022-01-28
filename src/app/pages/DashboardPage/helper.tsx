@@ -9,6 +9,10 @@ import {
   myAccount,
 } from "app/assets/Icons";
 
+
+   
+
+
 export const dashboardHelper: Array<Link> = [
   { id: 0, label: "Dashboard", link: "/dashboard", logo: dashboard },
   // {
@@ -69,6 +73,7 @@ export const dashboardHelper: Array<Link> = [
         label: "Personal Profile",
         link: "/dashboard/my-account/personal-profile",
       },
+     
       // {
       //   id: 2,
       //   label: "Child Account",
@@ -86,6 +91,13 @@ export const dashboardHelper: Array<Link> = [
       // }
     ],
   },
+  {
+    id: 7,
+    link: '',
+    label: "Log Out",
+    isLogOut: true
+    
+  }
 ];
 
 export const ProgressCardData = [
