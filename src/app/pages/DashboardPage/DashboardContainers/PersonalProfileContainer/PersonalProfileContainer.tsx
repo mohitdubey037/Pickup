@@ -72,6 +72,10 @@ export default function PersonalProfileContainer({ path: string }) {
     }
   };
 
+  useEffect(() => {
+    console.log(personalProfileDetails);
+  },[personalProfileDetails])
+
   return (
     <ModuleContainer>
       <ContainerTitle title="Personal Profile" />

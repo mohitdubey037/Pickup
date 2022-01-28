@@ -11,6 +11,9 @@ import { Avatar, Box, Grid } from "@material-ui/core";
 import { COUNTRY, INDUSTRY } from "../../../../../constants";
 import { DrawerFooter } from "app/components/Drawer/style";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import EditAvatar from "app/components/Avatar/EditAvatar";
+import { showToast } from "utils";
+import { imageUploadService } from "services/SingleShipmentServices";
 
 const EditCompanyDetailsForm = ({
   title = "",
@@ -31,6 +34,7 @@ const EditCompanyDetailsForm = ({
     isValid,
   } = useFormik({
     initialValues: {
+      profileImage: companyDetails?.profileImage || "",
       companyName: companyDetails?.companyName || "",
       businessNumber: companyDetails?.businessNumber || "",
       industry: companyDetails?.industry || "",
@@ -50,6 +54,25 @@ const EditCompanyDetailsForm = ({
   //   console.log("touched", touched);
   //   console.log("errors", errors);
   // }, [touched, errors]);
+
+  const changeHandler = async (e) => {
+    const formData = new FormData();
+    const image = e?.target?.files[0];
+
+    formData.append("document", image, image?.name);
+
+    const res: { response: any; error: any } = await imageUploadService(
+      formData
+    );
+
+    if (res.error) {
+      showToast(res.error.message, "error");
+    } else {
+      setFieldValue("profileImage", res?.response?.data?.data || "");
+    }
+  };
+
+
   useEffect(() => {
     console.log(values);
   }, [values]);
@@ -71,8 +94,8 @@ const EditCompanyDetailsForm = ({
       setFieldValue(
         "province",
         value?.location?.address?.state ||
-          value?.location?.address?.county ||
-          ""
+        value?.location?.address?.county ||
+        ""
       );
       setFieldValue("city", value?.location?.address?.city || "");
       setFieldValue("pincode", value?.location?.address?.postalCode || "");
@@ -91,8 +114,8 @@ const EditCompanyDetailsForm = ({
 
   return (
     <>
-      <Box display="flex" justifyContent="center" >
-        <Avatar
+      <Box display="flex" justifyContent="center">
+        {/* <Avatar
           style={{
             width: 86,
             height: 86,
@@ -100,7 +123,8 @@ const EditCompanyDetailsForm = ({
             marginRight: "auto",
             marginBottom: '16px'
           }}
-        ></Avatar>
+        ></Avatar> */}
+        <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
       </Box>
       <Input
         id="companyName"
@@ -120,7 +144,7 @@ const EditCompanyDetailsForm = ({
         label={"Address Line 1"}
         value={values.address1}
         error={touched.address1 && errors?.address1?.toString()}
-        placeholder={"Start typing"}
+        placeholder={"Address Line 1"}
         setFieldValue={setFieldValue}
         onChange={handleChange}
         handleBlur={handleBlur}
@@ -138,7 +162,7 @@ const EditCompanyDetailsForm = ({
         required={true}
         error={touched.address2 && errors?.address2?.toString()}
         label="Address Line 2"
-        placeholder={"123 Avebue"}
+        placeholder={"123 Avenue"}
       />
       <Grid container spacing={2}>
         <Grid item xs={6}>

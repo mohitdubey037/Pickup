@@ -18,6 +18,7 @@ import { dashboardHelper } from "app/pages/DashboardPage/helper";
 import { Link } from "app/pages/DashboardPage/type";
 import { LeftDashboard } from "app/pages/DashboardPage/DashboardComponents";
 
+import { globalActions } from 'store/reducers/GlobalReducer';
 
 export default function Appbar() {
 
@@ -60,6 +61,7 @@ export default function Appbar() {
     const { id } = e.target;
     if (id === "logout") {
       dispatch({ type: "LOGOUT_USER" });
+      dispatch(globalActions.showLoader(false));
       services.removeToken();
       setTimeout(() => {
         navigate("/");

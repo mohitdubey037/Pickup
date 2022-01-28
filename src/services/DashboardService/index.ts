@@ -7,7 +7,7 @@ export const getDashboardDetails = async () => {
       `order/business/dashboard`, "order")) as any;
     return { response: response, success: true };
   } catch (err) {
-    toast.error("Something went wrong");    
+    // toast.error("Something went wrong");    
     return { response: err, success: false };
   }
 };
