@@ -43,7 +43,7 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
             }${cardData.expiry_year || ""}`,
             cvc: "",
             nameOnCard: cardData.name || "",
-            pinCode: "",
+            // pinCode: "",
             nickName: "",
             saveCard: false,
         },
@@ -112,7 +112,7 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
                 label="Name on Card"
                 placeholder={"John Doe"}
             />
-            <Input
+            {/* <Input
                 id="pinCode"
                 initValue={values.pinCode}
                 name="pinCode"
@@ -126,7 +126,7 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
                     mask: "9999",
                     maskPlaceholder: null,
                 }}
-            />
+            /> */}
             <Input
                 id="nickName"
                 initValue={values.nickName}
