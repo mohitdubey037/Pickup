@@ -124,7 +124,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                             placeholder="Password"
                             autoComplete="off"
                         />
-                        <Button disabled={!isValid} showLoader={showLoader} label="Confirm" onClick={handleSubmit} size="large" />
+                        <Button type="submit" disabled={!isValid} showLoader={showLoader} label="Confirm" onClick={handleSubmit} size="large" />
                     </FormContent>
                 </FormWrapper>
                 </LoginBackgroundWrapper>

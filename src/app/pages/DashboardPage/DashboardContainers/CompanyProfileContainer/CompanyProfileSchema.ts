@@ -48,12 +48,20 @@ export const editCompanySchema = yup.object().shape({
   address1: yup.string().required(" Address Line 1 is a required field"),
   address2: yup.string().required(" Address Line 2 is a required field"),
   city: yup.string().required(" City is a required field"),
-  pincode: yup
-    .number()
-    .positive("Please enter valid Pincode")
-    .min(0, "Please enter valid Pincode")
-    .typeError("Pincode must be a number")
-    .required(" Pincode is a required field"),
+  pincode:
+    // yup
+    //   .number()
+    //   .positive("Please enter valid Pincode")
+    //   .min(0, "Please enter valid Pincode")
+    //   .typeError("Pincode must be a number")
+    //   .required(" Pincode is a required field"),
+    yup
+      .string()
+      .required('Pincode is a required field')
+      .matches(
+        /^[a-zA-Z0-9_]*$/,
+        "Pincode must be alphanumeric"
+      ),
   province: yup.string().required(" Province is a required field"),
   country: yup.string().required(" Country is a required field"),
   hstNumber: yup

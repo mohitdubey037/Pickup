@@ -113,6 +113,10 @@ export default function CompanyProfile({ path: string }) {
     }
   }, [colleagueDrawerOpen]);
 
+  useEffect(() => {
+    console.log(companyDetails);
+  },[companyDetails])
+
   return (
     <ModuleContainer>
       <ContainerTitle title="Company Profile" />
