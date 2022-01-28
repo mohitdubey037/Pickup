@@ -119,7 +119,7 @@ const EditCompanyDetailsForm = ({
         label={"Address Line 1"}
         value={values.address1}
         error={touched.address1 && errors?.address1?.toString()}
-        placeholder={"Start typing"}
+        placeholder={"Address Line 1"}
         setFieldValue={setFieldValue}
         onChange={handleChange}
         handleBlur={handleBlur}
@@ -137,7 +137,7 @@ const EditCompanyDetailsForm = ({
         required={true}
         error={touched.address2 && errors?.address2?.toString()}
         label="Address Line 2"
-        placeholder={"123 Avebue"}
+        placeholder={"123 Avenue"}
       />
       <Grid container spacing={2}>
         <Grid item xs={6}>
