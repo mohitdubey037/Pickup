@@ -92,7 +92,7 @@ export default function Cards({ title }) {
                 onChange={handleChange}
                 error={touched.pinCode && errors.pinCode}
                 label={"Pin Code"}
-                placeholder={"Start typing"}
+                placeholder={"Pin Code"}
               />
             </Grid>
             <Grid item xs={5}>
@@ -103,7 +103,7 @@ export default function Cards({ title }) {
                 onChange={handleChange}
                 error={touched.nickName && errors.nickName}
                 label={"Nick name (optional)"}
-                placeholder={"Start typing"}
+                placeholder={"Nickname"}
               />
               <div style={{ marginRight: 30, width: 140, justifyContent:'center'}}>
                 <Button style={{marginTop:25,flexDirection:'inherit' }} label="+ Add New Card" />
