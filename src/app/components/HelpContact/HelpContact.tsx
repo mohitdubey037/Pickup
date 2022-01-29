@@ -20,7 +20,7 @@ export default function HelpContact() {
                             <Input label="Last Name" placeholder="Doe" />
                         </Grid>
                         <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
-                            <Input label="Phone Number" placeholder="+1 999-999-9999" />
+                            <Input label="Phone Number" placeholder="+1 (999)-999-9999" />
                         </Grid>
                         <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
                             <Input label="Email Address" placeholder="johndoe@gmail.com" />

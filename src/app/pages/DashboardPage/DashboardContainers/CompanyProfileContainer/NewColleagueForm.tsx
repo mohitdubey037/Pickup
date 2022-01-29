@@ -118,7 +118,7 @@ function NewColleagueForm({ saveAction }) {
             initValue={values?.phoneNumber}
             error={touched.phoneNumber && errors?.phoneNumber?.toString()}
             label={"Phone Number"}
-            placeholder={"+1 (999)-999-9999"}
+            placeholder="+1 (999)-999-9999"
             required={true}
           />
         </Grid>

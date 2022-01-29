@@ -141,7 +141,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
               id={"phoneNumber"}
               name={"phoneNumber"}
               label="Phone number"
-              placeholder="+1 999-999-9999"
+              placeholder="+1 (999)-999-9999"
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.phoneNumber && errors.phoneNumber}
