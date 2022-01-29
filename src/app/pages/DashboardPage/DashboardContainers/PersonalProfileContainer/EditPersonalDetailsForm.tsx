@@ -15,12 +15,13 @@ import { DrawerFooter } from "app/components/Drawer/style";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { PersonalProfileType } from "./types";
 
+
 interface EditPersonalInterface {
   personalProfileDetails: PersonalProfileType;
   setEditDetailsDrawerOpen: (value: boolean) => void;
   saveAction: any;
 }
-
+const fileType = ["image/png", "image/jpeg", "image/jpg"];
 const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
   const { personalProfileDetails, setEditDetailsDrawerOpen, saveAction } =
     props;
@@ -49,8 +50,14 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
   });
 
   const changeHandler = async (e) => {
+    console.log(e)
+    
     const formData = new FormData();
     const image = e?.target?.files[0];
+    if (!fileType.includes(image.type)) {
+      showToast("Upload only valid image","error")
+      return;
+    }
 
     formData.append("document", image, image?.name);
 
