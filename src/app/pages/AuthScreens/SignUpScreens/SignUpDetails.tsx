@@ -151,7 +151,7 @@ useEffect(() => {
                                         <Checkbox
                                             isChecked={consent}
                                             id="consent"
-                                            label={<Termslink>I agree to the <Link to="" onClick={() => setShowTermsPolicies('terms')}>Terms</Link> and <Link to="" onClick={() => setShowTermsPolicies('policies')}>Policies</Link></Termslink>}
+                                            label={<Termslink>I agree to the <Link to={`/sign-up-details?token=${token}`} onClick={() => setShowTermsPolicies('terms')}>Terms</Link> and <Link to={`/sign-up-details?token=${token}`} onClick={() => setShowTermsPolicies('policies')}>Policies</Link></Termslink>}
                                             name="consent"
                                             onChange={() => setFieldValue('consent', !consent)}
                                             onBlur={handleBlur}

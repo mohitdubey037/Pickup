@@ -105,7 +105,8 @@ class Service {
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
-            console.log({ err });
+            // console.log({ err }, 'hiiii err0');
+            toast.error(err?.response?.data?.message);
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               const errorMessage = errResponse?.data?.message?.message
@@ -122,7 +123,7 @@ class Service {
       }
     });
   };
-  
+
   postImage = (
     url: string,
     params: {},
@@ -211,7 +212,7 @@ class Service {
     });
   };
 
-  delete = async (url: string, body={}, type: RequestType = "base") => {
+  delete = async (url: string, body = {}, type: RequestType = "base") => {
     return new Promise((resolve, reject) => {
       const localToken = this.getToken();
       const baseUrl = MODULE_URL_MAP[type];
@@ -219,9 +220,9 @@ class Service {
       try {
         axios
           .delete(`${baseUrl}${url}`, {
-              data: {
-                ...body
-              },
+            data: {
+              ...body
+            },
             headers: {
               Authorization: `${localToken}`,
             },

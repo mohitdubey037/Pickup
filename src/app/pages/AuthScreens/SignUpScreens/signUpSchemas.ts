@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { PHONE_NUMBER_REGX, PASSWORD_REGX } from "../../../../constants";
+import { PHONE_NUMBER_REGX, PASSWORD_REGX, NEWPASSWORD_REGEX } from "../../../../constants";
 
 export const signUpSchema = yup.object().shape({
   email: yup
@@ -26,7 +26,7 @@ export const companyDetailsSchema = yup.object().shape({
 });
 
 export const passwordSchema = yup.object().shape({
-  password: yup.string().matches(PASSWORD_REGX, "The password you entered is incorrect").required('Password is required field'),
+  password: yup.string().matches(NEWPASSWORD_REGEX, "The password you entered is incorrect").required('Password is required field'),
   confirmPassword: yup
     .string()
     .test("asswords-match", "Passwords must match", function (value) {

@@ -11,6 +11,7 @@ export const PHONE_NUMBER_REGX =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const PASSWORD_REGX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+export const NEWPASSWORD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#$%&+'`()*,-./:;<=>?@[\]~{}_^&]).{8,}$/
 export const BILLING_TYPES = [
   { label: "Individual", value: "0" },
   { label: "Company", value: "1" },
@@ -40,12 +41,12 @@ export const PERMISSION_TYPES = [
 ];
 
 export const NEW_PERMISSION_TYPES = [
-  { 
-    title: "Executive", 
-    value: 1, 
+  {
+    title: "Executive",
+    value: 1,
     subtitle: "Can place orders only",
     icon: executive
-   },
+  },
   {
     title: "Superintendent",
     value: 2,
