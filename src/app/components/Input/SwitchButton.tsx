@@ -7,7 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 
 export default function Switches({ value, setIsChecked }) {
   const [state, setState] = React.useState({
-    checkedA: false,
+    checkedA: value ? value : false,
   });
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function Switches({ value, setIsChecked }) {
             control={
               <Switch
                 color="primary"
-                value={value}
+                checked={value}
                 // checked={value}
                 onChange={handleChange}
               />
