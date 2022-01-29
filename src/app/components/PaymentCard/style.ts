@@ -23,14 +23,18 @@ export const IndividualCardDiv = styled(Box)`
 
 export const MenuBox = styled(Menu)`
 right:20px !important;
-left:-140px !important;
+left:-110px !important;
 top:40px !important;
 
 .MuiPaper-rounded {
     background: #FFFFFF;
     box-shadow: 0px 4px 20px rgb(0 0 0 / 10%) !important;
     border-radius: 16px;
-    width: 150px;
+    width: 120px;
+    @media (max-width: 600px) {
+        right: 10px !important;
+        left: auto !important;
+        }
 }
 .MuiMenuItem-root {
     font-size: 16px;

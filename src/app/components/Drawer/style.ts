@@ -9,7 +9,9 @@ export const CustomDrawer = styled(Drawer)<CustomerDrawerProp>`
     div.MuiDrawer-paper{
         overflow-x: hidden;
         width: 555px;
-        // max-width: ${props => props.maxWidth ?? "600px"};
+        @media (max-width:600px){
+          width: 100%;
+          }
     }
 `
 
@@ -22,14 +24,20 @@ export const DrawerTitleDiv = styled.div`
     left:0;
     justify-content: space-between;
     border-bottom: 1px solid #DDDDDD;
+    @media (max-width:600px){
+      padding: 16px;
+      }
  `
 
 
 export const DrawerContent = styled.div`
-    padding: 24px 32px 0 32px;
+    padding: 24px 32px 0;
     height: calc(100vh - 65px);
     overflow-y: auto;
     position:relative;
+    @media (max-width:600px){
+      padding: 16px 16px 0;
+      }
     &::-webkit-scrollbar {
         width: 5px;
       }
@@ -62,4 +70,7 @@ export const DrawerFooter = styled.div`
     left: 0;
     bottom:0;
     background:#fff;
+    @media (max-width:600px){
+      padding: 16px 0;
+      }
 `

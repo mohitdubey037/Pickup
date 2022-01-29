@@ -56,7 +56,8 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
     });
 
     return (
-        <Box>
+        <Box 
+        style={{ height: "100%" }}>
             <Input
                 id="cardNumber"
                 initValue={values.cardNumber}

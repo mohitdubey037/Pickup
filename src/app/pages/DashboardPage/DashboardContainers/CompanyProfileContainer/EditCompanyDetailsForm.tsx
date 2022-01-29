@@ -121,6 +121,7 @@ const EditCompanyDetailsForm = ({
             height: 86,
             marginLeft: "auto",
             marginRight: "auto",
+            marginBottom: '16px'
           }}
         ></Avatar> */}
         <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
@@ -253,7 +254,7 @@ const EditCompanyDetailsForm = ({
         placeholder={"554787"}
       />
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item sm={6} xs={12}>
           <Select
             id="industry"
             name="industry"
@@ -264,7 +265,7 @@ const EditCompanyDetailsForm = ({
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item sm={6} xs={12}>
           <Input
             id="employeeStrength"
             name="employeeStrength"

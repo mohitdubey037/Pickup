@@ -46,6 +46,7 @@ code {
   overflow-y: auto;
   padding-left: 0;
   width: 100%;
+  top:70px;
 }
 .suggestions li {
   padding: 0.5rem;

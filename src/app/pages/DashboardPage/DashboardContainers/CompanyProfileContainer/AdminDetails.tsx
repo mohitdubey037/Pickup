@@ -1,4 +1,5 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
+import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { FullCard } from "app/components/Input/style";
 import {
   ListLabel,
@@ -23,41 +24,41 @@ export default function AdminDetails(props: any) {
           <ListLabel text="Admin Details" />
         </Box>
 
-        <Box display="flex" justifyContent="space-between">
+        <FlexBox justifyContent="space-between">
           <Box mr={4}>
             <Avatar src={user?.profileImage} style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="First Name" />
                 <SmallLabel
                   text={AdminDetails?.firstName ? AdminDetails?.firstName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Last Name" />
                 <SmallLabel
                   text={AdminDetails?.lastName ? AdminDetails?.lastName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Phone Number" />
                 <SmallLabel
                   text={AdminDetails?.phoneNo ? AdminDetails?.phoneNo : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Role/Designation" />
                 <SmallLabel
                   text={AdminDetails?.role ? AdminDetails?.role : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={4} sm={8}>
+              <Grid item lg={4} sm={8} xs={12}>
                 <Para text="Email Id" />
                 <SmallLabel
                   text={AdminDetails?.emailId ? AdminDetails?.emailId : "-"}
@@ -66,7 +67,7 @@ export default function AdminDetails(props: any) {
               </Grid>
             </Grid>
           </FlexGrid>
-        </Box>
+        </FlexBox>
       </FullCard>
     </>
   );
