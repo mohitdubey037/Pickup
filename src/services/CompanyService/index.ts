@@ -50,6 +50,7 @@ export const updateCompanyProfile = async (values: {
   industry: string;
   pincode: number;
   province: string;
+  profileImage: string;
 }) => {
   try {
     const response: any = await services.put(
@@ -66,6 +67,7 @@ export const updateCompanyProfile = async (values: {
         industry: values?.industry,
         pincode: values?.pincode,
         province: values?.province,
+        companyProfileImage: values?.profileImage,
       },
       "user_cr"
     );

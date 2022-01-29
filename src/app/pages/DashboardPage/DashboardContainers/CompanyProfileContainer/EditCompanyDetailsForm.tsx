@@ -34,7 +34,7 @@ const EditCompanyDetailsForm = ({
     isValid,
   } = useFormik({
     initialValues: {
-      profileImage: companyDetails?.profileImage || "",
+      profileImage: companyDetails?.companyProfileImage || "",
       companyName: companyDetails?.companyName || "",
       businessNumber: companyDetails?.businessNumber || "",
       industry: companyDetails?.industry || "",
