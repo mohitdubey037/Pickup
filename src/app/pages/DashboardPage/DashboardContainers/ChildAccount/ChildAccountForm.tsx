@@ -63,7 +63,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.BusinessNumber && errors.BusinessNumber}
                 label={"Business Number"}
-                placeholder={"+1 999-999-9999"}
+                placeholder="+1 (999)-999-9999"
               />
             </Grid>
             <Grid item xs={3}>

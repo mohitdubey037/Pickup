@@ -116,6 +116,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         value={values.phone}
         error={touched.phone && errors.phone}
         label="Phone Number"
+        placeholder="+1 (999)-999-9999"
         required={true}
       />
       <Input

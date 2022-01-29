@@ -50,6 +50,7 @@ export const updateCompanyProfile = async (values: {
   industry: string;
   pincode: number;
   province: string;
+  profileImage: string;
 }) => {
   try {
     const response: any = await services.put(
@@ -66,10 +67,11 @@ export const updateCompanyProfile = async (values: {
         industry: values?.industry,
         pincode: values?.pincode,
         province: values?.province,
+        companyProfileImage: values?.profileImage,
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast("Your company details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
@@ -151,7 +153,10 @@ export const updateColleague = async (values: {
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast(
+      "Your colleague details has been updated successfully",
+      "success"
+    );
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");

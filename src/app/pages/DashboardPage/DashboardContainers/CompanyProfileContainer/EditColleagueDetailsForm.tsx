@@ -95,7 +95,7 @@ const EditColleagueDetailsForm = ({
       onChange={handleChange}
       error={touched.phoneNumber && errors?.phoneNumber?.toString()}
       label="Phone Number"
-      placeholder={"9987451169"}
+      placeholder="+1 (999)-999-9999"
     />
 
     <Input
