@@ -42,28 +42,28 @@ function NewColleagueForm({ saveAction }) {
       type: 17,
     },
     validationSchema: addNewColleague,
-    onSubmit: (values, actions) => {
+    onSubmit: async (values, actions) => {
       if (!isChecked) {
         values.notification = 0;
         values.notificationFrequency = "";
       } else {
         values.notification = 1;
       }
-      // console.log("permission", values?.permission);
-      saveAction(values);
-      actions.resetForm({
-        values: {
-          firstName: "",
-          lastName: "",
-          phoneNumber: "",
-          roleDesignation: "",
-          emailId: "",
-          notificationFrequency: "",
-          permission: "",
-          notification: 0,
-          type: 17,
-        },
-      });
+      const isSaved = await saveAction(values);
+      isSaved &&
+        actions.resetForm({
+          values: {
+            firstName: "",
+            lastName: "",
+            phoneNumber: "",
+            roleDesignation: "",
+            emailId: "",
+            notificationFrequency: "",
+            permission: "",
+            notification: 0,
+            type: 17,
+          },
+        });
     },
   });
   useEffect(() => {
@@ -79,7 +79,7 @@ function NewColleagueForm({ saveAction }) {
         <ListLabel text="Add New Colleague" />
       </Box>
       <GridContainer container spacing={2}>
-      <Grid item lg={3} md={6} xs={12}>
+        <Grid item lg={3} md={6} xs={12}>
           <CustomInput
             id="firstName"
             name="firstName"
@@ -137,15 +137,15 @@ function NewColleagueForm({ saveAction }) {
             placeholder={"Manager"}
             required={true}
           />
-          </Grid>
-        </GridContainer>
+        </Grid>
+      </GridContainer>
 
-        <GridContainer container spacing={2}>
-            <Grid item lg={12} xs={12}>
-            <Switches value={isChecked} setIsChecked={setIsChecked} />
-            </Grid>
-            <Grid item md={3} xs={12}>
-            <CustomInput
+      <GridContainer container spacing={2}>
+        <Grid item lg={12} xs={12}>
+          <Switches value={isChecked} setIsChecked={setIsChecked} />
+        </Grid>
+        <Grid item md={3} xs={12}>
+          <CustomInput
             id="emailId"
             name="emailId"
             onBlur={handleBlur}
@@ -158,7 +158,7 @@ function NewColleagueForm({ saveAction }) {
             required={true}
           />
         </Grid>
-        {isChecked &&
+        {isChecked && (
           <Grid item md={3} xs={12}>
             <Select
               id="notificationFrequency"
@@ -172,7 +172,7 @@ function NewColleagueForm({ saveAction }) {
               required={isChecked && true}
             />
           </Grid>
-        }
+        )}
       </GridContainer>
 
       <GridContainer container spacing={2}>
