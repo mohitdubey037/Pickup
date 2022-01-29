@@ -122,3 +122,5 @@ export const INDUSTRY_TEXT = [
   { label: "Construction", value: "Construction" },
   { label: "Manufacturing", value: "Manufacturing" },
 ];
+
+export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];

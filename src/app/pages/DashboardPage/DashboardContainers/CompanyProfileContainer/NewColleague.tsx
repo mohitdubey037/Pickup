@@ -86,7 +86,8 @@ export default function NewColleague(props: DetailInterface) {
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Role/Designation" />
                 <SmallLabel
-                  text={roleDesignation ? roleDesignation : "-"}
+                  // text={roleDesignation ? roleDesignation : "-"}
+                  text={role ? getPermission(role) : "-"}
                   className="value"
                 />
               </Grid>
@@ -101,13 +102,13 @@ export default function NewColleague(props: DetailInterface) {
                   className="value"
                 />
               </Grid>
-              <Grid item lg={6} sm={4} xs={12}>
+              {/* <Grid item lg={6} sm={4} xs={12}>
                 <Para text="Permission" />
                 <SmallLabel
                   text={role ? getPermission(role) : "-"}
                   className="value"
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
           </FlexGrid>
         </FlexBox>
