@@ -1,14 +1,15 @@
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
-// import { passwordSchema } from "./passwordSchema";
-import { COUNTRY_TEXT, INDUSTRY_TEXT } from "../../../../../constants";
+import {
+  COUNTRY_TEXT,
+  INDUSTRY_TEXT,
+  IMAGE_FILE_TYPES,
+} from "../../../../../constants";
 import Select from "app/components/Select";
 import { editCompanySchema } from "./CompanyProfileSchema";
-import { useEffect, useState } from "react";
-import { ColleagueDetailsType } from "./types";
+import { useEffect } from "react";
 import { Avatar, Box, Grid } from "@material-ui/core";
-import { COUNTRY, INDUSTRY } from "../../../../../constants";
 import { DrawerFooter } from "app/components/Drawer/style";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import EditAvatar from "app/components/Avatar/EditAvatar";
@@ -50,28 +51,24 @@ const EditCompanyDetailsForm = ({
     validationSchema: editCompanySchema,
     onSubmit: (values) => saveAction(values),
   });
-  // useEffect(() => {
-  //   console.log("touched", touched);
-  //   console.log("errors", errors);
-  // }, [touched, errors]);
 
   const changeHandler = async (e) => {
     const formData = new FormData();
     const image = e?.target?.files[0];
-
+    if (!IMAGE_FILE_TYPES.includes(image.type)) {
+      showToast("You can only upload JPG, JPEG, PNG image file", "error");
+      return;
+    }
     formData.append("document", image, image?.name);
-
     const res: { response: any; error: any } = await imageUploadService(
       formData
     );
-
     if (res.error) {
       showToast(res.error.message, "error");
     } else {
       setFieldValue("profileImage", res?.response?.data?.data || "");
     }
   };
-
 
   useEffect(() => {
     console.log(values);
@@ -94,8 +91,8 @@ const EditCompanyDetailsForm = ({
       setFieldValue(
         "province",
         value?.location?.address?.state ||
-        value?.location?.address?.county ||
-        ""
+          value?.location?.address?.county ||
+          ""
       );
       setFieldValue("city", value?.location?.address?.city || "");
       setFieldValue("pincode", value?.location?.address?.postalCode || "");
