@@ -1,4 +1,5 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
+
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { FullCard } from "app/components/Input/style";
 import {
@@ -7,16 +8,11 @@ import {
   SmallLabel,
 } from "app/components/Typography/Typography";
 import { FlexGrid } from "./style";
-import { AdminDetailsType } from "./types";
-
-interface DetailInterface {
-  AdminDetails: AdminDetailsType;
-}
+import { ADMIN_DETAILS_PERMISSION_TYPES } from "../../../../../constants";
 
 export default function AdminDetails(props: any) {
-  const { AdminDetails } = props;
-  const { user } = props;
-  console.log(user);
+  const { AdminDetails, user } = props;
+
   return (
     <>
       <FullCard>
@@ -26,7 +22,10 @@ export default function AdminDetails(props: any) {
 
         <FlexBox justifyContent="space-between">
           <Box mr={4}>
-            <Avatar src={user?.profileImage} style={{ width: 86, height: 86 }} />
+            <Avatar
+              src={user?.profileImage}
+              style={{ width: 86, height: 86 }}
+            />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
@@ -54,7 +53,11 @@ export default function AdminDetails(props: any) {
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Role/Designation" />
                 <SmallLabel
-                  text={AdminDetails?.role ? AdminDetails?.role : "-"}
+                  text={
+                    AdminDetails?.role
+                      ? ADMIN_DETAILS_PERMISSION_TYPES[AdminDetails.role]
+                      : "-"
+                  }
                   className="value"
                 />
               </Grid>
