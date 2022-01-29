@@ -36,7 +36,7 @@ export const editPersonalProfileDetails = async (values: {
       },
       "user_cr"
     );
-    showToast(response.data.message, "success");
+    showToast("Your personal details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err.message, "error");

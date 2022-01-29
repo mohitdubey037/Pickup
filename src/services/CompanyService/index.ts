@@ -71,7 +71,7 @@ export const updateCompanyProfile = async (values: {
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast("Your company details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
@@ -153,7 +153,10 @@ export const updateColleague = async (values: {
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast(
+      "Your colleague details has been updated successfully",
+      "success"
+    );
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
