@@ -42,11 +42,11 @@ export default function CompanyProfile({ path: string }) {
   const saveColleague = async (values) => {
     values["companyId"] = companyDetails?.companyId;
     const res = await inviteColleague(values);
-    if (!res.sucess) {
+    if (res.success) {
       const colleagueResponse = await fetchColleagues();
       setColleagueList(colleagueResponse?.response?.data?.data);
     }
-    return res.sucess;
+    return res.success;
   };
 
   const updateCompanyDetails = async (values) => {
