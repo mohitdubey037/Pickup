@@ -1,7 +1,6 @@
 import { CompanyDetailsType } from "./../../app/pages/AuthScreens/SignUpScreens/types";
 import Services from "../";
 import axios from "axios";
-import { USER_BASE_URL } from "../../constants";
 
 export const registerUserService = async (email: string) => {
   const res = await Services.post("business/sign_up", { emailId: email }, "user");
@@ -12,7 +11,8 @@ export const registerCompanyService = async (companyDetails: CompanyDetailsType)
     await Services.post("business/create", companyDetails, "user");
 
 export const registerPasswordService = async (passwordRequest: {
-  emailId: string;
+  token?: string,
+  emailId?: string;
   password: string;
 }) => await Services.post("business/password", passwordRequest, "user");
 
