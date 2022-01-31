@@ -76,7 +76,7 @@ export default function PaymentCardContainer({
   };
 
     return (
-     <Box>
+     <Box mt={3}>
 {/*   
             <ContainerTitle title="Card"  /> */}
             <Grid container spacing={2}>

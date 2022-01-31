@@ -16,22 +16,27 @@ export const ComponentContainer = styled.div`
 export const SmallLabeltext = styled(SmallLabel)`
   color: #878787;
   margin: 0;
-  width: 85%;
   min-width: 80%;
   white-space: break-spaces;
+  @media (max-width: 600px) {
+ display:none;
+  }
 `;
 
 export const MenuLabel = styled(SmallLabel)`
   color: #414141;
   margin: 0;
-  min-width: 13%;
+  width: 100%;
   white-space: break-spaces;
 `;
 
 export const MenuIcon = styled(Box)`
-  min-width: 4%;
+  min-width: 5%;
   display:flex;
   align-items:center;
+  @media (max-width: 900px) {
+    display:none;
+  }
 `;
 
 

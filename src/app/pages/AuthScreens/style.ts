@@ -17,7 +17,6 @@ export const SignUpBackgroundWrapper = styled.div`
   gap: 20px;
   background: rgba(102, 102, 102, 0.6);
   @media (max-width:1023px){
-    min-height: auto;
     padding-bottom:24px;
   }
 `;
