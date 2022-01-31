@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ModuleContainer from "app/components/ModuleContainer";
-import { Box, Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { Button } from "app/components/Buttons";
 import PaymentCardContainer from "./PaymentsCardContainer";
 import { masterCard, scotiaBank } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
-import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
 import AddCardForm from "./AddCardForm";
 import { ContainerTitle } from "app/components/Typography/Typography";
 import { navigate } from "@reach/router";
+import PaymentCardSkeleton from "app/components/PaymentCard/PaymentCardSkeleton";
 
 const individualCardData = [
   {
@@ -42,7 +42,7 @@ export default function PaymentsPage({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cardDetails, setCardDetails] = useState(initialState);
   const cardsData = useSelector(
-    (state: any) => state.paymentCard.paymentCardsData
+    (state: any) => state.paymentCard
   );
 
   useEffect(() => {
@@ -83,7 +83,14 @@ export default function PaymentsPage({ path: string }) {
           }}
         />
       </Box>
-      <PaymentCardContainer  individualCardData={cardsData?.card} />
+{
+  cardsData.showLoader ?
+  <PaymentCardSkeleton />
+      :
+      
+      <PaymentCardContainer  individualCardData={cardsData.paymentCardsData?.card} />
+       
+}
 
       <Drawer
         open={drawerOpen}

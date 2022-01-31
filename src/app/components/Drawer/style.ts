@@ -70,6 +70,7 @@ export const DrawerFooter = styled.div`
     left: 0;
     bottom:0;
     background:#fff;
+    z-index:99;
     @media (max-width:600px){
       padding: 16px 0;
       }
