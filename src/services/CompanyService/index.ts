@@ -113,7 +113,7 @@ export const inviteColleague = async (values: {
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast("Your new colleague has been added successfully", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
