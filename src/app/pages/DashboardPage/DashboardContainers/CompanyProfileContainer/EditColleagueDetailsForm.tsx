@@ -2,11 +2,8 @@ import { useState, useEffect } from "react";
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
-// import { passwordSchema } from "./passwordSchema";
 import { Avatar, Box } from "@material-ui/core";
 import {
-  COUNTRY_TEXT,
-  INDUSTRY_TEXT,
   NOTIFICATION_FREQUENCY_TYPES,
   PERMISSION_TYPES,
 } from "../../../../../constants";
@@ -51,7 +48,7 @@ const EditColleagueDetailsForm = ({
     onSubmit: (values) => {
       if (!isChecked) {
         values.notification = 0;
-        delete values.notificationFrequency;
+        values.notificationFrequency = "";
       } else {
         values.notification = 1;
       }
