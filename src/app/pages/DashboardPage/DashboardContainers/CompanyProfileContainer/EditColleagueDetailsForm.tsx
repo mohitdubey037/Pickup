@@ -148,6 +148,7 @@ const EditColleagueDetailsForm = ({
         value={values["role"]}
         onSelect={handleChange}
         error={touched.role && errors?.role?.toString()}
+        isNoSubtitle={true}
       />
 
       <Switches value={isChecked} setIsChecked={setIsChecked} />

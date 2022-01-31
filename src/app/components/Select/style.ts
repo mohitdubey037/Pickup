@@ -11,9 +11,15 @@ export const ComponentContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
 `;
-export const SmallLabeltext = styled(SmallLabel)`
+
+interface StyledProps {
+	isNoSubtitle?: boolean;
+}
+
+
+export const SmallLabeltext = styled(SmallLabel)<StyledProps>`
+  display: ${props => props.isNoSubtitle ? 'none' : ''};
   color: #878787;
   margin: 0;
   min-width: 80%;
