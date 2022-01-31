@@ -38,37 +38,37 @@ export default function PersonalProfile(props: CardInterface) {
           />
         </Box>
 
-        <FlexTable>
+        <FlexTable mr={3}>
           <Grid container spacing={2}>
-            <Grid item lg={2} sm={4} xs={12}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="First Name" />
               <SmallLabel
                 text={personalProfileDetails?.firstName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={2} sm={4} xs={12}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Last Name" />
               <SmallLabel
                 text={personalProfileDetails?.lastName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={2} sm={4} xs={12}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Phone Number" />
               <SmallLabel
                 text={personalProfileDetails?.userDetails?.phoneNo || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={3} sm={5} xs={12}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Role/Designation" />
               <SmallLabel
                 text={personalProfileDetails?.roleName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={3} sm={7} xs={12}>
+            <Grid item lg={5} xl={4} sm={8} xs={12}>
               <Para text="Email Id" />
               <SmallLabel
                 text={personalProfileDetails?.emailId || "-"}
@@ -77,7 +77,7 @@ export default function PersonalProfile(props: CardInterface) {
             </Grid>
           </Grid>
         </FlexTable>
-
+      
         <Button
           label="Change Password"
           size="small"

@@ -144,7 +144,7 @@ function NewColleagueForm({ saveAction }) {
         <Grid item lg={12} xs={12}>
           <Switches value={isChecked} setIsChecked={setIsChecked} />
         </Grid>
-        <Grid item md={3} xs={12}>
+        <Grid item lg={3} md={6} xs={12}>
           <CustomInput
             id="emailId"
             name="emailId"
@@ -159,7 +159,7 @@ function NewColleagueForm({ saveAction }) {
           />
         </Grid>
         {isChecked && (
-          <Grid item md={3} xs={12}>
+          <Grid item lg={3} md={6} xs={12}>
             <Select
               id="notificationFrequency"
               name="notificationFrequency"

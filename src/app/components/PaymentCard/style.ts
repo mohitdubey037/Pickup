@@ -6,7 +6,7 @@ import styled from "styled-components";
 export const IndividualCardDiv = styled(Box)`
     background: #F6F9F9;
     border: 1px solid #C1D4D7;
-    margin: 24px 0;
+    // margin: 24px 0;
     border-radius: 8px;
     padding: 24px 32px;
     position: relative;
