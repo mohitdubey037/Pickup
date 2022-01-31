@@ -15,7 +15,7 @@ import {
 } from "./app/pages/AuthScreens/LoginScreens";
 import DashboardPage from "./app/pages/DashboardPage";
 import { useSelector } from "react-redux";
-import { NotFoundPage } from "app/pages/NotFoundPage";
+import { NoAuthorizationPage} from "app/pages/NoAutorizationPage";
 import { PageNotFound } from 'app/components/PageNotFound/PageNotFound';
 import { BulkShipment } from "app/pages/DashboardPage/DashboardContainers/BulkShipment";
 import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
@@ -59,6 +59,7 @@ const Routes = () => {
       </AuthPages>
 
       <DashboardPage path="/dashboard">
+        <NoAuthorizationPage path="/non-authorized-page"  />
         <HelpContainer path="/my-account/help" />
         <CompanyProfileContainer path="/my-account/company-profile" />
         <Dashboard path="/" />

@@ -22,6 +22,7 @@ import { actions } from "store/reducers/SingleShipmentReducer";
 import { globalActions } from "store/reducers/GlobalReducer";
 
 function SingleShipment({ path: string }) {
+  
   const dispatch = useDispatch();
 
   const shipmentDetails = useSelector(
@@ -85,7 +86,13 @@ function SingleShipment({ path: string }) {
     orderDetails.splice(index, 1);
     formik.setFieldValue("orders", orderDetails);
   };
-    
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
+
+  if([1,2,3,4].indexOf(authUser.roleId) === -1) {
+    navigate(' /non-authorized-page')
+  }
   return (
     <ModuleContainer>
       {formik?.values?.orders.length === 1 && (

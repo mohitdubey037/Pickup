@@ -9,7 +9,15 @@ import { dots3, sliders } from "app/assets/Icons";
 import Select from "app/components/Select";
 import { Box } from "@material-ui/core";
 import {checkSquare} from "app/assets/Icons"
+import { useSelector } from "react-redux";
+import { navigate } from "@reach/router";
 const BulkSummary = ({ path: string }) => {
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
+  if([1,2,3,4].indexOf(authUser.roleId) === -1) {
+    navigate('/non-authorized-page')
+  }
   const tableTop = () => {
     return (
 
