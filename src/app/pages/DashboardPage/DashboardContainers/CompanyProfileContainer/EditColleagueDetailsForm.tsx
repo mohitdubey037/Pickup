@@ -5,10 +5,12 @@ import { useFormik } from "formik";
 import { Avatar, Box } from "@material-ui/core";
 import {
   NOTIFICATION_FREQUENCY_TYPES,
-  PERMISSION_TYPES,
+  // PERMISSION_TYPES,
+  NEW_PERMISSION_TYPES,
 } from "../../../../../constants";
 import Switches from "app/components/Input/SwitchButton";
 import Select from "app/components/Select";
+import SelectBox from "app/components/Select/SelectBox";
 import { editColleagueSchema } from "./CompanyProfileSchema";
 import { DrawerFooter } from "app/components/Drawer/style";
 
@@ -130,13 +132,22 @@ const EditColleagueDetailsForm = ({
         placeholder={"Manager"}
       />
 
-      <Select
+      {/* <Select
         id="role"
         name="role"
         options={PERMISSION_TYPES}
         label={"Permissions"}
         value={values["role"]}
+      /> */}
+
+      <SelectBox
+        id="role"
+        name="role"
+        options={NEW_PERMISSION_TYPES}
+        label={"Permission"}
+        value={values["role"]}
         onSelect={handleChange}
+        error={touched.role && errors?.role?.toString()}
       />
 
       <Switches value={isChecked} setIsChecked={setIsChecked} />

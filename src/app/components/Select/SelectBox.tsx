@@ -1,6 +1,6 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
+// import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+// import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { MenuIcon, MenuLabel, SelectBoxStyle, SmallLabeltext } from "./style";
@@ -27,13 +27,13 @@ interface SelectPropTypes {
   required?: boolean;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  })
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     selectEmpty: {
+//       marginTop: theme.spacing(2),
+//     },
+//   })
+// );
 
 export default function SelectBox(props: SelectPropTypes) {
   const {
@@ -48,18 +48,18 @@ export default function SelectBox(props: SelectPropTypes) {
     disabled,
   } = props;
 
-  const classes = useStyles();
+  // const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
-  const [age, setAge] = React.useState<any>("");
+  const [age, setAge] = React.useState<any>(value ? value : "");
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setAge(event.target.value as any);
   };
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled) return;
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   if (disabled) return;
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -67,14 +67,14 @@ export default function SelectBox(props: SelectPropTypes) {
 
   const open = Boolean(anchorEl);
   const parentId = open ? "simple-popover" : undefined;
-  const valueLabel: any = value
-    ? options.find((i) => i.value === value)?.title
-    : "Select";
-  options?.map((i) => {
-    if (i.value === value) {
-      // console.log("i.title", i.title);
-    }
-  });
+  // const valueLabel: any = value
+  //   ? options.find((i) => i.value === value)?.title
+  //   : "Select";
+  // options?.map((i) => {
+  //   if (i.value === value) {
+  //     // console.log("i.title", i.title);
+  //   }
+  // });
 
   return (
     <>
@@ -107,7 +107,6 @@ export default function SelectBox(props: SelectPropTypes) {
                   handleClose();
                   onSelect &&
                     onSelect({ target: { value: option.value, id, name } });
-                  // console.log(id, name, option.value);
                 }}
                 key={option?.value}
               >

@@ -6,7 +6,7 @@ import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 // import { Input } from "./style";
 import {
-  PERMISSION_TYPES,
+  // PERMISSION_TYPES,
   NOTIFICATION_FREQUENCY_TYPES,
   NEW_PERMISSION_TYPES,
 } from "../../../../../constants";
@@ -14,8 +14,8 @@ import Select from "app/components/Select";
 import { addNewColleague } from "./CompanyProfileSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import Switches from "app/components/Input/SwitchButton";
-import EditAvatar from "app/components/Avatar/EditAvatar";
-import { Input } from "app/components/Input";
+// import EditAvatar from "app/components/Avatar/EditAvatar";
+// import { Input } from "app/components/Input";
 import { CustomInput } from "./style";
 import SelectBox from "app/components/Select/SelectBox";
 
