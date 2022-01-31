@@ -85,44 +85,46 @@ const Password = ({ navigate }: RouteComponentProps) => {
     }, []);
 
     return (
-        <SignUpWrapper>
-            <SignUpBackgroundWrapper>
-                <LogoImage />
-                <FormWrapper>
-                    <FormContent>
-                        <PageTitle title="PASSWORD" />
-                        <PasswordInput
-                            id="password"
-                            name="password"
-                            label="Password"
-                            placeholder="Password"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            error={touched.password && errors.password}
-                            autoComplete="off"
-                            validate
-                        />
-                        <PasswordInput
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            label="Confirm Password"
-                            placeholder="Password"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            autoComplete="off"
-                            error={touched.confirmPassword && errors.confirmPassword}
-                        />
-                        <Button
-                            disabled={!(isValid)}
-                            showLoader={showLoader}
-                            label="Confirm"
-                            onClick={handleSubmit}
-                            size="large"
-                        />
-                    </FormContent>
-                </FormWrapper>
-            </SignUpBackgroundWrapper>
-        </SignUpWrapper>
+        <form onSubmit={handleSubmit}>
+            <SignUpWrapper>
+                <SignUpBackgroundWrapper>
+                    <LogoImage />
+                    <FormWrapper>
+                        <FormContent>
+                            <PageTitle title="PASSWORD" />
+                            <PasswordInput
+                                id="password"
+                                name="password"
+                                label="Password"
+                                placeholder="Password"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={touched.password && errors.password}
+                                autoComplete="off"
+                                validate
+                            />
+                            <PasswordInput
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                label="Confirm Password"
+                                placeholder="Password"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                autoComplete="off"
+                                error={touched.confirmPassword && errors.confirmPassword}
+                            />
+                            <Button
+                                disabled={!(isValid)}
+                                showLoader={showLoader}
+                                label="Confirm"
+                                onClick={handleSubmit}
+                                size="large"
+                            />
+                        </FormContent>
+                    </FormWrapper>
+                </SignUpBackgroundWrapper>
+            </SignUpWrapper>
+        </form>
     );
 };
 
