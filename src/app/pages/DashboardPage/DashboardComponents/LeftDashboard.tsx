@@ -5,7 +5,7 @@ import { Link } from "../type";
 import { ListLabel } from "app/components/Typography/Typography";
 import services from "services";
 import { navigate } from "@reach/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 interface LeftDashboardProps {
@@ -34,7 +34,10 @@ const LeftDashboard = ({ onDrawerItemSelect}: LeftDashboardProps) => {
         navigate("/");
       }, 500);
   };
- 
+  const userRoleId = useSelector((state: any) => {
+    return state.auth?.user.roleId;
+  });
+
   return (
 
       <LeftContent>
@@ -61,7 +64,8 @@ const LeftDashboard = ({ onDrawerItemSelect}: LeftDashboardProps) => {
                 <ListLabel text={parent.label} />
               </ListItem>
               {parent.children?.map((child: Link) => {
-                return (
+                
+                return (child.access ? child.access.indexOf(userRoleId) !== -1 : false) &&(
                   <ChildLink
                     onClick={(e) => {
                       e.stopPropagation();
