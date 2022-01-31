@@ -6,12 +6,13 @@ import SplashScreens from "app/components/SplashScreens/SplashScreens";
 import { useDispatch, useSelector } from "react-redux";
 import { LeftDashboardWrapper, SidebarLogo } from "./DashboardComponents/style";
 import { logo } from "app/assets/Icons";
-
+import { navigate } from '@reach/router'
 interface DashboardProps extends RouteComponentProps {
   children?: any;
 }
 
 const DashboardPage = ({ children, navigate }: DashboardProps) => {
+ 
   const [link, setLink] = useState("");
   const dispatch = useDispatch();
   const { showSplash } = useSelector(
@@ -21,6 +22,7 @@ const DashboardPage = ({ children, navigate }: DashboardProps) => {
     dispatch({ type: "HIDE_SPLASH" });
   };
 
+  
   return (
     <DasboardWrapper>
       {/* {showSplash && (

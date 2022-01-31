@@ -3,5 +3,5 @@
  */
 
 import * as React from "react";
-import {NotFoundPage} from "./index";
-export default NotFoundPage;
+import {NoAuthorizationPage} from "./index";
+export default NoAuthorizationPage;
