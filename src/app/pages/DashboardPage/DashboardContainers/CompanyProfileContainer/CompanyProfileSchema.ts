@@ -38,13 +38,12 @@ export const editCompanySchema = yup.object().shape({
     .min(0, "Please enter valid Business Number")
     .typeError("Business Number must be a number")
     .required(" Business Number is a required field"),
-  industry: yup.string().required(" Industry is a required field"),
+  industry: yup.string(),
   employeeStrength: yup
     .number()
     .positive("Please enter valid Employee Strength")
     .min(0, "Please enter valid Employee Strength")
-    .typeError("Employee Strength must be a number")
-    .required(" Employee Strength is a required field"),
+    .typeError("Employee Strength must be a number"),
   address1: yup.string().required(" Address Line 1 is a required field"),
   address2: yup.string().required(" Address Line 2 is a required field"),
   city: yup.string().required(" City is a required field"),
@@ -57,11 +56,8 @@ export const editCompanySchema = yup.object().shape({
     //   .required(" Pincode is a required field"),
     yup
       .string()
-      .required('Pincode is a required field')
-      .matches(
-        /^[a-zA-Z0-9_]*$/,
-        "Pincode must be alphanumeric"
-      ),
+      .required("Pincode is a required field")
+      .matches(/^[a-zA-Z0-9_ ]*$/, "Pincode must be alphanumeric"),
   province: yup.string().required(" Province is a required field"),
   country: yup.string().required(" Country is a required field"),
   hstNumber: yup
