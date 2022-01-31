@@ -6,7 +6,7 @@ import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 // import { Input } from "./style";
 import {
-  PERMISSION_TYPES,
+  // PERMISSION_TYPES,
   NOTIFICATION_FREQUENCY_TYPES,
   NEW_PERMISSION_TYPES,
 } from "../../../../../constants";
@@ -14,10 +14,11 @@ import Select from "app/components/Select";
 import { addNewColleague } from "./CompanyProfileSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import Switches from "app/components/Input/SwitchButton";
-import EditAvatar from "app/components/Avatar/EditAvatar";
-import { Input } from "app/components/Input";
+// import EditAvatar from "app/components/Avatar/EditAvatar";
+// import { Input } from "app/components/Input";
 import { CustomInput } from "./style";
 import SelectBox from "app/components/Select/SelectBox";
+
 function NewColleagueForm({ saveAction }) {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const {
@@ -50,7 +51,8 @@ function NewColleagueForm({ saveAction }) {
         values.notification = 1;
       }
       const isSaved = await saveAction(values);
-      isSaved &&
+      if (isSaved) {
+        setIsChecked(false);
         actions.resetForm({
           values: {
             firstName: "",
@@ -64,8 +66,10 @@ function NewColleagueForm({ saveAction }) {
             type: 17,
           },
         });
+      }
     },
   });
+
   useEffect(() => {
     if (isChecked) {
       setFieldValue("notification", 1);
@@ -73,6 +77,7 @@ function NewColleagueForm({ saveAction }) {
       setFieldValue("notification", 0);
     }
   }, [isChecked]);
+
   return (
     <FullCard>
       <Box mb={4}>
