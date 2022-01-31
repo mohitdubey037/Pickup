@@ -25,6 +25,7 @@ export const addNewCardService = async (body: any) => {
         if(res)showToast('Your card has been successfully added', "success");
         return {response: res, error: null};
     }catch(error){
+        showToast("Invalid card details. Please check your information and try again.", "error");
         return {response: null, error: error};
     }
 }
@@ -81,6 +82,7 @@ export const deleteCard = async (profileId: string, cardId: string) => {
       `api/profiles/${profileId}/cards/${cardId}`,{},
       "payment"
     );
+    showToast('Your card has been successfully removed', "success");
     return { response: res, error: null };
   } catch (error) {
     return { response: null, error: error };

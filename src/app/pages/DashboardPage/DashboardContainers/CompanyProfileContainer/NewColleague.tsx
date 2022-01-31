@@ -9,6 +9,7 @@ import {
 import { FlexGrid } from "./style";
 import { PERMISSION_TYPES } from "../../../../../constants";
 import { ColleagueDetailsType } from "./types";
+import { FlexBox } from "app/components/CommonCss/CommonCss";
 
 interface DetailInterface {
   setColleagueDrawerOpen: any;
@@ -58,60 +59,59 @@ export default function NewColleague(props: DetailInterface) {
           />
         </Box>
 
-        <Box display="flex" justifyContent="space-between">
+        <FlexBox justifyContent="space-between">
           <Box mr={4}>
-            <Avatar style={{ width: 86, height: 86 }}>
-              <img src={`https://i.pravatar.cc/${inviteId}`} width={86} />
-            </Avatar>
+            <Avatar style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="First Name" />
                 <SmallLabel
                   text={firstName ? firstName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Last Name" />
                 <SmallLabel
                   text={lastName ? lastName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Phone Number" />
                 <SmallLabel text={phoneNo ? phoneNo : "-"} className="value" />
               </Grid>
-              <Grid item lg={3} sm={3}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Role/Designation" />
                 <SmallLabel
-                  text={roleDesignation ? roleDesignation : "-"}
+                  // text={roleDesignation ? roleDesignation : "-"}
+                  text={role ? getPermission(role) : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={3} sm={3}>
+              <Grid item lg={4} sm={8} xs={12}>
                 <Para text="Email Id" />
                 <SmallLabel text={emailId ? emailId : "-"} className="value" />
               </Grid>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Notification Frequency" />
                 <SmallLabel
                   text={notificationFrequency ? notificationFrequency : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={6} sm={6}>
+              {/* <Grid item lg={6} sm={4} xs={12}>
                 <Para text="Permission" />
                 <SmallLabel
                   text={role ? getPermission(role) : "-"}
                   className="value"
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
           </FlexGrid>
-        </Box>
+        </FlexBox>
       </FullCard>
     </>
   );

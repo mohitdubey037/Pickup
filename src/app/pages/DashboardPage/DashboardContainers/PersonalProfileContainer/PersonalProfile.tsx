@@ -7,8 +7,9 @@ import {
 import EditIcon from "app/components/EditIcon";
 import { Button } from "../../../../components/Buttons";
 import { FullCard } from "app/components/Input/style";
-import { FlexBox } from "./styles";
+import { FlexTable } from "./styles";
 import { PersonalProfileType } from "./types";
+import { FlexBox } from "app/components/CommonCss/CommonCss";
 interface CardInterface {
   personalProfileDetails: PersonalProfileType;
   setPasswordDrawerOpen: (value: boolean) => void;
@@ -29,45 +30,45 @@ export default function PersonalProfile(props: CardInterface) {
         <EditIcon onClick={setEditDetailsDrawerOpen} />
       </Box>
 
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box>
+      <FlexBox alignItems="center">
+        <Box mr={3}>
           <Avatar
             style={{ width: 86, height: 86 }}
             src={personalProfileDetails?.profileImage}
           />
         </Box>
 
-        <FlexBox>
+        <FlexTable mr={3}>
           <Grid container spacing={2}>
-            <Grid item lg={2} sm={3}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="First Name" />
               <SmallLabel
                 text={personalProfileDetails?.firstName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={2} sm={3}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Last Name" />
               <SmallLabel
                 text={personalProfileDetails?.lastName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={2} sm={3}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Phone Number" />
               <SmallLabel
                 text={personalProfileDetails?.userDetails?.phoneNo || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Role/Designation" />
               <SmallLabel
                 text={personalProfileDetails?.roleName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item lg={5} xl={4} sm={8} xs={12}>
               <Para text="Email Id" />
               <SmallLabel
                 text={personalProfileDetails?.emailId || "-"}
@@ -75,8 +76,8 @@ export default function PersonalProfile(props: CardInterface) {
               />
             </Grid>
           </Grid>
-        </FlexBox>
-
+        </FlexTable>
+      
         <Button
           label="Change Password"
           size="small"
@@ -84,7 +85,7 @@ export default function PersonalProfile(props: CardInterface) {
             setPasswordDrawerOpen(true);
           }}
         />
-      </Box>
+      </FlexBox>
     </FullCard>
   );
 }

@@ -16,19 +16,19 @@ export const SignUpBackgroundWrapper = styled.div`
   align-items: center;
   gap: 20px;
   background: rgba(102, 102, 102, 0.6);
-  padding: 10px 0;
+  @media (max-width:1023px){
+    padding-bottom:24px;
+  }
 `;
 
 export const LoginWrapper = styled.div`
   background: url(${bgImage2}) no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 10px 0;
+`;
+
+export const LoginBackgroundWrapper = styled(SignUpBackgroundWrapper)`
+  background: rgba(102, 102, 102, 0.3);
 `;
 
 export const LogoImage = styled.div`
@@ -36,9 +36,14 @@ export const LogoImage = styled.div`
   background-size: contain;
   height: 126px;
   width: 126px;
+  margin-top:10px;
   @media (max-width: 1366px) {
     width: 100px;
     height: 100px;
+  }
+  @media (max-width:600px){
+    width: 70px;
+    height: 70px;
   }
 `;
 
@@ -53,6 +58,9 @@ export const FormWrapper = styled.div`
   @media (max-width: 1366px) {
     min-height: 450px;
   }
+  @media (max-width:600px){
+    width: 90%;
+  }
 
   .mailLogo {
     width: 190px;
@@ -60,6 +68,10 @@ export const FormWrapper = styled.div`
     @media (max-width: 1366px) {
       width: 140px;
       height: 204px;
+    }
+    @media (max-width:600px){
+      width: 100px;
+      height: 140px;
     }
   }
   ${(props: { isValidating?: boolean }) => {
@@ -80,6 +92,9 @@ export const FormContent = styled.div`
   align-items: flex-start;
   @media (max-width: 1366px) {
     padding: 24px 32px;
+  }
+  @media (max-width: 600px) {
+    padding: 16px;
   }
   &.CenterContent {
     align-items: center;

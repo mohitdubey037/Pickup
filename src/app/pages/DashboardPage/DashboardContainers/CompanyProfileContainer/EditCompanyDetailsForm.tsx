@@ -1,15 +1,19 @@
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
-// import { passwordSchema } from "./passwordSchema";
-import { COUNTRY_TEXT, INDUSTRY_TEXT } from "../../../../../constants";
+import {
+  COUNTRY_TEXT,
+  INDUSTRY_TEXT,
+  IMAGE_FILE_TYPES,
+} from "../../../../../constants";
 import Select from "app/components/Select";
 import { editCompanySchema } from "./CompanyProfileSchema";
-import { useEffect, useState } from "react";
-import { ColleagueDetailsType } from "./types";
-import { Avatar, Box, Grid } from "@material-ui/core";
-import { COUNTRY, INDUSTRY } from "../../../../../constants";
+import { Box, Grid } from "@material-ui/core";
 import { DrawerFooter } from "app/components/Drawer/style";
+import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import EditAvatar from "app/components/Avatar/EditAvatar";
+import { showToast } from "utils";
+import { imageUploadService } from "services/SingleShipmentServices";
 
 const EditCompanyDetailsForm = ({
   title = "",
@@ -26,9 +30,11 @@ const EditCompanyDetailsForm = ({
     touched,
     handleBlur,
     handleSubmit,
+    setFieldValue,
     isValid,
   } = useFormik({
     initialValues: {
+      profileImage: companyDetails?.companyProfileImage || "",
       companyName: companyDetails?.companyName || "",
       businessNumber: companyDetails?.businessNumber || "",
       industry: companyDetails?.industry || "",
@@ -44,25 +50,64 @@ const EditCompanyDetailsForm = ({
     validationSchema: editCompanySchema,
     onSubmit: (values) => saveAction(values),
   });
-  // useEffect(() => {
-  //   console.log("touched", touched);
-  //   console.log("errors", errors);
-  // }, [touched, errors]);
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
+
+  const changeHandler = async (e) => {
+    const formData = new FormData();
+    const image = e?.target?.files[0];
+    if (!IMAGE_FILE_TYPES.includes(image.type)) {
+      showToast("You can only upload JPG, JPEG, PNG image file", "error");
+      return;
+    }
+    formData.append("document", image, image?.name);
+    const res: { response: any; error: any } = await imageUploadService(
+      formData
+    );
+    if (res.error) {
+      showToast(res.error.message, "error");
+    } else {
+      setFieldValue("profileImage", res?.response?.data?.data || "");
+    }
+  };
+
+  const handler = (value) => {
+    if (
+      value?.location?.displayPosition?.longitude &&
+      value?.location?.displayPosition?.latitude
+    ) {
+      // setFieldValue(
+      //   `${formFieldName}.${title}Longitude`,
+      //   value?.location?.displayPosition?.longitude || ""
+      // );
+      // setFieldValue(
+      //   `${formFieldName}.${title}Latitude`,
+      //   value?.location?.displayPosition?.latitude || ""
+      // );
+      setFieldValue("country", value?.location?.address?.country || "");
+      setFieldValue(
+        "province",
+        value?.location?.address?.state ||
+          value?.location?.address?.county ||
+          ""
+      );
+      setFieldValue("city", value?.location?.address?.city || "");
+      setFieldValue("pincode", value?.location?.address?.postalCode || "");
+      // setFieldValue(`${formFieldName}.${title}AddressLine1`, value?.location?.address?.label || "");
+      setFieldValue("address2", value?.location?.address?.street || "");
+    } else {
+      // setFieldValue(`${formFieldName}.${title}Longitude`, "");
+      // setFieldValue(`${formFieldName}.${title}Latitude`, "");
+      setFieldValue("country", values.country);
+      setFieldValue("province", values.province);
+      setFieldValue("city", values.city);
+      setFieldValue("pincode", values.pincode);
+      setFieldValue("address2", values.address2);
+    }
+  };
 
   return (
     <>
       <Box display="flex" justifyContent="center">
-        <Avatar
-          style={{
-            width: 86,
-            height: 86,
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        ></Avatar>
+        <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
       </Box>
       <Input
         id="companyName"
@@ -71,24 +116,25 @@ const EditCompanyDetailsForm = ({
         value={values.companyName}
         initValue={values.companyName}
         onChange={handleChange}
+        required={true}
         error={touched.companyName && errors?.companyName?.toString()}
-        // error={touched?.companyName && errors.companyName}
         label="Company Name"
         placeholder={"Torinit"}
       />
-
-      <Input
+      <AutoComplete
         id="address1"
         name="address1"
+        label={"Address Line 1"}
         value={values.address1}
-        initValue={values.address1}
-        onBlur={handleBlur}
-        onChange={handleChange}
         error={touched.address1 && errors?.address1?.toString()}
-        label="Adresss Line 1"
-        placeholder={"100 Bond Street"}
+        placeholder={"Address Line 1"}
+        setFieldValue={setFieldValue}
+        onChange={handleChange}
+        handleBlur={handleBlur}
+        onSelect={handler}
+        initValue={values.address1}
+        disabled={undefined}
       />
-
       <Input
         id="address2"
         name="address2"
@@ -96,11 +142,11 @@ const EditCompanyDetailsForm = ({
         initValue={values.address2}
         onBlur={handleBlur}
         onChange={handleChange}
+        required={true}
         error={touched.address2 && errors?.address2?.toString()}
         label="Address Line 2"
-        placeholder={"123 Avebue"}
+        placeholder={"123 Avenue"}
       />
-
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Input
@@ -110,6 +156,7 @@ const EditCompanyDetailsForm = ({
             initValue={values.city}
             onBlur={handleBlur}
             onChange={handleChange}
+            required={true}
             error={touched.city && errors?.city?.toString()}
             label="City"
             placeholder={"Toronto"}
@@ -124,22 +171,35 @@ const EditCompanyDetailsForm = ({
             initValue={values.province}
             onBlur={handleBlur}
             onChange={handleChange}
+            required={true}
             error={touched.province && errors?.province?.toString()}
             label="Province"
             placeholder={"Ontario"}
           />
         </Grid>
       </Grid>
-
-      <Select
+      <Grid item xs={12}>
+        <Input
+          id="country"
+          name="country"
+          value={values.country}
+          initValue={values.country}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          required={true}
+          error={touched.country && errors?.country?.toString()}
+          label="Country"
+          placeholder={"Start typing"}
+        />
+      </Grid>
+      {/* <Select
         id="country"
         name="country"
         options={COUNTRY_TEXT}
         label={"Country"}
         value={values["country"]}
         onSelect={handleChange}
-      />
-
+      /> */}
       <Input
         id="hstNumber"
         name="hstNumber"
@@ -147,11 +207,11 @@ const EditCompanyDetailsForm = ({
         initValue={values.hstNumber}
         onBlur={handleBlur}
         onChange={handleChange}
+        required={true}
         error={touched.hstNumber && errors?.hstNumber?.toString()}
         label="HST Number"
         placeholder={"1245567842185"}
       />
-
       <Input
         id="businessNumber"
         name="businessNumber"
@@ -159,11 +219,11 @@ const EditCompanyDetailsForm = ({
         initValue={values.businessNumber}
         onBlur={handleBlur}
         onChange={handleChange}
+        required={true}
         error={touched.businessNumber && errors?.businessNumber?.toString()}
         label="Business Number"
         placeholder={"5421369"}
       />
-
       <Input
         id="pincode"
         name="pincode"
@@ -171,13 +231,13 @@ const EditCompanyDetailsForm = ({
         initValue={values.pincode}
         onBlur={handleBlur}
         onChange={handleChange}
+        required={true}
         error={touched.pincode && errors?.pincode?.toString()}
         label="Pincode"
         placeholder={"554787"}
       />
-
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item sm={6} xs={12}>
           <Select
             id="industry"
             name="industry"
@@ -188,7 +248,7 @@ const EditCompanyDetailsForm = ({
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item sm={6} xs={12}>
           <Input
             id="employeeStrength"
             name="employeeStrength"
@@ -204,20 +264,19 @@ const EditCompanyDetailsForm = ({
           />
         </Grid>
       </Grid>
-
       <DrawerFooter>
         <Button
           secondary
           size="medium"
           onClick={() => setCompanyDrawerOpen(false)}
           label="Cancel"
-        ></Button>
+        />
         <Button
           size="medium"
           label={submitButtonLabel}
           onClick={handleSubmit}
           disabled={!isValid}
-        ></Button>
+        />
       </DrawerFooter>
     </>
   );

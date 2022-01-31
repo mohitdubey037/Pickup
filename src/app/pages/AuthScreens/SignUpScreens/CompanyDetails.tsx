@@ -101,7 +101,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
                 id={"firstName"}
                 name={"firstName"}
                 label="Fist Name"
-                placeholder="Start typing"
+                placeholder="John"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.firstName && errors.firstName}
@@ -110,7 +110,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
                 id={"lastName"}
                 name={"lastName"}
                 label="Last Name"
-                placeholder="Start typing"
+                placeholder="Doe"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.lastName && errors.lastName}
@@ -120,7 +120,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
               id={"companyName"}
               name={"companyName"}
               label="Company Name"
-              placeholder="Start typing"
+              placeholder="Company Name"
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.companyName && errors.companyName}
@@ -141,7 +141,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
               id={"phoneNumber"}
               name={"phoneNumber"}
               label="Phone number"
-              placeholder="Start typing"
+              placeholder="+1 (999)-999-9999"
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.phoneNumber && errors.phoneNumber}

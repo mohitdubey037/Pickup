@@ -4,7 +4,6 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  Header,
   SignUpWrapper,
   FormWrapper,
   FormContent,
@@ -17,7 +16,6 @@ import { Button } from "../../../components/Buttons";
 import { BlackLink, PageTitle } from "../../../components/Typography/Typography";
 import { signUpSchema } from "./signUpSchemas";
 import { actions } from "store/reducers/SignUpReducer";
-import { Box } from "@material-ui/core";
 import { CommonError } from "app/components/Input/style";
 
 type SignUpProps = RouteComponentProps;

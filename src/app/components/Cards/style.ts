@@ -1,30 +1,28 @@
 import styled from "styled-components";
 
 export const CustomProgressCard = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);
-  border-radius: 8px;
-  padding: 20px;
+.heading{
+  margin-bottom:24px;
+}
+@media (min-width:1024px){
+  min-height:250px;
+}
   `;
 
-export const ProgressCardHeader = styled.div`
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
-  color: #343434;
-  margin-bottom: 10px;
-  text-align: left;
-`;
+
 
 export const ProgressRow = styled.div`
   display: flex;
-  align-items: ce nter;
+  align-items: center;
   gap: 20px;
-  padding: 5px 0;
-  span {
-    display: flex;
-    font-size: 14px;
-    line-height: 16px;
-    width:14%;
+  margin: 8px 0;
+  .name {
+    width:35%;
+    @media (max-width:600px){
+      width:50%;
+    }
+  }
+  .cost{
+    width:10%;
   }
 `;

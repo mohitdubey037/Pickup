@@ -5,10 +5,10 @@ import { useNavigate } from '@reach/router';
 import { Button } from '../Buttons';
 
 
-const PageNotFound : React.FC = () => {
+export function PageNotFound({default:boolean}) {
     const navigate = useNavigate();
 	const handleLogout = () => {
-		navigate('/login');
+		navigate('/');
 	};
 
     return (
@@ -20,7 +20,7 @@ const PageNotFound : React.FC = () => {
     )
 }
 
-export default PageNotFound;
+// export default PageNotFound;
 
 
 

@@ -1,3 +1,5 @@
+import { admin, executive, manager, superintendent } from "app/assets/Icons";
+
 export const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const USER_BASE_URL = process.env.REACT_APP_USER_BASE_URL;
 export const USER_BASE_CR_URL = process.env.REACT_APP_USER_BASE_CR_URL;
@@ -9,6 +11,8 @@ export const PHONE_NUMBER_REGX =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const PASSWORD_REGX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+export const NEWPASSWORD_REGEX =
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#$%&+'`()*,-./:;<=>?@[\]~{}_^&]).{8,}$/;
 export const BILLING_TYPES = [
   { label: "Individual", value: "0" },
   { label: "Company", value: "1" },
@@ -37,24 +41,39 @@ export const PERMISSION_TYPES = [
   { label: "Admin", value: 4 },
 ];
 
+export const ADMIN_DETAILS_PERMISSION_TYPES = {
+  1: "Executive",
+  2: "Superintendent",
+  3: "Manager",
+  4: "Admin",
+};
+
 export const NEW_PERMISSION_TYPES = [
-  { title: "Executive", value: 1, subtitle: "Can place orders only" },
+  {
+    title: "Executive",
+    value: 1,
+    subtitle: "Can place orders only",
+    icon: executive,
+  },
   {
     title: "Superintendent",
     value: 2,
     subtitle: "Can place orders and view reports of self account",
+    icon: superintendent,
   },
   {
     title: "Manager",
     value: 3,
     subtitle:
       "Can place orders of self account and view reports of all accounts",
+    icon: manager,
   },
   {
     title: "Admin",
     value: 4,
     subtitle:
       "Can place orders of self account, view reports, add colleagues and manage permissions of all accounts",
+    icon: admin,
   },
 ];
 
@@ -99,7 +118,10 @@ export const INDUSTRY = [
 ];
 
 export const INDUSTRY_TEXT = [
+  { label: "Select Industry", value: "" },
   { label: "Agriculture", value: "Agriculture" },
   { label: "Construction", value: "Construction" },
   { label: "Manufacturing", value: "Manufacturing" },
 ];
+
+export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];

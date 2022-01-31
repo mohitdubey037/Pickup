@@ -189,7 +189,7 @@ const EditContactDetails = ({contactInfo, onClose}: EditContactDetailsProps) => 
                 label={"Contact Number"}
                 initValue={values.phone}
                 value={values.phone}
-                placeholder={"(999)-999-9999"}
+                placeholder="+1 (999)-999-9999"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 // error={ touched.phone && errors.phone}
@@ -203,7 +203,7 @@ const EditContactDetails = ({contactInfo, onClose}: EditContactDetailsProps) => 
                 initValue={values.alternate}
                 value={values.alternate}
                 label={"Alternate Contact Number"}
-                placeholder={"(999)-999-9999"}
+                placeholder="+1 (999)-999-9999"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 // error={touched.alternate && errors.alternate}

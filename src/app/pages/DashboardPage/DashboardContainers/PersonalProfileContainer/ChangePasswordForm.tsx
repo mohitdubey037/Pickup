@@ -27,61 +27,67 @@ const ChangePasswordForm = ({
       newPassword: "",
       newConfirmedPassword: "",
     },
-    // validationSchema: passwordSchema,
+    validationSchema: passwordSchema,
     onSubmit: (values) => saveAction(values),
   });
 
   return (
-    <Flex direction="column" justifyContent="space-between" style={{height:'100%'}}>
+    <Flex
+      direction="column"
+      justifyContent="space-between"
+      // style={{ height: "100%" }}
+    >
       <Box>
-          <PasswordInput
-            id="currentPassword"
-            name="currentPassword"
-            label="Current Password"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={values.currentPassword}
-            error={touched.currentPassword && errors.currentPassword}
-            placeholder="Current Password"
-          />
-       
-          <PasswordInput
-            id="newPassword"
-            name="newPassword"
-            label="New Password"
-            value={values.newPassword}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.newPassword && errors.newPassword}
-            placeholder="New Password"
-          />
-      
-          <PasswordInput
-            id="confirmPassword"
-            name="confirmPassword"
-            label="Confirm Password"
-            value={values.newConfirmedPassword}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.newConfirmedPassword && errors.newConfirmedPassword}
-            placeholder="Confirm New Password"
-          />
+        <PasswordInput
+          id="currentPassword"
+          name="currentPassword"
+          label="Current Password"
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.currentPassword}
+          error={touched.currentPassword && errors.currentPassword}
+          placeholder="Current Password"
+          required={true}
+        />
+
+        <PasswordInput
+          id="newPassword"
+          name="newPassword"
+          label="New Password"
+          value={values.newPassword}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          error={touched.newPassword && errors.newPassword}
+          placeholder="New Password"
+          required={true}
+        />
+
+        <PasswordInput
+          id="newConfirmedPassword"
+          name="newConfirmedPassword"
+          label="Confirm Password"
+          value={values.newConfirmedPassword}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          error={touched.newConfirmedPassword && errors?.newConfirmedPassword}
+          placeholder="Confirm New Password"
+          required={true}
+        />
       </Box>
 
       <DrawerFooter>
         <Button
           secondary
-          style={{ width: "fit-content", minWidth: "150px" }}
           onClick={() => setPasswordDrawerOpen(false)}
           label="Cancel"
+          size="medium"
         ></Button>
         <Button
-          style={{ width: "fit-content", minWidth: "150px" }}
           label={submitButtonLabel}
           onClick={handleSubmit}
+          size="medium"
         ></Button>
       </DrawerFooter>
-
     </Flex>
   );
 };

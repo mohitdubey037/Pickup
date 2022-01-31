@@ -16,11 +16,12 @@ import { useFormik } from "formik";
 import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import SearchOrderDetailsDrawer from "./SearchOrderDetailsDrawer";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getSearchOrderList,
   getSearchOrderListById,
 } from "../../../../../services/SearchItemService";
+import { navigate } from "@reach/router";
 
 const SearchContainer = ({ path: string }) => {
   const dispatch = useDispatch();
@@ -104,7 +105,13 @@ const SearchContainer = ({ path: string }) => {
       return "";
     }
   };
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
 
+  if([1,2,3,4].indexOf(authUser.roleId) === -1) {
+    navigate(' /non-authorized-page')
+  }
   return (
     <ModuleContainer>
       <ContainerTitle title="Search" />

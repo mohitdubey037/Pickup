@@ -38,22 +38,26 @@ export const editCompanySchema = yup.object().shape({
     .min(0, "Please enter valid Business Number")
     .typeError("Business Number must be a number")
     .required(" Business Number is a required field"),
-  industry: yup.string().required(" Industry is a required field"),
+  industry: yup.string(),
   employeeStrength: yup
     .number()
     .positive("Please enter valid Employee Strength")
     .min(0, "Please enter valid Employee Strength")
-    .typeError("Employee Strength must be a number")
-    .required(" Employee Strength is a required field"),
+    .typeError("Employee Strength must be a number"),
   address1: yup.string().required(" Address Line 1 is a required field"),
   address2: yup.string().required(" Address Line 2 is a required field"),
   city: yup.string().required(" City is a required field"),
-  pincode: yup
-    .number()
-    .positive("Please enter valid Pincode")
-    .min(0, "Please enter valid Pincode")
-    .typeError("Pincode must be a number")
-    .required(" Pincode is a required field"),
+  pincode:
+    // yup
+    //   .number()
+    //   .positive("Please enter valid Pincode")
+    //   .min(0, "Please enter valid Pincode")
+    //   .typeError("Pincode must be a number")
+    //   .required(" Pincode is a required field"),
+    yup
+      .string()
+      .required("Pincode is a required field")
+      .matches(/^[a-zA-Z0-9_ ]*$/, "Pincode must be alphanumeric"),
   province: yup.string().required(" Province is a required field"),
   country: yup.string().required(" Country is a required field"),
   hstNumber: yup
@@ -89,10 +93,13 @@ export const addNewColleague = yup.object().shape({
   roleDesignation: yup
     .string()
     .required(" Role/Designation is a required field"),
+  notification: yup.string(),
   emailId: yup.string().email().required("Email Id is a required field"),
-  // notificationFrequency: yup.string(),
+  notificationFrequency: yup.string().when("notification", {
+    is: (notification) => notification == "1",
+    then: yup.string().required("Notification frequency is required field"),
+  }),
   permission: yup.string().required(" Permission is a required field"),
-  // notification: yup.string().required(" Company Name is a required field"),
   // type: yup.string().required(" Company Name is a required field"),
 });
 
@@ -108,10 +115,12 @@ export const editColleagueSchema = yup.object().shape({
   roleDesignation: yup
     .string()
     .required(" Role/Designation is a required field"),
+  notification: yup.string(),
   emailId: yup.string().email().required("Email Id is a required field"),
-  notificationFrequency: yup
-    .string()
-    .required(" Notification Frequency is a required field"),
+  notificationFrequency: yup.string().when("notification", {
+    is: (notification) => notification == "1",
+    then: yup.string().required("Notification frequency is required field"),
+  }),
   // permission: yup.string().required(" Permission is a required field"),
   // notification: yup.string().required(" Company Name is a required field"),
   // type: yup.string().required(" Company Name is a required field"),

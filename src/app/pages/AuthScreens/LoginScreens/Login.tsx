@@ -12,6 +12,7 @@ import {
   FormContent,
   LoginLink,
   RememberDiv,
+  LoginBackgroundWrapper,
 } from "../style";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSchema } from "./loginSchemas";
@@ -120,6 +121,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
   return (
     <form onSubmit={handleSubmit} >
       <LoginWrapper>
+      <LoginBackgroundWrapper>
         <LogoImage />
         <FormWrapper>
           <FormContent>
@@ -176,6 +178,8 @@ const Login = ({ navigate }: RouteComponentProps) => {
             {/* </form > */}
           </FormContent>
         </FormWrapper>
+        
+        </LoginBackgroundWrapper>
       </LoginWrapper>
     </form>
   );

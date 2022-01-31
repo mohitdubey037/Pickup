@@ -13,8 +13,10 @@ export interface InputProps {
   disabled?: boolean;
   width?: number;
   style?: React.CSSProperties;
-  inputStyles?:React.CSSProperties;
-  type?: 'text' | 'textarea';
+  inputStyles?: React.CSSProperties;
+  type?: "text" | "textarea" | "mask";
   autoComplete?: string;
-  ref?:any;
+  maskProps?: any;
+  ref?: any;
+  required?: boolean;
 }

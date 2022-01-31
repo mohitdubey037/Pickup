@@ -1,4 +1,6 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
+
+import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { FullCard } from "app/components/Input/style";
 import {
   ListLabel,
@@ -6,14 +8,11 @@ import {
   SmallLabel,
 } from "app/components/Typography/Typography";
 import { FlexGrid } from "./style";
-import { AdminDetailsType } from "./types";
+import { ADMIN_DETAILS_PERMISSION_TYPES } from "../../../../../constants";
 
-interface DetailInterface {
-  AdminDetails: AdminDetailsType;
-}
+export default function AdminDetails(props: any) {
+  const { AdminDetails, user } = props;
 
-export default function AdminDetails(props: DetailInterface) {
-  const { AdminDetails } = props;
   return (
     <>
       <FullCard>
@@ -21,44 +20,48 @@ export default function AdminDetails(props: DetailInterface) {
           <ListLabel text="Admin Details" />
         </Box>
 
-        <Box display="flex" justifyContent="space-between">
+        <FlexBox justifyContent="space-between">
           <Box mr={4}>
             <Avatar
+              src={user?.profileImage}
               style={{ width: 86, height: 86 }}
-              src={require("../../../../assets/Icons/logoImg.svg").default}
             />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="First Name" />
                 <SmallLabel
                   text={AdminDetails?.firstName ? AdminDetails?.firstName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Last Name" />
                 <SmallLabel
                   text={AdminDetails?.lastName ? AdminDetails?.lastName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={3}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Phone Number" />
                 <SmallLabel
                   text={AdminDetails?.phoneNo ? AdminDetails?.phoneNo : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={3} sm={3}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Role/Designation" />
                 <SmallLabel
-                  text={AdminDetails?.role ? AdminDetails?.role : "-"}
+                  text={
+                    AdminDetails?.role
+                      ? ADMIN_DETAILS_PERMISSION_TYPES[AdminDetails.role]
+                      : "-"
+                  }
                   className="value"
                 />
               </Grid>
-              <Grid item lg={3} sm={3}>
+              <Grid item lg={4} sm={8} xs={12}>
                 <Para text="Email Id" />
                 <SmallLabel
                   text={AdminDetails?.emailId ? AdminDetails?.emailId : "-"}
@@ -67,7 +70,7 @@ export default function AdminDetails(props: DetailInterface) {
               </Grid>
             </Grid>
           </FlexGrid>
-        </Box>
+        </FlexBox>
       </FullCard>
     </>
   );

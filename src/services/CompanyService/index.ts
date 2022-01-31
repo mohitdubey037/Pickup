@@ -50,6 +50,7 @@ export const updateCompanyProfile = async (values: {
   industry: string;
   pincode: number;
   province: string;
+  profileImage: string;
 }) => {
   try {
     const response: any = await services.put(
@@ -66,10 +67,11 @@ export const updateCompanyProfile = async (values: {
         industry: values?.industry,
         pincode: values?.pincode,
         province: values?.province,
+        companyProfileImage: values?.profileImage,
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast("Your company details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
@@ -90,6 +92,11 @@ export const inviteColleague = async (values: {
   companyId: number;
 }) => {
   try {
+    const notificationFrequency =
+      values?.notificationFrequency !== "" &&
+      values?.notificationFrequency !== null
+        ? values?.notificationFrequency
+        : undefined;
     const response: any = await services.post(
       `business/inviteColleague`,
       {
@@ -97,7 +104,7 @@ export const inviteColleague = async (values: {
         fName: values?.firstName,
         lName: values?.lastName,
         phoneNumber: values?.phoneNumber,
-        notificationFrequency: values?.notificationFrequency,
+        notificationFrequency,
         roleId: values?.permission,
         roleDesignation: values?.roleDesignation,
         companyId: values?.companyId,
@@ -106,7 +113,7 @@ export const inviteColleague = async (values: {
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast("Your new colleague has been added successfully", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
@@ -146,7 +153,10 @@ export const updateColleague = async (values: {
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast(
+      "Your colleague details has been updated successfully",
+      "success"
+    );
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");

@@ -1,20 +1,9 @@
-import { Paper } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useFormik } from "formik";
-import { Grid, Typography } from "@material-ui/core";
-import { Input } from "app/components/Input";
-import { FormWrapper, FullCard } from "app/components/Input/style";
-import {
-  ContainerTitle,
-  FormContainerTitle,
-} from "app/components/Typography/Typography";
-import { Button } from "../../../../components/Buttons";
-import companyProfileSchema from "./CompanyProfileSchema";
+import { ContainerTitle } from "app/components/Typography/Typography";
 import ModuleContainer from "app/components/ModuleContainer";
 import CompanyDetails from "./CompanyDetails";
 import NewColleagueForm from "./NewColleagueForm";
-import PersonalProfile from "../PersonalProfileContainer/PersonalProfile";
 import { Drawer } from "app/components/Drawer";
 import EditCompanyDetailsForm from "./EditCompanyDetailsForm";
 import {
@@ -26,14 +15,22 @@ import {
   updateCompanyProfile,
 } from "services/CompanyService";
 import AdminDetails from "./AdminDetails";
-import ColleagueDetails from "./ColleagueDetails";
+// import ColleagueDetails from "./ColleagueDetails";
 import { ColleagueDetailsType } from "./types";
 import EditColleagueDetailsForm from "./EditColleagueDetailsForm";
 import NewColleague from "./NewColleague";
 import CompanyDetailsSkeleton from "./CompanyDetailsSkeleton";
 import AdminDetailsSkeleton from "./AdminDetailsSkeleton";
+import { AuthUser } from "types";
+import { navigate } from "@reach/router";
 
 export default function CompanyProfile({ path: string }) {
+  const auth = useSelector((state: { auth: { user: AuthUser } }) => {
+    return state.auth;
+  });
+
+  const { user } = auth;
+
   const [colleagueDetails, setColleagueDetails] = useState<any>(null);
   const [companyDrawerOpen, setCompanyDrawerOpen] = useState(false);
   const [colleagueDrawerOpen, setColleagueDrawerOpen] = useState(false);
@@ -41,38 +38,31 @@ export default function CompanyProfile({ path: string }) {
   const [companyDetails, setCompanyDetails] = useState<any>(null);
   const [adminDetails, setAdminDetails] = useState<any>(null);
   const [colleagueList, setColleagueList] = useState<any>(null);
-	const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const saveColleague = async (values) => {
-    // console.log(values);
-    // console.log(companyDetails?.companyId);
     values["companyId"] = companyDetails?.companyId;
-    console.log(values);
     const res = await inviteColleague(values);
-    console.log(res);
-    const colleagueResponse = await fetchColleagues();
-    // console.log("colleagueResponse", colleagueResponse);
-    setColleagueList(colleagueResponse?.response?.data?.data);
+    if (res.success) {
+      const colleagueResponse = await fetchColleagues();
+      setColleagueList(colleagueResponse?.response?.data?.data);
+    }
+    return res.success;
   };
+
   const updateCompanyDetails = async (values) => {
-    // console.log(companyDetails?.companyId);
     values["companyId"] = companyDetails?.companyId;
-    // console.log(values);
     const res = await updateCompanyProfile(values);
-    // console.log(res);
     setCompanyDrawerOpen(false);
     const companyResponse = await fetchCompanyDetails();
     setCompanyDetails(companyResponse?.response?.data?.data?.[0]);
   };
+
   const updateColleagueDetails = async (values) => {
-    // console.log(companyDetails?.companyId);
     values["companyId"] = companyDetails?.companyId;
-    // console.log(values);
     const res = await updateColleague(values);
-    // console.log(res);
     setColleagueDrawerOpen(false);
     const colleagueResponse = await fetchColleagues();
-    // console.log(colleagueResponse);
     setColleagueList(colleagueResponse?.response?.data?.data);
   };
 
@@ -84,7 +74,6 @@ export default function CompanyProfile({ path: string }) {
       const adminResponse = await fetchUserAdmin();
       setAdminDetails(adminResponse?.response?.data?.data?.[0]);
       const colleagueResponse = await fetchColleagues();
-      // console.log(colleagueResponse);
       setColleagueList(colleagueResponse?.response?.data?.data);
       setLoading(false);
     })();
@@ -94,45 +83,49 @@ export default function CompanyProfile({ path: string }) {
     if (selectedColleague) {
       colleagueList?.length > 0 &&
         colleagueList?.map((data: ColleagueDetailsType) => {
-          console.log(data);
           if (data?.inviteId === selectedColleague) {
-            console.log(data);
             setColleagueDetails(data);
           }
         });
     }
   }, [colleagueDrawerOpen]);
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
 
+  if([4].indexOf(authUser.roleId) === -1) {
+    navigate('/non-authorized-page')
+  }
   return (
     <ModuleContainer>
       <ContainerTitle title="Company Profile" />
-      {loading ?  (
-				<CompanyDetailsSkeleton />
-			) : (
+      {loading ? (
+        <CompanyDetailsSkeleton />
+      ) : (
         <CompanyDetails
-        setCompanyDrawerOpen={setCompanyDrawerOpen}
-        companyDetails={companyDetails}
-        details={{
-          avatar: require("../../../../assets/Icons/logoImg.svg").default,
-          CompanyName: "DDT",
-          BusinessNumber: "212421",
-          Industry: "Retail",
-          EmployeeStrength: "32",
-          AddressLine1: "100 Broadview Avenue",
-          AddressLine2: "Address Line 2",
-          City: "Toronto",
-          Pincode: "123421",
-          Province: "Province",
-          Country: "Canada",
-          HSTNumber: "123 456 789",
-        }}
-      />
+          setCompanyDrawerOpen={setCompanyDrawerOpen}
+          companyDetails={companyDetails}
+          details={{
+            avatar: require("../../../../assets/Icons/logoImg.svg").default,
+            CompanyName: "DDT",
+            BusinessNumber: "212421",
+            Industry: "Retail",
+            EmployeeStrength: "32",
+            AddressLine1: "100 Broadview Avenue",
+            AddressLine2: "Address Line 2",
+            City: "Toronto",
+            Pincode: "123421",
+            Province: "Province",
+            Country: "Canada",
+            HSTNumber: "123 456 789",
+          }}
+        />
       )}
 
-      {loading ?  (
-         <AdminDetailsSkeleton />
+      {loading ? (
+        <AdminDetailsSkeleton />
       ) : (
-         <AdminDetails AdminDetails={adminDetails} />
+        <AdminDetails AdminDetails={adminDetails} user={user} />
       )}
 
       {colleagueList?.length > 0 &&

@@ -47,7 +47,7 @@ export default function PaymentCard({cardData,setDrawerOpen, setCardData}:Paymen
     }
     return (
         <>
-        <Grid item md={4}>
+        <Grid item lg={4} sm={6} xs={12} xl={3}>
             <IndividualCardDiv>
                 <CardEllipse src={ellipse} />
                 <CardOption src={dots} onClick={handleClick}/>

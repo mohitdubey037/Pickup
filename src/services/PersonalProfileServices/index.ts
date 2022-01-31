@@ -36,7 +36,7 @@ export const editPersonalProfileDetails = async (values: {
       },
       "user_cr"
     );
-    showToast(response.data.message, "success");
+    showToast("Your personal details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err.message, "error");
@@ -47,13 +47,16 @@ export const editPersonalProfileDetails = async (values: {
 export const changeProfilePassword = async (values: {
   currentPassword: string;
   newPassword: string;
+  newConfirmedPassword: string;
 }) => {
   try {
+    console.log(values);
     const response: any = await services.post(
       `business/changePassword`,
       {
         newPassword: values.newPassword,
-        tempPassword: values.currentPassword,
+        currentPassword: values.currentPassword,
+        confirmPassword: values?.newConfirmedPassword,
       },
       "user_cr"
     );

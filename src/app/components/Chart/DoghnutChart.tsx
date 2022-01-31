@@ -1,23 +1,20 @@
-import { Grid } from '@material-ui/core'
+import { Box, Grid } from '@material-ui/core'
 import React from 'react'
 import ReactApexChart from 'react-apexcharts'
+import { ListLabel } from '../Typography/Typography'
 import { DoghnutChip, DoghnutContainer, DoghnutLabelContainer } from './style'
 
 interface DoghnutProps{
-    title: string;
     onTimePercentage: number;
     delayedPercentage: number;
     doghnutData: any
 }
 
-export default function DoghnutChart({title,onTimePercentage,delayedPercentage,doghnutData}:DoghnutProps) {
+export default function DoghnutChart({onTimePercentage,delayedPercentage,doghnutData}:DoghnutProps) {
     return (
-        <DoghnutContainer elevation={1}>
-            <h3 style={{textAlign:'left', margin:'0 0 1rem 0'}}>
-                {title}
-            </h3>
-            <Grid container justifyContent='center' alignItems='center' style={{display: 'flex'}}>
-                <Grid item lg={6} xs={12} md={12} xl={6} sm={12}>
+        <DoghnutContainer>
+            <Box display="flex" alignItems="center">
+                <Box>
                     <ReactApexChart
                         options={{
                             chart: {
@@ -103,18 +100,18 @@ export default function DoghnutChart({title,onTimePercentage,delayedPercentage,d
                         type="donut"
                         height={200}
                     />
-                </Grid>
-                <Grid item lg={6} xs={12} md={12} xl={6} sm={12} alignItems='center'>
+                </Box>
+                <Box>
                     <DoghnutLabelContainer>
                         <DoghnutChip style={{background:'#FECE3E'}}></DoghnutChip>
-                        <strong><span style={{marginRight:'37px'}}>On Time</span>{onTimePercentage}%</strong>
+                        <strong><span style={{marginRight:'24px'}}>On Time</span>{onTimePercentage}%</strong>
                     </DoghnutLabelContainer>
                     <DoghnutLabelContainer>
                         <DoghnutChip style={{background:'#F99746'}}></DoghnutChip>
-                        <strong><span style={{marginRight:'40px'}}>Delayed</span>{delayedPercentage}%</strong>
+                        <strong><span style={{marginRight:'24px'}}>Delayed</span>{delayedPercentage}%</strong>
                     </DoghnutLabelContainer>
-                </Grid>
-            </Grid>
+                </Box>
+            </Box>
             
         </DoghnutContainer>
     )

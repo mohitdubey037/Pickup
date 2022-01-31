@@ -3,9 +3,8 @@ import { CustomInput, ErrorLabel, InputWrapper, VisibilityBox } from "./style";
 import { InputProps } from "./type";
 import { PasswordValidate } from "../PasswordValidate";
 import { SmallLabel } from "../Typography/Typography";
-import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
-
+import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@material-ui/icons/VisibilityOffOutlined";
 
 const PasswordInput = ({
   label,
@@ -17,7 +16,8 @@ const PasswordInput = ({
   name,
   onBlur,
   autoComplete,
-  initValue
+  initValue,
+  required,
 }: InputProps) => {
   const [value, setValue] = useState(initValue);
   const [open, setOpen] = useState(true);
@@ -46,8 +46,7 @@ const PasswordInput = ({
 
   return (
     <InputWrapper ref={ref}>
-
-      <SmallLabel text={label} />
+      <SmallLabel text={label} required={required} />
 
       <CustomInput
         autoComplete={autoComplete}
@@ -66,7 +65,7 @@ const PasswordInput = ({
         style={{opacity: showPass ? 0.3 : 1}}
       /> */}
       <VisibilityBox onClick={() => setShowPass(!showPass)}>
-         {showPass ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
+        {showPass ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
       </VisibilityBox>
       {validate && (
         <PasswordValidate isOpen={!!value?.length && open} input={value} />

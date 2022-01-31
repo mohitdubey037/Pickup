@@ -8,11 +8,19 @@ export const ComponentStyle = styled.div `
     align-items: center;
 `
 
-export const FlexBox= styled(Box)`
+export const FlexTable= styled(Box)`
   display: flex;
-  align-items: center;
   width:calc(100% - 300px) !important;
   justify-content:space-between;
+  
+  @media (max-width:1023px){
+  width:100% !important;
+  margin:24px 0 12px 0;
+  }
+
+  @media (min-width:1023px){
+    align-items: center;
+    }
 
   .value{
     margin-top:5px;

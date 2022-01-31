@@ -1,11 +1,8 @@
 import { Input } from "app/components/Input";
-import { Flex } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 import { personalFormSchema } from "./personalFormSchema";
-import { useSelector } from "react-redux";
-import { AuthUser } from "types";
-import { PERMISSION_TYPES } from "../../../../../constants";
+import { PERMISSION_TYPES, IMAGE_FILE_TYPES } from "../../../../../constants";
 import Select from "app/components/Select";
 
 import { imageUploadService } from "services/SingleShipmentServices";
@@ -14,7 +11,6 @@ import { Avatar, Box } from "@material-ui/core";
 import { DrawerFooter } from "app/components/Drawer/style";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { PersonalProfileType } from "./types";
-
 interface EditPersonalInterface {
   personalProfileDetails: PersonalProfileType;
   setEditDetailsDrawerOpen: (value: boolean) => void;
@@ -51,19 +47,21 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
   const changeHandler = async (e) => {
     const formData = new FormData();
     const image = e?.target?.files[0];
-
+    if (!IMAGE_FILE_TYPES.includes(image.type)) {
+      showToast("You can only upload JPG, JPEG, PNG image file", "error");
+      return;
+    }
     formData.append("document", image, image?.name);
-
     const res: { response: any; error: any } = await imageUploadService(
       formData
     );
-
     if (res.error) {
       showToast(res.error.message, "error");
     } else {
       setFieldValue("profileImage", res?.response?.data?.data || "");
     }
   };
+
   return (
     <>
       <Box display="flex" justifyContent="center">
@@ -87,6 +85,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         onChange={handleChange}
         error={touched.firstName && errors.firstName}
         label="First Name"
+        required={true}
       />
       <Input
         id="lastName"
@@ -97,6 +96,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         initValue={values.lastName}
         error={touched.lastName && errors.lastName}
         label="Last Name"
+        required={true}
       />
       <Input
         id="phone"
@@ -107,6 +107,8 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         value={values.phone}
         error={touched.phone && errors.phone}
         label="Phone Number"
+        placeholder="+1 (999)-999-9999"
+        required={true}
       />
       <Input
         id="role"
@@ -128,6 +130,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         placeholder={values?.emailId}
         error={touched.emailId && errors.emailId}
         label="Email"
+        required={true}
       />
       <Select
         disabled

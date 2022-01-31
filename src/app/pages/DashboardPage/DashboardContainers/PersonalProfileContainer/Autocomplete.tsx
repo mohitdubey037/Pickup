@@ -2,7 +2,10 @@
 import { useState, useEffect } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Input } from "app/components/Input";
-import { fetchSuggestions, fetchLatLong } from "../../../../../services/HereMapsService";
+import {
+  fetchSuggestions,
+  fetchLatLong,
+} from "../../../../../services/HereMapsService";
 
 // function sleep(delay = 0) {
 //   return new Promise((resolve) => {
@@ -52,11 +55,7 @@ const AutoComplete = ({
   useEffect(() => {
     onSelect && onSelect(null);
     const delayDebounceFn = setTimeout(() => {
-      if (
-        value &&
-        value !==
-          addressData?.location?.address?.label
-      ) {
+      if (value && value !== addressData?.location?.address?.label) {
         searchService(value);
       }
     }, 500);
@@ -88,15 +87,13 @@ const AutoComplete = ({
   //   }
   // };
 
-  const onKeyDown = e => {
-  
+  const onKeyDown = (e) => {
     if (e.keyCode === 13) {
       setOpen(false);
       setActiveSuggestionIndex(0);
-      console.log("tab label",suggestionsList?.[activeSuggestionIndex]?.label)
+      console.log("tab label", suggestionsList?.[activeSuggestionIndex]?.label);
       getLatLn(suggestionsList?.[activeSuggestionIndex]?.locationId);
-      setFieldValue(
-        name, suggestionsList?.[activeSuggestionIndex]?.label);
+      setFieldValue(name, suggestionsList?.[activeSuggestionIndex]?.label);
     } else if (e.keyCode === 38) {
       if (activeSuggestionIndex === 0) {
         return;
@@ -132,10 +129,7 @@ const AutoComplete = ({
                 onClick={(e: any) => {
                   getLatLn(suggestion);
                   setOpen(false);
-                  setFieldValue(
-                    name,
-                    e?.target?.innerHTML || ""
-                  );
+                  setFieldValue(name, e?.target?.innerHTML || "");
                 }} // getLocationId(e?.target?.innerHTML)
                 tabIndex={activeSuggestionIndex}
               >
@@ -147,7 +141,7 @@ const AutoComplete = ({
       )
     );
   };
-  
+
   return (
     <div style={{ position: "relative" }}>
       <Input
@@ -162,6 +156,7 @@ const AutoComplete = ({
         onBlur={handleBlur}
         error={error}
         validate
+        required={true}
       />
       {open && renderSuggestions()}
     </div>

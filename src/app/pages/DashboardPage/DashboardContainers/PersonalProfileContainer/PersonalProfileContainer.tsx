@@ -29,9 +29,11 @@ interface Token {
 export default function PersonalProfileContainer({ path: string }) {
   const [passwordDrawerOpen, setPasswordDrawerOpen] = useState(false);
   const [editDetailsDrawerOpen, setEditDetailsDrawerOpen] = useState(false);
-	const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [personalProfileDetails, setPersonalProfileDetails] =
     useState<any>(null);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -46,12 +48,18 @@ export default function PersonalProfileContainer({ path: string }) {
 
   const editDetails = async (values) => {
     console.log("values", values);
-
+    const token = Cookies?.get("token") || "";
+    const decoded: Token | null = token ? jwt_decode(token) : null;
     await editPersonalProfileDetails(values).then(async () => {
-      // const response: any = await getPersonalProfileDetails(decoded?.userId);
-      // if (response?.success) {
-      //   setPersonalProfileDetails(response?.response?.data?.data);
-      // }
+      const response: any = await getPersonalProfileDetails(decoded?.userId);
+      if (response?.success) {
+        setPersonalProfileDetails(response?.response?.data?.data);
+        dispatch({
+          type: "UPDATE_USER",
+          user: response?.response?.data?.data,
+        });
+      }
+      console.log("personal", response?.response?.data);
     });
     setEditDetailsDrawerOpen(false);
   };
@@ -59,20 +67,26 @@ export default function PersonalProfileContainer({ path: string }) {
   const changePassword = async (values) => {
     const res = (await changeProfilePassword(values)) as any;
     console.log(res);
-    setPasswordDrawerOpen(false);
+    if (res?.success) {
+      setPasswordDrawerOpen(false);
+    }
   };
+
+  useEffect(() => {
+    console.log(personalProfileDetails);
+  },[personalProfileDetails])
 
   return (
     <ModuleContainer>
       <ContainerTitle title="Personal Profile" />
-      {loading ?  (
-				<PersonalProfileSkeleton />
-			) : (
-      <PersonalProfile
-        personalProfileDetails={personalProfileDetails}
-        setPasswordDrawerOpen={setPasswordDrawerOpen}
-        setEditDetailsDrawerOpen={setEditDetailsDrawerOpen}
-      />
+      {loading ? (
+        <PersonalProfileSkeleton />
+      ) : (
+        <PersonalProfile
+          personalProfileDetails={personalProfileDetails}
+          setPasswordDrawerOpen={setPasswordDrawerOpen}
+          setEditDetailsDrawerOpen={setEditDetailsDrawerOpen}
+        />
       )}
       <Drawer
         open={passwordDrawerOpen}

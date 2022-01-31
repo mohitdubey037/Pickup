@@ -6,6 +6,7 @@ import services from "services";
 import { PaymentCard } from "../../../../components/PaymentCard/index";
 import AddCardForm from "./AddCardForm";
 import { showToast } from "utils";
+import NullState from "app/components/NullState/NullState";
 
 export interface IndividualCard {
   card_id: string;
@@ -75,18 +76,22 @@ export default function PaymentCardContainer({
   };
 
     return (
-     <Box>
-  
-            <ContainerTitle title="Card"  />
+     <Box mt={3}>
+{/*   
+            <ContainerTitle title="Card"  /> */}
             <Grid container spacing={2}>
-            {individualCardData?.map((value, idx) => (
-          <PaymentCard
-            setDrawerOpen={setDrawerOpen}
-            setCardData={setCardData}
-            key={idx}
-            cardData={value}
-          />
-        ))}
+                {individualCardData?.length > 0 ?
+                (individualCardData?.map((value, idx) => (
+                <PaymentCard
+                setDrawerOpen={setDrawerOpen}
+                setCardData={setCardData}
+                key={idx}
+                cardData={value}
+                />
+                )))
+                :
+                <NullState message="No Card Added" />
+                }
             </Grid>
             <Drawer
                 open={drawerOpen}
@@ -95,11 +100,11 @@ export default function PaymentCardContainer({
                 closeIcon={true}
                 actionButtons={true}
             >
-                <AddCardForm
-          setDrawerOpen={setDrawerOpen}
-          saveAction={saveCard}
-          cardData={cardData}
-        />
+            <AddCardForm
+                setDrawerOpen={setDrawerOpen}
+                saveAction={saveCard}
+                cardData={cardData}
+            />
             </Drawer>
         </Box>
     )

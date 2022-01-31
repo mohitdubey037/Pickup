@@ -9,6 +9,8 @@ import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
 import AddCardForm from "./AddCardForm";
+import { ContainerTitle } from "app/components/Typography/Typography";
+import { navigate } from "@reach/router";
 
 const individualCardData = [
   {
@@ -62,10 +64,17 @@ export default function PaymentsPage({ path: string }) {
     dispatch(actions.addNewCard(body));
     setDrawerOpen(false);
   };
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
 
+  if([4].indexOf(authUser.roleId) === -1) {
+    navigate(' /non-authorized-page')
+  }
   return (
     <ModuleContainer>
-      <Box textAlign="right">
+      <Box display="flex" justifyContent="space-between">
+      <ContainerTitle title="Cards"  />
         <Button
           label="+ Add New Card"
           size="small"
