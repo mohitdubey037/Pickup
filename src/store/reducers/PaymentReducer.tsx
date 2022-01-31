@@ -5,7 +5,7 @@ const initialState = {
     addNewCardResponse: null,
     updateCardResponse: null,
     deleteCardResponse: null,
-    showLoader: false
+    showLoader: true
 };
 
 const { Types, Creators } = createActions({
@@ -22,6 +22,7 @@ const { Types, Creators } = createActions({
 export const onGetAllCardSuccess = (state = initialState, action) => ({
     ...state,
     paymentCardsData: action.res,
+    showLoader: false
 });
 
 export const onUpdateCardSucess = (state = initialState, action) => ({

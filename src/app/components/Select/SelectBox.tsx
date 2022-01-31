@@ -85,7 +85,7 @@ export default function SelectBox(props: SelectPropTypes) {
         >
           {label}
         </InputLabel> */}
-        <SmallLabel text={label} required={required} />
+        <SmallLabel text={label} required={required} className="title"/>
         <Select
           labelId="demo-simple-select-placeholder-label-label"
           id="demo-simple-select-placeholder-label"
