@@ -8,8 +8,7 @@ import {
 } from "../../../../../constants";
 import Select from "app/components/Select";
 import { editCompanySchema } from "./CompanyProfileSchema";
-import { useEffect } from "react";
-import { Avatar, Box, Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { DrawerFooter } from "app/components/Drawer/style";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import EditAvatar from "app/components/Avatar/EditAvatar";
@@ -70,10 +69,6 @@ const EditCompanyDetailsForm = ({
     }
   };
 
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
-
   const handler = (value) => {
     if (
       value?.location?.displayPosition?.longitude &&
@@ -112,15 +107,6 @@ const EditCompanyDetailsForm = ({
   return (
     <>
       <Box display="flex" justifyContent="center">
-        {/* <Avatar
-          style={{
-            width: 86,
-            height: 86,
-            marginLeft: "auto",
-            marginRight: "auto",
-            marginBottom: '16px'
-          }}
-        ></Avatar> */}
         <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
       </Box>
       <Input
@@ -270,7 +256,6 @@ const EditCompanyDetailsForm = ({
             initValue={values.employeeStrength}
             onBlur={handleBlur}
             onChange={handleChange}
-            required={true}
             error={
               touched.employeeStrength && errors?.employeeStrength?.toString()
             }
@@ -285,13 +270,13 @@ const EditCompanyDetailsForm = ({
           size="medium"
           onClick={() => setCompanyDrawerOpen(false)}
           label="Cancel"
-        ></Button>
+        />
         <Button
           size="medium"
           label={submitButtonLabel}
           onClick={handleSubmit}
           disabled={!isValid}
-        ></Button>
+        />
       </DrawerFooter>
     </>
   );

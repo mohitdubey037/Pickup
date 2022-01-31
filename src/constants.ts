@@ -118,6 +118,7 @@ export const INDUSTRY = [
 ];
 
 export const INDUSTRY_TEXT = [
+  { label: "Select Industry", value: "" },
   { label: "Agriculture", value: "Agriculture" },
   { label: "Construction", value: "Construction" },
   { label: "Manufacturing", value: "Manufacturing" },
