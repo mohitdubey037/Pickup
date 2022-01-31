@@ -54,8 +54,11 @@ const EditCompanyDetailsForm = ({
   const changeHandler = async (e) => {
     const formData = new FormData();
     const image = e?.target?.files[0];
-    if (!IMAGE_FILE_TYPES.includes(image.type)) {
-      showToast("You can only upload JPG, JPEG, PNG image file", "error");
+    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
+      showToast(
+        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
+        "error"
+      );
       return;
     }
     formData.append("document", image, image?.name);
