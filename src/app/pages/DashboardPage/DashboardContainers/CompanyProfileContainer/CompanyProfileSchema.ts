@@ -57,7 +57,7 @@ export const editCompanySchema = yup.object().shape({
     yup
       .string()
       .required("Pincode is a required field")
-      .matches(/^[a-zA-Z0-9_]*$/, "Pincode must be alphanumeric"),
+      .matches(/^[a-zA-Z0-9_ ]*$/, "Pincode must be alphanumeric"),
   province: yup.string().required(" Province is a required field"),
   country: yup.string().required(" Country is a required field"),
   hstNumber: yup
