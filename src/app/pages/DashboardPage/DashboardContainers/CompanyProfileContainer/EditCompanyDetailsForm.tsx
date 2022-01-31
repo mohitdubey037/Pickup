@@ -15,6 +15,16 @@ import EditAvatar from "app/components/Avatar/EditAvatar";
 import { showToast } from "utils";
 import { imageUploadService } from "services/SingleShipmentServices";
 
+const pinCodeMask = [
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+];
+
 const EditCompanyDetailsForm = ({
   title = "",
   setCompanyDrawerOpen,
@@ -238,6 +248,11 @@ const EditCompanyDetailsForm = ({
         error={touched.pincode && errors?.pincode?.toString()}
         label="Pincode"
         placeholder={"554787"}
+        type="mask"
+        maskProps={{
+          mask: pinCodeMask,
+          maskPlaceholder: null,
+        }}
       />
       <Grid container spacing={2}>
         <Grid item sm={6} xs={12}>
