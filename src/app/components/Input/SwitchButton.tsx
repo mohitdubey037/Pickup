@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Switch from "@material-ui/core/Switch";
 import { SwitchBox } from "./style";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -6,21 +6,22 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 
 export default function Switches({ value, setIsChecked }) {
-  const [state, setState] = React.useState({
-    checkedA: value ? value : false,
-  });
+  // const [state, setState] = React.useState({
+  //   checkedA: value ? value : false,
+  // });
 
-  useEffect(() => {
-    if (state?.checkedA) {
-      setIsChecked(true);
-    } else {
-      setIsChecked(false);
-    }
-  }, [state]);
+  // useEffect(() => {
+  //   if (state?.checkedA) {
+  //     setIsChecked(true);
+  //   } else {
+  //     setIsChecked(false);
+  //   }
+  // }, [state]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // setState({ ...state, [event.target.name]: event.target.checked });
-    setState({ ...state, checkedA: event.target.checked });
+    // setState({ ...state, checkedA: event.target.checked });
+    setIsChecked(event.target.checked);
   };
 
   return (
