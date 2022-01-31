@@ -1,12 +1,12 @@
 import * as yup from "yup";
 
-import { PHONE_NUMBER_REGX, PASSWORD_REGX, NEWPASSWORD_REGEX } from "../../../../constants";
+import { PHONE_NUMBER_REGX, PASSWORD_REGX, NEWPASSWORD_REGEX, EMAIL_REGEX } from "../../../../constants";
 
 export const signUpSchema = yup.object().shape({
   email: yup
     .string()
     .required("Email is a required field")
-    .email("Please enter a valid email"),
+    .matches(EMAIL_REGEX, "Email is not valid"),
 });
 
 export const companyDetailsSchema = yup.object().shape({
