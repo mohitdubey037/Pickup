@@ -2,7 +2,7 @@ import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 import {
-  COUNTRY_TEXT,
+  // COUNTRY_TEXT,
   INDUSTRY_TEXT,
   IMAGE_FILE_TYPES,
 } from "../../../../../constants";
@@ -30,7 +30,7 @@ const EditCompanyDetailsForm = ({
   setCompanyDrawerOpen,
   companyDetails,
   saveAction,
-  enableSave = false,
+  // enableSave = false,
   submitButtonLabel = "Save",
 }) => {
   const {

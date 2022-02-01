@@ -89,13 +89,15 @@ export default function CompanyProfile({ path: string }) {
         });
     }
   }, [colleagueDrawerOpen]);
+
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
   });
 
-  if([4].indexOf(authUser?.roleId) === -1) {
-    navigate('/non-authorized-page')
+  if ([4].indexOf(authUser?.roleId) === -1) {
+    navigate("/non-authorized-page");
   }
+
   return (
     <ModuleContainer>
       <ContainerTitle title="Company Profile" />

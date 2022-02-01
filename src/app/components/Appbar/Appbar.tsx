@@ -73,6 +73,7 @@ export default function Appbar() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  
   return (
     <>
       <AppbarContainer>
@@ -117,7 +118,7 @@ export default function Appbar() {
           }}
         >
           <MenuItem onClick={profileHandler}>Profile</MenuItem>
-          <MenuItem onClick={accountHandler}>My account</MenuItem>
+          {[4].indexOf(user.roleId)!== -1 && <MenuItem onClick={accountHandler}>My account</MenuItem>}
           <MenuItem id={"logout"} onClick={handleClose}>
             Logout
           </MenuItem>
