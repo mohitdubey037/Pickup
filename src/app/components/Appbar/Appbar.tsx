@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import { ChildLink, CustomListItem, SidebarLogo } from "app/pages/DashboardPage/DashboardComponents/style";
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import { ListLabel, SmallLabel, Smalltext } from "../Typography/Typography";
+import { H4, H5 } from "../Typography/Typography";
 import { dashboardHelper } from "app/pages/DashboardPage/helper";
 import { Link } from "app/pages/DashboardPage/type";
 import { LeftDashboard } from "app/pages/DashboardPage/DashboardComponents";
@@ -96,8 +96,8 @@ export default function Appbar() {
         <RightBox>
         {/* <SettingsOutlinedIcon /> */}
         <ProfileBox>
-          <SmallLabel text={user?.firstName} className="profilename" />
-          <Smalltext  className="designation"  text=
+          <H4 text={user?.firstName} className="profilename" />
+          <H5 className="designation"  text=
             {user?.roleId
               ? getRole(user?.roleId)?.[0]?.label
               : getRole(4)?.[0]?.label}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import ModuleContainer from "app/components/ModuleContainer";
 import { FormContainer } from "app/components/ModuleContainer/style";
-import {ContainerTitle,FormContainerTitle} from "app/components/Typography/Typography";
+import {H2 } from "app/components/Typography/Typography";
 import { BulkShipmentWrapper, HelperText } from "./style";
 import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
@@ -34,9 +34,8 @@ const DownloadSample = ({ navigate }: RouteComponentProps) => {
     return (
         <div>
        <ModuleContainer>
-      <ContainerTitle title="Bulk order" />
+      <H2 title="Bulk order" />
       <FormContainer elevation={2}>
-        <FormContainerTitle>Bulk order</FormContainerTitle>
         <BulkShipmentWrapper>
           {!processing && (
             <>

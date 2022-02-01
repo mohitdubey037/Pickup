@@ -1,5 +1,5 @@
 import ModuleContainer from "app/components/ModuleContainer";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { Table } from "app/components/Table";
 import Select from "app/components/Select";
@@ -37,7 +37,7 @@ function ReportsContainer({ path: string }) {
     <ModuleContainer>
       <Flex>
         <Flex flex={1}>
-          <ContainerTitle title="Reports" />
+          <H2 title="Reports" />
         </Flex>
         <div style={{ width: 300 }}>
           <Select style={{ backgroundColor: "white" }} />

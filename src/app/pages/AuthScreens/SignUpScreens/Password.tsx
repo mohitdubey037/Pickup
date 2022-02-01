@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { RouteComponentProps, useLocation } from "@reach/router";
-import { PageTitle } from "app/components/Typography/Typography";
+import { H1 } from "app/components/Typography/Typography";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -93,7 +93,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
                     <LogoImage />
                     <FormWrapper>
                         <FormContent>
-                            <PageTitle title="PASSWORD" />
+                            <H1 title="PASSWORD" />
                             <PasswordInput
                                 id="password"
                                 name="password"

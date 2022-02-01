@@ -7,8 +7,9 @@ import {
   SignUpBackgroundWrapper,
 } from "../style";
 import { mailLogo } from "../../../assets/Icons";
-import { PageTitle, RedLink, SmallLabel } from "../../../components/Typography/Typography";
+import { H1, H4 } from "../../../components/Typography/Typography";
 import { Box } from "@material-ui/core";
+import { CustomLink } from "app/components/Typography/Links";
 
 const EmailSent = ({ navigate }: RouteComponentProps) => {
   return (
@@ -19,13 +20,13 @@ const EmailSent = ({ navigate }: RouteComponentProps) => {
         <FormContent className="CenterContent">
             <img src={mailLogo} alt="" className="mailLogo" />
             <Box mt={3} mb={2}>
-            <PageTitle title="EMAIL SENT" />
-            <SmallLabel text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            <H1 title="EMAIL SENT" />
+            <H4 text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi
               mollis tempus" />
               </Box>
-              <RedLink label="Back to Signup" link={() => navigate?.("/sign-up")} />
+              <CustomLink label="Back to Signup" link={() => navigate?.("/sign-up")}  style={{color: '#c94c43'}}  />
         </FormContent>
       </FormWrapper>
       </SignUpBackgroundWrapper>

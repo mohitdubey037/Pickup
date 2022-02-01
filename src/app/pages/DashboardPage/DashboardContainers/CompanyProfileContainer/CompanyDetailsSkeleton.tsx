@@ -3,7 +3,7 @@ import { Skeleton } from "@material-ui/lab";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { FullCard } from "app/components/Input/style";
 import {
-  ListLabel,
+  H3,
   Para,
 } from "app/components/Typography/Typography";
 import { FlexGrid } from "./style";
@@ -13,7 +13,7 @@ export default function CompanyDetailsSkeleton() {
     <>
       <FullCard>
         <Box mb={4} display="flex" justifyContent="space-between">
-          <ListLabel text="Company Details" />
+          <H3 text="Company Details" />
         </Box>
         <FlexBox display="flex" justifyContent="space-between">
           <Box mr={4}>

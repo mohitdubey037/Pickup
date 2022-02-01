@@ -4,7 +4,7 @@ import { CardContainer} from './style'
 import { AreaChartOptions } from './helper'
 import { arrowUp } from 'app/assets/Icons'
 import { Box, Grid } from '@material-ui/core'
-import { ContainerTitle, ListLabel, Smalltext } from '../Typography/Typography';
+import { H2, H3, H5 } from '../Typography/Typography';
 
 interface ChartProps{
     marketPriceNumber : number;
@@ -23,25 +23,25 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
         <CardContainer>
             <Grid container spacing={2}>
                 <Grid item sm={4} lg={2} xs={12}>
-                        <ListLabel text="Market Price" />
-                        <ContainerTitle title={`${marketPriceNumber}`} className='markerprice count' />
+                        <H3 text="Market Price" />
+                        <H2 title={`${marketPriceNumber}`} className='markerprice count' />
                         <Box display="flex" mb={2.5}>
                             <img src={arrowUp} alt="" className='icon' />
-                            <Smalltext text={labelMarketPrice} />
+                            <H5 text={labelMarketPrice} />
                         </Box>
                         
-                        <ListLabel text="You Spent" />
-                        <ContainerTitle title={`${spentNumber}`} className='spentNumber count' />
+                        <H3 text="You Spent" />
+                        <H2 title={`${spentNumber}`} className='spentNumber count' />
                         <Box display="flex" mb={2.5}>
                             <img src={arrowUp} alt="" className='icon'  />
-                            <Smalltext text={labelSpentNumber} />
+                            <H5 text={labelSpentNumber} />
                         </Box>
                         
-                        <ListLabel text="You Saved" />
-                        <ContainerTitle title={`${savedNumber}`} className='savedNumber count' />
+                        <H3 text="You Saved" />
+                        <H2 title={`${savedNumber}`} className='savedNumber count' />
                         <Box display="flex">
                             <img src={arrowUp} alt="" className='icon' />
-                            <Smalltext text={labelSavedNumber} />
+                            <H5 text={labelSavedNumber} />
                         </Box>
                 </Grid>
                 <Grid item sm={8} lg={10} xs={12}>

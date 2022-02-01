@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 import ModuleContainer from "app/components/ModuleContainer";
 import CompanyDetails from "./CompanyDetails";
 import NewColleagueForm from "./NewColleagueForm";
@@ -100,7 +100,7 @@ export default function CompanyProfile({ path: string }) {
 
   return (
     <ModuleContainer>
-      <ContainerTitle title="Company Profile" />
+      <H2 title="Company Profile" />
       {loading ? (
         <CompanyDetailsSkeleton />
       ) : (

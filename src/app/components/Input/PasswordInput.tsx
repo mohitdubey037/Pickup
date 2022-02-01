@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { CustomInput, ErrorLabel, InputWrapper, VisibilityBox } from "./style";
 import { InputProps } from "./type";
 import { PasswordValidate } from "../PasswordValidate";
-import { SmallLabel } from "../Typography/Typography";
+import { H4 } from "../Typography/Typography";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@material-ui/icons/VisibilityOffOutlined";
 
@@ -46,7 +46,7 @@ const PasswordInput = ({
 
   return (
     <InputWrapper ref={ref}>
-      <SmallLabel text={label} required={required} />
+      <H4 text={label} required={required} />
 
       <CustomInput
         autoComplete={autoComplete}

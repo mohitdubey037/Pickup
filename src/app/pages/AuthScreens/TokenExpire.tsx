@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import { DrawerTitle } from "app/components/Typography/Typography";
+import { DrawerHeading } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { FormWrapper, LoginBackgroundWrapper, LoginWrapper, LogoImage } from "./style";
 import { RouteComponentProps } from "@reach/router";
@@ -23,7 +23,7 @@ const TokenExpire= ({ navigate }: TokenExpireProps) => {
           justifyContent="center"
           height="350px"
         >
-          <DrawerTitle title="You have already verified your account." />
+          <DrawerHeading title="You have already verified your account." />
           
           <Button
             type="button"

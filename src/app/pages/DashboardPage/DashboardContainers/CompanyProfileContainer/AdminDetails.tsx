@@ -3,9 +3,9 @@ import { Avatar, Box, Grid } from "@material-ui/core";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { FullCard } from "app/components/Input/style";
 import {
-  ListLabel,
+  H3,
   Para,
-  SmallLabel,
+  H4,
 } from "app/components/Typography/Typography";
 import { FlexGrid } from "./style";
 import { ADMIN_DETAILS_PERMISSION_TYPES } from "../../../../../constants";
@@ -17,7 +17,7 @@ export default function AdminDetails(props: any) {
     <>
       <FullCard>
         <Box mb={4}>
-          <ListLabel text="Admin Details" />
+          <H3 text="Admin Details" />
         </Box>
 
         <FlexBox justifyContent="space-between">
@@ -31,28 +31,28 @@ export default function AdminDetails(props: any) {
             <Grid container spacing={2}>
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="First Name" />
-                <SmallLabel
+                <H4
                   text={AdminDetails?.firstName ? AdminDetails?.firstName : "-"}
                   className="value"
                 />
               </Grid>
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Last Name" />
-                <SmallLabel
+                <H4
                   text={AdminDetails?.lastName ? AdminDetails?.lastName : "-"}
                   className="value"
                 />
               </Grid>
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Phone Number" />
-                <SmallLabel
+                <H4
                   text={AdminDetails?.phoneNo ? AdminDetails?.phoneNo : "-"}
                   className="value"
                 />
               </Grid>
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Role/Designation" />
-                <SmallLabel
+                <H4
                   text={
                     AdminDetails?.role
                       ? ADMIN_DETAILS_PERMISSION_TYPES[AdminDetails.role]
@@ -63,7 +63,7 @@ export default function AdminDetails(props: any) {
               </Grid>
               <Grid item lg={4} sm={8} xs={12}>
                 <Para text="Email Id" />
-                <SmallLabel
+                <H4
                   text={AdminDetails?.emailId ? AdminDetails?.emailId : "-"}
                   className="value"
                 />

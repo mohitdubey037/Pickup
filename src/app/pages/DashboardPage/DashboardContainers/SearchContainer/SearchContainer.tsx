@@ -3,7 +3,7 @@ import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 import { searchTable, advanceFilterInitValues } from "./helper";
 import { SearchFieldsWrapper, SearchTableTop } from "./style";
 import { dots3, sliders } from "app/assets/Icons";
@@ -114,7 +114,7 @@ const SearchContainer = ({ path: string }) => {
   }
   return (
     <ModuleContainer>
-      <ContainerTitle title="Search" />
+      <H2 title="Search" />
       <SearchFieldsWrapper>
         <Input label="Invoice Number" placeholder="eg. 123,321" />
         <Input label="Shipping Id" placeholder="eg. 123,321" />

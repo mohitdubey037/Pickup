@@ -2,7 +2,7 @@ import { Box, FormControl } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import styled, { css } from "styled-components";
-import { SmallLabel } from "../Typography/Typography";
+import { H4 } from "../Typography/Typography";
 
 interface SelectContainerType {
   disabled?: boolean;
@@ -18,7 +18,7 @@ interface StyledProps {
 }
 
 
-export const SmallLabeltext = styled(SmallLabel)<StyledProps>`
+export const SmallLabeltext = styled(H4)<StyledProps>`
   display: ${props => props.isNoSubtitle ? 'none' : ''};
   color: #878787;
   margin: 0;
@@ -29,7 +29,7 @@ export const SmallLabeltext = styled(SmallLabel)<StyledProps>`
   }
 `;
 
-export const MenuLabel = styled(SmallLabel)`
+export const MenuLabel = styled(H4)`
   color: #414141;
   margin: 0;
   width: 100%;

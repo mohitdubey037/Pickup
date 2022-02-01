@@ -1,7 +1,6 @@
 import { Box, Grid } from '@material-ui/core'
 import React from 'react'
 import ReactApexChart from 'react-apexcharts'
-import { ListLabel } from '../Typography/Typography'
 import { DoghnutChip, DoghnutContainer, DoghnutLabelContainer } from './style'
 
 interface DoghnutProps{

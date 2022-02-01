@@ -14,7 +14,7 @@ import { actions } from "store/reducers/SignInReducer";
 import { useEffect, useState } from "react";
 import { getParamsFromUrl } from "utils/commonUtils";
 import { verifyToken } from "./helper";
-import { PageTitle } from "app/components/Typography/Typography";
+import { H1 } from "app/components/Typography/Typography";
 import { passwordSchema } from "../SignUpScreens/signUpSchemas";
 
 const RecoverPassword = ({ navigate }: RouteComponentProps) => {
@@ -102,7 +102,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                 <LogoImage />
                 <FormWrapper>
                     <FormContent>
-                        <PageTitle title="RECOVER PASSWORD" />
+                        <H1 title="RECOVER PASSWORD" />
                         <PasswordInput
                             id="password"
                             name="password"

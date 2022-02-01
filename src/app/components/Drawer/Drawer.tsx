@@ -6,7 +6,7 @@ import {
   DrawerFooter,
   DrawerTitleDiv,
 } from "./style";
-import { DrawerTitle } from "../Typography/Typography";
+import { DrawerHeading } from "../Typography/Typography";
 import { Button } from "@material-ui/core";
 import ThemeButton from "../Buttons/Buttons";
 
@@ -42,7 +42,7 @@ export default function Drawer({
         onClose={() => setDrawerOpen(false)}
       >
         <DrawerTitleDiv>
-          <DrawerTitle title={title} />
+          <DrawerHeading title={title} />
           {closeIcon && (
             <img
               style={{ cursor: "pointer" }}
