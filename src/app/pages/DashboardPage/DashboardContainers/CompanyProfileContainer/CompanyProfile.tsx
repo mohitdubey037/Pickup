@@ -93,7 +93,7 @@ export default function CompanyProfile({ path: string }) {
     return state.auth?.user;
   });
 
-  if([4].indexOf(authUser.roleId) === -1) {
+  if([4].indexOf(authUser?.roleId) === -1) {
     navigate('/non-authorized-page')
   }
   return (
