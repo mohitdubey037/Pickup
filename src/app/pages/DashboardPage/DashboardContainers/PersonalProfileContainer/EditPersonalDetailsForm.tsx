@@ -24,8 +24,9 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
   const { personalProfileDetails, setEditDetailsDrawerOpen, saveAction } =
     props;
 
-
     const [emailSentDrawerOpen, setEmailSentDrawerOpen] = useState(false);
+
+    
     const handleOpenDrawer = () => {
       setEmailSentDrawerOpen(true);
     };
@@ -171,11 +172,11 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
           disabled={!isValid}
           size="medium"
         />
-        <Button
+        {/* <Button
           label="sent"
           size="small"
           onClick={() => handleOpenDrawer()}
-        />
+        /> */}
       </DrawerFooter>
 
       
