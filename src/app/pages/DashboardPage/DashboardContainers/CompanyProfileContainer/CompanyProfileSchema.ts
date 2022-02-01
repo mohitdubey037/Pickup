@@ -58,8 +58,8 @@ export const editCompanySchema = yup.object().shape({
       .string()
       .required("Pincode is a required field")
       .matches(
-        /^([a-zA-Z0-9]{0,7})$|^[a-zA-Z0-9]{3}\s[a-zA-Z0-9]{3}$/,
-        "Pincode must be alphanumeric with max 7 characters"
+        /^([a-zA-Z0-9]+)$|^[a-zA-Z0-9]+\s[a-zA-Z0-9]+$/,
+        "Please enter valid Pincode"
       ),
   province: yup.string().required(" Province is a required field"),
   country: yup.string().required(" Country is a required field"),

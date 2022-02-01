@@ -6,6 +6,7 @@ export interface Link {
     logo?:any;
     slug?:any;
     isLogOut?:boolean;
+    access?:number[]
 }
 
 export interface SelectedLink{

@@ -89,8 +89,7 @@ export default function Select(props: SelectPropTypes) {
             vertical: "top",
             horizontal: "left",
           }}
-          style={{ width: 400 }}
-          PaperProps={{ style: { width: "100%" } }}
+          PaperProps={{ style: { minWidth: "250px" } }}
         >
           {options.map((option) => (
             <Typography
@@ -108,7 +107,7 @@ export default function Select(props: SelectPropTypes) {
           ))}
         </Popover>
       </ComponentContainer>
-      {!!error && <ErrorLabel>{error}</ErrorLabel>}
+      {!!error && <ErrorLabel style={{marginBottom:'8px 0 24px 0'}}>{error}</ErrorLabel>}
     </>
   );
 }

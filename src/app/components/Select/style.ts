@@ -11,9 +11,15 @@ export const ComponentContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
 `;
-export const SmallLabeltext = styled(SmallLabel)`
+
+interface StyledProps {
+	isNoSubtitle?: boolean;
+}
+
+
+export const SmallLabeltext = styled(SmallLabel)<StyledProps>`
+  display: ${props => props.isNoSubtitle ? 'none' : ''};
   color: #878787;
   margin: 0;
   min-width: 80%;
@@ -31,12 +37,9 @@ export const MenuLabel = styled(SmallLabel)`
 `;
 
 export const MenuIcon = styled(Box)`
-  min-width: 5%;
+  min-width: 40px;
   display:flex;
   align-items:center;
-  @media (max-width: 900px) {
-    display:none;
-  }
 `;
 
 
@@ -44,6 +47,10 @@ export const SelectBoxStyle = styled(FormControl)`
   width: 100% !important;
   margin-bottom:16px !important;
   
+  .title{
+margin:0;
+  }
+
   .MuiAutocomplete-endAdornment,
   .MuiSelect-icon {
     display: none;
@@ -83,7 +90,7 @@ export const SelectBoxStyle = styled(FormControl)`
     line-height: 19px;
     color: #343434 !important;
     font-family: "Roboto";
-    margin-bottom: 8px;
+    margin-top:8px;
   }
   .MuiFormHelperText-root {
     color: #c94c43;

@@ -53,7 +53,7 @@ export const dashboardHelper: Array<Link> = [
     logo: creditCard,
     children: [
       // { id: 0, label: "Invoices", link: "/dashboard/payments/invoices" },
-      { id: 1, label: "Cards", link: "/dashboard/payments/cards" },
+      { id: 1, label: "Cards", link: "/dashboard/payments/cards", access:[4] },
     ],
   },
   // { id: 5, label: "Reports", link: "/dashboard/reports", logo: reports },
@@ -67,11 +67,13 @@ export const dashboardHelper: Array<Link> = [
         id: 0,
         label: "Company Profile",
         link: "/dashboard/my-account/company-profile",
+        access:[4]
       },
       {
         id: 1,
         label: "Personal Profile",
         link: "/dashboard/my-account/personal-profile",
+        access:[1,2,3,4]
       },
      
       // {

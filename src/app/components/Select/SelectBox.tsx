@@ -25,6 +25,7 @@ interface SelectPropTypes {
   disabled?: boolean;
   error: any;
   required?: boolean;
+  isNoSubtitle?: boolean;
 }
 
 // const useStyles = makeStyles((theme: Theme) =>
@@ -46,6 +47,7 @@ export default function SelectBox(props: SelectPropTypes) {
     required,
     error,
     disabled,
+    isNoSubtitle
   } = props;
 
   // const classes = useStyles();
@@ -85,7 +87,7 @@ export default function SelectBox(props: SelectPropTypes) {
         >
           {label}
         </InputLabel> */}
-        <SmallLabel text={label} required={required} />
+        <SmallLabel text={label} required={required} className="title"/>
         <Select
           labelId="demo-simple-select-placeholder-label-label"
           id="demo-simple-select-placeholder-label"
@@ -114,7 +116,7 @@ export default function SelectBox(props: SelectPropTypes) {
                   <img src={option?.icon} alt="menuicon" />{" "}
                 </MenuIcon>
                 <MenuLabel text={option?.title} />
-                <SmallLabeltext text={option?.subtitle} />
+                <SmallLabeltext text={option?.subtitle} isNoSubtitle={isNoSubtitle} />
               </MenuItem>
             );
           })}
