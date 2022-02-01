@@ -12,7 +12,7 @@ export default function HelpContainer({path:string}) {
         return state.auth?.user;
       });
     
-      if([1,2,3,4].indexOf(authUser.roleId) === -1) {
+      if([1,2,3,4].indexOf(authUser?.roleId) === -1) {
         navigate(' /non-authorized-page')
       }
     return (

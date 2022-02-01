@@ -31,7 +31,7 @@ export default function PersonalProfile(props: CardInterface) {
       </Box>
 
       <FlexBox alignItems="center">
-        <Box mr={3}>
+        <Box mr={4}>
           <Avatar
             style={{ width: 86, height: 86 }}
             src={personalProfileDetails?.profileImage}

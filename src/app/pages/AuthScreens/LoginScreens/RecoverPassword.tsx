@@ -35,6 +35,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     );
 
     const onResetPassword = async (values: any) => {
+        console.log('hii');
         const requestData: { password: string, token: string } = {
             password: values.password,
             token: jwtToken
