@@ -1,4 +1,4 @@
-import { Box, Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import styled from "styled-components";
 interface Props {
@@ -33,3 +33,4 @@ export const FlexGrid = styled(Box)`
     font-family: "Roboto-Bold";
   }
 `;
+

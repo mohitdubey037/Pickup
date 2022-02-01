@@ -12,21 +12,6 @@ import { ContainerTitle } from "app/components/Typography/Typography";
 import { navigate } from "@reach/router";
 import PaymentCardSkeleton from "app/components/PaymentCard/PaymentCardSkeleton";
 
-const individualCardData = [
-  {
-    name: "John Doe",
-    type: masterCard,
-    cardNumber: "**** **** **** 1734",
-    expiryDate: "05/24",
-  },
-  {
-    name: "John Doe",
-    type: scotiaBank,
-    cardNumber: "**** **** **** 1734",
-    expiryDate: "05/24",
-  },
-];
-
 export default function PaymentsPage({ path: string }) {
   const initialState = {
     cardType: 0,
@@ -83,14 +68,12 @@ export default function PaymentsPage({ path: string }) {
           }}
         />
       </Box>
-{
-  cardsData.showLoader ?
-  <PaymentCardSkeleton />
-      :
-      
+
+      { cardsData.showLoader ?
+        <PaymentCardSkeleton />
+      :  
       <PaymentCardContainer  individualCardData={cardsData.paymentCardsData?.card} />
-       
-}
+      }
 
       <Drawer
         open={drawerOpen}

@@ -6,21 +6,8 @@ import {
   fetchSuggestions,
   fetchLatLong,
 } from "../../../../../services/HereMapsService";
+import { Suggestions } from "./styles";
 
-// function sleep(delay = 0) {
-//   return new Promise((resolve) => {
-//     setTimeout(resolve, delay);
-//   });
-// }
-
-// interface Suggestion {
-//   address: string;
-//   countryCode: string;
-//   label: string;
-//   language: string;
-//   locationId: string;
-//   matchLevel: string;
-// }
 
 const AutoComplete = ({
   id,
@@ -77,15 +64,6 @@ const AutoComplete = ({
     setOpen(true);
   };
 
-  // const getLocationId = (value) => {
-  //   if (value !== "" || value !== null) {
-  //     setvalue(value);
-  //     const suggestion = suggestionsList.filter((item) => item?.label === value);
-  //     console.log(suggestion);
-  //     getLatLn(suggestion[0]?.locationId);
-  //     setSuggestionsList([]);
-  //   }
-  // };
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
@@ -114,7 +92,7 @@ const AutoComplete = ({
     }
     return (
       suggestionsList?.length > 0 && (
-        <ul className="suggestions" ref={ref} tabIndex={activeSuggestionIndex}>
+        <Suggestions ref={ref} tabIndex={activeSuggestionIndex}>
           {suggestionsList?.map((suggestion, index) => {
             let className;
             // Flag the active suggestion with a class
@@ -137,7 +115,7 @@ const AutoComplete = ({
               </li>
             );
           })}
-        </ul>
+        </Suggestions>
       )
     );
   };

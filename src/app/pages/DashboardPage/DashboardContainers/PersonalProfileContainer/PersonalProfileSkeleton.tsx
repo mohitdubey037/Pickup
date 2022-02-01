@@ -12,34 +12,34 @@ export default function PersonalProfileSkeleton() {
       <ListLabel text="Personal Details" />
       </Box>
 
-      <FlexBox>
+      <FlexBox alignItems="center">
         <Box mr={4}>
           <Skeleton variant="circle" width={86} height={86} />
         </Box>
 
-        <FlexTable>
+        <FlexTable mr={3}>
           <Grid container spacing={2}>
-            <Grid item lg={2} sm={3} xs={12}>
+          <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="First Name" />
               <Skeleton width="60%" height={28}  className="value" />
             </Grid>
 
-            <Grid item lg={2} sm={3} xs={12}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Last Name" />
               <Skeleton width="70%" height={28}  className="value" />
             </Grid>
 
-            <Grid item lg={2} sm={3} xs={12}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Phone Number" />
               <Skeleton width="50%" height={28}  className="value" />
             </Grid>
 
-            <Grid item sm={3} xs={12}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Role/Designation" />
               <Skeleton width="80%" height={28}  className="value" />
             </Grid>
 
-            <Grid item sm={3} xs={12}>
+            <Grid item lg={5} xl={4} sm={8} xs={12}>
               <Para text="Email Id" />
               <Skeleton width="70%" height={28}  className="value" />
             </Grid>

@@ -23,6 +23,8 @@ const EditColleagueDetailsForm = ({
   const [isChecked, setIsChecked] = useState<boolean>(
     colleagueDetails?.notification == 1
   );
+  
+
 
   const {
     values,
@@ -132,14 +134,6 @@ const EditColleagueDetailsForm = ({
         placeholder={"Manager"}
       />
 
-      {/* <Select
-        id="role"
-        name="role"
-        options={PERMISSION_TYPES}
-        label={"Permissions"}
-        value={values["role"]}
-      /> */}
-
       <SelectBox
         id="role"
         name="role"
@@ -183,6 +177,7 @@ const EditColleagueDetailsForm = ({
           size="medium"
         />
       </DrawerFooter>
+
     </>
   );
 };

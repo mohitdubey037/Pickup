@@ -55,7 +55,7 @@ import superintendent from './Superintendent.svg'
 import manager from './manager.svg'
 import executive from './executive.svg'
 import admin from './admin.svg'
-
+import emailsent from './email-sent-logo.svg'
 
 export {
     analytics,
@@ -114,5 +114,6 @@ export {
     superintendent,
     manager,
     executive,
-    admin
+    admin,
+    emailsent
 };
