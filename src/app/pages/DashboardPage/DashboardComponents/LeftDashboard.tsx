@@ -48,7 +48,7 @@ const LeftDashboard = ({ onDrawerItemSelect}: LeftDashboardProps) => {
               ?.includes(parent.link.split("/dashboard/")[1]) ||
             (!parent.children?.length && parent.link === selectedLink);
             
-          return (
+          return (parent.access ? parent.access.indexOf(userRoleId) !== -1 : true) && (
             <CustomListItem
               onClick={() => parent?.isLogOut === true ? handleLogOut() : 
                 onLinkSelectHandler(
@@ -65,7 +65,7 @@ const LeftDashboard = ({ onDrawerItemSelect}: LeftDashboardProps) => {
               </ListItem>
               {parent.children?.map((child: Link) => {
                 
-                return (child.access ? child.access.indexOf(userRoleId) !== -1 : false) &&(
+                return (child.access ? child.access.indexOf(userRoleId) !== -1 : true) &&(
                   <ChildLink
                     onClick={(e) => {
                       e.stopPropagation();

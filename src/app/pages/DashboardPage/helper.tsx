@@ -51,9 +51,10 @@ export const dashboardHelper: Array<Link> = [
     label: "Payments",
     link: "/dashboard/payments",
     logo: creditCard,
+    access:[4],
     children: [
       // { id: 0, label: "Invoices", link: "/dashboard/payments/invoices" },
-      { id: 1, label: "Cards", link: "/dashboard/payments/cards", access:[4] },
+      { id: 1, label: "Cards", link: "/dashboard/payments/cards", },
     ],
   },
   // { id: 5, label: "Reports", link: "/dashboard/reports", logo: reports },
