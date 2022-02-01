@@ -2,10 +2,9 @@
 import { RouteComponentProps, useLocation } from "@reach/router";
 import { PageTitle } from "app/components/Typography/Typography";
 import { useFormik } from "formik";
-import { stat } from "fs";
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getParamsFromUrl } from "utils/commonUtils";
 import { actions } from "store/reducers/SignUpReducer";
 import { Button } from "../../../components/Buttons";
 import { PasswordInput } from "../../../components/Input";
@@ -14,7 +13,6 @@ import {
     FormContent,
     FormWrapper,
     LogoImage,
-    Header,
     SignUpBackgroundWrapper,
 } from "../style";
 import { passwordSchema } from "./signUpSchemas";
@@ -26,15 +24,12 @@ const Password = ({ navigate }: RouteComponentProps) => {
     //         state.signUp.passwordRegisterResponse
     // );
     const companyRegisterResponse = useSelector((state: any) => {
-        console.log(state);
         return state?.signUp?.companyRegisterResponse?.emailId;
     });
 
     const passwordRegisterResponse = useSelector((state: any) => {
-        console.log(state);
         return state?.signUp?.passwordRegisterResponse;
     });
-
 
     const showLoader = useSelector(
         (state: { globalState: { showLoader: boolean } }) =>
@@ -42,6 +37,8 @@ const Password = ({ navigate }: RouteComponentProps) => {
     );
 
     const dispatch = useDispatch();
+    const location = useLocation();
+    const [token, setToken] = useState<string>("");
 
     useEffect(() => {
         return () => {
@@ -51,11 +48,12 @@ const Password = ({ navigate }: RouteComponentProps) => {
 
     useEffect(() => {
         //This logic needs to improve or something better needs to be thought of to show user in case of missing email in navigation state
-
-        if (!companyRegisterResponse) {
-            navigate?.('/sign-up')
+        const params = getParamsFromUrl(location.search);
+        if (!companyRegisterResponse && !params["token"]) {
+            navigate?.("/sign-up");
         }
-    }, [companyRegisterResponse]);
+        params["token"] && setToken(params["token"]);
+    }, [companyRegisterResponse, location.search]);
 
     useEffect(() => {
         if (passwordRegisterResponse) {
@@ -64,21 +62,25 @@ const Password = ({ navigate }: RouteComponentProps) => {
     }, [passwordRegisterResponse]);
 
     const onSubmit = (values) => {
-        dispatch(
-            actions.registerPassword({
-                // emailId: state?.email,
-                emailId: companyRegisterResponse,
-                password: values.password,
-            })
-        );
+        let data = { password: values.password };
+        if (token === "") data["emailId"] = companyRegisterResponse;
+        else data["token"] = token;
+        dispatch(actions.registerPassword(data));
     };
 
-    const { handleChange, errors, touched, handleBlur, handleSubmit, isValid, validateForm } =
-        useFormik({
-            initialValues: { password: "", confirmPassword: "" },
-            validationSchema: passwordSchema,
-            onSubmit: onSubmit,
-        });
+    const {
+        handleChange,
+        errors,
+        touched,
+        handleBlur,
+        handleSubmit,
+        isValid,
+        validateForm,
+    } = useFormik({
+        initialValues: { password: "", confirmPassword: "" },
+        validationSchema: passwordSchema,
+        onSubmit: onSubmit,
+    });
 
     useEffect(() => {
         (() => validateForm())();
