@@ -134,9 +134,9 @@ export const updateColleague = async (values: {
   notification: string;
   type: number;
   companyId: number;
+  profileImage: string;
 }) => {
   try {
-    console.log(values);
     const response: any = await services.put(
       `business/inviteColleague/${values.inviteId}`,
       {
@@ -150,6 +150,7 @@ export const updateColleague = async (values: {
         companyId: values?.companyId,
         notification: values?.notification,
         type: values?.type,
+        profileImage: values?.profileImage,
       },
       "user_cr"
     );

@@ -29,23 +29,25 @@ const getPermission = (role: number): any => {
 
 export default function NewColleague(props: DetailInterface) {
   const {
+    profileImage,
     inviteId,
     emailId,
     firstName,
     lastName,
-    notification,
+    // notification,
     notificationFrequency,
     phoneNo,
     role,
-    roleDesignation,
-    type,
+    // roleDesignation,
+    // type,
   } = props?.colleagueDetails;
   const {
     setColleagueDrawerOpen,
     index,
     setSelectedColleague,
-    selectedColleague,
+    // selectedColleague,
   } = props;
+
   return (
     <>
       <FullCard>
@@ -61,7 +63,7 @@ export default function NewColleague(props: DetailInterface) {
 
         <FlexBox justifyContent="space-between">
           <Box mr={4}>
-            <Avatar style={{ width: 86, height: 86 }} />
+            <Avatar src={profileImage} style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
