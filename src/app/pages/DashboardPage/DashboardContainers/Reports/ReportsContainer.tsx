@@ -30,7 +30,7 @@ function ReportsContainer({ path: string }) {
     return state.auth?.user;
   });
 
-  if([2,3].indexOf(authUser.roleId) === -1) {
+  if([2,3].indexOf(authUser?.roleId) === -1) {
     navigate(' /non-authorized-page')
   }
   return (

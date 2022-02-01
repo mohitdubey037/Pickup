@@ -140,15 +140,8 @@ export default function CompanyProfile({ path: string }) {
             setSelectedColleague={setSelectedColleague}
             selectedColleague={selectedColleague}
           />
-          // <ColleagueDetails
-          //   setColleagueDrawerOpen={setColleagueDrawerOpen}
-          //   colleagueDetails={data}
-          //   key={data?.inviteId}
-          //   index={index}
-          //   setSelectedColleague={setSelectedColleague}
-          //   selectedColleague={selectedColleague}
-          // />
         ))}
+        
       <NewColleagueForm saveAction={saveColleague} />
       <Drawer
         open={colleagueDrawerOpen}

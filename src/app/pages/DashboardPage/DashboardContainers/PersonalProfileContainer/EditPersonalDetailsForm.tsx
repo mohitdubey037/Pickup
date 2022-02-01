@@ -11,6 +11,9 @@ import { Avatar, Box } from "@material-ui/core";
 import { DrawerFooter } from "app/components/Drawer/style";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { PersonalProfileType } from "./types";
+import { useState } from "react";
+import { Drawer } from "app/components/Drawer";
+import EmailSentDrawer from "./EmailSentDrawer";
 interface EditPersonalInterface {
   personalProfileDetails: PersonalProfileType;
   setEditDetailsDrawerOpen: (value: boolean) => void;
@@ -20,6 +23,16 @@ interface EditPersonalInterface {
 const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
   const { personalProfileDetails, setEditDetailsDrawerOpen, saveAction } =
     props;
+
+
+    const [emailSentDrawerOpen, setEmailSentDrawerOpen] = useState(false);
+    const handleOpenDrawer = () => {
+      setEmailSentDrawerOpen(true);
+    };
+    const handleCloseDrawer  = () => {
+      setEmailSentDrawerOpen(false);
+    };
+
 
   const {
     values,
@@ -151,14 +164,33 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
           onClick={() => setEditDetailsDrawerOpen(false)}
           label="Cancel"
           size="medium"
-        ></Button>
+        />
         <Button
           label={"Save"}
           onClick={handleSubmit}
           disabled={!isValid}
           size="medium"
-        ></Button>
+        />
+        <Button
+          label="sent"
+          size="small"
+          onClick={() => handleOpenDrawer()}
+        />
       </DrawerFooter>
+
+      
+      {emailSentDrawerOpen &&
+      <Drawer
+        open={emailSentDrawerOpen}
+        setDrawerOpen={() => setEmailSentDrawerOpen(false)}
+        title="Edit Colleague Details"
+        closeIcon={true}
+      >
+        <EmailSentDrawer
+        />
+      </Drawer>
+      }
+
     </>
   );
 };

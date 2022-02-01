@@ -32,34 +32,3 @@ code {
     monospace;
 }
 
-.suggestions {
-  position: absolute;
-  z-index: 50;
-  background: white;
-  /* background-color: #c2c2be; */
-  outline: 1px solid #999;
-  /* border: 1px solid #999; */
-  border-top-width: 0;
-  list-style: none;
-  margin-top: 0px;
-  /* max-height: 143px; */
-  overflow-y: auto;
-  padding-left: 0;
-  width: 100%;
-  top:70px;
-}
-.suggestions li {
-  padding: 0.5rem;
-  text-align: left;
-  color: #000;
-}
-.suggestion-active,
-.suggestions li:hover {
-  background-color: #lightgrey; 
-  /* color: #000; */
-    cursor: pointer;
-  font-weight: 700;
-}
-.suggestions li:not(:last-of-type) {
-  border-bottom: 1px solid #999;
-}

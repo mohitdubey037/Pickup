@@ -1,4 +1,5 @@
 import { Box } from "@material-ui/core";
+import { FlexBox } from "app/components/CommonCss/CommonCss";
 import styled from "styled-components";
 
 export const ComponentStyle = styled.div `
@@ -29,5 +30,38 @@ export const FlexTable= styled(Box)`
 
 `;
 
+export const Suggestions= styled.ul`
+position: absolute;
+z-index: 999;
+background: #fff;
+outline: 1px solid #999;
+border-top-width: 0;
+list-style: none;
+overflow-y: auto;
+padding-left: 0;
+width: 100%;
+top:55px;
 
- 
+
+li {
+  padding: 8px;
+  cursor:pointer;
+  font-size:14px;
+  font-family: "Roboto" !important;
+  color:#222;
+}
+
+li:not(:last-of-type) {
+  border-bottom: 1px solid #bbb;
+}
+`;
+
+
+export const EmailSentBox = styled(FlexBox)`
+flex-direction:column;
+align-items:center;
+.para{
+  padding:0 50px;
+  text-align:center;
+}
+`;
