@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Input } from "app/components/Input";
 import {
@@ -39,6 +39,7 @@ const AutoComplete = ({
   const [suggestionsList, setSuggestionsList] = useState<any>([]);
   const [addressData, setAddressData] = useState<any>(null);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
+  const didMountRef = useRef(false);
 
   const [open, setOpen] = useState<boolean>(false);
   // const loading = open && suggestionsList?.length === 0;
@@ -52,19 +53,23 @@ const AutoComplete = ({
       setSuggestionsList([]);
     }
   }, [open]);
+
   useEffect(() => {
-    onSelect && onSelect(null);
-    const delayDebounceFn = setTimeout(() => {
-      if (value && value !== addressData?.location?.address?.label) {
-        searchService(value);
-      }
-    }, 500);
-    return () => clearTimeout(delayDebounceFn);
+    if (didMountRef.current) {
+      onSelect && onSelect(null);
+      const delayDebounceFn = setTimeout(() => {
+        if (value && value !== addressData?.location?.address?.label) {
+          searchService(value);
+        }
+      }, 500);
+      return () => clearTimeout(delayDebounceFn);
+    } else {
+      didMountRef.current = true;
+    }
   }, [value]);
 
   const getLatLn = async (value) => {
     let res = await fetchLatLong(value);
-    console.log(res);
     onSelect && onSelect(res?.response?.view?.[0]?.result?.[0] || null);
     setAddressData(res?.response?.view?.[0]?.result?.[0] || null);
   };
@@ -72,7 +77,6 @@ const AutoComplete = ({
   const searchService = async (value) => {
     setAddressData(null);
     let res = await fetchSuggestions(value);
-    console.log(res);
     setSuggestionsList(res?.suggestions || []);
     setOpen(true);
   };
@@ -91,7 +95,6 @@ const AutoComplete = ({
     if (e.keyCode === 13) {
       setOpen(false);
       setActiveSuggestionIndex(0);
-      console.log("tab label", suggestionsList?.[activeSuggestionIndex]?.label);
       getLatLn(suggestionsList?.[activeSuggestionIndex]?.locationId);
       setFieldValue(name, suggestionsList?.[activeSuggestionIndex]?.label);
     } else if (e.keyCode === 38) {
@@ -110,8 +113,6 @@ const AutoComplete = ({
   };
 
   const renderSuggestions = () => {
-    if (suggestionsList?.length > 0) {
-    }
     return (
       suggestionsList?.length > 0 && (
         <ul className="suggestions" ref={ref} tabIndex={activeSuggestionIndex}>
