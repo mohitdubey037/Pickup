@@ -32,13 +32,7 @@ export const InputWrapper = styled.div`
   }
 `;
 
-// export const CustomLabel = styled.label`
-//   font-weight: 400;
-//   font-size: 16px;
-//   line-height: 19px;
-//   color: #343434;
-//   margin-bottom: 0.5rem;
-// `;
+
 
 export const CustomInput = styled.input`
   height: 42px;
@@ -50,12 +44,12 @@ export const CustomInput = styled.input`
   padding: 0 5px;
   box-sizing:border-box;
   margin-bottom:6px;
+  font-size:16px;
   &::placeholder {
     color: #c4c4c4;
-    font-size: 16px;
   }
   background-color: ${(props: { disabled?: boolean }) =>
-    props.disabled ? "#c4c4c4" : "white"};
+    props.disabled ? "#ddd" : "#fff"};
 `;
 
 export const CustomInputTextArea = styled.textarea`
