@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Grid } from "@material-ui/core";
 import { FullCard } from "app/components/Input/style";
-import { ListLabel } from "app/components/Typography/Typography";
+import { H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 // import { Input } from "./style";
@@ -81,7 +81,7 @@ function NewColleagueForm({ saveAction }) {
   return (
     <FullCard>
       <Box mb={4}>
-        <ListLabel text="Add New Colleague" />
+        <H3 text="Add New Colleague" />
       </Box>
       <GridContainer container spacing={2}>
         <Grid item lg={3} md={6} xs={12}>

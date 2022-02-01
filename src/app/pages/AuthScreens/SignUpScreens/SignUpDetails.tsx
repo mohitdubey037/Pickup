@@ -18,7 +18,7 @@ import { actions } from "store/reducers/SignUpReducer";
 import { Box, Grid } from "@material-ui/core";
 import { Checkbox } from "app/components/Checkbox";
 import { getParamsFromUrl } from "utils/commonUtils";
-import { PageTitle } from "app/components/Typography/Typography";
+import { H1 } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Flex } from "app/components/Input/style";
 import { Link } from "app/components/Link";
@@ -97,7 +97,7 @@ useEffect(() => {
                     <FormWrapper>
                         <form>
                             <FormContent>
-                                <PageTitle title="SIGN UP" />
+                                <H1 title="SIGN UP" />
                                 <GridContainer container spacing={2}>
                                     <Grid item xs={6}>
                                         <Input

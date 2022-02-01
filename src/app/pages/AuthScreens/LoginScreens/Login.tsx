@@ -4,7 +4,7 @@ import { RouteComponentProps } from "@reach/router";
 import { Button } from "../../../components/Buttons";
 import { Checkbox } from "../../../components/Checkbox";
 import { PasswordInput, Input } from "../../../components/Input";
-import { BlackLink, PageTitle, Para } from "../../../components/Typography/Typography";
+import { H1, Para } from "../../../components/Typography/Typography";
 import {
   LoginWrapper,
   LogoImage,
@@ -20,6 +20,7 @@ import { actions } from "store/reducers/SignInReducer";
 import { useEffect, useState, useRef } from "react";
 import CryptoJS from 'crypto-js';
 import { CommonError } from "app/components/Input/style";
+import { CustomLink } from "app/components/Typography/Links";
 
 const Login = ({ navigate }: RouteComponentProps) => {
 
@@ -125,7 +126,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
         <LogoImage />
         <FormWrapper>
           <FormContent>
-            <PageTitle title="LOGIN" />
+            <H1 title="LOGIN" />
             {/* <form onSubmit={handleSubmit}> */}
             <Input
               ref={firstFieldRef}
@@ -154,7 +155,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
                 name="checked"
                 onChange={() => setFieldValue("checked", !values.checked)}
                 label="Remember me" />
-              <BlackLink
+              <CustomLink
                 label="Forgot my password"
                 link={() => navigate?.("/forgot-password")}
               />
@@ -170,7 +171,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
             />
             <LoginLink>
               <Para text="Don't have an account?" />
-              <BlackLink
+              <CustomLink
                 label="Sign Up Here"
                 link={() => navigate?.("/sign-up")}
               />

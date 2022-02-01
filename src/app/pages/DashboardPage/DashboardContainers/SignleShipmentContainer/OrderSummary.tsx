@@ -1,7 +1,7 @@
 import { Flex } from "app/components/Input/style";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 import React, { useState, useEffect } from "react";
 // import { rows, columns } from "./OrderSummaryHelper";
 import { Button } from "../../../../components/Buttons";
@@ -98,7 +98,7 @@ function OrderSummary({ path: string }) {
     return (
         <>
             <ModuleContainer>
-                <ContainerTitle title="Order Summary" />
+                <H2 title="Order Summary" />
 
                 <Flex direction={"column"} top={20}>
                     <Table 

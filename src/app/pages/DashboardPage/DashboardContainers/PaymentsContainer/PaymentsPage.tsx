@@ -8,7 +8,7 @@ import { Drawer } from "app/components/Drawer";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
 import AddCardForm from "./AddCardForm";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 import { navigate } from "@reach/router";
 import PaymentCardSkeleton from "app/components/PaymentCard/PaymentCardSkeleton";
 
@@ -59,7 +59,7 @@ export default function PaymentsPage({ path: string }) {
   return (
     <ModuleContainer>
       <Box display="flex" justifyContent="space-between">
-      <ContainerTitle title="Cards"  />
+      <H2 title="Cards"  />
         <Button
           label="+ Add New Card"
           size="small"

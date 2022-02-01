@@ -2,7 +2,7 @@ import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 import { OnHoldTableTop } from "./Style";
 import { sliders } from "app/assets/Icons";
 import { useCallback, useEffect, useState } from "react";
@@ -131,7 +131,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
 
     return (
         <ModuleContainer>
-            <ContainerTitle title="On Hold Shipments" />
+            <H2 title="On Hold Shipments" />
             <Grid container spacing={4} alignItems="center" style={{ marginTop: "20px", marginBottom: "20px" }}>
                 <Grid item xs={2}>
                     <Input label="Invoice Number" value={filters.invoiceNumber} onChange={(e) => onChangeHandler(e, 'invoiceNumber', null)} placeholder="eg. 123,321" />

@@ -2,7 +2,7 @@ import React from "react";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import { SelectContainer, ComponentContainer, useStyles } from "./style";
-import { SmallLabel } from "../Typography/Typography";
+import { H4 } from "../Typography/Typography";
 import { dropdown } from "app/assets/Icons";
 import { ErrorLabel } from "../Input/style";
 
@@ -59,7 +59,7 @@ export default function Select(props: SelectPropTypes) {
   return (
     <>
       <ComponentContainer>
-        <SmallLabel text={label} required={required} />
+        <H4 text={label} required={required} />
 
         <SelectContainer
           aria-describedby={parentId}

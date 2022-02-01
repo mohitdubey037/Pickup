@@ -19,7 +19,7 @@ import { CircularProgress } from "@material-ui/core";
 import { showToast } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SignUpReducer";
-import { PageTitle } from "app/components/Typography/Typography";
+import { H1 } from "app/components/Typography/Typography";
 
 const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   const { userId } = useParams();
@@ -95,7 +95,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
           <CircularProgress />
         ) : (
           <FormContent>
-            <PageTitle title="COMPANY DETAILS" />
+            <H1 title="COMPANY DETAILS" />
             <Row>
               <Input
                 id={"firstName"}

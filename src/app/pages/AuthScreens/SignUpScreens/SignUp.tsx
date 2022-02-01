@@ -13,10 +13,11 @@ import {
 } from "../style";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
-import { BlackLink, PageTitle } from "../../../components/Typography/Typography";
+import { H1 } from "../../../components/Typography/Typography";
 import { signUpSchema } from "./signUpSchemas";
 import { actions } from "store/reducers/SignUpReducer";
 import { CommonError } from "app/components/Input/style";
+import { CustomLink } from "app/components/Typography/Links";
 
 type SignUpProps = RouteComponentProps;
 
@@ -88,7 +89,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
           <LogoImage />
           <FormWrapper>
             <FormContent>
-              <PageTitle title="SIGN UP" />
+              <H1 title="SIGN UP" />
               <Input
                 label="Business Email"
                 placeholder="johndoe@pickups.com"
@@ -104,7 +105,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
               <Button type="submit" disabled={!(isValid)} label="Sign Up" showLoader={showLoader} size="large" />
               <LoginLink>
                 Already have an account?{" "}
-                <BlackLink
+                <CustomLink
                   link={() => navigate?.("/")}
                   label={"Login Here"}
                 />

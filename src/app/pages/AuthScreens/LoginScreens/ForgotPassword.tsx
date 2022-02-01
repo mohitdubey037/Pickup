@@ -1,8 +1,7 @@
 import { RouteComponentProps } from "@reach/router";
-import { LeftAlign } from "app/components/Typography/style";
 import { Button } from "../../../components/Buttons";
 import { Input } from "../../../components/Input";
-import { PageTitle, RedLink } from "../../../components/Typography/Typography";
+import { H1 } from "../../../components/Typography/Typography";
 import {
     FormContent,
     FormWrapper,
@@ -17,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SignInReducer";
 import { ForgotPasswordSchema } from "./ForgotPasswordSchema";
 import { useEffect, useRef } from "react";
+import { CustomLink } from "app/components/Typography/Links";
 
 const ForgotPassword = ({ navigate }: RouteComponentProps) => {
 
@@ -80,7 +80,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                 <LogoImage />
                 <FormWrapper>
                     <FormContent>
-                        <PageTitle title="FORGOT PASSWORD" />
+                        <H1 title="FORGOT PASSWORD" />
                         <Input
                             id={"email"}
                             name={"email"}
@@ -101,7 +101,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                             type="submit"
                         />
                         <LoginLink>
-                            <RedLink label="Back to Login" link={() => navigate?.("/")} />
+                            <CustomLink label="Back to Login" link={() => navigate?.("/")} style={{color: '#c94c43'}} />
                         </LoginLink>
                     </FormContent>
                 </FormWrapper>

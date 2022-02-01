@@ -10,8 +10,7 @@ import { TimePicker } from "@mui/lab";
 import Select from "app/components/Select";
 import { STATUS_TYPES } from "./helper";
 import {
-  ContainerTitle,
-  FormContainerTitle,
+  H2
 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { FilterWrapper } from "./style";
@@ -99,7 +98,7 @@ function AdvanceFilters({ formik }) {
       </FilterWrapper>
       <FilterWrapper>
         <div className="heading">
-          <FormContainerTitle>Order Origin Details</FormContainerTitle>
+          <H2 title="Order Origin Details" />
         </div>
         <Grid container spacing={3}>
           <Grid item xs={6}>
@@ -173,7 +172,7 @@ function AdvanceFilters({ formik }) {
       </FilterWrapper>
       <FilterWrapper>
         <div className="heading">
-          <FormContainerTitle>Order Destination Details</FormContainerTitle>
+          <H2 title="Order Destination Details" />
         </div>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -267,7 +266,7 @@ function AdvanceFilters({ formik }) {
       </FilterWrapper>
       <FilterWrapper className="bordernone">
         <div className="heading">
-          <FormContainerTitle>Order Details</FormContainerTitle>
+          <H2 title="Order Details" />
         </div>
         <Grid container spacing={3} style={{ marginBottom: 0 }}>
           <Grid item xs={3}>

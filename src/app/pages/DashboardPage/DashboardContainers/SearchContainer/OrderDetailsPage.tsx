@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import {
-  FormContainerTitle,
+  H2
 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import Card from "@mui/material/Card";

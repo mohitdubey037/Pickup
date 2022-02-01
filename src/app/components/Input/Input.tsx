@@ -7,7 +7,7 @@ import {
   ErrorLabel,
   InputWrapper,
 } from "./style";
-import { SmallLabel } from "../Typography/Typography";
+import { H4 } from "../Typography/Typography";
 import { InputProps } from "./type";
 
 const Input = React.forwardRef<any, InputProps>(
@@ -45,7 +45,7 @@ const Input = React.forwardRef<any, InputProps>(
 
     return (
       <InputWrapper style={style}>
-        <SmallLabel text={label} required={required} />
+        <H4 text={label} required={required} />
 
         {type === "textarea" ? (
           <CustomInputTextArea

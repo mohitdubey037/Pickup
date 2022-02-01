@@ -1,10 +1,6 @@
 import { Avatar, Button, Paper, Typography } from "@material-ui/core";
 import EditIcon from "app/components/EditIcon";
 import { Block, Flex, FullCard } from "app/components/Input/style";
-import {
-  FormContainerTitle,
-  ListLabel,
-} from "app/components/Typography/Typography";
 import { PERMISSION_TYPES } from "../../../../../constants";
 import { ColleagueDetailsType } from "./types";
 
@@ -50,15 +46,6 @@ export default function ColleagueDetails(props: DetailInterface) {
   // };
   return (
     <FullCard style={{ marginLeft: 0 }}>
-      {/* <Box mb={4} display="flex" justifyContent="space-between">
-          <ListLabel text={`Colleague ${index + 1}`} />
-          <EditIcon
-            onClick={() => {
-              setSelectedColleague(inviteId);
-              setColleagueDrawerOpen(true);
-            }}
-          />
-        </Box> */}
       <Flex style={{ marginTop: 15 }}>
         <Avatar style={{ width: 86, height: 86 }}>
           <img src={`https://i.pravatar.cc/${inviteId}`} width={86} />

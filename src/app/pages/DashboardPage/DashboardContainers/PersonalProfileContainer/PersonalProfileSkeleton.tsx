@@ -1,5 +1,5 @@
 import { Box, Grid } from "@material-ui/core";
-import { ListLabel, Para } from "app/components/Typography/Typography";
+import { H3, Para } from "app/components/Typography/Typography";
 import { FullCard } from "app/components/Input/style";
 import { FlexTable } from "./styles";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -9,7 +9,7 @@ export default function PersonalProfileSkeleton() {
   return (
     <FullCard>
       <Box mb={4} display="flex" justifyContent="space-between">
-      <ListLabel text="Personal Details" />
+      <H3 text="Personal Details" />
       </Box>
 
       <FlexBox alignItems="center">

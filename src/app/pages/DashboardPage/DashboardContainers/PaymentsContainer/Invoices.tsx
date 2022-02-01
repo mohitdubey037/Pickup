@@ -2,7 +2,7 @@ import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 import { invoiceTable } from "./helper";
 import { InvoicesWrapper, InvoiceTableTop } from "./InvoiceStyle";
 import { dots3, sliders } from "app/assets/Icons";
@@ -139,21 +139,12 @@ const InvoicesContainer = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle title="Invoices" />
+      <H2 title="Invoices" />
       <InvoicesWrapper>
         <Input label="Invoice Number" placeholder="eg. 123,321" />
         <Input label="From Date" placeholder="Select" />
         <Input label="To Date" placeholder="Select" />
       </InvoicesWrapper>
-      {/* <Table
-        data={OnHoldTable}
-        tableTop={tableTop()}
-        showCheckbox
-        showPagination
-        perPageRows={15}
-        filterColumns={[0, 1, 2, 3, 4, 5]}
-      />
-      <hr/> */}
       <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
         tableTop={tableTop()}

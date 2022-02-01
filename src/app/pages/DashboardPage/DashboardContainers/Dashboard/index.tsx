@@ -11,7 +11,7 @@ import {
   SpentByCategory,
 } from "./styles";
 import ModuleContainer from "app/components/ModuleContainer";
-import { ContainerTitle, ListLabel } from "app/components/Typography/Typography";
+import { H2, H3 } from "app/components/Typography/Typography";
 // import { DUMMY_CHART } from "./helper";
 import { InnerContainer } from "app/components/ModuleContainer/style";
 import { getDashboardDetails } from "../../../../../services/DashboardService";
@@ -97,7 +97,7 @@ const Dashboard = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle title="Dashboard" />
+      <H2 title="Dashboard" />
    
       <Box mt={3}>
         <Grid container spacing={2}>
@@ -184,7 +184,7 @@ const Dashboard = ({ path: string }) => {
             
             <Grid item sm={5} xs={12}>
             <PaperBox>
-            <ListLabel text="Deliveries"  />
+            <H3 text="Deliveries"  />
            {dashboard.completed && dashboard.pending ? 
              ( <DoghnutChart
                 onTimePercentage={+onTime.toFixed(2)}

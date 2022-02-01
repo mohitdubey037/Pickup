@@ -6,7 +6,7 @@ import Select from "@material-ui/core/Select";
 import { MenuIcon, MenuLabel, SelectBoxStyle, SmallLabeltext } from "./style";
 import { dropdown } from "app/assets/Icons";
 import { ErrorLabel } from "../Input/style";
-import { SmallLabel } from "../Typography/Typography";
+import { H4 } from "../Typography/Typography";
 
 interface SelectOption {
   value: number;
@@ -87,7 +87,7 @@ export default function SelectBox(props: SelectPropTypes) {
         >
           {label}
         </InputLabel> */}
-        <SmallLabel text={label} required={required} className="title"/>
+        <H4 text={label} required={required} className="title"/>
         <Select
           labelId="demo-simple-select-placeholder-label-label"
           id="demo-simple-select-placeholder-label"

@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import {LeftContent,CustomListItem,ChildLink, LogoIcon, ListItem} from "./style";
 import { dashboardHelper } from "../helper";
 import { Link } from "../type";
-import { ListLabel } from "app/components/Typography/Typography";
+import { H3 } from "app/components/Typography/Typography";
 import services from "services";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,7 +61,7 @@ const LeftDashboard = ({ onDrawerItemSelect}: LeftDashboardProps) => {
                 <LogoIcon>
                 <img src={parent.logo} alt=""  />
                 </LogoIcon>
-                <ListLabel text={parent.label} />
+                <H3 text={parent.label} />
               </ListItem>
               {parent.children?.map((child: Link) => {
                 
