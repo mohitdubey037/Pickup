@@ -118,7 +118,7 @@ export default function Appbar() {
           }}
         >
           <MenuItem onClick={profileHandler}>Profile</MenuItem>
-          {[4].indexOf(user.roleId)!== -1 && <MenuItem onClick={accountHandler}>My account</MenuItem>}
+          {[4].indexOf(user?.roleId)!== -1 && <MenuItem onClick={accountHandler}>My account</MenuItem>}
           <MenuItem id={"logout"} onClick={handleClose}>
             Logout
           </MenuItem>
