@@ -35,7 +35,7 @@ const LeftDashboard = ({ onDrawerItemSelect}: LeftDashboardProps) => {
       }, 500);
   };
   const userRoleId = useSelector((state: any) => {
-    return state.auth?.user.roleId;
+    return state.auth?.user?.roleId;
   });
 
   return (
