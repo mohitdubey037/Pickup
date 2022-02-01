@@ -23,7 +23,7 @@ export interface AdminDetailsType {
 }
 
 export interface ColleagueDetailsType {
-  avatar: string;
+  profileImage: string;
   companyId: number;
   emailId: string;
   firstName: string;
