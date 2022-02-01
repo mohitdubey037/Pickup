@@ -11,6 +11,7 @@ export const ComponentContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  margin-bottom:16px;
 `;
 
 interface StyledProps {
@@ -60,7 +61,7 @@ margin:0;
   }
 
   .MuiSelect-select.MuiSelect-select {
-    padding: 12px 8px !important;
+    padding: 12px 5px !important;
     border-radius: 4px !important;
     border: 1px solid #c4c4c4 !important;
     height: 42px;
@@ -133,24 +134,24 @@ export const SelectContainer = styled.div<SelectContainerType>`
     height: 42px;
     align-items: flex-start;
     display: flex;
-    padding: 4px;
+    padding: 12px 5px;
     border-radius: 4px;
     border: 1px solid #C4C4C4;
     cursor:pointer;
     align-items: center ;
-    font-size: 20px;
     box-sizing:border-box;
+    margin-bottom:6px;
     ${(props) =>
       props.disabled &&
       css`
-        background-color: #c4c4c4;
+        background-color: #ddd;
       `}
  }
 `;
 export const CustomSelect = styled.select`
   outline: none;
   border: none;
-  background-color: white;
+  background-color: #fff;
   width: 100%;
 `;
 export const useStyles = makeStyles((theme: Theme) =>
@@ -162,7 +163,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       textAlign: "initial",
       color: "#C4C4C4",
-      fontSize: 16,
     },
   })
 );

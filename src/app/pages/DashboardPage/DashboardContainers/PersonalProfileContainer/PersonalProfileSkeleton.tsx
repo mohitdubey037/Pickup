@@ -12,7 +12,7 @@ export default function PersonalProfileSkeleton() {
       <H3 text="Personal Details" />
       </Box>
 
-      <FlexBox alignItems="center">
+      <FlexBox>
         <Box mr={4}>
           <Skeleton variant="circle" width={86} height={86} />
         </Box>

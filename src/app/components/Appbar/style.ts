@@ -1,4 +1,4 @@
-import { AppBar, Box } from "@material-ui/core";
+import { AppBar, Box, Menu } from "@material-ui/core";
 import styled from "styled-components";
 
 export const MainAppBar = styled(AppBar)`
@@ -77,4 +77,10 @@ export const MenuLinks = styled(Box)`
     right: 0;
     width: 100%;
   }
+`;
+
+export const ProfileMenu = styled(Menu)`
+.MuiPopover-paper{
+  top:55px !important;
+}
 `;

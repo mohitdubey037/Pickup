@@ -30,7 +30,7 @@ export default function PersonalProfile(props: CardInterface) {
         <EditIcon onClick={setEditDetailsDrawerOpen} />
       </Box>
 
-      <FlexBox alignItems="center">
+      <FlexBox>
         <Box mr={4}>
           <Avatar
             style={{ width: 86, height: 86 }}
@@ -38,7 +38,7 @@ export default function PersonalProfile(props: CardInterface) {
           />
         </Box>
 
-        <FlexTable mr={3}>
+        <FlexTable>
           <Grid container spacing={2}>
             <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="First Name" />

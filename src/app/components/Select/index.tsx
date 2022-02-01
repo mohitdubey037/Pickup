@@ -70,7 +70,7 @@ export default function Select(props: SelectPropTypes) {
         >
           <span
             className={classes.placeholder}
-            style={{ color: value ? "black" : "", marginLeft: 5 }}
+            style={{ color: value ? "#000" : "" }}
           >
             {valueLabel}
           </span>
@@ -106,8 +106,9 @@ export default function Select(props: SelectPropTypes) {
             </Typography>
           ))}
         </Popover>
+        {!!error && <ErrorLabel style={{marginBottom:'8px 0 24px 0'}}>{error}</ErrorLabel>}
       </ComponentContainer>
-      {!!error && <ErrorLabel style={{marginBottom:'8px 0 24px 0'}}>{error}</ErrorLabel>}
+   
     </>
   );
 }
