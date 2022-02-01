@@ -116,6 +116,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
                                 error={touched.confirmPassword && errors.confirmPassword}
                             />
                             <Button
+                                type="submit"
                                 disabled={!(isValid)}
                                 showLoader={showLoader}
                                 label="Confirm"
