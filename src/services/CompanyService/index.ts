@@ -50,6 +50,7 @@ export const updateCompanyProfile = async (values: {
   industry: string;
   pincode: number;
   province: string;
+  profileImage: string;
 }) => {
   try {
     const response: any = await services.put(
@@ -66,10 +67,11 @@ export const updateCompanyProfile = async (values: {
         industry: values?.industry,
         pincode: values?.pincode,
         province: values?.province,
+        companyProfileImage: values?.profileImage,
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast("Your company details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
@@ -111,7 +113,7 @@ export const inviteColleague = async (values: {
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast("Your new colleague has been added successfully", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
@@ -132,9 +134,9 @@ export const updateColleague = async (values: {
   notification: string;
   type: number;
   companyId: number;
+  profileImage: string;
 }) => {
   try {
-    console.log(values);
     const response: any = await services.put(
       `business/inviteColleague/${values.inviteId}`,
       {
@@ -148,10 +150,14 @@ export const updateColleague = async (values: {
         companyId: values?.companyId,
         notification: values?.notification,
         type: values?.type,
+        profileImage: values?.profileImage,
       },
       "user_cr"
     );
-    showToast(response?.data?.message, "success");
+    showToast(
+      "Your colleague details has been updated successfully",
+      "success"
+    );
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");

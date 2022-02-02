@@ -2,7 +2,7 @@ import { Box, FormControl } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import styled, { css } from "styled-components";
-import { SmallLabel } from "../Typography/Typography";
+import { H4 } from "../Typography/Typography";
 
 interface SelectContainerType {
   disabled?: boolean;
@@ -11,25 +11,34 @@ export const ComponentContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
-`;
-export const SmallLabeltext = styled(SmallLabel)`
-  color: #878787;
-  margin: 0;
-  width: 85%;
-  min-width: 80%;
-  white-space: break-spaces;
+  margin-bottom:16px;
 `;
 
-export const MenuLabel = styled(SmallLabel)`
+interface StyledProps {
+	isNoSubtitle?: boolean;
+}
+
+
+export const SmallLabeltext = styled(H4)<StyledProps>`
+  display: ${props => props.isNoSubtitle ? 'none' : ''};
+  color: #878787;
+  margin: 0;
+  min-width: 80%;
+  white-space: break-spaces;
+  @media (max-width: 600px) {
+ display:none;
+  }
+`;
+
+export const MenuLabel = styled(H4)`
   color: #414141;
   margin: 0;
-  min-width: 13%;
+  width: 100%;
   white-space: break-spaces;
 `;
 
 export const MenuIcon = styled(Box)`
-  min-width: 4%;
+  min-width: 40px;
   display:flex;
   align-items:center;
 `;
@@ -39,6 +48,10 @@ export const SelectBoxStyle = styled(FormControl)`
   width: 100% !important;
   margin-bottom:16px !important;
   
+  .title{
+margin:0;
+  }
+
   .MuiAutocomplete-endAdornment,
   .MuiSelect-icon {
     display: none;
@@ -48,7 +61,7 @@ export const SelectBoxStyle = styled(FormControl)`
   }
 
   .MuiSelect-select.MuiSelect-select {
-    padding: 12px 8px !important;
+    padding: 12px 5px !important;
     border-radius: 4px !important;
     border: 1px solid #c4c4c4 !important;
     height: 42px;
@@ -78,7 +91,7 @@ export const SelectBoxStyle = styled(FormControl)`
     line-height: 19px;
     color: #343434 !important;
     font-family: "Roboto";
-    margin-bottom: 8px;
+    margin-top:8px;
   }
   .MuiFormHelperText-root {
     color: #c94c43;
@@ -121,24 +134,24 @@ export const SelectContainer = styled.div<SelectContainerType>`
     height: 42px;
     align-items: flex-start;
     display: flex;
-    padding: 4px;
+    padding: 12px 5px;
     border-radius: 4px;
     border: 1px solid #C4C4C4;
     cursor:pointer;
     align-items: center ;
-    font-size: 20px;
     box-sizing:border-box;
+    margin-bottom:6px;
     ${(props) =>
       props.disabled &&
       css`
-        background-color: #c4c4c4;
+        background-color: #ddd;
       `}
  }
 `;
 export const CustomSelect = styled.select`
   outline: none;
   border: none;
-  background-color: white;
+  background-color: #fff;
   width: 100%;
 `;
 export const useStyles = makeStyles((theme: Theme) =>
@@ -150,7 +163,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       textAlign: "initial",
       color: "#C4C4C4",
-      fontSize: 16,
     },
   })
 );

@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { Card } from "app/components/Card";
 import { CategoryProgressCard } from "app/components/Cards";
 import { ChartDashboard, DoghnutChart } from "app/components/Chart";
@@ -7,18 +7,17 @@ import Paper from "@material-ui/core/Paper";
 import { useEffect, useState } from "react";
 // import { ProgressCardData } from "../../helper";
 import {
-  ChartStyle,
   Deliveries,
-  CardContainer,
   SpentByCategory,
-  DashboardCardContainer,
 } from "./styles";
 import ModuleContainer from "app/components/ModuleContainer";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2, H3 } from "app/components/Typography/Typography";
 // import { DUMMY_CHART } from "./helper";
 import { InnerContainer } from "app/components/ModuleContainer/style";
 import { getDashboardDetails } from "../../../../../services/DashboardService";
 import CountUp from "react-countup";
+import { PaperBox } from "app/components/Card/style";
+import NullState from "app/components/NullState/NullState";
 
 const Dashboard = ({ path: string }) => {
   const [dashboard, setDashboard] = useState<any>({});
@@ -98,10 +97,11 @@ const Dashboard = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle title="Dashboard" />
-      <InnerContainer>
-        <DashboardCardContainer>
-          <CardContainer>
+      <H2 title="Dashboard" />
+   
+      <Box mt={3}>
+        <Grid container spacing={2}>
+        <Grid item sm={4} xs={12}>
             <Card
               title="Pending Orders"
               numberValue={
@@ -112,8 +112,9 @@ const Dashboard = ({ path: string }) => {
               label="4% more than last Month"
               onClick={() => {}}
             />
-          </CardContainer>
-          <CardContainer>
+          </Grid>
+          
+        <Grid item sm={4} xs={12}>
             <Card
               title="In Progress Orders"
               numberValue={
@@ -123,10 +124,12 @@ const Dashboard = ({ path: string }) => {
               }
               label="4% more than last Month"
               onClick={() => {}}
-              type="secondary"
+              isOrangeBox={true}
             />
-          </CardContainer>
-          <CardContainer>
+          </Grid>
+
+          
+        <Grid item sm={4} xs={12}>
             <Card
               title="Completed Orders"
               numberValue={
@@ -143,11 +146,10 @@ const Dashboard = ({ path: string }) => {
               label="4% more than last Month"
               onClick={() => {}}
             />
-          </CardContainer>
-        </DashboardCardContainer>
+          </Grid>
 
-        <ChartStyle>
-          <Paper style={{ backgroundColor: "white" }}>
+          <Grid item sm={12} xs={12}>
+            <PaperBox>
             <ChartDashboard
               marketPriceNumber={
                 dashboard.total || dashboard.total === 0 ? dashboard.total : "-"
@@ -168,28 +170,41 @@ const Dashboard = ({ path: string }) => {
               chartSeries={chartData}
               chartData={dashboard.duration}
             />
-          </Paper>
-        </ChartStyle>
+            </PaperBox>
+            </Grid>
 
-        <div style={{ display: "flex", width: "100%", alignItems: "baseline" }}>
-          <SpentByCategory>
-            <CategoryProgressCard contents={progressCardDataTwo} />{" "}
-          </SpentByCategory>
 
-          {dashboard.completed && dashboard.pending ? (
-            <Deliveries>
-              <DoghnutChart
-                title="Deliveries"
+
+            <Grid item sm={7} xs={12}>
+            <PaperBox>
+              <CategoryProgressCard contents={progressCardDataTwo} />
+          </PaperBox>
+            </Grid>
+
+            
+            <Grid item sm={5} xs={12}>
+            <PaperBox>
+            <H3 text="Deliveries"  />
+           {dashboard.completed && dashboard.pending ? 
+             ( <DoghnutChart
                 onTimePercentage={+onTime.toFixed(2)}
                 delayedPercentage={+delayed.toFixed(2)}
                 doghnutData={series}
-              />{" "}
-            </Deliveries>
+              />
           ) : (
-            ""
-          )}
-        </div>
-      </InnerContainer>
+            <NullState />
+          )} 
+          </PaperBox>
+            </Grid>
+          </Grid>
+
+          </Box>
+
+      
+      
+
+        
+  
     </ModuleContainer>
   );
 };

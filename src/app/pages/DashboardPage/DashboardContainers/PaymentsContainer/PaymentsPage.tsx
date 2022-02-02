@@ -1,29 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ModuleContainer from "app/components/ModuleContainer";
-import { Box, Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { Button } from "app/components/Buttons";
 import PaymentCardContainer from "./PaymentsCardContainer";
 import { masterCard, scotiaBank } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
-import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
 import AddCardForm from "./AddCardForm";
-
-const individualCardData = [
-  {
-    name: "John Doe",
-    type: masterCard,
-    cardNumber: "**** **** **** 1734",
-    expiryDate: "05/24",
-  },
-  {
-    name: "John Doe",
-    type: scotiaBank,
-    cardNumber: "**** **** **** 1734",
-    expiryDate: "05/24",
-  },
-];
+import { H2 } from "app/components/Typography/Typography";
+import { navigate } from "@reach/router";
+import PaymentCardSkeleton from "app/components/PaymentCard/PaymentCardSkeleton";
 
 export default function PaymentsPage({ path: string }) {
   const initialState = {
@@ -40,7 +27,7 @@ export default function PaymentsPage({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cardDetails, setCardDetails] = useState(initialState);
   const cardsData = useSelector(
-    (state: any) => state.paymentCard.paymentCardsData
+    (state: any) => state.paymentCard
   );
 
   useEffect(() => {
@@ -62,10 +49,17 @@ export default function PaymentsPage({ path: string }) {
     dispatch(actions.addNewCard(body));
     setDrawerOpen(false);
   };
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
 
+  if([4].indexOf(authUser?.roleId) === -1) {
+    navigate(' /non-authorized-page')
+  }
   return (
     <ModuleContainer>
-      <Box textAlign="right">
+      <Box display="flex" justifyContent="space-between">
+      <H2 title="Cards"  />
         <Button
           label="+ Add New Card"
           size="small"
@@ -74,7 +68,12 @@ export default function PaymentsPage({ path: string }) {
           }}
         />
       </Box>
-      <PaymentCardContainer  individualCardData={cardsData?.card} />
+
+      { cardsData.showLoader ?
+        <PaymentCardSkeleton />
+      :  
+      <PaymentCardContainer  individualCardData={cardsData.paymentCardsData?.card} />
+      }
 
       <Drawer
         open={drawerOpen}

@@ -1,16 +1,47 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { dropdown, settings } from "app/assets/Icons";
-import { Avatar, Menu, MenuItem } from "@material-ui/core";
-import { AppbarContainer } from "./style";
+/* eslint-disable no-debugger */
+import React, { useEffect, useState } from "react";
+import { dropdown, logo, settings } from "app/assets/Icons";
+import {
+  Avatar,
+  Box,
+  IconButton,
+  ListItem,
+  Menu,
+  MenuItem,
+} from "@material-ui/core";
+import {
+  AppbarContainer,
+  LeftBox,
+  MenuLinks,
+  ProfileBox,
+  ProfileMenu,
+  RightBox,
+} from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "types";
-import { useState } from "react";
 import { navigate } from "@reach/router";
-import { useEffect } from "react";
 import services from "services";
 import { PERMISSION_TYPES } from "../../../constants";
+import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/Close";
+import {
+  ChildLink,
+  CustomListItem,
+  SidebarLogo,
+} from "app/pages/DashboardPage/DashboardComponents/style";
+import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
+import { H4, H5 } from "../Typography/Typography";
+import { dashboardHelper } from "app/pages/DashboardPage/helper";
+import { Link } from "app/pages/DashboardPage/type";
+import { LeftDashboard } from "app/pages/DashboardPage/DashboardComponents";
+
+import { globalActions } from "store/reducers/GlobalReducer";
 
 export default function Appbar() {
+  const [menuVisibility, setMenuVisibility] = React.useState(false);
+  const [link, setLink] = useState("");
+  const [showMenu, setShowMenu] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   // const [profileImage, setProfileImage] = useState(null);
   const pathname = window?.location?.pathname;
@@ -47,6 +78,7 @@ export default function Appbar() {
     const { id } = e.target;
     if (id === "logout") {
       dispatch({ type: "LOGOUT_USER" });
+      dispatch(globalActions.showLoader(false));
       services.removeToken();
       setTimeout(() => {
         navigate("/");
@@ -61,58 +93,89 @@ export default function Appbar() {
   return (
     <>
       <AppbarContainer>
-        {pathname.includes("/order-summary") && (
-          <h3
-            style={{
-              marginRight: "auto",
-              paddingLeft: "32px",
-              fontSize: "24px",
+
+        <LeftBox>
+          <SidebarLogo>
+            <img src={logo} alt="logo" />
+          </SidebarLogo>
+          {pathname.includes("/order-summary") && (
+            <h3
+              style={{
+                marginRight: "auto",
+                paddingLeft: "32px",
+                fontSize: "24px",
+              }}
+            >
+              Order Confirmation
+            </h3>
+          )}
+        </LeftBox>
+
+        <RightBox>
+          <ProfileBox>
+            <H4 text={user?.firstName} className="profilename" />
+            <H5
+              className="designation"
+              text={
+                user?.roleId
+                  ? getRole(user?.roleId)?.[0]?.label
+                  : getRole(4)?.[0]?.label
+              }
+            />
+          </ProfileBox>
+
+          <Avatar
+            alt="profile picture"
+            src={user?.profileImage}
+            className="avatar"
+          />
+
+          <ProfileMenu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
             }}
           >
-            Order Confirmation
-          </h3>
-        )}
-        <img
-          style={{ width: "1.5rem", cursor: "pointer" }}
-          src={settings}
-          alt="settings"
-        />
-        <div style={{ textAlign: "right", marginLeft: "1rem" }}>
-          <h5 style={{ margin: 0 }}>{user?.firstName}</h5>
-          <span style={{ fontSize: "14px", color: "#343434" }}>
-            {user?.roleId
-              ? getRole(user?.roleId)?.[0]?.label
-              : getRole(4)?.[0]?.label}
-          </span>
-        </div>
-        <Avatar
-          style={{ margin: "1rem 1rem 1rem 1rem" }}
-          alt="dummy avatar"
-          src={user?.profileImage}
-        />
+            <MenuItem onClick={profileHandler}>Profile</MenuItem>
+            {[4].indexOf(user?.roleId) !== -1 && (
+              <MenuItem onClick={accountHandler}>My account</MenuItem>
+            )}
+            <MenuItem id={"logout"} onClick={handleClose}>
+              Logout
+            </MenuItem>
+          </ProfileMenu>
 
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem onClick={profileHandler}>Profile</MenuItem>
-          <MenuItem onClick={accountHandler}>My account</MenuItem>
-          <MenuItem id={"logout"} onClick={handleClose}>
-            Logout
-          </MenuItem>
-        </Menu>
-        <img
-          style={{ margin: "1rem 2rem 1rem 0rem", cursor: "pointer" }}
-          src={dropdown}
-          alt="dropdown"
-          aria-describedby={id}
-          onClick={handleClick}
-        />
+          <img
+            src={dropdown}
+            alt="dropdown"
+            aria-describedby={id}
+            onClick={handleClick}
+            className="drodwonicon"
+          />
+
+          <IconButton
+            className="menuicon"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={() => setMenuVisibility((previous) => !previous)}
+          >
+            {menuVisibility ? <CloseIcon /> : <MenuIcon />}
+          </IconButton>
+
+          <MenuLinks display={menuVisibility ? "block" : "none"}>
+            <LeftDashboard
+              onDrawerItemSelect={(id) => {
+                navigate?.(id);
+                setLink(id);
+                setMenuVisibility(false);
+              }}
+            />
+          </MenuLinks>
+        </RightBox>
       </AppbarContainer>
     </>
   );

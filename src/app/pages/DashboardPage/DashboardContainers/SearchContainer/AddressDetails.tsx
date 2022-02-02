@@ -1,11 +1,12 @@
 import { Card, Grid } from "@mui/material";
-import { FormContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 
 export const AddressDetails = ({ addressDetails, title, label }) => {
   return (
     <div>
       <Card style={{ marginTop: "20px", padding: "10px" }}>
-        <FormContainerTitle>{title}</FormContainerTitle>
+        <H2 title={title} />
+        
         <Grid container spacing={3}>
           <Grid item xs={3}>
             <div className="label">Type</div>

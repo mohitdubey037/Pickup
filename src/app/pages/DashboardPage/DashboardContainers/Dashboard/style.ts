@@ -7,11 +7,11 @@ export const CardContainer = styled.div`
     border-radius: 8px;
 `
 
-export const GeneralTypo = styled.h2`
+export const GeneralTypo = styled.p`
     margin: 0;
 `
 
-export const GeneralTypoheading = styled.h3`
+export const GeneralTypoheading = styled.p`
     margin: 0;
 `
 export const GeneralTypolabel = styled.p`

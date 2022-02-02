@@ -1,23 +1,36 @@
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
-// import { passwordSchema } from "./passwordSchema";
-import { COUNTRY_TEXT, INDUSTRY_TEXT } from "../../../../../constants";
+import {
+  // COUNTRY_TEXT,
+  INDUSTRY_TEXT,
+  IMAGE_FILE_TYPES,
+} from "../../../../../constants";
 import Select from "app/components/Select";
 import { editCompanySchema } from "./CompanyProfileSchema";
-import { useEffect, useState } from "react";
-import { ColleagueDetailsType } from "./types";
-import { Avatar, Box, Grid } from "@material-ui/core";
-import { COUNTRY, INDUSTRY } from "../../../../../constants";
+import { Box, Grid } from "@material-ui/core";
 import { DrawerFooter } from "app/components/Drawer/style";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import EditAvatar from "app/components/Avatar/EditAvatar";
+import { showToast } from "utils";
+import { imageUploadService } from "services/SingleShipmentServices";
+
+const pinCodeMask = [
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+];
 
 const EditCompanyDetailsForm = ({
   title = "",
   setCompanyDrawerOpen,
   companyDetails,
   saveAction,
-  enableSave = false,
+  // enableSave = false,
   submitButtonLabel = "Save",
 }) => {
   const {
@@ -31,6 +44,7 @@ const EditCompanyDetailsForm = ({
     isValid,
   } = useFormik({
     initialValues: {
+      profileImage: companyDetails?.companyProfileImage || "",
       companyName: companyDetails?.companyName || "",
       businessNumber: companyDetails?.businessNumber || "",
       industry: companyDetails?.industry || "",
@@ -46,13 +60,27 @@ const EditCompanyDetailsForm = ({
     validationSchema: editCompanySchema,
     onSubmit: (values) => saveAction(values),
   });
-  // useEffect(() => {
-  //   console.log("touched", touched);
-  //   console.log("errors", errors);
-  // }, [touched, errors]);
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
+
+  const changeHandler = async (e) => {
+    const formData = new FormData();
+    const image = e?.target?.files[0];
+    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
+      showToast(
+        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
+        "error"
+      );
+      return;
+    }
+    formData.append("document", image, image?.name);
+    const res: { response: any; error: any } = await imageUploadService(
+      formData
+    );
+    if (res.error) {
+      showToast(res.error.message, "error");
+    } else {
+      setFieldValue("profileImage", res?.response?.data?.data || "");
+    }
+  };
 
   const handler = (value) => {
     if (
@@ -92,14 +120,7 @@ const EditCompanyDetailsForm = ({
   return (
     <>
       <Box display="flex" justifyContent="center">
-        <Avatar
-          style={{
-            width: 86,
-            height: 86,
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        ></Avatar>
+        <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
       </Box>
       <Input
         id="companyName"
@@ -119,7 +140,7 @@ const EditCompanyDetailsForm = ({
         label={"Address Line 1"}
         value={values.address1}
         error={touched.address1 && errors?.address1?.toString()}
-        placeholder={"Start typing"}
+        placeholder={"Address Line 1"}
         setFieldValue={setFieldValue}
         onChange={handleChange}
         handleBlur={handleBlur}
@@ -137,7 +158,7 @@ const EditCompanyDetailsForm = ({
         required={true}
         error={touched.address2 && errors?.address2?.toString()}
         label="Address Line 2"
-        placeholder={"123 Avebue"}
+        placeholder={"123 Avenue"}
       />
       <Grid container spacing={2}>
         <Grid item xs={6}>
@@ -227,9 +248,14 @@ const EditCompanyDetailsForm = ({
         error={touched.pincode && errors?.pincode?.toString()}
         label="Pincode"
         placeholder={"554787"}
+        type="mask"
+        maskProps={{
+          mask: pinCodeMask,
+          maskPlaceholder: null,
+        }}
       />
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item sm={6} xs={12}>
           <Select
             id="industry"
             name="industry"
@@ -240,7 +266,7 @@ const EditCompanyDetailsForm = ({
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item sm={6} xs={12}>
           <Input
             id="employeeStrength"
             name="employeeStrength"
@@ -248,7 +274,6 @@ const EditCompanyDetailsForm = ({
             initValue={values.employeeStrength}
             onBlur={handleBlur}
             onChange={handleChange}
-            required={true}
             error={
               touched.employeeStrength && errors?.employeeStrength?.toString()
             }
@@ -263,13 +288,13 @@ const EditCompanyDetailsForm = ({
           size="medium"
           onClick={() => setCompanyDrawerOpen(false)}
           label="Cancel"
-        ></Button>
+        />
         <Button
           size="medium"
           label={submitButtonLabel}
           onClick={handleSubmit}
           disabled={!isValid}
-        ></Button>
+        />
       </DrawerFooter>
     </>
   );

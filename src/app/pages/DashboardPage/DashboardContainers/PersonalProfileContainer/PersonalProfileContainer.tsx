@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 import { useSelector, useDispatch } from "react-redux";
 import { Drawer } from "app/components/Drawer";
 import ModuleContainer from "app/components/ModuleContainer";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 import PersonalProfile from "./PersonalProfile";
 import { AuthUser } from "types";
 import ChangePasswordForm from "./ChangePasswordForm";
@@ -72,9 +72,13 @@ export default function PersonalProfileContainer({ path: string }) {
     }
   };
 
+  useEffect(() => {
+    console.log(personalProfileDetails);
+  },[personalProfileDetails])
+
   return (
     <ModuleContainer>
-      <ContainerTitle title="Personal Profile" />
+      <H2 title="Personal Profile" />
       {loading ? (
         <PersonalProfileSkeleton />
       ) : (

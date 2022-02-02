@@ -1,37 +1,31 @@
 import React from 'react'
 import { FormContainer } from 'app/components/ModuleContainer/style'
 import ModuleContainer from 'app/components/ModuleContainer'
-import { ContainerTitle, FormContainerTitle } from 'app/components/Typography/Typography'
+import { H2 } from 'app/components/Typography/Typography'
 import ChildAccountForm from './ChildAccountForm'
 import AdminDetails from './AdminDetails'
 import Cards from './Cards'
 export default function ChildAccount({path:string}) {
     return (
         <ModuleContainer>
-        <ContainerTitle title="Create New Child" />
+        <H2 title="Create New Child" />
         
         <FormContainer elevation={2}>
-            <FormContainerTitle>
-            Create Child
-            </FormContainerTitle>
+            <H2 title="Create Child" />
             <div style={{ marginBottom: "30px" }}>
                 <ChildAccountForm />
                 
             </div>
         </FormContainer>
         <FormContainer elevation={2}>
-            <FormContainerTitle>
-            Admin Details
-            </FormContainerTitle>
+            <H2 title="Admin Details" />
             <div style={{ marginBottom: "30px" }}>
                 <AdminDetails />
                 
             </div>
         </FormContainer>
         <FormContainer elevation={2}>
-            <FormContainerTitle>
-            Cards
-            </FormContainerTitle>
+            <H2 title="Cards" />
             <div style={{ marginBottom: "30px" }}>
                 <Cards title={"Method of Payment"} />
                 

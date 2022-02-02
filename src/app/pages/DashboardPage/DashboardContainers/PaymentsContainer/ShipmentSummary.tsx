@@ -141,7 +141,13 @@ function ShipmentSummary({ path }: { path: string }) {
     const onBackHandler = () => {
         navigate?.("/dashboard/charter-shipment/order-summary");
     }
-
+    const authUser = useSelector((state: any) => {
+        return state.auth?.user;
+      });
+    
+      if([1,2,3,4].indexOf(authUser?.roleId) === -1) {
+        navigate(' /non-authorized-page')
+      }
     return (
         <ModuleContainer>
             <div>

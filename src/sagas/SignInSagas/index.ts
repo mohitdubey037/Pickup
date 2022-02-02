@@ -58,7 +58,7 @@ function* resetPasswordWorker(action) {
   try {
     yield put(globalActions.showLoader(true));
     const res = yield call(resetPasswordService, action.resetPassword);
-
+    console.log(res, 'sagas');
     yield put(actions.resetPasswordResponse(res));
     yield put(globalActions.showLoader(false));
   } catch (err: any) {

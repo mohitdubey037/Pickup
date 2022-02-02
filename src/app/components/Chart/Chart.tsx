@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactApexChart from 'react-apexcharts';
-import { CardContainer, GeneralTypo, GeneralTypoheading, GeneralTypolabel, LabelContainer } from './style'
+import { CardContainer} from './style'
 import { AreaChartOptions } from './helper'
 import { arrowUp } from 'app/assets/Icons'
-import { Grid } from '@material-ui/core'
+import { Box, Grid } from '@material-ui/core'
+import { H2, H3, H5 } from '../Typography/Typography';
 
 interface ChartProps{
     marketPriceNumber : number;
@@ -20,34 +21,30 @@ interface ChartProps{
 const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice, spentNumber, labelSpentNumber, savedNumber, labelSavedNumber, chartData, chartSeries})=>{
     return (
         <CardContainer>
-            <Grid container>
-                <Grid item lg={3} style={{textAlign:'left'}}>
-                    <div style={{marginBottom:'0.5rem'}}>
-                        <GeneralTypoheading>Market Price</GeneralTypoheading>
-                        <GeneralTypo style={{color:'#F99746',letterSpacing:1}}>$ {marketPriceNumber}</GeneralTypo>
-                        <LabelContainer>
-                            <img src={arrowUp}/>
-                            <GeneralTypolabel>{labelMarketPrice}</GeneralTypolabel>
-                        </LabelContainer>
-                    </div>
-                    <div style={{marginBottom:'0.5rem'}}>
-                        <GeneralTypoheading>You Spent</GeneralTypoheading>
-                        <GeneralTypo style={{color:'#2FC87F',letterSpacing:1}}>$ {spentNumber}</GeneralTypo>
-                        <LabelContainer>
-                            <img src={arrowUp}/>
-                            <GeneralTypolabel>{labelSpentNumber}</GeneralTypolabel>
-                        </LabelContainer>
-                    </div>
-                    <div>
-                        <GeneralTypoheading>You Saved</GeneralTypoheading>
-                        <GeneralTypo style={{color:'#1B8AF0',letterSpacing:1}}>$ {savedNumber}</GeneralTypo>
-                        <LabelContainer>
-                            <img src={arrowUp}/>
-                            <GeneralTypolabel>{labelSavedNumber}</GeneralTypolabel>
-                        </LabelContainer>
-                    </div>
+            <Grid container spacing={2}>
+                <Grid item sm={4} lg={2} xs={12}>
+                        <H3 text="Market Price" />
+                        <H2 title={`${marketPriceNumber}`} className='markerprice count' />
+                        <Box display="flex" mb={2.5}>
+                            <img src={arrowUp} alt="" className='icon' />
+                            <H5 text={labelMarketPrice} />
+                        </Box>
+                        
+                        <H3 text="You Spent" />
+                        <H2 title={`${spentNumber}`} className='spentNumber count' />
+                        <Box display="flex" mb={2.5}>
+                            <img src={arrowUp} alt="" className='icon'  />
+                            <H5 text={labelSpentNumber} />
+                        </Box>
+                        
+                        <H3 text="You Saved" />
+                        <H2 title={`${savedNumber}`} className='savedNumber count' />
+                        <Box display="flex">
+                            <img src={arrowUp} alt="" className='icon' />
+                            <H5 text={labelSavedNumber} />
+                        </Box>
                 </Grid>
-                <Grid item lg={9}>
+                <Grid item sm={8} lg={10} xs={12}>
                     <ReactApexChart
                         options={{
                             stroke: {
@@ -94,7 +91,7 @@ const ChartDashboard:React.FC<ChartProps>=({marketPriceNumber, labelMarketPrice,
                           }}
                         series={chartSeries || []}
                         type="area"
-                        height={250}
+                        height={280}
                       />
                 </Grid>
             </Grid>

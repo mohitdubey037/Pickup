@@ -1,11 +1,8 @@
 import { Input } from "app/components/Input";
-import { Flex } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 import { personalFormSchema } from "./personalFormSchema";
-import { useSelector } from "react-redux";
-import { AuthUser } from "types";
-import { PERMISSION_TYPES } from "../../../../../constants";
+import { PERMISSION_TYPES, IMAGE_FILE_TYPES } from "../../../../../constants";
 import Select from "app/components/Select";
 
 import { imageUploadService } from "services/SingleShipmentServices";
@@ -14,7 +11,9 @@ import { Avatar, Box } from "@material-ui/core";
 import { DrawerFooter } from "app/components/Drawer/style";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { PersonalProfileType } from "./types";
-
+import { useState } from "react";
+import { Drawer } from "app/components/Drawer";
+import EmailSentDrawer from "./EmailSentDrawer";
 interface EditPersonalInterface {
   personalProfileDetails: PersonalProfileType;
   setEditDetailsDrawerOpen: (value: boolean) => void;
@@ -24,6 +23,17 @@ interface EditPersonalInterface {
 const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
   const { personalProfileDetails, setEditDetailsDrawerOpen, saveAction } =
     props;
+
+    const [emailSentDrawerOpen, setEmailSentDrawerOpen] = useState(false);
+
+    
+    const handleOpenDrawer = () => {
+      setEmailSentDrawerOpen(true);
+    };
+    const handleCloseDrawer  = () => {
+      setEmailSentDrawerOpen(false);
+    };
+
 
   const {
     values,
@@ -51,19 +61,24 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
   const changeHandler = async (e) => {
     const formData = new FormData();
     const image = e?.target?.files[0];
-
+    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
+      showToast(
+        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
+        "error"
+      );
+      return;
+    }
     formData.append("document", image, image?.name);
-
     const res: { response: any; error: any } = await imageUploadService(
       formData
     );
-
     if (res.error) {
       showToast(res.error.message, "error");
     } else {
       setFieldValue("profileImage", res?.response?.data?.data || "");
     }
   };
+
   return (
     <>
       <Box display="flex" justifyContent="center">
@@ -109,6 +124,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         value={values.phone}
         error={touched.phone && errors.phone}
         label="Phone Number"
+        placeholder="+1 (999)-999-9999"
         required={true}
       />
       <Input
@@ -149,14 +165,33 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
           onClick={() => setEditDetailsDrawerOpen(false)}
           label="Cancel"
           size="medium"
-        ></Button>
+        />
         <Button
           label={"Save"}
           onClick={handleSubmit}
           disabled={!isValid}
           size="medium"
-        ></Button>
+        />
+        {/* <Button
+          label="sent"
+          size="small"
+          onClick={() => handleOpenDrawer()}
+        /> */}
       </DrawerFooter>
+
+      
+      {emailSentDrawerOpen &&
+      <Drawer
+        open={emailSentDrawerOpen}
+        setDrawerOpen={() => setEmailSentDrawerOpen(false)}
+        title="Edit Colleague Details"
+        closeIcon={true}
+      >
+        <EmailSentDrawer
+        />
+      </Drawer>
+      }
+
     </>
   );
 };

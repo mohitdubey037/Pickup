@@ -1,8 +1,8 @@
 import { navigate } from "@reach/router";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
 import store from "store/configureStore";
+import { showToast } from "utils";
 
 import {
   BASE_URL,
@@ -56,11 +56,10 @@ class Service {
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
-            console.log({ err });
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               if (err.response.status === 401) {
-                toast.error(err?.response?.data?.message);
+                showToast(err?.response?.data?.message, "error");
                 store.dispatch({ type: "LOGOUT_USER" });
                 this.removeToken();
                 navigate("/");
@@ -70,8 +69,10 @@ class Service {
                 message: errResponse?.data?.message || errResponse?.message,
               });
             }
+            showToast("Something went wrong", "error");
           });
       } catch (err) {
+        showToast("Something went wrong", "error");
         return reject(err);
       }
     });
@@ -104,7 +105,7 @@ class Service {
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
-            console.log({ err });
+            // showToast(err?.response?.data?.message, "error");
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               const errorMessage = errResponse?.data?.message?.message
@@ -121,7 +122,7 @@ class Service {
       }
     });
   };
-  
+
   postImage = (
     url: string,
     params: {},
@@ -135,21 +136,16 @@ class Service {
 
       try {
         axios
-          .post(
-            `${baseUrl}${url}`,
-            params,
-            {
-              headers: {
-                Authorization: `${token ? "Bearer " + token : localToken}`,
-                ...header,
-              },
-            }
-          )
+          .post(`${baseUrl}${url}`, params, {
+            headers: {
+              Authorization: `${token ? "Bearer " + token : localToken}`,
+              ...header,
+            },
+          })
           .then((res) => {
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
-            console.log({ err });
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               const errorMessage = errResponse?.data?.message?.message
@@ -192,7 +188,6 @@ class Service {
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
-            console.log({ err });
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               const errorMessage = errResponse?.data?.message?.message
@@ -210,7 +205,7 @@ class Service {
     });
   };
 
-  delete = async (url: string, body={}, type: RequestType = "base") => {
+  delete = async (url: string, body = {}, type: RequestType = "base") => {
     return new Promise((resolve, reject) => {
       const localToken = this.getToken();
       const baseUrl = MODULE_URL_MAP[type];
@@ -218,9 +213,9 @@ class Service {
       try {
         axios
           .delete(`${baseUrl}${url}`, {
-              data: {
-                ...body
-              },
+            data: {
+              ...body,
+            },
             headers: {
               Authorization: `${localToken}`,
             },
@@ -229,7 +224,6 @@ class Service {
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
-            console.log({ err });
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               if (err.response.status === 401) {
@@ -274,7 +268,6 @@ class Service {
             return resolve({ data: res.data, status: res.status });
           })
           .catch((err) => {
-            console.log({ err });
             if (err.isAxiosError && err.response) {
               const errResponse = err.response;
               const errorMessage = errResponse?.data?.message?.message

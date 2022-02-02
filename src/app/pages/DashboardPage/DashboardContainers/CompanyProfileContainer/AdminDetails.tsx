@@ -1,70 +1,76 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
+
+import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { FullCard } from "app/components/Input/style";
 import {
-  ListLabel,
+  H3,
   Para,
-  SmallLabel,
+  H4,
 } from "app/components/Typography/Typography";
 import { FlexGrid } from "./style";
-import { AdminDetailsType } from "./types";
+import { ADMIN_DETAILS_PERMISSION_TYPES } from "../../../../../constants";
 
-interface DetailInterface {
-  AdminDetails: AdminDetailsType;
-}
+export default function AdminDetails(props: any) {
+  const { AdminDetails, user } = props;
 
-export default function AdminDetails(props: DetailInterface) {
-  const { AdminDetails } = props;
   return (
     <>
       <FullCard>
         <Box mb={4}>
-          <ListLabel text="Admin Details" />
+          <H3 text="Admin Details" />
         </Box>
 
-        <Box display="flex" justifyContent="space-between">
+        <FlexBox justifyContent="space-between">
           <Box mr={4}>
-            <Avatar style={{ width: 86, height: 86 }} />
+            <Avatar
+              src={user?.profileImage}
+              style={{ width: 86, height: 86 }}
+            />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="First Name" />
-                <SmallLabel
+                <H4
                   text={AdminDetails?.firstName ? AdminDetails?.firstName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Last Name" />
-                <SmallLabel
+                <H4
                   text={AdminDetails?.lastName ? AdminDetails?.lastName : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Phone Number" />
-                <SmallLabel
+                <H4
                   text={AdminDetails?.phoneNo ? AdminDetails?.phoneNo : "-"}
                   className="value"
                 />
               </Grid>
-              <Grid item lg={2} sm={4}>
+              <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Role/Designation" />
-                <SmallLabel
-                  text={AdminDetails?.role ? AdminDetails?.role : "-"}
+                <H4
+                  text={
+                    AdminDetails?.role
+                      ? ADMIN_DETAILS_PERMISSION_TYPES[AdminDetails.role]
+                      : "-"
+                  }
                   className="value"
                 />
               </Grid>
-              <Grid item lg={4} sm={8}>
+              <Grid item lg={4} sm={8} xs={12}>
                 <Para text="Email Id" />
-                <SmallLabel
+                <H4
                   text={AdminDetails?.emailId ? AdminDetails?.emailId : "-"}
                   className="value"
                 />
               </Grid>
             </Grid>
           </FlexGrid>
-        </Box>
+        </FlexBox>
       </FullCard>
     </>
   );

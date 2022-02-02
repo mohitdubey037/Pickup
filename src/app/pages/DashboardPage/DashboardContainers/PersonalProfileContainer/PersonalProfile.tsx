@@ -1,14 +1,15 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
 import {
-  ListLabel,
+  H3,
   Para,
-  SmallLabel,
+  H4,
 } from "app/components/Typography/Typography";
 import EditIcon from "app/components/EditIcon";
 import { Button } from "../../../../components/Buttons";
 import { FullCard } from "app/components/Input/style";
-import { FlexBox } from "./styles";
+import { FlexTable } from "./styles";
 import { PersonalProfileType } from "./types";
+import { FlexBox } from "app/components/CommonCss/CommonCss";
 interface CardInterface {
   personalProfileDetails: PersonalProfileType;
   setPasswordDrawerOpen: (value: boolean) => void;
@@ -25,58 +26,58 @@ export default function PersonalProfile(props: CardInterface) {
   return (
     <FullCard>
       <Box mb={4} display="flex" justifyContent="space-between">
-        <ListLabel text="Personal Details" />
+        <H3 text="Personal Details" />
         <EditIcon onClick={setEditDetailsDrawerOpen} />
       </Box>
 
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box>
+      <FlexBox>
+        <Box mr={4}>
           <Avatar
             style={{ width: 86, height: 86 }}
             src={personalProfileDetails?.profileImage}
           />
         </Box>
 
-        <FlexBox>
+        <FlexTable>
           <Grid container spacing={2}>
-            <Grid item lg={2} sm={4}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="First Name" />
-              <SmallLabel
+              <H4
                 text={personalProfileDetails?.firstName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={2} sm={4}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Last Name" />
-              <SmallLabel
+              <H4
                 text={personalProfileDetails?.lastName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={2} sm={4}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Phone Number" />
-              <SmallLabel
+              <H4
                 text={personalProfileDetails?.userDetails?.phoneNo || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={3} sm={5}>
+            <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Role/Designation" />
-              <SmallLabel
+              <H4
                 text={personalProfileDetails?.roleName || "-"}
                 className="value"
               />
             </Grid>
-            <Grid item lg={3} sm={7}>
+            <Grid item lg={5} xl={4} sm={8} xs={12}>
               <Para text="Email Id" />
-              <SmallLabel
+              <H4
                 text={personalProfileDetails?.emailId || "-"}
                 className="value"
               />
             </Grid>
           </Grid>
-        </FlexBox>
-
+        </FlexTable>
+      
         <Button
           label="Change Password"
           size="small"
@@ -84,7 +85,7 @@ export default function PersonalProfile(props: CardInterface) {
             setPasswordDrawerOpen(true);
           }}
         />
-      </Box>
+      </FlexBox>
     </FullCard>
   );
 }

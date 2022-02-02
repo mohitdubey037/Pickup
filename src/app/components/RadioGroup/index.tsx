@@ -6,7 +6,7 @@ import {
 } from "@material-ui/core";
 
 import { ErrorLabel, Flex } from "../Input/style";
-import { SmallLabel } from "../Typography/Typography";
+import { H4 } from "../Typography/Typography";
 
 interface RadioOptionItem {
   value: number | string;
@@ -44,7 +44,7 @@ function RadioGroup({
   return (
     <Flex direction={"column"} style={{ alignItems: "start" }}>
 
-      <SmallLabel text={label} />
+      <H4 text={label} />
 
       <Flex style={{ alignItems: "center" }}>
         <Flex>

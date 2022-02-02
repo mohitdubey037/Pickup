@@ -19,9 +19,9 @@ export const cardSchema = yup.object().shape({
         .min(3, "CVC must be atleast 3 digits")
         .max(4),
     nameOnCard: yup.string().required("Name is a required field"),
-    pinCode: yup
-        .string()
-        .required("Pin code is a required field")
-        .min(4, "Pin code must be exactly 4 digits"),
+    // pinCode: yup
+    //     .string()
+    //     .required("Pin code is a required field")
+    //     .min(4, "Pin code must be exactly 4 digits"),
     nickName: yup.string(),
 });

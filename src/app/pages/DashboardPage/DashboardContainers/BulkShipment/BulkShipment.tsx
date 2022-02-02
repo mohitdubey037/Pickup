@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { RouteComponentProps } from "@reach/router";
+import { navigate, RouteComponentProps } from "@reach/router";
 import ModuleContainer from "app/components/ModuleContainer";
 import { FormContainer } from "app/components/ModuleContainer/style";
-import {ContainerTitle,FormContainerTitle} from "app/components/Typography/Typography";
+import {H2} from "app/components/Typography/Typography";
 import { BulkShipmentWrapper, HelperText } from "./style";
 import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
 import { uploadFile } from "utils/commonUtils";
+import { useSelector } from "react-redux";
 
 
-const BulkShipment = ({ navigate }: RouteComponentProps) => {
+const BulkShipment = ({path:string}) => {
   const [error, setError] = useState(false);
   const [processing, setProcessing] = useState(false);
 
@@ -27,11 +28,18 @@ const BulkShipment = ({ navigate }: RouteComponentProps) => {
     setError(false);
   };
 
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
+
+  if([1,2,3,4].indexOf(authUser?.roleId) === -1) {
+    navigate(' /non-authorized-page')
+  }
   return (
     <ModuleContainer>
-      <ContainerTitle title="Bulk order" />
+      <H2 title="Bulk order" />
       <FormContainer elevation={2}>
-        <FormContainerTitle>Bulk order</FormContainerTitle>
+        <H2 title="Bulk order" />
         <BulkShipmentWrapper>
           {!processing && (
             <>

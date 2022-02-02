@@ -1,6 +1,5 @@
 import { Box, Grid } from "@material-ui/core"
 import { Drawer } from "app/components/Drawer"
-import { ContainerTitle } from "app/components/Typography/Typography"
 import { useState } from "react"
 import services from "services";
 import { PaymentCard } from "../../../../components/PaymentCard/index";
@@ -76,9 +75,7 @@ export default function PaymentCardContainer({
   };
 
     return (
-     <Box>
-  
-            <ContainerTitle title="Card"  />
+     <Box mt={3}>
             <Grid container spacing={2}>
                 {individualCardData?.length > 0 ?
                 (individualCardData?.map((value, idx) => (

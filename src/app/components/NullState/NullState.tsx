@@ -5,7 +5,7 @@ import { NullStateBox } from './style';
 
 interface nullStateProps {
 	className?: string;
-	message:string;
+	message?:string;
 }
 const NullState: FC<nullStateProps> = ({ className, message= "No Records Found"}) => {
 	return (

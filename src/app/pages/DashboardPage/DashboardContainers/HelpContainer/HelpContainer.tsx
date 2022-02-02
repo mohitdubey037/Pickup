@@ -1,10 +1,20 @@
+import { navigate } from '@reach/router'
 import { Accordion } from 'app/components/Accordion'
 import { HelpContact } from 'app/components/HelpContact'
 import ModuleContainer from 'app/components/ModuleContainer'
 import { FormContainer } from 'app/components/ModuleContainer/style'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 export default function HelpContainer({path:string}) {
+   
+    const authUser = useSelector((state: any) => {
+        return state.auth?.user;
+      });
+    
+      if([1,2,3,4].indexOf(authUser?.roleId) === -1) {
+        navigate(' /non-authorized-page')
+      }
     return (
         <ModuleContainer>
             <h3 style={{margin:0}}>

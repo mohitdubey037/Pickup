@@ -3,8 +3,7 @@ import ModuleContainer from "app/components/ModuleContainer";
 import { FormContainer } from "app/components/ModuleContainer/style";
 import { remove } from "app/assets/Icons";
 import {
-  ContainerTitle,
-  FormContainerTitle,
+  H2
 } from "app/components/Typography/Typography";
 
 import SingleShipmentDetails from "./SingleShipmentDetails";
@@ -22,6 +21,7 @@ import { actions } from "store/reducers/SingleShipmentReducer";
 import { globalActions } from "store/reducers/GlobalReducer";
 
 function SingleShipment({ path: string }) {
+  
   const dispatch = useDispatch();
 
   const shipmentDetails = useSelector(
@@ -85,11 +85,17 @@ function SingleShipment({ path: string }) {
     orderDetails.splice(index, 1);
     formik.setFieldValue("orders", orderDetails);
   };
-    
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
+
+  if([1,2,3,4].indexOf(authUser?.roleId) === -1) {
+    navigate(' /non-authorized-page')
+  }
   return (
     <ModuleContainer>
       {formik?.values?.orders.length === 1 && (
-        <ContainerTitle title="Single order" />
+        <H2 title="Single order" />
       )}
       {new Array(formik.values.orders.length).fill("").map((_, index) => (
         <>
@@ -119,7 +125,7 @@ function SingleShipment({ path: string }) {
                 <img src={remove} alt="delete" />
               </div>
             )}
-            <FormContainerTitle>Address Details</FormContainerTitle>
+            <H2 text="Address Details" />
             <div style={{ marginBottom: "30px" }}>
               <SingleSipmentForm
                 canBeDisabled
@@ -134,22 +140,13 @@ function SingleShipment({ path: string }) {
                 formik={formik}
               />
 
-              <FormContainerTitle
-                style={{ textAlign: "left", marginTop: "95px" }}
-              >
-                Order Details
-              </FormContainerTitle>
+              <H2 text="Order Details" />
               <SingleShipmentDetails
                 disabled={index > 0}
                 index={index}
                 formik={formik}
               />
-
-              <FormContainerTitle
-                style={{ textAlign: "left", marginTop: "88px" }}
-              >
-                Schedule Order
-              </FormContainerTitle>
+              <H2 text=" Schedule Order" />
               <ScheduleShipmentForm
                 disabled={index > 0}
                 index={index}

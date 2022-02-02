@@ -1,5 +1,5 @@
 import ModuleContainer from "app/components/ModuleContainer";
-import { ContainerTitle } from "app/components/Typography/Typography";
+import { H2 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { Table } from "app/components/Table";
 import Select from "app/components/Select";
@@ -7,6 +7,8 @@ import Select from "app/components/Select";
 import { ReportsTableTop } from "./styles";
 import { reportsTable } from "./helper";
 import { Flex } from "app/components/Input/style";
+import { useSelector } from "react-redux";
+import { navigate } from "@reach/router";
 
 function ReportsContainer({ path: string }) {
   const tableTop = () => {
@@ -24,12 +26,18 @@ function ReportsContainer({ path: string }) {
       </ReportsTableTop>
     );
   };
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
 
+  if([2,3].indexOf(authUser?.roleId) === -1) {
+    navigate(' /non-authorized-page')
+  }
   return (
     <ModuleContainer>
       <Flex>
         <Flex flex={1}>
-          <ContainerTitle title="Reports" />
+          <H2 title="Reports" />
         </Flex>
         <div style={{ width: 300 }}>
           <Select style={{ backgroundColor: "white" }} />

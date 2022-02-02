@@ -1,8 +1,8 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import { DrawerTitle } from "app/components/Typography/Typography";
+import { DrawerHeading } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { FormWrapper, LoginWrapper, LogoImage } from "./style";
+import { FormWrapper, LoginBackgroundWrapper, LoginWrapper, LogoImage } from "./style";
 import { RouteComponentProps } from "@reach/router";
 
 type TokenExpireProps = RouteComponentProps;
@@ -13,6 +13,7 @@ const TokenExpire= ({ navigate }: TokenExpireProps) => {
 }
   return (
     <LoginWrapper>
+      <LoginBackgroundWrapper>
       <LogoImage />
       <FormWrapper style={{ minHeight: "350px" }}>
         <Box
@@ -22,7 +23,7 @@ const TokenExpire= ({ navigate }: TokenExpireProps) => {
           justifyContent="center"
           height="350px"
         >
-          <DrawerTitle title="You have already verified your account." />
+          <DrawerHeading title="You have already verified your account." />
           
           <Button
             type="button"
@@ -33,6 +34,7 @@ const TokenExpire= ({ navigate }: TokenExpireProps) => {
           />
         </Box>
       </FormWrapper>
+      </LoginBackgroundWrapper>
     </LoginWrapper>
   );
 };

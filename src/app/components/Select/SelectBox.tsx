@@ -1,12 +1,12 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
+// import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+// import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { MenuIcon, MenuLabel, SelectBoxStyle, SmallLabeltext } from "./style";
 import { dropdown } from "app/assets/Icons";
 import { ErrorLabel } from "../Input/style";
-import { SmallLabel } from "../Typography/Typography";
+import { H4 } from "../Typography/Typography";
 
 interface SelectOption {
   value: number;
@@ -25,15 +25,16 @@ interface SelectPropTypes {
   disabled?: boolean;
   error: any;
   required?: boolean;
+  isNoSubtitle?: boolean;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  })
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     selectEmpty: {
+//       marginTop: theme.spacing(2),
+//     },
+//   })
+// );
 
 export default function SelectBox(props: SelectPropTypes) {
   const {
@@ -46,20 +47,21 @@ export default function SelectBox(props: SelectPropTypes) {
     required,
     error,
     disabled,
+    isNoSubtitle
   } = props;
 
-  const classes = useStyles();
+  // const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
-  const [age, setAge] = React.useState<any>("");
+  const [age, setAge] = React.useState<any>(value ? value : "");
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setAge(event.target.value as any);
   };
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled) return;
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   if (disabled) return;
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -67,14 +69,14 @@ export default function SelectBox(props: SelectPropTypes) {
 
   const open = Boolean(anchorEl);
   const parentId = open ? "simple-popover" : undefined;
-  const valueLabel: any = value
-    ? options.find((i) => i.value === value)?.title
-    : "Select";
-  options?.map((i) => {
-    if (i.value === value) {
-      // console.log("i.title", i.title);
-    }
-  });
+  // const valueLabel: any = value
+  //   ? options.find((i) => i.value === value)?.title
+  //   : "Select";
+  // options?.map((i) => {
+  //   if (i.value === value) {
+  //     // console.log("i.title", i.title);
+  //   }
+  // });
 
   return (
     <>
@@ -85,7 +87,7 @@ export default function SelectBox(props: SelectPropTypes) {
         >
           {label}
         </InputLabel> */}
-        <SmallLabel text={label} required={required} />
+        <H4 text={label} required={required} className="title"/>
         <Select
           labelId="demo-simple-select-placeholder-label-label"
           id="demo-simple-select-placeholder-label"
@@ -107,7 +109,6 @@ export default function SelectBox(props: SelectPropTypes) {
                   handleClose();
                   onSelect &&
                     onSelect({ target: { value: option.value, id, name } });
-                  // console.log(id, name, option.value);
                 }}
                 key={option?.value}
               >
@@ -115,7 +116,7 @@ export default function SelectBox(props: SelectPropTypes) {
                   <img src={option?.icon} alt="menuicon" />{" "}
                 </MenuIcon>
                 <MenuLabel text={option?.title} />
-                <SmallLabeltext text={option?.subtitle} />
+                <SmallLabeltext text={option?.subtitle} isNoSubtitle={isNoSubtitle} />
               </MenuItem>
             );
           })}

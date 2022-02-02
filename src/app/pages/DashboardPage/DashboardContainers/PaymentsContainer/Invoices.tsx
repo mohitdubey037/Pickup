@@ -5,8 +5,8 @@ import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { ContainerTitle } from "app/components/Typography/Typography";
 import { Drawer } from "app/components/Drawer";
+import { H2 } from "app/components/Typography/Typography";
 import { invoiceTable } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import { InvoicesWrapper, InvoiceTableTop } from "./InvoiceStyle";
@@ -87,7 +87,7 @@ const InvoicesContainer = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <ContainerTitle title="Invoices" />
+      <H2 title="Invoices" />
       <InvoicesWrapper>
         <Input
           id="invoiceNumber"

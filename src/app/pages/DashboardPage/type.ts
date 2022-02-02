@@ -4,7 +4,9 @@ export interface Link {
     link:string
     children?:Link[];
     logo?:any;
-    slug?:any
+    slug?:any;
+    isLogOut?:boolean;
+    access?:number[]
 }
 
 export interface SelectedLink{

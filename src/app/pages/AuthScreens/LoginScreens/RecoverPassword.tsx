@@ -14,7 +14,7 @@ import { actions } from "store/reducers/SignInReducer";
 import { useEffect, useState } from "react";
 import { getParamsFromUrl } from "utils/commonUtils";
 import { verifyToken } from "./helper";
-import { PageTitle } from "app/components/Typography/Typography";
+import { H1 } from "app/components/Typography/Typography";
 import { passwordSchema } from "../SignUpScreens/signUpSchemas";
 
 const RecoverPassword = ({ navigate }: RouteComponentProps) => {
@@ -35,6 +35,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     );
 
     const onResetPassword = async (values: any) => {
+        console.log('hii');
         const requestData: { password: string, token: string } = {
             password: values.password,
             token: jwtToken
@@ -102,7 +103,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                 <LogoImage />
                 <FormWrapper>
                     <FormContent>
-                        <PageTitle title="RECOVER PASSWORD" />
+                        <H1 title="RECOVER PASSWORD" />
                         <PasswordInput
                             id="password"
                             name="password"
@@ -124,7 +125,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                             placeholder="Password"
                             autoComplete="off"
                         />
-                        <Button disabled={!isValid} showLoader={showLoader} label="Confirm" onClick={handleSubmit} size="large" />
+                        <Button type="submit" disabled={!isValid} showLoader={showLoader} label="Confirm" onClick={handleSubmit} size="large" />
                     </FormContent>
                 </FormWrapper>
                 </LoginBackgroundWrapper>
