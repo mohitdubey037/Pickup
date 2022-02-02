@@ -19,7 +19,8 @@ import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { globalActions } from "store/reducers/GlobalReducer";
-import { Box } from "@material-ui/core";
+import { Box, ButtonGroup } from "@material-ui/core";
+import { ButtonsGroup } from "app/components/Buttons/style";
 
 function SingleShipment({ path: string }) {
   
@@ -141,13 +142,13 @@ function SingleShipment({ path: string }) {
                 formik={formik}
               />
 
-              <H2 text="Order Details" />
+              <H3 text="Order Details" />
               <SingleShipmentDetails
                 disabled={index > 0}
                 index={index}
                 formik={formik}
               />
-              <H2 text=" Schedule Order" />
+              <H3 text=" Schedule Order" />
               <ScheduleShipmentForm
                 disabled={index > 0}
                 index={index}
@@ -157,10 +158,7 @@ function SingleShipment({ path: string }) {
         </>
       ))}
 
-      <Flex
-        style={{ marginBottom: 10, padding: "inherit" }}
-        direction={"row-reverse"}
-      >
+      <ButtonsGroup style={{float:'right'}} mb={4} mt={2}>
         {loading && (
           <div
             style={{
@@ -178,14 +176,16 @@ function SingleShipment({ path: string }) {
           disabled={!formik.isValid}
           onClick={formik.handleSubmit}
           showLoader={loading}
+          size="medium"
         />
         <Button
           secondary
           label="Add New Order"
           disabled={!formik.isValid}
           onClick={addMoreItemHandler}
+          size="medium"
         />
-      </Flex>
+      </ButtonsGroup>
     </ModuleContainer>
   );
 }

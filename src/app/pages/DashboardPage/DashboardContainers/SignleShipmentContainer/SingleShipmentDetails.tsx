@@ -5,6 +5,7 @@ import { Flex } from "app/components/Input/style";
 import DetailsForm from "./DetailsForm";
 
 import { shipmentDetailsItemInitValue } from "./helper";
+import { Box } from "@material-ui/core";
 
 function SingleShipmentDetails(props: { formik: FormikValues, index: number, disabled ?: boolean }) {
   const { formik: {values, setFieldValue}, disabled } = props;
@@ -18,24 +19,22 @@ function SingleShipmentDetails(props: { formik: FormikValues, index: number, dis
   };
 
   return (
-    <FormWrapper style={{ width: "100%" }}>
+    <Box mb={5}>
         <DetailsForm
-            disabled={disabled}
+          disabled={disabled}
           formik={props.formik}
           index={props.index}
           noOfItem={singleFormValues.shipmentDetails.length}
         />
       {singleFormValues.categoryId && (
-        <Flex top={20}>
           <Button
             label={"Add More Items"}
             secondary={true}
-            style={{ width: 190 }}
             onClick={addMoreItemHandler}
+            size="medium"
           />
-        </Flex>
       )}
-    </FormWrapper>
+    </Box>
   );
 }
 export default SingleShipmentDetails;

@@ -12,8 +12,9 @@ export const CustomInput = styled(Input)<Props>`
       ? `
      &::after {
     content: "*";
-    color: red;
+    color: #c94c43;
     margin-left: 5px;
+    
   }
   `
       : null};

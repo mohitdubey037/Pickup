@@ -1,5 +1,5 @@
 import { FormikValues } from "formik";
-import { Typography } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 
 import { remove } from "app/assets/Icons"
 
@@ -7,6 +7,8 @@ import { Flex } from "app/components/Input/style";
 import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
 import { WEIGHTDIMENSION, DIMENSION2 } from "../../../../../constants";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import { H4 } from "app/components/Typography/Typography";
 
 function DetailsFormItem(props: { formik: FormikValues; index: number, orderIndex: number, hasDimensions: boolean }) {
     const { handleChange, values, errors, touched, handleBlur } =
@@ -31,20 +33,23 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
     }
 
     return (
-        <div style={{ marginTop: "48px", position: "relative" }}>
+        <>
             {props?.formik?.values?.orders?.[props.orderIndex].shipmentDetails?.length > 1 && (
                 <div role="button" tabIndex={0} onKeyPress={(e) => e.key === "Enter" && deleteItemHandler(index)} onClick={() => deleteItemHandler(index)} style={{ cursor: "pointer", position: 'absolute', top: "20px", right: "20px" }}>
                     <img src={remove} alt="delete" />
                 </div>
             )}
-            <Typography className="typography" variant="h1" component="h3">
-                Item#{index + 1}
-            </Typography>
-            <Flex direction={"column"}>
+
+            <Box mb={6} mt={4}>
+               <H4 text={`Item#${index + 1}`}  />
+             </Box>
+         
                 {props.hasDimensions && (
-                    <Flex top={20}>
-                        <Flex flex={1}>
-                            <Flex flex={1}>
+                    <Box>
+                    <GridContainer container spacing={6}>
+                    <Grid item xs={6}>
+                        <GridContainer container spacing={2}>
+                            <Grid item xs={8}>
                                 <CustomInput
                                     name={`${formFieldName}.${formItem}.weight`}
                                     id={`${formFieldName}.${formItem}.weight`}
@@ -57,8 +62,8 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     placeholder={"eg. 100"}
                                     validate
                                 />
-                            </Flex>
-                            <Flex flex={1} left={30} direction="column" style={{ alignItems: "start" }}>
+                            </Grid>
+                            <Grid item xs={4}>
                                 <Select
                                     id={`${formFieldName}.${formItem}.weightDimension`}
                                     name={`${formFieldName}.${formItem}.weightDimension`}
@@ -70,10 +75,13 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                 {errorItem?.weightDimension && toucherItem?.weightDimension && (
                                     <p style={{ margin: 0, color: "#c94c43" }}>{errorItem?.weightDimension}</p>
                                 )}
-                            </Flex>
-                        </Flex>
-                        <Flex flex={1} left={30}>
-                            <Flex flex={1}>
+                            </Grid>
+                        </GridContainer>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                        <GridContainer container spacing={2}>
+                        <Grid item xs={3}>
                                 <CustomInput
                                     id={`${formFieldName}.${formItem}.length`}
                                     name={`${formFieldName}.${formItem}.length`}
@@ -83,10 +91,10 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     value={formItemValue.length}
                                     error={toucherItem?.length && errorItem?.length}
                                     label={"Length"}
-                                    placeholder={"Start typing"}
+                                    placeholder={"eg. 10"}
                                 />
-                            </Flex>
-                            <Flex flex={1} left={30}>
+                            </Grid>
+                            <Grid item xs={3}>
                                 <CustomInput
                                     id={`${formFieldName}.${formItem}.width`}
                                     name={`${formFieldName}.${formItem}.width`}
@@ -96,10 +104,10 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     label={"Width"}
                                     initValue={formItemValue.width}
                                     value={formItemValue.width}
-                                    placeholder={"Start typing"}
+                                    placeholder={"eg. 10"}
                                 />
-                            </Flex>
-                            <Flex flex={1} left={30}>
+                            </Grid>
+                            <Grid item xs={3}>
                                 <CustomInput
                                     id={`${formFieldName}.${formItem}.height`}
                                     name={`${formFieldName}.${formItem}.height`}
@@ -109,10 +117,10 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     onChange={handleChange}
                                     error={toucherItem?.height && errorItem?.height}
                                     label={"Height"}
-                                    placeholder={"Start typing"}
+                                    placeholder={"eg. 10"}
                                 />
-                            </Flex>
-                            <Flex flex={1} left={30}>
+                            </Grid>
+                            <Grid item xs={3}>
                                 <Select
                                     id={`${formFieldName}.${formItem}.sizeDimension`}
                                     name={`${formFieldName}.${formItem}.sizeDimension`}
@@ -121,14 +129,11 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     onSelect={handleChange}
                                     options={DIMENSION2}
                                 />
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                )}
-                <Flex top={20}>
-                    <Flex flex={1}>
-                        <Flex flex={1}>
-                            <CustomInput
+                            </Grid>
+                    </GridContainer>
+                    </Grid>
+                    <Grid item xs={6}> 
+                    <CustomInput
                                 id={`${formFieldName}.${formItem}.quantity`}
                                 name={`${formFieldName}.${formItem}.quantity`}
                                 onBlur={handleBlur}
@@ -139,27 +144,9 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                 value={formItemValue.quantity}
                                 placeholder={"eg. 10"}
                             />
-                        </Flex>
-                    </Flex>
-                    {/* <Flex flex={1} left={30}>
-                        <CustomInput
-                            id={`${formFieldName}.${formItem}.orderCost`}
-                            name={`${formFieldName}.${formItem}.orderCost`}
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            error={toucherItem?.orderCost && errorItem?.orderCost}
-                            label={"Order Cost"}
-                            initValue={formItemValue.orderCost}
-                            value={formItemValue.orderCost}
-                            placeholder={"eg. $300"}
-                        />
-                    </Flex> */}
-                    <Flex flex={1} left={30}></Flex>
-                    <Flex flex={1} left={30}></Flex>
-                    <Flex flex={1} left={30}></Flex>
-                </Flex>
 
-                <Flex top={20}>
+                    </Grid>
+                    <Grid item xs={12}> 
                     <CustomInput
                         id={`${formFieldName}.${formItem}.description`}
                         name={`${formFieldName}.${formItem}.description`}
@@ -173,9 +160,13 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                         initValue={formItemValue.description}
 
                     />
-                </Flex>
-            </Flex>
-        </div>
+                    </Grid>
+                    </GridContainer>
+                        </Box>
+                )}
+        
+         
+        </>
     );
 }
 

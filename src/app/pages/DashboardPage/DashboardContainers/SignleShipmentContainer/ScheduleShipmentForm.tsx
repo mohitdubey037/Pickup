@@ -11,6 +11,8 @@ import { Flex, FormWrapper } from "app/components/Input/style";
 import RadioGroup from "app/components/RadioGroup";
 
 import { SCHEDULE_OPTIONS } from "../../../../../constants";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import { Box, Grid } from "@material-ui/core";
 
 function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disabled ?: boolean }) {
 
@@ -32,8 +34,9 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
     }
 
   return (
-    <FormWrapper>
-      <Flex>
+    <Box mb={2} mt={1}>
+     <Grid container spacing={2}>
+     <Grid item xs={12}>
         <RadioGroup
           id={`${formFieldName}.scheduleType`}
           name={`${formFieldName}.scheduleType`}
@@ -44,11 +47,11 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
           error={singleFormTouched?.scheduleType && singleFormErrors?.scheduleType}
           onChange={(event) => updateAllFieldsHandler("scheduleType", event.target.value)}
         />
-      </Flex>
+      </Grid>
       {singleFormValues.scheduleType === "17" && (
-        <Flex top={20}>
-          <Flex>
-            <Flex flex={1} direction="column" style={{ alignItems: "start"}}>
+     
+         <>
+            <Grid item md={3}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label="Date"
@@ -74,8 +77,8 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
               {singleFormErrors?.shipmentDate && singleFormTouched?.shipmentDate && (
                     <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.shipmentDate}</p>
                 )}
-            </Flex>
-            <Flex left={30} flex={1} direction="column" style={{ alignItems: "start"}}>
+            </Grid>
+            <Grid item md={3}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <TimePicker
                   label="Time"
@@ -100,12 +103,12 @@ function ScheduleShipmentForm(props: { formik: FormikValues, index: number, disa
               {singleFormErrors?.shipmentTime && singleFormTouched?.shipmentTime && (
                     <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.shipmentDate}</p>
                 )}
-            </Flex>
-          </Flex>
-        <Flex flex={1}></Flex>
-      </Flex>
+            </Grid>
+            </>
       )}
-    </FormWrapper>
+      
+      </Grid>
+    </Box>
   );
 }
 

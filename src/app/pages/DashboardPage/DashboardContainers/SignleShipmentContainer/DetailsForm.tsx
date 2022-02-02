@@ -16,6 +16,8 @@ import { showToast } from "utils";
 import { OrderImage, OrderImageWrapper, Remove } from "./style";
 
 import { remove } from "../../../../assets/Icons"
+import { Box, Grid } from "@material-ui/core";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 
 interface SelectBoardType {
     categoryId: number;
@@ -92,10 +94,10 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
     }
 
     return (
-        <>
-            <Flex direction={"column"}>
-                <Flex top={20}>
-                    <Flex flex={1} direction="column" style={{ alignItems: "start"}}>
+        <Box mt={4}>
+         
+                <GridContainer container spacing={3}>
+                    <Grid item lg={6}>
                         <Select
                             id={`${formFieldName}.categoryId`}
                             name={`${formFieldName}.categoryId`}
@@ -115,8 +117,8 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                         {singleFormErrors?.categoryId && singleFormTouched?.categoryId && (
                             <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.categoryId}</p>
                         )}
-                    </Flex>
-                    <Flex flex={1} left={30}>
+                    </Grid>
+                    <Grid item lg={6}>
                         <CustomInput
                             name={`${formFieldName}.customerRefNo`}
                             id={`${formFieldName}.customerRefNo`}
@@ -126,14 +128,12 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             disabled={disabled}
                             initValue={singleFormValues?.customerRefNo}
                             label={"Customer Reference Number"}
-                            placeholder={"Start typing"}
+                            placeholder={""}
                             error={singleFormTouched?.customerRefNo && singleFormErrors?.customerRefNo}
                             validate
                         />
-                    </Flex>
-                </Flex>
-                <Flex top={20}>
-                    <Flex flex={1} direction="column" style={{ alignItems: "start"}}>
+                    </Grid>
+                <Grid item lg={6}>
                         <Select
                             id={`${formFieldName}.dropOption`}
                             name={`${formFieldName}.dropOption`}
@@ -146,8 +146,8 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                         {singleFormErrors?.dropOption && singleFormTouched?.dropOption && (
                             <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.dropOption}</p>
                         )}
-                    </Flex>
-                    <Flex flex={1} left={30}>
+                    </Grid>
+                    <Grid item lg={6}>
                         <RadioGroup
                             id={`${formFieldName}.fragile`}
                             name={`${formFieldName}.fragile`}
@@ -157,8 +157,9 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             options={!disabled ? FRAGILE_OPTION : FRAGILE_OPTION.map(item => ({...item, disabled: true}))}
                             onChange={(event) => updateAllFieldsHandler("fragile", Number(event.target.value))}
                         />
-                    </Flex>
-                </Flex>
+                    </Grid>
+                </GridContainer>
+                
                 {singleFormValues?.categoryId && new Array(props.noOfItem).fill("").map((_, itemIndex) => (
                     <DetailsFormItem
                         key={itemIndex}
@@ -168,6 +169,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                         formik={props.formik}
                     />
                 ))}
+                <Box mt={5}>
                 {
                     singleFormValues.picture && 
                     <OrderImageWrapper className="orderImageWrapper">
@@ -181,8 +183,9 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                 {singleFormValues?.categoryId && singleFormValues.picture && (
                     <AddImage changeHandler={(e) => changeHandler(e)} text={"Replace Shipment Picture"} />
                 )}
-            </Flex>
-        </>
+                </Box>
+          
+        </Box>
     );
 }
 

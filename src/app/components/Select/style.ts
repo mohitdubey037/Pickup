@@ -1,6 +1,5 @@
 import { Box, FormControl } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-
 import styled, { css } from "styled-components";
 import { H4 } from "../Typography/Typography";
 
@@ -11,22 +10,21 @@ export const ComponentContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom:16px;
+  margin-bottom: 24px;
 `;
 
 interface StyledProps {
-	isNoSubtitle?: boolean;
+  isNoSubtitle?: boolean;
 }
 
-
 export const SmallLabeltext = styled(H4)<StyledProps>`
-  display: ${props => props.isNoSubtitle ? 'none' : ''};
+  display: ${(props) => (props.isNoSubtitle ? "none" : "")};
   color: #878787;
   margin: 0;
   min-width: 80%;
   white-space: break-spaces;
   @media (max-width: 600px) {
- display:none;
+    display: none;
   }
 `;
 
@@ -39,17 +37,16 @@ export const MenuLabel = styled(H4)`
 
 export const MenuIcon = styled(Box)`
   min-width: 40px;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
 `;
-
 
 export const SelectBoxStyle = styled(FormControl)`
   width: 100% !important;
-  margin-bottom:16px !important;
-  
-  .title{
-margin:0;
+  margin-bottom: 16px !important;
+
+  .title {
+    margin: 0;
   }
 
   .MuiAutocomplete-endAdornment,
@@ -91,7 +88,7 @@ margin:0;
     line-height: 19px;
     color: #343434 !important;
     font-family: "Roboto";
-    margin-top:8px;
+    margin-top: 8px;
   }
   .MuiFormHelperText-root {
     color: #c94c43;

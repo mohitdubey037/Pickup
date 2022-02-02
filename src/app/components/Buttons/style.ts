@@ -2,6 +2,7 @@ import {Button} from '@material-ui/core';
 import styled from "styled-components";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { ButtonProps } from './Buttons';
+import { Box } from '@mui/material';
 
 const sizes = {
 	'small': 'auto',
@@ -60,3 +61,11 @@ export const CustomButton = styled(Button)`
   }
  `;
 
+
+ export const ButtonsGroup = styled(Box)`
+ button{
+   margin-left:16px;
+ }
+`;
+
+ 

@@ -58,14 +58,15 @@ export const CustomInputTextArea = styled.textarea`
   border-radius: 4px;
   outline-style: none;
   position: relative;
-  padding: 10px 5px;
+  padding: 12px 8px;
+  box-sizing:border-box;
 
   &::placeholder {
     color: #c4c4c4;
     font-size: 16px;
   }
   background-color: ${(props: { disabled?: boolean }) =>
-    props.disabled ? "#c4c4c4" : "white"};
+    props.disabled ? "#c4c4c4" : "#fff"};
 `;
 
 export const ErrorLabel = styled.span`

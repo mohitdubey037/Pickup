@@ -92,6 +92,7 @@ function SingleSipmentForm({
   };
 
   return (
+    <Box mb={8}>
       <form>
       <FavoritesBox>
          <H4 text={title} className="title" />
@@ -181,7 +182,7 @@ function SingleSipmentForm({
         />
         {!disabled && (
           <>
-             <GridContainer container spacing={2}>
+             <GridContainer container spacing={3}>
             <Grid item xs={4}>
               <div className="div_select">
                 <label htmlFor="cars">Location type</label>
@@ -532,6 +533,7 @@ function SingleSipmentForm({
           </>
         )}
       </form>
+      </Box>
   );
 }
 export default SingleSipmentForm;
