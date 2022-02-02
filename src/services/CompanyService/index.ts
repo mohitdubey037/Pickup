@@ -7,6 +7,7 @@ export const fetchCompanyDetails = async () => {
       `v1/api/business/fetchCompanyDetails`,
       "user_cr"
     );
+
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
@@ -94,7 +95,7 @@ export const inviteColleague = async (values: {
   try {
     const notificationFrequency =
       values?.notificationFrequency !== "" &&
-      values?.notificationFrequency !== null
+        values?.notificationFrequency !== null
         ? values?.notificationFrequency
         : undefined;
     const response: any = await services.post(
