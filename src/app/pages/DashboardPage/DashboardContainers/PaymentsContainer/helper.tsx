@@ -61,19 +61,20 @@ const getInvoiceIdItem = (
     );
 };
 
-// const getOrderIdItem = (
-//   openInvoiceDrawer: (key: string, type: any) => void,
-//   id: any
-// ) => {
-//   return (
-//     <div
-//       onClick={() => openInvoiceDrawer(id, "orderDetails")}
-//       style={{ color: "#1B8AF0" }}
-//     >
-//       <u> {id}</u>
-//     </div>
-//   );
-// };
+const getOrderIdItem = (
+    openInvoiceDrawer: (key: string, type: any) => void,
+    shipmentCount: number,
+    id: any
+) => {
+    return (
+        <div
+            onClick={() => openInvoiceDrawer(id, "orderDetails")}
+            style={{ color: "#1B8AF0" }}
+        >
+            <u> {shipmentCount}</u>
+        </div>
+    );
+};
 
 export const invoiceTable = (
     searchRecordData: any,
@@ -84,8 +85,11 @@ export const invoiceTable = (
         makeTableData = searchRecordData.map((item: any) => {
             return {
                 "Invoice Date": item.invoiceCreatedAt,
-                // "Shipment Count": getOrderIdItem(openInvoiceDrawer, item.shipmentCount),
-                "Shipment Count": item.shipmentCount,
+                "Shipment Count": getOrderIdItem(
+                    openInvoiceDrawer,
+                    item.shipmentCount,
+                    item.shipmentCount
+                ),
                 "Shipped By": item.shippedBy,
                 "Invoice Amount": `$ ${item.total}`,
                 "Invoice Number": getInvoiceIdItem(

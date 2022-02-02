@@ -9,18 +9,22 @@ import { Drawer } from "app/components/Drawer";
 import { H2 } from "app/components/Typography/Typography";
 import { invoiceTable } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
+import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 import { InvoicesWrapper, InvoiceTableTop } from "./InvoiceStyle";
 import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 
 const InvoicesContainer = ({ path: string }) => {
   const [invoiceData, setInvoiceData] = useState([]);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
+  const [selectedOrderId, setSelectedOrderId] = useState("");
   const [drawerType, setDrawerType] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const getDrawerTitle = () => {
     if (drawerType === "invoice") {
       return "Invoice #" + selectedInvoiceId;
+    } else if (drawerType === "orderDetails") {
+      return "Order Details";
     } else {
       return "";
     }
@@ -29,9 +33,11 @@ const InvoicesContainer = ({ path: string }) => {
   const openInvoiceDrawer = (id: any, type: any) => {
     if (type === "invoice") {
       setSelectedInvoiceId(id);
-      setDrawerType(type);
-      setDrawerOpen(true);
+    } else if (type === "orderDetails") {
+      setSelectedOrderId("5383");
     }
+    setDrawerType(type);
+    setDrawerOpen(true);
   };
 
   const tableTop = () => {
@@ -150,6 +156,11 @@ const InvoicesContainer = ({ path: string }) => {
       >
         {drawerType === "invoice" ? (
           <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
+        ) : drawerType === "orderDetails" ? (
+          <OrderDetailsDrawer
+            orderId={selectedOrderId}
+            setDrawerOpen={setDrawerOpen}
+          />
         ) : (
           <></>
         )}
