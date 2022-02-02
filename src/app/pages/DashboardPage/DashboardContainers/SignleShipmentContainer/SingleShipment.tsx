@@ -3,7 +3,7 @@ import ModuleContainer from "app/components/ModuleContainer";
 import { FormContainer } from "app/components/ModuleContainer/style";
 import { remove } from "app/assets/Icons";
 import {
-  H2
+  H2, H3
 } from "app/components/Typography/Typography";
 
 import SingleShipmentDetails from "./SingleShipmentDetails";
@@ -13,12 +13,13 @@ import { singleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import { Button } from "../../../../components/Buttons";
 
 import { shipmentInitValues, getNextOrderValues } from "./helper";
-import { Flex } from "app/components/Input/style";
+import { Flex, FullCard } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { globalActions } from "store/reducers/GlobalReducer";
+import { Box } from "@material-ui/core";
 
 function SingleShipment({ path: string }) {
   
@@ -100,15 +101,13 @@ function SingleShipment({ path: string }) {
       {new Array(formik.values.orders.length).fill("").map((_, index) => (
         <>
           {formik.values.orders.length > 1 && (
-            <h2>Order {index + 1}</h2>
+            <H2 title={`Order${index + 1}`} />
           )}
-          <FormContainer
+          <FullCard
             key={index}
-            elevation={2}
-            style={{ position: "relative" }}
           >
             {formik.values.orders.length > 1 && (
-              <div
+              <Box
                 role="button"
                 tabIndex={0}
                 onKeyPress={(e) =>
@@ -123,10 +122,12 @@ function SingleShipment({ path: string }) {
                 }}
               >
                 <img src={remove} alt="delete" />
-              </div>
+              </Box>
             )}
-            <H2 text="Address Details" />
-            <div style={{ marginBottom: "30px" }}>
+
+
+
+            <H3 text="Address Details" />
               <SingleSipmentForm
                 canBeDisabled
                 disabled={index > 0}
@@ -152,8 +153,7 @@ function SingleShipment({ path: string }) {
                 index={index}
                 formik={formik}
               />
-            </div>
-          </FormContainer>
+          </FullCard>
         </>
       ))}
 
@@ -174,14 +174,12 @@ function SingleShipment({ path: string }) {
           ></div>
         )}
         <Button
-          style={{ width: 190 }}
           label="Confirm Order"
           disabled={!formik.isValid}
           onClick={formik.handleSubmit}
           showLoader={loading}
         />
         <Button
-          style={{ width: 190, marginRight: 20 }}
           secondary
           label="Add New Order"
           disabled={!formik.isValid}

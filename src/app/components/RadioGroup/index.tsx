@@ -3,10 +3,12 @@ import {
   Radio,
   FormControlLabel,
   RadioGroup as RadioGroupComponent,
+  Box,
 } from "@material-ui/core";
 
 import { ErrorLabel, Flex } from "../Input/style";
 import { H4 } from "../Typography/Typography";
+import { RadioFlex } from "./style";
 
 interface RadioOptionItem {
   value: number | string;
@@ -42,12 +44,8 @@ function RadioGroup({
   value
 }: RadioGroupProps) {
   return (
-    <Flex direction={"column"} style={{ alignItems: "start" }}>
-
+    <Box mb={2} mt={2}>
       <H4 text={label} />
-
-      <Flex style={{ alignItems: "center" }}>
-        <Flex>
           <RadioGroupComponent 
             id={id}
             aria-label={ariaLabel || "radio"}
@@ -57,7 +55,7 @@ function RadioGroup({
             value={value}
             
           >
-            <Flex >
+            <RadioFlex>
               {options?.map(({ value, label, disabled }, i) => (
                 <FormControlLabel
                     key={i}
@@ -66,12 +64,10 @@ function RadioGroup({
                   label={label}
                 />
               ))}
-            </Flex>
+            </RadioFlex>
           </RadioGroupComponent>
-        </Flex>
-      </Flex>
       {!!error && <ErrorLabel>{error}</ErrorLabel>}
-    </Flex>
+    </Box>
   );
 }
 

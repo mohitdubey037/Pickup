@@ -15,25 +15,25 @@ import {
 
 export const dashboardHelper: Array<Link> = [
   { id: 0, label: "Dashboard", link: "/dashboard", logo: dashboard },
-  // {
-  //   id: 1,
-  //   label: "Charter Order",
-  //   link: "/dashboard/charter-shipment",
-  //   logo: delivery,
+  {
+    id: 1,
+    label: "Charter Order",
+    link: "/dashboard/charter-shipment",
+    logo: delivery,
 
-  //   children: [
-  //     {
-  //       id: 0,
-  //       label: "Single Order",
-  //       link: "/dashboard/charter-shipment/single-shipment",
-  //     },
-  //     {
-  //       id: 1,
-  //       label: "Bulk Order",
-  //       link: "/dashboard/charter-shipment/bulk-shipment",
-  //     },
-  //   ],
-  // },
+    children: [
+      {
+        id: 0,
+        label: "Single Order",
+        link: "/dashboard/charter-shipment/single-shipment",
+      }
+      // {
+      //   id: 1,
+      //   label: "Bulk Order",
+      //   link: "/dashboard/charter-shipment/bulk-shipment",
+      // },
+    ],
+  },
   // {
   //   id: 2,
   //   label: "Holding Zone",
@@ -75,7 +75,7 @@ export const dashboardHelper: Array<Link> = [
         label: "Personal Profile",
         link: "/dashboard/my-account/personal-profile",
         access:[1,2,3,4]
-      },
+      }
      
       // {
       //   id: 2,

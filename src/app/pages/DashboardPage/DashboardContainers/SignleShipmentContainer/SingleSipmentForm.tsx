@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import { Grid, Typography } from "@material-ui/core";
-
+import { Box, Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
-import { FormWrapper } from "app/components/Input/style";
 import Select from "app/components/Select";
 import RadioGroup from "app/components/RadioGroup";
 
 import { LOCATION_TYPES, BILLING_TYPES } from "../../../../../constants";
 
-import { FavouriateWrapper } from "./style";
 import { starimage, starImageEmpty } from "../../../../assets/Icons";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import { H4, H5 } from "app/components/Typography/Typography";
+import { FavoritesBox } from "./style";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 
 function SingleSipmentForm({
   title,
@@ -92,22 +92,16 @@ function SingleSipmentForm({
   };
 
   return (
-    <FormWrapper style={{ paddingRight: 35 }}>
       <form>
-        <Typography
-          className="typography"
-          variant="h1"
-          component="h3"
-          style={{ textTransform: "capitalize" }}
-        >
-          {title}
-          <FavouriateWrapper>
+      <FavoritesBox>
+         <H4 text={title} className="title" />
+      
             {singleFormValues[`${title}Favorite`] ? (
-              <div
+              <Box
                 role="button"
                 tabIndex={0}
-                style={{ cursor: "pointer", opacity: disabled ? 0.5 : 1 }}
-                // onClick={() => setFieldValue(`${formFieldName}.${title}Favorite`, false)}
+                className="favorites"
+                style={{ opacity: disabled ? 0.5 : 1 }}
                 onClick={() =>
                   !disabled && canBeDisabled
                     ? updateAllFieldsHandler(`${title}Favorite`, false)
@@ -120,19 +114,18 @@ function SingleSipmentForm({
                 }
               >
                 <img
-                  style={{ marginRight: "4px" }}
-                  className="imageStyle"
                   src={starimage}
                   alt=""
+                  className="icon"
                 />
-                Added to Favorites
-              </div>
+               <H5 text="Added to Favorites" className="label" />
+              </Box>
             ) : (
-              <div
+              <Box
                 role="button"
                 tabIndex={0}
-                style={{ cursor: "pointer", opacity: disabled ? 0.5 : 1 }}
-                // onClick={() => setFieldValue(`${formFieldName}.${title}Favorite`, true)}
+                className="favorites"
+                style={{ opacity: disabled ? 0.5 : 1 }}
                 onClick={() =>
                   !disabled && canBeDisabled
                     ? updateAllFieldsHandler(`${title}Favorite`, true)
@@ -145,16 +138,16 @@ function SingleSipmentForm({
                 }
               >
                 <img
-                  style={{ marginRight: "4px" }}
-                  className="imageStyle"
                   src={starImageEmpty}
                   alt=""
+                  className="icon"
                 />
-                Add to Favorites
-              </div>
+                <H5 text="Add to Favorites" className="label" />
+              </Box>
             )}
-          </FavouriateWrapper>
-        </Typography>
+         
+          </FavoritesBox>
+
 
         <RadioGroup
           defaultValue={
@@ -188,7 +181,8 @@ function SingleSipmentForm({
         />
         {!disabled && (
           <>
-            <Grid style={{ paddingBottom: 20, width: 290 }}>
+             <GridContainer container spacing={2}>
+            <Grid item xs={4}>
               <div className="div_select">
                 <label htmlFor="cars">Location type</label>
                 <br />
@@ -211,7 +205,8 @@ function SingleSipmentForm({
                 </div>
               </div>
             </Grid>
-            <Grid container spacing={3} style={{ marginRight: 30 }}>
+            </GridContainer>
+            <GridContainer container spacing={2}>
               {singleFormValues[`${title}BillingType`] === 2 && (
                 <Grid item xs={4}>
                   <Input
@@ -221,7 +216,7 @@ function SingleSipmentForm({
                     initValue={singleFormValues[`${title}CompanyName`]}
                     value={singleFormValues[`${title}CompanyName`]}
                     disabled={disabled}
-                    placeholder={"Start typing"}
+                    placeholder={"Example Company"}
                     onChange={(event) =>
                       canBeDisabled
                         ? updateAllFieldsHandler(
@@ -247,7 +242,7 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}FirstName`]}
                   disabled={disabled}
                   label={"First Name"}
-                  placeholder={"Start typing"}
+                  placeholder={"John"}
                   onChange={(event) =>
                     canBeDisabled
                       ? updateAllFieldsHandler(
@@ -272,7 +267,7 @@ function SingleSipmentForm({
                   initValue={singleFormValues[`${title}LastName`]}
                   value={singleFormValues[`${title}LastName`]}
                   disabled={disabled}
-                  placeholder={"Start typing"}
+                  placeholder={"Doe"}
                   onChange={(event) =>
                     canBeDisabled
                       ? updateAllFieldsHandler(
@@ -300,7 +295,7 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}AddressLine1`] &&
                     singleFormErrors?.[`${title}AddressLine1`]
                   }
-                  placeholder={"Start typing"}
+                  placeholder={"123 Address Street"}
                   setFieldValue={setFieldValue}
                   onChange={handleChange}
                   disabled={disabled}
@@ -313,7 +308,7 @@ function SingleSipmentForm({
                   id={`${formFieldName}.${title}AddressLine2`}
                   name={`${formFieldName}.${title}AddressLine2`}
                   label={"Address Line 2"}
-                  placeholder={"Start typing"}
+                  placeholder={"123 Address Street"}
                   initValue={singleFormValues[`${title}AddressLine2`]}
                   value={singleFormValues[`${title}AddressLine2`]}
                   disabled={disabled}
@@ -338,7 +333,7 @@ function SingleSipmentForm({
                   id={`${formFieldName}.${title}City`}
                   name={`${formFieldName}.${title}City`}
                   label={"City"}
-                  placeholder={"Start typing"}
+                  placeholder={"eg. Toronto"}
                   initValue={singleFormValues[`${title}City`]}
                   value={singleFormValues[`${title}City`]}
                   disabled={disabled}
@@ -366,7 +361,7 @@ function SingleSipmentForm({
                   initValue={singleFormValues[`${title}PostalCode`]}
                   value={singleFormValues[`${title}PostalCode`]}
                   disabled={disabled}
-                  placeholder={"Start typing"}
+                  placeholder={"ABC 123"}
                   onChange={(event) =>
                     canBeDisabled
                       ? updateAllFieldsHandler(
@@ -388,7 +383,7 @@ function SingleSipmentForm({
                   id={`${formFieldName}.${title}ProvinceState`}
                   name={`${formFieldName}.${title}ProvinceState`}
                   label={"Province/State"}
-                  placeholder={"Start typing"}
+                  placeholder={"eg. Ontario"}
                   initValue={singleFormValues[`${title}ProvinceState`]}
                   value={singleFormValues[`${title}ProvinceState`]}
                   disabled={disabled}
@@ -415,7 +410,7 @@ function SingleSipmentForm({
                   label={"Country"}
                   initValue={singleFormValues[`${title}Country`]}
                   value={singleFormValues[`${title}Country`]}
-                  placeholder={"Start typing"}
+                  placeholder={"eg. Canada"}
                   disabled={disabled}
                   onChange={(event) =>
                     canBeDisabled
@@ -440,7 +435,7 @@ function SingleSipmentForm({
                   label={"Contact Number"}
                   initValue={singleFormValues[`${title}ContactNumber`]}
                   value={singleFormValues[`${title}ContactNumber`]}
-                  placeholder={"Start typing"}
+                  placeholder={"+1 (999)-999-9999"}
                   disabled={disabled}
                   onChange={(event) =>
                     canBeDisabled
@@ -465,7 +460,7 @@ function SingleSipmentForm({
                   initValue={singleFormValues[`${title}AlternateContactNumber`]}
                   value={singleFormValues[`${title}AlternateContactNumber`]}
                   label={"Alternate Contact Number"}
-                  placeholder={"Start typing"}
+                  placeholder={"+1 (999)-999-9999"}
                   disabled={disabled}
                   onChange={(event) =>
                     canBeDisabled
@@ -490,7 +485,7 @@ function SingleSipmentForm({
                   label={"Email Address"}
                   initValue={singleFormValues[`${title}EmailAddress`]}
                   value={singleFormValues[`${title}EmailAddress`]}
-                  placeholder={"Start typing"}
+                  placeholder={"johndoe@pickups.com"}
                   disabled={disabled}
                   onChange={(event) =>
                     canBeDisabled
@@ -513,7 +508,7 @@ function SingleSipmentForm({
                   id={`${formFieldName}.${title}AdditionalNotes`}
                   name={`${formFieldName}.${title}AdditionalNotes`}
                   label={"Additional Notes"}
-                  placeholder={"Start typing"}
+                  placeholder={"Add any notes here"}
                   onChange={(event) =>
                     canBeDisabled
                       ? updateAllFieldsHandler(
@@ -533,11 +528,10 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-            </Grid>
+            </GridContainer>
           </>
         )}
       </form>
-    </FormWrapper>
   );
 }
 export default SingleSipmentForm;

@@ -61,9 +61,9 @@ margin:0;
   }
 
   .MuiSelect-select.MuiSelect-select {
-    padding: 12px 5px !important;
-    border-radius: 4px !important;
-    border: 1px solid #c4c4c4 !important;
+    padding: 12px 8px;
+    border-radius: 4px;
+    border: 1px solid #c4c4c4;
     height: 42px;
     box-sizing: border-box;
     display: flex;
@@ -134,7 +134,7 @@ export const SelectContainer = styled.div<SelectContainerType>`
     height: 42px;
     align-items: flex-start;
     display: flex;
-    padding: 12px 5px;
+    padding: 12px 8px;
     border-radius: 4px;
     border: 1px solid #C4C4C4;
     cursor:pointer;

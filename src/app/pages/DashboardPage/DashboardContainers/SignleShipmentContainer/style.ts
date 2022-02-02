@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core";
 import styled from "styled-components";
 // import { Accordion } from "@material-ui/core";
 
@@ -21,12 +22,28 @@ export const MainDiv = styled.div`
   }
 `;
 
-export const FavouriateWrapper = styled.div`
-  padding: 10px;
-  fontweight: 400;
-  color: #878787;
-  font: Roboto;
-  font-size: 12px;
+export const FavoritesBox = styled(Box)`
+display:flex;
+align-items:center;
+margin:32px 0 0 0;
+.title{
+  font-family :"Roboto-Bold";
+  margin:0;
+  margin-right:16px;
+  text-transform:capitalize;
+}
+.icon{
+  margin-right:5px;
+}
+.label{
+  color:#878787;
+  display:inline-block;
+}
+.favorites{
+  display:flex;
+  align-items:center;
+  cursor:pointer;
+}
 `;
 
 export const LabelSpan = styled.span`
