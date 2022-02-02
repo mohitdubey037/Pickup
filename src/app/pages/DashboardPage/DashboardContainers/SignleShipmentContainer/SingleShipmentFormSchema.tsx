@@ -1,8 +1,7 @@
 import * as yup from "yup";
-import { PHONE_NUMBER_REGX } from "../../../../../constants";
+import { PHONE_NUMBER_REGX,  PIN_CODE_REGEX} from "../../../../../constants";
 
 export const singleShipmentFormSchema = yup.object().shape({
-
     orders: yup.array().of(
         yup.object().shape({
             originCompanyName: yup.string().when('originBillingType', {
@@ -14,13 +13,13 @@ export const singleShipmentFormSchema = yup.object().shape({
             originAddressLine1: yup.string().required("Address Line 1 is a required field").test(
                 'Please',
                 'Please enter a valid address',
-                function (item) {
+                function () {
                     return (this.parent.originLatitude || this.parent.originLongitude)
                 }
             ),
             originAddressLine2: yup.string().required("Address Line 2 is a required field"),
             originCity: yup.string().required("City is a required field"),
-            originPostalCode: yup.string().required("Postal Code is a required field"),
+            originPostalCode: yup.string().required("Postal Code is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
             originProvinceState: yup.string().required("Province/State is a required field"),
             originCountry: yup.string().required("Country is a required field"),
             originContactNumber: yup.string().required("Phone number is not valid").min(10, "Must be minimum 10 digits").max(10, "Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
@@ -45,7 +44,7 @@ export const singleShipmentFormSchema = yup.object().shape({
             ),
             destinationAddressLine2: yup.string().required("Address Line 2 is a required field"),
             destinationCity: yup.string().required("City is a required field"),
-            destinationPostalCode: yup.string().required("Postal Code is a required field"),
+            destinationPostalCode: yup.string().required("Postal Code is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
             destinationProvinceState: yup.string().required("Province/State is a required field"),
             destinationCountry: yup.string().required("Country is a required field"),
             destinationContactNumber: yup.string().required("Phone number is not valid").min(10, "Must be minimum 10 digits").max(10, "Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),

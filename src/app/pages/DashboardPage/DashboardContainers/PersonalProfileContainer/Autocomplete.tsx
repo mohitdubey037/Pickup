@@ -8,7 +8,6 @@ import {
 } from "../../../../../services/HereMapsService";
 import { Suggestions } from "./styles";
 
-
 const AutoComplete = ({
   id,
   name,
@@ -67,7 +66,6 @@ const AutoComplete = ({
     setSuggestionsList(res?.suggestions || []);
     setOpen(true);
   };
-
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {

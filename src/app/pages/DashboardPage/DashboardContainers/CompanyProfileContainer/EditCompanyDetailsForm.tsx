@@ -5,6 +5,7 @@ import {
   // COUNTRY_TEXT,
   INDUSTRY_TEXT,
   IMAGE_FILE_TYPES,
+  PIN_CODE_MASK,
 } from "../../../../../constants";
 import Select from "app/components/Select";
 import { editCompanySchema } from "./CompanyProfileSchema";
@@ -14,16 +15,6 @@ import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { showToast } from "utils";
 import { imageUploadService } from "services/SingleShipmentServices";
-
-const pinCodeMask = [
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-];
 
 const EditCompanyDetailsForm = ({
   title = "",
@@ -250,7 +241,7 @@ const EditCompanyDetailsForm = ({
         placeholder={"554787"}
         type="mask"
         maskProps={{
-          mask: pinCodeMask,
+          mask: PIN_CODE_MASK,
           maskPlaceholder: null,
         }}
       />
