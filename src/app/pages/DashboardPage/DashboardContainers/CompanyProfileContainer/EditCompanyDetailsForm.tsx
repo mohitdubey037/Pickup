@@ -123,7 +123,7 @@ const EditCompanyDetailsForm = ({
         required={true}
         error={touched.companyName && errors?.companyName?.toString()}
         label="Company Name"
-        placeholder={"Torinit"}
+        placeholder={"Example Company"}
       />
       <AutoComplete
         id="address1"
@@ -131,7 +131,7 @@ const EditCompanyDetailsForm = ({
         label={"Address Line 1"}
         value={values.address1}
         error={touched.address1 && errors?.address1?.toString()}
-        placeholder={"Address Line 1"}
+        placeholder={"123 Address Street"}
         setFieldValue={setFieldValue}
         onChange={handleChange}
         handleBlur={handleBlur}
@@ -149,7 +149,7 @@ const EditCompanyDetailsForm = ({
         required={true}
         error={touched.address2 && errors?.address2?.toString()}
         label="Address Line 2"
-        placeholder={"123 Avenue"}
+        placeholder={"123 Address Street"}
       />
       <Grid container spacing={2}>
         <Grid item xs={6}>
@@ -163,7 +163,7 @@ const EditCompanyDetailsForm = ({
             required={true}
             error={touched.city && errors?.city?.toString()}
             label="City"
-            placeholder={"Toronto"}
+            placeholder={"eg. Toronto"}
           />
         </Grid>
 
@@ -178,7 +178,7 @@ const EditCompanyDetailsForm = ({
             required={true}
             error={touched.province && errors?.province?.toString()}
             label="Province"
-            placeholder={"Ontario"}
+            placeholder={"eg. Ontario"}
           />
         </Grid>
       </Grid>
@@ -193,7 +193,7 @@ const EditCompanyDetailsForm = ({
           required={true}
           error={touched.country && errors?.country?.toString()}
           label="Country"
-          placeholder={"Start typing"}
+          placeholder={"eg. Canada"}
         />
       </Grid>
       {/* <Select
@@ -238,7 +238,7 @@ const EditCompanyDetailsForm = ({
         required={true}
         error={touched.pincode && errors?.pincode?.toString()}
         label="Pincode"
-        placeholder={"554787"}
+        placeholder={"ABC 123"}
         type="mask"
         maskProps={{
           mask: PIN_CODE_MASK,

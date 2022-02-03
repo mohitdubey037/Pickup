@@ -160,31 +160,28 @@ function SingleSipmentForm({
               : BILLING_TYPES.map((item) => ({ ...item, disabled: true }))
           }
         />
+
         {!disabled && (
           <>
             <GridContainer container spacing={3}>
               <Grid item xs={4}>
-                <div className="div_select">
-                  <label htmlFor="cars">Location type</label>
-                  <br />
-                  <div>
-                    <Select
-                      id={`${formFieldName}.${title}LocationType`}
-                      name={`${formFieldName}.${title}LocationType`}
-                      options={LOCATION_TYPES}
-                      onSelect={(event) =>
-                        canBeDisabled
-                          ? updateAllFieldsHandler(
-                              `${title}LocationType`,
-                              event.target.value
-                            )
-                          : handleChange(event)
-                      }
-                      value={singleFormValues[`${title}LocationType`]}
-                      disabled={disabled}
-                    />
-                  </div>
-                </div>
+                <Select
+                  id={`${formFieldName}.${title}LocationType`}
+                  name={`${formFieldName}.${title}LocationType`}
+                  options={LOCATION_TYPES}
+                  label={"Location type"}
+                  onSelect={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}LocationType`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
+                  value={singleFormValues[`${title}LocationType`]}
+                  disabled={disabled}
+                  required
+                />
               </Grid>
             </GridContainer>
             <GridContainer container spacing={2}>
@@ -212,6 +209,7 @@ function SingleSipmentForm({
                       singleFormErrors?.[`${title}CompanyName`]
                     }
                     validate
+                    required
                   />
                 </Grid>
               )}
