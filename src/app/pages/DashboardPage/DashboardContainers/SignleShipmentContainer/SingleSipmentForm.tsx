@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-
 import { Box, Grid } from "@material-ui/core";
+
 import { Input } from "app/components/Input";
 import Select from "app/components/Select";
 import RadioGroup from "app/components/RadioGroup";
-
-import { LOCATION_TYPES, BILLING_TYPES } from "../../../../../constants";
-
+import { H4, H5 } from "app/components/Typography/Typography";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import {
+  LOCATION_TYPES,
+  BILLING_TYPES,
+  PIN_CODE_MASK,
+} from "../../../../../constants";
 import { starimage, starImageEmpty } from "../../../../assets/Icons";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
-import { H4, H5 } from "app/components/Typography/Typography";
 import { FavoritesBox } from "./style";
-import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 
 function SingleSipmentForm({
   title,
@@ -94,61 +95,40 @@ function SingleSipmentForm({
   return (
     <Box mb={8}>
       <form>
-      <FavoritesBox>
-         <H4 text={title} className="title" />
-      
-            {singleFormValues[`${title}Favorite`] ? (
-              <Box
-                role="button"
-                tabIndex={0}
-                className="favorites"
-                style={{ opacity: disabled ? 0.5 : 1 }}
-                onClick={() =>
-                  !disabled && canBeDisabled
-                    ? updateAllFieldsHandler(`${title}Favorite`, false)
-                    : setFieldValue(`${formFieldName}.${title}Favorite`, false)
-                }
-                onKeyPress={(e) =>
-                  e.key === "Enter" && canBeDisabled
-                    ? updateAllFieldsHandler(`${title}Favorite`, false)
-                    : setFieldValue(`${formFieldName}.${title}Favorite`, false)
-                }
-              >
-                <img
-                  src={starimage}
-                  alt=""
-                  className="icon"
-                />
-               <H5 text="Added to Favorites" className="label" />
-              </Box>
-            ) : (
-              <Box
-                role="button"
-                tabIndex={0}
-                className="favorites"
-                style={{ opacity: disabled ? 0.5 : 1 }}
-                onClick={() =>
-                  !disabled && canBeDisabled
-                    ? updateAllFieldsHandler(`${title}Favorite`, true)
-                    : setFieldValue(`${formFieldName}.${title}Favorite`, true)
-                }
-                onKeyPress={(e) =>
-                  e.key === "Enter" && canBeDisabled
-                    ? updateAllFieldsHandler(`${title}Favorite`, true)
-                    : setFieldValue(`${formFieldName}.${title}Favorite`, true)
-                }
-              >
-                <img
-                  src={starImageEmpty}
-                  alt=""
-                  className="icon"
-                />
-                <H5 text="Add to Favorites" className="label" />
-              </Box>
-            )}
-         
-          </FavoritesBox>
+        <FavoritesBox>
+          <H4 text={title} className="title" />
 
+          <Box
+            role="button"
+            tabIndex={0}
+            className="favorites"
+            style={{ opacity: disabled ? 0.5 : 1 }}
+            onClick={() => {
+              let val = singleFormValues[`${title}Favorite`] ? false : true;
+              !disabled && canBeDisabled
+                ? updateAllFieldsHandler(`${title}Favorite`, val)
+                : setFieldValue(`${formFieldName}.${title}Favorite`, val);
+            }}
+            onKeyPress={(e) => {
+              let val = singleFormValues[`${title}Favorite`] ? false : true;
+              e.key === "Enter" && canBeDisabled
+                ? updateAllFieldsHandler(`${title}Favorite`, val)
+                : setFieldValue(`${formFieldName}.${title}Favorite`, val);
+            }}
+          >
+            {singleFormValues[`${title}Favorite`] ? (
+              <>
+                <img src={starimage} alt="" className="icon" />
+                <H5 text="Added to Favorites" className="label" />
+              </>
+            ) : (
+              <>
+                <img src={starImageEmpty} alt="" className="icon" />
+                <H5 text="Add to Favorites" className="label" />
+              </>
+            )}
+          </Box>
+        </FavoritesBox>
 
         <RadioGroup
           defaultValue={
@@ -180,32 +160,29 @@ function SingleSipmentForm({
               : BILLING_TYPES.map((item) => ({ ...item, disabled: true }))
           }
         />
+
         {!disabled && (
           <>
-             <GridContainer container spacing={3}>
+            <GridContainer container spacing={3}>
             <Grid item lg={4} sm={6} xs={12}>
-              <div className="div_select">
-                <label htmlFor="cars">Location type</label>
-                <br />
-                <div>
-                  <Select
-                    id={`${formFieldName}.${title}LocationType`}
-                    name={`${formFieldName}.${title}LocationType`}
-                    options={LOCATION_TYPES}
-                    onSelect={(event) =>
-                      canBeDisabled
-                        ? updateAllFieldsHandler(
-                            `${title}LocationType`,
-                            event.target.value
-                          )
-                        : handleChange(event)
-                    }
-                    value={singleFormValues[`${title}LocationType`]}
-                    disabled={disabled}
-                  />
-                </div>
-              </div>
-            </Grid>
+                <Select
+                  id={`${formFieldName}.${title}LocationType`}
+                  name={`${formFieldName}.${title}LocationType`}
+                  options={LOCATION_TYPES}
+                  label={"Location type"}
+                  onSelect={(event) =>
+                    canBeDisabled
+                      ? updateAllFieldsHandler(
+                          `${title}LocationType`,
+                          event.target.value
+                        )
+                      : handleChange(event)
+                  }
+                  value={singleFormValues[`${title}LocationType`]}
+                  disabled={disabled}
+                  required
+                />
+              </Grid>
             </GridContainer>
             <GridContainer container spacing={2}>
               {singleFormValues[`${title}BillingType`] === 2 && (
@@ -232,6 +209,7 @@ function SingleSipmentForm({
                       singleFormErrors?.[`${title}CompanyName`]
                     }
                     validate
+                    required
                   />
                 </Grid>
               )}
@@ -258,6 +236,7 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}FirstName`]
                   }
                   validate
+                  required
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -283,6 +262,7 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}LastName`]
                   }
                   validate
+                  required
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -327,6 +307,7 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}AddressLine2`]
                   }
                   validate
+                  required
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -352,6 +333,7 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}City`]
                   }
                   validate
+                  required
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -377,6 +359,12 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}PostalCode`]
                   }
                   validate
+                  required
+                  type="mask"
+                  maskProps={{
+                    mask: PIN_CODE_MASK,
+                    maskPlaceholder: null,
+                  }}
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -402,6 +390,7 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}ProvinceState`]
                   }
                   validate
+                  required
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -427,6 +416,7 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}Country`]
                   }
                   validate
+                  required
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -452,6 +442,7 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}ContactNumber`]
                   }
                   validate
+                  required
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -477,6 +468,7 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}AlternateContactNumber`]
                   }
                   validate
+                  required
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -502,6 +494,7 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}EmailAddress`]
                   }
                   validate
+                  required
                 />
               </Grid>
               <Grid item xs={12}>
@@ -527,13 +520,14 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}AdditionalNotes`]
                   }
                   validate
+                  required
                 />
               </Grid>
             </GridContainer>
           </>
         )}
       </form>
-      </Box>
+    </Box>
   );
 }
 export default SingleSipmentForm;

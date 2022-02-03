@@ -7,14 +7,27 @@ export const PAYMENT_BASE_URL = process.env.REACT_APP_PAYMENT_BASE_URL;
 export const ORDER_BASE_URL = process.env.REACT_APP_ORDER_URL;
 export const LOCATION_URL = process.env.REACT_APP_LOCATION_URL;
 export const HERE_MAPS_API_KEY = process.env.REACT_APP_HERE_MAPS_API_KEY;
+
 export const PHONE_NUMBER_REGX =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const PASSWORD_REGX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 export const NEWPASSWORD_REGEX =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#$%&+'`()*,-./:;/\/<=>?@[\]~{}_^!&]).{8,}$/;
+export const EMAIL_REGEX =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export const PIN_CODE_REGEX = /^([a-zA-Z0-9]+)$|^[a-zA-Z0-9]+\s[a-zA-Z0-9]+$/;
 
-export const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export const PIN_CODE_MASK = [
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+  /[a-zA-Z0-9 ]/,
+];
+
 export const BILLING_TYPES = [
   { label: "Individual", value: "0" },
   { label: "Company", value: "1" },
