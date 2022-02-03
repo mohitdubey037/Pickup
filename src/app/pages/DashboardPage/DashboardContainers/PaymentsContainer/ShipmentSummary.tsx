@@ -150,10 +150,7 @@ function ShipmentSummary({ path }: { path: string }) {
       }
     return (
         <ModuleContainer>
-            <div>
-                <h1>Payment</h1>
-            </div>
-            
+           
             <InvoiceDetails
                 invoiceData={invoiceData}
                 insuranceHandler={insuranceHandler}
@@ -194,17 +191,18 @@ function ShipmentSummary({ path }: { path: string }) {
 
             <Flex justifyContent="flex-end">
                 <Button
-                    style={{ width: 190, marginRight: 20 }}
                     secondary
                     label="Back"
                     onClick={onBackHandler}
+                    size="medium"
+                    style={{marginRight: '12px'}}
                 />
                 <Button
-                    style={{ width: 190 }}
                     label="Confirm Payment"
                     // disabled={!(isValid)}
                     onClick={paymentHandler}
                     showLoader={loading}
+                    size="medium"
                 />
             </Flex>
 

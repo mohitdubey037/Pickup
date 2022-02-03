@@ -31,7 +31,7 @@ import {
   SidebarLogo,
 } from "app/pages/DashboardPage/DashboardComponents/style";
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
-import { H4, H5 } from "../Typography/Typography";
+import { DrawerHeading, H1, H4, H5 } from "../Typography/Typography";
 import { dashboardHelper } from "app/pages/DashboardPage/helper";
 import { Link } from "app/pages/DashboardPage/type";
 import { LeftDashboard } from "app/pages/DashboardPage/DashboardComponents";
@@ -95,19 +95,11 @@ export default function Appbar() {
       <AppbarContainer>
 
         <LeftBox>
-          <SidebarLogo>
+          <SidebarLogo className="logo" >
             <img src={logo} alt="logo" />
           </SidebarLogo>
           {pathname.includes("/order-summary") && (
-            <h3
-              style={{
-                marginRight: "auto",
-                paddingLeft: "32px",
-                fontSize: "24px",
-              }}
-            >
-              Order Confirmation
-            </h3>
+            <DrawerHeading title="Order Confirmation" className="title" />
           )}
         </LeftBox>
 

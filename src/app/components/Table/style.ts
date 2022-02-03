@@ -14,13 +14,17 @@ export const TableTop = styled.div`
 `;
 
 export const CustomTableContainer = styled(TableContainer)`
-  background: #ffffff;
-  border: 1px solid #dcdcdc;
 `;
 
 export const CustomTable = styled(Table)`
   tr {
     border: 1px solid #dcdcdc;
+    &:first-child{
+      border-top: none !important;
+    }
+    &:last-child{
+      border-top: none !important;
+    }
     input[type="checkbox"] {
       padding: 8px 0;
     }
@@ -29,8 +33,10 @@ export const CustomTable = styled(Table)`
     color: #828282;
     font-size: 14px;
     line-height: 150%;
-    border-right: 1px solid #dcdcdc;
+    border-bottom:none;
     padding: 10px 16px;
+    border: 1px solid #dcdcdc;
+    font-family: "Roboto";
     img {
       float: right;
       cursor: pointer;
@@ -41,6 +47,7 @@ export const CustomTable = styled(Table)`
     line-height: 150%;
     color: #515151;
     padding: 8px 16px;
+    font-family: "Roboto";
   }
 `;
 

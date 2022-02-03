@@ -5,8 +5,11 @@ import { getOrderDetails } from "services/SingleShipmentServices";
 import { Flex } from "app/components/Input/style";
 import { showToast } from "utils";
 import { useParams } from "@reach/router";
-import { LabelSpan, ContentSpan, MainDiv, InnerAccordion } from "./style";
+import { AccordionOuterBox, InnerAccordion, OrderImage } from "./style";
 import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
+import { Grid } from "@mui/material";
+import { H4 } from "app/components/Typography/Typography";
+import { Box } from "@mui/system";
 
 interface orderDetails {
   refNo?: string;
@@ -61,11 +64,11 @@ function OrderDetailsDrawer({orderId, setDrawerOpen}) {
   }
 
   return (
-    <MainDiv>
+    <>
       {showLoader ? (
         <CircularProgress style={{ color: "black" }} />
       ) : (
-        <div style={{ border: "1px solid #DCDCDC" }}>
+        <AccordionOuterBox>
           <Accordion
             title={`Order Items - ${
               orderDetails.shipmentReference
@@ -73,111 +76,91 @@ function OrderDetailsDrawer({orderId, setDrawerOpen}) {
                 : "-"
             }`}
           >
-            <div>
-              <Flex
-                direction="row"
-                justifyContent="space-between"
-                style={{ margin: "18px 0" }}
-              >
-                <Flex direction="column">
-                  <LabelSpan>Category</LabelSpan>
-                  <ContentSpan>{orderDetails?.category}</ContentSpan>
-                </Flex>
-                <Flex direction="column">
-                  <LabelSpan>Customer Ref. #</LabelSpan>
-                  <ContentSpan>
-                    {orderDetails?.customerReferenceNumber
+            <Box>
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <H4 text="Category" />
+                  <H4 text={orderDetails?.category}  className="value"  />
+                </Grid>
+                <Grid item xs={6}>
+                <H4 text="Customer Ref. #" />
+                <H4 text={orderDetails?.customerReferenceNumber
                       ? orderDetails.customerReferenceNumber
-                      : "-"}
-                  </ContentSpan>
-                </Flex>
-              </Flex>
-              <Flex
-                direction="row"
-                justifyContent="space-between"
-                style={{ margin: "18px 0" }}
-              >
-                <Flex direction="column">
-                  <LabelSpan>Delivery Options</LabelSpan>
-                  <ContentSpan>
-                    {orderDetails.dropOption === 10 ? "Door Drop" :
-                    (orderDetails.dropOption === 11 ? "Safe Drop" : "-")}
-                  </ContentSpan>
-                </Flex>
-                <Flex direction="column">
-                  <LabelSpan>Fragile</LabelSpan>
-                  <ContentSpan>{isFragile ? "Yes" : "No"}</ContentSpan>
-                </Flex>
-              </Flex>
-              <Flex
-                direction="column"
-                justifyContent="space-between"
-                style={{ margin: "18px 0" }}
-              >
-                {/* <LabelSpan>Order Description</LabelSpan>
-                <ContentSpan>{orderDetails?.description}</ContentSpan> */}
+                      : "-"}  className="value"   />
+                </Grid>
+                <Grid item xs={6}>
+                <H4 text="Delivery Options" />
+                <H4 text={orderDetails.dropOption === 10 ? "Door Drop" :
+                    (orderDetails.dropOption === 11 ? "Safe Drop" : "-")}  className="value"  />
+                </Grid>
+                <Grid item xs={6}>
+                <H4 text="Fragile" />
+                <H4 text={isFragile ? "Yes" : "No"}   className="value"  />
+                </Grid>
+                <Grid item xs={12}>
                 {orderDetails?.picture ? (
-                  <img
-                    style={{ width: "120px", height: "100px" }}
+                  <OrderImage
                     src={orderDetails?.picture && orderDetails?.picture}
                     alt=""
                   />
                 ) : (
                   ""
                 )}
-              </Flex>
-            </div>
+                </Grid>
+              </Grid>
+            </Box>
 
             {orderDetails?.items?.length > 0 &&
               orderDetails?.items.map((item, i) => {
                 return (
                   <>
-                    <hr
-                      style={{ width: "100%", border: "1px solid #DCDCDC" }}
-                    />
                     <InnerAccordion>
                     <Accordion key={i} title={`Item #${i + 1} ${item.name}`}>
-                      <Flex direction="row" style={{ margin: "18px 0", width: "100%" }}>
-                        {!!item.weight && item.weight !=="0"  && (
-                          <Flex direction="column">
-                            <LabelSpan>Weight {getLabelFromID(item.weightDimension, WEIGHTDIMENSION)}</LabelSpan>
-                            <ContentSpan>{item.weight}</ContentSpan>
-                          </Flex>
-                        )}
+                          <Grid container spacing={2}>
+                          {!!item.weight && item.weight !=="0"  && (
+                          <Grid item xs={4}>
+                          <H4 text={`Weight${getLabelFromID(item.weightDimension, WEIGHTDIMENSION)}`} />
+                          <H4 text={item.weight}  className="value"  />
+                          </Grid>
+                          )}
+                       
                         {item.length > 0 &&
                           item.width > 0 &&
                           item.height > 0 && (
-                            <Flex direction="column">
-                              <LabelSpan>LBH {getLabelFromID(item.sizeDimension, DIMENSION2)}</LabelSpan>
+                            <Grid item xs={4}>
+                              {/* <LabelSpan>LBH {getLabelFromID(item.sizeDimension, DIMENSION2)}</LabelSpan>
                               <ContentSpan>
                                 {item.length} x {item.width} x {item.height}
-                              </ContentSpan>
-                            </Flex>
+                              </ContentSpan> */}
+                              
+                          <H4 text={`LBH${getLabelFromID(item.sizeDimension, DIMENSION2)}`} />
+                          <H4 text={`${item.length} x ${item.width} x ${item.height}`}  className="value"  />
+                            </Grid>
                           )}
                         {!!item.quantity && (
-                          <Flex direction="column">
-                            <LabelSpan>Pieces</LabelSpan>
-                            <ContentSpan>{item.quantity}</ContentSpan>
-                          </Flex>
+                           <Grid item xs={4}>
+                             
+                          <H4 text="Pieces" />
+                          <H4 text={item.quantity} className="value" />
+                          </Grid>
                         )}
-                      </Flex>
-                      <Flex direction="column">
                         {!!item.description && (
-                          <Flex direction="column">
-                            <LabelSpan>Shipment Description</LabelSpan>
-                            <ContentSpan>{item.description}</ContentSpan>
-                          </Flex>
+                           <Grid item xs={12}>
+                            
+                          <H4 text="Shipment Description" />
+                          <H4 text={item.description} className="value"  />
+                          </Grid>
                         )}
-                      </Flex>
+                      </Grid>
                     </Accordion>
                     </InnerAccordion>
                   </>
                 );
               })}
           </Accordion>
-        </div>
+        </AccordionOuterBox>
       )}
-    </MainDiv>
+    </>
   );
 }
 

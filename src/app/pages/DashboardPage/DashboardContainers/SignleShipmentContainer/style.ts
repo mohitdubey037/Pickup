@@ -1,24 +1,23 @@
 import { Box } from "@material-ui/core";
+import { Flex } from "app/components/Input/style";
 import styled from "styled-components";
 
 export const InnerAccordion = styled.div`
-  margin: 0;
-  padding: 0;
-  .MuiAccordionSummary-root {
-    margin: 0px;
-  }
+border-top:1px solid #DDDDDD;
+margin:24px 0;
 `;
 
-export const MainDiv = styled.div`
-  .MuiAccordionSummary-content {
-    font-size: 18px;
-    font-weight: 700;
-    color: #343434;
-  }
-  MuiPaper-root MuiAccordion-root {
-    margin: 0px;
-    padding: 0px;
-  }
+export const AccordionOuterBox = styled(Box)`
+border: 1px solid #DCDCDC;
+box-sizing: border-box;
+border-radius: 4px;
+padding:16px;
+div{
+  box-shadow: none !important;
+}
+.value{
+  font-family:"Roboto-Medium"
+}
 `;
 
 export const FavoritesBox = styled(Box)`
@@ -46,18 +45,18 @@ export const FavoritesBox = styled(Box)`
 `;
 
 
-export const LabelSpan = styled.span`
-  margin: 5px 0;
-  font-size: 16px;
-  font-weight: 400;
-`;
+// export const LabelSpan = styled.span`
+//   margin: 5px 0;
+//   font-size: 16px;
+//   font-weight: 400;
+// `;
 
-export const ContentSpan = styled.span`
-  margin: 5px 0;
-  font-weight: 600;
-  font-size: 16px;
-  color: #343434;
-`;
+// export const ContentSpan = styled.span`
+//   margin: 5px 0;
+//   font-weight: 600;
+//   font-size: 16px;
+//   color: #343434;
+// `;
 
 export const OrderImageWrapper = styled(Box)`
   width: fit-content;
@@ -78,3 +77,27 @@ export const Remove = styled.img`
   top: -10px;
   cursor: pointer;
 `;
+
+export const ItemDetailsBox = styled(Box)`
+  border-top:1px solid #ddd;
+  margin:40px 0 0 0;
+
+  .delete{
+  color:red;
+  cursor:pointer;
+  }
+  .heading{
+  font-family:"Roboto-Bold"
+  }
+`;
+
+export const TotalBox = styled(Box)`
+margin:24px;
+display:flex;
+justify-content:flex-end;
+.total{
+  font-family:"Roboto-Bold";
+  margin-left:12px;
+}
+`;
+

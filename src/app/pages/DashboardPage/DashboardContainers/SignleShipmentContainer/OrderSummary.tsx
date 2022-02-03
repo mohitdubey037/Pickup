@@ -1,7 +1,7 @@
 import { Flex } from "app/components/Input/style";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { H2 } from "app/components/Typography/Typography";
+import { H2, H3, H4 } from "app/components/Typography/Typography";
 import React, { useState, useEffect } from "react";
 // import { rows, columns } from "./OrderSummaryHelper";
 import { Button } from "../../../../components/Buttons";
@@ -16,6 +16,9 @@ import { navigate } from "@reach/router";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { useDispatch, useSelector } from "react-redux";
+import { Box } from "@mui/system";
+import { ButtonsGroup } from "app/components/Buttons/style";
+import { TotalBox } from "./style";
 function OrderSummary({ path: string }) {
 
     const dispatch = useDispatch();
@@ -98,38 +101,32 @@ function OrderSummary({ path: string }) {
     return (
         <>
             <ModuleContainer>
-                <H2 title="Order Summary" />
+                <H3 text="Order Summary" />
 
-                <Flex direction={"column"} top={20}>
+                <Box mt={3}>
                     <Table 
                         data={onHoldTable(orderSummaryData, onItemCountSelectHandler)} 
                         
                         getSelectedItems={(val) => console.log("OrderTableK", val)}
                     />
-                    <Flex justifyContent="flex-end">
-                        <p style={{
-                            fontFamily: 'Roboto',
-                            fontWeight: 700,
-                            fontSize: '14px',
-                            marginRight: "100px"
-                        }}>Total <span style={{ paddingLeft: "35px" }}>${Number(totalCost).toFixed(2)}</span></p>
-                    </Flex>
+                    <TotalBox>
+                    <H4 text="Total" className="total" />
+                    <H4 text={Number(totalCost).toFixed(2)} className="total" />
+                    </TotalBox>
 
-                </Flex>
-                <Flex
-                    style={{ marginBottom: 10, padding: "inherit" }}
-                    direction={"row-reverse"}
-                >
+                </Box>
+                <Flex justifyContent="flex-end" top={24}> 
                     <Button
-                        style={{ width: 190 }}
-                        label="Proceed to Payment"
-                        onClick={() => redirectForward()}
-                    />
-                    <Button
-                        style={{ width: 190, marginRight: 20 }}
                         secondary
                         label="Back"
                         onClick={onBackHandler}
+                        size="small"
+                    />
+                    <Button
+                        label="Proceed to Payment"
+                        onClick={() => redirectForward()}
+                        size="medium"
+                        style={{marginLeft:'12px'}}
                     />
                     {/* <Button
                         style={{ width: 190, marginRight: 20 }}

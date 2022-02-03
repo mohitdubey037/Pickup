@@ -8,7 +8,8 @@ import Select from "app/components/Select";
 import { CustomInput } from "../CompanyProfileContainer/style";
 import { WEIGHTDIMENSION, DIMENSION2 } from "../../../../../constants";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { H4 } from "app/components/Typography/Typography";
+import { H4, H5 } from "app/components/Typography/Typography";
+import { ItemDetailsBox } from "./style";
 
 function DetailsFormItem(props: { formik: FormikValues; index: number, orderIndex: number, hasDimensions: boolean }) {
     const { handleChange, values, errors, touched, handleBlur } =
@@ -33,19 +34,23 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
     }
 
     return (
-        <>
-            {props?.formik?.values?.orders?.[props.orderIndex].shipmentDetails?.length > 1 && (
-                <div role="button" tabIndex={0} onKeyPress={(e) => e.key === "Enter" && deleteItemHandler(index)} onClick={() => deleteItemHandler(index)} style={{ cursor: "pointer", position: 'absolute', top: "20px", right: "20px" }}>
-                    <img src={remove} alt="delete" />
-                </div>
-            )}
-
+        <ItemDetailsBox>
             <Box mb={6} mt={4}>
-               <H4 text={`Item#${index + 1}`}  />
+                <Box display="flex" justifyContent="space-between">
+               <H4 text={`Item#${index + 1}`} className="heading"  />
+               {props?.formik?.values?.orders?.[props.orderIndex].shipmentDetails?.length > 1 && (
+                <Box role="button" tabIndex={0} onKeyPress={(e) => e.key === "Enter" && deleteItemHandler(index)} onClick={() => deleteItemHandler(index)}>
+                    {/* <img src={remove} alt="delete" /> */}
+                    <H4 text="Delete" className="delete" />
+                </Box>
+            )}
+            </Box>
+
              </Box>
          
-                {props.hasDimensions && (
+                
                     <Box>
+                    {props.hasDimensions && (
                     <GridContainer container spacing={6}>
                     <Grid item sm={6} xs={12}>
                         <GridContainer container spacing={2}>
@@ -131,7 +136,13 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                 />
                             </Grid>
                     </GridContainer>
+
+
+
                     </Grid>
+                    </GridContainer>
+)}
+                   <GridContainer container spacing={2}>
                     <Grid item xs={6}> 
                     <CustomInput
                                 id={`${formFieldName}.${formItem}.quantity`}
@@ -162,11 +173,12 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                     />
                     </Grid>
                     </GridContainer>
-                        </Box>
-                )}
+                    
+                </Box>
+                
         
          
-        </>
+        </ItemDetailsBox>
     );
 }
 
