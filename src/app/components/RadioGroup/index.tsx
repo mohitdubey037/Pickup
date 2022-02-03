@@ -9,11 +9,14 @@ import {
 import { ErrorLabel, Flex } from "../Input/style";
 import { H4 } from "../Typography/Typography";
 import { RadioBox, RadioFlex } from "./style";
+import CustomTooltip from "../Tooltip/CustomTooltip";
+import { tooltipIcon } from "app/assets/Icons";
 
 interface RadioOptionItem {
   value: number | string;
   label: string;
   disabled ?: boolean;
+  tooltiptext?: string;
 }
 
 interface RadioGroupProps {
@@ -56,13 +59,24 @@ function RadioGroup({
             
           >
             <RadioFlex>
-              {options?.map(({ value, label, disabled }, i) => (
+              {options?.map(({ value, label, disabled, tooltiptext }, i) => (
+               <Box display="flex" alignItems="center"> 
                 <FormControlLabel
                     key={i}
                   value={value}
                   control={<Radio disabled={disabled} />}
                   label={label}
                 />
+              
+                    {tooltiptext && 
+                    <CustomTooltip 
+                    text={tooltiptext}
+                    content={<img src={tooltipIcon} alt="" />}
+                    className="tooltip"
+                    />
+                    }
+
+                  </Box>
               ))}
             </RadioFlex>
           </RadioGroupComponent>

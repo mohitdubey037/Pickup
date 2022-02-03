@@ -20,3 +20,15 @@ export interface InputProps {
   ref?: any;
   required?: boolean;
 }
+
+
+export interface DateTimeInputProps {
+  label?: string;
+  placeholder?: string;
+  onChange?: any;
+  error?: string | boolean;
+  value?: any;
+  disabled?: boolean;
+  required?: boolean;
+  defaultValue?: any;
+}

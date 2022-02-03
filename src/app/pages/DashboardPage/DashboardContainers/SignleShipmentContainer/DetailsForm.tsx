@@ -97,7 +97,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
         <Box mt={4}>
          
                 <GridContainer container spacing={3}>
-                    <Grid item lg={6}>
+                    <Grid item sm={6} xs={12}>
                         <Select
                             id={`${formFieldName}.categoryId`}
                             name={`${formFieldName}.categoryId`}
@@ -118,7 +118,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.categoryId}</p>
                         )}
                     </Grid>
-                    <Grid item lg={6}>
+                    <Grid item sm={6} xs={12}>
                         <CustomInput
                             name={`${formFieldName}.customerRefNo`}
                             id={`${formFieldName}.customerRefNo`}
@@ -133,7 +133,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             validate
                         />
                     </Grid>
-                <Grid item lg={6}>
+                <Grid item sm={6} xs={12}>
                         <Select
                             id={`${formFieldName}.dropOption`}
                             name={`${formFieldName}.dropOption`}
@@ -147,7 +147,7 @@ function DetailsForm(props: { formik: FormikValues; noOfItem: number , index: nu
                             <p style={{ margin: 0, color: "#c94c43" }}>{singleFormErrors?.dropOption}</p>
                         )}
                     </Grid>
-                    <Grid item lg={6}>
+                    <Grid item sm={6} xs={12}>
                         <RadioGroup
                             id={`${formFieldName}.fragile`}
                             name={`${formFieldName}.fragile`}

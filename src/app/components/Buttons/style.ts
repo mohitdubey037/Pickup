@@ -44,7 +44,7 @@ export const useStyles = makeStyles<Theme, ButtonProps>({
     fontSize: ({ size }) => (size ? fontSize[size] : '14px'),
     height: ({ size }) => (size ? height[size] : '40px'),
 		'@media (max-width:600px)': {
-      width: ({ size }) => (size ? mobilesizes[size] : '100%'),
+      minWidth: ({ size }) => (size ? mobilesizes[size] : '100%'),
 		},
 	},
 });

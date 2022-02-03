@@ -183,7 +183,7 @@ function SingleSipmentForm({
         {!disabled && (
           <>
              <GridContainer container spacing={3}>
-            <Grid item xs={4}>
+            <Grid item lg={4} sm={6} xs={12}>
               <div className="div_select">
                 <label htmlFor="cars">Location type</label>
                 <br />
@@ -209,7 +209,7 @@ function SingleSipmentForm({
             </GridContainer>
             <GridContainer container spacing={2}>
               {singleFormValues[`${title}BillingType`] === 2 && (
-                <Grid item xs={4}>
+                <Grid item lg={4} sm={6} xs={12}>
                   <Input
                     id={`${formFieldName}.${title}CompanyName`}
                     name={`${formFieldName}.${title}CompanyName`}
@@ -235,7 +235,7 @@ function SingleSipmentForm({
                   />
                 </Grid>
               )}
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}FirstName`}
                   name={`${formFieldName}.${title}FirstName`}
@@ -260,7 +260,7 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}LastName`}
                   name={`${formFieldName}.${title}LastName`}
@@ -285,7 +285,7 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <AutoComplete
                   id={`${formFieldName}.${title}AddressLine1`}
                   name={`${formFieldName}.${title}AddressLine1`}
@@ -304,7 +304,7 @@ function SingleSipmentForm({
                   onSelect={handler}
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}AddressLine2`}
                   name={`${formFieldName}.${title}AddressLine2`}
@@ -329,7 +329,7 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}City`}
                   name={`${formFieldName}.${title}City`}
@@ -354,7 +354,7 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}PostalCode`}
                   name={`${formFieldName}.${title}PostalCode`}
@@ -379,7 +379,7 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}ProvinceState`}
                   name={`${formFieldName}.${title}ProvinceState`}
@@ -404,7 +404,7 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}Country`}
                   name={`${formFieldName}.${title}Country`}
@@ -429,7 +429,7 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}ContactNumber`}
                   name={`${formFieldName}.${title}ContactNumber`}
@@ -454,7 +454,7 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}AlternateContactNumber`}
                   name={`${formFieldName}.${title}AlternateContactNumber`}
@@ -479,7 +479,7 @@ function SingleSipmentForm({
                   validate
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Input
                   id={`${formFieldName}.${title}EmailAddress`}
                   name={`${formFieldName}.${title}EmailAddress`}

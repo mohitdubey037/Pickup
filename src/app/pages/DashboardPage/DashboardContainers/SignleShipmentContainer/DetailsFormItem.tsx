@@ -47,9 +47,9 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                 {props.hasDimensions && (
                     <Box>
                     <GridContainer container spacing={6}>
-                    <Grid item xs={6}>
+                    <Grid item sm={6} xs={12}>
                         <GridContainer container spacing={2}>
-                            <Grid item xs={8}>
+                            <Grid item xs={6} lg={8}>
                                 <CustomInput
                                     name={`${formFieldName}.${formItem}.weight`}
                                     id={`${formFieldName}.${formItem}.weight`}
@@ -63,7 +63,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     validate
                                 />
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={6} lg={4}>
                                 <Select
                                     id={`${formFieldName}.${formItem}.weightDimension`}
                                     name={`${formFieldName}.${formItem}.weightDimension`}
@@ -79,9 +79,9 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                         </GridContainer>
                         </Grid>
 
-                        <Grid item xs={6}>
+                        <Grid item lg={6} xs={12}>
                         <GridContainer container spacing={2}>
-                        <Grid item xs={3}>
+                        <Grid item xs={6} sm={3}>
                                 <CustomInput
                                     id={`${formFieldName}.${formItem}.length`}
                                     name={`${formFieldName}.${formItem}.length`}
@@ -94,7 +94,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     placeholder={"eg. 10"}
                                 />
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={6} sm={3}>
                                 <CustomInput
                                     id={`${formFieldName}.${formItem}.width`}
                                     name={`${formFieldName}.${formItem}.width`}
@@ -107,7 +107,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     placeholder={"eg. 10"}
                                 />
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={6} sm={3}>
                                 <CustomInput
                                     id={`${formFieldName}.${formItem}.height`}
                                     name={`${formFieldName}.${formItem}.height`}
@@ -120,7 +120,7 @@ function DetailsFormItem(props: { formik: FormikValues; index: number, orderInde
                                     placeholder={"eg. 10"}
                                 />
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={6} sm={3}>
                                 <Select
                                     id={`${formFieldName}.${formItem}.sizeDimension`}
                                     name={`${formFieldName}.${formItem}.sizeDimension`}

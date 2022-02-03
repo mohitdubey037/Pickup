@@ -7,51 +7,51 @@ export const singleShipmentFormSchema = yup.object().shape({
         yup.object().shape({
             originCompanyName: yup.string().when('originBillingType', {
                 is: (originBillingType) => originBillingType === 2,
-                then: yup.string().required('Company Name is a required field')
+                then: yup.string().required('Company name is a required field')
             }),
-            originFirstName: yup.string().required("First Name is a required field"),
-            originLastName: yup.string().required("Last Name is a required field"),
-            originAddressLine1: yup.string().required("Address Line 1 is a required field").test(
+            originFirstName: yup.string().required("First name is a required field"),
+            originLastName: yup.string().required("Last name is a required field"),
+            originAddressLine1: yup.string().required("Address line 1 is a required field").test(
                 'Please',
                 'Please enter a valid address',
                 function (item) {
                     return (this.parent.originLatitude || this.parent.originLongitude)
                 }
             ),
-            originAddressLine2: yup.string().required("Address Line 2 is a required field"),
+            originAddressLine2: yup.string().required("Address line 2 is a required field"),
             originCity: yup.string().required("City is a required field"),
-            originPostalCode: yup.string().required("Postal Code is a required field"),
+            originPostalCode: yup.string().required("Postal code is a required field"),
             originProvinceState: yup.string().required("Province/State is a required field"),
             originCountry: yup.string().required("Country is a required field"),
             originContactNumber: yup.string().required("Phone number is not valid").min(10, "Must be minimum 10 digits").max(10, "Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
-            originAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").min(10, "Must be minimum 10 digits").max(10, "Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, " Alternate Phone number is not valid"),
-            originEmailAddress: yup.string().email("Please enter valid email").required("Email Address is a required field"),
-            originAdditionalNotes: yup.string().required("Additional Notes is a required field"),
+            originAlternateContactNumber: yup.string().required("Alternate contact number is not valid").min(10, "Must be minimum 10 digits").max(10, "Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, " Alternate Phone number is not valid"),
+            originEmailAddress: yup.string().email("Please enter valid email").required("Email address is a required field"),
+            originAdditionalNotes: yup.string().required("Additional notes is a required field"),
             originLatitude: yup.string().required("Latitude is a required field"),
             originLongitude: yup.string().required("Longitude is a required field"),
 
             destinationCompanyName: yup.string().when('destinationBillingType', {
                 is: (destinationBillingType) => destinationBillingType === 2,
-                then: yup.string().required('Company Name is a required field')
+                then: yup.string().required('Company name is a required field')
             }),
-            destinationFirstName: yup.string().required("First Name is a required field"),
-            destinationLastName: yup.string().required("Last Name is a required field"),
-            destinationAddressLine1: yup.string().required("Address Line 1 is a required field").test(
+            destinationFirstName: yup.string().required("First name is a required field"),
+            destinationLastName: yup.string().required("Last name is a required field"),
+            destinationAddressLine1: yup.string().required("Address line 1 is a required field").test(
                 'Please',
                 'Please enter a valid address',
                 function (item) {
                     return (this.parent.destinationLatitude || this.parent.destinationLongitude)
                 }
             ),
-            destinationAddressLine2: yup.string().required("Address Line 2 is a required field"),
+            destinationAddressLine2: yup.string().required("Address line 2 is a required field"),
             destinationCity: yup.string().required("City is a required field"),
-            destinationPostalCode: yup.string().required("Postal Code is a required field"),
+            destinationPostalCode: yup.string().required("Postal code is a required field"),
             destinationProvinceState: yup.string().required("Province/State is a required field"),
             destinationCountry: yup.string().required("Country is a required field"),
             destinationContactNumber: yup.string().required("Phone number is not valid").min(10, "Must be minimum 10 digits").max(10, "Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
-            destinationAlternateContactNumber: yup.string().required("Alternate Contact Number is not valid").min(10, "Must be minimum 10 digits").max(10, "Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
-            destinationEmailAddress: yup.string().email("Please enter valid email").required("Email Address is a required field"),
-            destinationAdditionalNotes: yup.string().required("Additional Notes is a required field"),
+            destinationAlternateContactNumber: yup.string().required("Alternate contact number is not valid").min(10, "Must be minimum 10 digits").max(10, "Must be maximum 10 digits").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+            destinationEmailAddress: yup.string().email("Please enter valid email").required("Email address is a required field"),
+            destinationAdditionalNotes: yup.string().required("Additional notes is a required field"),
             destinationLatitude: yup.string().required("Latitude is a required field"),
             destinationLongitude: yup.string().required("Longitude is a required field"),
 
@@ -63,7 +63,7 @@ export const singleShipmentFormSchema = yup.object().shape({
             shipmentDetails: yup.array().of(
                 yup.object({
                     quantity: yup.number().integer("Quantity must be an integer")
-                        .typeError('Quantity must be a number').min(1, "Invalid Quantity")
+                        .typeError('Quantity must be a number').min(1, "Invalid quantity")
                         .required("Quantity is required"),
                     description: yup.string(),
                     height: yup.string()

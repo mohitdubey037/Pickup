@@ -179,3 +179,16 @@ margin-bottom:16px;
 `;
 
 
+
+
+export const DateTimePickerBox = styled(Box)`
+
+.MuiTextField-root{
+  width:100%;
+}
+.MuiInputBase-input{
+  height:42px;
+  box-sizing:border-box;
+}
+`;
+

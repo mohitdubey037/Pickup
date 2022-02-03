@@ -12,7 +12,7 @@ import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
 import { singleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import { Button } from "../../../../components/Buttons";
 
-import { shipmentInitValues, getNextOrderValues } from "./helper";
+import { shipmentInitValues, singleShipmentInitValues1, getNextOrderValues } from "./helper";
 import { Flex, FullCard } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { navigate } from "@reach/router";
@@ -49,6 +49,7 @@ function SingleShipment({ path: string }) {
 
   const formik = useFormik({
     initialValues: shipmentDetails || shipmentInitValues,
+    // initialValues: {orders :[singleShipmentInitValues1]},
     validate: (values: any) => {
         try {
             validateYupSchema(values, singleShipmentFormSchema, true, values);

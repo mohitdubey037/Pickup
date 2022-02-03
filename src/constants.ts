@@ -96,9 +96,9 @@ export const DIMENSION2 = [
 ];
 
 export const SCHEDULE_OPTIONS = [
-  { value: "16", label: "Ship Right Now" },
-  { value: "17", label: "Ship Later" },
-  { value: "22", label: "Move to Holding Zone" },
+  { value: "16", label: "Ship Right Now", tooltiptext: "dummy text" },
+  { value: "17", label: "Ship Later", tooltiptext: "dummy text" },
+  { value: "22", label: "Move to Holding Zone", tooltiptext: "dummy text" },
 ];
 
 export const COUNTRY = [
