@@ -47,13 +47,15 @@ export const debitCardDetails = [
 ];
 
 const getInvoiceIdItem = (
-    openInvoiceDrawer: (key: string, type: any) => void,
-    invoiceNumber: string,
+    openInvoiceDrawer: (key: string, type: any, invoicePdf: string) => void,
+    invoiceNumber: number,
+    invoicePdf: string,
     id: any
 ) => {
+    console.log(invoicePdf);
     return (
         <div
-            onClick={() => openInvoiceDrawer(id, "invoice")}
+            onClick={() => openInvoiceDrawer(id, "invoice", invoicePdf)}
             style={{ color: "#1B8AF0" }}
         >
             <u> {invoiceNumber}</u>
@@ -62,13 +64,15 @@ const getInvoiceIdItem = (
 };
 
 const getOrderIdItem = (
-    openInvoiceDrawer: (key: string, type: any) => void,
+    openInvoiceDrawer: (key: string, type: any, invoicePdf: string) => void,
     shipmentCount: number,
+    invoicePdf: string,
     id: any
 ) => {
+    console.log(id);
     return (
         <div
-            onClick={() => openInvoiceDrawer(id, "orderDetails")}
+            onClick={() => openInvoiceDrawer(id, "orderDetails", invoicePdf)}
             style={{ color: "#1B8AF0" }}
         >
             <u> {shipmentCount}</u>
@@ -78,24 +82,27 @@ const getOrderIdItem = (
 
 export const invoiceTable = (
     searchRecordData: any,
-    openInvoiceDrawer: (key: string, type: any) => void
+    openInvoiceDrawer: (key: string, type: any, pdfUrl: string) => void
 ) => {
     let makeTableData: any = [];
     if (searchRecordData && searchRecordData.length) {
         makeTableData = searchRecordData.map((item: any) => {
+            console.log(item);
             return {
                 "Invoice Date": item.invoiceCreatedAt,
                 "Shipment Count": getOrderIdItem(
                     openInvoiceDrawer,
-                    item.shipmentCount,
-                    item.shipmentCount
+                    item.invoiceId,
+                    item.invoiceId,
+                    item.invoicePdf
                 ),
                 "Shipped By": item.shippedBy,
                 "Invoice Amount": `$ ${item.total}`,
                 "Invoice Number": getInvoiceIdItem(
                     openInvoiceDrawer,
                     item.invoiceNumber,
-                    item.invoiceId
+                    item.invoiceId,
+                    item.invoicePdf
                 ),
             };
         });

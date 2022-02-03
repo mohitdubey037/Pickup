@@ -14,11 +14,31 @@ import { InvoicesWrapper, InvoiceTableTop } from "./InvoiceStyle";
 import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 
 const InvoicesContainer = ({ path: string }) => {
-  const [invoiceData, setInvoiceData] = useState([]);
-  const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
-  const [selectedOrderId, setSelectedOrderId] = useState("");
+  const [invoiceData, setInvoiceData] = useState<any>([]);
+  const [invoicePdf, setInvoicePdf] = useState<any>("");
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState<any>("");
+  // const [selectedOrderId, setSelectedOrderId] = useState("");
   const [drawerType, setDrawerType] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // const dummy = [
+  //   {
+  //     "invoiceCreatedAt": '2022-01-01',
+  //     "shipmentCount": '1012',
+  //     "shippedBy": 'mohit dubey',
+  //     "total": "1",
+  //     "invoiceNumber": '1012',
+  //     "invoiceId": '1013'
+  //   },
+  //   {
+  //     "invoiceCreatedAt": '2022-01-01',
+  //     "shipmentCount": '1012',
+  //     "shippedBy": 'mohit dubey',
+  //     "total": "1",
+  //     "invoiceNumber": '1012',
+  //     "invoiceId": '1013'
+  //   }
+  // ]
 
   const getDrawerTitle = () => {
     if (drawerType === "invoice") {
@@ -30,12 +50,24 @@ const InvoicesContainer = ({ path: string }) => {
     }
   };
 
-  const openInvoiceDrawer = (id: any, type: any) => {
-    if (type === "invoice") {
+  // useEffect(() => {
+  //   console.log(selectedInvoiceId, 'invoiceId');
+  // },[selectedInvoiceId])
+
+  const openInvoiceDrawer = (pdfUrl: string,type: any, id: any) => {
+    console.log(id);
+    console.log(type);
+    console.log(pdfUrl);
+    // console.log(type);
+    // console.log(id);
+    // if (type === "invoice") {
+    //   setSelectedInvoiceId(id);
+    // } 
+    // else if (type === "orderDetails") {
+      setInvoicePdf(pdfUrl);
       setSelectedInvoiceId(id);
-    } else if (type === "orderDetails") {
-      setSelectedOrderId("5383");
-    }
+      // setSelectedOrderId(id);
+    // }
     setDrawerType(type);
     setDrawerOpen(true);
   };
@@ -66,13 +98,15 @@ const InvoicesContainer = ({ path: string }) => {
       Object.entries(values).forEach(
         ([key, value], index) =>
           (urlParams += value
-            ? `${key}=${value}${index === tempLen - 1 ? "" : "&"}`
+            ? `${key}=${value}${index === tempLen - 1}`
             : "")
       );
     }
+    console.log(urlParams);
     const res: any = await getInvoiceList(urlParams);
     if (!res.error) {
       const InvoiceList = res.response.data.data.list;
+      // setInvoiceData(dummy);
       setInvoiceData(InvoiceList);
     }
   };
@@ -155,11 +189,12 @@ const InvoicesContainer = ({ path: string }) => {
         actionButtons={true}
       >
         {drawerType === "invoice" ? (
-          <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
+          <AddNewPaymentDrawer invoiceId={selectedInvoiceId} invoicePdf={invoicePdf} />
         ) : drawerType === "orderDetails" ? (
           <OrderDetailsDrawer
-            orderId={selectedOrderId}
+            orderId={selectedInvoiceId}
             setDrawerOpen={setDrawerOpen}
+            invoicePdf={invoicePdf}
           />
         ) : (
           <></>
