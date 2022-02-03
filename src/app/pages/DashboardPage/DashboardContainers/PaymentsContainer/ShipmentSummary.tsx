@@ -15,6 +15,9 @@ import { showToast } from "utils";
 
 import { CardType } from "../../../../../types"
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
+import { H4 } from "app/components/Typography/Typography";
+import { CustomLink } from "app/components/Typography/Links";
+import { Box } from "@mui/system";
 
 interface InvoiceDataType {
     insuranceAmount: number;
@@ -156,30 +159,11 @@ function ShipmentSummary({ path }: { path: string }) {
                 insuranceHandler={insuranceHandler}
             />
 
-            <Flex justifyContent="space-between" style={{ alignItems: 'center', maxHeight: '60px' }}>
-                <Typography
-                    style={{
-                        fontWeight: 500,
-                        fontSize: 18,
-                        paddingTop: 15,
-                        paddingBottom: 15,
-                    }}
-                >
-                    Payment Details
-                </Typography>
-                <div style={{ cursor: "pointer" }} onClick={() => setShowAddCard(!showAddCard)}>
-                    <Typography
-                        style={{
-                            fontWeight: 500,
-                            fontSize: 14,
-                            paddingTop: 15,
-                            paddingBottom: 15,
-                            color: '#1B8AF0'
-                        }}
-                    >
-                        + <u>Add New Payment</u>
-                    </Typography>
-                </div>
+            <Flex justifyContent="space-between" top={24}>
+                   <H4 text="Payment Details" />
+                    <Box style={{ cursor: "pointer" }} onClick={() => setShowAddCard(!showAddCard)}>
+                    <CustomLink label={`+ Add New Payment`} style={{ color: "#1B8AF0"}} />
+                    </Box>
             </Flex>
             
             <CreditDebitCardHolder
@@ -194,7 +178,7 @@ function ShipmentSummary({ path }: { path: string }) {
                     secondary
                     label="Back"
                     onClick={onBackHandler}
-                    size="medium"
+                    size="small"
                     style={{marginRight: '12px'}}
                 />
                 <Button
