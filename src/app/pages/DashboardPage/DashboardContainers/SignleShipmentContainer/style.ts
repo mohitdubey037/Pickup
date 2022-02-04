@@ -1,23 +1,22 @@
 import { Box } from "@material-ui/core";
-import { Flex } from "app/components/Input/style";
 import styled from "styled-components";
 
 export const InnerAccordion = styled.div`
-border-top:1px solid #DDDDDD;
-margin:24px 0;
+  border-top: 1px solid #dddddd;
+  margin: 24px 0;
 `;
 
 export const AccordionOuterBox = styled(Box)`
-border: 1px solid #DCDCDC;
-box-sizing: border-box;
-border-radius: 4px;
-padding:16px;
-div{
-  box-shadow: none !important;
-}
-.value{
-  font-family:"Roboto-Medium"
-}
+  border: 1px solid #dcdcdc;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 16px;
+  div {
+    box-shadow: none !important;
+  }
+  .value {
+    font-family: "Roboto-Medium";
+  }
 `;
 
 export const FavoritesBox = styled(Box)`
@@ -44,7 +43,6 @@ export const FavoritesBox = styled(Box)`
   }
 `;
 
-
 // export const LabelSpan = styled.span`
 //   margin: 5px 0;
 //   font-size: 16px;
@@ -64,11 +62,11 @@ export const OrderImageWrapper = styled(Box)`
 `;
 
 export const OrderImage = styled.img`
-width: 140px;
-height: 140px;
-object-fit: contain;
-background: #f5f5f5;
-border: 1px solid #eee;
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  background: #f5f5f5;
+  border: 1px solid #eee;
 `;
 
 export const Remove = styled.img`
@@ -79,25 +77,24 @@ export const Remove = styled.img`
 `;
 
 export const ItemDetailsBox = styled(Box)`
-  border-top:1px solid #ddd;
-  margin:40px 0 0 0;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
 
-  .delete{
-  color:red;
-  cursor:pointer;
+  .delete {
+    color: red;
+    cursor: pointer;
   }
-  .heading{
-  font-family:"Roboto-Bold"
+  .heading {
+    font-family: "Roboto-Bold";
   }
 `;
 
 export const TotalBox = styled(Box)`
-margin:24px;
-display:flex;
-justify-content:flex-end;
-.total{
-  font-family:"Roboto-Bold";
-  margin-left:12px;
-}
+  margin: 24px;
+  display: flex;
+  justify-content: flex-end;
+  .total {
+    font-family: "Roboto-Bold";
+    margin-left: 12px;
+  }
 `;
-

@@ -164,7 +164,7 @@ function SingleSipmentForm({
         {!disabled && (
           <>
             <GridContainer container spacing={3}>
-            <Grid item lg={4} sm={6} xs={12}>
+              <Grid item lg={4} sm={6} xs={12}>
                 <Select
                   id={`${formFieldName}.${title}LocationType`}
                   name={`${formFieldName}.${title}LocationType`}

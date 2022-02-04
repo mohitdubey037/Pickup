@@ -109,9 +109,24 @@ export const DIMENSION2 = [
 ];
 
 export const SCHEDULE_OPTIONS = [
-  { value: "16", label: "Ship Right Now", tooltiptext: "dummy text" },
-  { value: "17", label: "Ship Later", tooltiptext: "dummy text" },
-  { value: "22", label: "Move to Holding Zone", tooltiptext: "dummy text" },
+  {
+    value: "16",
+    label: "Ship Right Now",
+    tooltipText:
+      "Your order will be shipped as soon as possible after completing payment",
+  },
+  {
+    value: "17",
+    label: "Ship Later",
+    tooltipText:
+      "You can schedule your order to be shipped later for a specified date and time",
+  },
+  {
+    value: "22",
+    label: "Move to Holding Zone",
+    tooltipText:
+      "Once your orders are ready to ship, you can schedule them later from the holding zone",
+  },
 ];
 
 export const COUNTRY = [

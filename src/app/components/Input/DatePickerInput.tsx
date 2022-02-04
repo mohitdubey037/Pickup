@@ -35,8 +35,13 @@ const DatePickerInput = React.forwardRef<any, DateTimeInputProps>(
               <TextField
                 label=""
                 disabled={disabled}
-                placeholder={placeholder}
-                {...params}
+                {...{
+                  ...params,
+                  inputProps: {
+                    ...params.inputProps,
+                    placeholder: placeholder,
+                  },
+                }}
                 onClick={() => !disabled && setOpen(true)}
                 defaultValue={defaultValue}
                 InputLabelProps={{

@@ -35,7 +35,13 @@ const TimePickerInput = React.forwardRef<any, DateTimeInputProps>(
                 label=""
                 disabled={disabled}
                 placeholder={placeholder}
-                {...params}
+                {...{
+                  ...params,
+                  inputProps: {
+                    ...params.inputProps,
+                    placeholder: placeholder,
+                  },
+                }}
                 onClick={() => !disabled && setOpen(true)}
                 defaultValue={defaultValue}
               />
