@@ -8,14 +8,12 @@ export const TableTop = styled.div`
   border: 1px solid #dcdcdc;
   border-radius: 8px 8px 0px 0px;
   border-bottom: none;
-  width: 100%;
   display: flex;
   background: #ffffff;
 `;
 
 export const CustomTableContainer = styled(TableContainer)`
   background: #ffffff;
-  border: 1px solid #dcdcdc;
 `;
 
 export const CustomTable = styled(Table)`
@@ -42,10 +40,12 @@ export const CustomTable = styled(Table)`
     color: #515151;
     padding: 8px 16px;
   }
+  .MuiTableCell-paddingCheckbox {
+    width: 24px;
+  }
 `;
 
 export const CustomPagination = styled(TablePagination)`
-  width: 100%;
   display: flex !important;
   justify-content: flex-end;
   min-height: 58px;
