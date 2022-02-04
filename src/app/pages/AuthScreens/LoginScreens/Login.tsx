@@ -79,7 +79,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
       Cookies.set("token", signInUserResponse?.data?.data?.token);
 
       navigate?.("/dashboard");
-    } else if (signInUserResponse?.status === 400) {
+    } else if (signInUserResponse?.status === 400 || signInUserResponse?.status === 403) {
       setErrorMessage(signInUserResponse?.message)
     }
     else if (signInUserResponse?.status === 422) {

@@ -6,6 +6,18 @@ export const InnerAccordion = styled.div`
   margin: 24px 0;
 `;
 
+export const MainDiv = styled.div`
+  .MuiAccordionSummary-content {
+    font-size: 18px;
+    font-weight: 700;
+    color: #343434;
+  }
+  MuiPaper-root MuiAccordion-root {
+    margin: 0px;
+    padding: 0px;
+  }
+`;
+
 export const AccordionOuterBox = styled(Box)`
   border: 1px solid #dcdcdc;
   box-sizing: border-box;
@@ -43,18 +55,18 @@ export const FavoritesBox = styled(Box)`
   }
 `;
 
-// export const LabelSpan = styled.span`
-//   margin: 5px 0;
-//   font-size: 16px;
-//   font-weight: 400;
-// `;
+export const LabelSpan = styled.span`
+  margin: 5px 0;
+  font-size: 16px;
+  font-weight: 400;
+`;
 
-// export const ContentSpan = styled.span`
-//   margin: 5px 0;
-//   font-weight: 600;
-//   font-size: 16px;
-//   color: #343434;
-// `;
+export const ContentSpan = styled.span`
+  margin: 5px 0;
+  font-weight: 600;
+  font-size: 16px;
+  color: #343434;
+`;
 
 export const OrderImageWrapper = styled(Box)`
   width: fit-content;

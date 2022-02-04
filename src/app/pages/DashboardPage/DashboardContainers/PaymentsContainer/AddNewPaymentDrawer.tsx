@@ -39,7 +39,10 @@ const BarCodeItem = ({ barcodeValue }) => {
     return <svg ref={inputRef} />;
 };
 
-function AddNewPaymentDrawer({ invoiceId }) {
+function AddNewPaymentDrawer(props) {
+    const {invoiceId} = props;
+    const {invoicePdf} = props;
+    console.log(invoicePdf);
 
     const [ordersArray, setOrdersArray] = useState<string[]>([]);
     const [orderDetails, setOrderDetails] = useState<OrderDetails | null>();
@@ -71,7 +74,7 @@ function AddNewPaymentDrawer({ invoiceId }) {
     console.log(ordersArray);
 
     return (
-        <div style={{ width: 540 }}>
+        <div>
             <img
                 style={{ paddingLeft: 200 }}
                 className="imageStyle"
@@ -153,7 +156,10 @@ function AddNewPaymentDrawer({ invoiceId }) {
             </Typography>
             <hr />
             <div style={{ paddingTop: 20, justifyContent: "space-between" }}>
-                <Button label="Download Invoice Details" secondary />
+                <a style={{textDecoration: 'none'}} href={invoicePdf}>
+                    <Button label="Download Invoice Details" secondary />
+                </a>
+                {/* <a target={invoicePdf}>Download Invoice Details</a> */}
                 <div style={{ paddingTop: 20 }} />
                 <ReactToPdf
                     targetRef={ref}

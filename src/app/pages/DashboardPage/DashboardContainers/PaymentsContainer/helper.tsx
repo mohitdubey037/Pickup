@@ -47,40 +47,65 @@ export const debitCardDetails = [
 ];
 
 const getInvoiceIdItem = (
-    openInvoiceDrawer: (key: string, type: any) => void,
+    openInvoiceDrawer: (key: string, type: any, invoicePdf: string) => void,
+    invoiceNumber: number,
+    invoicePdf: string,
     id: any
-  ) => {
-    return <div onClick={() => openInvoiceDrawer(id, "invoice")} style={{color:"#1B8AF0"}}><u> {id}</u></div>;
-  };
-  
-  const getOrderIdItem = (
-    openInvoiceDrawer: (key: string, type: any) => void,
+) => {
+    console.log(invoicePdf);
+    return (
+        <div
+            onClick={() => openInvoiceDrawer(id, "invoice", invoicePdf)}
+            style={{ color: "#1B8AF0" }}
+        >
+            <u> {invoiceNumber}</u>
+        </div>
+    );
+};
+
+const getOrderIdItem = (
+    openInvoiceDrawer: (key: string, type: any, invoicePdf: string) => void,
+    shipmentCount: number,
+    invoicePdf: string,
     id: any
-  ) => {
-    return <div onClick={() => openInvoiceDrawer(id, "orderDetails")} style={{color:"#1B8AF0"}}><u> {id}</u></div>;
-  };
-  
-  export const invoiceTable = (
+) => {
+    console.log(id);
+    return (
+        <div
+            onClick={() => openInvoiceDrawer(id, "orderDetails", invoicePdf)}
+            style={{ color: "#1B8AF0" }}
+        >
+            <u> {shipmentCount}</u>
+        </div>
+    );
+};
+
+export const invoiceTable = (
     searchRecordData: any,
-    openInvoiceDrawer: (key: string, type: any) => void
-  ) => {
+    openInvoiceDrawer: (key: string, type: any, pdfUrl: string) => void
+) => {
     let makeTableData: any = [];
     if (searchRecordData && searchRecordData.length) {
-      searchRecordData.map((item: any) => {
-        makeTableData.push({
-        //   Source: "Uploaded",
-        //   "Invoice Id": getInvoiceIdItem(openInvoiceDrawer, item.invoiceId),
-        //   "Order Id": getOrderIdItem(openInvoiceDrawer, item.orderId),
-        //   "Order Date": item.shippingDate,
-        //   Status: item.status ? item.status : "-",
-        //   "Order Cost": "$" + item.shipmentCost,
-        "Invoice Date": item.invoiceCreatedAt,
-        "Shipment Count":  getOrderIdItem(openInvoiceDrawer, item.shipmentCount),
-            "Shipped by": item.shippedBy,
-           "Invoice Amount": `$ ${item.total}`,
-           "Invoice Number": getInvoiceIdItem(openInvoiceDrawer, item.invoiceNumber),
+        makeTableData = searchRecordData.map((item: any) => {
+            console.log(item);
+            return {
+                "Invoice Date": item.invoiceCreatedAt,
+                "Shipment Count": getOrderIdItem(
+                    openInvoiceDrawer,
+                    item.invoiceId,
+                    item.invoiceId,
+                    item.invoicePdf
+                ),
+                "Shipped By": item.shippedBy,
+                "Invoice Amount": `$ ${item.total}`,
+                "Invoice Number": getInvoiceIdItem(
+                    openInvoiceDrawer,
+                    item.invoiceNumber,
+                    item.invoiceId,
+                    item.invoicePdf
+                ),
+            };
         });
-      });
     }
     return makeTableData;
-  };
+};

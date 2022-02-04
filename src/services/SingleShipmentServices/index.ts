@@ -87,6 +87,26 @@ export const getOrderDetails = async (orderId: any) => {
     }
 };
 
+export const getOrderCountDetail = async (invoiceId: any) => {
+    try {
+        const res = await services.get(`order/business/invoice/${invoiceId}/orderDetails`)
+        return { response: res, success: true }
+    } catch (err) {
+        // const response = (err instanceof Error)
+        if (err.isAxiosError && err.response) {
+            const errResponse = err.response;
+            const errorMessage = errResponse?.data?.message?.message
+                ? errResponse?.data?.message.message
+                : errResponse?.data?.message
+
+            return { response: errResponse, message: errorMessage, success: false };
+            // Handle your error type safe here
+        } else {
+            return { response: err.response, success: false };
+        }
+    }
+};
+
 export const imageUploadService = async (data: any) => {
     try {
         const res = await services.postImage(`order/business/uploadDocument`, data, "order", "", { "Content-Type": "multipart/form-data; boundary=???" })

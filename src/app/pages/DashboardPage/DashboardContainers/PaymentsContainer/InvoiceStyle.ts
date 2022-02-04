@@ -2,37 +2,38 @@ import styled from "styled-components";
 
 export const InvoicesWrapper = styled.div`
   margin-top: 54px;
-  margin-bottom:28px;
+  margin-bottom: 28px;
   display: flex;
-  gap: 8px;
-  align-items: flex-end;
-  img{
-    align-self:center;
-    cursor:pointer;
+  gap: 16px;
+  div {
+    width: 192px;
   }
-  input {
-    width: 152px;
+  .search-btn-wrapper {
+    padding-top: 25px;
   }
-  button {
+  .search-btn-wrapper button {
     height: 42px;
   }
 `;
 
 export const InvoiceTableTop = styled.div`
-  display:flex;
-  width:100%;
-  align-items:center;
-  padding:0 12px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 5px 16px;
   justify-content: space-between;
-  img{
-      cursor:pointer;
+  p {
+    color: #343434;
+    font-size: 18px;
+    margin-left: 16px;
   }
-  p{
-      color:#F99746;
+  p span {
+    color: #828282;
+    font-size: 12px;
   }
-  button{
-      width:114.19px;
-      margin-right:16px;
-      height:32px;
+  button {
+    width: 150px;
+    height: 32px;
+    font-size: 12px;
   }
 `;
