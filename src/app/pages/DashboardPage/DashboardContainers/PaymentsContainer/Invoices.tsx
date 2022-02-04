@@ -17,9 +17,13 @@ const InvoicesContainer = ({ path: string }) => {
   const [invoiceData, setInvoiceData] = useState<any>([]);
   const [invoicePdf, setInvoicePdf] = useState<any>("");
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<any>("");
+  const [checkboxData, setCheckboxData] = useState<any>("");
+
   // const [selectedOrderId, setSelectedOrderId] = useState("");
   const [drawerType, setDrawerType] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [newMultiplePdf, setNewMultiplePdf] = useState<any>(["https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1149.pdf",
+  "https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1149.pdf"]);
 
   // const dummy = [
   //   {
@@ -50,16 +54,7 @@ const InvoicesContainer = ({ path: string }) => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log(selectedInvoiceId, 'invoiceId');
-  // },[selectedInvoiceId])
-
   const openInvoiceDrawer = (pdfUrl: string,type: any, id: any) => {
-    console.log(id);
-    console.log(type);
-    console.log(pdfUrl);
-    // console.log(type);
-    // console.log(id);
     // if (type === "invoice") {
     //   setSelectedInvoiceId(id);
     // } 
@@ -72,6 +67,33 @@ const InvoicesContainer = ({ path: string }) => {
     setDrawerOpen(true);
   };
 
+  const downloadAll = () => {
+    // setMultiplePdf(
+     const multiplePdf = invoiceData.filter((invoice, index)=> checkboxData.includes(index)).map((inv) => inv.invoiceNumber);
+      multiplePdf.map(url => {
+        var link:any = document.createElement("a");
+        link.download = `${url.split("/")[-1]}`;
+        link.href = url;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+     })
+  } 
+
+  useEffect(() => {
+    // if (multiplePdf) {
+      newMultiplePdf.map(url => {
+        console.log(url)
+        var link:any = document.createElement("a");
+        link.download = `${url.split("/")[-1]}`;
+        link.href = url;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+     })
+    // }
+  })
+
   const tableTop = () => {
     return (
       <InvoiceTableTop>
@@ -83,7 +105,7 @@ const InvoicesContainer = ({ path: string }) => {
             size="large"
             secondary
             label="Download Selected"
-            onClick={() => {}}
+            onClick={() => {downloadAll()}}
           />
         </div>
       </InvoiceTableTop>
@@ -176,6 +198,9 @@ const InvoicesContainer = ({ path: string }) => {
       <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
         tableTop={tableTop()}
+        dataChecked = {(data: any) => {
+          setCheckboxData(data);
+        }}
         showCheckbox
         showPagination
         perPageRows={10}

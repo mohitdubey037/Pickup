@@ -20,7 +20,8 @@ const Table = ({
     perPageRows,
     selectedItems,
     getSelectedItems,
-    onRowSelect
+    onRowSelect,
+    dataChecked
 }: TableProps) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(0);
@@ -60,8 +61,10 @@ const Table = ({
             if (id === "header") localSelected = [];
             else localSelected.splice(localSelected.indexOf(selected), 1);
         }
+        // console.log(localSelected);
         setSelected(localSelected);
         getSelectedItems && getSelectedItems(localSelected);
+        dataChecked?.(localSelected)
     };
 
     return (

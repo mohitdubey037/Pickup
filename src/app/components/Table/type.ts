@@ -11,4 +11,5 @@ export interface TableProps{
     getSelectedItems?:(rows:Array<unknown>)=>void;
     onRowSelect?:Function;
     onRowChecked?: Function;
+    dataChecked?: (data: any) => void
 }
