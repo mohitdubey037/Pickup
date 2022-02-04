@@ -1,121 +1,136 @@
+import React, { useState, useEffect } from "react";
+import { navigate } from "@reach/router";
+import { Box } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Flex } from "app/components/Input/style";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { H2, H3, H4 } from "app/components/Typography/Typography";
-import React, { useState, useEffect } from "react";
-// import { rows, columns } from "./OrderSummaryHelper";
+import { H3, H4 } from "app/components/Typography/Typography";
 import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
 import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments";
-
-
-// import { DataGrid } from "@mui/x-data-grid";
-
-import { navigate } from "@reach/router";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
-import { useDispatch, useSelector } from "react-redux";
-import { Box } from "@mui/system";
-import { ButtonsGroup } from "app/components/Buttons/style";
 import { TotalBox } from "./style";
-function OrderSummary({ path: string }) {
 
+function OrderSummary({ path: string }) {
     const dispatch = useDispatch();
-    const orderIds = useSelector((
-        state: { singleShipment: { orderIds } }) => {
+
+    const orderIds = useSelector((state: { singleShipment: { orderIds } }) => {
         return state.singleShipment.orderIds;
-      });
+    });
+    const authUser = useSelector((state: any) => {
+        return state.auth?.user;
+    });
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [drawerOpenOne, setDrawerOpenOne] = useState(false);
     const [orderSummaryData, setOrderSummaryData] = useState([]);
-    const [selectedOrder, setSelectedOrder] = useState<null|number>(null);
+    const [selectedOrder, setSelectedOrder] = useState<null | number>(null);
     const [totalCost, setTotalCost] = useState(0);
 
     const redirectBack = () => {
-        navigate?.("/dashboard/charter-shipment/single-shipment", { replace: true });
-    }
+        navigate?.("/dashboard/charter-shipment/single-shipment", {
+            replace: true,
+        });
+    };
 
     const redirectForward = () => {
         navigate?.("/dashboard/charter-shipment/shipment-summary");
-    }
+    };
 
     useEffect(() => {
         (async () => {
-            if(orderIds?.length <= 0){
+            if (orderIds?.length <= 0) {
                 redirectBack();
-                return
+                return;
             }
             const res = (await getShipmentDetails(orderIds)) as any;
             if (res.success) {
                 const shipmentDetails = res.response.data.data;
-                
                 const data = shipmentDetails.shipmentSummary;
-                const totalCost = data.reduce((acc, curr) => acc+curr.total, 0)
-                dispatch(actions.setInvoice(shipmentDetails.invoiceId))
+                const totalCost = data.reduce(
+                    (acc, curr) => acc + curr.total,
+                    0
+                );
+                dispatch(actions.setInvoice(shipmentDetails.invoiceId));
                 setTotalCost(totalCost);
-                setOrderSummaryData(data)
+                setOrderSummaryData(data);
             }
-        })()
+        })();
     }, [orderIds, dispatch]);
 
     const onBackHandler = () => {
         dispatch(actions.resetOrderIds());
         redirectBack();
-    }
+    };
 
     const onItemCountSelectHandler = (id: number) => {
         setDrawerOpen(true);
         setSelectedOrder(id);
-    }
-
-    const getOrderIdItem = (openInvoiceDrawer, value, id: any) => {
-        return <span onClick={() => openInvoiceDrawer(id)} style={{ color: "#1B8AF0", cursor: "pointer" }}><u>{value}</u></span>;
     };
 
-    const onHoldTable = (
-        orderSummaryData: any[],
-        openOrderDrawer: any,
-    ) => {
+    const getOrderIdItem = (openInvoiceDrawer, value, id: any) => {
+        return (
+            <span
+                onClick={() => openInvoiceDrawer(id)}
+                style={{ color: "#1B8AF0", cursor: "pointer" }}
+            >
+                <u>{value}</u>
+            </span>
+        );
+    };
+
+    const onHoldTable = (orderSummaryData: any[], openOrderDrawer: any) => {
         let makeTableData: any = [];
         if (orderSummaryData && orderSummaryData.length) {
             orderSummaryData.map((item: any) => {
                 makeTableData.push({
                     "Order Id": item.refNo,
-                    "Schedule": item.type,
-                    "Item Count": getOrderIdItem(openOrderDrawer, item.itemCount, item.orderId),
-                    "Order Cost": `$${item.total}`
+                    Schedule: item.type,
+                    "Item Count": getOrderIdItem(
+                        openOrderDrawer,
+                        item.itemCount,
+                        item.orderId
+                    ),
+                    "Order Cost": `$ ${item.total}`,
                 });
             });
         }
         return makeTableData;
     };
-    const authUser = useSelector((state: any) => {
-        return state.auth?.user;
-      });
-    
-      if([1,2,3,4].indexOf(authUser?.roleId) === -1) {
-        navigate(' /non-authorized-page')
-      }
+
+    if ([1, 2, 3, 4].indexOf(authUser?.roleId) === -1) {
+        navigate("/non-authorized-page");
+    }
+
     return (
         <>
             <ModuleContainer>
                 <H3 text="Order Summary" />
 
                 <Box mt={3}>
-                    <Table 
-                        data={onHoldTable(orderSummaryData, onItemCountSelectHandler)} 
-                        
-                        getSelectedItems={(val) => console.log("OrderTableK", val)}
+                    <Table
+                        data={onHoldTable(
+                            orderSummaryData,
+                            onItemCountSelectHandler
+                        )}
+                        // getSelectedItems={(val) =>
+                        //     console.log("OrderTableK", val)
+                        // }
                     />
                     <TotalBox>
-                    <H4 text="Total" className="total" />
-                    <H4 text={Number(totalCost).toFixed(2)} className="total" />
+                        <H4 text="Total" className="total" />
+                        <H4
+                            text={Number(totalCost).toFixed(2)}
+                            className="total"
+                        />
                     </TotalBox>
-
                 </Box>
-                <Flex justifyContent="flex-end" top={24}> 
+
+                <Flex justifyContent="flex-end" top={24}>
                     <Button
                         secondary
                         label="Back"
@@ -124,15 +139,15 @@ function OrderSummary({ path: string }) {
                     />
                     <Button
                         label="Proceed to Payment"
-                        onClick={() => redirectForward()}
+                        onClick={redirectForward}
                         size="medium"
-                        style={{marginLeft:'12px'}}
+                        style={{ marginLeft: "12px" }}
                     />
                     {/* <Button
-                        style={{ width: 190, marginRight: 20 }}
+                        style={{ marginLeft: "12px" }}
                         secondary
                         label="drawer"
-                        // onClick={() => {}}
+                        size="small"
                         onClick={() => {
                             setDrawerOpenOne(true);
                         }}
@@ -156,7 +171,10 @@ function OrderSummary({ path: string }) {
                 closeIcon={true}
                 actionButtons={true}
             >
-                <OrderDetailsDrawer orderId={selectedOrder} setDrawerOpen={setDrawerOpen} />
+                <OrderDetailsDrawer
+                    orderId={selectedOrder}
+                    setDrawerOpen={setDrawerOpen}
+                />
             </Drawer>
         </>
     );

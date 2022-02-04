@@ -50,6 +50,7 @@ function ScheduleShipmentForm(props: {
             onChange={(event) =>
               updateAllFieldsHandler("scheduleType", event.target.value)
             }
+            required
           />
         </Grid>
         {singleFormValues.scheduleType === "17" && (
