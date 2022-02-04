@@ -9,7 +9,7 @@ import { Drawer } from "app/components/Drawer";
 import { H2 } from "app/components/Typography/Typography";
 import { invoiceTable } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
-import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
+import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
 import { InvoicesWrapper, InvoiceTableTop } from "./InvoiceStyle";
 import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 
@@ -191,7 +191,7 @@ const InvoicesContainer = ({ path: string }) => {
         {drawerType === "invoice" ? (
           <AddNewPaymentDrawer invoiceId={selectedInvoiceId} invoicePdf={invoicePdf} />
         ) : drawerType === "orderDetails" ? (
-          <OrderDetailsDrawer
+          <OrderItemDetailsDrawer
             orderId={selectedInvoiceId}
             setDrawerOpen={setDrawerOpen}
             invoicePdf={invoicePdf}

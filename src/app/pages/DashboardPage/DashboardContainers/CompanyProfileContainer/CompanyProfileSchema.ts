@@ -1,4 +1,4 @@
-import { PHONE_NUMBER_REGX } from "../../../../../constants";
+import { PHONE_NUMBER_REGX, PIN_CODE_REGEX } from "../../../../../constants";
 import * as yup from "yup";
 
 const companyProfileSchema = yup.object().shape({
@@ -18,17 +18,17 @@ const companyProfileSchema = yup.object().shape({
   Permission: yup.string().required(),
 });
 
-const newColleagueSchema = yup.object().shape({
-  firstName: yup.string().required("First Name is a required field"),
-  lastName: yup.string().required("Last Name is a required field"),
-  phoneNumber: yup.string().required("Phone Number is a required field"),
-  roleDesignation: yup.string().required("Role is a required field"),
-  email: yup.string().email().required("Email is a required field"),
-  notificationFrequency: yup
-    .string()
-    .required("Notification Frequency is a required field"),
-  Permission: yup.string().required(),
-});
+// const newColleagueSchema = yup.object().shape({
+//   firstName: yup.string().required("First Name is a required field"),
+//   lastName: yup.string().required("Last Name is a required field"),
+//   phoneNumber: yup.string().required("Phone Number is a required field"),
+//   roleDesignation: yup.string().required("Role is a required field"),
+//   email: yup.string().email().required("Email is a required field"),
+//   notificationFrequency: yup
+//     .string()
+//     .required("Notification Frequency is a required field"),
+//   Permission: yup.string().required(),
+// });
 
 export const editCompanySchema = yup.object().shape({
   companyName: yup.string().required(" Company Name is a required field"),
@@ -57,10 +57,7 @@ export const editCompanySchema = yup.object().shape({
     yup
       .string()
       .required("Pincode is a required field")
-      .matches(
-        /^([a-zA-Z0-9]+)$|^[a-zA-Z0-9]+\s[a-zA-Z0-9]+$/,
-        "Please enter valid Pincode"
-      ),
+      .matches(PIN_CODE_REGEX, "Please enter valid Pincode"),
   province: yup.string().required(" Province is a required field"),
   country: yup.string().required(" Country is a required field"),
   hstNumber: yup

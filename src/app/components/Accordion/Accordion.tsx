@@ -2,6 +2,7 @@ import React from "react";
 import { AccordionDetails, AccordionSummary } from "@material-ui/core";
 import { CustomAccordion } from "./style";
 import { ChevronDown } from "app/assets/Icons";
+import { Box } from "@mui/material";
 
 interface AccordionProps {
 	title?: string;
@@ -10,8 +11,8 @@ interface AccordionProps {
 
 const Accordion: React.FC<AccordionProps> = ({ title, children, style}) => {
     return (
-        <div style={{width:'99%'}}>
-            <CustomAccordion style={{...style}} elevation={0}>
+        <>
+            <CustomAccordion style={{...style}}>
                 <AccordionSummary
                     expandIcon={<img src={ChevronDown} alt={'ChevronDown'} />}
                     aria-controls="panel1a-content"
@@ -23,7 +24,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, children, style}) => {
                     {children}
                 </AccordionDetails>
             </CustomAccordion>
-        </div>
+        </>
     )
 }
 

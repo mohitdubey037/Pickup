@@ -1,7 +1,9 @@
 import AddIcon from "@material-ui/icons/Add";
 import styled from "styled-components";
 import { Flex } from "../Input/style";
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
+import { AddImgBox } from "./style";
+import { H4 } from "../Typography/Typography";
 
 const Input = styled('input')({
     display: 'none',
@@ -9,15 +11,15 @@ const Input = styled('input')({
 
 function AddImage({ text, changeHandler }: { text: string, changeHandler }) {
   return (
-    <Flex direction='row' onChange={changeHandler}>
-        <label htmlFor="contained-button-file" style={{ cursor: "pointer" }}>
+    <Box onChange={changeHandler}>
+        <label htmlFor="contained-button-file">
             <Input accept="image/*" id="contained-button-file" type="file" />
-            <Flex direction='row' top={20}>
-                <AddIcon style={{ color: "#1B8AF0" }} />
-                <Typography style={{ color: "#1B8AF0" ,marginLeft:5}}>{text}</Typography>
-            </Flex>
+            <AddImgBox>
+                <AddIcon className="icon" />
+                <H4 text={text} className="label"  />
+            </AddImgBox>
         </label>
-    </Flex>
+    </Box>
   );
 }
 

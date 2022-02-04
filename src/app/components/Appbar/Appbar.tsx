@@ -1,15 +1,9 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable no-debugger */
 import React, { useEffect, useState } from "react";
-import { dropdown, logo, settings } from "app/assets/Icons";
-import {
-  Avatar,
-  Box,
-  IconButton,
-  ListItem,
-  Menu,
-  MenuItem,
-} from "@material-ui/core";
+import { Avatar, IconButton, MenuItem } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { navigate } from "@reach/router";
+
+import { dropdown, logo } from "app/assets/Icons";
 import {
   AppbarContainer,
   LeftBox,
@@ -18,30 +12,20 @@ import {
   ProfileMenu,
   RightBox,
 } from "./style";
-import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "types";
-import { navigate } from "@reach/router";
 import services from "services";
 import { PERMISSION_TYPES } from "../../../constants";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
-import {
-  ChildLink,
-  CustomListItem,
-  SidebarLogo,
-} from "app/pages/DashboardPage/DashboardComponents/style";
-import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
-import { H4, H5 } from "../Typography/Typography";
-import { dashboardHelper } from "app/pages/DashboardPage/helper";
-import { Link } from "app/pages/DashboardPage/type";
+import { SidebarLogo } from "app/pages/DashboardPage/DashboardComponents/style";
+import { DrawerHeading, H4, H5 } from "../Typography/Typography";
 import { LeftDashboard } from "app/pages/DashboardPage/DashboardComponents";
-
 import { globalActions } from "store/reducers/GlobalReducer";
 
 export default function Appbar() {
   const [menuVisibility, setMenuVisibility] = React.useState(false);
   const [link, setLink] = useState("");
-  const [showMenu, setShowMenu] = useState(true);
+  // const [showMenu, setShowMenu] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   // const [profileImage, setProfileImage] = useState(null);
   const pathname = window?.location?.pathname;
@@ -93,21 +77,16 @@ export default function Appbar() {
   return (
     <>
       <AppbarContainer>
-
         <LeftBox>
-          <SidebarLogo>
+          <SidebarLogo className="logo">
             <img src={logo} alt="logo" />
           </SidebarLogo>
-          {pathname.includes("/order-summary") && (
-            <h3
-              style={{
-                marginRight: "auto",
-                paddingLeft: "32px",
-                fontSize: "24px",
-              }}
-            >
-              Order Confirmation
-            </h3>
+          {pathname.includes("/charter-shipment/order-summary") ? (
+            <DrawerHeading title="Order Confirmation" className="title" />
+          ) : pathname.includes("/charter-shipment/shipment-summary") ? (
+            <DrawerHeading title="Payment" className="title" />
+          ) : (
+            <></>
           )}
         </LeftBox>
 

@@ -22,7 +22,6 @@ const Input = React.forwardRef<any, InputProps>(
       error,
       onBlur,
       disabled,
-      width,
       required,
       style,
       inputStyles,
