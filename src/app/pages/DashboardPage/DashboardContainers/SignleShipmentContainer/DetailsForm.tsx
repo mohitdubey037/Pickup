@@ -95,18 +95,19 @@ function DetailsForm(props: {
     const updateCategoryHandler = (name: string, value: number) => {
         const newValue = categoryList.find((item) => item.categoryId === value);
         if (newValue) {
-            updateAllFieldsHandler(name, newValue);
+            // updateAllFieldsHandler(name, newValue);
+            setFieldValue(`${formFieldName}.${name}`, newValue);
         }
     };
 
-    const updateAllFieldsHandler = (
-        name: string,
-        value: string | number | SelectBoardType
-    ) => {
-        values.orders.forEach((item, idx) => {
-            setFieldValue(`orders.${idx}.${name}`, value);
-        });
-    };
+    // const updateAllFieldsHandler = (
+    //     name: string,
+    //     value: string | number | SelectBoardType
+    // ) => {
+    //     values.orders.forEach((item, idx) => {
+    //         setFieldValue(`orders.${idx}.${name}`, value);
+    //     });
+    // };
 
     return (
         <Box mt={4}>
@@ -117,11 +118,8 @@ function DetailsForm(props: {
                         name={`${formFieldName}.categoryId`}
                         label={"Category"}
                         value={Number(singleFormValues?.categoryId?.categoryId)}
-                        onSelect={(event) =>
-                            updateCategoryHandler(
-                                "categoryId",
-                                event.target.value
-                            )
+                        onSelect={(e) =>
+                            updateCategoryHandler("categoryId", e.target.value)
                         }
                         disabled={disabled}
                         options={
@@ -146,10 +144,10 @@ function DetailsForm(props: {
                         name={`${formFieldName}.customerRefNo`}
                         id={`${formFieldName}.customerRefNo`}
                         onBlur={handleBlur}
-                        onChange={(event) =>
-                            updateAllFieldsHandler(
-                                "customerRefNo",
-                                event.target.value
+                        onChange={(e) =>
+                            setFieldValue(
+                                `${formFieldName}.customerRefNo`,
+                                e.target.value
                             )
                         }
                         value={singleFormValues?.customerRefNo}
@@ -171,10 +169,10 @@ function DetailsForm(props: {
                         name={`${formFieldName}.dropOption`}
                         label={"Delivery options"}
                         value={Number(singleFormValues.dropOption)}
-                        onSelect={(event) =>
-                            updateAllFieldsHandler(
-                                "dropOption",
-                                event.target.value
+                        onSelect={(e) =>
+                            setFieldValue(
+                                `${formFieldName}.dropOption`,
+                                e.target.value
                             )
                         }
                         disabled={disabled}
@@ -207,10 +205,10 @@ function DetailsForm(props: {
                                       disabled: true,
                                   }))
                         }
-                        onChange={(event) =>
-                            updateAllFieldsHandler(
-                                "fragile",
-                                Number(event.target.value)
+                        onChange={(e) =>
+                            setFieldValue(
+                                `${formFieldName}.fragile`,
+                                Number(e.target.value)
                             )
                         }
                     />

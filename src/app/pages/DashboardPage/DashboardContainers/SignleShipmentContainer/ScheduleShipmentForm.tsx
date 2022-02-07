@@ -12,21 +12,27 @@ function ScheduleShipmentForm(props: {
   formik: FormikValues;
   index: number;
   disabled?: boolean;
+  canBeDisabled?: boolean;
+  sameDetails?: number[];
 }) {
   const {
     formik: { values, errors, touched, setFieldValue },
-    disabled,
+    index,
+    disabled = false,
+    canBeDisabled = false,
+    sameDetails,
   } = props;
 
-  const formFieldName = `orders.${props.index}`;
-  const singleFormValues = values.orders[props.index];
-  const singleFormErrors = errors?.orders?.[props.index];
-  const singleFormTouched = touched?.orders?.[props.index];
+  const formFieldName = `orders.${index}`;
+  const singleFormValues = values.orders[index];
+  const singleFormErrors = errors?.orders?.[index];
+  const singleFormTouched = touched?.orders?.[index];
 
   const updateAllFieldsHandler = (name: string, value: string | number) => {
-    values.orders.forEach((item, idx) => {
-      setFieldValue(`orders.${idx}.${name}`, value);
-    });
+    sameDetails &&
+      sameDetails[`hasSameSchedule`].forEach((item) => {
+        setFieldValue(`orders.${item}.${name}`, value);
+      });
   };
 
   return (
@@ -47,9 +53,11 @@ function ScheduleShipmentForm(props: {
             error={
               singleFormTouched?.scheduleType && singleFormErrors?.scheduleType
             }
-            onChange={(event) =>
-              updateAllFieldsHandler("scheduleType", event.target.value)
-            }
+            onChange={(e) => {
+              setFieldValue(`${formFieldName}.scheduleType`, e.target.value);
+              canBeDisabled &&
+                updateAllFieldsHandler(`scheduleType`, e.target.value);
+            }}
             required
           />
         </Grid>
@@ -60,7 +68,10 @@ function ScheduleShipmentForm(props: {
                 label="Date"
                 placeholder={"e.g 06/06/2021"}
                 value={singleFormValues.shipmentDate || null}
-                onChange={(val) => updateAllFieldsHandler("shipmentDate", val)}
+                onChange={(val) => {
+                  setFieldValue(`${formFieldName}.shipmentDate`, val);
+                  canBeDisabled && updateAllFieldsHandler(`shipmentDate`, val);
+                }}
                 disabled={disabled}
                 error={
                   singleFormTouched?.shipmentDate &&
@@ -73,7 +84,10 @@ function ScheduleShipmentForm(props: {
               <TimePickerInput
                 label="Time"
                 value={singleFormValues.shipmentTime || null}
-                onChange={(val) => updateAllFieldsHandler("shipmentTime", val)}
+                onChange={(val) => {
+                  setFieldValue(`${formFieldName}.shipmentTime`, val);
+                  canBeDisabled && updateAllFieldsHandler(`shipmentTime`, val);
+                }}
                 disabled={disabled}
                 error={
                   singleFormTouched?.shipmentTime &&

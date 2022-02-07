@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Box, Grid } from "@material-ui/core";
 
 import { Input } from "app/components/Input";
@@ -26,15 +27,21 @@ function SingleSipmentForm({
   index,
   disabled = false,
   canBeDisabled = false,
+  sameDetails,
+  hasSameDetails,
 }: {
   title: "origin" | "destination";
   formik: any;
   index: number;
   disabled?: boolean;
   canBeDisabled?: boolean;
+  sameDetails?: number[];
+  hasSameDetails: any;
 }) {
   const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
     formik;
+
+  const [timer, setTimer] = useState<any>({});
 
   const formFieldName = `orders.${index}`;
   const singleFormValues = values.orders[index];
@@ -42,60 +49,74 @@ function SingleSipmentForm({
   const singleFormErrors = errors?.orders?.[index];
   const singleFormTouched = touched?.orders?.[index];
 
+  const onChangeHandler = (event: any, name: string) => {
+    handleChange(event);
+
+    if (canBeDisabled) {
+      timer[name] && clearTimeout(timer[name]);
+      let temp = timer;
+      temp[name] = setTimeout(() => {
+        updateAllFieldsHandler(name, event.target.value);
+      }, 1000);
+      setTimer(() => temp);
+    }
+  };
+
   const updateAllFieldsHandler = (
     name: string,
     value: string | number | boolean
   ) => {
-    values.orders.forEach((item, idx) => {
-      setFieldValue(`orders.${idx}.${name}`, value);
-    });
+    sameDetails &&
+      sameDetails[`hasSame${ADD_TYPE[title]}`].forEach((item) => {
+        setFieldValue(`orders.${item}.${name}`, value);
+      });
   };
 
   const handler = (value) => {
+    let temp = {};
     if (
       value?.location?.displayPosition?.longitude &&
       value?.location?.displayPosition?.latitude
     ) {
-      setFieldValue(
-        `${formFieldName}.${title}Longitude`,
-        value?.location?.displayPosition?.longitude || ""
-      );
-      setFieldValue(
-        `${formFieldName}.${title}Latitude`,
-        value?.location?.displayPosition?.latitude || ""
-      );
-      setFieldValue(
-        `${formFieldName}.${title}Country`,
-        value?.location?.address?.country || ""
-      );
-      setFieldValue(
-        `${formFieldName}.${title}ProvinceState`,
+      temp[`${title}Longitude`] =
+        value?.location?.displayPosition?.longitude || "";
+      temp[`${title}Latitude`] =
+        value?.location?.displayPosition?.latitude || "";
+      temp[`${title}Country`] = value?.location?.address?.country || "";
+      temp[`${title}ProvinceState`] =
         value?.location?.address?.state ||
-          value?.location?.address?.county ||
-          ""
-      );
-      setFieldValue(
-        `${formFieldName}.${title}City`,
-        value?.location?.address?.city || ""
-      );
-      setFieldValue(
-        `${formFieldName}.${title}PostalCode`,
-        value?.location?.address?.postalCode || ""
-      );
-      // setFieldValue(`${formFieldName}.${title}AddressLine1`, value?.location?.address?.label || "");
-      setFieldValue(
-        `${formFieldName}.${title}AddressLine2`,
-        value?.location?.address?.street || ""
-      );
+        value?.location?.address?.county ||
+        "";
+      temp[`${title}City`] = value?.location?.address?.city || "";
+      temp[`${title}PostalCode`] = value?.location?.address?.postalCode || "";
+      // temp[`${title}AddressLine1`] = value?.location?.address?.label || "";
+      temp[`${title}AddressLine2`] = value?.location?.address?.street || "";
     } else {
-      setFieldValue(`${formFieldName}.${title}Longitude`, "");
-      setFieldValue(`${formFieldName}.${title}Latitude`, "");
-      setFieldValue(`${formFieldName}.${title}Country`, "");
-      setFieldValue(`${formFieldName}.${title}ProvinceState`, "");
-      setFieldValue(`${formFieldName}.${title}City`, "");
-      setFieldValue(`${formFieldName}.${title}PostalCode`, "");
-      setFieldValue(`${formFieldName}.${title}AddressLine2`, "");
+      temp[`${title}Longitude`] = "";
+      temp[`${title}Latitude`] = "";
+      temp[`${title}Country`] = "";
+      temp[`${title}ProvinceState`] = "";
+      temp[`${title}City`] = "";
+      temp[`${title}PostalCode`] = "";
+      temp[`${title}AddressLine2`] = "";
     }
+
+    let updatedOrders = values.orders;
+    updatedOrders[index] = {
+      ...updatedOrders[index],
+      ...temp,
+    };
+
+    if (canBeDisabled) {
+      sameDetails &&
+        sameDetails[`hasSame${ADD_TYPE[title]}`].forEach((item) => {
+          updatedOrders[item] = {
+            ...updatedOrders[item],
+            ...temp,
+          };
+        });
+    }
+    setFieldValue(`orders`, updatedOrders);
   };
 
   return (
@@ -112,16 +133,26 @@ function SingleSipmentForm({
                 className="favorites"
                 style={{ opacity: disabled ? 0.5 : 1 }}
                 onClick={() => {
-                  let val = singleFormValues[`${title}Favorite`] ? false : true;
-                  !disabled && canBeDisabled
-                    ? updateAllFieldsHandler(`${title}Favorite`, val)
-                    : setFieldValue(`${formFieldName}.${title}Favorite`, val);
+                  if (!disabled) {
+                    let val = singleFormValues[`${title}Favorite`]
+                      ? false
+                      : true;
+
+                    setFieldValue(`${formFieldName}.${title}Favorite`, val);
+                    canBeDisabled &&
+                      updateAllFieldsHandler(`${title}Favorite`, val);
+                  }
                 }}
                 onKeyPress={(e) => {
-                  let val = singleFormValues[`${title}Favorite`] ? false : true;
-                  e.key === "Enter" && canBeDisabled
-                    ? updateAllFieldsHandler(`${title}Favorite`, val)
-                    : setFieldValue(`${formFieldName}.${title}Favorite`, val);
+                  if (!disabled && e.key === "Enter") {
+                    let val = singleFormValues[`${title}Favorite`]
+                      ? false
+                      : true;
+
+                    setFieldValue(`${formFieldName}.${title}Favorite`, val);
+                    canBeDisabled &&
+                      updateAllFieldsHandler(`${title}Favorite`, val);
+                  }
                 }}
               >
                 {singleFormValues[`${title}Favorite`] ? (
@@ -144,10 +175,7 @@ function SingleSipmentForm({
               <Checkbox
                 label="Use same address as of the first order"
                 onChange={() =>
-                  setFieldValue(
-                    `${formFieldName}.hasSame${ADD_TYPE[title]}`,
-                    !singleFormValues[`hasSame${ADD_TYPE[title]}`]
-                  )
+                  hasSameDetails(index, `hasSame${ADD_TYPE[title]}`)
                 }
               />
             </Grid>
@@ -166,18 +194,17 @@ function SingleSipmentForm({
               : "0"
           }
           name={`${formFieldName}.${title}BillingType`}
-          // onChange={(e) => setFieldValue(`${formFieldName}.${title}BillingType`, Number(e.target.value) + 1)}
-          onChange={(event) =>
-            canBeDisabled
-              ? updateAllFieldsHandler(
-                  `${title}BillingType`,
-                  Number(event.target.value) + 1
-                )
-              : setFieldValue(
-                  `${formFieldName}.${title}BillingType`,
-                  Number(event.target.value) + 1
-                )
-          }
+          onChange={(e) => {
+            setFieldValue(
+              `${formFieldName}.${title}BillingType`,
+              Number(e.target.value) + 1
+            );
+            canBeDisabled &&
+              updateAllFieldsHandler(
+                `${title}BillingType`,
+                Number(e.target.value) + 1
+              );
+          }}
           options={
             !disabled
               ? BILLING_TYPES
@@ -194,14 +221,17 @@ function SingleSipmentForm({
                   name={`${formFieldName}.${title}LocationType`}
                   options={LOCATION_TYPES}
                   label={"Location type"}
-                  onSelect={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}LocationType`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onSelect={(e) => {
+                    setFieldValue(
+                      `${formFieldName}.${title}LocationType`,
+                      e.target.value
+                    );
+                    canBeDisabled &&
+                      updateAllFieldsHandler(
+                        `${title}LocationType`,
+                        e.target.value
+                      );
+                  }}
                   value={singleFormValues[`${title}LocationType`]}
                   disabled={disabled}
                   required
@@ -219,14 +249,7 @@ function SingleSipmentForm({
                     value={singleFormValues[`${title}CompanyName`]}
                     disabled={disabled}
                     placeholder={"Example Company"}
-                    onChange={(event) =>
-                      canBeDisabled
-                        ? updateAllFieldsHandler(
-                            `${title}CompanyName`,
-                            event.target.value
-                          )
-                        : handleChange(event)
-                    }
+                    onChange={(e) => onChangeHandler(e, `${title}CompanyName`)}
                     onBlur={handleBlur}
                     error={
                       singleFormTouched?.[`${title}CompanyName`] &&
@@ -246,14 +269,7 @@ function SingleSipmentForm({
                   disabled={disabled}
                   label={"First Name"}
                   placeholder={"John"}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}FirstName`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onChange={(e) => onChangeHandler(e, `${title}FirstName`)}
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}FirstName`] &&
@@ -272,14 +288,7 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}LastName`]}
                   disabled={disabled}
                   placeholder={"Doe"}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}LastName`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onChange={(e) => onChangeHandler(e, `${title}LastName`)}
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}LastName`] &&
@@ -317,14 +326,7 @@ function SingleSipmentForm({
                   initValue={singleFormValues[`${title}AddressLine2`]}
                   value={singleFormValues[`${title}AddressLine2`]}
                   disabled={disabled}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}AddressLine2`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onChange={(e) => onChangeHandler(e, `${title}AddressLine2`)}
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}AddressLine2`] &&
@@ -343,14 +345,7 @@ function SingleSipmentForm({
                   initValue={singleFormValues[`${title}City`]}
                   value={singleFormValues[`${title}City`]}
                   disabled={disabled}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}City`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onChange={(e) => onChangeHandler(e, `${title}City`)}
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}City`] &&
@@ -369,14 +364,7 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}PostalCode`]}
                   disabled={disabled}
                   placeholder={"ABC 123"}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}PostalCode`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onChange={(e) => onChangeHandler(e, `${title}PostalCode`)}
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}PostalCode`] &&
@@ -400,14 +388,7 @@ function SingleSipmentForm({
                   initValue={singleFormValues[`${title}ProvinceState`]}
                   value={singleFormValues[`${title}ProvinceState`]}
                   disabled={disabled}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}ProvinceState`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onChange={(e) => onChangeHandler(e, `${title}ProvinceState`)}
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}ProvinceState`] &&
@@ -426,14 +407,7 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}Country`]}
                   placeholder={"eg. Canada"}
                   disabled={disabled}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}Country`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onChange={(e) => onChangeHandler(e, `${title}Country`)}
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}Country`] &&
@@ -452,14 +426,7 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}ContactNumber`]}
                   placeholder={"+1 (999)-999-9999"}
                   disabled={disabled}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}ContactNumber`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onChange={(e) => onChangeHandler(e, `${title}ContactNumber`)}
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}ContactNumber`] &&
@@ -478,13 +445,8 @@ function SingleSipmentForm({
                   label={"Alternate Contact Number"}
                   placeholder={"+1 (999)-999-9999"}
                   disabled={disabled}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}AlternateContactNumber`,
-                          event.target.value
-                        )
-                      : handleChange(event)
+                  onChange={(e) =>
+                    onChangeHandler(e, `${title}AlternateContactNumber`)
                   }
                   onBlur={handleBlur}
                   error={
@@ -504,14 +466,7 @@ function SingleSipmentForm({
                   value={singleFormValues[`${title}EmailAddress`]}
                   placeholder={"johndoe@pickups.com"}
                   disabled={disabled}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}EmailAddress`,
-                          event.target.value
-                        )
-                      : handleChange(event)
-                  }
+                  onChange={(e) => onChangeHandler(e, `${title}EmailAddress`)}
                   onBlur={handleBlur}
                   error={
                     singleFormTouched?.[`${title}EmailAddress`] &&
@@ -527,13 +482,8 @@ function SingleSipmentForm({
                   name={`${formFieldName}.${title}AdditionalNotes`}
                   label={"Additional Notes"}
                   placeholder={"Add any notes here"}
-                  onChange={(event) =>
-                    canBeDisabled
-                      ? updateAllFieldsHandler(
-                          `${title}AdditionalNotes`,
-                          event.target.value
-                        )
-                      : handleChange(event)
+                  onChange={(e) =>
+                    onChangeHandler(e, `${title}AdditionalNotes`)
                   }
                   initValue={singleFormValues[`${title}AdditionalNotes`]}
                   disabled={disabled}
