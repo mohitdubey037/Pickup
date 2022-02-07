@@ -76,6 +76,7 @@ function DetailsFormItem(props: {
                                         value={formItemValue.weight}
                                         placeholder={"eg. 100"}
                                         validate
+                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={6} lg={4}>
@@ -88,6 +89,7 @@ function DetailsFormItem(props: {
                                         )}
                                         onSelect={handleChange}
                                         options={WEIGHTDIMENSION}
+                                        required
                                     />
                                     {errorItem?.weightDimension &&
                                         toucherItem?.weightDimension && (
@@ -120,6 +122,7 @@ function DetailsFormItem(props: {
                                         }
                                         label={"Length"}
                                         placeholder={"eg. 10"}
+                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={6} sm={3}>
@@ -136,6 +139,7 @@ function DetailsFormItem(props: {
                                         initValue={formItemValue.width}
                                         value={formItemValue.width}
                                         placeholder={"eg. 10"}
+                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={6} sm={3}>
@@ -152,6 +156,7 @@ function DetailsFormItem(props: {
                                         }
                                         label={"Height"}
                                         placeholder={"eg. 10"}
+                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={6} sm={3}>
@@ -164,6 +169,7 @@ function DetailsFormItem(props: {
                                         )}
                                         onSelect={handleChange}
                                         options={DIMENSION2}
+                                        required
                                     />
                                 </Grid>
                             </GridContainer>
@@ -185,6 +191,7 @@ function DetailsFormItem(props: {
                             initValue={formItemValue.quantity}
                             value={formItemValue.quantity}
                             placeholder={"eg. 10"}
+                            required
                         />
                     </Grid>
                     <Grid item xs={12}>

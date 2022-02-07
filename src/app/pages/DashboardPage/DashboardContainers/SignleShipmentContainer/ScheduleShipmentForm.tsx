@@ -61,10 +61,12 @@ function ScheduleShipmentForm(props: {
                 placeholder={"e.g 06/06/2021"}
                 value={singleFormValues.shipmentDate || null}
                 onChange={(val) => updateAllFieldsHandler("shipmentDate", val)}
+                disabled={disabled}
                 error={
                   singleFormTouched?.shipmentDate &&
                   singleFormErrors?.shipmentDate
                 }
+                required
               />
             </Grid>
             <Grid item md={3}>
@@ -72,11 +74,13 @@ function ScheduleShipmentForm(props: {
                 label="Time"
                 value={singleFormValues.shipmentTime || null}
                 onChange={(val) => updateAllFieldsHandler("shipmentTime", val)}
+                disabled={disabled}
                 error={
                   singleFormTouched?.shipmentTime &&
                   singleFormErrors?.shipmentTime
                 }
                 placeholder={"e.g 12:32"}
+                required
               />
             </Grid>
           </>
