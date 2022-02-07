@@ -40,10 +40,10 @@ const InvoicesContainer = ({ path: string }) => {
   const setDate = (name, value) => {
     console.log(value);
     if (name === 'fromDate') {
-      setFieldValue('fromDate', moment(value).format('L'));
+      setFieldValue('fromDate', moment(value).format('YYYY-MM-DD'));
     }
     else if (name === "toDate") {
-      setFieldValue('toDate', moment(value).format('L'));
+      setFieldValue('toDate', moment(value).format('YYYY-MM-DD'));
     }
   }
 
