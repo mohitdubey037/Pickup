@@ -65,6 +65,7 @@ function ScheduleShipmentForm(props: {
                   singleFormTouched?.shipmentDate &&
                   singleFormErrors?.shipmentDate
                 }
+                disablePast={true}
               />
             </Grid>
             <Grid item md={3}>

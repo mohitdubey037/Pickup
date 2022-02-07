@@ -1,58 +1,38 @@
 import styled from "styled-components";
 import Paper from "@mui/material/Paper";
 
-export const SearchFieldsWrapper = styled.div`
-  margin-top: 54px;
-  margin-bottom: 28px;
-  display: flex;
-  gap: 8px;
-  align-items: flex-end;
+// export const SearchFieldsWrapper = styled.div`
+//   margin-top: 54px;
+//   margin-bottom: 28px;
+//   display: flex;
+//   gap: 8px;
+//   align-items: flex-end;
 
-  img {
-    align-self: center;
-    cursor: pointer;
-  }
-  input {
-    width: 152px;
-  }
-  button {
-    height: 42px;
-  }
-`;
+//   img {
+//     align-self: center;
+//     cursor: pointer;
+//   }
+//   input {
+//     width: 152px;
+//   }
+//   button {
+//     height: 42px;
+//   }
+// `;
 
 export const SearchTableTop = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 0 12px;
-
+  padding:12px 24px;
   justify-content: space-between;
-  img {
-    cursor: pointer;
-  }
-  p {
+  box-sizing:border-box;
+  .heading{
     color: #f99746;
   }
-  button {
-    width: 114.19px;
-    margin-right: 16px;
-    height: 32px;
-  }
 `;
 
-export const FilterWrapper = styled.div`
-  border-bottom: 0.1px solid #dddddd;
-  margin-bottom: 20px;
-  padding-left: 10px;
 
-  &.bordernone {
-    border-bottom: none;
-  }
-
-  .heading {
-    margin-bottom: 20px;
-  }
-`;
 
 export const TabWrapper = styled.div`
   .custom {
@@ -157,4 +137,10 @@ export const CallButtonDiv = styled.div`
   Button {
     border-radius: 8px;
   }
+`;
+
+export const AdvanceFilterBox = styled.div`
+ .heading{
+   margin:24px 0;
+ }
 `;

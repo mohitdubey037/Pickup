@@ -29,6 +29,9 @@ export const InputWrapper = styled.div`
     top: 36px;
     right: 5px;
   }
+  .label{
+    min-height:20px;
+  }
 `;
 
 
@@ -189,6 +192,9 @@ export const DateTimePickerBox = styled(Box)`
 .MuiInputBase-input{
   height:42px;
   box-sizing:border-box;
+}
+.MuiTextField-root{
+  background:#fff;
 }
 `;
 

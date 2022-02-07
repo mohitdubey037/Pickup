@@ -4,11 +4,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
 
 export const TableTop = styled.div`
-  min-height: 58px;
   border: 1px solid #dcdcdc;
   border-radius: 8px 8px 0px 0px;
   border-bottom: none;
-  display: flex;
   background: #ffffff;
 `;
 
@@ -57,17 +55,14 @@ export const CustomTable = styled(Table)`
 export const CustomPagination = styled(TablePagination)`
   display: flex !important;
   justify-content: flex-end;
-  min-height: 58px;
   border-radius: 0px 0px 8px 8px;
   border: 1px solid #dcdcdc;
   border-top: none;
   background: #ffffff;
-  .MuiTablePagination-input {
-    display: none;
+  .MuiTableCell-root{
+    padding:0;
   }
-  input {
-    width: 66px;
-    height: 32px;
-    margin-right: 10px;
-  }
+  .MuiTablePagination-actions {
+    margin-left:0px;
+}
 `;

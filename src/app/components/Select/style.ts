@@ -10,7 +10,7 @@ export const ComponentContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 `;
 
 interface StyledProps {
@@ -138,6 +138,7 @@ export const SelectContainer = styled.div<SelectContainerType>`
     align-items: center ;
     box-sizing:border-box;
     margin-bottom:6px;
+    background:#fff;
     ${(props) =>
       props.disabled &&
       css`
