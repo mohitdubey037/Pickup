@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Input } from "app/components/Input";
 import {
@@ -25,7 +25,8 @@ const AutoComplete = ({
   const [suggestionsList, setSuggestionsList] = useState<any>([]);
   const [addressData, setAddressData] = useState<any>(null);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
-  const didMountRef = useRef(false);
+  // const didMountRef = useRef(false);
+  const [delayDebounceFn, setDelayDebounceFn] = useState<any>(null);
 
   const [open, setOpen] = useState<boolean>(false);
   // const loading = open && suggestionsList?.length === 0;
@@ -40,19 +41,19 @@ const AutoComplete = ({
     }
   }, [open]);
 
-  useEffect(() => {
-    if (didMountRef.current) {
-      onSelect && onSelect(null);
-      const delayDebounceFn = setTimeout(() => {
-        if (value && value !== addressData?.location?.address?.label) {
-          searchService(value);
-        }
-      }, 500);
-      return () => clearTimeout(delayDebounceFn);
-    } else {
-      didMountRef.current = true;
-    }
-  }, [value]);
+  // useEffect(() => {
+  //   if (didMountRef.current) {
+  //     // onSelect && onSelect(null);
+  //     const delayDebounceFn = setTimeout(() => {
+  //       if (value && value !== addressData?.location?.address?.label) {
+  //         searchService(value);
+  //       }
+  //     }, 500);
+  //     return () => clearTimeout(delayDebounceFn);
+  //   } else {
+  //     didMountRef.current = true;
+  //   }
+  // }, [value]);
 
   const getLatLn = async (value) => {
     let res = await fetchLatLong(value);
@@ -86,6 +87,21 @@ const AutoComplete = ({
       }
       setActiveSuggestionIndex(activeSuggestionIndex + 1);
     }
+  };
+
+  const handleChange = (e) => {
+    onChange(e);
+    delayDebounceFn && clearTimeout(delayDebounceFn);
+    setDelayDebounceFn(() =>
+      setTimeout(() => {
+        if (
+          e.target.value &&
+          e.target.value !== addressData?.location?.address?.label
+        ) {
+          searchService(e.target.value);
+        }
+      }, 500)
+    );
   };
 
   const renderSuggestions = () => {
@@ -122,7 +138,7 @@ const AutoComplete = ({
   return (
     <div style={{ position: "relative" }}>
       <Input
-        onChange={onChange}
+        onChange={handleChange}
         id={id}
         name={name}
         label={label}

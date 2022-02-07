@@ -4,6 +4,7 @@ import { PHONE_NUMBER_REGX, PIN_CODE_REGEX } from "../../../../../constants";
 export const singleShipmentFormSchema = yup.object().shape({
     orders: yup.array().of(
         yup.object().shape({
+            hasSameOrigin: yup.boolean(),
             originCompanyName: yup.string().when("originBillingType", {
                 is: (originBillingType) => originBillingType === 2,
                 then: yup.string().required("Company Name is a required field"),
@@ -28,6 +29,7 @@ export const singleShipmentFormSchema = yup.object().shape({
             originLatitude: yup.string().required("Latitude is a required field"),
             originLongitude: yup.string().required("Longitude is a required field"),
 
+            hasSameDestination: yup.boolean(),
             destinationCompanyName: yup.string().when("destinationBillingType", {
                 is: (destinationBillingType) => destinationBillingType === 2,
                 then: yup.string().required("Company Name is a required field"),
@@ -111,6 +113,8 @@ export const singleShipmentFormSchema = yup.object().shape({
                     document: yup.string(),
                 })
             ),
+
+            hasSameSchedule: yup.boolean(),
             scheduleType: yup.string().required("Please select schedule type"),
             shipmentDate: yup.string().when("scheduleType", {
                 is: (scheduleType) => scheduleType === "17",
