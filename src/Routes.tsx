@@ -102,7 +102,7 @@ const Routes = () => {
         <SearchContainer path="/search-shipment" />
         <PaymentsPage path="/payments/cards" />
         <PersonalProfileContainer path="my-account/personal-profile" />
-        <ChildAccount path="my-account/child-account" />
+        <ChildAccount path="/my-account/child-account" />
         <FavoriteLocations path="my-account/favourite-locations" />
         <PaymentsPage path="/payments/cards" />
         <OnHoldShipmentContainer path="/holding-zone" />

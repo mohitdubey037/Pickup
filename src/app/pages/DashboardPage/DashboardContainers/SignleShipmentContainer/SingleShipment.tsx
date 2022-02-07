@@ -1,27 +1,28 @@
-import { useEffect } from "react";
-import ModuleContainer from "app/components/ModuleContainer";
-import { FormContainer } from "app/components/ModuleContainer/style";
-import { remove } from "app/assets/Icons";
-import {
-  H2
-} from "app/components/Typography/Typography";
-
-import SingleShipmentDetails from "./SingleShipmentDetails";
-import SingleSipmentForm from "./SingleSipmentForm";
-import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
-import { singleShipmentFormSchema } from "./SingleShipmentFormSchema";
-import { Button } from "../../../../components/Buttons";
-
-import { shipmentInitValues, getNextOrderValues } from "./helper";
-import { Flex } from "app/components/Input/style";
-import ScheduleShipmentForm from "./ScheduleShipmentForm";
+import { useEffect, Fragment } from "react";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
+import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
+import { Box } from "@material-ui/core";
+
+import ModuleContainer from "app/components/ModuleContainer";
+import { remove } from "app/assets/Icons";
+import { H2, H3 } from "app/components/Typography/Typography";
+import SingleShipmentDetails from "./SingleShipmentDetails";
+import SingleSipmentForm from "./SingleSipmentForm";
+import { singleShipmentFormSchema } from "./SingleShipmentFormSchema";
+import { Button } from "../../../../components/Buttons";
+import {
+  shipmentInitValues,
+  // singleShipmentInitValues1,
+  getNextOrderValues,
+} from "./helper";
+import { FullCard } from "app/components/Input/style";
+import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { globalActions } from "store/reducers/GlobalReducer";
+import { ButtonsGroup } from "app/components/Buttons/style";
 
 function SingleShipment({ path: string }) {
-  
   const dispatch = useDispatch();
 
   const shipmentDetails = useSelector(
@@ -35,6 +36,9 @@ function SingleShipment({ path: string }) {
   const loading = useSelector((state: { globalState: { showLoader } }) => {
     return state.globalState.showLoader;
   });
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
 
   const redirect = (url: string) => {
     navigate(`/dashboard/${url}`);
@@ -47,12 +51,13 @@ function SingleShipment({ path: string }) {
 
   const formik = useFormik({
     initialValues: shipmentDetails || shipmentInitValues,
+    // initialValues: { orders: [singleShipmentInitValues1] },
     validate: (values: any) => {
-        try {
-            validateYupSchema(values, singleShipmentFormSchema, true, values);
-        } catch (err) {
-            return yupToFormErrors(err);
-        }
+      try {
+        validateYupSchema(values, singleShipmentFormSchema, true, values);
+      } catch (err) {
+        return yupToFormErrors(err);
+      }
     },
     onSubmit: async () => {
       dispatch(actions.submitShipment(formik.values));
@@ -85,30 +90,22 @@ function SingleShipment({ path: string }) {
     orderDetails.splice(index, 1);
     formik.setFieldValue("orders", orderDetails);
   };
-  const authUser = useSelector((state: any) => {
-    return state.auth?.user;
-  });
 
-  if([1,2,3,4].indexOf(authUser?.roleId) === -1) {
-    navigate(' /non-authorized-page')
+  if ([1, 2, 3, 4].indexOf(authUser?.roleId) === -1) {
+    navigate("/non-authorized-page");
   }
+
   return (
     <ModuleContainer>
-      {formik?.values?.orders.length === 1 && (
-        <H2 title="Single order" />
-      )}
+      {formik?.values?.orders.length === 1 && <H2 title="Single order" />}
       {new Array(formik.values.orders.length).fill("").map((_, index) => (
-        <>
+        <Fragment key={index}>
           {formik.values.orders.length > 1 && (
-            <h2>Order {index + 1}</h2>
+            <H2 title={`Order ${index + 1}`} />
           )}
-          <FormContainer
-            key={index}
-            elevation={2}
-            style={{ position: "relative" }}
-          >
+          <FullCard key={index}>
             {formik.values.orders.length > 1 && (
-              <div
+              <Box
                 role="button"
                 tabIndex={0}
                 onKeyPress={(e) =>
@@ -123,44 +120,41 @@ function SingleShipment({ path: string }) {
                 }}
               >
                 <img src={remove} alt="delete" />
-              </div>
+              </Box>
             )}
-            <H2 text="Address Details" />
-            <div style={{ marginBottom: "30px" }}>
-              <SingleSipmentForm
-                canBeDisabled
-                disabled={index > 0}
-                index={index}
-                title={"origin"}
-                formik={formik}
-              />
-              <SingleSipmentForm
-                index={index}
-                title={"destination"}
-                formik={formik}
-              />
 
-              <H2 text="Order Details" />
-              <SingleShipmentDetails
-                disabled={index > 0}
-                index={index}
-                formik={formik}
-              />
-              <H2 text=" Schedule Order" />
-              <ScheduleShipmentForm
-                disabled={index > 0}
-                index={index}
-                formik={formik}
-              />
-            </div>
-          </FormContainer>
-        </>
+            <H3 text="Address Details" />
+            <SingleSipmentForm
+              canBeDisabled
+              disabled={index > 0}
+              index={index}
+              title={"origin"}
+              formik={formik}
+            />
+            <SingleSipmentForm
+              index={index}
+              title={"destination"}
+              formik={formik}
+            />
+
+            <H3 text="Order Details" />
+            <SingleShipmentDetails
+              disabled={index > 0}
+              index={index}
+              formik={formik}
+            />
+
+            <H3 text="Schedule Order" />
+            <ScheduleShipmentForm
+              disabled={index > 0}
+              index={index}
+              formik={formik}
+            />
+          </FullCard>
+        </Fragment>
       ))}
 
-      <Flex
-        style={{ marginBottom: 10, padding: "inherit" }}
-        direction={"row-reverse"}
-      >
+      <ButtonsGroup style={{ float: "right" }} mb={4} mt={2}>
         {loading && (
           <div
             style={{
@@ -171,23 +165,23 @@ function SingleShipment({ path: string }) {
               width: "100vw",
               height: "100vh",
             }}
-          ></div>
+          />
         )}
         <Button
-          style={{ width: 190 }}
+          label="Add New Order"
+          disabled={!formik.isValid}
+          onClick={addMoreItemHandler}
+          size="medium"
+          secondary
+        />
+        <Button
           label="Confirm Order"
           disabled={!formik.isValid}
           onClick={formik.handleSubmit}
           showLoader={loading}
+          size="medium"
         />
-        <Button
-          style={{ width: 190, marginRight: 20 }}
-          secondary
-          label="Add New Order"
-          disabled={!formik.isValid}
-          onClick={addMoreItemHandler}
-        />
-      </Flex>
+      </ButtonsGroup>
     </ModuleContainer>
   );
 }

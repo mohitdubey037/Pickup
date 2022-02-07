@@ -1,13 +1,19 @@
-import { FormikValues, Form, FieldArray } from "formik";
-import { Button } from "app/components/Buttons";
-import { FormWrapper } from "app/components/Input/style";
-import { Flex } from "app/components/Input/style";
-import DetailsForm from "./DetailsForm";
+import { FormikValues } from "formik";
+import { Box } from "@material-ui/core";
 
+import { Button } from "app/components/Buttons";
+import DetailsForm from "./DetailsForm";
 import { shipmentDetailsItemInitValue } from "./helper";
 
-function SingleShipmentDetails(props: { formik: FormikValues, index: number, disabled ?: boolean }) {
-  const { formik: {values, setFieldValue}, disabled } = props;
+function SingleShipmentDetails(props: {
+  formik: FormikValues;
+  index: number;
+  disabled?: boolean;
+}) {
+  const {
+    formik: { values, setFieldValue },
+    disabled,
+  } = props;
 
   const singleFormValues = values.orders[props.index];
 
@@ -18,24 +24,22 @@ function SingleShipmentDetails(props: { formik: FormikValues, index: number, dis
   };
 
   return (
-    <FormWrapper style={{ width: "100%" }}>
-        <DetailsForm
-            disabled={disabled}
-          formik={props.formik}
-          index={props.index}
-          noOfItem={singleFormValues.shipmentDetails.length}
-        />
+    <Box mb={8}>
+      <DetailsForm
+        disabled={disabled}
+        formik={props.formik}
+        index={props.index}
+        noOfItem={singleFormValues.shipmentDetails.length}
+      />
       {singleFormValues.categoryId && (
-        <Flex top={20}>
-          <Button
-            label={"Add More Items"}
-            secondary={true}
-            style={{ width: 190 }}
-            onClick={addMoreItemHandler}
-          />
-        </Flex>
+        <Button
+          label={"Add More Items"}
+          secondary={true}
+          onClick={addMoreItemHandler}
+          size="medium"
+        />
       )}
-    </FormWrapper>
+    </Box>
   );
 }
 export default SingleShipmentDetails;

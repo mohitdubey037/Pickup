@@ -11,7 +11,7 @@ export const AppbarContainer = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 8px 16px;
+  padding: 8px 16px 8px 32px;
   box-sizing: border-box;
   border-bottom: 1px solid #dddddd;
   background-color: white;
@@ -26,10 +26,21 @@ export const AppbarContainer = styled.div`
 `;
 
 export const LeftBox = styled(Box)`
-  display: none;
-  @media (max-width: 1023px) {
+display:flex;
+align-items:center;
+    .logo{
+    display: none;
+    @media (max-width: 1023px) {
     display: block;
-  }
+    }
+    }
+    .title{
+      margin:0; 
+      display: block;
+      @media (max-width: 1023px) {
+      display: none;
+      }
+    }
 `;
 
 export const RightBox = styled(Box)`

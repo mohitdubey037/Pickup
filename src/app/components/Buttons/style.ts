@@ -2,6 +2,7 @@ import {Button} from '@material-ui/core';
 import styled from "styled-components";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { ButtonProps } from './Buttons';
+import { Box } from '@mui/material';
 
 const sizes = {
 	'small': 'auto',
@@ -38,12 +39,12 @@ const height = {
 
 export const useStyles = makeStyles<Theme, ButtonProps>({
 	root: {
-		width: ({ size }) => (size ? sizes[size] : '100%'),
+		minWidth: ({ size }) => (size ? sizes[size] : '100%'),
     padding: ({ size }) => (size ? padding[size] : '12px 16px'),
     fontSize: ({ size }) => (size ? fontSize[size] : '14px'),
     height: ({ size }) => (size ? height[size] : '40px'),
 		'@media (max-width:600px)': {
-      width: ({ size }) => (size ? mobilesizes[size] : '100%'),
+      minWidth: ({ size }) => (size ? mobilesizes[size] : '100%'),
 		},
 	},
 });
@@ -60,3 +61,11 @@ export const CustomButton = styled(Button)`
   }
  `;
 
+
+ export const ButtonsGroup = styled(Box)`
+ button{
+   margin-left:16px;
+ }
+`;
+
+ 

@@ -56,6 +56,7 @@ const LeftDashboard = ({ onDrawerItemSelect}: LeftDashboardProps) => {
                 )
               }
               selected={isSelected}
+              key={parent.id}
              >
               <ListItem>
                 <LogoIcon>
@@ -72,6 +73,7 @@ const LeftDashboard = ({ onDrawerItemSelect}: LeftDashboardProps) => {
                       onLinkSelectHandler(child.link);
                     }}
                     selected={selectedLink === child.link}
+                    key={child.id}
                   >
                     <p className="labeltext">{child.label}</p>
                   </ChildLink>
