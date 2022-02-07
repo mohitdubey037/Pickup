@@ -18,6 +18,7 @@ interface OrderDetails {
     shipmentCount: number;
     total: number;
     shipmentItemMapping: any;
+    invoicePdf: string;
 }
 
 const ref: any = createRef();
@@ -156,7 +157,7 @@ function AddNewPaymentDrawer(props) {
             </Typography>
             <hr />
             <div style={{ paddingTop: 20, justifyContent: "space-between" }}>
-                <a style={{textDecoration: 'none'}} href={invoicePdf}>
+                <a style={{textDecoration: 'none'}} href={invoicePdf ? invoicePdf : orderDetails?.invoicePdf}>
                     <Button label="Download Invoice Details" secondary />
                 </a>
                 {/* <a target={invoicePdf}>Download Invoice Details</a> */}
