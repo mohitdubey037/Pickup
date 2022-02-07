@@ -91,6 +91,9 @@ export const FullCard = styled(Box)`
       padding: 24px 16px;
       margin:16px 0;
       }
+  .section-title {
+    margin-bottom: 32px;
+  }
 `;
 
 export const Flex = styled.div`

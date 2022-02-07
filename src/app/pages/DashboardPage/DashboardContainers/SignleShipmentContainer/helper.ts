@@ -28,6 +28,7 @@ export const shipmentDetailsItemInitValue = {
 
 export const singleShipmentInitValues = {
 
+    hasSameOrigin: false,
     originLatitude: "",
     originLongitude: "",
     originFavorite: false,
@@ -47,6 +48,7 @@ export const singleShipmentInitValues = {
     originEmailAddress: "",
     originAdditionalNotes: "",
 
+    hasSameDestination: false,
     destinationLatitude: "",
     destinationLongitude: "",
     destinationFavorite: false,
@@ -76,6 +78,7 @@ export const singleShipmentInitValues = {
     ],
 
     // SCHEDULE SHIPMENT
+    hasSameSchedule: false,
     scheduleType: "",
     shipmentTime: "",
     shipmentDate: "",

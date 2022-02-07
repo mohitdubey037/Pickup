@@ -13,6 +13,12 @@ import {
 import { starimage, starImageEmpty } from "../../../../assets/Icons";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import { FavoritesBox } from "./style";
+import { Checkbox } from "app/components/Checkbox";
+
+const ADD_TYPE = {
+  origin: "Origin",
+  destination: "Destination",
+};
 
 function SingleSipmentForm({
   title,
@@ -95,40 +101,58 @@ function SingleSipmentForm({
   return (
     <Box mb={8}>
       <form>
-        <FavoritesBox>
-          <H4 text={title} className="title" />
+        <Grid container>
+          <Grid item xs>
+            <FavoritesBox>
+              <H4 text={title} className="title" />
 
-          <Box
-            role="button"
-            tabIndex={0}
-            className="favorites"
-            style={{ opacity: disabled ? 0.5 : 1 }}
-            onClick={() => {
-              let val = singleFormValues[`${title}Favorite`] ? false : true;
-              !disabled && canBeDisabled
-                ? updateAllFieldsHandler(`${title}Favorite`, val)
-                : setFieldValue(`${formFieldName}.${title}Favorite`, val);
-            }}
-            onKeyPress={(e) => {
-              let val = singleFormValues[`${title}Favorite`] ? false : true;
-              e.key === "Enter" && canBeDisabled
-                ? updateAllFieldsHandler(`${title}Favorite`, val)
-                : setFieldValue(`${formFieldName}.${title}Favorite`, val);
-            }}
-          >
-            {singleFormValues[`${title}Favorite`] ? (
-              <>
-                <img src={starimage} alt="" className="icon" />
-                <H5 text="Added to Favorites" className="label" />
-              </>
-            ) : (
-              <>
-                <img src={starImageEmpty} alt="" className="icon" />
-                <H5 text="Add to Favorites" className="label" />
-              </>
-            )}
-          </Box>
-        </FavoritesBox>
+              <Box
+                role="button"
+                tabIndex={0}
+                className="favorites"
+                style={{ opacity: disabled ? 0.5 : 1 }}
+                onClick={() => {
+                  let val = singleFormValues[`${title}Favorite`] ? false : true;
+                  !disabled && canBeDisabled
+                    ? updateAllFieldsHandler(`${title}Favorite`, val)
+                    : setFieldValue(`${formFieldName}.${title}Favorite`, val);
+                }}
+                onKeyPress={(e) => {
+                  let val = singleFormValues[`${title}Favorite`] ? false : true;
+                  e.key === "Enter" && canBeDisabled
+                    ? updateAllFieldsHandler(`${title}Favorite`, val)
+                    : setFieldValue(`${formFieldName}.${title}Favorite`, val);
+                }}
+              >
+                {singleFormValues[`${title}Favorite`] ? (
+                  <>
+                    <img src={starimage} alt="" className="icon" />
+                    <H5 text="Added to Favorites" className="label" />
+                  </>
+                ) : (
+                  <>
+                    <img src={starImageEmpty} alt="" className="icon" />
+                    <H5 text="Add to Favorites" className="label" />
+                  </>
+                )}
+              </Box>
+            </FavoritesBox>
+          </Grid>
+
+          {index > 0 && (
+            <Grid>
+              <Checkbox
+                label="Use same address as of the first order"
+                onChange={() =>
+                  setFieldValue(
+                    `${formFieldName}.hasSame${ADD_TYPE[title]}`,
+                    !singleFormValues[`hasSame${ADD_TYPE[title]}`]
+                  )
+                }
+              />
+            </Grid>
+          )}
+        </Grid>
 
         <RadioGroup
           defaultValue={
