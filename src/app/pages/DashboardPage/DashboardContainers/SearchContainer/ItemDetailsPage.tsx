@@ -2,8 +2,12 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import { Accordion } from "app/components/Accordion";
 import { itempicture } from "../../../../assets/Images/index";
-import Card from "@mui/material/Card";
 import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
+import { ContentBox } from "app/components/CommonCss/CommonCss";
+import { H4 } from "app/components/Typography/Typography";
+import { ItemDetailsBox } from "./style";
+import AddImage from "app/components/AddImage";
+import { OrderImage } from "../SignleShipmentContainer/style";
 
 function ItemDetailsPage(props: any) {
   const { singleOrderData } = props;
@@ -19,102 +23,121 @@ function ItemDetailsPage(props: any) {
 
   const accordianItem = (item: any) => {
     return (
-      <Grid>
+      <ItemDetailsBox>
         <Accordion title={item.name}>
           <Grid container spacing={2}>
-            <Grid item xs={2}>
-              <div className="label">Category</div>
-              <div className="label-text">
-                {singleOrderData.category ? singleOrderData.category : "-"}
-              </div>
-            </Grid>
-            <Grid item xs={3}>
-              <div className="label">
-                Shipment Weight{" "}
-                {getLabelFromID(item.weightDimension, WEIGHTDIMENSION)}
-              </div>
-              <div className="label-text">
-                {item.weight ? item.weight : "-"}
-              </div>
-            </Grid>
-            <Grid item xs={2}>
-              <div className="label">
-                LBH {getLabelFromID(item.sizeDimension, DIMENSION2)}
-              </div>
-              <div className="label-text">
-                {item.length > 0 && item.width > 0 && item.height > 0 && (
-                  <div>
-                    {item.length} x {item.width} x {item.height}
-                  </div>
-                )}
-              </div>
-            </Grid>
-            <Grid item xs={2}>
-              <div className="label">Pieces</div>
-              <div className="label-text">
-                {singleOrderData.totalQuantity
-                  ? singleOrderData.totalQuantity
-                  : "-"}
-              </div>
-            </Grid>
-            <Grid item xs={2}>
-              <div className="label">Shipment Cost</div>
-              <div className="label-text">
-                {"$" + singleOrderData.shipmentCost
-                  ? singleOrderData.shipmentCost
-                  : "-"}
-              </div>
-            </Grid>
-            <Grid item xs={2}>
-              <div className="label">Fragile Shipment</div>
-              <div className="label-text">
-                {item.fragile === 1 ? "Yes" : "No"}
-              </div>
-            </Grid>
-            <Grid item xs={3}>
-              <div className="label">Delivery options</div>
-              <div className="label-text">
-                {singleOrderData.dropOption === 10
-                  ? "Door Drop"
-                  : singleOrderData.dropOption === 11
-                  ? "Safe Drop"
-                  : "-"}
-              </div>
-            </Grid>
-            <Grid item xs={2}>
-              <div className="label"> Customer Reference #</div>
-              <div className="label-text">
-                {singleOrderData.customerReferenceNumber
-                  ? singleOrderData.customerReferenceNumber
-                  : "-"}
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <div className="label"> Order Description</div>
-              <div className="label">
-                {item.description ? item.description : "-"}
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <img
-                style={{ width: "180px", height: "180px" }}
-                src={item.picture ? item.picture : itempicture}
+
+            <Grid item md={3}>
+              <H4 text="Category" />
+              <H4 className="value"
+                text={singleOrderData.category ? singleOrderData.category : "-"}
               />
             </Grid>
+
+            <Grid item md={3}>
+              <H4
+                text={`Shipment Weight ${getLabelFromID(
+                  item.weightDimension,
+                  WEIGHTDIMENSION
+                )}`}
+              />
+              <H4 className="value" text={item.weight ? item.weight : "-"} />
+            </Grid>
+
+            <Grid item md={3}>
+              <H4
+                text={`LBH ${getLabelFromID(item.sizeDimension, DIMENSION2)}`}
+              />
+              <H4 className="value"
+                text={
+                  item.length > 0 &&
+                  item.width > 0 &&
+                  item.height > 0 && (
+                    <div>
+                      {item.length} x {item.width} x {item.height}
+                    </div>
+                  )
+                }
+              />
+            </Grid>
+
+            <Grid item md={3}>
+              <H4 text="Pieces" />
+              <H4 className="value"
+                text={
+                  singleOrderData.totalQuantity
+                    ? singleOrderData.totalQuantity
+                    : "-"
+                }
+              />
+            </Grid>
+
+            <Grid item md={3}>
+              <H4 text="Shipment Cost" />
+              <H4 className="value"
+                text={
+                  singleOrderData.shipmentCost
+                    ? "$" + singleOrderData.shipmentCost
+                    : "-"
+                }
+              />
+            </Grid>
+
+            <Grid item md={3}>
+              <H4 text="Fragile Shipment" />
+              <H4 className="value" text={item.fragile === 1 ? "Yes" : "No"} />
+            </Grid>
+
+            <Grid item md={3}>
+              <H4 text="Delivery options" />
+              <H4 className="value"
+                text={
+                  singleOrderData.dropOption === 10
+                    ? "Door Drop"
+                    : singleOrderData.dropOption === 11
+                    ? "Safe Drop"
+                    : "-"
+                }
+              />
+            </Grid>
+
+            <Grid item md={3}>
+              <H4 text="Customer Reference #" />
+              <H4 className="value"
+                text={
+                  singleOrderData.customerReferenceNumber
+                    ? singleOrderData.customerReferenceNumber
+                    : "-"
+                }
+              />
+            </Grid>
+
+            <Grid item md={12}>
+              <H4 text="Order Description" />
+              <H4 className="value" text={item.description ? item.description : "-"} />
+            </Grid>
+
+            <Grid item md={12}>
+              <OrderImage
+                src={item.picture ? item.picture : itempicture}
+                alt=""
+              />
+            </Grid>
+
           </Grid>
         </Accordion>
-      </Grid>
+      </ItemDetailsBox>
     );
   };
   return (
     <>
-      <Card style={{ marginTop: "20px", padding: "10px" }}>
+      <ContentBox>
         {items && items.length
           ? items.map((item: any) => {
               return accordianItem(item);
             })
           : null}
-      </Card>
+      </ContentBox>
     </>
   );
 }

@@ -80,7 +80,7 @@ function OrderDetailsDrawer({ orderId, setDrawerOpen }) {
                   <H4 text={orderDetails?.category} className="value" />
                 </Grid>
                 <Grid item xs={6}>
-                  <H4 text="Customer Ref. #" />
+                  <H4 text="Customer Reference #" />
                   <H4
                     text={
                       orderDetails?.customerReferenceNumber
@@ -143,11 +143,6 @@ function OrderDetailsDrawer({ orderId, setDrawerOpen }) {
                             item.width > 0 &&
                             item.height > 0 && (
                               <Grid item xs={4}>
-                                {/* <LabelSpan>LBH {getLabelFromID(item.sizeDimension, DIMENSION2)}</LabelSpan>
-                              <ContentSpan>
-                                {item.length} x {item.width} x {item.height}
-                              </ContentSpan> */}
-
                                 <H4
                                   text={`LBH${getLabelFromID(
                                     item.sizeDimension,

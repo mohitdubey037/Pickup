@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { DatePicker, LocalizationProvider, TimePicker } from "@mui/lab";
-import { Box } from "@material-ui/core";
-
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { TextField } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { Drawer } from "app/components/Drawer";
-import { H2 } from "app/components/Typography/Typography";
+import { H2, H3, H5 } from "app/components/Typography/Typography";
 import { invoiceTable } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
-import { InvoicesWrapper, InvoiceTableTop } from "./InvoiceStyle";
 import { getInvoiceList } from "../../../../../services/PaymentServices/index";
-import { DateComponent } from './InvoiceStyle';
 import moment from "moment";
+import DatePickerInput from "app/components/Input/DatePickerInput";
+import { FlexBox } from "app/components/CommonCss/CommonCss";
+import { SearchTableTop } from "../SearchContainer/style";
+import { Flex } from "app/components/Input/style";
 
 const InvoicesContainer = ({ path: string }) => {
   const [invoiceData, setInvoiceData] = useState<any>([]);
@@ -25,27 +23,21 @@ const InvoicesContainer = ({ path: string }) => {
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<any>("");
   const [checkboxData, setCheckboxData] = useState<any>("");
 
-  // const [selectedOrderId, setSelectedOrderId] = useState("");
   const [drawerType, setDrawerType] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [newMultiplePdf, setNewMultiplePdf] = useState<any>(["https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1162.pdf",
-  "https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1149.pdf"]);
-
-  const [fromDate, setFromDate] = useState<string | null>("");
-  const [toDate, setToDate] = useState<string | null>("");
-
-  const [fromDateOpen, setFromDateOpen] = useState(false);
-  const [toDateOpen, setToDateOpen] = useState(false);
+  const [newMultiplePdf, setNewMultiplePdf] = useState<any>([
+    "https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1162.pdf",
+    "https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1149.pdf",
+  ]);
 
   const setDate = (name, value) => {
     console.log(value);
-    if (name === 'fromDate') {
-      setFieldValue('fromDate', moment(value).format('YYYY-MM-DD'));
+    if (name === "fromDate") {
+      setFieldValue("fromDate", moment(value).format("YYYY-MM-DD"));
+    } else if (name === "toDate") {
+      setFieldValue("toDate", moment(value).format("YYYY-MM-DD"));
     }
-    else if (name === "toDate") {
-      setFieldValue('toDate', moment(value).format('YYYY-MM-DD'));
-    }
-  }
+  };
 
   const getDrawerTitle = () => {
     if (drawerType === "invoice") {
@@ -57,14 +49,14 @@ const InvoicesContainer = ({ path: string }) => {
     }
   };
 
-  const openInvoiceDrawer = (pdfUrl: string,type: any, id: any) => {
+  const openInvoiceDrawer = (pdfUrl: string, type: any, id: any) => {
     // if (type === "invoice") {
     //   setSelectedInvoiceId(id);
-    // } 
+    // }
     // else if (type === "orderDetails") {
-      setInvoicePdf(pdfUrl);
-      setSelectedInvoiceId(id);
-      // setSelectedOrderId(id);
+    setInvoicePdf(pdfUrl);
+    setSelectedInvoiceId(id);
+    // setSelectedOrderId(id);
     // }
     setDrawerType(type);
     setDrawerOpen(true);
@@ -72,50 +64,39 @@ const InvoicesContainer = ({ path: string }) => {
 
   const downloadAll = () => {
     // setMultiplePdf(
-     const multiplePdf = invoiceData.filter((invoice, index)=> checkboxData.includes(index)).map((inv) => inv.invoicePdf);
-      console.log(multiplePdf);
-      newMultiplePdf.map(url => {
-        // window.open(url);
-        console.log(url);
-        let link:any = document.createElement("a");
-        link.download = `${[url.split("/").length-1]}`
-        console.log(link,"link")
-        link.href = url;
-        document.body.appendChild(link);
-        link.click();
-        // document.body.removeChild(link);
-     })
-  } 
-
-  // useEffect(() => {
-  //   // if (multiplePdf) {
-  //     newMultiplePdf.forEach(url => {
-  //       console.log(url)
-  //       var link:any = document.createElement("a");
-  //       link.download = `${[url.split("/").length-1]}`;
-  //       link.href = url;
-  //       document.body.appendChild(link);
-  //       link.click();
-  //       document.body.removeChild(link);
-  //    })
-  //   // }
-  // })
+    const multiplePdf = invoiceData
+      .filter((invoice, index) => checkboxData.includes(index))
+      .map((inv) => inv.invoicePdf);
+    console.log(multiplePdf);
+    newMultiplePdf.map((url) => {
+      // window.open(url);
+      console.log(url);
+      let link: any = document.createElement("a");
+      link.download = `${[url.split("/").length - 1]}`;
+      console.log(link, "link");
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      // document.body.removeChild(link);
+    });
+  };
 
   const tableTop = () => {
     return (
-      <InvoiceTableTop>
-        <p>
-          {invoiceData.length} Invoices <span>&nbsp;(0 Selected)</span>
-        </p>
-        <div>
-          <Button
-            size="large"
-            secondary
-            label="Download Selected"
-            onClick={() => {downloadAll()}}
-          />
-        </div>
-      </InvoiceTableTop>
+      <SearchTableTop>
+        <Flex alignItems="center">
+          <H3 text={`${invoiceData.length} Invoices `} />
+          <H5 text="(0 Selected)" />
+        </Flex>
+        <Button
+          size="small"
+          secondary
+          label="Download Selected"
+          onClick={() => {
+            downloadAll();
+          }}
+        />
+      </SearchTableTop>
     );
   };
 
@@ -146,130 +127,74 @@ const InvoicesContainer = ({ path: string }) => {
     getInvoiceListData();
   }, []);
 
-  const { values, handleChange, errors, touched, handleBlur, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues: {
-        invoiceNumber: "",
-        fromDate: "",
-        toDate: "",
-      },
-      onSubmit: (values) => getInvoiceListData(values),
-    });
+  const {
+    values,
+    handleChange,
+    errors,
+    touched,
+    handleBlur,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      invoiceNumber: "",
+      fromDate: "",
+      toDate: "",
+    },
+    onSubmit: (values) => getInvoiceListData(values),
+  });
 
   useEffect(() => {
-    console.log(values)
+    console.log(values);
   }, [values]);
 
   return (
     <ModuleContainer>
       <H2 title="Invoices" />
-      <InvoicesWrapper>
-      <div className="invoice_number_div">
-        <Input
-          id="invoiceNumber"
-          name="invoiceNumber"
-          initValue={values.invoiceNumber}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          error={touched.invoiceNumber && errors.invoiceNumber}
-          label="Invoice Number"
-          placeholder="eg. 123,321"
-        />
-      </div>
-        {/* <Input
-          id="fromDate"
-          name="fromDate"
-          initValue={values.fromDate}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          error={touched.fromDate && errors.fromDate}
-          label="From Date"
-          placeholder="YYYY-MM-DD"
-          type="mask"
-          maskProps={{
-            mask: "9999-99-99",
-            maskPlaceholder: null,
-          }}
-        />
-         */}
-      <Box display="flex" flexDirection="column">
-        <p>From Date</p>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateComponent>
-            <DatePicker
-                // label="06/06/2021"
-                value={values.fromDate || null}
-                onChange={(val) => setDate('fromDate', val)}
-                open={fromDateOpen}
-                onOpen={() => setFromDateOpen(true)}
-                onClose={() => setFromDateOpen(false)}
-                disablePast
-                renderInput={(params) => (
-                  <TextField
-                      style={{ width: '100%' }}
-                      label="From Date"
-                      placeholder={"e.g 06/06/2021"}
-                      {...params}
-                      onClick={() => setFromDateOpen(true)}
-                      defaultValue={""}
-                      InputLabelProps={{ shrink: false }} 
-                  />
-                )}
-            />
-          </DateComponent>
-          </LocalizationProvider>
-      </Box>
+      <Grid container spacing={2} mt={2}>
+        <Grid item md={2}>
+          <Input
+            id="invoiceNumber"
+            name="invoiceNumber"
+            initValue={values.invoiceNumber}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={touched.invoiceNumber && errors.invoiceNumber}
+            label="Invoice Number"
+            placeholder="eg. 123,321"
+          />
+        </Grid>
+        <Grid item md={2}>
+          <DatePickerInput
+            label="From Date"
+            placeholder={"e.g 06/06/2021"}
+            value={values.fromDate || null}
+            onChange={(val) => setDate("fromDate", val)}
+            disablePast={true}
+            required
+          />
+        </Grid>
+        <Grid item md={2}>
+          <DatePickerInput
+            label="To Date"
+            placeholder={"e.g 06/06/2021"}
+            value={values.toDate || null}
+            onChange={(val) => setDate("toDate", val)}
+            disablePast={true}
+            required
+          />
+        </Grid>
+        <Grid item md={2}>
+          <FlexBox alignItems="center" mb={2} style={{ height: "100%" }}>
+            <Button label="Search" onClick={handleSubmit} size="small" />
+          </FlexBox>
+        </Grid>
+      </Grid>
 
-        {/* <Input
-          id="toDate"
-          name="toDate"
-          initValue={values.toDate}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          error={touched.toDate && errors.toDate}
-          label="To Date"
-          placeholder="YYYY-MM-DD"
-          type="mask"
-          maskProps={{
-            mask: "9999-99-99",
-            maskPlaceholder: null,
-          }}
-        /> */}
-        <Box display="flex" flexDirection="column">
-          <p>To Date</p>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateComponent>
-            <DatePicker
-              // label="06/06/2021"
-              value={values.toDate || null}
-              onChange={(val) => setDate('toDate',val)}
-              open={toDateOpen}
-              onOpen={() => setToDateOpen(true)}
-              onClose={() => setToDateOpen(false)}
-              disablePast
-              renderInput={(params) => (
-                <TextField
-                    style={{ width: '100%' }}
-                    label="To Date"
-                    placeholder={"e.g 06/06/2021"}
-                    {...params}
-                    onClick={() => setToDateOpen(true)}
-                    defaultValue={""}
-                    InputLabelProps={{ shrink: false }} 
-                />
-              )}
-            />
-          </DateComponent>
-          </LocalizationProvider>
-        </Box>
-        <div className="search-btn-wrapper">
-          <Button label="Search" onClick={handleSubmit} />
-        </div>
-      </InvoicesWrapper>
       <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
         tableTop={tableTop()}
-        dataChecked = {(data: any) => {
+        dataChecked={(data: any) => {
           setCheckboxData(data);
         }}
         showCheckbox
@@ -285,7 +210,10 @@ const InvoicesContainer = ({ path: string }) => {
         actionButtons={true}
       >
         {drawerType === "invoice" ? (
-          <AddNewPaymentDrawer invoiceId={selectedInvoiceId} invoicePdf={invoicePdf} />
+          <AddNewPaymentDrawer
+            invoiceId={selectedInvoiceId}
+            invoicePdf={invoicePdf}
+          />
         ) : drawerType === "orderDetails" ? (
           <OrderItemDetailsDrawer
             orderId={selectedInvoiceId}

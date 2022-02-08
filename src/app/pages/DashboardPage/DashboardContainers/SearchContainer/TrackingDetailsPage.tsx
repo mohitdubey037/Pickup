@@ -9,14 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ShareIcon } from "../../../../assets/Icons/index";
-import { TorontoMap } from "../../../../assets/Images/index";
-import {
-  SubTitleDiv,
-  SubHeader,
-  HeadSpanBlock,
-  PaperBlock,
-  MapDiv,
-} from "./style";
+import { MapDiv, ShareBlock } from "./style";
 import SecondStepBlock from "./SecondStepBlock";
 import {
   getLocation,
@@ -25,6 +18,9 @@ import {
 import moment from "moment";
 // import HEREMap, { Marker } from 'here-maps-react';
 import HPlatform, { HMap, HMapLayer, Marker } from "react-here-map";
+import { ContentBox } from "app/components/CommonCss/CommonCss";
+import { H4 } from "app/components/Typography/Typography";
+import { Flex } from "app/components/Input/style";
 
 function TrackingDetailsPage(props: any) {
   const [activeStep, setActiveStep] = useState(0);
@@ -73,15 +69,15 @@ function TrackingDetailsPage(props: any) {
   };
 
   return (
-    <PaperBlock elevation={0}>
-      <SubTitleDiv>
-        <SubHeader>Track Shipment</SubHeader>
-        <HeadSpanBlock>
-          <img src={ShareIcon} alt="" className="ShareImageBlock" />
-          <div className="ShareText">Share Tracking</div>
-        </HeadSpanBlock>
-      </SubTitleDiv>
-      <MapDiv style={{ borderRadius: "8px"}}>
+    <ContentBox>
+      <Flex justifyContent="space-between" bottom={12}>
+        <H4 text="Track Shipment" className="subtitle" />
+        <ShareBlock>
+          <img src={ShareIcon} alt="" />
+          <H4 text="Share Tracking" className="ShareText" />
+        </ShareBlock>
+      </Flex>
+      <MapDiv>
         {/* <img src={TorontoMap} alt="" /> */}
         <HPlatform
           app_id="YvqYrJu5S467BPHcFyMN"
@@ -95,7 +91,6 @@ function TrackingDetailsPage(props: any) {
           <HMap
             style={{
               height: "200px",
-              borderRadius: "8px",
             }}
             mapOptions={{
               center: { lat: 18.516726, lng: 73.856255 },
@@ -109,7 +104,7 @@ function TrackingDetailsPage(props: any) {
           </HMap>
         </HPlatform>
       </MapDiv>
-      <Box sx={{ maxWidth: 400 }}>
+      <Box>
         <Stepper activeStep={activeStep} orientation="vertical">
           {trackData?.logs?.map((step, index) => {
             if (index === 0 && !step.timestamp) {
@@ -142,7 +137,7 @@ function TrackingDetailsPage(props: any) {
           </Paper>
         )}
       </Box>
-    </PaperBlock>
+    </ContentBox>
   );
 }
 export default TrackingDetailsPage;

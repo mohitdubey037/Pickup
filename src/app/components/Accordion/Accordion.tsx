@@ -2,7 +2,6 @@ import React from "react";
 import { AccordionDetails, AccordionSummary } from "@material-ui/core";
 import { CustomAccordion } from "./style";
 import { ChevronDown } from "app/assets/Icons";
-import { Box } from "@mui/material";
 
 interface AccordionProps {
 	title?: string;

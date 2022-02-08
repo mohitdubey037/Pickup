@@ -1,24 +1,6 @@
 import styled from "styled-components";
 import Paper from "@mui/material/Paper";
-
-// export const SearchFieldsWrapper = styled.div`
-//   margin-top: 54px;
-//   margin-bottom: 28px;
-//   display: flex;
-//   gap: 8px;
-//   align-items: flex-end;
-
-//   img {
-//     align-self: center;
-//     cursor: pointer;
-//   }
-//   input {
-//     width: 152px;
-//   }
-//   button {
-//     height: 42px;
-//   }
-// `;
+import { Box } from "@mui/material";
 
 export const SearchTableTop = styled.div`
   display: flex;
@@ -35,72 +17,49 @@ export const SearchTableTop = styled.div`
 
 
 export const TabWrapper = styled.div`
-  .custom {
-    padding: 0px !important;
-    background-color: #fff !important;
-  }
-  .tab-content {
-    margin-top: 20px;
-    width: 100%;
-  }
-  .label {
-    padding: 6px 0px;
-    font-size: 12px;
-  }
-  .label-text {
-    font-weight: bold;
-    font-size: 14px;
-  }
+.tabs{
+  position:fixed;
+  top:10px;
+}
+.MuiTab-root{
+  font-size: 20px;
+  line-height: 23px;
+  font-family: 'Roboto';
+  text-transform: capitalize;
+  color:#343434 !important;
+  padding: 16px 0;
+  margin-right: 42px;
+}
+ 
+.Mui-selected{
+  font-family:"Roboto-Bold";
+  color:#000 !important;
+}
+.MuiTabs-indicator{
+  background-color: #FECE3E;
+  height: 4px;
+}
 `;
 
-export const SubTitleDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
 
-export const SubHeader = styled.span`
-  font-size: 16px;
-  font-weight: 700;
-`;
-
-export const HeadSpanBlock = styled.span`
-  font-size: 16px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-
-  .ShareImageBlock {
-    margin-right: 7px;
-    height: 16px;
-    width: 16px;
-  }
-
+export const ShareBlock = styled.span`
+display:flex;
+align-items:center;
+cursor:pointer;
   .ShareText {
     color: #1b8af0;
-    font-weight: 500;
-    font-size: 16px;
+    margin:0;
+    margin-left: 7px;
   }
 `;
 
-export const PaperBlock = styled(Paper)`
-  border: 1px solid #dcdcdc;
-  border-radius: 4px;
-  padding: 20px 30px;
-  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-    color: #FECE3E;
-  }
-  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-    color: #FECE3E;
-  }
-`;
+
 
 export const MapDiv = styled.div`
   img {
     width: 100%;
     height: auto;
     border-radius: 8px;
-    margin: 18px 0px 23px 0px;
   }
 `;
 
@@ -143,4 +102,10 @@ export const AdvanceFilterBox = styled.div`
  .heading{
    margin:24px 0;
  }
+`;
+
+export const ItemDetailsBox = styled(Box)`
+div{
+  box-shadow:none !important;
+}
 `;
