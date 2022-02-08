@@ -15,15 +15,16 @@ import { Flex } from "app/components/Input/style";
 import { LineDivider } from "app/components/CommonCss/CommonCss";
 
 interface OrderDetails {
-  billTo: string;
-  category: string;
-  destinationCount: string;
-  invoiceCreatedAt: string;
-  invoiceNumber: string;
-  lastFourDigits: string;
-  shipmentCount: number;
-  total: number;
-  shipmentItemMapping: any;
+    billTo: string;
+    category: string;
+    destinationCount: string;
+    invoiceCreatedAt: string;
+    invoiceNumber: string;
+    lastFourDigits: string;
+    shipmentCount: number;
+    total: number;
+    shipmentItemMapping: any;
+    invoicePdf: string;
 }
 
 const ref: any = createRef();
@@ -152,7 +153,7 @@ function AddNewPaymentDrawer(props) {
         <Divider className="divider" />
       </DrawerHeaderBox>
 
-      <a href={invoicePdf}>
+      <a href={invoicePdf ? invoicePdf : orderDetails?.invoicePdf}>
         <Button
           label="Download Invoice Details"
           secondary

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Router } from "@reach/router";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   SignUp,
@@ -52,22 +52,27 @@ interface Token {
 }
 
 const Routes = () => {
-  // const authUser = useSelector((state: any) => {
-  //   return state.auth?.user;
-  // });
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
+
+  console.log(authUser);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
       const token = Cookies?.get("token") || "";
-      const decoded: Token | null = token ? jwt_decode(token) : null;
-      const res: any = await getPersonalProfileDetails(decoded?.userId);
-      if (res?.success) {
-        dispatch({
-          type: "UPDATE_USER",
-          user: res?.response?.data?.data,
-        });
+      console.log(token);
+      if (token) {
+        const decoded: Token | null = token ? jwt_decode(token) : null;
+        const res: any = await getPersonalProfileDetails(decoded?.userId);
+        if (res?.success) {
+          dispatch({
+            type: "UPDATE_USER",
+            user: res?.response?.data?.data,
+          });
+        }
       }
     })();
   }, []);

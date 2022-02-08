@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { RouteComponentProps, useLocation } from "@reach/router";
+import Cookies from "js-cookie";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -43,6 +44,8 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
         ({ signUp: { companyRegisterResponse: { companyId } } }: { signUp: { companyRegisterResponse: { companyId: number } } }) => companyId
     );
 
+    console.log(companyResponse);
+
     const showLoader = useSelector((state: { globalState: { showLoader: boolean } }) => state.globalState.showLoader)
 
     const [token, setToken] = useState<string>('');
@@ -50,7 +53,8 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         const params = getParamsFromUrl(location.search);
-        setToken(params['token'])
+        console.log(params);
+        setToken(params['token']);
     }, [location.search])
 
     useEffect(() => {
