@@ -1,4 +1,5 @@
 import { Box } from "@material-ui/core";
+import { Divider } from "@mui/material";
 import styled from "styled-components";
 
 export const FlexBox = styled(Box) `
@@ -10,3 +11,8 @@ export const FlexBox = styled(Box) `
       align-items: flex-start;
         }
 `
+
+export const LineDivider = styled(Divider) `
+    margin:24px 0 !important;
+`
+

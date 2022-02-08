@@ -16,6 +16,7 @@ const DatePickerInput = React.forwardRef<any, DateTimeInputProps>(
     disabled,
     required,
     error,
+    disablePast= false
   }) => {
     const [open, setOpen] = useState(false);
 
@@ -30,7 +31,7 @@ const DatePickerInput = React.forwardRef<any, DateTimeInputProps>(
             disabled={disabled}
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
-            disablePast
+            disablePast = {disablePast}
             renderInput={(params) => (
               <TextField
                 label=""

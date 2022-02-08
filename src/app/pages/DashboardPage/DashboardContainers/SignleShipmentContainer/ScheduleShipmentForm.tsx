@@ -77,6 +77,7 @@ function ScheduleShipmentForm(props: {
                   singleFormTouched?.shipmentDate &&
                   singleFormErrors?.shipmentDate
                 }
+                disablePast={true}
                 required
               />
             </Grid>

@@ -3,9 +3,9 @@ import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { H2 } from "app/components/Typography/Typography";
+import { H2, H3 } from "app/components/Typography/Typography";
 import { searchTable, advanceFilterInitValues } from "./helper";
-import { SearchFieldsWrapper, SearchTableTop } from "./style";
+import { SearchTableTop } from "./style";
 import { dots3, sliders } from "app/assets/Icons";
 import Select from "app/components/Select";
 import { useState, useEffect } from "react";
@@ -22,6 +22,11 @@ import {
   getSearchOrderListById,
 } from "../../../../../services/SearchItemService";
 import { navigate } from "@reach/router";
+import { Grid } from "@mui/material";
+import { Flex } from "app/components/Input/style";
+import { Box } from "@mui/system";
+import { FlexBox } from "app/components/CommonCss/CommonCss";
+import DatePickerInput from "app/components/Input/DatePickerInput";
 
 const SearchContainer = ({ path: string }) => {
   const dispatch = useDispatch();
@@ -51,8 +56,8 @@ const SearchContainer = ({ path: string }) => {
       setDrawerOpen(true);
     } else {
       setSelectedInvoiceId(id);
-        setDrawerType("orderDetails");
-        setDrawerOpen(true);
+      setDrawerType("orderDetails");
+      setDrawerOpen(true);
     }
   };
 
@@ -64,11 +69,8 @@ const SearchContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <p>{searchTable.length} Shipments</p>
-        <div>
-          <Button label="Print" onClick={() => {}} />
-          <img src={dots3} alt="" />
-        </div>
+        <H3 text={`${searchTable.length} Shipments`} className="heading" />
+        <Button label="Print" onClick={() => {}} size="small" />
       </SearchTableTop>
     );
   };
@@ -109,26 +111,50 @@ const SearchContainer = ({ path: string }) => {
     return state.auth?.user;
   });
 
-  if([1,2,3,4].indexOf(authUser?.roleId) === -1) {
-    navigate(' /non-authorized-page')
+  if ([1, 2, 3, 4].indexOf(authUser?.roleId) === -1) {
+    navigate(" /non-authorized-page");
   }
   return (
     <ModuleContainer>
       <H2 title="Search" />
-      <SearchFieldsWrapper>
-        <Input label="Invoice Number" placeholder="eg. 123,321" />
-        <Input label="Shipping Id" placeholder="eg. 123,321" />
-        <Input label="From Shipping Date" placeholder="Select" />
-        <Input label="To Shipping Date" placeholder="Select" />
-        <Select label="Status" style={{ width: 90 }} />
-        <Button size={"large"} label="Search" onClick={() => {}} />
-        <img
-          onClick={openAdvanceFilterDrawer}
-          style={{ marginRight: 1, marginTop: 50 }}
-          src={sliders}
-          alt=""
-        />
-      </SearchFieldsWrapper>
+
+      <Grid container spacing={2} mt={2}>
+        <Grid item xs={12} sm={4} lg={2}>
+          <Input label="Invoice Number" placeholder="eg. 123,321" />
+        </Grid>
+        <Grid item xs={12} sm={4} lg={2}>
+          <Input label="Order Id" placeholder="eg. 123,321" />
+        </Grid>
+        <Grid item xs={12} sm={4} lg={2}>
+          <DatePickerInput
+            label="From Order Date"
+            placeholder={"e.g 11/20/2021"}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} lg={2}>
+          <DatePickerInput
+            label="To Order Date"
+            placeholder={"e.g 11/20/2021"}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} lg={2}>
+          <Select label="Status" />
+        </Grid>
+        <Grid item xs={12} sm={4} lg={2}>
+          <FlexBox alignItems="center" mb={2} style={{ height: "100%" }}>
+            <Button size="small" label="Search" onClick={() => {}} />
+            <Box>
+              <img
+                onClick={openAdvanceFilterDrawer}
+                src={sliders}
+                alt=""
+                style={{ cursor: "pointer" }}
+              />
+            </Box>
+          </FlexBox>
+        </Grid>
+      </Grid>
+
       <Table
         data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
         tableTop={tableTop()}
@@ -137,6 +163,7 @@ const SearchContainer = ({ path: string }) => {
         perPageRows={10}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
+
       <Drawer
         open={drawerOpen}
         title={getDrawerTitle()}
