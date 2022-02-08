@@ -12,6 +12,16 @@ export const FlexBox = styled(Box) `
         }
 `
 
+export const DateComponent = styled.div `
+margin-bottom: 16px;
+.MuiFormControl-root{    
+  margin-bottom: 6px;
+}
+.MuiFormControl-root div input {
+  padding: 11px 14px;
+}
+`
+
 export const LineDivider = styled(Divider) `
     margin:24px 0 !important;
 `

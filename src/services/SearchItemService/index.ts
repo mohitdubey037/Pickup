@@ -28,9 +28,9 @@ export const getLocation = async (orderId: number) => {
   }
 };
 
-export const getSearchOrderList = async () => {
+export const getSearchOrderList = async (urlParams?: string) => {
   try {
-    const response = await Service.get(`order/business/shipments`, "order");
+    const response = await Service.get(`order/business/shipments${urlParams}`, "order");
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };
