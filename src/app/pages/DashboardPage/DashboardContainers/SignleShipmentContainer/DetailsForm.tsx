@@ -3,7 +3,7 @@ import { FormikValues } from "formik";
 import { Box, Grid } from "@material-ui/core";
 
 import RadioGroup from "app/components/RadioGroup";
-import Select from "app/components/Select";
+import SelectNew from "app/components/Select/SelectNew";
 import AddImage from "app/components/AddImage";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { showToast } from "utils";
@@ -113,15 +113,11 @@ function DetailsForm(props: {
         <Box mt={4}>
             <GridContainer container spacing={3}>
                 <Grid item sm={6} xs={12}>
-                    <Select
+                    <SelectNew
                         id={`${formFieldName}.categoryId`}
                         name={`${formFieldName}.categoryId`}
                         label={"Category"}
-                        value={Number(singleFormValues?.categoryId?.categoryId)}
-                        onSelect={(e) =>
-                            updateCategoryHandler("categoryId", e.target.value)
-                        }
-                        disabled={disabled}
+                        placeholder={"Select Category"}
                         options={
                             categoryList
                                 ? categoryList.map((option) => ({
@@ -130,14 +126,17 @@ function DetailsForm(props: {
                                   }))
                                 : []
                         }
+                        value={Number(singleFormValues?.categoryId?.categoryId)}
+                        onChange={(e) =>
+                            updateCategoryHandler("categoryId", e.target.value)
+                        }
+                        error={
+                            singleFormTouched?.categoryId &&
+                            singleFormErrors?.categoryId
+                        }
+                        disabled={disabled}
                         required
                     />
-                    {singleFormErrors?.categoryId &&
-                        singleFormTouched?.categoryId && (
-                            <p style={{ margin: 0, color: "#c94c43" }}>
-                                {singleFormErrors?.categoryId}
-                            </p>
-                        )}
                 </Grid>
                 <Grid item sm={6} xs={12}>
                     <CustomInput
@@ -164,27 +163,26 @@ function DetailsForm(props: {
                     />
                 </Grid>
                 <Grid item sm={6} xs={12}>
-                    <Select
+                    <SelectNew
                         id={`${formFieldName}.dropOption`}
                         name={`${formFieldName}.dropOption`}
                         label={"Delivery options"}
+                        placeholder={"Select Delivery Option"}
+                        options={DROP_OPTION}
                         value={Number(singleFormValues.dropOption)}
-                        onSelect={(e) =>
+                        onChange={(e) =>
                             setFieldValue(
                                 `${formFieldName}.dropOption`,
                                 e.target.value
                             )
                         }
+                        error={
+                            singleFormTouched?.dropOption &&
+                            singleFormErrors?.dropOption
+                        }
                         disabled={disabled}
-                        options={DROP_OPTION}
                         required
                     />
-                    {singleFormErrors?.dropOption &&
-                        singleFormTouched?.dropOption && (
-                            <p style={{ margin: 0, color: "#c94c43" }}>
-                                {singleFormErrors?.dropOption}
-                            </p>
-                        )}
                 </Grid>
                 <Grid item sm={6} xs={12}>
                     <RadioGroup

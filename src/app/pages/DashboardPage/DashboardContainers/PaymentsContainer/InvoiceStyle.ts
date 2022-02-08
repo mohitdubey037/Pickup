@@ -4,13 +4,19 @@ export const InvoicesWrapper = styled.div`
   margin-top: 54px;
   margin-bottom: 28px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 16px;
-  div {
+  .invoice_number_div {
     width: 192px;
   }
-  .search-btn-wrapper {
-    padding-top: 25px;
+  p {
+    margin-top: 0;
+    margin-bottom: 8px;
   }
+  // .search-btn-wrapper {
+  //   padding-top: 25px;
+  // }
   .search-btn-wrapper button {
     height: 42px;
   }
@@ -37,3 +43,13 @@ export const InvoiceTableTop = styled.div`
     font-size: 12px;
   }
 `;
+
+export const DateComponent = styled.div `
+margin-bottom: 16px;
+.MuiFormControl-root{    
+  margin-bottom: 6px;
+}
+.MuiFormControl-root div input {
+  padding: 11px 14px;
+}
+`
