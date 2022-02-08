@@ -154,4 +154,10 @@ export const INDUSTRY_TEXT = [
   { label: "Manufacturing", value: "Manufacturing" },
 ];
 
+export const STATUS = [
+  {label: 'Pending',value: "pending"},
+  {label: 'In Progress', value: "in_progres"},
+  {label: 'Completed', value: 'completed'}
+]
+
 export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];

@@ -33,8 +33,11 @@ import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { DateComponent } from 'app/components/CommonCss/CommonCss';
 import moment from "moment";
 import DatePickerInput from "app/components/Input/DatePickerInput";
+import {STATUS} from '../../../../../../src/constants';
+
 
 const SearchContainer = ({ path: string }) => {
+
   const dispatch = useDispatch();
   const [searchRecordData, setSearchRecordData] = useState<any>();
   const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
@@ -109,13 +112,17 @@ const SearchContainer = ({ path: string }) => {
     );
   };
 
-  const setDate = (name, value) => {
+  const setData = (name, value) => {
     console.log(value);
     if (name === 'fromDate') {
       setFieldValue('fromDate', moment(value).format('YYYY-MM-DD'));
     }
     else if (name === "toDate") {
       setFieldValue('toDate', moment(value).format('YYYY-MM-DD'));
+    }
+    else if (name === "status") {
+      console.log(value);
+      setFieldValue("status", value);
     }
   }
 
@@ -134,7 +141,10 @@ const SearchContainer = ({ path: string }) => {
     }
   };
 
-  
+  const updateStatusHandler = (name: string, value: string) => {
+        // updateAllFieldsHandler(name, newValue);
+        setFieldValue('status', value);
+  };  
 
   const getDrawerTitle = () => {
     if (drawerType == "invoice") {
@@ -165,13 +175,18 @@ const SearchContainer = ({ path: string }) => {
     useFormik({
       initialValues: {
         invoiceNumber: "",
+        shippingId: "", 
         orderId: "",
         fromDate: "",
         toDate: "",
+        status: ""
       },
       onSubmit: (values) => getSearchListData(values),
     });
 
+    useEffect(() => {
+      console.log(values);
+    },[values])
     // const handleSearch = () => {
     //   alert("Cancelled!")
     // }
@@ -197,8 +212,8 @@ const SearchContainer = ({ path: string }) => {
         <Grid item xs={12} sm={4} lg={2}>
           {/* <Input label="Order Id" placeholder="eg. 123,321" /> */}
             <Input
-            id="order Id"
-            name="order Id"
+            id="orderId"
+            name="orderId"
             initValue={values.orderId}
             onBlur={handleBlur}
             onChange={handleChange}
@@ -215,7 +230,7 @@ const SearchContainer = ({ path: string }) => {
               <DatePicker
                   // label="06/06/2021"
                   value={values.fromDate || null}
-                  onChange={(val) => setDate('fromDate', val)}
+                  onChange={(val) => setData('fromDate', val)}
                   open={fromDateOpen}
                   onOpen={() => setFromDateOpen(true)}
                   onClose={() => setFromDateOpen(false)}
@@ -244,7 +259,7 @@ const SearchContainer = ({ path: string }) => {
             <DatePicker
               // label="06/06/2021"
               value={values.toDate || null}
-              onChange={(val) => setDate('toDate',val)}
+              onChange={(val) => setData('toDate',val)}
               open={toDateOpen}
               onOpen={() => setToDateOpen(true)}
               onClose={() => setToDateOpen(false)}
@@ -266,7 +281,26 @@ const SearchContainer = ({ path: string }) => {
         </Box>
         </Grid>
         <Grid item xs={12} sm={4} lg={2}>
-          <Select label="Status" />
+          {/* <Select label="Status" /> */}
+          <Select
+              id={`${STATUS}.value`}
+              name={`${STATUS}.label`}
+              label={"Status"}
+              value={String(values?.status)}
+              onSelect={(e) =>
+                setData("status", e.target.value)
+              }
+              disabled={false}
+              options={
+                STATUS ?
+                  STATUS.map((option) => ({
+                            value: option.value,
+                            label: option.label,
+                        }))
+                        : []
+              }
+              required
+          />
         </Grid>
         <Grid item xs={12} sm={4} lg={2}>
           <FlexBox alignItems="center" mb={2} style={{ height: "100%" }}>
