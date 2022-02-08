@@ -26,3 +26,26 @@ export const LineDivider = styled(Divider) `
     margin:24px 0 !important;
 `
 
+
+
+export const ContentBox = styled(Box)`
+border: 1px solid #DCDCDC;
+box-sizing: border-box;
+border-radius: 4px;
+padding:16px;
+margin-bottom:16px;
+
+.value{
+  font-family: "Roboto-Bold";
+  margin-top:5px;
+}
+.title{
+  font-family: "Roboto-Medium";
+  font-size:22px;
+  margin-bottom:24px;
+}
+.subtitle{
+  font-family: "Roboto-Bold";
+  margin-bottom:0;
+}
+`;

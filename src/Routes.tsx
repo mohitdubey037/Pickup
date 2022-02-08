@@ -1,8 +1,4 @@
-import React, { useEffect } from "react";
 import { Router } from "@reach/router";
-import Cookies from "js-cookie";
-import jwt_decode from "jwt-decode";
-import { useDispatch, useSelector } from "react-redux";
 
 import {
   SignUp,
@@ -40,43 +36,8 @@ import SignUpDetails from "app/pages/AuthScreens/SignUpScreens/SignUpDetails";
 import ShipmentSummaryTable from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/ShipmentSummary";
 import BulkSummary from "app/components/Uploading/BulkSummary";
 import TokenExpire from "app/pages/AuthScreens/TokenExpire";
-import { getPersonalProfileDetails } from "services/PersonalProfileServices";
-
-interface Token {
-  company: number;
-  exp: number;
-  iat: number;
-  role: number;
-  type: string;
-  userId: number;
-}
 
 const Routes = () => {
-  const authUser = useSelector((state: any) => {
-    return state.auth?.user;
-  });
-
-  console.log(authUser);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    (async () => {
-      const token = Cookies?.get("token") || "";
-      console.log(token);
-      if (token) {
-        const decoded: Token | null = token ? jwt_decode(token) : null;
-        const res: any = await getPersonalProfileDetails(decoded?.userId);
-        if (res?.success) {
-          dispatch({
-            type: "UPDATE_USER",
-            user: res?.response?.data?.data,
-          });
-        }
-      }
-    })();
-  }, []);
-
   return (
     <Router>
       <AuthPages path="/">

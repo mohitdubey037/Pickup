@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 import { Flex } from "app/components/Input/style";
 import ModuleContainer from "app/components/ModuleContainer";
@@ -86,16 +87,21 @@ function OrderSummary({ path: string }) {
     const onHoldTable = (orderSummaryData: any[], openOrderDrawer: any) => {
         let makeTableData: any = [];
         if (orderSummaryData && orderSummaryData.length) {
-            orderSummaryData.map((item: any) => {
+            orderSummaryData.forEach((item: any) => {
                 makeTableData.push({
                     "Order Id": item.refNo,
-                    Schedule: item.type,
+                    Schedule:
+                        item.type === "SCHEDULED"
+                            ? moment(item.scheduledTime).format(
+                                  "HH:mm - DD/MM/YY"
+                              )
+                            : item.type,
                     "Item Count": getOrderIdItem(
                         openOrderDrawer,
                         item.itemCount,
                         item.orderId
                     ),
-                    "Order Cost": `$ ${item.total}`,
+                    "Order Cost": `$${item.total}`,
                 });
             });
         }
@@ -124,7 +130,7 @@ function OrderSummary({ path: string }) {
                     <TotalBox>
                         <H4 text="Total" className="total" />
                         <H4
-                            text={Number(totalCost).toFixed(2)}
+                            text={`$${Number(totalCost).toFixed(2)}`}
                             className="total"
                         />
                     </TotalBox>

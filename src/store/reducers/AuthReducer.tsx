@@ -18,14 +18,6 @@ export const auth = (state = initState, action: any) => {
       };
     }
     case "UPDATE_USER": {
-      console.log(action.user);
-      console.log(
-        action.user.emailId,
-        action.user.firstName,
-        action.user.lastName,
-        action.user.roleName,
-        action.user.userDetails
-      );
       const {
         emailId,
         firstName,
@@ -35,7 +27,6 @@ export const auth = (state = initState, action: any) => {
         profileImage,
       } = action.user;
       const { phoneNo } = userDetails;
-      // console.log(phoneNo);
       return {
         ...state,
         user: {
