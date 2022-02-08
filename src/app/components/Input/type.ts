@@ -31,4 +31,5 @@ export interface DateTimeInputProps {
   disabled?: boolean;
   required?: boolean;
   defaultValue?: any;
+  disablePast?: boolean;
 }

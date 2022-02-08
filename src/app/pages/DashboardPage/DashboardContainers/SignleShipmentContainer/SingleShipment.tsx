@@ -1,4 +1,4 @@
-import { useEffect, Fragment } from "react";
+import { useEffect, Fragment, useState } from "react";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
@@ -12,18 +12,25 @@ import SingleSipmentForm from "./SingleSipmentForm";
 import { singleShipmentFormSchema } from "./SingleShipmentFormSchema";
 import { Button } from "../../../../components/Buttons";
 import {
+  getSameDetailsValues,
   shipmentInitValues,
-  // singleShipmentInitValues1,
-  getNextOrderValues,
+  singleShipmentInitValues,
 } from "./helper";
 import { FullCard } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { globalActions } from "store/reducers/GlobalReducer";
 import { ButtonsGroup } from "app/components/Buttons/style";
+import { Checkbox } from "app/components/Checkbox";
 
 function SingleShipment({ path: string }) {
   const dispatch = useDispatch();
+
+  const [sameDetails, setSameDetails] = useState<any>({
+    hasSameOrigin: [],
+    hasSameDestination: [],
+    hasSameSchedule: [],
+  });
 
   const shipmentDetails = useSelector(
     (state: { singleShipment: { shipmentDetails } }) => {
@@ -51,7 +58,6 @@ function SingleShipment({ path: string }) {
 
   const formik = useFormik({
     initialValues: shipmentDetails || shipmentInitValues,
-    // initialValues: { orders: [singleShipmentInitValues1] },
     validate: (values: any) => {
       try {
         validateYupSchema(values, singleShipmentFormSchema, true, values);
@@ -78,10 +84,33 @@ function SingleShipment({ path: string }) {
     }
   }, [orderIds, formik.values.orders]);
 
+  const hasSameDetailsHandler = (index: number, sectionName: string) => {
+    const fieldName = `orders.${index}.${sectionName}`;
+    let currentValue = formik.values.orders[index][`${sectionName}`];
+    formik.setFieldValue(fieldName, !currentValue);
+
+    let temp = sameDetails;
+    if (currentValue) {
+      for (var i = 0; i < temp[sectionName].length; i++) {
+        if (temp[sectionName][i] === index) {
+          temp[sectionName].splice(i, 1);
+        }
+      }
+    } else {
+      temp[sectionName] = [...temp[sectionName], index];
+      let updatedOrderDetails = getSameDetailsValues(
+        formik.values.orders,
+        index,
+        sectionName
+      );
+      formik.setFieldValue("orders", updatedOrderDetails);
+    }
+    setSameDetails(temp);
+  };
+
   const addMoreItemHandler = () => {
     const orderDetails = formik.values.orders;
-    const nextOrderValue = getNextOrderValues(orderDetails[0]);
-    const updatedOrderDetails = [...orderDetails, nextOrderValue];
+    const updatedOrderDetails = [...orderDetails, singleShipmentInitValues];
     formik.setFieldValue("orders", updatedOrderDetails);
   };
 
@@ -123,32 +152,62 @@ function SingleShipment({ path: string }) {
               </Box>
             )}
 
-            <H3 text="Address Details" />
+            <H3 text="Address Details" className="section-title" />
             <SingleSipmentForm
-              canBeDisabled
-              disabled={index > 0}
+              canBeDisabled={
+                index === 0 && sameDetails.hasSameOrigin.length > 0
+              }
+              disabled={index > 0 && formik.values.orders[index].hasSameOrigin}
               index={index}
               title={"origin"}
               formik={formik}
+              sameDetails={sameDetails}
+              hasSameDetails={hasSameDetailsHandler}
             />
             <SingleSipmentForm
+              canBeDisabled={
+                index === 0 && sameDetails.hasSameDestination.length > 0
+              }
+              disabled={
+                index > 0 && formik.values.orders[index].hasSameDestination
+              }
               index={index}
               title={"destination"}
               formik={formik}
+              sameDetails={sameDetails}
+              hasSameDetails={hasSameDetailsHandler}
             />
 
             <H3 text="Order Details" />
             <SingleShipmentDetails
-              disabled={index > 0}
+              // disabled={index > 0}
               index={index}
               formik={formik}
             />
 
-            <H3 text="Schedule Order" />
+            <Box display="flex" justifyContent="space-between">
+              <H3 text="Schedule Order" />
+              {index > 0 && (
+                <Box>
+                  <Checkbox
+                    label="Use same schedule as of the first order"
+                    onChange={() =>
+                      hasSameDetailsHandler(index, "hasSameSchedule")
+                    }
+                  />
+                </Box>
+              )}
+            </Box>
             <ScheduleShipmentForm
-              disabled={index > 0}
+              canBeDisabled={
+                index === 0 && sameDetails.hasSameSchedule.length > 0
+              }
+              disabled={
+                index > 0 && formik.values.orders[index].hasSameSchedule
+              }
               index={index}
               formik={formik}
+              sameDetails={sameDetails}
             />
           </FullCard>
         </Fragment>

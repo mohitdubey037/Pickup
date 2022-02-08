@@ -29,6 +29,9 @@ export const InputWrapper = styled.div`
     top: 36px;
     right: 5px;
   }
+  .label{
+    min-height:20px;
+  }
 `;
 
 
@@ -91,6 +94,9 @@ export const FullCard = styled(Box)`
       padding: 24px 16px;
       margin:16px 0;
       }
+  .section-title {
+    margin-bottom: 32px;
+  }
 `;
 
 export const Flex = styled.div`
@@ -189,6 +195,9 @@ export const DateTimePickerBox = styled(Box)`
 .MuiInputBase-input{
   height:42px;
   box-sizing:border-box;
+}
+.MuiTextField-root{
+  background:#fff;
 }
 `;
 

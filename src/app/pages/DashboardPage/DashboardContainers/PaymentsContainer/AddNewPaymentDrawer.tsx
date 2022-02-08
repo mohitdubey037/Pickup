@@ -7,6 +7,12 @@ import { Button } from "app/components/Buttons";
 import { Illustration } from "../../../../assets/Images/index";
 import { useBarcode } from "react-barcodes";
 import { getOrderDetails } from "services/PaymentServices";
+import { Box, Divider } from "@mui/material";
+import { DrawerTitle } from "app/components/Typography/style";
+import { DrawerHeading, Para } from "app/components/Typography/Typography";
+import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
+import { Flex } from "app/components/Input/style";
+import { LineDivider } from "app/components/CommonCss/CommonCss";
 
 interface OrderDetails {
     billTo: string;
@@ -23,231 +29,193 @@ interface OrderDetails {
 
 const ref: any = createRef();
 const options = {
-    orientation: "landscape",
-    // unit: "in",
-    format: "a4",
+  orientation: "landscape",
+  // unit: "in",
+  format: "a4",
 };
 
 const BarCodeItem = ({ barcodeValue }) => {
-    const { inputRef } = useBarcode({
-        value: barcodeValue,
-        options: {
-            // background: "lightblue",
-            // width: 1,
-            displayValue: false,
-        },
-    });
-    return <svg ref={inputRef} />;
+  const { inputRef } = useBarcode({
+    value: barcodeValue,
+    options: {
+      // background: "lightblue",
+      // width: 1,
+      displayValue: false,
+    },
+  });
+  return <svg ref={inputRef} />;
 };
 
 function AddNewPaymentDrawer(props) {
-    const {invoiceId} = props;
-    const {invoicePdf} = props;
-    console.log(invoicePdf);
+  const { invoiceId } = props;
+  const { invoicePdf } = props;
+  console.log(invoicePdf);
 
-    const [ordersArray, setOrdersArray] = useState<string[]>([]);
-    const [orderDetails, setOrderDetails] = useState<OrderDetails | null>();
+  const [ordersArray, setOrdersArray] = useState<string[]>([]);
+  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>();
 
-    useEffect(() => {
-        (async () => {
-            const res = (await getOrderDetails(invoiceId)) as any;
-            console.log("resData", res);
-            if (res?.error == null) {
-                let data = res?.response?.data?.data;
-                console.log(data);
-                let tempArray: string[] = [];
-                Object.keys(data?.shipmentItemMapping).map(function (key, index) {
-                    // console.log(data?.shipmentItemMapping[key]);
-                    data?.shipmentItemMapping[key].map((item) => {
-                        let itemId: string = key + "I" + item?.itemId;
-                        // console.log(itemId);
-                        tempArray.push(itemId);
-                    });
-                    setOrdersArray(tempArray);
-                });
-                setOrderDetails(data);
-            }
+  useEffect(() => {
+    (async () => {
+      const res = (await getOrderDetails(invoiceId)) as any;
+      console.log("resData", res);
+      if (res?.error == null) {
+        let data = res?.response?.data?.data;
+        console.log(data);
+        let tempArray: string[] = [];
+        Object.keys(data?.shipmentItemMapping).map(function (key, index) {
+          // console.log(data?.shipmentItemMapping[key]);
+          data?.shipmentItemMapping[key].map((item) => {
+            let itemId: string = key + "I" + item?.itemId;
+            // console.log(itemId);
+            tempArray.push(itemId);
+          });
+          setOrdersArray(tempArray);
+        });
+        setOrderDetails(data);
+      }
 
-            // });
-        })();
-    }, []);
+      // });
+    })();
+  }, []);
 
-    console.log(ordersArray);
+  console.log(ordersArray);
 
-    return (
-        <div>
-            <img
-                style={{ paddingLeft: 200 }}
-                className="imageStyle"
-                src={Illustration}
-                alt=""
-            />
-            {createPortal(
-                <div
-                    className="bodyClass"
-                    ref={ref}
-                    style={{
-                        width: "100vw",
-                        height: "100vh",
-                    }}
-                >
-                    <h1 style={{ textAlign: "center" }}>Invoice No. {invoiceId}</h1>
-                    {ordersArray.length > 0 ? (
-                        <div
-                            style={{
-                                width: "100%",
-                                // height: "100vh",
-                                // display: "flex",
-                                // flexWrap: "wrap",
-                                justifyContent: "space-around",
-                                alignItems: "space-around",
-                                display: "grid",
-                                gridTemplateColumns: "auto auto auto",
-                                gap: "50px 50px",
-                            }}
-                        >
-                            {ordersArray.map((item, index) => {
-                                return <BarCodeItem key={index} barcodeValue={item} />;
-                            })}
-                        </div>
-                    ) : null}
-                </div>,
-                document.body
-            )}
-            <Modal id="portalModal" open={false}>
-                <div
-                    className="bodyClass"
-                    ref={ref}
-                    style={{
-                        width: "100vw",
-                        height: "100vh",
-                    }}
-                >
-                    <h1 style={{ textAlign: "center" }}>Invoice No. {invoiceId}</h1>
-                    {ordersArray.length > 0 ? (
-                        <div
-                            style={{
-                                width: "100vw",
-                                height: "100vh",
-                                // display: "flex",
-                                // flexWrap: "wrap",
-                                justifyContent: "space-around",
-                                display: "grid",
-                                gridTemplateColumns: "auto auto auto",
-                                gap: 20,
-                            }}
-                        >
-                            {ordersArray.map((item, index) => {
-                                return <BarCodeItem key={index} barcodeValue={item} />;
-                            })}
-                        </div>
-                    ) : null}
-                </div>
-            </Modal>
-
-            <Typography style={{ fontWeight: 700, paddingTop: 15, paddingLeft: 200 }}>
-                Paid Sucessfully
-            </Typography>
-            <Typography
-                style={{ textAlign: "center", display: "flex", fontWeight: 400 }}
-            >
-                {" "}
-                Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor vel.
-                Integer a ornare nisi.
-            </Typography>
-            <hr />
-            <div style={{ paddingTop: 20, justifyContent: "space-between" }}>
-                <a style={{textDecoration: 'none'}} href={invoicePdf ? invoicePdf : orderDetails?.invoicePdf}>
-                    <Button label="Download Invoice Details" secondary />
-                </a>
-                {/* <a target={invoicePdf}>Download Invoice Details</a> */}
-                <div style={{ paddingTop: 20 }} />
-                <ReactToPdf
-                    targetRef={ref}
-                    filename={`${orderDetails?.billTo}_${invoiceId}.pdf`}
-                    options={options}
-                >
-                    {({ toPdf }) => (
-                        <Button label="Download Shipping Label" secondary onClick={toPdf} />
-                    )}
-                </ReactToPdf>
-            </div>
-            <div style={{ paddingTop: 30, display: "flex", flexDirection: "row" }}>
-                <div style={{ display: "flex", flexDirection: "row", width: "50%" }}>
-                    <Typography style={{ fontWeight: 500 }}>Bill to</Typography>
-                    <Typography style={{ paddingLeft: 20 }}>
-                        {" "}
-                        {orderDetails?.billTo}
-                    </Typography>
-                </div>
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "50%",
-                        justifyContent: "flex-end",
-                    }}
-                >
-                    <Typography style={{}}>Invoice Date</Typography>
-                    <Typography style={{ paddingLeft: 20 }}>
-                        {orderDetails?.invoiceCreatedAt}
-                    </Typography>
-                </div>
-            </div>
-            <div style={{ paddingTop: 20, display: "flex", flexDirection: "row" }}>
-                <Typography>Invoice Number</Typography>
-                <Typography style={{ paddingLeft: 20 }}>
-                    {orderDetails?.invoiceNumber}
-                </Typography>
-            </div>
-            <hr />
-            <div
+  return (
+    <>
+      <DrawerHeaderBox>
+        <img className="imageStyle" src={Illustration} alt="" />
+        {createPortal(
+          <div
+            className="bodyClass"
+            ref={ref}
+            style={{
+              width: "100vw",
+              height: "100vh",
+            }}
+          >
+            <h1 style={{ textAlign: "center" }}>Invoice No. {invoiceId}</h1>
+            {ordersArray.length > 0 ? (
+              <div
                 style={{
-                    justifyContent: "space-between",
-                    display: "flex",
-                    width: "100%",
+                  width: "100%",
+                  justifyContent: "space-around",
+                  alignItems: "space-around",
+                  display: "grid",
+                  gridTemplateColumns: "auto auto auto",
+                  gap: "50px 50px",
                 }}
-            >
-                <Typography>Shipment Count</Typography>
-                <Typography>{orderDetails?.shipmentCount}</Typography>
-            </div>
-            <div
+              >
+                {ordersArray.map((item, index) => {
+                  return <BarCodeItem key={index} barcodeValue={item} />;
+                })}
+              </div>
+            ) : null}
+          </div>,
+          document.body
+        )}
+        <Modal id="portalModal" open={false}>
+          <div
+            className="bodyClass"
+            ref={ref}
+            style={{
+              width: "100vw",
+              height: "100vh",
+            }}
+          >
+            <h1 style={{ textAlign: "center" }}>Invoice No. {invoiceId}</h1>
+            {ordersArray.length > 0 ? (
+              <div
                 style={{
-                    justifyContent: "space-between",
-                    display: "flex",
-                    width: "100%",
+                  width: "100vw",
+                  height: "100vh",
+                  // display: "flex",
+                  // flexWrap: "wrap",
+                  justifyContent: "space-around",
+                  display: "grid",
+                  gridTemplateColumns: "auto auto auto",
+                  gap: 20,
                 }}
-            >
-                <Typography>Category</Typography>
-                <Typography>{orderDetails?.category}</Typography>
-            </div>
-            <div
-                style={{
-                    justifyContent: "space-between",
-                    display: "flex",
-                    width: "100%",
-                }}
-            >
-                <Typography>Destination count</Typography>
-                <Typography>{orderDetails?.destinationCount}</Typography>
-            </div>
-            <div
-                style={{
-                    justifyContent: "space-between",
-                    display: "flex",
-                    width: "100%",
-                }}
-            >
-                <Typography>Invoice Amount</Typography>
-                <Typography>${orderDetails?.total}</Typography>
-            </div>
-            <hr />
-            <div style={{ justifyContent: "space-between", display: "flex" }}>
-                <Typography>Payment Detail</Typography>
-                <Typography>{orderDetails?.lastFourDigits}</Typography>
-            </div>
-        </div>
-    );
+              >
+                {ordersArray.map((item, index) => {
+                  return <BarCodeItem key={index} barcodeValue={item} />;
+                })}
+              </div>
+            ) : null}
+          </div>
+        </Modal>
+
+        <DrawerHeading title="Paid Sucessfully" className="title" />
+        <Para
+          text="Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor vel.
+                Integer a ornare nisi."
+        />
+
+        <Divider className="divider" />
+      </DrawerHeaderBox>
+
+      <a href={invoicePdf ? invoicePdf : orderDetails?.invoicePdf}>
+        <Button
+          label="Download Invoice Details"
+          secondary
+          style={{ marginBottom: "16px" }}
+        />
+      </a>
+      <ReactToPdf
+        targetRef={ref}
+        filename={`${orderDetails?.billTo}_${invoiceId}.pdf`}
+        options={options}
+      >
+        {({ toPdf }) => (
+          <Button label="Download Shipping Label" secondary onClick={toPdf} />
+        )}
+      </ReactToPdf>
+      <InvoiceDetailsBox>
+        <Flex justifyContent="space-between" bottom={16} top={32}>
+          <Flex>
+            <Para text="Bill to" className="label" />
+            <Para text={orderDetails?.billTo} className="value"  />
+          </Flex>
+          <Flex justifyContent="flex-end">
+            <Para text="Invoice Date"  className="label"  />
+            <Para text={orderDetails?.invoiceCreatedAt} className="value"  />
+          </Flex>
+        </Flex>
+        <Flex justifyContent="space-between">
+          <Para text="Invoice Number" className="label"  />
+          <Para text={orderDetails?.invoiceNumber} className="value"  />
+        </Flex>
+
+        <LineDivider />
+
+        <Flex justifyContent="space-between" bottom={16}>
+          <Para text="Shipment Count" className="label"  />
+          <Para text={orderDetails?.shipmentCount} className="value"  />
+        </Flex>
+
+        <Flex justifyContent="space-between" bottom={16}>
+          <Para text="Category" className="label"  />
+          <Para text={orderDetails?.category} className="value"  />
+        </Flex>
+
+        <Flex justifyContent="space-between" bottom={16}>
+          <Para text="Destination count" className="label"  />
+          <Para text={orderDetails?.destinationCount} className="value"  />
+        </Flex>
+
+        <Flex justifyContent="space-between" bottom={16}>
+          <Para text="Invoice Amount" className="label"  />
+          <Para text={orderDetails?.total} className="value"  />
+        </Flex>
+
+        <LineDivider />
+
+        <Flex justifyContent="space-between" bottom={40}>
+          <Para text="Payment Detail" className="label"  />
+          <Para text={orderDetails?.lastFourDigits} className="value"  />
+        </Flex>
+      </InvoiceDetailsBox>
+    </>
+  );
 }
 
 export default AddNewPaymentDrawer;

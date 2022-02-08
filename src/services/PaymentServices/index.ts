@@ -52,7 +52,7 @@ export const getInvoiceList = async (urlParams: string)=>{
 export const confirmPaymentService = async (body: any, invoiceId: number) => {
   try {
     const res = await Services.post(
-      `/order/business/invoice/${invoiceId}/payment`,
+      `order/business/invoice/${invoiceId}/payment`,
       body,
       "order"
     );

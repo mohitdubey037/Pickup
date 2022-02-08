@@ -13,7 +13,7 @@ interface TypoProps {
   link?: any;
   title?: string;
   className?: string;
-  text?: string;
+  text?: any;
   required?: boolean;
   onClick?: ()=>void;
 }

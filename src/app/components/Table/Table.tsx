@@ -129,15 +129,15 @@ const Table = ({
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                    labelRowsPerPage={
-                        <Input
-                            placeholder={"e.g 5"}
-                            onChange={(val) =>
-                                val !== 0 ? setRowsPerPage(val) : setRowsPerPage(5)
-                            }
-                            initValue={rowsPerPage}
-                        />
-                    }
+                    // labelRowsPerPage={
+                    //     <Input
+                    //         placeholder={"e.g 5"}
+                    //         onChange={(val) =>
+                    //             val !== 0 ? setRowsPerPage(val) : setRowsPerPage(5)
+                    //         }
+                    //         initValue={rowsPerPage}
+                    //     />
+                    // }
                 />
             )}
         </>

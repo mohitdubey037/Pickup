@@ -4,6 +4,7 @@ import { PHONE_NUMBER_REGX, PIN_CODE_REGEX } from "../../../../../constants";
 export const singleShipmentFormSchema = yup.object().shape({
     orders: yup.array().of(
         yup.object().shape({
+            hasSameOrigin: yup.boolean(),
             originCompanyName: yup.string().when("originBillingType", {
                 is: (originBillingType) => originBillingType === 2,
                 then: yup.string().required("Company Name is a required field"),
@@ -28,6 +29,7 @@ export const singleShipmentFormSchema = yup.object().shape({
             originLatitude: yup.string().required("Latitude is a required field"),
             originLongitude: yup.string().required("Longitude is a required field"),
 
+            hasSameDestination: yup.boolean(),
             destinationCompanyName: yup.string().when("destinationBillingType", {
                 is: (destinationBillingType) => destinationBillingType === 2,
                 then: yup.string().required("Company Name is a required field"),
@@ -59,27 +61,12 @@ export const singleShipmentFormSchema = yup.object().shape({
 
             shipmentDetails: yup.array().of(
                 yup.object({
-                    quantity: yup.number().integer("Quantity must be an integer")
-                        .typeError('Quantity must be a number').min(1, "Invalid quantity")
-                        .required("Quantity is required"),
+                    quantity: yup.number().required("Pieces is a required field").integer("Pieces must be a number").typeError("Pieces must be a number").min(1, "Invalid Pieces"),
                     description: yup.string(),
-                    height: yup.string()
-                        .test(
-                            "maxDigitsAfterDecimal",
-                            // "Height could only have maximum of 2 digits after decimal or less",
-                            "Please enter a valid height",
-                            function (number: any) {
-                                if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                                    return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
-                                } else {
-                                    return true;
-                                }
-                            }
-                        )
-                    ,
-                    length: yup.string().test(
+                    height: yup.string().test(
                         "maxDigitsAfterDecimal",
-                        "Please enter a valid length",
+                        // "Height could only have maximum of 2 digits after decimal or less",
+                        "Please enter valid height",
                         function (number: any) {
                             if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
                                 return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
@@ -88,62 +75,55 @@ export const singleShipmentFormSchema = yup.object().shape({
                             }
                         }
                     ),
-                    width: yup.string().test(
-                        "maxDigitsAfterDecimal",
-                        "Please enter a valid width",
-                        function (number: any) {
-                            if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                                return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
-                            } else {
-                                return true;
-                            }
+                    length: yup.string().test("maxDigitsAfterDecimal", "Please enter valid length", function (number: any) {
+                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                            return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
+                        } else {
+                            return true;
                         }
-                    ),
-                    weight: yup.string().test(
-                        "maxDigitsAfterDecimal",
-                        "Please enter a valid weight",
-                        function (number: any) {
-                            if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                                return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
-                            } else {
-                                return true;
-                            }
+                    }),
+                    width: yup.string().test("maxDigitsAfterDecimal", "Please enter valid width", function (number: any) {
+                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                            return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
+                        } else {
+                            return true;
                         }
-                    ),
-                    sizeDimension: yup.string().test(
-                        "maxDigitsAfterDecimal",
-                        "Please select valid unit",
-                        function (number: any) {
-                            if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                                return number && (number === "12" || number === "13" || number === 12 || number || 13);
-                            } else {
-                                return true;
-                            }
+                    }),
+                    sizeDimension: yup.string().test("maxDigitsAfterDecimal", "Please select valid unit", function (number: any) {
+                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                            return number && (number === "12" || number === "13" || number === 12 || number || 13);
+                        } else {
+                            return true;
                         }
-                    ),
-                    weightDimension: yup.number().test(
-                        "maxDigitsAfterDecimal",
-                        "Please select valid unit",
-                        function (number: any) {
-                            if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                                return number && (number === "14" || number === "15" || number === 14 || number || 15);
-                            } else {
-                                return true;
-                            }
+                    }),
+                    weight: yup.string().test("maxDigitsAfterDecimal", "Please enter valid weight", function (number: any) {
+                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                            return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
+                        } else {
+                            return true;
                         }
-                    ),
+                    }),
+                    weightDimension: yup.number().test("maxDigitsAfterDecimal", "Please select valid unit", function (number: any) {
+                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                            return number && (number === "14" || number === "15" || number === 14 || number || 15);
+                        } else {
+                            return true;
+                        }
+                    }),
                     document: yup.string(),
                 })
             ),
-            scheduleType: yup.string().required("Please select one option"),
-            shipmentDate: yup.string().when('scheduleType', {
+
+            hasSameSchedule: yup.boolean(),
+            scheduleType: yup.string().required("Please select schedule type"),
+            shipmentDate: yup.string().when("scheduleType", {
                 is: (scheduleType) => scheduleType === "17",
-                then: yup.string().required('Date is required field')
+                then: yup.string().required("Shipment Date is a required field"),
             }),
-            shipmentTime: yup.string().when('scheduleType', {
+            shipmentTime: yup.string().when("scheduleType", {
                 is: (scheduleType) => scheduleType === "17",
-                then: yup.string().required('Time is required field')
-            })
+                then: yup.string().required("Shipment Time is a required field"),
+            }),
         })
-    )
+    ),
 });
