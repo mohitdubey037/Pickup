@@ -1,11 +1,13 @@
 import { Box, FormControl } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { Select } from "@mui/material";
 import styled, { css } from "styled-components";
 import { H4 } from "../Typography/Typography";
 
 interface SelectContainerType {
   disabled?: boolean;
 }
+
 export const ComponentContainer = styled.div`
   align-items: flex-start;
   display: flex;
@@ -152,7 +154,7 @@ export const CustomSelect = styled.select`
   background-color: #fff;
   width: 100%;
 `;
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles(() =>
   createStyles({
     typography: {
       padding: "8px 12px",
@@ -164,3 +166,14 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+interface CustomNewSelectProps {
+  value?: string | number | null;
+}
+export const CustomNewSelect = styled(Select)<CustomNewSelectProps>`
+  width: 100%;
+  height: 42px;
+  .MuiSelect-select {
+    color: ${({ value }) => (value ? "#000" : "#c4c4c4")};
+  }
+`;
