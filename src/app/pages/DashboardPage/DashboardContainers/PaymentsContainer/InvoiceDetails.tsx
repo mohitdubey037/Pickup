@@ -1,11 +1,9 @@
-import { Typography } from "@material-ui/core"
-import { Box } from "@mui/system"
-import { InsuranceIcon } from "app/assets/Icons"
-import { Checkbox } from "app/components/Checkbox"
-import { Flex } from "app/components/Input/style"
-import { Link } from "app/components/Link"
-import { CustomLink } from "app/components/Typography/Links"
-import { H3, H4 } from "app/components/Typography/Typography"
+import { Box } from "@mui/system";
+import { InsuranceIcon } from "app/assets/Icons";
+import { Checkbox } from "app/components/Checkbox";
+import { Flex } from "app/components/Input/style";
+import { CustomLink } from "app/components/Typography/Links";
+import { H3, H4 } from "app/components/Typography/Typography";
 
 const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
     return (
@@ -14,33 +12,38 @@ const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
             <Box mt={3}>
                 <Flex justifyContent="space-between" bottom={12}>
                     <H4 text="Subtotal" />
-                    <H4 text={`${invoiceData.subTotalOfAllShipments}`} />
+                    <H4 text={`$${invoiceData.subTotalOfAllShipments}`} />
                 </Flex>
                 <Flex justifyContent="space-between" bottom={12}>
                     <H4 text="Taxes(HST)" />
-                    <H4 text={`${invoiceData.taxesOfAllShipments}`} />
+                    <H4 text={`$${invoiceData.taxesOfAllShipments}`} />
                 </Flex>
                 <Flex justifyContent="space-between">
-                <Flex>
-                    <Checkbox onChange={(e) => insuranceHandler(e)} label="Add Insurance" />
-                    <img src={InsuranceIcon} alt="InsuranceIcon" />
+                    <Flex>
+                        <Checkbox
+                            onChange={(e) => insuranceHandler(e)}
+                            label="Add Insurance"
+                        />
+                        <img src={InsuranceIcon} alt="InsuranceIcon" />
+                    </Flex>
+                    <H4 text={`$${invoiceData.insuranceAmount}`} />
                 </Flex>
-                    <H4 text={`${invoiceData.insuranceAmount}`} />
-                </Flex>
-                
+
                 <Flex top={5}>
-                <CustomLink label="Check our Terms & Conditions" style={{ color: "#1B8AF0"}} />
+                    <CustomLink
+                        label="Check our Terms & Conditions"
+                        style={{ color: "#1B8AF0" }}
+                    />
                 </Flex>
 
-
-                  <Flex justifyContent="space-between" top={40} bottom={16}>
+                <Flex justifyContent="space-between" top={40} bottom={16}>
                     <H4 text="Total" />
-                    <H4 text={`${invoiceData.total}`} />
+                    <H4 text={`$${Number(invoiceData.total).toFixed(2)}`} />
                 </Flex>
-                    <hr />
+                <hr />
             </Box>
         </Box>
-    )
-}
+    );
+};
 
-export default InvoiceDetails
+export default InvoiceDetails;
