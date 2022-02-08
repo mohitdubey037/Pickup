@@ -76,8 +76,8 @@ function ItemDetailsPage(props: any) {
               <H4 text="Shipment Cost" />
               <H4 className="value"
                 text={
-                  "$" + singleOrderData.shipmentCost
-                    ? singleOrderData.shipmentCost
+                  singleOrderData.shipmentCost
+                    ? "$" + singleOrderData.shipmentCost
                     : "-"
                 }
               />
