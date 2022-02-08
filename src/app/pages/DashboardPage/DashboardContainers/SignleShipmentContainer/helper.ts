@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const getSingleDate = ( appointmentDate, appointmentTime ) => {
+const getSingleDate = (appointmentDate, appointmentTime) => {
     let momentTime = moment(appointmentTime);
     let momentDate = moment(appointmentDate);
     return moment({
@@ -8,26 +8,25 @@ const getSingleDate = ( appointmentDate, appointmentTime ) => {
         month: momentDate.month(),
         day: momentDate.date(),
         hour: momentTime.hours(),
-        minute: momentTime.minutes()
+        minute: momentTime.minutes(),
     });
-}
+};
 
 export const shipmentDetailsItemInitValue = {
-    quantity: '',
+    quantity: "",
     // orderCost: '',
     description: "",
-    height: '',
-    length: '',
-    width: '',
-    weight: '',
-    sizeDimension: '',
-    weightDimension: '',
-    document: ""
-}
-
+    height: "",
+    length: "",
+    width: "",
+    weight: "",
+    sizeDimension: "",
+    weightDimension: "",
+    document: "",
+};
 
 export const singleShipmentInitValues = {
-
+    hasSameOrigin: false,
     originLatitude: "",
     originLongitude: "",
     originFavorite: false,
@@ -47,6 +46,7 @@ export const singleShipmentInitValues = {
     originEmailAddress: "",
     originAdditionalNotes: "",
 
+    hasSameDestination: false,
     destinationLatitude: "",
     destinationLongitude: "",
     destinationFavorite: false,
@@ -71,20 +71,22 @@ export const singleShipmentInitValues = {
     dropOption: "",
     fragile: 0,
 
-    shipmentDetails: [
-        { ...shipmentDetailsItemInitValue }
-    ],
+    shipmentDetails: [{ ...shipmentDetailsItemInitValue }],
 
     // SCHEDULE SHIPMENT
+    hasSameSchedule: false,
     scheduleType: "",
     shipmentTime: "",
     shipmentDate: "",
 };
 
-export const singleShipmentInitValues1 = {
+export const shipmentInitValues = {
+    orders: [{ ...singleShipmentInitValues }],
+};
 
-    originLatitude: '34.53',
-    originLongitude: '-25.54',
+export const singleShipmentInitValues1 = {
+    originLatitude: "34.53",
+    originLongitude: "-25.54",
     originFavorite: false,
     originBillingType: 1,
     originLocationType: 1,
@@ -102,9 +104,8 @@ export const singleShipmentInitValues1 = {
     originEmailAddress: "a@a.com",
     originAdditionalNotes: "Additional notes",
 
-
-    destinationLatitude: '34.53',
-    destinationLongitude: '-25.54',
+    destinationLatitude: "34.53",
+    destinationLongitude: "-25.54",
     destinationFavorite: false,
     destinationBillingType: 1,
     destinationLocationType: 1,
@@ -127,9 +128,7 @@ export const singleShipmentInitValues1 = {
     dropOption: "10",
     fragile: 1,
     picture: "",
-    shipmentDetails: [
-        { ...shipmentDetailsItemInitValue }
-    ],
+    shipmentDetails: [{ ...shipmentDetailsItemInitValue }],
 
     // SCHEDULE SHIPMENT
     scheduleType: "17",
@@ -137,11 +136,72 @@ export const singleShipmentInitValues1 = {
     shipmentDate: "",
 };
 
-export const shipmentInitValues = {
-    orders: [
-        {...singleShipmentInitValues}
-    ]
-}
+export const getSameDetailsValues = (
+    orders: any,
+    index: number,
+    sectionName: string
+) => {
+    let temp = orders,
+        firstOrder = orders[0];
+    if (sectionName === "hasSameOrigin") {
+        temp[index] = {
+            ...temp[index],
+            hasSameOrigin: true,
+            originLatitude: firstOrder.originLatitude,
+            originLongitude: firstOrder.originLongitude,
+            originFavorite: firstOrder.originFavorite,
+            originBillingType: firstOrder.originBillingType,
+            originLocationType: firstOrder.originLocationType,
+            originCompanyName: firstOrder.originCompanyName,
+            originFirstName: firstOrder.originFirstName,
+            originLastName: firstOrder.originLastName,
+            originAddressLine1: firstOrder.originAddressLine1,
+            originAddressLine2: firstOrder.originAddressLine2,
+            originCity: firstOrder.originCity,
+            originPostalCode: firstOrder.originPostalCode,
+            originProvinceState: firstOrder.originProvinceState,
+            originCountry: firstOrder.originCountry,
+            originContactNumber: firstOrder.originContactNumber,
+            originAlternateContactNumber:
+                firstOrder.originAlternateContactNumber,
+            originEmailAddress: firstOrder.originEmailAddress,
+            originAdditionalNotes: firstOrder.originAdditionalNotes,
+        };
+    } else if (sectionName === "hasSameDestination") {
+        temp[index] = {
+            ...temp[index],
+            hasSameDestination: true,
+            destinationLatitude: firstOrder.destinationLatitude,
+            destinationLongitude: firstOrder.destinationLongitude,
+            destinationFavorite: firstOrder.destinationFavorite,
+            destinationBillingType: firstOrder.destinationBillingType,
+            destinationLocationType: firstOrder.destinationLocationType,
+            destinationCompanyName: firstOrder.destinationCompanyName,
+            destinationFirstName: firstOrder.destinationFirstName,
+            destinationLastName: firstOrder.destinationLastName,
+            destinationAddressLine1: firstOrder.destinationAddressLine1,
+            destinationAddressLine2: firstOrder.destinationAddressLine2,
+            destinationCity: firstOrder.destinationCity,
+            destinationPostalCode: firstOrder.destinationPostalCode,
+            destinationProvinceState: firstOrder.destinationProvinceState,
+            destinationCountry: firstOrder.destinationCountry,
+            destinationContactNumber: firstOrder.destinationContactNumber,
+            destinationAlternateContactNumber:
+                firstOrder.destinationAlternateContactNumber,
+            destinationEmailAddress: firstOrder.destinationEmailAddress,
+            destinationAdditionalNotes: firstOrder.destinationAdditionalNotes,
+        };
+    } else if (sectionName === "hasSameSchedule") {
+        temp[index] = {
+            ...temp[index],
+            hasSameSchedule: true,
+            scheduleType: firstOrder.scheduleType,
+            shipmentTime: firstOrder.shipmentTime,
+            shipmentDate: firstOrder.shipmentDate,
+        };
+    }
+    return temp;
+};
 
 export const transformPayloadToBackend = (values: any) => {
     const payload = {
@@ -166,7 +226,7 @@ export const transformPayloadToBackend = (values: any) => {
             locationCity: values.destinationCity,
             locationPinCode: values.destinationPostalCode,
             locationProvinceCode: values.destinationProvinceState,
-            locationCountry: values.destinationCountry
+            locationCountry: values.destinationCountry,
         },
         pickupLocation: {
             latitude: values.originLatitude,
@@ -187,24 +247,25 @@ export const transformPayloadToBackend = (values: any) => {
             locationCity: values.originCity,
             locationPinCode: values.originPostalCode,
             locationProvinceCode: values.originProvinceState,
-            locationCountry: values.originCountry
+            locationCountry: values.originCountry,
         },
         orderedAt: getSingleDate(values.shipmentDate, values.shipmentTime),
         shipmentTime: values.shipmentTime,
         shipmentDate: values.shipmentDate,
         type: Number(values.scheduleType),
-        items: values.shipmentDetails.map((item) => ({ ...item, fragile: values.fragile })),
+        items: values.shipmentDetails.map((item) => ({
+            ...item,
+            fragile: values.fragile,
+        })),
         picture: values.picture,
-        dropOption: values.dropOption
-    }
+        dropOption: values.dropOption,
+    };
 
-
-    return payload
-}
-
+    return payload;
+};
 
 export const getNextOrderValues = (order: any) => {
-    return ({
+    return {
         ...order,
         destinationFavorite: false,
         destinationBillingType: 1,
@@ -223,8 +284,6 @@ export const getNextOrderValues = (order: any) => {
         destinationEmailAddress: "",
         destinationAdditionalNotes: "",
 
-        shipmentDetails: [
-            { ...shipmentDetailsItemInitValue }
-        ],
-    })
-}
+        shipmentDetails: [{ ...shipmentDetailsItemInitValue }],
+    };
+};

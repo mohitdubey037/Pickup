@@ -6,9 +6,9 @@ export const LeftDashboardWrapper = styled.div`
   text-align: left;
   width: 263px;
   color: #343434;
-  height: 100%; 
-  @media (max-width:1023px){
-    display:none
+  height: 100%;
+  @media (max-width: 1023px) {
+    display: none;
   }
 `;
 
@@ -24,17 +24,16 @@ export const DashboardRightWrapper = styled.div`
   min-height: 100vh;
   width: calc(100% - 263px);
   border-top-left-radius: 40;
-  
-  @media (max-width:1023px){
-    width:100%;
-    height:auto;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+    height: auto;
   }
 `;
 
 export const RightDashboardWrapper = styled.div`
   width: 100%;
 `;
-
 
 export const LeftContent = styled.div`
   max-height: calc(100vh - 88px);
@@ -60,31 +59,30 @@ export const LeftContent = styled.div`
 `;
 
 interface StyledProps {
-	// isMobileMenu?: boolean;
+  // isMobileMenu?: boolean;
   selected?: boolean;
+  hasChild?: boolean;
 }
 
-
-
 export const CustomListItem = styled.li<StyledProps>`
-  cursor: pointer;
+  cursor: ${(props) => (props.hasChild ? "default" : "pointer")};
   list-style: none;
   padding: 16px 24px;
   background: ${(props) => props.selected && "#ffdb6f"};
   @media (max-width: 1023px) {
-  border-bottom:1px solid #ffe79e;
+    border-bottom: 1px solid #ffe79e;
   }
- 
-  &: last-child{
-    display:none;
-    p{
-      text-align:center;
-      width:100%;
+
+  &: last-child {
+    display: none;
+    p {
+      text-align: center;
+      width: 100%;
       color: #c94c43;
     }
     @media (max-width: 1023px) {
-      display:block;
-      }
+      display: block;
+    }
   }
 `;
 
@@ -95,11 +93,12 @@ export const LogoIcon = styled.div`
   align-items: center;
   margin-right: 12px;
   @media (max-width: 1023px) {
-    display:none;
+    display: none;
   }
 `;
 
 export const ChildLink = styled.div`
+  cursor: pointer;
   margin-left: 42px;
   @media (max-width: 1023px) {
     margin-left: 16px;
@@ -112,7 +111,7 @@ export const ChildLink = styled.div`
     padding: 8px 0;
     @media (max-width: 1023px) {
       padding: 4px 0;
-      }
+    }
     &:nth-child(1) {
       margin-top: 8px;
     }

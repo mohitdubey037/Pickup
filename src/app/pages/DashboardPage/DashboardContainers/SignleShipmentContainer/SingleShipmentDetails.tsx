@@ -12,7 +12,7 @@ function SingleShipmentDetails(props: {
 }) {
   const {
     formik: { values, setFieldValue },
-    disabled,
+    disabled = false,
   } = props;
 
   const singleFormValues = values.orders[props.index];

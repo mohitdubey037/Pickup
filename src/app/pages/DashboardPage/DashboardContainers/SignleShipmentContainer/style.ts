@@ -34,7 +34,7 @@ export const AccordionOuterBox = styled(Box)`
 export const FavoritesBox = styled(Box)`
   display: flex;
   align-items: center;
-  margin: 32px 0 0 0;
+  // margin: 32px 0 0 0;
   .title {
     font-family: "Roboto-Bold";
     margin: 0;
