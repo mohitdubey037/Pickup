@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Grid } from "@material-ui/core";
 
 import { Input } from "app/components/Input";
-import Select from "app/components/Select";
+import SelectNew from "app/components/Select/SelectNew";
 import RadioGroup from "app/components/RadioGroup";
 import { H4, H5 } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -214,25 +214,20 @@ function SingleSipmentForm({
 
         {!disabled && (
           <>
-            <GridContainer container spacing={3}>
+            <GridContainer container spacing={2}>
               <Grid item lg={4} sm={6} xs={12}>
-                <Select
+                <SelectNew
                   id={`${formFieldName}.${title}LocationType`}
                   name={`${formFieldName}.${title}LocationType`}
+                  label={"Location Type"}
+                  placeholder={"Select Location Type"}
                   options={LOCATION_TYPES}
-                  label={"Location type"}
-                  onSelect={(e) => {
-                    setFieldValue(
-                      `${formFieldName}.${title}LocationType`,
-                      e.target.value
-                    );
-                    canBeDisabled &&
-                      updateAllFieldsHandler(
-                        `${title}LocationType`,
-                        e.target.value
-                      );
-                  }}
                   value={singleFormValues[`${title}LocationType`]}
+                  onChange={(e) => onChangeHandler(e, `${title}LocationType`)}
+                  error={
+                    singleFormTouched?.[`${title}LocationType`] &&
+                    singleFormErrors?.[`${title}LocationType`]
+                  }
                   disabled={disabled}
                   required
                 />
@@ -255,7 +250,6 @@ function SingleSipmentForm({
                       singleFormTouched?.[`${title}CompanyName`] &&
                       singleFormErrors?.[`${title}CompanyName`]
                     }
-                    validate
                     required
                   />
                 </Grid>
@@ -275,7 +269,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}FirstName`] &&
                     singleFormErrors?.[`${title}FirstName`]
                   }
-                  validate
                   required
                 />
               </Grid>
@@ -294,7 +287,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}LastName`] &&
                     singleFormErrors?.[`${title}LastName`]
                   }
-                  validate
                   required
                 />
               </Grid>
@@ -332,7 +324,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}AddressLine2`] &&
                     singleFormErrors?.[`${title}AddressLine2`]
                   }
-                  validate
                   required
                 />
               </Grid>
@@ -351,7 +342,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}City`] &&
                     singleFormErrors?.[`${title}City`]
                   }
-                  validate
                   required
                 />
               </Grid>
@@ -370,7 +360,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}PostalCode`] &&
                     singleFormErrors?.[`${title}PostalCode`]
                   }
-                  validate
                   required
                   type="mask"
                   maskProps={{
@@ -394,7 +383,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}ProvinceState`] &&
                     singleFormErrors?.[`${title}ProvinceState`]
                   }
-                  validate
                   required
                 />
               </Grid>
@@ -413,7 +401,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}Country`] &&
                     singleFormErrors?.[`${title}Country`]
                   }
-                  validate
                   required
                 />
               </Grid>
@@ -432,7 +419,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}ContactNumber`] &&
                     singleFormErrors?.[`${title}ContactNumber`]
                   }
-                  validate
                   required
                 />
               </Grid>
@@ -453,7 +439,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}AlternateContactNumber`] &&
                     singleFormErrors?.[`${title}AlternateContactNumber`]
                   }
-                  validate
                   required
                 />
               </Grid>
@@ -472,7 +457,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}EmailAddress`] &&
                     singleFormErrors?.[`${title}EmailAddress`]
                   }
-                  validate
                   required
                 />
               </Grid>
@@ -493,7 +477,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}AdditionalNotes`] &&
                     singleFormErrors?.[`${title}AdditionalNotes`]
                   }
-                  validate
                   required
                 />
               </Grid>
