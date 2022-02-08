@@ -170,11 +170,11 @@ const SearchContainer = ({ path: string }) => {
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
         actionButtons={true}
-        maxWidth={"75%"}
+        size={drawerType === "orderDetails" ? "large" : "small" }
       >
-        {drawerType == "invoice" ? (
+        {drawerType === "invoice" ? (
           <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
-        ) : drawerType == "advanceFilter" ? (
+        ) : drawerType === "advanceFilter" ? (
           <AdvanceFilters formik={formik} />
         ) : (
           <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />

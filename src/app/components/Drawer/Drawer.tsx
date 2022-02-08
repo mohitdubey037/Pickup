@@ -3,12 +3,9 @@ import { cross } from "app/assets/Icons/index";
 import {
   CustomDrawer,
   DrawerContent,
-  DrawerFooter,
   DrawerTitleDiv,
 } from "./style";
 import { DrawerHeading } from "../Typography/Typography";
-import { Button } from "@material-ui/core";
-import ThemeButton from "../Buttons/Buttons";
 
 interface DrawerProps {
   open: boolean;
@@ -21,7 +18,7 @@ interface DrawerProps {
   actionButtonText?: string;
   cancelButtonType?: string;
   actionButtonType?: string;
-  maxWidth ?: string;
+  size?: string;
 }
 
 export default function Drawer({
@@ -30,15 +27,14 @@ export default function Drawer({
   closeIcon,
   title,
   children,
-  actionButtons,
-  maxWidth
+  size = "small"
 }: DrawerProps) {
   return (
-    <div>
+    <>
       <CustomDrawer
         open={open}
         anchor={"right"}
-        maxWidth={maxWidth}
+        size={size}
         onClose={() => setDrawerOpen(false)}
       >
         <DrawerTitleDiv>
@@ -53,11 +49,7 @@ export default function Drawer({
           )}
         </DrawerTitleDiv>
         <DrawerContent>{children}</DrawerContent>
-        {/* {actionButtons && (
-          <DrawerFooter>
-          </DrawerFooter>
-        )} */}
       </CustomDrawer>
-    </div>
+    </>
   );
 }

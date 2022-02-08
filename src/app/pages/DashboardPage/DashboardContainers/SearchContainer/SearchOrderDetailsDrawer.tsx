@@ -1,19 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { TabWrapper } from "./style";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import OrderDetailPage from "./OrderDetailsPage";
 import ItemDetailsPage from "./ItemDetailsPage";
 import TrackingDetailsPage from "./TrackingDetailsPage";
-
-const styles = {
-  tab: {
-    backgrounf: "#fff",
-  },
-  tabItemContainer: {
-    color: "#000",
-  },
-};
+import { Box } from "@mui/material";
 
 function SearchOrderDetailsDrawer(props: any) {
   let { singleOrderData } = props;
@@ -25,40 +17,25 @@ function SearchOrderDetailsDrawer(props: any) {
   };
 
   return (
-    <div style={{ width: "740px" }}>
-      <TabWrapper>
-        <Tabs
-          TabIndicatorProps={{ style: { background: "#FECE3E" } }}
-          value={value}
-          onChange={handleChange}
-          className="custom"
-        >
-          <Tab
-            style={styles.tabItemContainer}
-            value="orderDetails"
-            label="Order Details"
-          />
-          <Tab
-            style={styles.tabItemContainer}
-            value="itemDetails"
-            label="Item Details"
-          />
-          <Tab
-            style={styles.tabItemContainer}
-            value="trackingDetails"
-            label="Tracking Details"
-          />
-        </Tabs>
-        <div className="tab-content">
-          {value === "orderDetails" ? (
-            <OrderDetailPage singleOrderData={singleOrderData}/>
-          ) : value === "itemDetails" ? (
-            <ItemDetailsPage singleOrderData={singleOrderData} />
-          ) : (<TrackingDetailsPage singleOrderData={singleOrderData} />
-          )}
-        </div>
-      </TabWrapper>
-    </div>
+    <TabWrapper>
+
+      <Tabs value={value} onChange={handleChange} className="tabs">
+        <Tab value="orderDetails" label="Order Details" />
+        <Tab value="itemDetails" label="Item Details" />
+        <Tab value="trackingDetails" label="Tracking Details" />
+      </Tabs>
+      
+      <Box mb={3}>
+        {value === "orderDetails" ? (
+          <OrderDetailPage singleOrderData={singleOrderData} />
+        ) : value === "itemDetails" ? (
+          <ItemDetailsPage singleOrderData={singleOrderData} />
+        ) : (
+          <TrackingDetailsPage singleOrderData={singleOrderData} />
+        )}
+     </Box>
+     
+    </TabWrapper>
   );
 }
 export default SearchOrderDetailsDrawer;
