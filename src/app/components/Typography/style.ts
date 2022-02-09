@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface Props {
   required?: boolean | undefined;
+  fontFamily?: string;
 }
 
 export const commonStyle = `
@@ -50,6 +51,7 @@ export const H4Typography = styled.p<Props>`
   font-size: 16px;
   line-height: 19px;
   margin: 0 0 8px 0;
+  font-family: ${(props) => (props.fontFamily === "bold" ? "Roboto-Bold" : (props.fontFamily === "medium" ? "Roboto-medium" : ""))};
   ${(props: Props) =>
     props.required
       ? `

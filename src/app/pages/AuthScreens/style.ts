@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { bgImage, bgImage2 } from "../../assets/Images";
 import { logo } from "../../assets/Icons";
+import { Box } from "@material-ui/core";
 
 export const SignUpWrapper = styled.div`
   background: url(${bgImage}) no-repeat center center fixed;
@@ -141,7 +142,7 @@ export const RememberDiv = styled.div`
   }
 `;
 
-export const Termslink = styled.div`
+export const Termslink = styled(Box)`
   font-size: 16px;
   line-height: 19px;
   color: #343434;

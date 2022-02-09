@@ -103,10 +103,18 @@ export const ItemDetailsBox = styled(Box)`
 
 export const TotalBox = styled(Box)`
   margin: 24px;
+  margin-right:calc(25% - 73px);
   display: flex;
   justify-content: flex-end;
   .total {
     font-family: "Roboto-Bold";
-    margin-left: 12px;
+    margin-left: 24px;
   }
+
+`;
+
+export const OrderSummaryTableOuter = styled(Box)`
+th, td{
+  width:25% !important;
+}
 `;
