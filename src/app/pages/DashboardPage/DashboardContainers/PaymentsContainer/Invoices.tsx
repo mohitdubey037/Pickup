@@ -30,6 +30,10 @@ const InvoicesContainer = ({ path: string }) => {
     "https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1149.pdf",
   ]);
 
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const [totalData, setTotalData] = useState<any>(10);
+
   const getDrawerTitle = () => {
     if (drawerType === "invoice") {
       return "Invoice #" + selectedInvoiceId;
@@ -180,6 +184,9 @@ const InvoicesContainer = ({ path: string }) => {
         showCheckbox
         showPagination
         perPageRows={10}
+        page={page}
+        totalData = {totalData}
+        totalPage = {totalPages}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
 

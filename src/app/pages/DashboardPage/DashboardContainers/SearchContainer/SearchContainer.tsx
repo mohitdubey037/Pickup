@@ -135,7 +135,7 @@ const SearchContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${searchRecordData?.list?.length} Shipments`} className="heading" />
+        <H3 text={`${searchRecordData?.list?.length} Orders`} className="heading" />
         <Button label="Print" onClick={() => {}} size="small" />
       </SearchTableTop>
     );

@@ -142,7 +142,7 @@ function AddNewPaymentDrawer(props) {
           </div>
         </Modal>
 
-        <DrawerHeading title="Paid Successfully" className="title" />
+        <DrawerHeading title="Paid" className="title" />
         <Para text="Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor vel. Integer a ornare nisi." />
 
         <Divider className="divider" />
