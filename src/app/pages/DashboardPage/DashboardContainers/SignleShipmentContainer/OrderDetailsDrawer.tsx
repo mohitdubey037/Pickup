@@ -47,6 +47,7 @@ function OrderDetailsDrawer({ orderId, setDrawerOpen }) {
       if (item.fragile === 1) return true;
       return false;
     });
+    console.log(fragile,'fragile');
     if (fragile?.length > 0) {
       setIsFragile(true);
     }

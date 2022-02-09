@@ -17,19 +17,27 @@ const Table = ({
     showCheckbox,
     showPagination,
     filterColumns,
-    perPageRows,
+    // perPageRows,
     selectedItems,
     getSelectedItems,
     onRowSelect,
-    dataChecked
+    dataChecked,
+    totalPage,
+    totalData,
+    page,
+    paginationData
 }: TableProps) => {
-    const [page, setPage] = React.useState(0);
+    console.log(totalPage);
+    console.log(paginationData);
+    // const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(0);
     const [selectedRows, setSelected] = React.useState<Array<unknown>>([]);
 
-    useEffect(() => {
-        perPageRows ? setRowsPerPage(perPageRows) : setRowsPerPage(5);
-    }, [perPageRows]);
+    const pagePerRows = 10;
+
+    // useEffect(() => {
+    //     perPageRows ? setRowsPerPage(perPageRows) : setRowsPerPage(5);
+    // }, [perPageRows]);
 
     useEffect(() => {
         selectedItems ? setSelected(selectedItems) : setSelected([]);
@@ -38,12 +46,16 @@ const Table = ({
     const handleChangeRowsPerPage = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
+        console.log('hii totallllllllllllllllllll');
         setRowsPerPage(parseInt(event.target.value));
-        setPage(0);
+        // setPage(0);
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
+        paginationData?.(newPage);
+        console.log('hii total');
+        // setPage(newPage);
+        
     };
 
     const handleCheckboxClick = (
@@ -97,7 +109,7 @@ const Table = ({
                     </TableHead>
                     <TableBody>
                         {data
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row: any, index: number) => (
                                 <TableRow  onClick={() => onRowSelect && onRowSelect(row, index)}>
                                     {Object.values(row).map((cellData: any, idx: number) => (
@@ -124,9 +136,9 @@ const Table = ({
             </CustomTableContainer>
             {showPagination && (
                 <CustomPagination
-                    count={data.length}
+                    count={totalData||10}
                     rowsPerPage={rowsPerPage}
-                    page={page}
+                    page={page ? page : 1}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     // labelRowsPerPage={

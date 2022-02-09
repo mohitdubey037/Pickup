@@ -12,13 +12,21 @@ import { OrderImage } from "../SignleShipmentContainer/style";
 function ItemDetailsPage(props: any) {
   const { singleOrderData } = props;
   const { items } = singleOrderData;
+  console.log(props);
 
   const getLabelFromID = (id: number, list: any[]) => {
+    console.log(id);
+    console.log(list);
     const foundLabel = list.find((item) => item.value === id);
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
     }
-    return null;
+    else {
+      return '(lbs)'
+    }
+    
+    // console.log(foundLabel);
+    // return null;
   };
 
   const accordianItem = (item: any) => {
