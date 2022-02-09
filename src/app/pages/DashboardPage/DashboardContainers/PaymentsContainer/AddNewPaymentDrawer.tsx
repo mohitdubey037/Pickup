@@ -12,6 +12,7 @@ import { LineDivider } from "app/components/CommonCss/CommonCss";
 import { getOrderDetails } from "services/PaymentServices";
 import { Illustration } from "../../../../assets/Images/index";
 import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
+import InvoiceDrawerSkeleton from "./InvoiceDrawerSkeleton";
 
 interface OrderDetails {
   billTo: string;
@@ -49,10 +50,12 @@ function AddNewPaymentDrawer(props) {
   const { invoiceId } = props;
 
   const [ordersArray, setOrdersArray] = useState<string[]>([]);
-  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>();
+  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(); 
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const res = (await getOrderDetails(invoiceId)) as any;
       if (res?.error == null) {
         let data = res?.response?.data?.data;
@@ -65,6 +68,7 @@ function AddNewPaymentDrawer(props) {
           setOrdersArray(tempArray);
         });
         setOrderDetails(data);
+        setLoading(false);
       }
     })();
   }, []);
@@ -80,6 +84,11 @@ function AddNewPaymentDrawer(props) {
 
   return (
     <>
+
+{loading ? (
+        <InvoiceDrawerSkeleton />
+      ) : (
+        <>
       <DrawerHeaderBox>
         <img className="imageStyle" src={Illustration} alt="" />
         {createPortal(
@@ -207,6 +216,8 @@ function AddNewPaymentDrawer(props) {
           <Para text={orderDetails?.lastFourDigits} className="value" />
         </Flex>
       </InvoiceDetailsBox>
+      </>
+      )}
     </>
   );
 }

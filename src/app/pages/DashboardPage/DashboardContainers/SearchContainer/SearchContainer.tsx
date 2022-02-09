@@ -27,14 +27,15 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 import { navigate } from "@reach/router";
 import { Grid } from "@mui/material";
-import { Flex } from "app/components/Input/style";
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { DateComponent } from 'app/components/CommonCss/CommonCss';
 import moment from "moment";
-import DatePickerInput from "app/components/Input/DatePickerInput";
 import {STATUS} from '../../../../../../src/constants';
+import { FilterFlexBox } from "../PaymentsContainer/style";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import InvoiceDrawerSkeleton from "../PaymentsContainer/InvoiceDrawerSkeleton";
+import { AddressDetailsSkeleton } from "./AddressDetailsSkeleton";
 
 
 const SearchContainer = ({ path: string }) => {
@@ -45,6 +46,7 @@ const SearchContainer = ({ path: string }) => {
   const [singleOrderData, setSingleOrderData] = useState([{}]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerType, setDrawerType] = useState("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [fromDateOpen, setFromDateOpen] = useState(false);
   const [toDateOpen, setToDateOpen] = useState(false);
@@ -93,19 +95,21 @@ const SearchContainer = ({ path: string }) => {
   }
 
   const getSingleOrderData = async (id: any) => {
+    setLoading(true);
     const res = (await getSearchOrderListById(id)) as any;
     if (res.success) {
       const orderListByID = res.response.data.data;
       console.log("Order by Id", orderListByID);
       setSingleOrderData(orderListByID);
       setSelectedInvoiceId(id);
-      setDrawerType("orderDetails");
-      setDrawerOpen(true);
+      // setDrawerType("orderDetails");
+      // setDrawerOpen(true);
     } else {
       setSelectedInvoiceId(id);
-      setDrawerType("orderDetails");
-      setDrawerOpen(true);
+      // setDrawerType("orderDetails");
+      // setDrawerOpen(true);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -161,13 +165,13 @@ const SearchContainer = ({ path: string }) => {
   };
 
   const openInvoiceDrawer = (id: any, type: any) => {
-    if (type == "orderDetails") {
+    if (type === "orderDetails") {
       getSingleOrderData(id);
     } else {
       setSelectedInvoiceId(id);
-      setDrawerType(type);
-      setDrawerOpen(true);
     }
+    setDrawerType(type);
+    setDrawerOpen(true);
   };
 
   const updateStatusHandler = (name: string, value: string) => {
@@ -224,8 +228,8 @@ const SearchContainer = ({ path: string }) => {
     <ModuleContainer>
       <H2 title="Search" />
 
-      <Grid container spacing={2} mt={2}>
-        <Grid item xs={12} sm={4} lg={2}>
+      <GridContainer container spacing={2} mt={3}>
+        <Grid item xs={6} sm={4} lg={2}>
           {/* <Input label="Invoice Number" placeholder="eg. 123,321" /> */}
           <Input
           id="invoiceNumber"
@@ -238,7 +242,7 @@ const SearchContainer = ({ path: string }) => {
           placeholder="eg. 123,321"
         />
         </Grid>
-        <Grid item xs={12} sm={4} lg={2}>
+        <Grid item xs={6} sm={4} lg={2}>
           {/* <Input label="Order Id" placeholder="eg. 123,321" /> */}
             <Input
             id="orderId"
@@ -251,7 +255,7 @@ const SearchContainer = ({ path: string }) => {
             placeholder="eg. 123,321"
           />
         </Grid>
-        <Grid item xs={12} sm={4} lg={2}>
+        <Grid item xs={6} sm={4} lg={2}>
           <Box display="flex" flexDirection="column">
             <p style={{margin: '0 0 8px 0'}}>From Date</p>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -280,7 +284,7 @@ const SearchContainer = ({ path: string }) => {
             </LocalizationProvider>   
           </Box>  
         </Grid>
-        <Grid item xs={12} sm={4} lg={2}>
+        <Grid item xs={6} sm={4} lg={2}>
           <Box display="flex" flexDirection="column">
           <p style={{margin: '0 0 8px 0'}}>To Date</p>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -309,7 +313,7 @@ const SearchContainer = ({ path: string }) => {
           </LocalizationProvider>
         </Box>
         </Grid>
-        <Grid item xs={12} sm={4} lg={2}>
+        <Grid item xs={6} sm={4} lg={2}>
           {/* <Select label="Status" /> */}
           <Select
               id={`${STATUS}.value`}
@@ -331,20 +335,19 @@ const SearchContainer = ({ path: string }) => {
               required
           />
         </Grid>
-        <Grid item xs={12} sm={4} lg={2}>
-          <FlexBox alignItems="center" mb={2} style={{ height: "100%" }}>
+        <Grid item xs={6} sm={4} lg={2}>
+          <FilterFlexBox>
             <Button size="small" label="Search" onClick={handleSubmit} />
             <Box>
               <img
                 onClick={openAdvanceFilterDrawer}
                 src={sliders}
                 alt=""
-                style={{ cursor: "pointer" }}
               />
             </Box>
-          </FlexBox>
+          </FilterFlexBox>
         </Grid>
-      </Grid>
+      </GridContainer>
 
       <Table
         data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
@@ -368,11 +371,17 @@ const SearchContainer = ({ path: string }) => {
       >
         {drawerType === "invoice" ? (
           <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
-        ) : drawerType == "advanceFilter" ? (
+        ) : drawerType === "advanceFilter" ? (
           <AdvanceFilters formik={drawerFormik} />
         ) : (
-          <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />
-        )}
+          <>
+            {loading ? (
+            <AddressDetailsSkeleton />
+            ) : (
+            <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />
+            )}
+          </>
+            )}
       </Drawer>
     </ModuleContainer>
   );

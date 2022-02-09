@@ -7,18 +7,18 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
     <ContentBox>
       <H2 title={title} className="title" />
 
-      <Grid container spacing={1}>
-        <Grid item md={3}>
+      <Grid container spacing={2}>
+        <Grid item sm={3} xs={6}>
           <Para text="Type" />
           <H4 className="value" text={label} />
         </Grid>
-        <Grid item md={3}>
+        <Grid item sm={3} xs={6}>
           <Para text="Company Name" />
           <H4 className="value"
             text={addressDetails.companyName ? addressDetails.companyName : "-"}
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item sm={3} xs={6}>
           <Para text="First Name" />
           <H4 className="value"
             text={
@@ -28,7 +28,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item sm={3} xs={6}>
           <Para text="Last Name" />
           <H4 className="value"
             text={
@@ -38,7 +38,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid item sm={6} xs={12}>
           <Para text="Address Line 1" />
           <H4 className="value"
             text={
@@ -48,7 +48,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid item sm={6} xs={12}>
           <Para text="Address Line 2" />
           <H4 className="value"
             text={
@@ -58,7 +58,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item sm={3} xs={6}>
           <Para text="City" />
           <H4 className="value"
             text={
@@ -66,7 +66,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item sm={3} xs={6}>
           <Para text="Postal Code" />
           <H4 className="value"
             text={
@@ -76,7 +76,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item sm={3} xs={6}>
           <Para text="Province/State" />
           <H4 className="value"
             text={
@@ -86,7 +86,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item sm={3} xs={6}>
           <Para text="Country" />
           <H4 className="value"
             text={
@@ -96,7 +96,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item sm={3} xs={6}>
           <Para text="Contact Number" />
           <H4 className="value"
             text={
@@ -104,7 +104,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item sm={3} xs={6}>
           <Para text="Alternate Number" />
           <H4 className="value"
             text={
@@ -114,7 +114,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid item sm={6} xs={12}>
           <Para text="Email Address" />
           <H4 className="value"
             text={
@@ -122,7 +122,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             }
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid item sm={6} xs={6}>
           <Para text="Additional Notes" />
           <H4 className="value" text={addressDetails.details ? addressDetails.details : "-"} />
         </Grid>

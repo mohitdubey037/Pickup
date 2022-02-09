@@ -18,8 +18,11 @@ export const SearchTableTop = styled.div`
 
 export const TabWrapper = styled.div`
 .tabs{
+  @media(min-width: 601px){
   position:fixed;
   top:10px;
+  overflow:auto;
+  }
 }
 .MuiTab-root{
   font-size: 20px;
@@ -29,6 +32,10 @@ export const TabWrapper = styled.div`
   color:#343434 !important;
   padding: 16px 0;
   margin-right: 42px;
+  @media(max-width: 600px){
+    font-size: 18px;
+    margin-right: 24px;
+    }
 }
  
 .Mui-selected{
