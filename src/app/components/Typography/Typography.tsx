@@ -16,6 +16,7 @@ interface TypoProps {
   text?: any;
   required?: boolean;
   onClick?: ()=>void;
+  fontFamily?: "bold" | "medium" | "regular";
 }
 
 
@@ -34,9 +35,9 @@ export const H3: FC<TypoProps> = ({ text, className }) => {
   return <H3Typography className={className}>{text}</H3Typography>;
 };
 
-export const H4: FC<TypoProps> = ({ text, className, required }) => {
+export const H4: FC<TypoProps> = ({ text, className, required, fontFamily="regular" }) => {
   return (
-    <H4Typography className={className} required={required}>
+    <H4Typography className={className} required={required} fontFamily={fontFamily}>
       {text}
     </H4Typography>
   );

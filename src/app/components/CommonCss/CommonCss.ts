@@ -16,9 +16,10 @@ export const DateComponent = styled.div `
 margin-bottom: 16px;
 .MuiFormControl-root{    
   margin-bottom: 6px;
+  background:#fff;
 }
 .MuiFormControl-root div input {
-  padding: 11px 14px;
+  padding: 10px 12px;
 }
 `
 

@@ -54,12 +54,7 @@ const getInvoiceIdItem = (
     id: any
 ) => {
     return (
-        <div
-            onClick={() => openInvoiceDrawer(id, "invoice")}
-            style={{ color: "#1B8AF0" }}
-        >
-            <u>{invoiceNumber}</u>
-        </div>
+        <a onClick={() => openInvoiceDrawer(id, "invoice")}>{invoiceNumber}</a>
     );
 };
 
@@ -69,12 +64,9 @@ const getOrderIdItem = (
     id: any
 ) => {
     return (
-        <div
-            onClick={() => openInvoiceDrawer(id, "orderDetails")}
-            style={{ color: "#1B8AF0" }}
-        >
-            <u>{shipmentCount}</u>
-        </div>
+        <a onClick={() => openInvoiceDrawer(id, "orderDetails")}>
+            {shipmentCount}
+        </a>
     );
 };
 

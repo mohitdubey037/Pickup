@@ -14,7 +14,7 @@ import OrderDetailsDrawer from "./OrderDetailsDrawer";
 import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
-import { TotalBox } from "./style";
+import { OrderSummaryTableOuter, TotalBox } from "./style";
 
 function OrderSummary({ path: string }) {
     const dispatch = useDispatch();
@@ -75,12 +75,7 @@ function OrderSummary({ path: string }) {
 
     const getOrderIdItem = (openInvoiceDrawer, value, id: any) => {
         return (
-            <span
-                onClick={() => openInvoiceDrawer(id)}
-                style={{ color: "#1B8AF0", cursor: "pointer" }}
-            >
-                <u>{value}</u>
-            </span>
+            <a onClick={() => openInvoiceDrawer(id)}>{value}</a>
         );
     };
 
@@ -117,15 +112,12 @@ function OrderSummary({ path: string }) {
             <ModuleContainer>
                 <H3 text="Order Summary" />
 
-                <Box mt={3}>
+                <OrderSummaryTableOuter mt={3}>
                     <Table
                         data={onHoldTable(
                             orderSummaryData,
                             onItemCountSelectHandler
                         )}
-                        // getSelectedItems={(val) =>
-                        //     console.log("OrderTableK", val)
-                        // }
                     />
                     <TotalBox>
                         <H4 text="Total" className="total" />
@@ -134,7 +126,7 @@ function OrderSummary({ path: string }) {
                             className="total"
                         />
                     </TotalBox>
-                </Box>
+                </OrderSummaryTableOuter>
 
                 <Flex justifyContent="flex-end" top={24}>
                     <Button

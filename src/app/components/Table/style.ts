@@ -50,6 +50,11 @@ export const CustomTable = styled(Table)`
   .MuiTableCell-paddingCheckbox {
     width: 24px;
   }
+  a{
+    cursor:pointer;
+    color:#1B8AF0;
+    text-decoration:underline;
+  }
 `;
 
 export const CustomPagination = styled(TablePagination)`
