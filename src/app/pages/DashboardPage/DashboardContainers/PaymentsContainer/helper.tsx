@@ -54,12 +54,9 @@ const getInvoiceIdItem = (
 ) => {
     console.log(invoicePdf);
     return (
-        <div
-            onClick={() => openInvoiceDrawer(id, "invoice", invoicePdf)}
-            style={{ color: "#1B8AF0" }}
-        >
-            <u> {invoiceNumber}</u>
-        </div>
+        <a onClick={() => openInvoiceDrawer(id, "invoice", invoicePdf)}>
+            {invoiceNumber}
+        </a>
     );
 };
 
@@ -71,12 +68,9 @@ const getOrderIdItem = (
 ) => {
     console.log(id);
     return (
-        <div
-            onClick={() => openInvoiceDrawer(id, "orderDetails", invoicePdf)}
-            style={{ color: "#1B8AF0" }}
-        >
-            <u> {shipmentCount}</u>
-        </div>
+        <a onClick={() => openInvoiceDrawer(id, "orderDetails", invoicePdf)}>
+             {shipmentCount}
+        </a>
     );
 };
 

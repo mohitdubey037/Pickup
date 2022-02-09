@@ -2,8 +2,9 @@ import { Box } from "@mui/system";
 import { InsuranceIcon } from "app/assets/Icons";
 import { Checkbox } from "app/components/Checkbox";
 import { Flex } from "app/components/Input/style";
-import { CustomLink } from "app/components/Typography/Links";
+import { Link } from "app/components/Link";
 import { H3, H4 } from "app/components/Typography/Typography";
+import { Termslink } from "app/pages/AuthScreens/style";
 
 const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
     return (
@@ -30,15 +31,16 @@ const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
                 </Flex>
 
                 <Flex top={5}>
-                    <CustomLink
+                    {/* <CustomLink
                         label="Check our Terms & Conditions"
                         style={{ color: "#1B8AF0" }}
-                    />
+                    /> */}
+                    <Termslink ml={4} style={{color: "#1B8AF0"}}>Check our <Link to="">Terms</Link> & <Link to="" >Conditions</Link></Termslink>
                 </Flex>
 
                 <Flex justifyContent="space-between" top={40} bottom={16}>
-                    <H4 text="Total" />
-                    <H4 text={`$${Number(invoiceData.total).toFixed(2)}`} />
+                    <H4 text="Total" fontFamily="bold" />
+                    <H4 text={`$${Number(invoiceData.total).toFixed(2)}`} fontFamily="bold" />
                 </Flex>
                 <hr />
             </Box>

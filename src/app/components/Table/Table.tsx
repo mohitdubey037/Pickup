@@ -99,7 +99,7 @@ const Table = ({
                         {data
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row: any, index: number) => (
-                                <TableRow style={{ cursor: 'pointer' }} onClick={() => onRowSelect && onRowSelect(row, index)}>
+                                <TableRow  onClick={() => onRowSelect && onRowSelect(row, index)}>
                                     {Object.values(row).map((cellData: any, idx: number) => (
                                         <>
                                             {/* {console.log('cellData', row["Order Id"])} */}

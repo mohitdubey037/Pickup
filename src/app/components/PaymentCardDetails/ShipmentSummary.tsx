@@ -117,29 +117,6 @@ function ShipmentSummary({ path: string }, props: ShipmentSummaryProps) {
           </Drawer>
         </Total>
       </div>
-
-      {/* <div style={{paddingLeft:10}}>
-        <h4>Shipment Summary</h4>
-        <SubTotal>
-          <span className={classes.subTotal}>Subtotal</span>
-          <span>{subTotal}</span>
-        </SubTotal>
-        <Taxes>
-          <span className={classes.taxes}>Taxes(HST)</span>
-          <span>{taxes}</span>
-        </Taxes>
-        <AddInsurance>
-          <span className={classes.subTotal}>
-            <Checkbox label="Add Insurance" />
-          </span>
-          <span>{addInsurance}</span>
-        </AddInsurance>
-        <TearmsConditions>Check our Terms and Conditions</TearmsConditions>
-      </div>
-      <Total>
-        <span className={classes.total}>Total</span>
-        <span className={classes.totalCount}>{total}</span>
-      </Total> */}
     </>
   );
 }
