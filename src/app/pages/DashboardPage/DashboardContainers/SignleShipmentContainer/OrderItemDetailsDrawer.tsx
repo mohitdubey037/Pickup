@@ -7,6 +7,7 @@ import { InnerAccordion, AccordionOuterBox, OrderImage } from "./style";
 import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { Box, Grid } from "@mui/material";
 import { H4 } from "app/components/Typography/Typography";
+import OrderDetailsSkeleton from "./OrderDetailsSkeleton";
 
 interface orderDetails {
   refNo?: string;
@@ -65,7 +66,7 @@ function OrderItemDetailsDrawer(props) {
   return (
     <>
       {showLoader ? (
-        <CircularProgress style={{ color: "black" }} />
+        <OrderDetailsSkeleton />
       ) : (
         <AccordionOuterBox>
           {orderDetails?.map((orderDetails) => {

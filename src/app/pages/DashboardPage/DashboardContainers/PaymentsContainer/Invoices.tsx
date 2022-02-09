@@ -17,6 +17,9 @@ import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { SearchTableTop } from "../SearchContainer/style";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import { Box } from "@mui/system";
+import { FilterFlexBox } from "./style";
 
 const InvoicesContainer = ({ path: string }) => {
   const [invoiceData, setInvoiceData] = useState<any>([]);
@@ -135,7 +138,7 @@ const InvoicesContainer = ({ path: string }) => {
   return (
     <ModuleContainer>
       <H2 title="Invoices" />
-      <Grid container spacing={2} mt={2}>
+      <GridContainer container spacing={2} mt={3}>
         <Grid item md={2}>
           <Input
             id="invoiceNumber"
@@ -165,11 +168,11 @@ const InvoicesContainer = ({ path: string }) => {
           />
         </Grid>
         <Grid item md={2}>
-          <FlexBox alignItems="center" mb={2} style={{ height: "100%" }}>
+          <FilterFlexBox>
             <Button label="Search" onClick={handleSubmit} size="small" />
-          </FlexBox>
+          </FilterFlexBox>
         </Grid>
-      </Grid>
+      </GridContainer>
 
       <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}

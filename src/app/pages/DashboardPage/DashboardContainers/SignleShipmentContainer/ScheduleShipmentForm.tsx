@@ -62,7 +62,7 @@ function ScheduleShipmentForm(props: {
         </Grid>
         {singleFormValues.scheduleType === "17" && (
           <>
-            <Grid item md={3}>
+            <Grid item md={3} sm={6} xs={12}>
               <DatePickerInput
                 label="Date"
                 placeholder={"e.g 06/06/2021"}
@@ -88,7 +88,7 @@ function ScheduleShipmentForm(props: {
                 required
               />
             </Grid>
-            <Grid item md={3}>
+            <Grid item md={3} sm={6} xs={12}>
               <TimePickerInput
                 label="Time"
                 value={singleFormValues.shipmentTime || null}

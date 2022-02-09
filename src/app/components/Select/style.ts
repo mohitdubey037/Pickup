@@ -173,6 +173,7 @@ interface CustomNewSelectProps {
 export const CustomNewSelect = styled(Select)<CustomNewSelectProps>`
   width: 100%;
   height: 42px;
+  margin-bottom:16px;
   .MuiSelect-select {
     color: ${({ value }) => (value ? "#000" : "#c4c4c4")};
   }
