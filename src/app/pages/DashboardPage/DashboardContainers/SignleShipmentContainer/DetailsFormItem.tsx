@@ -1,7 +1,7 @@
 import { FormikValues } from "formik";
 import { Box, Grid } from "@material-ui/core";
 
-import Select from "app/components/Select";
+import SelectNew from "app/components/Select/SelectNew";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { H4 } from "app/components/Typography/Typography";
 import { CustomInput } from "../CompanyProfileContainer/style";
@@ -80,28 +80,22 @@ function DetailsFormItem(props: {
                                     />
                                 </Grid>
                                 <Grid item xs={6} lg={4}>
-                                    <Select
+                                    <SelectNew
                                         id={`${formFieldName}.${formItem}.weightDimension`}
                                         name={`${formFieldName}.${formItem}.weightDimension`}
                                         label={"Unit"}
+                                        placeholder={"Select Unit"}
+                                        options={WEIGHTDIMENSION}
                                         value={Number(
                                             formItemValue.weightDimension
                                         )}
-                                        onSelect={handleChange}
-                                        options={WEIGHTDIMENSION}
+                                        onChange={handleChange}
+                                        error={
+                                            toucherItem?.weightDimension &&
+                                            errorItem?.weightDimension
+                                        }
                                         required
                                     />
-                                    {errorItem?.weightDimension &&
-                                        toucherItem?.weightDimension && (
-                                            <p
-                                                style={{
-                                                    margin: 0,
-                                                    color: "#c94c43",
-                                                }}
-                                            >
-                                                {errorItem?.weightDimension}
-                                            </p>
-                                        )}
                                 </Grid>
                             </GridContainer>
                         </Grid>
@@ -160,15 +154,20 @@ function DetailsFormItem(props: {
                                     />
                                 </Grid>
                                 <Grid item xs={6} sm={3}>
-                                    <Select
+                                    <SelectNew
                                         id={`${formFieldName}.${formItem}.sizeDimension`}
                                         name={`${formFieldName}.${formItem}.sizeDimension`}
                                         label={"Unit"}
+                                        placeholder={"Select Unit"}
+                                        options={DIMENSION2}
                                         value={Number(
                                             formItemValue.sizeDimension
                                         )}
-                                        onSelect={handleChange}
-                                        options={DIMENSION2}
+                                        onChange={handleChange}
+                                        error={
+                                            toucherItem?.sizeDimension &&
+                                            errorItem?.sizeDimension
+                                        }
                                         required
                                     />
                                 </Grid>
