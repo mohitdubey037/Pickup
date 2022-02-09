@@ -57,10 +57,7 @@ function ItemDetailsPage(props: any) {
                 text={`LBH ${getLabelFromID(item.sizeDimension, DIMENSION2)}`}
               />
               <H4 className="value"
-                text={
-                  item.length > 0 &&
-                  item.width > 0 &&
-                  item.height > 0 && (
+                text={(
                     <div>
                       {item.length} x {item.width} x {item.height}
                     </div>

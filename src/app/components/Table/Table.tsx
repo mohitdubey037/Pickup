@@ -27,7 +27,6 @@ const Table = ({
     page,
     paginationData
 }: TableProps) => {
-    console.log(page);
     // console.log(totalPage);
     // console.log(paginationData);
     // const [page, setPage] = React.useState(0);
@@ -47,15 +46,12 @@ const Table = ({
     const handleChangeRowsPerPage = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        console.log('hii totallllllllllllllllllll');
         setRowsPerPage(parseInt(event.target.value));
         // setPage(0);
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
-        console.log(newPage);
         paginationData?.(newPage);
-        console.log('hii total');
         // setPage(newPage);
         
     };

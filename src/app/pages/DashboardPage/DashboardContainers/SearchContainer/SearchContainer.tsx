@@ -53,7 +53,7 @@ const SearchContainer = ({ path: string }) => {
 
   // const [pageMetaData, setPageMetaData] = useState({});
   const [totalPages, setTotalPages] = useState(1);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [totalData, setTotalData] = useState<any>(10);
 
   const getSearchOrderListData = async (url?:any) => {
@@ -79,7 +79,7 @@ const SearchContainer = ({ path: string }) => {
       getSearchOrderListData("");
     }
     else {
-      const res = (await getPaginatedData(page, 10)) as any;
+      const res = (await getPaginatedData(page+1, 10)) as any;
       if (res.success) {
         console.log('succes');
         const orderList = res.response.data.data;
@@ -139,7 +139,7 @@ const SearchContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${searchRecordData?.list?.length} Shipments`} className="heading" />
+        <H3 text={`${searchRecordData?.list?.length} Orders`} className="heading" />
         <Button label="Print" onClick={() => {}} size="small" />
       </SearchTableTop>
     );
