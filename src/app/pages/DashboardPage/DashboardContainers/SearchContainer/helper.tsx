@@ -28,7 +28,7 @@ export const searchTable = (
         "Order Id": getOrderIdItem(openInvoiceDrawer, item.orderId),
         "Order Date": item.shippingDate,
         Status: item.status ? item.status : "-",
-        "Order Cost": "$" + item.shipmentCost,
+        "Order Cost": "$" + item.total,
       });
     });
   }
