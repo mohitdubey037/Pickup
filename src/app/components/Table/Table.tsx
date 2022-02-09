@@ -27,8 +27,9 @@ const Table = ({
     page,
     paginationData
 }: TableProps) => {
-    console.log(totalPage);
-    console.log(paginationData);
+    console.log(page);
+    // console.log(totalPage);
+    // console.log(paginationData);
     // const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(0);
     const [selectedRows, setSelected] = React.useState<Array<unknown>>([]);
@@ -52,6 +53,7 @@ const Table = ({
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
+        console.log(newPage);
         paginationData?.(newPage);
         console.log('hii total');
         // setPage(newPage);
@@ -136,9 +138,9 @@ const Table = ({
             </CustomTableContainer>
             {showPagination && (
                 <CustomPagination
-                    count={totalData||10}
-                    rowsPerPage={rowsPerPage}
-                    page={page ? page : 1}
+                    count={totalData}
+                    rowsPerPage={10}
+                    page={page ? page : 0}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     // labelRowsPerPage={

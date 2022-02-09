@@ -15,6 +15,6 @@ export interface TableProps{
     dataChecked?: (data: any) => void
     page?: number
     totalPage?: number
-    totalData?: number
+    totalData?: any
 
 }

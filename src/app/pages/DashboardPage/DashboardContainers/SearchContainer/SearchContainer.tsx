@@ -51,8 +51,8 @@ const SearchContainer = ({ path: string }) => {
 
   // const [pageMetaData, setPageMetaData] = useState({});
   const [totalPages, setTotalPages] = useState(1);
-  const [page, setPage] = useState();
-  const [totalData, setTotalData] = useState(0);
+  const [page, setPage] = useState(0);
+  const [totalData, setTotalData] = useState<any>(10);
 
   const getSearchOrderListData = async (url?:any) => {
     const res = (await getSearchOrderList(url)) as any;
@@ -60,7 +60,8 @@ const SearchContainer = ({ path: string }) => {
       const orderList = res.response.data.data;
       console.log(orderList);
       setSearchRecordData(orderList);
-      setPage(orderList?.pageMetaData?.page);
+      console.log(orderList?.pageMetaData);
+      setPage(orderList?.pageMetaData?.page - 1);
       setTotalPages(orderList?.pageMetaData?.totalPages);
       setTotalData(orderList?.pageMetaData?.total);
     }
@@ -72,17 +73,22 @@ const SearchContainer = ({ path: string }) => {
 
   const getSearchPaginatedData = async (page) => {
     console.log(page);
-    const res = (await getPaginatedData(page, 10)) as any;
-    if (res.success) {
-      console.log('succes');
-      const orderList = res.response.data.data;
-      console.log("Order List", orderList);
-      setPage(page);
-      setSearchRecordData(orderList);
+    if (page === 0) {
+      getSearchOrderListData("");
     }
-    else if (!res.error) {
-      const InvoiceList = res;
-      setSearchRecordData(InvoiceList);
+    else {
+      const res = (await getPaginatedData(page, 10)) as any;
+      if (res.success) {
+        console.log('succes');
+        const orderList = res.response.data.data;
+        console.log("Order List", orderList);
+        setPage(page);
+        setSearchRecordData(orderList);
+      }
+      else if (!res.error) {
+        const InvoiceList = res;
+        setSearchRecordData(InvoiceList);
+      }
     }
   }
 
