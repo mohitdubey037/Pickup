@@ -89,7 +89,7 @@ function SingleSipmentForm({
         "";
       temp[`${title}City`] = value?.location?.address?.city || "";
       temp[`${title}PostalCode`] = value?.location?.address?.postalCode || "";
-      // temp[`${title}AddressLine1`] = value?.location?.address?.label || "";
+      temp[`${title}AddressLine1`] = value?.location?.address?.label || "";
       temp[`${title}AddressLine2`] = value?.location?.address?.street || "";
     } else {
       temp[`${title}Longitude`] = "";
