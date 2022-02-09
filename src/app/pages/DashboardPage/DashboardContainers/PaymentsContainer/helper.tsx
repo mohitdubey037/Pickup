@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const creditCardDetails = [
     {
         cardId: 1,
@@ -47,62 +49,57 @@ export const debitCardDetails = [
 ];
 
 const getInvoiceIdItem = (
-    openInvoiceDrawer: (key: string, type: any, invoicePdf: string) => void,
+    openInvoiceDrawer: (id: any, type: any) => void,
     invoiceNumber: number,
-    invoicePdf: string,
     id: any
 ) => {
-    console.log(invoicePdf);
     return (
         <div
-            onClick={() => openInvoiceDrawer(id, "invoice", invoicePdf)}
+            onClick={() => openInvoiceDrawer(id, "invoice")}
             style={{ color: "#1B8AF0" }}
         >
-            <u> {invoiceNumber}</u>
+            <u>{invoiceNumber}</u>
         </div>
     );
 };
 
 const getOrderIdItem = (
-    openInvoiceDrawer: (key: string, type: any, invoicePdf: string) => void,
+    openInvoiceDrawer: (id: any, type: any) => void,
     shipmentCount: number,
-    invoicePdf: string,
     id: any
 ) => {
-    console.log(id);
     return (
         <div
-            onClick={() => openInvoiceDrawer(id, "orderDetails", invoicePdf)}
+            onClick={() => openInvoiceDrawer(id, "orderDetails")}
             style={{ color: "#1B8AF0" }}
         >
-            <u> {shipmentCount}</u>
+            <u>{shipmentCount}</u>
         </div>
     );
 };
 
 export const invoiceTable = (
     searchRecordData: any,
-    openInvoiceDrawer: (key: string, type: any, pdfUrl: string) => void
+    openInvoiceDrawer: (id: any, type: any) => void
 ) => {
     let makeTableData: any = [];
     if (searchRecordData && searchRecordData.length) {
         makeTableData = searchRecordData.map((item: any) => {
-            console.log(item);
             return {
-                "Invoice Date": item.invoiceCreatedAt,
-                "Shipment Count": getOrderIdItem(
+                "Invoice Date": moment(item.invoiceCreatedAt).format(
+                    "DD/MM/YYYY"
+                ),
+                "Order Count": getOrderIdItem(
                     openInvoiceDrawer,
-                    item.invoiceId,
-                    item.invoiceId,
-                    item.invoicePdf
+                    item.shipmentCount,
+                    item.invoiceId
                 ),
                 "Shipped By": item.shippedBy,
-                "Invoice Amount": `$ ${item.total}`,
+                "Invoice Amount": `$${item.total}`,
                 "Invoice Number": getInvoiceIdItem(
                     openInvoiceDrawer,
                     item.invoiceNumber,
-                    item.invoiceId,
-                    item.invoicePdf
+                    item.invoiceId
                 ),
             };
         });

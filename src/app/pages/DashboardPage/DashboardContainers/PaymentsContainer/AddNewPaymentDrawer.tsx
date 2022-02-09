@@ -1,30 +1,29 @@
 import { useEffect, useState, createRef } from "react";
 import { createPortal } from "react-dom";
-import { Typography, Modal } from "@material-ui/core";
-
+import { Modal } from "@material-ui/core";
 import ReactToPdf from "react-to-pdf";
-import { Button } from "app/components/Buttons";
-import { Illustration } from "../../../../assets/Images/index";
 import { useBarcode } from "react-barcodes";
-import { getOrderDetails } from "services/PaymentServices";
-import { Box, Divider } from "@mui/material";
-import { DrawerTitle } from "app/components/Typography/style";
+import { Divider } from "@mui/material";
+
+import { Button } from "app/components/Buttons";
 import { DrawerHeading, Para } from "app/components/Typography/Typography";
-import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
 import { Flex } from "app/components/Input/style";
 import { LineDivider } from "app/components/CommonCss/CommonCss";
+import { getOrderDetails } from "services/PaymentServices";
+import { Illustration } from "../../../../assets/Images/index";
+import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
 
 interface OrderDetails {
-    billTo: string;
-    category: string;
-    destinationCount: string;
-    invoiceCreatedAt: string;
-    invoiceNumber: string;
-    lastFourDigits: string;
-    shipmentCount: number;
-    total: number;
-    shipmentItemMapping: any;
-    invoicePdf: string;
+  billTo: string;
+  category: string;
+  destinationCount: string;
+  invoiceCreatedAt: string;
+  invoiceNumber: string;
+  lastFourDigits: string;
+  shipmentCount: number;
+  total: number;
+  shipmentItemMapping: any;
+  invoicePdf: string;
 }
 
 const ref: any = createRef();
@@ -48,8 +47,6 @@ const BarCodeItem = ({ barcodeValue }) => {
 
 function AddNewPaymentDrawer(props) {
   const { invoiceId } = props;
-  const { invoicePdf } = props;
-  console.log(invoicePdf);
 
   const [ordersArray, setOrdersArray] = useState<string[]>([]);
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>();
@@ -57,28 +54,29 @@ function AddNewPaymentDrawer(props) {
   useEffect(() => {
     (async () => {
       const res = (await getOrderDetails(invoiceId)) as any;
-      console.log("resData", res);
       if (res?.error == null) {
         let data = res?.response?.data?.data;
-        console.log(data);
         let tempArray: string[] = [];
-        Object.keys(data?.shipmentItemMapping).map(function (key, index) {
-          // console.log(data?.shipmentItemMapping[key]);
-          data?.shipmentItemMapping[key].map((item) => {
+        Object.keys(data?.shipmentItemMapping).forEach((key) => {
+          data?.shipmentItemMapping[key].forEach((item) => {
             let itemId: string = key + "I" + item?.itemId;
-            // console.log(itemId);
             tempArray.push(itemId);
           });
           setOrdersArray(tempArray);
         });
         setOrderDetails(data);
       }
-
-      // });
     })();
   }, []);
 
-  console.log(ordersArray);
+  const invoiceDownload = () => {
+    let link: any = document.createElement("a");
+    link.download = `Invoice_${invoiceId}.pdf`;
+    link.href = orderDetails?.invoicePdf;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <>
@@ -144,74 +142,69 @@ function AddNewPaymentDrawer(props) {
           </div>
         </Modal>
 
-        <DrawerHeading title="Paid Sucessfully" className="title" />
-        <Para
-          text="Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor vel.
-                Integer a ornare nisi."
-        />
+        <DrawerHeading title="Paid Successfully" className="title" />
+        <Para text="Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor vel. Integer a ornare nisi." />
 
         <Divider className="divider" />
       </DrawerHeaderBox>
 
-      <a href={invoicePdf ? invoicePdf : orderDetails?.invoicePdf}>
-        <Button
-          label="Download Invoice Details"
-          secondary
-          style={{ marginBottom: "16px" }}
-        />
-      </a>
+      <Button
+        label="Download Invoice Details"
+        secondary
+        style={{ marginBottom: "16px" }}
+        disabled={!orderDetails?.invoicePdf}
+        onClick={invoiceDownload}
+      />
       <ReactToPdf
         targetRef={ref}
-        filename={`${orderDetails?.billTo}_${invoiceId}.pdf`}
+        filename={`Shipping_Label_${invoiceId}.pdf`}
         options={options}
       >
         {({ toPdf }) => (
           <Button label="Download Shipping Label" secondary onClick={toPdf} />
         )}
       </ReactToPdf>
+
       <InvoiceDetailsBox>
         <Flex justifyContent="space-between" bottom={16} top={32}>
           <Flex>
             <Para text="Bill to" className="label" />
-            <Para text={orderDetails?.billTo} className="value"  />
+            <Para text={orderDetails?.billTo} className="value" />
           </Flex>
           <Flex justifyContent="flex-end">
-            <Para text="Invoice Date"  className="label"  />
-            <Para text={orderDetails?.invoiceCreatedAt} className="value"  />
+            <Para text="Invoice Date" className="label" />
+            <Para text={orderDetails?.invoiceCreatedAt} className="value" />
           </Flex>
         </Flex>
         <Flex justifyContent="space-between">
-          <Para text="Invoice Number" className="label"  />
-          <Para text={orderDetails?.invoiceNumber} className="value"  />
+          <Para text="Invoice Number" className="label" />
+          <Para text={orderDetails?.invoiceNumber} className="value" />
         </Flex>
 
         <LineDivider />
 
         <Flex justifyContent="space-between" bottom={16}>
-          <Para text="Shipment Count" className="label"  />
-          <Para text={orderDetails?.shipmentCount} className="value"  />
+          <Para text="Order Count" className="label" />
+          <Para text={orderDetails?.shipmentCount} className="value" />
         </Flex>
-
         <Flex justifyContent="space-between" bottom={16}>
-          <Para text="Category" className="label"  />
-          <Para text={orderDetails?.category} className="value"  />
+          <Para text="Category" className="label" />
+          <Para text={orderDetails?.category} className="value" />
         </Flex>
-
         <Flex justifyContent="space-between" bottom={16}>
-          <Para text="Destination count" className="label"  />
-          <Para text={orderDetails?.destinationCount} className="value"  />
+          <Para text="Destination Count" className="label" />
+          <Para text={orderDetails?.destinationCount} className="value" />
         </Flex>
-
         <Flex justifyContent="space-between" bottom={16}>
-          <Para text="Invoice Amount" className="label"  />
-          <Para text={orderDetails?.total} className="value"  />
+          <Para text="Invoice Amount" className="label" />
+          <Para text={`$${orderDetails?.total.toFixed(2)}`} className="value" />
         </Flex>
 
         <LineDivider />
 
         <Flex justifyContent="space-between" bottom={40}>
-          <Para text="Payment Detail" className="label"  />
-          <Para text={orderDetails?.lastFourDigits} className="value"  />
+          <Para text="Payment Detail" className="label" />
+          <Para text={orderDetails?.lastFourDigits} className="value" />
         </Flex>
       </InvoiceDetailsBox>
     </>
