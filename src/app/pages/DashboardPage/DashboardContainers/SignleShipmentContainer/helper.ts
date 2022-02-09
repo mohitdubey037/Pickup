@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const getSingleDate = (appointmentDate, appointmentTime) => {
+export const getSingleDate = (appointmentDate, appointmentTime) => {
     let momentTime = moment(appointmentTime);
     let momentDate = moment(appointmentDate);
     return moment({

@@ -21,7 +21,6 @@ export interface InputProps {
   required?: boolean;
 }
 
-
 export interface DateTimeInputProps {
   label?: string;
   placeholder?: string;
@@ -32,4 +31,8 @@ export interface DateTimeInputProps {
   required?: boolean;
   defaultValue?: any;
   disablePast?: boolean;
+  minDate?: object | undefined;
+  maxDate?: object | undefined;
+  minTime?: object | undefined;
+  maxTime?: object | undefined;
 }

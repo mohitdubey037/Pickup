@@ -1,5 +1,8 @@
+import moment from "moment";
 import * as yup from "yup";
+
 import { PHONE_NUMBER_REGX, PIN_CODE_REGEX } from "../../../../../constants";
+import { getSingleDate } from "./helper";
 
 export const singleShipmentFormSchema = yup.object().shape({
     orders: yup.array().of(
@@ -17,7 +20,7 @@ export const singleShipmentFormSchema = yup.object().shape({
                 .test("Please", "Please enter valid address", function () {
                     return this.parent.originLatitude || this.parent.originLongitude;
                 }),
-            originAddressLine2: yup.string().required("Address Line 2 is a required field"),
+            originAddressLine2: yup.string(),
             originCity: yup.string().required("City is a required field"),
             originPostalCode: yup.string().required("Postal Code is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
             originProvinceState: yup.string().required("Province/State is a required field"),
@@ -42,7 +45,7 @@ export const singleShipmentFormSchema = yup.object().shape({
                 .test("Please", "Please enter valid address", function () {
                     return this.parent.destinationLatitude || this.parent.destinationLongitude;
                 }),
-            destinationAddressLine2: yup.string().required("Address Line 2 is a required field"),
+            destinationAddressLine2: yup.string(),
             destinationCity: yup.string().required("City is a required field"),
             destinationPostalCode: yup.string().required("Postal Code is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
             destinationProvinceState: yup.string().required("Province/State is a required field"),
@@ -118,11 +121,41 @@ export const singleShipmentFormSchema = yup.object().shape({
             scheduleType: yup.string().required("Please select schedule type"),
             shipmentDate: yup.string().when("scheduleType", {
                 is: (scheduleType) => scheduleType === "17",
-                then: yup.string().required("Shipment Date is a required field"),
+                then: yup
+                    .string()
+                    .required("Shipment Date is a required field")
+                    .test("maxShipmentDateLimit", "Please enter valid shipment date & time", function () {
+                        if (!this.parent.shipmentDate || !this.parent.shipmentTime) {
+                            return false;
+                        }
+                        let orderedAt = moment(getSingleDate(this.parent.shipmentDate, this.parent.shipmentTime)).utc().format("YYYY-MM-DD HH:mm") + ":00";
+                        let currentdate = moment().format("YYYY-MM-DD HH:mm");
+                        let limitDate = moment().add(120, "hours").format("YYYY-MM-DD HH:mm:ss");
+                        if (moment(orderedAt, "YYYY-MM-DD HH:mm:ss").isBetween(moment().format("YYYY-MM-DD HH:mm:ss"), moment().add(30, "minutes").format("YYYY-MM-DD HH:mm:ss")) || !moment(orderedAt, "YYYY-MM-DD HH:mm:ss").isBetween(currentdate, limitDate)) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    }),
             }),
             shipmentTime: yup.string().when("scheduleType", {
                 is: (scheduleType) => scheduleType === "17",
-                then: yup.string().required("Shipment Time is a required field"),
+                then: yup
+                    .string()
+                    .required("Shipment Time is a required field")
+                    .test("maxShipmentDateLimit", "Please enter valid shipment date & time", function () {
+                        if (!this.parent.shipmentDate || !this.parent.shipmentTime) {
+                            return false;
+                        }
+                        let orderedAt = moment(getSingleDate(this.parent.shipmentDate, this.parent.shipmentTime)).utc().format("YYYY-MM-DD HH:mm") + ":00";
+                        let currentdate = moment().format("YYYY-MM-DD HH:mm");
+                        let limitDate = moment().add(120, "hours").format("YYYY-MM-DD HH:mm:ss");
+                        if (moment(orderedAt, "YYYY-MM-DD HH:mm:ss").isBetween(moment().format("YYYY-MM-DD HH:mm:ss"), moment().add(30, "minutes").format("YYYY-MM-DD HH:mm:ss")) || !moment(orderedAt, "YYYY-MM-DD HH:mm:ss").isBetween(currentdate, limitDate)) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    }),
             }),
         })
     ),

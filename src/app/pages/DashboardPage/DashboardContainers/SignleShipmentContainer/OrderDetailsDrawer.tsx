@@ -163,7 +163,7 @@ function OrderDetailsDrawer({ orderId, setDrawerOpen }) {
                           )}
                           {!!item.description && (
                             <Grid item xs={12}>
-                              <H4 text="Shipment Description" />
+                              <H4 text="Item Description" />
                               <H4 text={item.description} className="value" />
                             </Grid>
                           )}

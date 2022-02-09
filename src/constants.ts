@@ -126,6 +126,7 @@ export const SCHEDULE_OPTIONS = [
     label: "Move to Holding Zone",
     tooltipText:
       "Once your orders are ready to ship, you can schedule them later from the holding zone",
+    disabled: true,
   },
 ];
 
@@ -155,9 +156,9 @@ export const INDUSTRY_TEXT = [
 ];
 
 export const STATUS = [
-  {label: 'Pending',value: "pending"},
-  {label: 'In Progress', value: "in_progres"},
-  {label: 'Completed', value: 'completed'}
-]
+  { label: "Pending", value: "pending" },
+  { label: "In Progress", value: "in_progres" },
+  { label: "Completed", value: "completed" },
+];
 
 export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];

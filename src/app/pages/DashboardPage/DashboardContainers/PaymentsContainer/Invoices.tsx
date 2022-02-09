@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Grid } from "@mui/material";
+import moment from "moment";
+
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { Drawer } from "app/components/Drawer";
 import { H2, H3, H5 } from "app/components/Typography/Typography";
+import { Flex } from "app/components/Input/style";
 import { invoiceTable } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
 import { getInvoiceList } from "../../../../../services/PaymentServices/index";
-import moment from "moment";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { SearchTableTop } from "../SearchContainer/style";
-import { Flex } from "app/components/Input/style";
 
 const InvoicesContainer = ({ path: string }) => {
   const [invoiceData, setInvoiceData] = useState<any>([]);
-  const [invoicePdf, setInvoicePdf] = useState<any>("");
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<any>("");
   const [checkboxData, setCheckboxData] = useState<any>("");
 
@@ -29,15 +29,6 @@ const InvoicesContainer = ({ path: string }) => {
     "https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1162.pdf",
     "https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1149.pdf",
   ]);
-
-  const setDate = (name, value) => {
-    console.log(value);
-    if (name === "fromDate") {
-      setFieldValue("fromDate", moment(value).format("YYYY-MM-DD"));
-    } else if (name === "toDate") {
-      setFieldValue("toDate", moment(value).format("YYYY-MM-DD"));
-    }
-  };
 
   const getDrawerTitle = () => {
     if (drawerType === "invoice") {
@@ -49,15 +40,10 @@ const InvoicesContainer = ({ path: string }) => {
     }
   };
 
-  const openInvoiceDrawer = (pdfUrl: string, type: any, id: any) => {
-    // if (type === "invoice") {
-    //   setSelectedInvoiceId(id);
-    // }
-    // else if (type === "orderDetails") {
-    setInvoicePdf(pdfUrl);
-    setSelectedInvoiceId(id);
-    // setSelectedOrderId(id);
-    // }
+  const openInvoiceDrawer = (id: any, type: any) => {
+    if (type === "invoice" || type === "orderDetails") {
+      setSelectedInvoiceId(id);
+    }
     setDrawerType(type);
     setDrawerOpen(true);
   };
@@ -67,13 +53,10 @@ const InvoicesContainer = ({ path: string }) => {
     const multiplePdf = invoiceData
       .filter((invoice, index) => checkboxData.includes(index))
       .map((inv) => inv.invoicePdf);
-    console.log(multiplePdf);
     newMultiplePdf.map((url) => {
       // window.open(url);
-      console.log(url);
       let link: any = document.createElement("a");
       link.download = `${[url.split("/").length - 1]}`;
-      console.log(link, "link");
       link.href = url;
       document.body.appendChild(link);
       link.click();
@@ -85,7 +68,7 @@ const InvoicesContainer = ({ path: string }) => {
     return (
       <SearchTableTop>
         <Flex alignItems="center">
-          <H3 text={`${invoiceData.length} Invoices `} />
+          <H3 text={`${invoiceData.length} Invoices`} />
           <H5 text="(0 Selected)" />
         </Flex>
         <Button
@@ -95,18 +78,24 @@ const InvoicesContainer = ({ path: string }) => {
           onClick={() => {
             downloadAll();
           }}
+          disabled
         />
       </SearchTableTop>
     );
   };
 
   const getInvoiceListData = async (values?: object) => {
-    console.log(values);
     let urlParams = "";
+
     if (values) {
+      values["fromDate"] = values["fromDate"]
+        ? moment(values["fromDate"]).format("YYYY-MM-DD")
+        : "";
+      values["toDate"] = values["toDate"]
+        ? moment(values["toDate"]).format("YYYY-MM-DD")
+        : "";
       urlParams += "?";
       let tempLen = Object.entries(values).length;
-      console.log(tempLen);
       Object.entries(values).forEach(
         ([key, value], index) =>
           (urlParams += value
@@ -114,7 +103,6 @@ const InvoicesContainer = ({ path: string }) => {
             : "")
       );
     }
-    console.log(urlParams);
     const res: any = await getInvoiceList(urlParams);
     if (!res.error) {
       const InvoiceList = res.response.data.data.list;
@@ -144,10 +132,6 @@ const InvoicesContainer = ({ path: string }) => {
     onSubmit: (values) => getInvoiceListData(values),
   });
 
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
-
   return (
     <ModuleContainer>
       <H2 title="Invoices" />
@@ -169,9 +153,7 @@ const InvoicesContainer = ({ path: string }) => {
             label="From Date"
             placeholder={"e.g 06/06/2021"}
             value={values.fromDate || null}
-            onChange={(val) => setDate("fromDate", val)}
-            disablePast={true}
-            required
+            onChange={(val) => setFieldValue("fromDate", val)}
           />
         </Grid>
         <Grid item md={2}>
@@ -179,9 +161,7 @@ const InvoicesContainer = ({ path: string }) => {
             label="To Date"
             placeholder={"e.g 06/06/2021"}
             value={values.toDate || null}
-            onChange={(val) => setDate("toDate", val)}
-            disablePast={true}
-            required
+            onChange={(val) => setFieldValue("toDate", val)}
           />
         </Grid>
         <Grid item md={2}>
@@ -202,6 +182,7 @@ const InvoicesContainer = ({ path: string }) => {
         perPageRows={10}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
+
       <Drawer
         open={drawerOpen}
         title={getDrawerTitle()}
@@ -210,15 +191,11 @@ const InvoicesContainer = ({ path: string }) => {
         actionButtons={true}
       >
         {drawerType === "invoice" ? (
-          <AddNewPaymentDrawer
-            invoiceId={selectedInvoiceId}
-            invoicePdf={invoicePdf}
-          />
+          <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
         ) : drawerType === "orderDetails" ? (
           <OrderItemDetailsDrawer
             orderId={selectedInvoiceId}
             setDrawerOpen={setDrawerOpen}
-            invoicePdf={invoicePdf}
           />
         ) : (
           <></>

@@ -19,30 +19,20 @@ interface orderDetails {
   fragile?: number;
   description?: string;
   picture?: string;
-  pdfUrl?: any;
 }
 
-function OrderDetailsDrawer(props) {
-  const { orderId, setDrawerOpen, pdfUrl } = props;
-  console.log(pdfUrl);
+function OrderItemDetailsDrawer(props) {
+  const { orderId, setDrawerOpen } = props;
   const [orderDetails, setOrderDetails] = useState<Array<orderDetails>>([]);
   const [isFragile, setIsFragile] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log(typeof orderDetails);
-    console.log(orderDetails);
-  }, [orderDetails]);
 
   useEffect(() => {
     (async () => {
       setShowLoader(true);
       // const { response } = await getOrderDetails(orderId ? orderId : orderId);
       const { response } = await getOrderCountDetail(orderId);
-      // console.log("response", response);
       if (response) {
-        console.log(response?.data?.data?.orders);
-        console.log(response?.data?.data?.orders[0]);
         setOrderDetails([response?.data?.data?.orders[0]]);
         setShowLoader(false);
       } else {
@@ -62,7 +52,6 @@ function OrderDetailsDrawer(props) {
     if (fragile?.length) {
       setIsFragile(true);
     }
-  
   }, [orderDetails]);
 
   const getLabelFromID = (id: number, list: any[]) => {
@@ -80,7 +69,6 @@ function OrderDetailsDrawer(props) {
       ) : (
         <AccordionOuterBox>
           {orderDetails?.map((orderDetails) => {
-            console.log(orderDetails);
             return (
               <Accordion
                 title={`Order Items - ${
@@ -191,7 +179,7 @@ function OrderDetailsDrawer(props) {
                               )}
                               {!!item.description && (
                                 <Grid item xs={12}>
-                                  <H4 text="Shipment Description" />
+                                  <H4 text="Item Description" />
                                   <H4
                                     text={item.description}
                                     className="value"
@@ -213,4 +201,4 @@ function OrderDetailsDrawer(props) {
   );
 }
 
-export default OrderDetailsDrawer;
+export default OrderItemDetailsDrawer;

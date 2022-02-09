@@ -16,6 +16,8 @@ const TimePickerInput = React.forwardRef<any, DateTimeInputProps>(
     disabled,
     required,
     error,
+    minTime = undefined,
+    maxTime = undefined,
   }) => {
     const [open, setOpen] = useState(false);
 
@@ -30,6 +32,8 @@ const TimePickerInput = React.forwardRef<any, DateTimeInputProps>(
             disabled={disabled}
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
+            minTime={minTime}
+            maxTime={maxTime}
             renderInput={(params) => (
               <TextField
                 label=""

@@ -1,12 +1,11 @@
-import React from "react";
-
+import moment from "moment";
 import { FormikValues } from "formik";
-import RadioGroup from "app/components/RadioGroup";
-
-import { SCHEDULE_OPTIONS } from "../../../../../constants";
 import { Box, Grid } from "@material-ui/core";
+
+import RadioGroup from "app/components/RadioGroup";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import TimePickerInput from "app/components/Input/TimePickerInput";
+import { SCHEDULE_OPTIONS } from "../../../../../constants";
 
 function ScheduleShipmentForm(props: {
   formik: FormikValues;
@@ -16,7 +15,7 @@ function ScheduleShipmentForm(props: {
   sameDetails?: number[];
 }) {
   const {
-    formik: { values, errors, touched, setFieldValue },
+    formik: { values, errors, touched, setFieldTouched, setFieldValue },
     index,
     disabled = false,
     canBeDisabled = false,
@@ -67,8 +66,16 @@ function ScheduleShipmentForm(props: {
               <DatePickerInput
                 label="Date"
                 placeholder={"e.g 06/06/2021"}
+                minDate={moment().toDate()}
+                maxDate={moment().add(120, "hours").toDate()}
                 value={singleFormValues.shipmentDate || null}
                 onChange={(val) => {
+                  singleFormTouched?.shipmentDate !== true &&
+                    setFieldTouched(
+                      `${formFieldName}.shipmentDate`,
+                      true,
+                      true
+                    );
                   setFieldValue(`${formFieldName}.shipmentDate`, val);
                   canBeDisabled && updateAllFieldsHandler(`shipmentDate`, val);
                 }}
@@ -86,6 +93,12 @@ function ScheduleShipmentForm(props: {
                 label="Time"
                 value={singleFormValues.shipmentTime || null}
                 onChange={(val) => {
+                  singleFormTouched?.shipmentTime !== true &&
+                    setFieldTouched(
+                      `${formFieldName}.shipmentTime`,
+                      true,
+                      true
+                    );
                   setFieldValue(`${formFieldName}.shipmentTime`, val);
                   canBeDisabled && updateAllFieldsHandler(`shipmentTime`, val);
                 }}

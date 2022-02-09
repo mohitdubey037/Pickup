@@ -16,7 +16,9 @@ const DatePickerInput = React.forwardRef<any, DateTimeInputProps>(
     disabled,
     required,
     error,
-    disablePast= false
+    disablePast = false,
+    minDate = undefined,
+    maxDate = undefined,
   }) => {
     const [open, setOpen] = useState(false);
 
@@ -31,7 +33,10 @@ const DatePickerInput = React.forwardRef<any, DateTimeInputProps>(
             disabled={disabled}
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
-            disablePast = {disablePast}
+            disablePast={disablePast}
+            inputFormat="dd/MM/yyyy"
+            minDate={minDate}
+            maxDate={maxDate}
             renderInput={(params) => (
               <TextField
                 label=""
