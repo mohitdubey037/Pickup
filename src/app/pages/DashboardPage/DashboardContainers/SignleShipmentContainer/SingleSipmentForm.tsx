@@ -324,7 +324,6 @@ function SingleSipmentForm({
                     singleFormTouched?.[`${title}AddressLine2`] &&
                     singleFormErrors?.[`${title}AddressLine2`]
                   }
-                  required
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>

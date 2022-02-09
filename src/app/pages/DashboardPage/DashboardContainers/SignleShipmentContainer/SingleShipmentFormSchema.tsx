@@ -20,7 +20,7 @@ export const singleShipmentFormSchema = yup.object().shape({
                 .test("Please", "Please enter valid address", function () {
                     return this.parent.originLatitude || this.parent.originLongitude;
                 }),
-            originAddressLine2: yup.string().required("Address Line 2 is a required field"),
+            originAddressLine2: yup.string(),
             originCity: yup.string().required("City is a required field"),
             originPostalCode: yup.string().required("Postal Code is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
             originProvinceState: yup.string().required("Province/State is a required field"),
@@ -45,7 +45,7 @@ export const singleShipmentFormSchema = yup.object().shape({
                 .test("Please", "Please enter valid address", function () {
                     return this.parent.destinationLatitude || this.parent.destinationLongitude;
                 }),
-            destinationAddressLine2: yup.string().required("Address Line 2 is a required field"),
+            destinationAddressLine2: yup.string(),
             destinationCity: yup.string().required("City is a required field"),
             destinationPostalCode: yup.string().required("Postal Code is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
             destinationProvinceState: yup.string().required("Province/State is a required field"),

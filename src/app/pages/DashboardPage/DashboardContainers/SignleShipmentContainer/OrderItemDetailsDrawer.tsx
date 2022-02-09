@@ -62,7 +62,6 @@ function OrderDetailsDrawer(props) {
     if (fragile?.length) {
       setIsFragile(true);
     }
-  
   }, [orderDetails]);
 
   const getLabelFromID = (id: number, list: any[]) => {
@@ -191,7 +190,7 @@ function OrderDetailsDrawer(props) {
                               )}
                               {!!item.description && (
                                 <Grid item xs={12}>
-                                  <H4 text="Shipment Description" />
+                                  <H4 text="Item Description" />
                                   <H4
                                     text={item.description}
                                     className="value"

@@ -71,7 +71,7 @@ function DetailsFormItem(props: {
                                             toucherItem?.weight &&
                                             errorItem?.weight
                                         }
-                                        label={"Order Weight"}
+                                        label={"Item Weight"}
                                         initValue={formItemValue.weight}
                                         value={formItemValue.weight}
                                         placeholder={"eg. 100"}
@@ -204,7 +204,7 @@ function DetailsFormItem(props: {
                                 toucherItem?.description &&
                                 errorItem?.description
                             }
-                            label={"Order Description"}
+                            label={"Item Description"}
                             placeholder={"Add a description of the order"}
                             type={"textarea"}
                             value={formItemValue.description}
