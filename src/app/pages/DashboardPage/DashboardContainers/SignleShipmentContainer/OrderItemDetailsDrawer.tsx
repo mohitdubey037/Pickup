@@ -69,6 +69,7 @@ function OrderItemDetailsDrawer(props) {
       ) : (
         <AccordionOuterBox>
           {orderDetails?.map((orderDetails) => {
+            console.log(orderDetails);
             return (
               <Accordion
                 title={`Order Items - ${
@@ -95,9 +96,10 @@ function OrderItemDetailsDrawer(props) {
                       <H4 text="Fragile" />
                       <H4
                         text={
-                          orderDetails?.customerReferenceNumber
-                            ? orderDetails.customerReferenceNumber
-                            : "-"
+                          // orderDetails?.customerReferenceNumber
+                          //   ? orderDetails.customerReferenceNumber
+                          //   : "-"
+                          orderDetails?.fragile
                         }
                         className="value"
                       />

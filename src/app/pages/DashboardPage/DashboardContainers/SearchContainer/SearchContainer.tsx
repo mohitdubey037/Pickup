@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getSearchOrderList,
   getSearchOrderListById,
+  getPaginatedData
 } from "../../../../../services/SearchItemService";
 import { DatePicker, LocalizationProvider, TimePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -48,20 +49,48 @@ const SearchContainer = ({ path: string }) => {
   const [fromDateOpen, setFromDateOpen] = useState(false);
   const [toDateOpen, setToDateOpen] = useState(false);
 
+  // const [pageMetaData, setPageMetaData] = useState({});
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(0);
+  const [totalData, setTotalData] = useState<any>(10);
+
   const getSearchOrderListData = async (url?:any) => {
     const res = (await getSearchOrderList(url)) as any;
     if (res.success) {
       const orderList = res.response.data.data;
       console.log(orderList);
-      console.log(orderList);
-      console.log("Order List", orderList);
       setSearchRecordData(orderList);
+      console.log(orderList?.pageMetaData);
+      setPage(orderList?.pageMetaData?.page - 1);
+      setTotalPages(orderList?.pageMetaData?.totalPages);
+      setTotalData(orderList?.pageMetaData?.total);
     }
     else if (!res.error) {
       const InvoiceList = res;
       setSearchRecordData(InvoiceList);
     }
   };
+
+  const getSearchPaginatedData = async (page) => {
+    console.log(page);
+    if (page === 0) {
+      getSearchOrderListData("");
+    }
+    else {
+      const res = (await getPaginatedData(page, 10)) as any;
+      if (res.success) {
+        console.log('succes');
+        const orderList = res.response.data.data;
+        console.log("Order List", orderList);
+        setPage(page);
+        setSearchRecordData(orderList);
+      }
+      else if (!res.error) {
+        const InvoiceList = res;
+        setSearchRecordData(InvoiceList);
+      }
+    }
+  }
 
   const getSingleOrderData = async (id: any) => {
     const res = (await getSearchOrderListById(id)) as any;
@@ -320,9 +349,12 @@ const SearchContainer = ({ path: string }) => {
       <Table
         data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
         tableTop={tableTop()}
+        paginationData = {(page) => getSearchPaginatedData(page)}
         showCheckbox
         showPagination
-        perPageRows={10}
+        page={page}
+        totalData = {totalData}
+        totalPage = {totalPages}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
 

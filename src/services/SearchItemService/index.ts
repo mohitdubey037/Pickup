@@ -31,6 +31,17 @@ export const getLocation = async (orderId: number) => {
 export const getSearchOrderList = async (urlParams?: string) => {
   try {
     const response = await Service.get(`order/business/shipments${urlParams}`, "order");
+    // const response = await Service.get(`order/business/shipments?page=1&chunk=10`, "order");
+    return { response: response, success: true };
+  } catch (err) {
+    return { response: err, sucess: false };
+  }
+}
+
+export const getPaginatedData = async (page?: number, chunk?: number) => {
+  try {
+    // const response = await Service.get(`order/business/shipments${urlParams}`, "order");
+    const response = await Service.get(`order/business/shipments?page=${page}&chunk=${chunk}`, "order");
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };
