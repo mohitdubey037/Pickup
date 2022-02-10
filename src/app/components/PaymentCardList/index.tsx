@@ -1,14 +1,14 @@
-import { masterCard, scotiaBank, selectedCardCheck } from "app/assets/Icons";
+import { Box } from "@mui/system";
+import { selectedCardCheck } from "app/assets/Icons";
 import { FC } from "react";
 import { CardType } from "types";
-import { Flex } from "../Input/style";
 import {
-    CardWrapper,
+    // CardWrapper,
     Card,
     CardLeft,
-    CardRight,
-    Text,
     CheckImageWrapper,
+    Carddetails,
+    CardNumber,
 } from "./style";
 
 interface PaymentCardListProps {
@@ -23,7 +23,7 @@ const PaymentCardList: FC<PaymentCardListProps> = ({
     selectedCard = {},
 }) => {
     return (
-        <CardWrapper>
+        <>
             {cards.length > 0 &&
                 cards.map((card, i) => {
                     return (
@@ -41,35 +41,18 @@ const PaymentCardList: FC<PaymentCardListProps> = ({
                             }
                         >
                             <CardLeft>
-                                <Text
-                                    fontSize="16px"
-                                    letterSpacing="3px"
-                                    fontWeight="700"
-                                    marginBottom="10px"
-                                >
-                                    {card?.number}
-                                </Text>
-                                <Flex>
-                                    <Text
-                                        fontSize="10px"
-                                        letterSpacing="1.3px"
-                                        fontWeight="400"
-                                        marginRight="30px"
-                                    >
-                                        {card?.name?.toUpperCase()}
-                                    </Text>
-                                    <Text
-                                        fontSize="10px"
-                                        letterSpacing="1.3px"
-                                        fontWeight="400"
-                                    >
-                                        {`${card.expiry_month}/${card.expiry_year}`}
-                                    </Text>
-                                </Flex>
+                                <Box>
+                                <CardNumber>{card?.number}</CardNumber>
+                                </Box>
+                                <Box mt={1} display="flex" alignItems="center">
+                                <Carddetails> {card?.name?.toUpperCase()}</Carddetails>
+                                <Carddetails ml={5}> {`${card.expiry_month}/${card.expiry_year}`}</Carddetails>
+                                </Box>
+                              
                             </CardLeft>
-                            <CardRight>
-                                {/* <img src={card?.card_type === "MC" ? masterCard : scotiaBank} alt="bank-icon" /> */}
-                            </CardRight>
+                            {/* <CardRight>
+                                <img src={card?.card_type === "MC" ? masterCard : scotiaBank} alt="bank-icon" />
+                            </CardRight> */}
                             {selectedCard?.card_id === card.card_id && (
                                 <CheckImageWrapper>
                                     <img
@@ -81,7 +64,7 @@ const PaymentCardList: FC<PaymentCardListProps> = ({
                         </Card>
                     );
                 })}
-        </CardWrapper>
+        </>
     );
 };
 
