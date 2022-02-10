@@ -22,10 +22,10 @@ const Table = ({
     paginationData,
 }: TableProps) => {
     // const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [selectedRows, setSelected] = React.useState<Array<unknown>>([]);
 
-    const pagePerRows = 10;
+    // const pagePerRows = 10;
 
     // useEffect(() => {
     //     perPageRows ? setRowsPerPage(perPageRows) : setRowsPerPage(5);
@@ -51,7 +51,7 @@ const Table = ({
         if (checked) {
             if (id === "header") {
                 localSelected = [];
-                localSelected = Array.from(Array(10).keys());
+                localSelected = Array.from(Array(data.length).keys());
             } else localSelected.push(selected);
         } else {
             if (id === "header") localSelected = [];
@@ -71,7 +71,7 @@ const Table = ({
                         <TableRow>
                             {!!data?.length && showCheckbox && (
                                 <TableCell padding="checkbox">
-                                    <Checkbox label="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCheckboxClick(e.target.checked, undefined, "header")} isChecked={selectedRows.length === 10} />
+                                    <Checkbox label="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCheckboxClick(e.target.checked, undefined, "header")} isChecked={selectedRows.length === data.length} />
                                 </TableCell>
                             )}
                             {!!data?.length &&
@@ -106,7 +106,7 @@ const Table = ({
             {showPagination && (
                 <CustomPagination
                     count={totalData}
-                    rowsPerPage={pagePerRows}
+                    rowsPerPage={rowsPerPage}
                     page={page ? page : 0}
                     onPageChange={handleChangePage}
                     labelRowsPerPage=""
