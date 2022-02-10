@@ -46,10 +46,14 @@ export const dashboardHelper: Array<Link> = [
     label: "Payments",
     link: "/dashboard/payments",
     logo: creditCard,
-    access: [4],
     children: [
-      { id: 0, label: "Invoices", link: "/dashboard/payments/invoices" },
-      { id: 1, label: "Cards", link: "/dashboard/payments/cards" },
+      {
+        id: 0,
+        label: "Invoices",
+        link: "/dashboard/payments/invoices",
+        access: [1, 2, 3, 4],
+      },
+      { id: 1, label: "Cards", link: "/dashboard/payments/cards", access: [4] },
     ],
   },
   // { id: 5, label: "Reports", link: "/dashboard/reports", logo: reports },
@@ -71,12 +75,11 @@ export const dashboardHelper: Array<Link> = [
         link: "/dashboard/my-account/personal-profile",
         access: [1, 2, 3, 4],
       },
-
-      {
-        id: 2,
-        label: "Child Account",
-        link: "/dashboard/my-account/child-account",
-      },
+      // {
+      //   id: 2,
+      //   label: "Child Account",
+      //   link: "/dashboard/my-account/child-account",
+      // },
       // {
       //   id: 3,
       //   label: "Favourite Locations",
