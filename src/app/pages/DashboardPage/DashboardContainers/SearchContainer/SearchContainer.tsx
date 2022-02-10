@@ -245,7 +245,7 @@ const SearchContainer = ({ path: string }) => {
         <Grid item xs={6} sm={4} lg={2}>
         <DatePickerInput
           label="From Date"
-          maxDate={new Date()}
+          maxDate={new Date(moment(values.toDate).subtract(1,'days').toDate())}
           placeholder={"e.g 06/06/2021"}
           value={values.fromDate || null}
           onChange={(val) => setData("fromDate", val)}
@@ -253,6 +253,7 @@ const SearchContainer = ({ path: string }) => {
         </Grid>
         <Grid item xs={6} sm={4} lg={2}>
           <DatePickerInput
+            minDate={new Date(moment(values.fromDate).add(1,'days').toDate())}
             maxDate={new Date()}
             label="To Date"
             placeholder={"e.g 06/06/2021"}

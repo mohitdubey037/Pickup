@@ -221,6 +221,7 @@ const InvoicesContainer = ({ path: string }) => {
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
         tableTop={tableTop()}
         dataChecked={(data: any) => {
+          console.log('hiii');
           setCheckboxData(data);
         }}
         paginationData = {(page) => getSearchPaginatedData(page)}
