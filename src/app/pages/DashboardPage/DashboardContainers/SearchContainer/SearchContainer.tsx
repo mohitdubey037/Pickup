@@ -55,9 +55,7 @@ const SearchContainer = ({ path: string }) => {
     const res = (await getSearchOrderList(url)) as any;
     if (res.success) {
       const orderList = res.response.data.data;
-      console.log(orderList);
       setSearchRecordData(orderList);
-      console.log(orderList?.pageMetaData);
       setPage(orderList?.pageMetaData?.page - 1);
       setTotalPages(orderList?.pageMetaData?.totalPages);
       setTotalData(orderList?.pageMetaData?.total);
@@ -69,16 +67,13 @@ const SearchContainer = ({ path: string }) => {
   };
 
   const getSearchPaginatedData = async (page) => {
-    console.log(page);
     if (page === 0) {
       getSearchOrderListData("");
     }
     else {
       const res = (await getPaginatedData(page+1, 10)) as any;
       if (res.success) {
-        console.log('succes');
         const orderList = res.response.data.data;
-        console.log("Order List", orderList);
         setPage(page);
         setSearchRecordData(orderList);
       }
@@ -109,7 +104,6 @@ const SearchContainer = ({ path: string }) => {
 
   useEffect(() => {
     dispatch(singleActions.resetSingleShipment());
-    // getSearchOrderListData();
     getSearchListData()
   }, [dispatch]);
 
@@ -127,7 +121,6 @@ const SearchContainer = ({ path: string }) => {
             : "")
       );
     }
-    console.log(urlParams,'hiiii');
     getSearchOrderListData(urlParams);
   };
 
@@ -169,10 +162,10 @@ const SearchContainer = ({ path: string }) => {
     setDrawerOpen(true);
   };
 
-  const updateStatusHandler = (name: string, value: string) => {
-        // updateAllFieldsHandler(name, newValue);
-        setFieldValue('status', value);
-  };  
+  // const updateStatusHandler = (name: string, value: string) => {
+  //       // updateAllFieldsHandler(name, newValue);
+  //       setFieldValue('status', value);
+  // };  
 
   const getDrawerTitle = () => {
     if (drawerType == "invoice") {
