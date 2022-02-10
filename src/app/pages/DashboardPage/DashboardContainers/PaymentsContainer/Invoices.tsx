@@ -22,11 +22,14 @@ import DatePickerInput from "app/components/Input/DatePickerInput";
 import { SearchTableTop } from "../SearchContainer/style";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { FilterFlexBox } from "./style";
+import TableSkeleton from "app/components/Table/TableSkeleton";
 
 const InvoicesContainer = ({ path: string }) => {
   const [invoiceData, setInvoiceData] = useState<any>([]);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<any>("");
   const [checkboxData, setCheckboxData] = useState<any>("");
+  const [loading, setLoading] = useState<boolean>(true);
+
   const [drawerType, setDrawerType] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -116,7 +119,8 @@ const InvoicesContainer = ({ path: string }) => {
     getSearchInvoiceListData(urlParams);
   };
 
-  const getSearchInvoiceListData = async (url?: any) => {
+  const getSearchInvoiceListData = async (url?:any) => {
+    setLoading(true);
     const res = (await getInvoiceList(url)) as any;
     if (!res?.error) {
       const InvoiceList = res.response.data.data.list;
@@ -128,6 +132,7 @@ const InvoicesContainer = ({ path: string }) => {
       const InvoiceList = res;
       setInvoiceData(InvoiceList);
     }
+    setLoading(false);
   };
 
   const getSearchPaginatedData = async (page) => {
@@ -206,7 +211,11 @@ const InvoicesContainer = ({ path: string }) => {
         </GridContainer>
       </Box>
 
-      <Table
+      
+      {loading ? (
+        <TableSkeleton />
+      ) : (
+        <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
         tableTop={tableTop()}
         dataChecked={(data: any) => {
@@ -221,6 +230,8 @@ const InvoicesContainer = ({ path: string }) => {
         totalPage={totalPages}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
+      )}
+
 
       <Drawer
         open={drawerOpen}

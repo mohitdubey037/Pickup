@@ -22,7 +22,7 @@ export const AccordionOuterBox = styled(Box)`
   border: 1px solid #dcdcdc;
   box-sizing: border-box;
   border-radius: 4px;
-  padding: 16px;
+  padding: 16px 24px;
   div {
     box-shadow: none !important;
   }
