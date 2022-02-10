@@ -15,7 +15,7 @@ const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
 
     return (
         <Box>
-            <H3 text="Shipment Summary" />
+            <H3 text="Payment Summary" />
             <Box mt={3}>
                 <Flex justifyContent="space-between" bottom={12}>
                     <H4 text="Subtotal" />

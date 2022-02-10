@@ -121,36 +121,24 @@ export const singleShipmentFormSchema = yup.object().shape({
             scheduleType: yup.string().required("Please select schedule type"),
             shipmentDate: yup.string().when("scheduleType", {
                 is: (scheduleType) => scheduleType === "17",
-                then: yup
-                    .string()
-                    .required("Shipment Date is a required field")
-                    .test("maxShipmentDateLimit", "Please enter valid shipment date & time", function () {
-                        if (!this.parent.shipmentDate || !this.parent.shipmentTime) {
-                            return false;
-                        }
-                        let orderedAt = moment(getSingleDate(this.parent.shipmentDate, this.parent.shipmentTime)).utc().format("YYYY-MM-DD HH:mm") + ":00";
-                        let currentdate = moment().format("YYYY-MM-DD HH:mm");
-                        let limitDate = moment().add(120, "hours").format("YYYY-MM-DD HH:mm:ss");
-                        if (moment(orderedAt, "YYYY-MM-DD HH:mm:ss").isBetween(moment().format("YYYY-MM-DD HH:mm:ss"), moment().add(30, "minutes").format("YYYY-MM-DD HH:mm:ss")) || !moment(orderedAt, "YYYY-MM-DD HH:mm:ss").isBetween(currentdate, limitDate)) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }),
+                then: yup.string().required("Shipment Date is a required field").nullable(),
             }),
             shipmentTime: yup.string().when("scheduleType", {
                 is: (scheduleType) => scheduleType === "17",
                 then: yup
                     .string()
                     .required("Shipment Time is a required field")
-                    .test("maxShipmentDateLimit", "Please enter valid shipment date & time", function () {
-                        if (!this.parent.shipmentDate || !this.parent.shipmentTime) {
+                    .test("minShipmentDateLimit", "Please select future time", function () {
+                        let orderedAt = moment(getSingleDate(this.parent.shipmentDate, this.parent.shipmentTime)).format("YYYY-MM-DD HH:mm") + ":00";
+                        if (moment(orderedAt, "YYYY-MM-DD HH:mm:ss").diff(moment().add(30, "minutes").format("YYYY-MM-DD HH:mm:ss")) < 0) {
                             return false;
+                        } else {
+                            return true;
                         }
-                        let orderedAt = moment(getSingleDate(this.parent.shipmentDate, this.parent.shipmentTime)).utc().format("YYYY-MM-DD HH:mm") + ":00";
-                        let currentdate = moment().format("YYYY-MM-DD HH:mm");
-                        let limitDate = moment().add(120, "hours").format("YYYY-MM-DD HH:mm:ss");
-                        if (moment(orderedAt, "YYYY-MM-DD HH:mm:ss").isBetween(moment().format("YYYY-MM-DD HH:mm:ss"), moment().add(30, "minutes").format("YYYY-MM-DD HH:mm:ss")) || !moment(orderedAt, "YYYY-MM-DD HH:mm:ss").isBetween(currentdate, limitDate)) {
+                    })
+                    .test("maxShipmentDateLimit", "Schedule time should be within 5 Days", function () {
+                        let orderedAt = moment(getSingleDate(this.parent.shipmentDate, this.parent.shipmentTime)).format("YYYY-MM-DD HH:mm") + ":00";
+                        if (moment(orderedAt, "YYYY-MM-DD HH:mm:ss").diff(moment().add(120, "hours").format("YYYY-MM-DD HH:mm:ss")) > 0) {
                             return false;
                         } else {
                             return true;

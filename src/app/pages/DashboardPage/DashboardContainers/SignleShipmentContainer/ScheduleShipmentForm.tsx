@@ -34,6 +34,13 @@ function ScheduleShipmentForm(props: {
       });
   };
 
+  const checkScheduleTime = () => {
+    singleFormTouched?.shipmentDate !== true &&
+      setFieldTouched(`${formFieldName}.shipmentDate`, true, true);
+    singleFormTouched?.shipmentTime !== true &&
+      setFieldTouched(`${formFieldName}.shipmentTime`, true, true);
+  };
+
   return (
     <Box mb={2} mt={1}>
       <Grid container spacing={2}>
@@ -70,12 +77,7 @@ function ScheduleShipmentForm(props: {
                 maxDate={moment().add(120, "hours").toDate()}
                 value={singleFormValues.shipmentDate || null}
                 onChange={(val) => {
-                  singleFormTouched?.shipmentDate !== true &&
-                    setFieldTouched(
-                      `${formFieldName}.shipmentDate`,
-                      true,
-                      true
-                    );
+                  checkScheduleTime();
                   setFieldValue(`${formFieldName}.shipmentDate`, val);
                   canBeDisabled && updateAllFieldsHandler(`shipmentDate`, val);
                 }}
@@ -93,12 +95,7 @@ function ScheduleShipmentForm(props: {
                 label="Time"
                 value={singleFormValues.shipmentTime || null}
                 onChange={(val) => {
-                  singleFormTouched?.shipmentTime !== true &&
-                    setFieldTouched(
-                      `${formFieldName}.shipmentTime`,
-                      true,
-                      true
-                    );
+                  checkScheduleTime();
                   setFieldValue(`${formFieldName}.shipmentTime`, val);
                   canBeDisabled && updateAllFieldsHandler(`shipmentTime`, val);
                 }}
