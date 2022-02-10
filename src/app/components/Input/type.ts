@@ -19,6 +19,7 @@ export interface InputProps {
   maskProps?: any;
   ref?: any;
   required?: boolean;
+  maxLength?: number;
 }
 
 export interface DateTimeInputProps {
