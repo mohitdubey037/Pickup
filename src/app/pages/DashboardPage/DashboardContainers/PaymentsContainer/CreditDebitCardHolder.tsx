@@ -34,6 +34,7 @@ const CreditDebitCardHolder: FC<CreditDebitCardHolderProps> = ({
               backgroundColor: "#FAFAFA",
             }}
             title={getTitle("Cards", creditCardDetails)}
+            defaultExpanded
           >
             <PaymentCardList
               cards={creditCardDetails}

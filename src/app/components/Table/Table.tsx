@@ -138,6 +138,8 @@ const Table = ({
                     rowsPerPage={10}
                     page={page ? page : 0}
                     onPageChange={handleChangePage}
+                    labelRowsPerPage=""
+                    rowsPerPageOptions={[]}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     // labelRowsPerPage={
                     //     <Input

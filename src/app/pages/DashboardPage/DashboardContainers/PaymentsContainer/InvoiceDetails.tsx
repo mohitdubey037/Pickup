@@ -15,15 +15,15 @@ const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
 
     return (
         <Box>
-            <H3 text="Shipment Summary" />
+            <H3 text="Payment Summary" />
             <Box mt={3}>
                 <Flex justifyContent="space-between" bottom={12}>
                     <H4 text="Subtotal" />
-                    <H4 text={`$${invoiceData.subTotalOfAllShipments}`} />
+                    <H4 text={`$${invoiceData.subTotalOfAllShipments.toFixed(2)}`} />
                 </Flex>
                 <Flex justifyContent="space-between" bottom={12}>
                     <H4 text="Taxes(HST)" />
-                    <H4 text={`$${invoiceData.taxesOfAllShipments}`} />
+                    <H4 text={`$${invoiceData.taxesOfAllShipments.toFixed(2)}`} />
                 </Flex>
                 <Flex justifyContent="space-between">
                     <Flex>
@@ -33,7 +33,7 @@ const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
                         />
                         <img src={InsuranceIcon} alt="InsuranceIcon" />
                     </Flex>
-                    <H4 text={`$${invoiceData.insuranceAmount}`} />
+                    <H4 text={`$${invoiceData.insuranceAmount.toFixed(2)}`} />
                 </Flex>
 
                 <Flex top={5}>

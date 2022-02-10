@@ -111,13 +111,13 @@ export const DIMENSION2 = [
 export const SCHEDULE_OPTIONS = [
   {
     value: "16",
-    label: "Ship Right Now",
+    label: "Order Right Now",
     tooltipText:
       "Your order will be shipped as soon as possible after completing payment",
   },
   {
     value: "17",
-    label: "Ship Later",
+    label: "Order Later",
     tooltipText:
       "You can schedule your order to be shipped later for a specified date and time",
   },

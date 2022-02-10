@@ -3,7 +3,7 @@ import { createReducer, createActions } from "reduxsauce";
 const initialState = {
     shipmentDetails: null,
     orderIds: [],
-    invoiceId: null
+    invoiceId: null,
 };
 
 const { Types, Creators } = createActions({
@@ -13,34 +13,34 @@ const { Types, Creators } = createActions({
     setShipmentOrderIds: ["response"],
     setInvoice: ["response"],
     resetOrderIds: [],
-    resetSingleShipment: []
+    resetSingleShipment: [],
 });
 
-const onSetShipmentDetails = (state=initialState, action) => ({
+const onSetShipmentDetails = (state = initialState, action) => ({
     ...state,
-    shipmentDetails: {...action.res}
+    shipmentDetails: action.res === null ? null : { ...action.res },
 });
 
-const setShipmentOrderIds = (state = initialState, action) => ({ 
-    ...state, 
-    orderIds: action.response 
-});
-
-const setInvoiceId = (state=initialState, action) => ({
+const setShipmentOrderIds = (state = initialState, action) => ({
     ...state,
-    invoiceId: action.response
-})
-
-const resetOrderIds = (state = initialState, action) => ({ 
-    ...state, 
-    orderIds: [] 
+    orderIds: action.response,
 });
 
-const resetSingleShipment = (state = initialState, action) => ({
+const setInvoiceId = (state = initialState, action) => ({
+    ...state,
+    invoiceId: action.response,
+});
+
+const resetOrderIds = (state = initialState) => ({
+    ...state,
+    orderIds: [],
+});
+
+const resetSingleShipment = () => ({
     shipmentDetails: null,
     orderIds: [],
-    invoiceId: null
-}); 
+    invoiceId: null,
+});
 
 const HANDLERS = {
     [Types.SET_SHIPMENT_DETAILS]: onSetShipmentDetails,

@@ -2,18 +2,9 @@ import { Box, Grid } from "@material-ui/core";
 import { Card } from "app/components/Card";
 import { CategoryProgressCard } from "app/components/Cards";
 import { ChartDashboard, DoghnutChart } from "app/components/Chart";
-import { Drawer } from "app/components/Drawer";
-import Paper from "@material-ui/core/Paper";
 import { useEffect, useState } from "react";
-// import { ProgressCardData } from "../../helper";
-import {
-  Deliveries,
-  SpentByCategory,
-} from "./styles";
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
-// import { DUMMY_CHART } from "./helper";
-import { InnerContainer } from "app/components/ModuleContainer/style";
 import { getDashboardDetails } from "../../../../../services/DashboardService";
 import CountUp from "react-countup";
 import { PaperBox } from "app/components/Card/style";
@@ -21,7 +12,6 @@ import NullState from "app/components/NullState/NullState";
 
 const Dashboard = ({ path: string }) => {
   const [dashboard, setDashboard] = useState<any>({});
-  // const [categoryData, setCategoryData] = useState<any>({});
   const [progressCardDataTwo, setProgressCardDataTwo] = useState<any>([]);
   const [chartData, setChartData] = useState<any>();
   const [spentPercentage, setSpentPercentage] = useState<number>(0);
@@ -36,44 +26,38 @@ const Dashboard = ({ path: string }) => {
       const actual = res.response.data.data.youSpent;
       setActualSpent(actual);
       setDashboard(dashboardData);
-      console.log("Dash you spent: ", dashboard.youSpent ? dashboard.youSpent : "-");
-      let data: any= [];
-      console.log("duration  -", duration);
-      for(let keys in duration){
+      let data: any = [];
+      for (let keys in duration) {
         data.push({
-          x : keys,
-          y : duration[keys]
+          x: keys,
+          y: duration[keys],
         });
       }
       data.push({
-        x : "February",
-        y : 4000
+        x: "February",
+        y: 4000,
       });
-      
-      const nativeChartData = [{data}];
-      data = []
 
-      data.push({
-        x : "Januarry",
-        y : 100
-      },{
-        x : "February",
-        y : 400
-      });
-      
-      nativeChartData.push({data});
+      const nativeChartData = [{ data }];
+      data = [];
+
+      data.push(
+        {
+          x: "Januarry",
+          y: 100,
+        },
+        {
+          x: "February",
+          y: 400,
+        }
+      );
+
+      nativeChartData.push({ data });
       setChartData(nativeChartData);
-      // console.log("data - ", nativeChartData);
       const CategoryLength = Object.keys(dashboardData?.category).length;
-      console.log("Progress: ", +CategoryLength);
-      console.log("You spent: ", dashboard.youSpent);
-      const spentByCat: number = 2057.6 / CategoryLength;
-      console.log("Spent By Cat: ", +spentByCat);
-      const spentPer: number = ((2057.6 / CategoryLength) / 2057.6) * 100;
-      console.log("Spent Cat: ", spentPer);
-      console.log("Spent Cat Percentage: ", +spentPer.toFixed(0));
-      setSpentPercentage( +spentPer.toFixed(0));
-      console.log("SpentPercentage useState: ", spentPercentage);
+      // const spentByCat: number = 2057.6 / CategoryLength;
+      const spentPer: number = (2057.6 / CategoryLength / 2057.6) * 100;
+      setSpentPercentage(+spentPer.toFixed(0));
       const progressCardNative: any = [];
       for (let keys in dashboardcat) {
         progressCardNative.push({
@@ -85,10 +69,10 @@ const Dashboard = ({ path: string }) => {
       setProgressCardDataTwo(progressCardNative);
     }
   };
-  console.log("Chart Data: ", chartData);
-  let totalOrder = dashboard.completed + dashboard.pending
-  const onTime = (dashboard.completed/totalOrder) * 100;
-  const delayed = (dashboard.pending/totalOrder) * 100;
+
+  let totalOrder = dashboard.completed + dashboard.pending;
+  const onTime = (dashboard.completed / totalOrder) * 100;
+  const delayed = (dashboard.pending / totalOrder) * 100;
   const series = [dashboard.completed, dashboard.pending];
 
   useEffect(() => {
@@ -98,10 +82,10 @@ const Dashboard = ({ path: string }) => {
   return (
     <ModuleContainer>
       <H2 title="Dashboard" />
-   
+
       <Box mt={3}>
         <Grid container spacing={2}>
-        <Grid item sm={4} xs={12}>
+          <Grid item sm={4} xs={12}>
             <Card
               title="Pending Orders"
               numberValue={
@@ -113,8 +97,8 @@ const Dashboard = ({ path: string }) => {
               onClick={() => {}}
             />
           </Grid>
-          
-        <Grid item sm={4} xs={12}>
+
+          <Grid item sm={4} xs={12}>
             <Card
               title="In Progress Orders"
               numberValue={
@@ -128,20 +112,20 @@ const Dashboard = ({ path: string }) => {
             />
           </Grid>
 
-          
-        <Grid item sm={4} xs={12}>
+          <Grid item sm={4} xs={12}>
             <Card
               title="Completed Orders"
               numberValue={
                 <>
-                  <CountUp 
-                    end={dashboard.completed || dashboard.completed === 0
-                      ? dashboard.completed
-                      : "-"}
-                      // duration={5}
+                  <CountUp
+                    end={
+                      dashboard.completed || dashboard.completed === 0
+                        ? dashboard.completed
+                        : "-"
+                    }
+                    // duration={5}
                   />
                 </>
-                
               }
               label="4% more than last Month"
               onClick={() => {}}
@@ -150,61 +134,53 @@ const Dashboard = ({ path: string }) => {
 
           <Grid item sm={12} xs={12}>
             <PaperBox>
-            <ChartDashboard
-              marketPriceNumber={
-                dashboard.total || dashboard.total === 0 ? dashboard.total : "-"
-              }
-              labelMarketPrice="4% more than last Month"
-              spentNumber={
-                dashboard.youSpent || dashboard.youSpent === 0
-                  ? dashboard.youSpent
-                  : "-"
-              }
-              labelSpentNumber="4% more than last Month"
-              savedNumber={
-                dashboard.yousaved || dashboard.yousaved === 0
-                  ? dashboard.yousaved
-                  : "-"
-              }
-              labelSavedNumber="4% more than last Month"
-              chartSeries={chartData}
-              chartData={dashboard.duration}
-            />
-            </PaperBox>
-            </Grid>
-
-
-
-            <Grid item sm={7} xs={12}>
-            <PaperBox>
-              <CategoryProgressCard contents={progressCardDataTwo} />
-          </PaperBox>
-            </Grid>
-
-            
-            <Grid item sm={5} xs={12}>
-            <PaperBox>
-            <H3 text="Deliveries"  />
-           {dashboard.completed && dashboard.pending ? 
-             ( <DoghnutChart
-                onTimePercentage={+onTime.toFixed(2)}
-                delayedPercentage={+delayed.toFixed(2)}
-                doghnutData={series}
+              <ChartDashboard
+                marketPriceNumber={
+                  dashboard.total || dashboard.total === 0
+                    ? `$ ${dashboard.total.toFixed(2)}`
+                    : "-"
+                }
+                labelMarketPrice="4% more than last Month"
+                spentNumber={
+                  dashboard.youSpent || dashboard.youSpent === 0
+                    ? `$ ${dashboard.youSpent.toFixed(2)}`
+                    : "-"
+                }
+                labelSpentNumber="4% more than last Month"
+                savedNumber={
+                  dashboard.yousaved || dashboard.yousaved === 0
+                    ? `$ ${dashboard.yousaved.toFixed(2)}`
+                    : "-"
+                }
+                labelSavedNumber="4% more than last Month"
+                chartSeries={chartData}
+                chartData={dashboard.duration}
               />
-          ) : (
-            <NullState />
-          )} 
-          </PaperBox>
-            </Grid>
+            </PaperBox>
           </Grid>
 
-          </Box>
+          <Grid item sm={7} xs={12}>
+            <PaperBox>
+              <CategoryProgressCard contents={progressCardDataTwo} />
+            </PaperBox>
+          </Grid>
 
-      
-      
-
-        
-  
+          <Grid item sm={5} xs={12}>
+            <PaperBox>
+              <H3 text="Deliveries" />
+              {dashboard.completed && dashboard.pending ? (
+                <DoghnutChart
+                  onTimePercentage={+onTime.toFixed(2)}
+                  delayedPercentage={+delayed.toFixed(2)}
+                  doghnutData={series}
+                />
+              ) : (
+                <NullState />
+              )}
+            </PaperBox>
+          </Grid>
+        </Grid>
+      </Box>
     </ModuleContainer>
   );
 };
