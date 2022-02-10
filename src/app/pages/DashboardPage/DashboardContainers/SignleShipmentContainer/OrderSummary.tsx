@@ -96,7 +96,7 @@ function OrderSummary({ path: string }) {
                         item.itemCount,
                         item.orderId
                     ),
-                    "Order Cost": `$${item.total}`,
+                    "Order Cost": `$${item.total.toFixed(2)}`,
                 });
             });
         }
