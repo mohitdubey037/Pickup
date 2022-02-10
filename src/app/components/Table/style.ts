@@ -27,25 +27,24 @@ export const CustomTable = styled(Table)`
       padding: 8px 0;
     }
   }
-  th {
+  th, td  {
     color: #828282;
     font-size: 14px;
     line-height: 150%;
     border-bottom:none;
-    padding: 10px 16px;
+    padding: 8px 16px;
     border: 1px solid #dcdcdc;
     font-family: "Roboto";
+    @media (max-width:768px){
+      padding: 8px;
+    }
     img {
       float: right;
       cursor: pointer;
     }
   }
   td {
-    font-size: 14px;
-    line-height: 150%;
     color: #515151;
-    padding: 8px 16px;
-    font-family: "Roboto";
   }
   .MuiTableCell-paddingCheckbox {
     width: 24px;
@@ -55,6 +54,9 @@ export const CustomTable = styled(Table)`
     color:#1B8AF0;
     text-decoration:underline;
   }
+  .MuiCheckbox-root {
+    margin-right: 0px;
+}
 `;
 
 export const CustomPagination = styled(TablePagination)`

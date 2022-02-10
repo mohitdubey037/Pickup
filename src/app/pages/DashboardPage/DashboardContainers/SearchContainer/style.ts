@@ -9,8 +9,17 @@ export const SearchTableTop = styled.div`
   padding:12px 24px;
   justify-content: space-between;
   box-sizing:border-box;
+  @media (max-width:600px){
+    padding:12px;
+  }
   .heading{
     color: #f99746;
+    @media (max-width:600px){
+      font-size:16px;
+    }
+  }
+  .spanlabel{
+    margin-left:8px;
   }
 `;
 

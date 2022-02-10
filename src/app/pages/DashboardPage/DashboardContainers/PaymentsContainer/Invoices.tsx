@@ -75,8 +75,8 @@ const InvoicesContainer = ({ path: string }) => {
     return (
       <SearchTableTop>
         <Flex alignItems="center">
-          <H3 text={`${invoiceData.length} Invoices`} />
-          <H5 text="(0 Selected)" />
+          <H3 text={`${invoiceData.length} Invoices`} className="heading" />
+          <H5 text="(0 Selected)" className="spanlabel" />
         </Flex>
         <Button
           size="small"
@@ -142,8 +142,9 @@ const InvoicesContainer = ({ path: string }) => {
   return (
     <ModuleContainer>
       <H2 title="Invoices" />
-      <GridContainer container spacing={2} mt={3}>
-        <Grid item md={2}>
+      <Box mt={3} mb={2}>
+      <GridContainer container spacing={2}>
+        <Grid item xs={6} sm={3} lg={2}>
           <Input
             id="invoiceNumber"
             name="invoiceNumber"
@@ -155,28 +156,31 @@ const InvoicesContainer = ({ path: string }) => {
             placeholder="eg. 123,321"
           />
         </Grid>
-        <Grid item md={2}>
+        <Grid item xs={6} sm={3} lg={2}>
           <DatePickerInput
             label="From Date"
+            maxDate={new Date()}
             placeholder={"e.g 06/06/2021"}
             value={values.fromDate || null}
             onChange={(val) => setFieldValue("fromDate", val)}
           />
         </Grid>
-        <Grid item md={2}>
+        <Grid item xs={6} sm={3} lg={2}>
           <DatePickerInput
             label="To Date"
+            maxDate={new Date()}
             placeholder={"e.g 06/06/2021"}
             value={values.toDate || null}
             onChange={(val) => setFieldValue("toDate", val)}
           />
         </Grid>
-        <Grid item md={2}>
+        <Grid item xs={6} sm={3} lg={2}>
           <FilterFlexBox>
             <Button label="Search" onClick={handleSubmit} size="small" />
           </FilterFlexBox>
         </Grid>
       </GridContainer>
+      </Box>
 
       <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
