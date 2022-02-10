@@ -22,20 +22,15 @@ import {
   getSearchOrderListById,
   getPaginatedData
 } from "../../../../../services/SearchItemService";
-import { DatePicker, LocalizationProvider, TimePicker } from "@mui/lab";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-
 import { navigate } from "@reach/router";
 import { Grid } from "@mui/material";
-import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { DateComponent } from 'app/components/CommonCss/CommonCss';
 import moment from "moment";
 import {STATUS} from '../../../../../../src/constants';
 import { FilterFlexBox } from "../PaymentsContainer/style";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import InvoiceDrawerSkeleton from "../PaymentsContainer/InvoiceDrawerSkeleton";
 import { AddressDetailsSkeleton } from "./AddressDetailsSkeleton";
+import DatePickerInput from "app/components/Input/DatePickerInput";
 
 
 const SearchContainer = ({ path: string }) => {
@@ -139,8 +134,8 @@ const SearchContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${searchRecordData?.list?.length} Orders`} className="heading" />
-        <Button label="Print" onClick={() => {}} size="small" secondary />
+        <H3 text={`${searchRecordData ?searchRecordData?.list?.length : 0} Orders`} className="heading" />
+        <Button label="Print" onClick={() => {}} size="small" />
       </SearchTableTop>
     );
   };
@@ -212,7 +207,7 @@ const SearchContainer = ({ path: string }) => {
         orderId: "",
         fromDate: "",
         toDate: "",
-        status: ""
+        status: "pending"
       },
       onSubmit: (values) => getSearchListData(values),
     });
@@ -257,62 +252,23 @@ const SearchContainer = ({ path: string }) => {
           />
         </Grid>
         <Grid item xs={6} sm={4} lg={2}>
-          <Box display="flex" flexDirection="column">
-            <p style={{margin: '0 0 8px 0'}}>From Date</p>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DateComponent>
-              <DatePicker
-                  // label="06/06/2021"
-                  value={values.fromDate || null}
-                  onChange={(val) => setData('fromDate', val)}
-                  open={fromDateOpen}
-                  onOpen={() => setFromDateOpen(true)}
-                  onClose={() => setFromDateOpen(false)}
-                  disablePast
-                  renderInput={(params) => (
-                    <TextField
-                        style={{ width: '100%' }}
-                        label="From Date"
-                        placeholder={"e.g 06/06/2021"}
-                        {...params}
-                        onClick={() => setFromDateOpen(true)}
-                        defaultValue={""}
-                        InputLabelProps={{ shrink: false }} 
-                    />
-                  )}
-              />
-            </DateComponent>
-            </LocalizationProvider>   
-          </Box>  
+        <DatePickerInput
+          label="From Date"
+          maxDate={new Date()}
+          placeholder={"e.g 06/06/2021"}
+          value={values.fromDate || null}
+          onChange={(val) => setData("fromDate", val)}
+        />
         </Grid>
         <Grid item xs={6} sm={4} lg={2}>
-          <Box display="flex" flexDirection="column">
-          <p style={{margin: '0 0 8px 0'}}>To Date</p>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateComponent>
-            <DatePicker
-              // label="06/06/2021"
-              value={values.toDate || null}
-              onChange={(val) => setData('toDate',val)}
-              open={toDateOpen}
-              onOpen={() => setToDateOpen(true)}
-              onClose={() => setToDateOpen(false)}
-              disablePast
-              renderInput={(params) => (
-                <TextField
-                    style={{ width: '100%' }}
-                    label="To Date"
-                    placeholder={"e.g 06/06/2021"}
-                    {...params}
-                    onClick={() => setToDateOpen(true)}
-                    defaultValue={""}
-                    InputLabelProps={{ shrink: false }} 
-                />
-              )}
-            />
-          </DateComponent>
-          </LocalizationProvider>
-        </Box>
+          <DatePickerInput
+            maxDate={new Date()}
+            label="To Date"
+            placeholder={"e.g 06/06/2021"}
+            value={values.toDate || null}
+            onChange={(val) => setData("toDate", val)}
+          />
+        {/* </Box> */}
         </Grid>
         <Grid item xs={6} sm={4} lg={2}>
           {/* <Select label="Status" /> */}

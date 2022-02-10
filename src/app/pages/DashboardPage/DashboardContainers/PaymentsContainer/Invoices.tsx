@@ -159,6 +159,7 @@ const InvoicesContainer = ({ path: string }) => {
         <Grid item xs={6} sm={3} lg={2}>
           <DatePickerInput
             label="From Date"
+            maxDate={new Date()}
             placeholder={"e.g 06/06/2021"}
             value={values.fromDate || null}
             onChange={(val) => setFieldValue("fromDate", val)}
@@ -167,6 +168,7 @@ const InvoicesContainer = ({ path: string }) => {
         <Grid item xs={6} sm={3} lg={2}>
           <DatePickerInput
             label="To Date"
+            maxDate={new Date()}
             placeholder={"e.g 06/06/2021"}
             value={values.toDate || null}
             onChange={(val) => setFieldValue("toDate", val)}
