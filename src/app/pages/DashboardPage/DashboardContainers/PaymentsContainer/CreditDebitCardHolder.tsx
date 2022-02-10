@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import { Accordion } from "app/components/Accordion";
 import PaymentCardList from "app/components/PaymentCardList";
 import { H4 } from "app/components/Typography/Typography";
@@ -36,11 +37,15 @@ const CreditDebitCardHolder: FC<CreditDebitCardHolderProps> = ({
             title={getTitle("Cards", creditCardDetails)}
             defaultExpanded
           >
+            <Grid container spacing={2}>
+            <Grid item md={6} xs={12}>
             <PaymentCardList
               cards={creditCardDetails}
               selectedCard={selectedCard}
               setSelectedCard={setSelectedCard}
             />
+            </Grid>
+            </Grid>
           </Accordion>
         </AccordionOuterBox>
       )}
@@ -52,11 +57,16 @@ const CreditDebitCardHolder: FC<CreditDebitCardHolderProps> = ({
             }}
             title={getTitle("Debit Card", debitCardDetails)}
           >
+            
+            <Grid container spacing={2}>
+            <Grid item md={6} xs={12}>
             <PaymentCardList
               cards={debitCardDetails}
               selectedCard={selectedCard}
               setSelectedCard={setSelectedCard}
             />
+            </Grid>
+            </Grid>
           </Accordion>
         </AccordionOuterBox>
       )}

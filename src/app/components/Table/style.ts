@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Table } from "@material-ui/core";
 import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
+import { TableCell } from "@mui/material";
 
 export const TableTop = styled.div`
   border: 1px solid #dcdcdc;
@@ -73,3 +74,4 @@ export const CustomPagination = styled(TablePagination)`
     margin-left:0px;
 }
 `;
+

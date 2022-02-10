@@ -31,6 +31,7 @@ import { FilterFlexBox } from "../PaymentsContainer/style";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { AddressDetailsSkeleton } from "./AddressDetailsSkeleton";
 import DatePickerInput from "app/components/Input/DatePickerInput";
+import TableSkeleton from "app/components/Table/TableSkeleton";
 
 
 const SearchContainer = ({ path: string }) => {
@@ -42,16 +43,12 @@ const SearchContainer = ({ path: string }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerType, setDrawerType] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
-
-  const [fromDateOpen, setFromDateOpen] = useState(false);
-  const [toDateOpen, setToDateOpen] = useState(false);
-
-  // const [pageMetaData, setPageMetaData] = useState({});
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
   const [totalData, setTotalData] = useState<any>(10);
 
   const getSearchOrderListData = async (url?:any) => {
+    setLoading(true);
     const res = (await getSearchOrderList(url)) as any;
     if (res.success) {
       const orderList = res.response.data.data;
@@ -61,6 +58,7 @@ const SearchContainer = ({ path: string }) => {
       setPage(orderList?.pageMetaData?.page - 1);
       setTotalPages(orderList?.pageMetaData?.totalPages);
       setTotalData(orderList?.pageMetaData?.total);
+      setLoading(false);
     }
     else if (!res.error) {
       const InvoiceList = res;
@@ -135,7 +133,7 @@ const SearchContainer = ({ path: string }) => {
     return (
       <SearchTableTop>
         <H3 text={`${searchRecordData ?searchRecordData?.list?.length : 0} Orders`} className="heading" />
-        <Button label="Print" onClick={() => {}} size="small" />
+        <Button label="Print" onClick={() => {}} size="small" secondary />
       </SearchTableTop>
     );
   };
@@ -222,102 +220,100 @@ const SearchContainer = ({ path: string }) => {
   return (
     <ModuleContainer>
       <H2 title="Search" />
-      
+
       <Box mt={3} mb={2}>
-      <GridContainer container spacing={2}>
-        <Grid item xs={6} sm={4} lg={2}>
-          {/* <Input label="Invoice Number" placeholder="eg. 123,321" /> */}
-          <Input
-          id="invoiceNumber"
-          name="invoiceNumber"
-          initValue={values.invoiceNumber}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          error={touched.invoiceNumber && errors.invoiceNumber}
-          label="Invoice Number"
-          placeholder="eg. 123,321"
-        />
-        </Grid>
-        <Grid item xs={6} sm={4} lg={2}>
-          {/* <Input label="Order Id" placeholder="eg. 123,321" /> */}
+        <GridContainer container spacing={2}>
+          <Grid item xs={6} sm={4} lg={2}>
+            {/* <Input label="Invoice Number" placeholder="eg. 123,321" /> */}
             <Input
-            id="orderId"
-            name="orderId"
-            initValue={values.orderId}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.orderId && errors.orderId}
-            label="Order Id"
-            placeholder="eg. 123,321"
-          />
-        </Grid>
-        <Grid item xs={6} sm={4} lg={2}>
-        <DatePickerInput
-          label="From Date"
-          maxDate={new Date()}
-          placeholder={"e.g 06/06/2021"}
-          value={values.fromDate || null}
-          onChange={(val) => setData("fromDate", val)}
-        />
-        </Grid>
-        <Grid item xs={6} sm={4} lg={2}>
-          <DatePickerInput
-            maxDate={new Date()}
-            label="To Date"
-            placeholder={"e.g 06/06/2021"}
-            value={values.toDate || null}
-            onChange={(val) => setData("toDate", val)}
-          />
-        {/* </Box> */}
-        </Grid>
-        <Grid item xs={6} sm={4} lg={2}>
-          {/* <Select label="Status" /> */}
-          <Select
+              id="invoiceNumber"
+              name="invoiceNumber"
+              initValue={values.invoiceNumber}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.invoiceNumber && errors.invoiceNumber}
+              label="Invoice Number"
+              placeholder="eg. 123,321"
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            {/* <Input label="Order Id" placeholder="eg. 123,321" /> */}
+            <Input
+              id="orderId"
+              name="orderId"
+              initValue={values.orderId}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.orderId && errors.orderId}
+              label="Order Id"
+              placeholder="eg. 123,321"
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            <DatePickerInput
+              label="From Date"
+              maxDate={new Date()}
+              placeholder={"e.g 06/06/2021"}
+              value={values.fromDate || null}
+              onChange={(val) => setData("fromDate", val)}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            <DatePickerInput
+              maxDate={new Date()}
+              label="To Date"
+              placeholder={"e.g 06/06/2021"}
+              value={values.toDate || null}
+              onChange={(val) => setData("toDate", val)}
+            />
+            {/* </Box> */}
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            {/* <Select label="Status" /> */}
+            <Select
               id={`${STATUS}.value`}
               name={`${STATUS}.label`}
               label={"Status"}
               value={String(values?.status)}
-              onSelect={(e) =>
-                setData("status", e.target.value)
-              }
+              onSelect={(e) => setData("status", e.target.value)}
               disabled={false}
               options={
-                STATUS ?
-                  STATUS.map((option) => ({
-                            value: option.value,
-                            label: option.label,
-                        }))
-                        : []
+                STATUS
+                  ? STATUS.map((option) => ({
+                      value: option.value,
+                      label: option.label,
+                    }))
+                  : []
               }
               required
-          />
-        </Grid>
-        <Grid item xs={6} sm={4} lg={2}>
-          <FilterFlexBox>
-            <Button size="small" label="Search" onClick={handleSubmit} />
-            <Box>
-              <img
-                onClick={openAdvanceFilterDrawer}
-                src={sliders}
-                alt=""
-              />
-            </Box>
-          </FilterFlexBox>
-        </Grid>
-      </GridContainer>
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            <FilterFlexBox>
+              <Button size="small" label="Search" onClick={handleSubmit} />
+              <Box>
+                <img onClick={openAdvanceFilterDrawer} src={sliders} alt="" />
+              </Box>
+            </FilterFlexBox>
+          </Grid>
+        </GridContainer>
       </Box>
 
-      <Table
-        data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
-        tableTop={tableTop()}
-        paginationData = {(page) => getSearchPaginatedData(page)}
-        showCheckbox
-        showPagination
-        page={page}
-        totalData = {totalData}
-        totalPage = {totalPages}
-        filterColumns={[0, 1, 2, 3, 4, 5]}
-      />
+      {loading ? (
+        <TableSkeleton />
+      ) : (
+        <Table
+          data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
+          tableTop={tableTop()}
+          paginationData={(page) => getSearchPaginatedData(page)}
+          showCheckbox
+          showPagination
+          page={page}
+          totalData={totalData}
+          totalPage={totalPages}
+          filterColumns={[0, 1, 2, 3, 4, 5]}
+        />
+      )}
 
       <Drawer
         open={drawerOpen}
@@ -325,7 +321,7 @@ const SearchContainer = ({ path: string }) => {
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
         actionButtons={true}
-        size={drawerType === "orderDetails" ? "large" : "small" }
+        size={drawerType === "orderDetails" ? "large" : "small"}
       >
         {drawerType === "invoice" ? (
           <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
@@ -334,12 +330,12 @@ const SearchContainer = ({ path: string }) => {
         ) : (
           <>
             {loading ? (
-            <AddressDetailsSkeleton />
+              <AddressDetailsSkeleton />
             ) : (
-            <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />
+              <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />
             )}
           </>
-            )}
+        )}
       </Drawer>
     </ModuleContainer>
   );
