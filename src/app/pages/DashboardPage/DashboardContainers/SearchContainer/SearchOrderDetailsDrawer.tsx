@@ -22,17 +22,21 @@ function SearchOrderDetailsDrawer(props: any) {
       <Tabs value={value} onChange={handleChange} className="tabs">
         <Tab value="orderDetails" label="Order Details" />
         <Tab value="itemDetails" label="Item Details" />
-        <Tab value="trackingDetails" label="Tracking Details" />
+        {/* <Tab value="trackingDetails" label="Tracking Details" /> */}
       </Tabs>
       
       <Box mb={3}>
         {value === "orderDetails" ? (
           <OrderDetailPage singleOrderData={singleOrderData} />
-        ) : value === "itemDetails" ? (
-          <ItemDetailsPage singleOrderData={singleOrderData} />
-        ) : (
-          <TrackingDetailsPage singleOrderData={singleOrderData} />
-        )}
+        ) : 
+        // value === "itemDetails" ? (
+          (
+            <ItemDetailsPage singleOrderData={singleOrderData} />
+          )
+        // ) 
+        // : (
+          // <TrackingDetailsPage singleOrderData={singleOrderData} />
+        }
      </Box>
      
     </TabWrapper>
