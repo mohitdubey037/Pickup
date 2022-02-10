@@ -31,12 +31,22 @@ export const addNewCardService = async (body: any) => {
 }
 
 export const getInvoiceList = async (urlParams: string)=>{
-    try {
-        const res = await Services.get(`order/business/invoices${urlParams}`,"order")
-        return{response: res, error:null};
-    }catch(error){
-    return {response: null, error: error};
-    }
+  try {
+      const res = await Services.get(`order/business/invoices${urlParams}`,"order")
+      return{response: res, error:null};
+  }catch(error){
+  return {response: null, error: error};
+  }
+}
+
+export const getPaginatedInvoice = async (page?: number, chunk?: number) => {
+  try {
+    // const response = await Service.get(`order/business/shipments${urlParams}`, "order");
+    const response = await Services.get(`order/business/invoices?page=${page}&chunk=${chunk}`, "order");
+    return { response: response, success: true };
+  } catch (err) {
+    return { response: err, sucess: false };
+  }
 }
 
 // export const updateCard = async (cardData: cardData) => {
