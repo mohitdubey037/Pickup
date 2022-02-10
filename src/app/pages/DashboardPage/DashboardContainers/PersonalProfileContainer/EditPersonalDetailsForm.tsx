@@ -2,7 +2,7 @@ import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 import { personalFormSchema } from "./personalFormSchema";
-import { PERMISSION_TYPES, IMAGE_FILE_TYPES } from "../../../../../constants";
+import { PERMISSION_TYPES, IMAGE_FILE_TYPES, PHONE_NO_MASK } from "../../../../../constants";
 import Select from "app/components/Select";
 
 import { imageUploadService } from "services/SingleShipmentServices";
@@ -55,7 +55,10 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
       permission: personalProfileDetails?.roleId,
     },
     validationSchema: personalFormSchema,
-    onSubmit: (values) => saveAction(values),
+    onSubmit: (values) => {
+      values.phone = values.phone.replace(/[()-]/g, "");
+      saveAction(values);
+    },
   });
 
   const changeHandler = async (e) => {
@@ -126,6 +129,8 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         label="Phone Number"
         placeholder="+1 (999)-999-9999"
         required={true}
+        type="mask"
+        maskProps={PHONE_NO_MASK}
       />
       <Input
         id="role"

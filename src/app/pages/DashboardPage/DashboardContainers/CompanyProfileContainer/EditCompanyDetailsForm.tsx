@@ -240,10 +240,7 @@ const EditCompanyDetailsForm = ({
         label="Pincode"
         placeholder={"ABC 123"}
         type="mask"
-        maskProps={{
-          mask: PIN_CODE_MASK,
-          maskPlaceholder: null,
-        }}
+        maskProps={PIN_CODE_MASK}
       />
       <Grid container spacing={2}>
         <Grid item sm={6} xs={12}>
