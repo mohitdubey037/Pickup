@@ -36,8 +36,8 @@ function DetailsFormItem(props: {
 
     return (
         <ItemDetailsBox>
-            <Box mb={3} mt={3}>
-                <Box display="flex" justifyContent="space-between">
+            
+                <Box display="flex" justifyContent="space-between" mt={3} mb={3}>
                     <H4 text={`Item #${index + 1}`} className="heading" />
                     {props?.formik?.values?.orders?.[props.orderIndex]
                         .shipmentDetails?.length > 1 && (
@@ -54,14 +54,14 @@ function DetailsFormItem(props: {
                         </Box>
                     )}
                 </Box>
-            </Box>
+           
 
             {props.hasDimensions && (
-                <Box mb={3} mt={5}>
-                    <GridContainer container spacing={6}>
+               
+                    <GridContainer container spacing={3}>
                         <Grid item sm={6} xs={12}>
-                            <GridContainer container spacing={2}>
-                                <Grid item xs={6} lg={8}>
+                            <GridContainer container spacing={1}>
+                                <Grid item xs={6} lg={9}>
                                     <CustomInput
                                         name={`${formFieldName}.${formItem}.weight`}
                                         id={`${formFieldName}.${formItem}.weight`}
@@ -79,7 +79,7 @@ function DetailsFormItem(props: {
                                         required
                                     />
                                 </Grid>
-                                <Grid item xs={6} lg={4}>
+                                <Grid item xs={6} lg={3}>
                                     <SelectNew
                                         id={`${formFieldName}.${formItem}.weightDimension`}
                                         name={`${formFieldName}.${formItem}.weightDimension`}
@@ -101,7 +101,7 @@ function DetailsFormItem(props: {
                         </Grid>
 
                         <Grid item lg={6} xs={12}>
-                            <GridContainer container spacing={2}>
+                            <GridContainer container spacing={1}>
                                 <Grid item xs={6} sm={3}>
                                     <CustomInput
                                         id={`${formFieldName}.${formItem}.length`}
@@ -174,11 +174,11 @@ function DetailsFormItem(props: {
                             </GridContainer>
                         </Grid>
                     </GridContainer>
-                </Box>
+                
             )}
 
             <Box>
-                <GridContainer container spacing={2}>
+                <GridContainer container spacing={3}>
                     <Grid item xs={6}>
                         <CustomInput
                             id={`${formFieldName}.${formItem}.quantity`}

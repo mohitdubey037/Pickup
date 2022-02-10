@@ -222,8 +222,9 @@ const SearchContainer = ({ path: string }) => {
   return (
     <ModuleContainer>
       <H2 title="Search" />
-
-      <GridContainer container spacing={2} mt={3}>
+      
+      <Box mt={3} mb={2}>
+      <GridContainer container spacing={2}>
         <Grid item xs={6} sm={4} lg={2}>
           {/* <Input label="Invoice Number" placeholder="eg. 123,321" /> */}
           <Input
@@ -304,6 +305,7 @@ const SearchContainer = ({ path: string }) => {
           </FilterFlexBox>
         </Grid>
       </GridContainer>
+      </Box>
 
       <Table
         data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
