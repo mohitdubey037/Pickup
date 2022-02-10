@@ -17,6 +17,7 @@ import {
 import InvoiceDetails from "./InvoiceDetails";
 import CreditDebitCardHolder from "./CreditDebitCardHolder";
 import { actions } from "store/reducers/PaymentReducer";
+import { actions as shipmentActions } from "store/reducers/SingleShipmentReducer";
 import { Button } from "app/components/Buttons";
 import { showToast } from "utils";
 import { CardType } from "../../../../../types";
@@ -87,6 +88,7 @@ function ShipmentSummary({ path }: { path: string }) {
 
     useEffect(() => {
         return () => {
+            dispatch(shipmentActions.setInvoice(null));
             dispatch(actions.addNewCardResponse(null));
         };
     }, [dispatch]);
@@ -137,6 +139,8 @@ function ShipmentSummary({ path }: { path: string }) {
         if (!res.error) {
             showToast("Payment successful", "success");
             setShowInvoiceDrawer(true);
+            dispatch(shipmentActions.resetOrderIds());
+            dispatch(shipmentActions.setShipmentDetails(null));
         } else {
             showToast(
                 res.error?.message || "Oops! Something went wrong!",
@@ -162,6 +166,8 @@ function ShipmentSummary({ path }: { path: string }) {
         if (!res.error) {
             showToast("Payment successful", "success");
             setShowInvoiceDrawer(true);
+            dispatch(shipmentActions.resetOrderIds());
+            dispatch(shipmentActions.setShipmentDetails(null));
         } else {
             showToast(
                 res.error?.message || "Oops! Something went wrong!",

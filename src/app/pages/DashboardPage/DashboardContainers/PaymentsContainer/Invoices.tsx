@@ -13,7 +13,7 @@ import { Flex } from "app/components/Input/style";
 import { invoiceTable } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
-import { getInvoiceList, getPaginatedInvoice } from "../../../../../services/PaymentServices/index";
+import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { SearchTableTop } from "../SearchContainer/style";
@@ -95,9 +95,9 @@ const InvoicesContainer = ({ path: string }) => {
     getInvoiceListData();
   }, []);
 
-  useEffect(() => {
-    console.log(invoiceData, page, totalPages, setTotalPages);
-  },[invoiceData, page, totalPages, setTotalPages])
+  // useEffect(() => {
+  //   console.log(invoiceData, page, totalPages, setTotalPages);
+  // },[invoiceData, page, totalPages, setTotalPages])
 
   const getInvoiceListData = async (values?: object) => {
     let urlParams = "";
@@ -121,7 +121,6 @@ const InvoicesContainer = ({ path: string }) => {
   };
 
   const getSearchInvoiceListData = async (url?:any) => {
-    console.log('hiii');
     const res = (await getInvoiceList(url)) as any;
     console.log(res);
     if (!res?.error) {
@@ -143,9 +142,10 @@ const InvoicesContainer = ({ path: string }) => {
       getInvoiceListData();
     }
     else {
-      const res = (await getPaginatedInvoice(page+1, 10)) as any;
-      if (res.success) {
+      const res = (await getInvoiceList('',page+1, 10)) as any;
+      if (!res?.error) {
         const InvoiceList = res.response.data.data.list;
+        console.log(InvoiceList);
         setPage(page);
         setInvoiceData(InvoiceList);
       }

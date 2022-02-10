@@ -87,7 +87,7 @@ export const invoiceTable = (
                     item.invoiceId
                 ),
                 "Shipped By": item.shippedBy,
-                "Invoice Amount": `$${item.total}`,
+                "Invoice Amount": `$${item.total.toFixed(2)}`,
                 "Invoice Number": getInvoiceIdItem(
                     openInvoiceDrawer,
                     item.invoiceNumber,

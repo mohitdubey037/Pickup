@@ -98,8 +98,9 @@ const Table = ({
                                 Object.keys(data[0] as object).map((title, idx: number) => (
                                     <TableCell>
                                         {title}
+                                        {/* {console.log(title)} */}
                                         {filterColumns?.includes(idx) && (
-                                            <img src={sortBy} alt="" />
+                                            <img src={sortBy} alt=""/>
                                         )}
                                     </TableCell>
                                 ))}
@@ -138,6 +139,8 @@ const Table = ({
                     rowsPerPage={10}
                     page={page ? page : 0}
                     onPageChange={handleChangePage}
+                    labelRowsPerPage=""
+                    rowsPerPageOptions={[]}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     // labelRowsPerPage={
                     //     <Input

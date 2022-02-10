@@ -28,10 +28,13 @@ export const getLocation = async (orderId: number) => {
   }
 };
 
-export const getSearchOrderList = async (urlParams?: string) => {
+export const getSearchOrderList = async (urlParams?: string, page?: number, chunk?: number) => {
   try {
-    const response = await Service.get(`order/business/shipments${urlParams}`, "order");
-    // const response = await Service.get(`order/business/shipments?page=1&chunk=10`, "order");
+    let api = `order/business/shipments${urlParams}`
+    if (page) {
+      api += `?page=${page}&&chunk=${chunk}`
+    }
+    const response = await Service.get(api, "order");
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };

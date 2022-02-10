@@ -19,8 +19,7 @@ import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getSearchOrderList,
-  getSearchOrderListById,
-  getPaginatedData
+  getSearchOrderListById
 } from "../../../../../services/SearchItemService";
 import { navigate } from "@reach/router";
 import { Grid } from "@mui/material";
@@ -68,10 +67,10 @@ const SearchContainer = ({ path: string }) => {
 
   const getSearchPaginatedData = async (page) => {
     if (page === 0) {
-      getSearchOrderListData("");
+      getSearchListData();
     }
     else {
-      const res = (await getPaginatedData(page+1, 10)) as any;
+      const res = (await getSearchOrderList('',page+1, 10)) as any;
       if (res.success) {
         const orderList = res.response.data.data;
         setPage(page);
@@ -108,7 +107,6 @@ const SearchContainer = ({ path: string }) => {
   }, [dispatch]);
 
   const getSearchListData = async (values?: object) => {
-    console.log(values);
     let urlParams = "";
     if (values) {
       urlParams += "?";

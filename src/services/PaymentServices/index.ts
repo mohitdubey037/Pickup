@@ -30,22 +30,17 @@ export const addNewCardService = async (body: any) => {
     }
 }
 
-export const getInvoiceList = async (urlParams: string)=>{
+export const getInvoiceList = async (urlParams?: string, page?: number, chunk?: number)=>{
   try {
-      const res = await Services.get(`order/business/invoices${urlParams}`,"order")
+    let api = `order/business/invoices${urlParams}`
+    if (page) {
+      api += `?page=${page}&&chunk=${chunk}`
+    }
+      const res = await Services.get(api,"order");
+      console.log(res);
       return{response: res, error:null};
   }catch(error){
   return {response: null, error: error};
-  }
-}
-
-export const getPaginatedInvoice = async (page?: number, chunk?: number) => {
-  try {
-    // const response = await Service.get(`order/business/shipments${urlParams}`, "order");
-    const response = await Services.get(`order/business/invoices?page=${page}&chunk=${chunk}`, "order");
-    return { response: response, success: true };
-  } catch (err) {
-    return { response: err, sucess: false };
   }
 }
 
@@ -137,7 +132,6 @@ export const removeInsuranceService = async (invoiceId: string) => {
 };
 
 export const getOrderDetails = async (invoiceId: string) => {
-  console.log(invoiceId);
   try {
     const res: any = await Services.get(
       `order/business/invoice/${invoiceId}`,
