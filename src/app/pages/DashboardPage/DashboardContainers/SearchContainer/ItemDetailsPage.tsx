@@ -122,12 +122,14 @@ function ItemDetailsPage(props: any) {
               <H4 className="value" text={item.description ? item.description : "-"} />
             </Grid>
 
-            <Grid item md={12}>
-              <OrderImage
-                src={item.picture ? item.picture : itempicture}
-                alt=""
-              />
-            </Grid>
+              {item.picture && 
+                <Grid item md={12}>
+                  <OrderImage
+                    src={item.picture}
+                    alt=""
+                  />
+                </Grid>
+              }
 
           </Grid>
         </Accordion>

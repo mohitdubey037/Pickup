@@ -13,7 +13,7 @@ import { Flex } from "app/components/Input/style";
 import { invoiceTable } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
-import { getInvoiceList } from "../../../../../services/PaymentServices/index";
+import { getInvoiceList, getPaginatedInvoice } from "../../../../../services/PaymentServices/index";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { SearchTableTop } from "../SearchContainer/style";
@@ -62,7 +62,7 @@ const InvoicesContainer = ({ path: string }) => {
     const multiplePdf = invoiceData
       .filter((invoice, index) => checkboxData.includes(index))
       .map((inv) => inv.invoicePdf);
-    newMultiplePdf.map((url) => {
+      newMultiplePdf.map((url) => {
       // window.open(url);
       let link: any = document.createElement("a");
       link.download = `${[url.split("/").length - 1]}`;
@@ -93,9 +93,16 @@ const InvoicesContainer = ({ path: string }) => {
     );
   };
 
+  useEffect(() => {
+    getInvoiceListData();
+  }, []);
+
+  useEffect(() => {
+    console.log(invoiceData, page, totalPages, setTotalPages);
+  },[invoiceData, page, totalPages, setTotalPages])
+
   const getInvoiceListData = async (values?: object) => {
     let urlParams = "";
-
     if (values) {
       values["fromDate"] = values["fromDate"]
         ? moment(values["fromDate"]).format("YYYY-MM-DD")
@@ -112,19 +119,47 @@ const InvoicesContainer = ({ path: string }) => {
             : "")
       );
     }
+    getSearchInvoiceListData(urlParams);
+  };
+
+  const getSearchInvoiceListData = async (url?:any) => {
+    console.log('hiii');
     setLoading(true);
-    const res: any = await getInvoiceList(urlParams);
-    if (!res.error) {
+    const res = (await getInvoiceList(url)) as any;
+    console.log(res);
+    if (!res?.error) {
       const InvoiceList = res.response.data.data.list;
-      // setInvoiceData(dummy);
+      console.log(InvoiceList);
+      setInvoiceData(InvoiceList);
+      setPage(res.response.data.data.pageMetaData.page - 1) 
+      setTotalPages(res.response.data.data.pageMetaData.totalPages);
+      setTotalData(res.response.data.data.pageMetaData.total);
+    }
+    else if (!res.error) {
+      const InvoiceList = res;
       setInvoiceData(InvoiceList);
     }
     setLoading(false);
   };
 
-  useEffect(() => {
-    getInvoiceListData();
-  }, []);
+  const getSearchPaginatedData = async (page) => {
+    if (page === 0) {
+      getInvoiceListData();
+    }
+    else {
+      const res = (await getPaginatedInvoice(page+1, 10)) as any;
+      if (res.success) {
+        const InvoiceList = res.response.data.data.list;
+        setPage(page);
+        setInvoiceData(InvoiceList);
+      }
+      else if (!res.error) {
+        const InvoiceList = res;
+        setInvoiceData(InvoiceList);
+      }
+    }
+  }
+
 
   const {
     values,
@@ -196,6 +231,7 @@ const InvoicesContainer = ({ path: string }) => {
         dataChecked={(data: any) => {
           setCheckboxData(data);
         }}
+        paginationData = {(page) => getSearchPaginatedData(page)}
         showCheckbox
         showPagination
         perPageRows={10}
