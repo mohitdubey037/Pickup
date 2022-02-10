@@ -74,6 +74,7 @@ function OrderDetailsDrawer({ orderId, setDrawerOpen }) {
                 ? orderDetails.shipmentReference
                 : "-"
             }`}
+            defaultExpanded
           >
             <Box>
               <Grid container spacing={2}>
