@@ -46,6 +46,7 @@ export const CustomTable = styled(Table)`
   }
   td {
     color: #515151;
+    border: none;
   }
   .MuiTableCell-paddingCheckbox {
     width: 24px;

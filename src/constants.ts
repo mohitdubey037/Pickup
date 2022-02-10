@@ -10,6 +10,7 @@ export const HERE_MAPS_API_KEY = process.env.REACT_APP_HERE_MAPS_API_KEY;
 
 export const PHONE_NUMBER_REGX =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+export const PHONE_NUMBER_REGEX_NEW = /^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
 export const PASSWORD_REGX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 export const NEWPASSWORD_REGEX =
@@ -18,15 +19,23 @@ export const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export const PIN_CODE_REGEX = /^([a-zA-Z0-9]+)$|^[a-zA-Z0-9]+\s[a-zA-Z0-9]+$/;
 
-export const PIN_CODE_MASK = [
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-  /[a-zA-Z0-9 ]/,
-];
+export const PIN_CODE_MASK = {
+  mask: [
+    /[a-zA-Z0-9 ]/,
+    /[a-zA-Z0-9 ]/,
+    /[a-zA-Z0-9 ]/,
+    /[a-zA-Z0-9 ]/,
+    /[a-zA-Z0-9 ]/,
+    /[a-zA-Z0-9 ]/,
+    /[a-zA-Z0-9 ]/,
+  ],
+  maskPlaceholder: null,
+};
+
+export const PHONE_NO_MASK = {
+  mask: "(999)-999-9999",
+  maskPlaceholder: null,
+};
 
 export const BILLING_TYPES = [
   { label: "Individual", value: "0" },

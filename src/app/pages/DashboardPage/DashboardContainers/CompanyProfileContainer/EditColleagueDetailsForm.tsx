@@ -8,6 +8,7 @@ import {
   // PERMISSION_TYPES,
   NEW_PERMISSION_TYPES,
   IMAGE_FILE_TYPES,
+  PHONE_NO_MASK,
 } from "../../../../../constants";
 import Switches from "app/components/Input/SwitchButton";
 import Select from "app/components/Select";
@@ -55,6 +56,7 @@ const EditColleagueDetailsForm = ({
     },
     validationSchema: editColleagueSchema,
     onSubmit: (values) => {
+      values.phoneNumber = values.phoneNumber.replace(/[()-]/g, "")
       if (!isChecked) {
         values.notification = 0;
         values.notificationFrequency = "";
@@ -146,6 +148,8 @@ const EditColleagueDetailsForm = ({
         error={touched.phoneNumber && errors?.phoneNumber?.toString()}
         label="Phone Number"
         placeholder="+1 (999)-999-9999"
+        type="mask"
+        maskProps={PHONE_NO_MASK}
       />
 
       <Input

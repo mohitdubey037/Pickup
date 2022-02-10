@@ -21,10 +21,10 @@ import { Checkbox } from "app/components/Checkbox";
 import { getParamsFromUrl } from "utils/commonUtils";
 import { H1 } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { Flex } from "app/components/Input/style";
 import { Link } from "app/components/Link";
 import Modal from 'react-modal';
 import TermsAndPolicies from "./Terms&Policies";
+import { PHONE_NO_MASK } from "../../../../constants";
 
 type SignUpProps = RouteComponentProps;
 
@@ -70,6 +70,7 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
 const onSignUp = (values: any) => {
     const data = { ...values, token: token }
+    data.phoneNumber = data.phoneNumber.replace(/[()-]/g, "")
     dispatch(actions.registerCompany(data));
 };
 
@@ -149,6 +150,8 @@ useEffect(() => {
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             error={touched.phoneNumber && errors.phoneNumber}
+                                            type="mask"
+                                            maskProps={PHONE_NO_MASK}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>

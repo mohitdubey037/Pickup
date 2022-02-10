@@ -217,8 +217,12 @@ export const transformPayloadToBackend = (values: any) => {
             locationCompanyName: values.destinationCompanyName,
             locationFirstName: values.destinationFirstName,
             locationLastName: values.destinationLastName,
-            locationPhone: values.destinationContactNumber,
-            locationAlternatePhone: values.destinationAlternateContactNumber,
+            locationPhone: values.destinationContactNumber.replace(
+                /[()-]/g,
+                ""
+            ),
+            locationAlternatePhone:
+                values.destinationAlternateContactNumber.replace(/[()-]/g, ""),
             locationEmail: values.destinationEmailAddress,
             locationBillingType: values.destinationBillingType,
             locationAddressLine1: values.destinationAddressLine1,
@@ -238,8 +242,11 @@ export const transformPayloadToBackend = (values: any) => {
             locationCompanyName: values.originCompanyName,
             locationFirstName: values.originFirstName,
             locationLastName: values.originLastName,
-            locationPhone: values.originContactNumber,
-            locationAlternatePhone: values.originAlternateContactNumber,
+            locationPhone: values.originContactNumber.replace(/[()-]/g, ""),
+            locationAlternatePhone: values.originAlternateContactNumber.replace(
+                /[()-]/g,
+                ""
+            ),
             locationEmail: values.originEmailAddress,
             locationBillingType: values.originBillingType,
             locationAddressLine1: values.originAddressLine1,

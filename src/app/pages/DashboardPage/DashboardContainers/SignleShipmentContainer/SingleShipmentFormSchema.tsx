@@ -1,7 +1,7 @@
 import moment from "moment";
 import * as yup from "yup";
 
-import { PHONE_NUMBER_REGX, PIN_CODE_REGEX } from "../../../../../constants";
+import { PHONE_NUMBER_REGEX_NEW, PIN_CODE_REGEX } from "../../../../../constants";
 import { getSingleDate } from "./helper";
 
 export const singleShipmentFormSchema = yup.object().shape({
@@ -25,8 +25,8 @@ export const singleShipmentFormSchema = yup.object().shape({
             originPostalCode: yup.string().required("Postal Code is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
             originProvinceState: yup.string().required("Province/State is a required field"),
             originCountry: yup.string().required("Country is a required field"),
-            originContactNumber: yup.string().required("Contact Number is a required field").min(10, "Must be exactly 10 digits").max(10, "Must be exactly 10 digits").matches(PHONE_NUMBER_REGX, "Please enter valid Contact Number"),
-            originAlternateContactNumber: yup.string().required("Alternate Contact Number is a required field").min(10, "Must be exactly 10 digits").max(10, "Must be exactly 10 digits").matches(PHONE_NUMBER_REGX, "Please enter valid Contact Number"),
+            originContactNumber: yup.string().required("Contact Number is a required field").matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Contact Number"),
+            originAlternateContactNumber: yup.string().required("Alternate Contact Number is a required field").matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Contact Number"),
             originEmailAddress: yup.string().required("Email Address is a required field").email("Please enter valid email"),
             originAdditionalNotes: yup.string().required("Additional Notes is a required field"),
             originLatitude: yup.string().required("Latitude is a required field"),
@@ -50,8 +50,8 @@ export const singleShipmentFormSchema = yup.object().shape({
             destinationPostalCode: yup.string().required("Postal Code is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
             destinationProvinceState: yup.string().required("Province/State is a required field"),
             destinationCountry: yup.string().required("Country is a required field"),
-            destinationContactNumber: yup.string().required("Contact Number is a required field").min(10, "Must be exactly 10 digits").max(10, "Must be exactly 10 digits").matches(PHONE_NUMBER_REGX, "Please enter valid Contact Number"),
-            destinationAlternateContactNumber: yup.string().required("Alternate Contact Number is a required field").min(10, "Must be exactly 10 digits").max(10, "Must be exactly 10 digits").matches(PHONE_NUMBER_REGX, "Please enter valid Contact Number"),
+            destinationContactNumber: yup.string().required("Contact Number is a required field").matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Contact Number"),
+            destinationAlternateContactNumber: yup.string().required("Alternate Contact Number is a required field").matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Contact Number"),
             destinationEmailAddress: yup.string().required("Email Address is a required field").email("Please enter valid email"),
             destinationAdditionalNotes: yup.string().required("Additional Notes is a required field"),
             destinationLatitude: yup.string().required("Latitude is a required field"),

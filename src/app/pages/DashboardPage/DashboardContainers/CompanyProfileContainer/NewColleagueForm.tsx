@@ -9,6 +9,7 @@ import {
   // PERMISSION_TYPES,
   NOTIFICATION_FREQUENCY_TYPES,
   NEW_PERMISSION_TYPES,
+  PHONE_NO_MASK,
 } from "../../../../../constants";
 import Select from "app/components/Select";
 import { addNewColleague } from "./CompanyProfileSchema";
@@ -44,6 +45,7 @@ function NewColleagueForm({ saveAction }) {
     },
     validationSchema: addNewColleague,
     onSubmit: async (values, actions) => {
+      values.phoneNumber = values.phoneNumber.replace(/[()-]/g, "")
       if (!isChecked) {
         values.notification = 0;
         values.notificationFrequency = "";
@@ -125,6 +127,8 @@ function NewColleagueForm({ saveAction }) {
             label={"Phone Number"}
             placeholder="+1 (999)-999-9999"
             required={true}
+            type="mask"
+            maskProps={PHONE_NO_MASK}
           />
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
