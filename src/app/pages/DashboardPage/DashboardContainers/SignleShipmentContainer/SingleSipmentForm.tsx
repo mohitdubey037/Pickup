@@ -10,6 +10,7 @@ import {
   LOCATION_TYPES,
   BILLING_TYPES,
   PIN_CODE_MASK,
+  PHONE_NO_MASK,
 } from "../../../../../constants";
 import { starimage, starImageEmpty } from "../../../../assets/Icons";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
@@ -361,10 +362,7 @@ function SingleSipmentForm({
                   }
                   required
                   type="mask"
-                  maskProps={{
-                    mask: PIN_CODE_MASK,
-                    maskPlaceholder: null,
-                  }}
+                  maskProps={PIN_CODE_MASK}
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -419,6 +417,8 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}ContactNumber`]
                   }
                   required
+                  type="mask"
+                  maskProps={PHONE_NO_MASK}
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
@@ -439,6 +439,8 @@ function SingleSipmentForm({
                     singleFormErrors?.[`${title}AlternateContactNumber`]
                   }
                   required
+                  type="mask"
+                  maskProps={PHONE_NO_MASK}
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>

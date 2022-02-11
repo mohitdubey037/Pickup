@@ -1,15 +1,9 @@
 import React, { useEffect } from "react";
-import {
-    TableTop,
-    CustomTableContainer,
-    CustomTable,
-    CustomPagination,
-} from "./style";
+import { TableTop, CustomTableContainer, CustomTable, CustomPagination } from "./style";
 import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import { TableProps } from "./type";
 import { sortBy } from "app/assets/Icons";
 import { Checkbox } from "../Checkbox";
-import { Input } from "../Input";
 
 const Table = ({
     tableTop,
@@ -25,15 +19,13 @@ const Table = ({
     totalPage,
     totalData,
     page,
-    paginationData
+    paginationData,
 }: TableProps) => {
-    // console.log(totalPage);
-    // console.log(paginationData);
     // const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [selectedRows, setSelected] = React.useState<Array<unknown>>([]);
 
-    const pagePerRows = 10;
+    // const pagePerRows = 10;
 
     // useEffect(() => {
     //     perPageRows ? setRowsPerPage(perPageRows) : setRowsPerPage(5);
@@ -43,9 +35,7 @@ const Table = ({
         selectedItems ? setSelected(selectedItems) : setSelected([]);
     }, [selectedItems]);
 
-    const handleChangeRowsPerPage = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value));
         // setPage(0);
     };
@@ -53,28 +43,23 @@ const Table = ({
     const handleChangePage = (event: unknown, newPage: number) => {
         paginationData?.(newPage);
         // setPage(newPage);
-        
+        handleCheckboxClick(false, undefined, "header");
     };
 
-    const handleCheckboxClick = (
-        event: React.ChangeEvent<HTMLInputElement>,
-        selected?: unknown,
-        id?: "header"
-    ) => {
+    const handleCheckboxClick = (checked: boolean, selected?: unknown, id?: "header") => {
         let localSelected: Array<unknown> = [...selectedRows];
-        if (event.target.checked) {
+        if (checked) {
             if (id === "header") {
                 localSelected = [];
-                localSelected = data;
+                localSelected = Array.from(Array(data.length).keys());
             } else localSelected.push(selected);
         } else {
             if (id === "header") localSelected = [];
             else localSelected.splice(localSelected.indexOf(selected), 1);
         }
-        // console.log(localSelected);
         setSelected(localSelected);
         getSelectedItems && getSelectedItems(localSelected);
-        dataChecked?.(localSelected)
+        dataChecked?.(localSelected);
     };
 
     return (
@@ -86,22 +71,14 @@ const Table = ({
                         <TableRow>
                             {!!data?.length && showCheckbox && (
                                 <TableCell padding="checkbox">
-                                    <Checkbox
-                                        label={null}
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                            handleCheckboxClick(e, undefined, "header")
-                                        }
-                                    />
+                                    <Checkbox label="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCheckboxClick(e.target.checked, undefined, "header")} isChecked={selectedRows.length === data.length} />
                                 </TableCell>
                             )}
                             {!!data?.length &&
                                 Object.keys(data[0] as object).map((title, idx: number) => (
                                     <TableCell>
                                         {title}
-                                        {/* {console.log(title)} */}
-                                        {filterColumns?.includes(idx) && (
-                                            <img src={sortBy} alt=""/>
-                                        )}
+                                        {filterColumns?.includes(idx) && <img src={sortBy} alt="" />}
                                     </TableCell>
                                 ))}
                         </TableRow>
@@ -110,19 +87,12 @@ const Table = ({
                         {data
                             // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row: any, index: number) => (
-                                <TableRow  onClick={() => onRowSelect && onRowSelect(row, index)}>
+                                <TableRow onClick={() => onRowSelect && onRowSelect(row, index)}>
                                     {Object.values(row).map((cellData: any, idx: number) => (
                                         <>
-                                            {/* {console.log('cellData', row["Order Id"])} */}
                                             {showCheckbox && idx === 0 && (
                                                 <TableCell>
-                                                    <Checkbox
-                                                        label={""}
-                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                                            handleCheckboxClick(e, index, undefined)
-                                                        }
-                                                        isChecked={selectedRows.includes(index)}
-                                                    />
+                                                    <Checkbox label="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCheckboxClick(e.target.checked, index, undefined)} isChecked={selectedRows.includes(index)} />
                                                 </TableCell>
                                             )}
                                             <TableCell>{cellData}</TableCell>
@@ -136,7 +106,7 @@ const Table = ({
             {showPagination && (
                 <CustomPagination
                     count={totalData}
-                    rowsPerPage={10}
+                    rowsPerPage={rowsPerPage}
                     page={page ? page : 0}
                     onPageChange={handleChangePage}
                     labelRowsPerPage=""

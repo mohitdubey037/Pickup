@@ -1,4 +1,4 @@
-import { PHONE_NUMBER_REGX, PIN_CODE_REGEX } from "../../../../../constants";
+import { PHONE_NUMBER_REGX, PHONE_NUMBER_REGEX_NEW, PIN_CODE_REGEX } from "../../../../../constants";
 import * as yup from "yup";
 
 const companyProfileSchema = yup.object().shape({
@@ -86,13 +86,11 @@ export const addNewColleague = yup.object().shape({
   lastName: yup.string().required(" Last Name is a required field"),
   phoneNumber: yup
     .string()
-    .required("Phone number is not valid")
-    .min(10, "Minimum 10 digits allowed")
-    .max(10, "Maximum 10 digits allowed")
-    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+    .required("Phone number is a required field")
+    .matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Phone Number"),
   roleDesignation: yup
     .string()
-    .required(" Role/Designation is a required field"),
+    .required("Role/Designation is a required field"),
   notification: yup.string(),
   emailId: yup.string().email().required("Email Id is a required field"),
   notificationFrequency: yup.string().when("notification", {
@@ -108,10 +106,8 @@ export const editColleagueSchema = yup.object().shape({
   lastName: yup.string().required(" Last Name is a required field"),
   phoneNumber: yup
     .string()
-    .required("Phone number is not valid")
-    .min(10, "Minimum 10 digits allowed")
-    .max(10, "Maximum 10 digits allowed")
-    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+    .required("Phone number is a required field")
+    .matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Phone Number"),
   roleDesignation: yup
     .string()
     .required(" Role/Designation is a required field"),

@@ -28,6 +28,7 @@ const Input = React.forwardRef<any, InputProps>(
       type,
       autoComplete,
       maskProps,
+      maxLength = 255,
     },
     ref
   ) => {
@@ -56,7 +57,7 @@ const Input = React.forwardRef<any, InputProps>(
             name={name}
             disabled={disabled}
             style={inputStyles}
-            maxLength={255}
+            maxLength={maxLength}
           />
         ) : type === "mask" ? (
           <InputMask
@@ -72,7 +73,7 @@ const Input = React.forwardRef<any, InputProps>(
               style={inputStyles}
               placeholder={placeholder}
               autoComplete={autoComplete}
-              maxLength={255}
+              maxLength={maxLength}
             />
           </InputMask>
         ) : (
@@ -87,7 +88,7 @@ const Input = React.forwardRef<any, InputProps>(
             disabled={disabled}
             style={inputStyles}
             autoComplete={autoComplete}
-            maxLength={255}
+            maxLength={maxLength}
           />
         )}
         {!!error && <ErrorLabel>{error}</ErrorLabel>}

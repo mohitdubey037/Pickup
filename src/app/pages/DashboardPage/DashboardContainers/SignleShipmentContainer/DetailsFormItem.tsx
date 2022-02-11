@@ -75,6 +75,7 @@ function DetailsFormItem(props: {
                                         initValue={formItemValue.weight}
                                         value={formItemValue.weight}
                                         placeholder={"eg. 100"}
+                                        maxLength={4}
                                         validate
                                         required
                                     />
@@ -116,6 +117,7 @@ function DetailsFormItem(props: {
                                         }
                                         label={"Length"}
                                         placeholder={"eg. 10"}
+                                        maxLength={4}
                                         required
                                     />
                                 </Grid>
@@ -133,6 +135,7 @@ function DetailsFormItem(props: {
                                         initValue={formItemValue.width}
                                         value={formItemValue.width}
                                         placeholder={"eg. 10"}
+                                        maxLength={4}
                                         required
                                     />
                                 </Grid>
@@ -150,6 +153,7 @@ function DetailsFormItem(props: {
                                         }
                                         label={"Height"}
                                         placeholder={"eg. 10"}
+                                        maxLength={4}
                                         required
                                     />
                                 </Grid>

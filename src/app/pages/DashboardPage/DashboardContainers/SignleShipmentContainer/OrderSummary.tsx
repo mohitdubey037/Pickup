@@ -15,6 +15,7 @@ import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { OrderSummaryTableOuter, TotalBox } from "./style";
+import TableSkeleton from "app/components/Table/TableSkeleton";
 
 function OrderSummary({ path: string }) {
     const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function OrderSummary({ path: string }) {
     const [orderSummaryData, setOrderSummaryData] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState<null | number>(null);
     const [totalCost, setTotalCost] = useState(0);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const redirectBack = () => {
         navigate?.("/dashboard/charter-shipment/single-shipment", {
@@ -48,6 +50,7 @@ function OrderSummary({ path: string }) {
                 redirectBack();
                 return;
             }
+            setLoading(true);
             const res = (await getShipmentDetails(orderIds)) as any;
             if (res.success) {
                 const shipmentDetails = res.response.data.data;
@@ -59,6 +62,7 @@ function OrderSummary({ path: string }) {
                 dispatch(actions.setInvoice(shipmentDetails.invoiceId));
                 setTotalCost(totalCost);
                 setOrderSummaryData(data);
+                setLoading(false);
             }
         })();
     }, [orderIds, dispatch]);
@@ -112,7 +116,13 @@ function OrderSummary({ path: string }) {
             <ModuleContainer>
                 <H3 text="Order Summary" />
 
-                <OrderSummaryTableOuter mt={3}>
+      
+                {loading ? (
+                 <Box mt={3}>
+                <TableSkeleton />
+                </Box>
+                ) : (
+                    <OrderSummaryTableOuter mt={3}>
                     <Table
                         data={onHoldTable(
                             orderSummaryData,
@@ -127,6 +137,9 @@ function OrderSummary({ path: string }) {
                         />
                     </TotalBox>
                 </OrderSummaryTableOuter>
+                )}
+
+                
 
                 <Flex justifyContent="flex-end" top={24}>
                     <Button

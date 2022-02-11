@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Grid } from "@mui/material";
 import moment from "moment";
+import { Box } from "@mui/system";
 
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
@@ -15,23 +16,19 @@ import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
 import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 import DatePickerInput from "app/components/Input/DatePickerInput";
-import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { SearchTableTop } from "../SearchContainer/style";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { Box } from "@mui/system";
 import { FilterFlexBox } from "./style";
+import TableSkeleton from "app/components/Table/TableSkeleton";
 
 const InvoicesContainer = ({ path: string }) => {
   const [invoiceData, setInvoiceData] = useState<any>([]);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<any>("");
   const [checkboxData, setCheckboxData] = useState<any>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [drawerType, setDrawerType] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [newMultiplePdf, setNewMultiplePdf] = useState<any>([
-    "https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1162.pdf",
-    "https://pickups-staging.s3.ca-central-1.amazonaws.com/Invoice_1149.pdf",
-  ]);
 
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
@@ -56,19 +53,21 @@ const InvoicesContainer = ({ path: string }) => {
   };
 
   const downloadAll = () => {
-    // setMultiplePdf(
     const multiplePdf = invoiceData
-      .filter((invoice, index) => checkboxData.includes(index))
+      .filter(
+        (item, idx) => checkboxData.includes(idx) && item.invoicePdf !== null
+      )
       .map((inv) => inv.invoicePdf);
-      newMultiplePdf.map((url) => {
-      // window.open(url);
-      let link: any = document.createElement("a");
-      link.download = `${[url.split("/").length - 1]}`;
-      link.href = url;
-      document.body.appendChild(link);
-      link.click();
-      // document.body.removeChild(link);
-    });
+    var link = document.createElement("a");
+    link.style.display = "none";
+    document.body.appendChild(link);
+    for (let i = 0; i < multiplePdf.length; i++) {
+      setTimeout(() => {
+        link.setAttribute("href", multiplePdf[i]);
+        link.click();
+      }, i * 100);
+    }
+    document.body.removeChild(link);
   };
 
   const tableTop = () => {
@@ -76,16 +75,17 @@ const InvoicesContainer = ({ path: string }) => {
       <SearchTableTop>
         <Flex alignItems="center">
           <H3 text={`${invoiceData.length} Invoices`} className="heading" />
-          <H5 text="(0 Selected)" className="spanlabel" />
+          <H5
+            text={`(${checkboxData.length} Selected)`}
+            className="spanlabel"
+          />
         </Flex>
         <Button
           size="small"
           secondary
           label="Download Selected"
-          onClick={() => {
-            downloadAll();
-          }}
-          disabled
+          disabled={checkboxData.length === 0}
+          onClick={downloadAll}
         />
       </SearchTableTop>
     );
@@ -94,10 +94,6 @@ const InvoicesContainer = ({ path: string }) => {
   useEffect(() => {
     getInvoiceListData();
   }, []);
-
-  // useEffect(() => {
-  //   console.log(invoiceData, page, totalPages, setTotalPages);
-  // },[invoiceData, page, totalPages, setTotalPages])
 
   const getInvoiceListData = async (values?: object) => {
     let urlParams = "";
@@ -121,20 +117,19 @@ const InvoicesContainer = ({ path: string }) => {
   };
 
   const getSearchInvoiceListData = async (url?:any) => {
+    setLoading(true);
     const res = (await getInvoiceList(url)) as any;
-    console.log(res);
     if (!res?.error) {
       const InvoiceList = res.response.data.data.list;
-      console.log(InvoiceList);
       setInvoiceData(InvoiceList);
-      setPage(res.response.data.data.pageMetaData.page - 1) 
+      setPage(res.response.data.data.pageMetaData.page - 1);
       setTotalPages(res.response.data.data.pageMetaData.totalPages);
       setTotalData(res.response.data.data.pageMetaData.total);
-    }
-    else if (!res.error) {
+    } else if (!res.error) {
       const InvoiceList = res;
       setInvoiceData(InvoiceList);
     }
+    setLoading(false);
   };
 
   const getSearchPaginatedData = async (page) => {
@@ -148,14 +143,12 @@ const InvoicesContainer = ({ path: string }) => {
         console.log(InvoiceList);
         setPage(page);
         setInvoiceData(InvoiceList);
-      }
-      else if (!res.error) {
+      } else if (!res.error) {
         const InvoiceList = res;
         setInvoiceData(InvoiceList);
       }
     }
-  }
-
+  };
 
   const {
     values,
@@ -178,61 +171,66 @@ const InvoicesContainer = ({ path: string }) => {
     <ModuleContainer>
       <H2 title="Invoices" />
       <Box mt={3} mb={2}>
-      <GridContainer container spacing={2}>
-        <Grid item xs={6} sm={3} lg={2}>
-          <Input
-            id="invoiceNumber"
-            name="invoiceNumber"
-            initValue={values.invoiceNumber}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.invoiceNumber && errors.invoiceNumber}
-            label="Invoice Number"
-            placeholder="eg. 123,321"
-          />
-        </Grid>
-        <Grid item xs={6} sm={3} lg={2}>
-          <DatePickerInput
-            label="From Date"
-            maxDate={new Date()}
-            placeholder={"e.g 06/06/2021"}
-            value={values.fromDate || null}
-            onChange={(val) => setFieldValue("fromDate", val)}
-          />
-        </Grid>
-        <Grid item xs={6} sm={3} lg={2}>
-          <DatePickerInput
-            label="To Date"
-            maxDate={new Date()}
-            placeholder={"e.g 06/06/2021"}
-            value={values.toDate || null}
-            onChange={(val) => setFieldValue("toDate", val)}
-          />
-        </Grid>
-        <Grid item xs={6} sm={3} lg={2}>
-          <FilterFlexBox>
-            <Button label="Search" onClick={handleSubmit} size="small" />
-          </FilterFlexBox>
-        </Grid>
-      </GridContainer>
+        <GridContainer container spacing={2}>
+          <Grid item xs={6} sm={3} lg={2}>
+            <Input
+              id="invoiceNumber"
+              name="invoiceNumber"
+              initValue={values.invoiceNumber}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.invoiceNumber && errors.invoiceNumber}
+              label="Invoice Number"
+              placeholder="eg. 123,321"
+            />
+          </Grid>
+          <Grid item xs={6} sm={3} lg={2}>
+            <DatePickerInput
+              label="From Date"
+              maxDate={new Date()}
+              placeholder={"e.g 06/06/2021"}
+              value={values.fromDate || null}
+              onChange={(val) => setFieldValue("fromDate", val)}
+            />
+          </Grid>
+          <Grid item xs={6} sm={3} lg={2}>
+            <DatePickerInput
+              label="To Date"
+              maxDate={new Date()}
+              placeholder={"e.g 06/06/2021"}
+              value={values.toDate || null}
+              onChange={(val) => setFieldValue("toDate", val)}
+            />
+          </Grid>
+          <Grid item xs={6} sm={3} lg={2}>
+            <FilterFlexBox>
+              <Button label="Search" onClick={handleSubmit} size="small" />
+            </FilterFlexBox>
+          </Grid>
+        </GridContainer>
       </Box>
 
-      <Table
+      
+      {loading ? (
+        <TableSkeleton />
+      ) : (
+        <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
         tableTop={tableTop()}
         dataChecked={(data: any) => {
-          console.log('hiii');
           setCheckboxData(data);
         }}
-        paginationData = {(page) => getSearchPaginatedData(page)}
+        paginationData={(page) => getSearchPaginatedData(page)}
         showCheckbox
         showPagination
         perPageRows={10}
         page={page}
-        totalData = {totalData}
-        totalPage = {totalPages}
+        totalData={totalData}
+        totalPage={totalPages}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
+      )}
+
 
       <Drawer
         open={drawerOpen}
