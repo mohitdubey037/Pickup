@@ -72,7 +72,7 @@ export const singleShipmentFormSchema = yup.object().shape({
                         "Please enter valid height",
                         function (number: any) {
                             if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                                return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
+                                return Number(number) > 0 && number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
                             } else {
                                 return true;
                             }
@@ -80,14 +80,14 @@ export const singleShipmentFormSchema = yup.object().shape({
                     ),
                     length: yup.string().test("maxDigitsAfterDecimal", "Please enter valid length", function (number: any) {
                         if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                            return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
+                            return Number(number) > 0 && number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
                         } else {
                             return true;
                         }
                     }),
                     width: yup.string().test("maxDigitsAfterDecimal", "Please enter valid width", function (number: any) {
                         if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                            return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
+                            return Number(number) > 0 && number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
                         } else {
                             return true;
                         }
@@ -101,7 +101,7 @@ export const singleShipmentFormSchema = yup.object().shape({
                     }),
                     weight: yup.string().test("maxDigitsAfterDecimal", "Please enter valid weight", function (number: any) {
                         if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                            return number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
+                            return Number(number) > 0 && number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
                         } else {
                             return true;
                         }
@@ -121,13 +121,13 @@ export const singleShipmentFormSchema = yup.object().shape({
             scheduleType: yup.string().required("Please select schedule type"),
             shipmentDate: yup.string().when("scheduleType", {
                 is: (scheduleType) => scheduleType === "17",
-                then: yup.string().required("Shipment Date is a required field").nullable(),
+                then: yup.string().required("Order Date is a required field").nullable(),
             }),
             shipmentTime: yup.string().when("scheduleType", {
                 is: (scheduleType) => scheduleType === "17",
                 then: yup
                     .string()
-                    .required("Shipment Time is a required field")
+                    .required("Order Time is a required field")
                     .test("minShipmentDateLimit", "Please select future time", function () {
                         let orderedAt = moment(getSingleDate(this.parent.shipmentDate, this.parent.shipmentTime)).format("YYYY-MM-DD HH:mm") + ":00";
                         if (moment(orderedAt, "YYYY-MM-DD HH:mm:ss").diff(moment().add(30, "minutes").format("YYYY-MM-DD HH:mm:ss")) < 0) {

@@ -32,7 +32,7 @@ const InvoicesContainer = ({ path: string }) => {
 
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
-  const [totalData, setTotalData] = useState<any>(10);
+  const [totalData, setTotalData] = useState<any>(0);
 
   const getDrawerTitle = () => {
     if (drawerType === "invoice") {
@@ -74,7 +74,7 @@ const InvoicesContainer = ({ path: string }) => {
     return (
       <SearchTableTop>
         <Flex alignItems="center">
-          <H3 text={`${invoiceData.length} Invoices`} className="heading" />
+          <H3 text={`${totalData} Invoices`} className="heading" />
           <H5
             text={`(${checkboxData.length} Selected)`}
             className="spanlabel"

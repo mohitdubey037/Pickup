@@ -44,7 +44,7 @@ const SearchContainer = ({ path: string }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
-  const [totalData, setTotalData] = useState<any>(10);
+  const [totalData, setTotalData] = useState<any>(0);
 
   const getSearchOrderListData = async (url?:any) => {
     setLoading(true);
@@ -123,7 +123,7 @@ const SearchContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${searchRecordData ?searchRecordData?.list?.length : 0} Orders`} className="heading" />
+        <H3 text={`${totalData} Orders`} className="heading" />
         <Button label="Print" onClick={() => {}} size="small" secondary />
       </SearchTableTop>
     );

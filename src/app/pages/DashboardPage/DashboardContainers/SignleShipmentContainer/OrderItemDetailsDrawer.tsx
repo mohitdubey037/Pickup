@@ -16,7 +16,7 @@ interface orderDetails {
   dropOption?: number;
   items?: any;
   image?: string;
-  category?: string;
+  categoryName?: string;
   fragile?: number;
   description?: string;
   picture?: string;
@@ -67,7 +67,7 @@ function OrderItemDetailsDrawer(props) {
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
                       <H4 text="Category" />
-                      <H4 text={order?.category} className="value" />
+                      <H4 text={order?.categoryName} className="value" />
                     </Grid>
                     <Grid item xs={6}>
                       <H4 text="Customer Reference #" />
