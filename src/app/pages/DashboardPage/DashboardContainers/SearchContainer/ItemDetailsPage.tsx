@@ -1,43 +1,34 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import { Accordion } from "app/components/Accordion";
-import { itempicture } from "../../../../assets/Images/index";
 import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
 import { ItemDetailsBox } from "./style";
-import AddImage from "app/components/AddImage";
 import { OrderImage } from "../SignleShipmentContainer/style";
 
 function ItemDetailsPage(props: any) {
   const { singleOrderData } = props;
   const { items } = singleOrderData;
-  console.log(props);
 
   const getLabelFromID = (id: number, list: any[]) => {
-    console.log(id);
-    console.log(list);
     const foundLabel = list.find((item) => item.value === id);
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
+    } else {
+      return "(lbs)";
     }
-    else {
-      return '(lbs)'
-    }
-    
-    // console.log(foundLabel);
-    // return null;
   };
 
-  const accordianItem = (item: any) => {
+  const accordianItem = (item: any, index: number) => {
     return (
       <ItemDetailsBox>
-        <Accordion title={item.name}>
+        <Accordion title={item.name} defaultExpanded={index === 0}>
           <Grid container spacing={2}>
-
             <Grid item md={3}>
               <H4 text="Category" />
-              <H4 className="value"
+              <H4
+                className="value"
                 text={singleOrderData.category ? singleOrderData.category : "-"}
               />
             </Grid>
@@ -56,30 +47,28 @@ function ItemDetailsPage(props: any) {
               <H4
                 text={`LBH ${getLabelFromID(item.sizeDimension, DIMENSION2)}`}
               />
-              <H4 className="value"
-                text={(
-                    <div>
-                      {item.length} x {item.width} x {item.height}
-                    </div>
-                  )
+              <H4
+                className="value"
+                text={
+                  <div>
+                    {item.length} x {item.width} x {item.height}
+                  </div>
                 }
               />
             </Grid>
 
             <Grid item md={3}>
               <H4 text="Pieces" />
-              <H4 className="value"
-                text={
-                  singleOrderData.totalQuantity
-                    ? singleOrderData.totalQuantity
-                    : "-"
-                }
+              <H4
+                className="value"
+                text={item.quantity ? item.quantity : "-"}
               />
             </Grid>
 
             <Grid item md={3}>
               <H4 text="Shipment Cost" />
-              <H4 className="value"
+              <H4
+                className="value"
                 text={
                   singleOrderData.shipmentCost
                     ? "$" + singleOrderData.shipmentCost
@@ -95,7 +84,8 @@ function ItemDetailsPage(props: any) {
 
             <Grid item md={3}>
               <H4 text="Delivery options" />
-              <H4 className="value"
+              <H4
+                className="value"
                 text={
                   singleOrderData.dropOption === 10
                     ? "Door Drop"
@@ -108,7 +98,8 @@ function ItemDetailsPage(props: any) {
 
             <Grid item md={3}>
               <H4 text="Customer Reference #" />
-              <H4 className="value"
+              <H4
+                className="value"
                 text={
                   singleOrderData.customerReferenceNumber
                     ? singleOrderData.customerReferenceNumber
@@ -119,18 +110,17 @@ function ItemDetailsPage(props: any) {
 
             <Grid item md={12}>
               <H4 text="Order Description" />
-              <H4 className="value" text={item.description ? item.description : "-"} />
+              <H4
+                className="value"
+                text={item.description ? item.description : "-"}
+              />
             </Grid>
 
-              {item.picture && 
-                <Grid item md={12}>
-                  <OrderImage
-                    src={item.picture}
-                    alt=""
-                  />
-                </Grid>
-              }
-
+            {item.picture && (
+              <Grid item md={12}>
+                <OrderImage src={item.picture} alt="" />
+              </Grid>
+            )}
           </Grid>
         </Accordion>
       </ItemDetailsBox>
@@ -140,8 +130,8 @@ function ItemDetailsPage(props: any) {
     <>
       <ContentBox>
         {items && items.length
-          ? items.map((item: any) => {
-              return accordianItem(item);
+          ? items.map((item: object, index: number) => {
+              return accordianItem(item, index);
             })
           : null}
       </ContentBox>
