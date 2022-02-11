@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RouteComponentProps } from "@reach/router";
 import { AuthUser } from "types";
+import Cookies from "js-cookie";
 
 interface AuthPageProps extends RouteComponentProps {
   children?: any;
@@ -15,7 +16,8 @@ function AuthPages({ navigate, children }: AuthPageProps) {
   });
 
   useEffect(() => {
-    if (auth.user?.userId) {
+    const token = Cookies?.get("token") || "";
+    if (auth.user?.userId && token) {
       navigate?.("/dashboard");
     }
   }, [auth.user?.userId]);
