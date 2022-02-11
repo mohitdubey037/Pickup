@@ -1,4 +1,3 @@
-import { CircularProgress } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { Accordion } from "app/components/Accordion";
 import { getOrderDetails } from "services/SingleShipmentServices";
@@ -25,7 +24,6 @@ interface orderDetails {
 
 function OrderDetailsDrawer({ orderId, setDrawerOpen }) {
   const [orderDetails, setOrderDetails] = useState<orderDetails>({});
-  const [isFragile, setIsFragile] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
   useEffect(() => {
@@ -34,25 +32,13 @@ function OrderDetailsDrawer({ orderId, setDrawerOpen }) {
       const { response } = await getOrderDetails(orderId ? orderId : orderId);
       if (response) {
         setOrderDetails(response.data.data);
-        setShowLoader(false);
       } else {
-        setShowLoader(false);
         showToast("Could not get the data, Please try again!", "error");
         setDrawerOpen(false);
       }
+      setShowLoader(false);
     })();
   }, [orderId]);
-
-  useEffect(() => {
-    const fragile = orderDetails?.items?.filter((item) => {
-      if (item.fragile === 1) return true;
-      return false;
-    });
-    console.log(fragile,'fragile');
-    if (fragile?.length > 0) {
-      setIsFragile(true);
-    }
-  }, [orderDetails]);
 
   const getLabelFromID = (id: number, list: any[]) => {
     const foundLabel = list.find((item) => item.value === id);
@@ -108,7 +94,15 @@ function OrderDetailsDrawer({ orderId, setDrawerOpen }) {
                 </Grid>
                 <Grid item xs={6}>
                   <H4 text="Fragile" />
-                  <H4 text={isFragile ? "Yes" : "No"} className="value" />
+                  <H4
+                    text={
+                      orderDetails?.items?.filter((item) => item.fragile === 1)
+                        .length > 0
+                        ? "Yes"
+                        : "No"
+                    }
+                    className="value"
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   {orderDetails?.picture ? (

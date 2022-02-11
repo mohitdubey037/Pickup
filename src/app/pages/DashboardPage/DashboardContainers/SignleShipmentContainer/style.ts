@@ -3,7 +3,11 @@ import styled from "styled-components";
 
 export const InnerAccordion = styled.div`
   border-top: 1px solid #dddddd;
-  margin: 24px 0;
+  // margin: 24px 0;
+  .MuiAccordionSummary-content {
+    font-size: 16px !important;
+    margin: 12px 0 !important;
+}
 `;
 
 export const MainDiv = styled.div`

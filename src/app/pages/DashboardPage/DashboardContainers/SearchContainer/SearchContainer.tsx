@@ -31,6 +31,7 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { AddressDetailsSkeleton } from "./AddressDetailsSkeleton";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import TableSkeleton from "app/components/Table/TableSkeleton";
+import NullState from "app/components/NullState/NullState";
 
 
 const SearchContainer = ({ path: string }) => {
@@ -55,12 +56,12 @@ const SearchContainer = ({ path: string }) => {
       setPage(orderList?.pageMetaData?.page - 1);
       setTotalPages(orderList?.pageMetaData?.totalPages);
       setTotalData(orderList?.pageMetaData?.total);
-      setLoading(false);
     }
     else if (!res.error) {
       const InvoiceList = res;
       setSearchRecordData(InvoiceList);
     }
+    setLoading(false);
   };
 
   const getSearchPaginatedData = async (page) => {
@@ -278,9 +279,12 @@ const SearchContainer = ({ path: string }) => {
         </GridContainer>
       </Box>
 
+  
       {loading ? (
         <TableSkeleton />
-      ) : (
+      ) : searchRecordData?.list?.length > 0 ?
+       (
+        
         <Table
           data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
           tableTop={tableTop()}
@@ -292,7 +296,13 @@ const SearchContainer = ({ path: string }) => {
           totalPage={totalPages}
           filterColumns={[0, 1, 2, 3, 4, 5]}
         />
-      )}
+      )
+      :
+      (
+        <NullState message="No Records Found" />
+      )
+     }
+     
 
       <Drawer
         open={drawerOpen}
