@@ -45,7 +45,7 @@ const SearchContainer = ({ path: string }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
-  const [totalData, setTotalData] = useState<any>(10);
+  const [totalData, setTotalData] = useState<any>(0);
 
   const getSearchOrderListData = async (url?:any) => {
     setLoading(true);
@@ -124,7 +124,7 @@ const SearchContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${searchRecordData ?searchRecordData?.list?.length : 0} Orders`} className="heading" />
+        <H3 text={`${totalData} Orders`} className="heading" />
         <Button label="Print" onClick={() => {}} size="small" secondary />
       </SearchTableTop>
     );
@@ -218,39 +218,43 @@ const SearchContainer = ({ path: string }) => {
           <Grid item xs={6} sm={4} lg={2}>
             {/* <Input label="Invoice Number" placeholder="eg. 123,321" /> */}
             <Input
-            id="orderId"
-            name="orderId"
-            initValue={values.orderId}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.orderId && errors.orderId}
-            label="Order Id"
-            placeholder="eg. 123,321"
-          />
-        </Grid>
-        <Grid item xs={6} sm={4} lg={2}>
-        <DatePickerInput
-          label="From Date"
-          maxDate={new Date(moment(values.toDate).subtract(1,'days').toDate())}
-          placeholder={"e.g 06/06/2021"}
-          value={values.fromDate || null}
-          onChange={(val) => setData("fromDate", val)}
-        />
-        </Grid>
-        <Grid item xs={6} sm={4} lg={2}>
-          <DatePickerInput
-            minDate={new Date(moment(values.fromDate).add(1,'days').toDate())}
-            maxDate={new Date()}
-            label="To Date"
-            placeholder={"e.g 06/06/2021"}
-            value={values.toDate || null}
-            onChange={(val) => setData("toDate", val)}
-          />
-        {/* </Box> */}
-        </Grid>
-        <Grid item xs={6} sm={4} lg={2}>
-          {/* <Select label="Status" /> */}
-          <Select
+              id="orderId"
+              name="orderId"
+              initValue={values.orderId}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.orderId && errors.orderId}
+              label="Order Id"
+              placeholder="eg. 123,321"
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            <DatePickerInput
+              label="From Date"
+              maxDate={
+                new Date(moment(values.toDate).subtract(1, "days").toDate())
+              }
+              placeholder={"e.g 06/06/2021"}
+              value={values.fromDate || null}
+              onChange={(val) => setData("fromDate", val)}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            <DatePickerInput
+              minDate={
+                new Date(moment(values.fromDate).add(1, "days").toDate())
+              }
+              maxDate={new Date()}
+              label="To Date"
+              placeholder={"e.g 06/06/2021"}
+              value={values.toDate || null}
+              onChange={(val) => setData("toDate", val)}
+            />
+            {/* </Box> */}
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            {/* <Select label="Status" /> */}
+            <Select
               id={`${STATUS}.value`}
               name={`${STATUS}.label`}
               label={"Status"}
@@ -321,7 +325,10 @@ const SearchContainer = ({ path: string }) => {
             {loading ? (
               <AddressDetailsSkeleton />
             ) : (
-              <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />
+              <SearchOrderDetailsDrawer
+                singleOrderData={singleOrderData}
+                orderId={selectedInvoiceId}
+              />
             )}
           </>
         )}
