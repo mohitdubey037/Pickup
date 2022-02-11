@@ -16,5 +16,6 @@ export interface TableProps{
     page?: number
     totalPage?: number
     totalData?: any
+    columnPagination?:(sortingField?: string, sortingType?: string) => void 
 
 }

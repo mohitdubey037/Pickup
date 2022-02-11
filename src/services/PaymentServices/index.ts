@@ -44,6 +44,23 @@ export const getInvoiceList = async (urlParams?: string, page?: number, chunk?: 
   }
 }
 
+export const getColumnPaginate = async (urlParams?: string, page?: number, chunk?: number, sortingField?:string, sortingType?:string) => {
+try {
+  let api = `order/business/invoices${urlParams}`
+  if (page) {
+    api += `?page=${page}&&chunk=${chunk}`
+  }
+  if (sortingField) {
+    api += `?sortingField=${sortingField}&&sortingType=${sortingType}`
+  }
+    const res = await Services.get(api,"order");
+    console.log(res);
+    return{response: res, error:null};
+}catch(error){
+return {response: null, error: error};
+}
+}
+
 // export const updateCard = async (cardData: cardData) => {
 //     const res = await Services.post("business/forgotPassword", { emailId: cardData }, type);
 //     return res;

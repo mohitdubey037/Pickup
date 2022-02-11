@@ -14,7 +14,7 @@ import { Flex } from "app/components/Input/style";
 import { invoiceTable } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
-import { getInvoiceList } from "../../../../../services/PaymentServices/index";
+import { getInvoiceList, getColumnPaginate } from "../../../../../services/PaymentServices/index";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { SearchTableTop } from "../SearchContainer/style";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -116,6 +116,25 @@ const InvoicesContainer = ({ path: string }) => {
     getSearchInvoiceListData(urlParams);
   };
 
+  const columnPaginate = async (sortingField: string | undefined, sortingType: string | undefined) => {
+    console.log(sortingField, sortingType);
+    const res = await (getColumnPaginate('',page, 10, sortingField, sortingType)) as any
+    console.log(res, '58');
+    console.log(res.data);
+    if (!res?.error) {
+      const InvoiceList = res.response.data.data.list;
+      console.log(InvoiceList);
+      setInvoiceData(InvoiceList);
+      setPage(res.response.data.data.pageMetaData.page - 1);
+      setTotalPages(res.response.data.data.pageMetaData.totalPages);
+      setTotalData(res.response.data.data.pageMetaData.total);
+    } else if (!res.error) {
+      const InvoiceList = res;
+      setInvoiceData(InvoiceList);
+    }
+    setLoading(false);
+  }
+
   const getSearchInvoiceListData = async (url?:any) => {
     setLoading(true);
     const res = (await getInvoiceList(url)) as any;
@@ -133,20 +152,21 @@ const InvoicesContainer = ({ path: string }) => {
   };
 
   const getSearchPaginatedData = async (page) => {
+    let res;
     if (page === 0) {
-      getInvoiceListData();
+      res = (await getInvoiceList('',0, 10)) as any;
     }
     else {
-      const res = (await getInvoiceList('',page+1, 10)) as any;
-      if (!res?.error) {
-        const InvoiceList = res.response.data.data.list;
-        console.log(InvoiceList);
-        setPage(page);
-        setInvoiceData(InvoiceList);
-      } else if (!res.error) {
-        const InvoiceList = res;
-        setInvoiceData(InvoiceList);
-      }
+      res = (await getInvoiceList('',page+1, 10)) as any;
+    }
+    if (!res?.error) {
+      const InvoiceList = res.response.data.data.list;
+      console.log(InvoiceList);
+      setPage(page);
+      setInvoiceData(InvoiceList);
+    } else if (!res.error) {
+      const InvoiceList = res;
+      setInvoiceData(InvoiceList);
     }
   };
 
@@ -221,7 +241,8 @@ const InvoicesContainer = ({ path: string }) => {
           setCheckboxData(data);
         }}
         paginationData={(page) => getSearchPaginatedData(page)}
-        showCheckbox
+        columnPagination = {(sortingField, sortingType) => columnPaginate(sortingField, sortingType)}
+        showCheckbox 
         showPagination
         perPageRows={10}
         page={page}

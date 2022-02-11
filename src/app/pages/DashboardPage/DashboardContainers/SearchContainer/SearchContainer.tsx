@@ -64,20 +64,21 @@ const SearchContainer = ({ path: string }) => {
   };
 
   const getSearchPaginatedData = async (page) => {
+    let res;
     if (page === 0) {
-      getSearchListData();
+      res = (await getSearchOrderList('',0, 10)) as any;
     }
     else {
-      const res = (await getSearchOrderList('',page+1, 10)) as any;
-      if (res.success) {
-        const orderList = res.response.data.data;
-        setPage(page);
-        setSearchRecordData(orderList);
-      }
-      else if (!res.error) {
-        const InvoiceList = res;
-        setSearchRecordData(InvoiceList);
-      }
+      res = (await getSearchOrderList('',page+1, 10)) as any;
+    }
+    if (res.success) {
+      const orderList = res.response.data.data;
+      setPage(page);
+      setSearchRecordData(orderList);
+    }
+    else if (!res.error) {
+      const InvoiceList = res;
+      setSearchRecordData(InvoiceList);
     }
   }
 

@@ -19,9 +19,11 @@ const Table = ({
     totalPage,
     totalData,
     page,
+    columnPagination,
     paginationData,
 }: TableProps) => {
     // const [page, setPage] = React.useState(0);
+    const [sortType, setSortType] = React.useState<boolean>(true);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [selectedRows, setSelected] = React.useState<Array<unknown>>([]);
 
@@ -31,18 +33,40 @@ const Table = ({
     //     perPageRows ? setRowsPerPage(perPageRows) : setRowsPerPage(5);
     // }, [perPageRows]);
 
+    const sort = (title) => {
+        let tempTitle;
+        console.log(title);
+        if (title === "Invoice Date") {
+            tempTitle = 'invoiceCreatedAt';
+        }
+        else if (title === 'Invoice Number'){
+            tempTitle = 'invoiceNumber';
+        }
+        else if (title === 'Invoice Amount') {
+            tempTitle = "total";
+        }
+        if (tempTitle) {
+            setSortType(!sortType)
+            if (sortType === true) {
+                columnPagination?.(tempTitle, 'asc')
+            }
+            else {
+                columnPagination?.(tempTitle, 'desc')
+            }
+        }
+    }
+
+
     useEffect(() => {
         selectedItems ? setSelected(selectedItems) : setSelected([]);
     }, [selectedItems]);
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value));
-        // setPage(0);
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
         paginationData?.(newPage);
-        // setPage(newPage);
         handleCheckboxClick(false, undefined, "header");
     };
 
@@ -78,7 +102,8 @@ const Table = ({
                                 Object.keys(data[0] as object).map((title, idx: number) => (
                                     <TableCell>
                                         {title}
-                                        {filterColumns?.includes(idx) && <img src={sortBy} alt="" />}
+                                        {filterColumns?.includes(idx) && <img src={sortBy} alt="" 
+                                        onClick={() => sort(title)}/>}
                                     </TableCell>
                                 ))}
                         </TableRow>
