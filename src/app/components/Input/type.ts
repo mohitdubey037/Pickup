@@ -32,8 +32,8 @@ export interface DateTimeInputProps {
   required?: boolean;
   defaultValue?: any;
   disablePast?: boolean;
-  minDate?: object | undefined;
-  maxDate?: object | undefined;
+  minDate?: any;
+  maxDate?: any;
   minTime?: object | undefined;
   maxTime?: object | undefined;
 }

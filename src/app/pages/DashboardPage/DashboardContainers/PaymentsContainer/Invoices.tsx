@@ -14,10 +14,7 @@ import { Flex } from "app/components/Input/style";
 import { invoiceTable } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
-import {
-  getInvoiceList,
-  getPaginatedInvoice,
-} from "../../../../../services/PaymentServices/index";
+import { getInvoiceList } from "../../../../../services/PaymentServices/index";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { SearchTableTop } from "../SearchContainer/style";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -138,10 +135,12 @@ const InvoicesContainer = ({ path: string }) => {
   const getSearchPaginatedData = async (page) => {
     if (page === 0) {
       getInvoiceListData();
-    } else {
-      const res = (await getPaginatedInvoice(page + 1, 10)) as any;
-      if (res.success) {
+    }
+    else {
+      const res = (await getInvoiceList('',page+1, 10)) as any;
+      if (!res?.error) {
         const InvoiceList = res.response.data.data.list;
+        console.log(InvoiceList);
         setPage(page);
         setInvoiceData(InvoiceList);
       } else if (!res.error) {
