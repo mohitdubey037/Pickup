@@ -70,7 +70,6 @@ const Routes = () => {
         <PersonalProfileContainer path="my-account/personal-profile" />
         <ChildAccount path="/my-account/child-account" />
         <FavoriteLocations path="my-account/favourite-locations" />
-        <PaymentsPage path="/payments/cards" />
         <OnHoldShipmentContainer path="/holding-zone" />
         <InvoicesContainer path="/payments/invoices" />
         <ReportsContainer path="/reports" />

@@ -212,7 +212,7 @@ const SearchContainer = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <H2 title="Search" />
+      <H2 title="Search Orders" />
 
       <Box mt={3} mb={2}>
         <GridContainer container spacing={2}>
