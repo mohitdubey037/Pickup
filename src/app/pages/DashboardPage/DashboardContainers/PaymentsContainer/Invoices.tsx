@@ -20,6 +20,7 @@ import { SearchTableTop } from "../SearchContainer/style";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { FilterFlexBox } from "./style";
 import TableSkeleton from "app/components/Table/TableSkeleton";
+import NullState from "app/components/NullState/NullState";
 
 const InvoicesContainer = ({ path: string }) => {
   const [invoiceData, setInvoiceData] = useState<any>([]);
@@ -213,7 +214,8 @@ const InvoicesContainer = ({ path: string }) => {
       
       {loading ? (
         <TableSkeleton />
-      ) : (
+      ) : invoiceData?.length > 0 ?
+       (
         <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
         tableTop={tableTop()}
@@ -229,7 +231,12 @@ const InvoicesContainer = ({ path: string }) => {
         totalPage={totalPages}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
-      )}
+      )
+      :
+      (
+        <NullState message="No Records Found" />
+      )
+      }
 
 
       <Drawer
