@@ -13,7 +13,7 @@ interface orderDetails {
   refNo?: string;
   shippingReference?: string;
   referenceNumber?: string;
-  dropOption?: number;
+  dropOption?: string;
   items?: any;
   image?: string;
   categoryName?: string;
@@ -84,9 +84,9 @@ function OrderItemDetailsDrawer(props) {
                       <H4 text="Delivery Options" />
                       <H4
                         text={
-                          order.dropOption === 10
+                          order.dropOption === "FRONT DOOR"
                             ? "Door Drop"
-                            : order.dropOption === 11
+                            : order.dropOption === "SAFE DROP"
                             ? "Safe Drop"
                             : "-"
                         }
