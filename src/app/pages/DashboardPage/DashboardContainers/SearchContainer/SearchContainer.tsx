@@ -218,6 +218,19 @@ const SearchContainer = ({ path: string }) => {
           <Grid item xs={6} sm={4} lg={2}>
             {/* <Input label="Invoice Number" placeholder="eg. 123,321" /> */}
             <Input
+            id="invoiceNumber"
+            name="invoiceNumber"
+            initValue={values.invoiceNumber}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={touched.orderId && errors.orderId}
+            label="Invoice Number"
+            placeholder="eg. 123,321"
+          />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            {/* <Input label="Invoice Number" placeholder="eg. 123,321" /> */}
+            <Input
             id="orderId"
             name="orderId"
             initValue={values.orderId}
@@ -227,7 +240,7 @@ const SearchContainer = ({ path: string }) => {
             label="Order Id"
             placeholder="eg. 123,321"
           />
-        </Grid>
+          </Grid>
         <Grid item xs={6} sm={4} lg={2}>
         <DatePickerInput
           label="From Date"

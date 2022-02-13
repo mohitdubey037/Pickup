@@ -30,15 +30,18 @@ export const addNewCardService = async (body: any) => {
     }
 }
 
-export const getInvoiceList = async (urlParams?: string, page?: number, chunk?: number)=>{
+export const getInvoiceList = async (urlParams?: string, page?: number, chunk?: number, sortingField?: string, sortingType?: string)=>{
   try {
     let api = `order/business/invoices${urlParams}`
+    if (sortingField) {
+      api += `?sortingField=${sortingField}&&sortingType=${sortingType}`
+    }
     if (page) {
       api += `?page=${page}&&chunk=${chunk}`
     }
-      const res = await Services.get(api,"order");
-      console.log(res);
-      return{response: res, error:null};
+    const res = await Services.get(api,"order");
+    console.log(res);
+    return{response: res, error:null};
   }catch(error){
   return {response: null, error: error};
   }

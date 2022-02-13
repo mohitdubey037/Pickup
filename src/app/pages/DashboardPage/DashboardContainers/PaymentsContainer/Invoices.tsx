@@ -116,24 +116,24 @@ const InvoicesContainer = ({ path: string }) => {
     getSearchInvoiceListData(urlParams);
   };
 
-  const columnPaginate = async (sortingField: string | undefined, sortingType: string | undefined) => {
-    console.log(sortingField, sortingType);
-    const res = await (getColumnPaginate('',page, 10, sortingField, sortingType)) as any
-    console.log(res, '58');
-    console.log(res.data);
-    if (!res?.error) {
-      const InvoiceList = res.response.data.data.list;
-      console.log(InvoiceList);
-      setInvoiceData(InvoiceList);
-      setPage(res.response.data.data.pageMetaData.page - 1);
-      setTotalPages(res.response.data.data.pageMetaData.totalPages);
-      setTotalData(res.response.data.data.pageMetaData.total);
-    } else if (!res.error) {
-      const InvoiceList = res;
-      setInvoiceData(InvoiceList);
-    }
-    setLoading(false);
-  }
+  // const columnPaginate = async (sortingField: string | undefined, sortingType: string | undefined) => {
+  //   console.log(sortingField, sortingType);
+  //   const res = await (getColumnPaginate('',page, 10, sortingField, sortingType)) as any
+  //   console.log(res, '58');
+  //   console.log(res.data);
+  //   if (!res?.error) {
+  //     const InvoiceList = res.response.data.data.list;
+  //     console.log(InvoiceList);
+  //     setInvoiceData(InvoiceList);
+  //     setPage(res.response.data.data.pageMetaData.page - 1);
+  //     setTotalPages(res.response.data.data.pageMetaData.totalPages);
+  //     setTotalData(res.response.data.data.pageMetaData.total);
+  //   } else if (!res.error) {
+  //     const InvoiceList = res;
+  //     setInvoiceData(InvoiceList);
+  //   }
+  //   setLoading(false);
+  // }
 
   const getSearchInvoiceListData = async (url?:any) => {
     setLoading(true);
@@ -151,17 +151,18 @@ const InvoicesContainer = ({ path: string }) => {
     setLoading(false);
   };
 
-  const getSearchPaginatedData = async (page) => {
+  const getSearchPaginatedData = async (page, sortingField, sortingType) => {
+    console.log(sortingField);
+    console.log(sortingType);
     let res;
     if (page === 0) {
-      res = (await getInvoiceList('',0, 10)) as any;
+      res = (await getInvoiceList('',0, 10, sortingField, sortingType)) as any;
     }
     else {
-      res = (await getInvoiceList('',page+1, 10)) as any;
+      res = (await getInvoiceList('',page+1, 10, sortingField, sortingType)) as any;
     }
     if (!res?.error) {
       const InvoiceList = res.response.data.data.list;
-      console.log(InvoiceList);
       setPage(page);
       setInvoiceData(InvoiceList);
     } else if (!res.error) {
@@ -207,7 +208,7 @@ const InvoicesContainer = ({ path: string }) => {
           <Grid item xs={6} sm={3} lg={2}>
             <DatePickerInput
               label="From Date"
-              maxDate={new Date()}
+              maxDate={new Date(moment(values.toDate).subtract(1,'days').toDate())}
               placeholder={"e.g 06/06/2021"}
               value={values.fromDate || null}
               onChange={(val) => setFieldValue("fromDate", val)}
@@ -217,6 +218,7 @@ const InvoicesContainer = ({ path: string }) => {
             <DatePickerInput
               label="To Date"
               maxDate={new Date()}
+              minDate={new Date(moment(values.fromDate).add(1,'days').toDate())}
               placeholder={"e.g 06/06/2021"}
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}
@@ -240,8 +242,8 @@ const InvoicesContainer = ({ path: string }) => {
         dataChecked={(data: any) => {
           setCheckboxData(data);
         }}
-        paginationData={(page) => getSearchPaginatedData(page)}
-        columnPagination = {(sortingField, sortingType) => columnPaginate(sortingField, sortingType)}
+        paginationData={(page, sortingField, sortingType) => getSearchPaginatedData(page, sortingField, sortingType)}
+        // columnPagination = {(sortingField, sortingType) => columnPaginate(sortingField, sortingType)}
         showCheckbox 
         showPagination
         perPageRows={10}

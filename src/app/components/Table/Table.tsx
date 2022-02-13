@@ -22,20 +22,20 @@ const Table = ({
     columnPagination,
     paginationData,
 }: TableProps) => {
-    // const [page, setPage] = React.useState(0);
+    const [pageNumber, setPageNumber] = React.useState<any>(0);
     const [sortType, setSortType] = React.useState<boolean>(true);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [selectedRows, setSelected] = React.useState<Array<unknown>>([]);
+    const [fieldTitle, setFieldTitle] = React.useState<string>("")
 
     // const pagePerRows = 10;
 
-    // useEffect(() => {
-    //     perPageRows ? setRowsPerPage(perPageRows) : setRowsPerPage(5);
-    // }, [perPageRows]);
+    useEffect(() => {
+        setPageNumber?.(page)
+    }, []);
 
     const sort = (title) => {
         let tempTitle;
-        console.log(title);
         if (title === "Invoice Date") {
             tempTitle = 'invoiceCreatedAt';
         }
@@ -45,14 +45,10 @@ const Table = ({
         else if (title === 'Invoice Amount') {
             tempTitle = "total";
         }
-        if (tempTitle) {
+        setFieldTitle(tempTitle);
+        if (title) {
             setSortType(!sortType)
-            if (sortType === true) {
-                columnPagination?.(tempTitle, 'asc')
-            }
-            else {
-                columnPagination?.(tempTitle, 'desc')
-            }
+            paginationData?.(pageNumber, tempTitle, sortType? 'asc' : 'desc');
         }
     }
 
@@ -66,7 +62,8 @@ const Table = ({
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
-        paginationData?.(newPage);
+        setPageNumber(newPage);
+        paginationData?.(newPage, fieldTitle, sortType? 'asc' : 'desc');
         handleCheckboxClick(false, undefined, "header");
     };
 
@@ -132,7 +129,7 @@ const Table = ({
                 <CustomPagination
                     count={totalData}
                     rowsPerPage={rowsPerPage}
-                    page={page ? page : 0}
+                    page={pageNumber}
                     onPageChange={handleChangePage}
                     labelRowsPerPage=""
                     rowsPerPageOptions={[]}
