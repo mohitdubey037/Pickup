@@ -1,0 +1,104 @@
+.oid-temp {
+  padding: 24px 0 12px 0;
+  width: 80%;
+  margin: auto;
+}
+.oid-temp::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.oid-temp .logo {
+  width: 100%;
+  text-align: center;
+}
+.oid-temp .logo img {
+  width: 62px;
+}
+
+.oid-temp h2 {
+  font-size: 18px;
+  font-family: "Roboto-Bold", arial, sans-serif;
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 36px;
+  color: #000;
+  background: #fece3e;
+  text-align: center;
+  text-transform: uppercase;
+}
+.oid-temp h3 {
+  font-size: 20px;
+  font-family: "Roboto-Medium", arial, sans-serif;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.oid-temp .addressdetails {
+  margin-top: 40px;
+}
+.oid-temp .itemdetails {
+  margin-top: 200px;
+}
+
+.oid-temp table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  margin-top: 12px;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 32px;
+  background-color: #fafafa;
+}
+.oid-temp table tr {
+  border: none;
+}
+.oid-temp table td {
+  padding: 0 25px 15px 25px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #000000;
+  border: none;
+  border-collapse: collapse;
+  font-family: "Roboto-Bold", arial, sans-serif !important;
+  font-weight: 700;
+  border-left: none;
+  border-right: none;
+}
+.oid-temp table .lastchild {
+  text-align: right;
+}
+.oid-temp table th {
+  padding: 15px 25px 5px 25px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 14px;
+  color: #000000;
+  font-family: "Roboto", arial, sans-serif !important;
+  font-weight: 500;
+  border: none;
+  border-collapse: collapse;
+}
+.oid-temp .tabletitle {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+  background: #fff;
+  border: none;
+  padding: 0 0 15px 0;
+}
+
+.oid-temp .invoicefooter {
+  text-align: center;
+  margin: 50px 0;
+  width: 100%;
+}
+.temp-odp .invoicefooter p {
+  font-size: 14px;
+  line-height: 150%;
+  margin-bottom: 5px;
+}

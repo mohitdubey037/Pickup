@@ -20,6 +20,7 @@ import { SearchTableTop } from "../SearchContainer/style";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { FilterFlexBox } from "./style";
 import TableSkeleton from "app/components/Table/TableSkeleton";
+import NullState from "app/components/NullState/NullState";
 
 const InvoicesContainer = ({ path: string }) => {
   const [invoiceData, setInvoiceData] = useState<any>([]);
@@ -32,7 +33,7 @@ const InvoicesContainer = ({ path: string }) => {
 
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
-  const [totalData, setTotalData] = useState<any>(10);
+  const [totalData, setTotalData] = useState<any>(0);
 
   const getDrawerTitle = () => {
     if (drawerType === "invoice") {
@@ -74,7 +75,7 @@ const InvoicesContainer = ({ path: string }) => {
     return (
       <SearchTableTop>
         <Flex alignItems="center">
-          <H3 text={`${invoiceData.length} Invoices`} className="heading" />
+          <H3 text={`${totalData} Invoices`} className="heading" />
           <H5
             text={`(${checkboxData.length} Selected)`}
             className="spanlabel"
@@ -235,7 +236,8 @@ const InvoicesContainer = ({ path: string }) => {
       
       {loading ? (
         <TableSkeleton />
-      ) : (
+      ) : invoiceData?.length > 0 ?
+       (
         <Table
         data={invoiceTable(invoiceData, openInvoiceDrawer)}
         tableTop={tableTop()}
@@ -252,7 +254,12 @@ const InvoicesContainer = ({ path: string }) => {
         totalPage={totalPages}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
-      )}
+      )
+      :
+      (
+        <NullState message="No Records Found" />
+      )
+      }
 
 
       <Drawer

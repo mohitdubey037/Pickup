@@ -4,18 +4,16 @@ import { LOCATION_TYPES } from "../../../../../constants";
 import { AddressDetails } from "./AddressDetails";
 
 function OrderDetailPage(props: any) {
-  const { singleOrderData = {} } = props;
+  const { singleOrderData = {}, downloadOrderDetails } = props;
   const { pickupLocation = {}, dropLocation = {} } = singleOrderData;
 
   function locationType(location): string {
     const search = (obj) => obj.value === location.addressType;
     const arrayResult = LOCATION_TYPES.filter(search);
-    console.log("Array", arrayResult);
     let labelValue: string = "";
     arrayResult.forEach(function (next) {
       labelValue = next.label;
     });
-    console.log("Next ans", labelValue);
     return labelValue;
   }
 
@@ -34,7 +32,7 @@ function OrderDetailPage(props: any) {
       <Button
         size="medium"
         label="Download Proof of Delivery"
-        onClick={() => {}}
+        onClick={downloadOrderDetails}
       />
     </>
   );

@@ -1,22 +1,22 @@
-import { CircularProgress } from "@material-ui/core";
 import { useEffect, useState } from "react";
+import { Box, Grid } from "@mui/material";
+
 import { Accordion } from "app/components/Accordion";
 import { getOrderCountDetail } from "services/SingleShipmentServices";
 import { showToast } from "utils";
 import { InnerAccordion, AccordionOuterBox, OrderImage } from "./style";
 import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
-import { Box, Grid } from "@mui/material";
 import { H4 } from "app/components/Typography/Typography";
 import OrderDetailsSkeleton from "./OrderDetailsSkeleton";
 
 interface orderDetails {
   refNo?: string;
-  customerReferenceNumber?: string;
-  shipmentReference?: string;
-  dropOption?: number;
+  shippingReference?: string;
+  referenceNumber?: string;
+  dropOption?: string;
   items?: any;
   image?: string;
-  category?: string;
+  categoryName?: string;
   fragile?: number;
   description?: string;
   picture?: string;
@@ -25,35 +25,21 @@ interface orderDetails {
 function OrderItemDetailsDrawer(props) {
   const { orderId, setDrawerOpen } = props;
   const [orderDetails, setOrderDetails] = useState<Array<orderDetails>>([]);
-  const [isFragile, setIsFragile] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
       setShowLoader(true);
-      // const { response } = await getOrderDetails(orderId ? orderId : orderId);
       const { response } = await getOrderCountDetail(orderId);
       if (response) {
-        setOrderDetails([response?.data?.data?.orders[0]]);
-        setShowLoader(false);
+        setOrderDetails(response?.data?.data?.orders);
       } else {
-        setShowLoader(false);
         showToast("Could not get the data, Please try again!", "error");
         setDrawerOpen(false);
       }
+      setShowLoader(false);
     })();
   }, [orderId]);
-
-  useEffect(() => {
-    const fragile = orderDetails.filter((item) => {
-      // orderDetails?.items?.filter((item) => {
-      if (item.fragile === 1) return true;
-      return false;
-    });
-    if (fragile?.length) {
-      setIsFragile(true);
-    }
-  }, [orderDetails]);
 
   const getLabelFromID = (id: number, list: any[]) => {
     const foundLabel = list.find((item) => item.value === id);
@@ -69,49 +55,38 @@ function OrderItemDetailsDrawer(props) {
         <OrderDetailsSkeleton />
       ) : (
         <AccordionOuterBox>
-          {orderDetails?.map((orderDetails) => {
-            console.log(orderDetails);
+          {orderDetails?.map((order, index) => {
             return (
               <Accordion
                 title={`Order Items - ${
-                  orderDetails.shipmentReference
-                    ? orderDetails.shipmentReference
-                    : "-"
+                  order.referenceNumber ? order.referenceNumber : "-"
                 }`}
+                defaultExpanded={index === 0}
               >
                 <Box>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
                       <H4 text="Category" />
-                      <H4 text={orderDetails?.category} className="value" />
+                      <H4 text={order?.categoryName} className="value" />
                     </Grid>
                     <Grid item xs={6}>
                       <H4 text="Customer Reference #" />
-                      <H4 text={orderDetails?.category} className="value" />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <H4 text="Delivery Options" />
-                      <H4 text={orderDetails?.category} className="value" />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <H4 text="Fragile" />
                       <H4
                         text={
-                          // orderDetails?.customerReferenceNumber
-                          //   ? orderDetails.customerReferenceNumber
-                          //   : "-"
-                          orderDetails?.fragile
+                          order?.shippingReference
+                            ? order.shippingReference
+                            : "-"
                         }
                         className="value"
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <H4 text="Category" />
+                      <H4 text="Delivery Options" />
                       <H4
                         text={
-                          orderDetails.dropOption === 10
+                          order.dropOption === "FRONT DOOR"
                             ? "Door Drop"
-                            : orderDetails.dropOption === 11
+                            : order.dropOption === "SAFE DROP"
                             ? "Safe Drop"
                             : "-"
                         }
@@ -119,14 +94,22 @@ function OrderItemDetailsDrawer(props) {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <H4 text="Category" />
-                      <H4 text={isFragile ? "Yes" : "No"} className="value" />
+                      <H4 text="Fragile" />
+                      <H4
+                        text={
+                          order?.items?.filter((item) => item.fragile === 1)
+                            .length > 0
+                            ? "Yes"
+                            : "No"
+                        }
+                        className="value"
+                      />
                     </Grid>
 
                     <Grid item xs={12}>
-                      {orderDetails?.picture ? (
+                      {order?.picture ? (
                         <OrderImage
-                          src={orderDetails?.picture && orderDetails?.picture}
+                          src={order?.picture && order?.picture}
                           alt=""
                         />
                       ) : (
@@ -136,8 +119,8 @@ function OrderItemDetailsDrawer(props) {
                   </Grid>
                 </Box>
 
-                {orderDetails?.items?.length > 0 &&
-                  orderDetails?.items.map((item, i) => {
+                {order?.items?.length > 0 &&
+                  order?.items.map((item, i) => {
                     return (
                       <>
                         <InnerAccordion>

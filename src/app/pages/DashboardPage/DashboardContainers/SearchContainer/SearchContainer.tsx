@@ -31,6 +31,7 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { AddressDetailsSkeleton } from "./AddressDetailsSkeleton";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import TableSkeleton from "app/components/Table/TableSkeleton";
+import NullState from "app/components/NullState/NullState";
 
 
 const SearchContainer = ({ path: string }) => {
@@ -44,7 +45,7 @@ const SearchContainer = ({ path: string }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
-  const [totalData, setTotalData] = useState<any>(10);
+  const [totalData, setTotalData] = useState<any>(0);
 
   const getSearchOrderListData = async (url?:any) => {
     setLoading(true);
@@ -55,12 +56,12 @@ const SearchContainer = ({ path: string }) => {
       setPage(orderList?.pageMetaData?.page - 1);
       setTotalPages(orderList?.pageMetaData?.totalPages);
       setTotalData(orderList?.pageMetaData?.total);
-      setLoading(false);
     }
     else if (!res.error) {
       const InvoiceList = res;
       setSearchRecordData(InvoiceList);
     }
+    setLoading(false);
   };
 
   const getSearchPaginatedData = async (page) => {
@@ -124,7 +125,7 @@ const SearchContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${searchRecordData ?searchRecordData?.list?.length : 0} Orders`} className="heading" />
+        <H3 text={`${totalData} Orders`} className="heading" />
         <Button label="Print" onClick={() => {}} size="small" secondary />
       </SearchTableTop>
     );
@@ -211,7 +212,7 @@ const SearchContainer = ({ path: string }) => {
 
   return (
     <ModuleContainer>
-      <H2 title="Search" />
+      <H2 title="Search Orders" />
 
       <Box mt={3} mb={2}>
         <GridContainer container spacing={2}>
@@ -223,7 +224,7 @@ const SearchContainer = ({ path: string }) => {
             initValue={values.invoiceNumber}
             onBlur={handleBlur}
             onChange={handleChange}
-            error={touched.orderId && errors.orderId}
+            error={touched.invoiceNumber && errors.invoiceNumber}
             label="Invoice Number"
             placeholder="eg. 123,321"
           />
@@ -292,9 +293,12 @@ const SearchContainer = ({ path: string }) => {
         </GridContainer>
       </Box>
 
+  
       {loading ? (
         <TableSkeleton />
-      ) : (
+      ) : searchRecordData?.list?.length > 0 ?
+       (
+        
         <Table
           data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
           tableTop={tableTop()}
@@ -306,7 +310,13 @@ const SearchContainer = ({ path: string }) => {
           totalPage={totalPages}
           filterColumns={[0, 1, 2, 3, 4, 5]}
         />
-      )}
+      )
+      :
+      (
+        <NullState message="No Records Found" />
+      )
+     }
+     
 
       <Drawer
         open={drawerOpen}
@@ -325,7 +335,10 @@ const SearchContainer = ({ path: string }) => {
             {loading ? (
               <AddressDetailsSkeleton />
             ) : (
-              <SearchOrderDetailsDrawer singleOrderData={singleOrderData} />
+              <SearchOrderDetailsDrawer
+                singleOrderData={singleOrderData}
+                orderId={selectedInvoiceId}
+              />
             )}
           </>
         )}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RouteComponentProps } from "@reach/router";
+import { Redirect, RouteComponentProps } from "@reach/router";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
@@ -27,10 +27,10 @@ const DashboardPage = ({ children, navigate }: DashboardProps) => {
   const [link, setLink] = useState("");
 
   const dispatch = useDispatch();
+  const token = Cookies?.get("token") || "";
 
   useEffect(() => {
     (async () => {
-      const token = Cookies?.get("token") || "";
       if (token) {
         const decoded: Token | null = token ? jwt_decode(token) : null;
         const res: any = await getPersonalProfileDetails(decoded?.userId);
@@ -50,6 +50,10 @@ const DashboardPage = ({ children, navigate }: DashboardProps) => {
   // const hideSplashScreens = () => {
   //   dispatch({ type: "HIDE_SPLASH" });
   // };
+
+  if (!token) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <DasboardWrapper>
