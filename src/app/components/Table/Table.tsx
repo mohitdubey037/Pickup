@@ -30,6 +30,7 @@ const Table = ({
 
     // const pagePerRows = 10;
     let mySort;
+    console.log(mySort);
 
     useEffect(() => {
         setPageNumber?.(page)
@@ -40,10 +41,14 @@ const Table = ({
             setSortType(true);
         }
         else if(sortTypeProps === "asc") {
-            console.log('jfhkdshk');
+            console.log(sortTypeProps);
             setSortType(false);
         }
     })
+
+    useEffect(() => {
+        console.log(sortType);
+    },[sortType])
 
     const sort = (title) => {
         let tempTitle;
@@ -58,8 +63,6 @@ const Table = ({
         // }
         setFieldTitle(tempTitle);
         if (tempTitle) {
-            console.log('hiiijoj');
-            console.log(mySort, 'hiiijoj');
             mySort = !sortType
             console.log(mySort);
             paginationData?.(pageNumber, tempTitle, mySort? 'desc' : 'asc');
@@ -77,6 +80,7 @@ const Table = ({
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPageNumber(newPage);
+        mySort = sortType
         paginationData?.(newPage, fieldTitle, mySort ? 'desc' : 'asc');
         handleCheckboxClick(false, undefined, "header");
     };
