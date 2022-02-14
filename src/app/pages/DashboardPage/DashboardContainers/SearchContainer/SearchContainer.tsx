@@ -149,6 +149,12 @@ const SearchContainer = ({ path: string }) => {
     }
   };
 
+  const applyOrderFilters = () => {
+    setDrawerType("");
+    setDrawerOpen(false);
+    getSearchListData();
+  };
+
   const {
     values,
     handleChange,
@@ -281,7 +287,7 @@ const SearchContainer = ({ path: string }) => {
         {drawerType === "invoice" ? (
           <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
         ) : drawerType === "advanceFilter" ? (
-          <AdvanceFilters />
+          <AdvanceFilters applyFilters={applyOrderFilters} />
         ) : (
           <>
             {loading ? (
