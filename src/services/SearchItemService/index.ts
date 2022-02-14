@@ -2,7 +2,7 @@ import Service from "../";
 
 export const getTrackStatus = async (orderId: number) => {
   try {
-    const response = await Service.get(`order/business/shipment/${orderId}/track`, "order")
+    const response = await Service.get(`order/business/shipment/${orderId}/track`, "order");
     // const response = await
     // fetch(
     //   `https://staging-api.pickups.mobi/order/api/order/business/shipment/${orderId}/track`,
@@ -42,7 +42,7 @@ export const getSearchOrderList = async (urlParams?: string, page?: number, chun
   } catch (err) {
     return { response: err, sucess: false };
   }
-}
+};
 
 // export const getPaginatedData = async (page?: number, chunk?: number) => {
 //   try {
@@ -57,6 +57,15 @@ export const getSearchOrderList = async (urlParams?: string, page?: number, chun
 export const getSearchOrderListById = async (orderId: number) => {
   try {
     const response = await Service.get(`order/business/shipment/${orderId}`, "order");
+    return { response: response, success: true };
+  } catch (err) {
+    return { response: err, sucess: false };
+  }
+};
+
+export const saveAdvancedFilters = async (data: any) => {
+  try {
+    const response = await Service.post(`order/business/shipment/adavanceFilters`, data, "order");
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };
