@@ -6,6 +6,8 @@ import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import AdminDetailsSchema from "./AdminDetailsSchema";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import { Box } from "@mui/material";
 
 export default function AdminDetails({ navigate }: RouteComponentProps) {
   const dispatch = useDispatch();
@@ -30,12 +32,10 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
     onSubmit: Confirm,
   });
   return (
-    <>
-      <FormWrapper>
+    <Box mt={4}>
         <form>
-          <Grid container spacing={3}>
-            <Grid item xs={12}></Grid>
-            <Grid item xs={3}>
+          <GridContainer container spacing={2}>
+            <Grid item xs={12} sm={4} lg={3}>
               <Input
                 id="FirstName"
                 name="FirstName"
@@ -46,7 +46,7 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 placeholder={"John"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={4} lg={3}>
               <Input
                 id="LastName"
                 name="LastName"
@@ -57,18 +57,18 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 placeholder={"Doe"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={4} lg={3}>
               <Input
                 id="PhoneNumber"
                 name="PhoneNumber"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 error={touched.PhoneNumber && errors.PhoneNumber}
-                label={"+1 999-999-9999"}
-                placeholder={"Retail"}
+                label={"Phone Number"}
+                placeholder={"+1 (999)-999-9999"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={4} lg={3}>
               <Input
                 id="Role"
                 name="Role"
@@ -76,10 +76,10 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Role && errors.Role}
                 label={"Role/Designation"}
-                placeholder={"Manager"}
+                placeholder={"eg. Manager"}
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={8} lg={4}>
               <Input
                 id="Email"
                 name="Email"
@@ -90,9 +90,8 @@ export default function AdminDetails({ navigate }: RouteComponentProps) {
                 placeholder={"johndoe@gmail.com"}
               />
             </Grid>
-          </Grid>
+          </GridContainer>
         </form>
-      </FormWrapper>
-    </>
+    </Box>
   );
 }

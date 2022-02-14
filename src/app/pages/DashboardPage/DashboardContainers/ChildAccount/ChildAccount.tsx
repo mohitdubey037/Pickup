@@ -1,36 +1,34 @@
-import React from 'react'
-import { FormContainer } from 'app/components/ModuleContainer/style'
-import ModuleContainer from 'app/components/ModuleContainer'
-import { H2 } from 'app/components/Typography/Typography'
-import ChildAccountForm from './ChildAccountForm'
-import AdminDetails from './AdminDetails'
-import Cards from './Cards'
-export default function ChildAccount({path:string}) {
-    return (
-        <ModuleContainer>
-        <H2 title="Create New Child" />
+import React from "react";
+import ModuleContainer from "app/components/ModuleContainer";
+import { H2, H3 } from "app/components/Typography/Typography";
+import ChildAccountForm from "./ChildAccountForm";
+import AdminDetails from "./AdminDetails";
+import Cards from "./Cards";
+import { Flex, FullCard } from "app/components/Input/style";
+import { Button } from "app/components/Buttons";
+
+export default function ChildAccount({ path: string }) {
+  return (
+    <ModuleContainer>
         
-        <FormContainer elevation={2}>
-            <H2 title="Create Child" />
-            <div style={{ marginBottom: "30px" }}>
-                <ChildAccountForm />
-                
-            </div>
-        </FormContainer>
-        <FormContainer elevation={2}>
-            <H2 title="Admin Details" />
-            <div style={{ marginBottom: "30px" }}>
-                <AdminDetails />
-                
-            </div>
-        </FormContainer>
-        <FormContainer elevation={2}>
-            <H2 title="Cards" />
-            <div style={{ marginBottom: "30px" }}>
-                <Cards title={"Method of Payment"} />
-                
-            </div>
-        </FormContainer>
-        </ModuleContainer>
-    )
+      <H2 title="Create New Child" />
+      <FullCard>
+      <H3 text="Create Child" />
+      <ChildAccountForm />
+      </FullCard>
+      <FullCard>
+      <H3 text="Superintendent Details" />
+      <AdminDetails />
+      </FullCard>
+      <FullCard>
+      <Cards  />
+      </FullCard>
+      <Flex justifyContent="flex-end">
+          <Button
+            size="medium"
+            label="Invite Child"
+          />
+      </Flex>
+    </ModuleContainer>
+  );
 }

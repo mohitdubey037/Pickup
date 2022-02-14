@@ -1,11 +1,11 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
-import { FormWrapper } from "app/components/Input/style";
 import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ChildAccountSchema from "./ChildAccountSchema";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 
 export default function ChildAccountForm({ navigate }: RouteComponentProps) {
   const dispatch = useDispatch();
@@ -34,17 +34,10 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
     onSubmit: Confirm,
   });
   return (
-    <>
-      <FormWrapper>
+    <Box mt={4}>
         <form>
-          <Typography
-            className="typography"
-            variant="h1"
-            component="h3"
-          ></Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12}></Grid>
-            <Grid item xs={3}>
+          <GridContainer container spacing={2}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="CompanyName"
                 name="CompanyName"
@@ -52,10 +45,10 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.CompanyName && errors.CompanyName}
                 label={"Company Name"}
-                placeholder={"Comapany Name"}
+                placeholder={"Example Company"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="BusinessNumber"
                 name="BusinessNumber"
@@ -63,10 +56,10 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.BusinessNumber && errors.BusinessNumber}
                 label={"Business Number"}
-                placeholder="+1 (999)-999-9999"
+                placeholder="eg. 123456"
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Industry"
                 name="Industry"
@@ -74,10 +67,10 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Industry && errors.Industry}
                 label={"Industry"}
-                placeholder={"Retail"}
+                placeholder={"eg. Retail"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Employee"
                 name="Employee"
@@ -85,10 +78,10 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Employee && errors.Employee}
                 label={"Employee"}
-                placeholder={"Employee"}
+                placeholder={"eg. John Doe"}
               />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={12} lg={6}>
               <Input
                 id="AddressLine1"
                 name="AddressLine1"
@@ -96,10 +89,10 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.AddressLine1 && errors.AddressLine1}
                 label={"Address Line 1"}
-                placeholder={"Address Line 1"}
+                placeholder={"123 Address Street"}
               />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={12} lg={6}>
               <Input
                 id="AddressLine2"
                 name="AddressLine2"
@@ -107,10 +100,10 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.AddressLine2 && errors.AddressLine2}
                 label={"Address Line 2"}
-                placeholder={"AddressLine2"}
+                placeholder={"123 Address Street"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Pincode"
                 name="Pincode"
@@ -118,10 +111,10 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Pincode && errors.Pincode}
                 label={"Pincode"}
-                placeholder={"Pincode"}
+                placeholder={"1234"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Province"
                 name="Province"
@@ -129,11 +122,11 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Province && errors.Province}
                 label={"Province"}
-                placeholder={"Province"}
+                placeholder={"eg. Ontario"}
               />
             </Grid>
 
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="City"
                 name="City"
@@ -141,10 +134,10 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.City && errors.City}
                 label={"City"}
-                placeholder={"City"}
+                placeholder={"eg. Toronto"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Country"
                 name="Country"
@@ -152,12 +145,12 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 onChange={handleChange}
                 error={touched.Country && errors.Country}
                 label={"Country"}
-                placeholder={"Country"}
+                placeholder={"eg. Canada"}
               />
             </Grid>
-          </Grid>
+          </GridContainer>
         </form>
-      </FormWrapper>
-    </>
+    
+    </Box>
   );
 }
