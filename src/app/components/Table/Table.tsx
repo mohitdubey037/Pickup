@@ -40,6 +40,7 @@ const Table = ({
             setSortType(true);
         }
         else if(sortTypeProps === "asc") {
+            console.log('jfhkdshk');
             setSortType(false);
         }
     })
@@ -57,7 +58,8 @@ const Table = ({
         // }
         setFieldTitle(tempTitle);
         if (tempTitle) {
-            console.log('hiiijoj')
+            console.log('hiiijoj');
+            console.log(mySort, 'hiiijoj');
             mySort = !sortType
             console.log(mySort);
             paginationData?.(pageNumber, tempTitle, mySort? 'desc' : 'asc');
@@ -75,7 +77,7 @@ const Table = ({
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPageNumber(newPage);
-        paginationData?.(newPage, fieldTitle, mySort ? 'desc' : 'desc');
+        paginationData?.(newPage, fieldTitle, mySort ? 'desc' : 'asc');
         handleCheckboxClick(false, undefined, "header");
     };
 
