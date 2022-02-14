@@ -35,7 +35,7 @@ export const getSearchOrderList = async (urlParams?: string, page?: number, chun
       api += `sortingField=${sortingField}&sortingType=${sortingType}&`
     }
     if (page) {
-      api += `?page=${page}&chunk=${chunk}`
+      api += `page=${page}&chunk=${chunk}`
     }
     const response = await Service.get(api, "order");
     return { response: response, success: true };
