@@ -20,7 +20,7 @@ export const searchTable = (
 ) => {
   let makeTableData: any = [];
   if (searchRecordData && searchRecordData.length) {
-    searchRecordData.map((item: any) => {
+    searchRecordData.forEach((item: any) => {
       makeTableData.push({
         Source: "Uploaded",
         "Invoice Id": getInvoiceIdItem(openInvoiceDrawer, item.invoiceId),
@@ -35,8 +35,8 @@ export const searchTable = (
 };
 
 export const advanceFilterInitValues = {
-  from_shipping: new Date(),
-  to_shipping: new Date(),
+  from_shipping: "",
+  to_shipping: "",
   status: "",
   origin_city: "",
   origin_postal_code: "",

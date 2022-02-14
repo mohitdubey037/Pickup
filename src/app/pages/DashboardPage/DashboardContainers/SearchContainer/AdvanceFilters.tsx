@@ -1,18 +1,22 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-// import { Input } from "app/components/Input";
-import Select from "app/components/Select";
-import { STATUS_TYPES } from "./helper";
+import { Divider } from "@mui/material";
+import { useFormik } from "formik";
+import moment from "moment";
+
+import SelectNew from "app/components/Select/SelectNew";
 import { H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { Divider } from "@mui/material";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { DrawerFooter } from "app/components/Drawer/style";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { Input } from "app/components/Input";
 import { AdvanceFilterBox } from "./style";
+import { STATUS, WEIGHTDIMENSION, DIMENSION2 } from "../../../../../constants";
+import { advanceFilterInitValues } from "./helper";
+import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 
-function AdvanceFilters({ formik }) {
+function AdvanceFilters() {
   const {
     handleChange,
     values,
@@ -21,47 +25,51 @@ function AdvanceFilters({ formik }) {
     handleBlur,
     setFieldValue,
     handleSubmit,
-  } = formik;
- 
+  } = useFormik({
+    initialValues: advanceFilterInitValues,
+    validationSchema: AdvanceFilterFormSchema,
+    onSubmit: (values) => {
+      console.log("Values : ", values);
+    },
+  });
+
   return (
     <AdvanceFilterBox>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <DatePickerInput
-            label="Date"
+            label="From Order Date"
             placeholder={"e.g 06/06/2021"}
+            maxDate={moment(values.to_shipping).subtract(1, "days").toDate()}
             value={values.from_shipping}
-            onChange={(newValue) => {
-              setFieldValue("from_shipping", newValue);
-            }}
-            
+            onChange={(val) => setFieldValue("from_shipping", val)}
           />
         </Grid>
         <Grid item xs={6}>
           <DatePickerInput
-            label="Date"
+            label="To Order Date"
             placeholder={"e.g 06/06/2021"}
+            maxDate={moment(values.from_shipping).add(1, "days").toDate()}
             value={values.to_shipping}
-            onChange={(newValue) => {
-              setFieldValue("to_shipping", newValue);
-            }}
+            onChange={(val) => setFieldValue("to_shipping", val)}
           />
         </Grid>
         <Grid item xs={12}>
-          <label htmlFor="cars">Status</label>
-          <Select
+          <SelectNew
             id={"status"}
             name={"status"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
+            label={"Status"}
+            placeholder={"Select Order Status"}
+            options={STATUS}
             value={values["status"]}
+            onChange={handleChange}
           />
         </Grid>
       </Grid>
 
       <Divider />
 
-      <H3 text="Order Origin Details" className="heading"  />
+      <H3 text="Order Origin Details" className="heading" />
       <GridContainer container spacing={2}>
         <Grid item xs={6}>
           <Input
@@ -132,7 +140,7 @@ function AdvanceFilters({ formik }) {
 
       <Divider />
 
-      <H3 text="Order Destination Details" className="heading"  />
+      <H3 text="Order Destination Details" className="heading" />
       <GridContainer container spacing={2}>
         <Grid item xs={12}>
           <Input
@@ -224,13 +232,14 @@ function AdvanceFilters({ formik }) {
       <H3 text="Order Details" className="heading" />
       <GridContainer container spacing={2}>
         <Grid item xs={3}>
-          <Select
+          <SelectNew
             id={"weight"}
             name={"weight"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["weight"]}
             label={"Weight"}
+            placeholder={"Select"}
+            options={[]}
+            value={values["weight"]}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={6}>
@@ -246,23 +255,25 @@ function AdvanceFilters({ formik }) {
           />
         </Grid>
         <Grid item xs={3}>
-          <Select
+          <SelectNew
             id={"weight_unit"}
             name={"weight_unit"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["weight_unit"]}
             label={"Unit"}
+            placeholder={"Select Unit"}
+            options={WEIGHTDIMENSION}
+            value={values["weight_unit"]}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={3}>
-          <Select
+          <SelectNew
             id={"volume"}
             name={"volume"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["volume"]}
             label={"Volume"}
+            placeholder={"Select"}
+            options={[]}
+            value={values["volume"]}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={6}>
@@ -278,32 +289,35 @@ function AdvanceFilters({ formik }) {
           />
         </Grid>
         <Grid item xs={3}>
-          <Select
+          <SelectNew
             id={"volume_unit"}
             name={"volume_unit"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["volume_unit"]}
             label={"Unit"}
+            placeholder={"Select Unit"}
+            options={DIMENSION2}
+            value={values["volume_unit"]}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12}>
-          <Select
+          <SelectNew
             id={"category"}
             name={"category"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["category"]}
             label={"Category"}
+            placeholder={"Select Category"}
+            options={[]}
+            value={values["category"]}
+            onChange={handleChange}
           />
         </Grid>
       </GridContainer>
 
       <DrawerFooter>
-        <div></div>
-        <Button label="Apply Filters" onClick={handleSubmit} size="medium"  />
+        <Button label="Clear" disabled size="medium" secondary />
+        <Button label="Apply Filters" onClick={handleSubmit} size="medium" />
       </DrawerFooter>
     </AdvanceFilterBox>
   );
 }
+
 export default AdvanceFilters;
