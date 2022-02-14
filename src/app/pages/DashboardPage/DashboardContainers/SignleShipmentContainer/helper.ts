@@ -266,6 +266,11 @@ export const transformPayloadToBackend = (values: any) => {
         type: Number(values.scheduleType),
         items: values.shipmentDetails.map((item) => ({
             ...item,
+            quantity: Number(item.quantity),
+            height: Number(item.height),
+            length: Number(item.length),
+            width: Number(item.width),
+            weight: Number(item.weight),
             fragile: values.fragile,
         })),
         picture: values.picture,
