@@ -171,3 +171,9 @@ export const STATUS = [
 ];
 
 export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];
+
+export const OPERANDS = [
+  { label: ">", value: ">" },
+  { label: "=", value: "=" },
+  { label: "<", value: "<" },
+];
