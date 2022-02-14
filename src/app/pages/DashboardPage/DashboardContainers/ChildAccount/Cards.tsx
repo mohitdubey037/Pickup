@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
-import { Flex } from "app/components/Input/style";
 import { useFormik } from "formik";
 import RadioGroup from "app/components/RadioGroup";
 import { cardSchema } from "../PaymentsContainer/cardSchema";
-import { H3, H4 } from "app/components/Typography/Typography";
+import { H3 } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Box } from "@mui/material";
 import { CustomLink } from "app/components/Typography/Links";
+import { Drawer } from "app/components/Drawer";
+import CardList from "./CardList";
 
 export default function Cards() {
   const Confirm = () => {};
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const { handleChange, errors, touched, handleBlur, handleSubmit } = useFormik(
     {
       initialValues: {
@@ -41,6 +43,7 @@ export default function Cards() {
           <CustomLink
             label={`Share Current Cards With Child`}
             style={{ color: "#1B8AF0" }}
+            link={() => setDrawerOpen(true)}
           />
         </Box>
         <GridContainer container spacing={2}>
@@ -123,6 +126,19 @@ export default function Cards() {
           </Grid>
         </GridContainer>
       </form>
+
+
+      <Drawer
+            open={drawerOpen}
+            title="Share Cards"
+            setDrawerOpen={(flag) => setDrawerOpen(flag)}
+            closeIcon={true}
+            actionButtons={true}
+          >
+           <CardList />
+          
+          </Drawer>
+
     </Box>
   );
 }
