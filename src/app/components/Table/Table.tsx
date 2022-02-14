@@ -19,20 +19,30 @@ const Table = ({
     totalPage,
     totalData,
     page,
-    columnPagination,
     paginationData,
+    sortTypeProps,
 }: TableProps) => {
     const [pageNumber, setPageNumber] = React.useState<any>(0);
-    const [sortType, setSortType] = React.useState<boolean>(true);
+    const [sortType, setSortType] = React.useState<any>();
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [selectedRows, setSelected] = React.useState<Array<unknown>>([]);
     const [fieldTitle, setFieldTitle] = React.useState<string>("")
 
     // const pagePerRows = 10;
+    let mySort;
 
     useEffect(() => {
         setPageNumber?.(page)
     }, []);
+
+    useEffect(() => {
+        if (sortTypeProps === "desc") {
+            setSortType(true);
+        }
+        else if(sortTypeProps === "asc") {
+            setSortType(false);
+        }
+    })
 
     const sort = (title) => {
         let tempTitle;
@@ -42,13 +52,15 @@ const Table = ({
         else if (title === 'Invoice Number'){
             tempTitle = 'invoiceNumber';
         }
-        else if (title === 'Invoice Amount') {
-            tempTitle = "total";
-        }
+        // else if (title === 'Invoice Amount') {
+        //     tempTitle = "total";
+        // }
         setFieldTitle(tempTitle);
-        if (title) {
-            setSortType(!sortType)
-            paginationData?.(pageNumber, tempTitle, sortType? 'asc' : 'desc');
+        if (tempTitle) {
+            console.log('hiiijoj')
+            mySort = !sortType
+            console.log(mySort);
+            paginationData?.(pageNumber, tempTitle, mySort? 'desc' : 'asc');
         }
     }
 
@@ -63,7 +75,7 @@ const Table = ({
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPageNumber(newPage);
-        paginationData?.(newPage, fieldTitle, sortType? 'asc' : 'desc');
+        paginationData?.(newPage, fieldTitle, mySort ? 'desc' : 'desc');
         handleCheckboxClick(false, undefined, "header");
     };
 

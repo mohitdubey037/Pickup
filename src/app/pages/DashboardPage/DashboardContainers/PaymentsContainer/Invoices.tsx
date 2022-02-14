@@ -34,6 +34,7 @@ const InvoicesContainer = ({ path: string }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
   const [totalData, setTotalData] = useState<any>(0);
+  const [sortType, setSortType] = useState<string | undefined>("desc");
 
   const getDrawerTitle = () => {
     if (drawerType === "invoice") {
@@ -105,7 +106,7 @@ const InvoicesContainer = ({ path: string }) => {
       values["toDate"] = values["toDate"]
         ? moment(values["toDate"]).format("YYYY-MM-DD")
         : "";
-      urlParams += "?";
+      // urlParams += "?";
       let tempLen = Object.entries(values).length;
       Object.entries(values).forEach(
         ([key, value], index) =>
@@ -153,8 +154,7 @@ const InvoicesContainer = ({ path: string }) => {
   };
 
   const getSearchPaginatedData = async (page, sortingField, sortingType) => {
-    console.log(sortingField);
-    console.log(sortingType);
+    setSortType(sortingType);
     let res;
     if (page === 0) {
       res = (await getInvoiceList('',0, 10, sortingField, sortingType)) as any;
@@ -244,6 +244,7 @@ const InvoicesContainer = ({ path: string }) => {
         dataChecked={(data: any) => {
           setCheckboxData(data);
         }}
+        sortTypeProps = {sortType}
         paginationData={(page, sortingField, sortingType) => getSearchPaginatedData(page, sortingField, sortingType)}
         // columnPagination = {(sortingField, sortingType) => columnPaginate(sortingField, sortingType)}
         showCheckbox 
