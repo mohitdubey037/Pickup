@@ -51,8 +51,15 @@ const SearchContainer = ({ path: string }) => {
   const [sortType, setSortType] = useState<string | undefined>("desc");
 
   const getSearchListData = async (values?: object) => {
+    console.log(values);
     let urlParams = "";
     if (values) {
+      values["fromDate"] = values["fromDate"]
+        ? moment(values["fromDate"]).format("YYYY-MM-DD")
+        : "";
+      values["toDate"] = values["toDate"]
+        ? moment(values["toDate"]).format("YYYY-MM-DD")
+        : "";
       urlParams += "?";
       let tempLen = Object.entries(values).length;
       Object.entries(values).forEach(
@@ -197,27 +204,26 @@ const SearchContainer = ({ path: string }) => {
               placeholder="eg. 123,321"
             />
           </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
+          <Grid item xs={12} sm={4} lg={2}>
+          {/* <Input label="Order Id" placeholder="eg. 123,321" /> */}
             <Input
-            id="invoiceNumber"
-            name="invoiceNumber"
-            initValue={values.invoiceNumber}
+            id="orderId"
+            name="orderId"
+            initValue={values.orderId}
             onBlur={handleBlur}
             onChange={handleChange}
-            error={touched.invoiceNumber && errors.invoiceNumber}
-            label="Invoice Number"
+            error={touched.orderId && errors.orderId}
+            label="Order Id"
             placeholder="eg. 123,321"
           />
-          </Grid>
+        </Grid>
           <Grid item xs={6} sm={4} lg={2}>
             <DatePickerInput
               label="From Date"
-              maxDate={
-                new Date(moment(values.toDate).subtract(1, "days").toDate())
-              }
+              maxDate={values.toDate ? new Date(moment(values.toDate).subtract(1,'days').toDate()): new Date()}
               placeholder={"e.g 06/06/2021"}
               value={values.fromDate || null}
-              onChange={(val) => setData("fromDate", val)}
+              onChange={(val) => setFieldValue("fromDate", val)}
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
@@ -229,7 +235,7 @@ const SearchContainer = ({ path: string }) => {
               label="To Date"
               placeholder={"e.g 06/06/2021"}
               value={values.toDate || null}
-              onChange={(val) => setData("toDate", val)}
+              onChange={(val) => setFieldValue("toDate", val)}
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
