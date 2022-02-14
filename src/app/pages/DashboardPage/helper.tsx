@@ -78,7 +78,7 @@ export const dashboardHelper: Array<Link> = [
       {
         id: 2,
         label: "Child Account",
-        link: "/dashboard/my-account/child-account",
+        link: "/dashboard/my-account/child-account-list",
       },
       // {
       //   id: 3,

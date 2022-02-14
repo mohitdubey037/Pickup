@@ -24,7 +24,6 @@ export default function ChildAccount({ path: string }) {
         <ChildAccountForm />
       </FullCard>
 
-
       <FullCard>
         <H3 text="Superintendent Details" />
         <AdminDetails />
