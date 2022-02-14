@@ -10,6 +10,7 @@ import { OrderImage } from "../SignleShipmentContainer/style";
 function ItemDetailsPage(props: any) {
   const { singleOrderData } = props;
   const { items } = singleOrderData;
+  console.log(singleOrderData);
 
   const getLabelFromID = (id: number, list: any[]) => {
     const foundLabel = list.find((item) => item.value === id);
@@ -21,6 +22,7 @@ function ItemDetailsPage(props: any) {
   };
 
   const accordianItem = (item: any, index: number) => {
+    console.log(item);
     return (
       <ItemDetailsBox>
         <Accordion title={item.name} defaultExpanded={index === 0}>
@@ -116,9 +118,9 @@ function ItemDetailsPage(props: any) {
               />
             </Grid>
 
-            {item.picture && (
+            {singleOrderData.picture && (
               <Grid item md={12}>
-                <OrderImage src={item.picture} alt="" />
+                <OrderImage src={singleOrderData.picture} alt="" />
               </Grid>
             )}
           </Grid>

@@ -48,6 +48,7 @@ const SearchContainer = ({ path: string }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
   const [totalData, setTotalData] = useState<any>(0);
+  const [sortType, setSortType] = useState<string | undefined>("desc");
 
   const getSearchListData = async (values?: object) => {
     let urlParams = "";
@@ -61,6 +62,7 @@ const SearchContainer = ({ path: string }) => {
             : "")
       );
     }
+    console.log(urlParams);
     getSearchOrderListData(urlParams);
   };
 
@@ -80,19 +82,23 @@ const SearchContainer = ({ path: string }) => {
     setLoading(false);
   };
 
-  const getSearchPaginatedData = async (page) => {
+  const getSearchPaginatedData = async (page, sortingField, sortingType) => {
+    let res;
+    setSortType(sortingType);
     if (page === 0) {
-      getSearchListData();
-    } else {
-      const res = (await getSearchOrderList("", page + 1, 10)) as any;
-      if (res.success) {
-        const orderList = res.response.data.data;
-        setPage(page);
-        setSearchRecordData(orderList);
-      } else if (!res.error) {
-        const InvoiceList = res;
-        setSearchRecordData(InvoiceList);
-      }
+      res = (await getSearchOrderList('',0, 10, sortingField, sortingType)) as any;
+    }
+    else {
+      res = (await getSearchOrderList('',page+1, 10, sortingField, sortingType)) as any;
+    }
+    if (res.success) {
+      const orderList = res.response.data.data;
+      setPage(page);
+      setSearchRecordData(orderList);
+    }
+    else if (!res.error) {
+      const InvoiceList = res;
+      setSearchRecordData(InvoiceList);
     }
   };
 
@@ -199,15 +205,15 @@ const SearchContainer = ({ path: string }) => {
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
             <Input
-              id="orderId"
-              name="orderId"
-              initValue={values.orderId}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.orderId && errors.orderId}
-              label="Order Id"
-              placeholder="eg. 123,321"
-            />
+            id="invoiceNumber"
+            name="invoiceNumber"
+            initValue={values.invoiceNumber}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={touched.invoiceNumber && errors.invoiceNumber}
+            label="Invoice Number"
+            placeholder="eg. 123,321"
+          />
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
             <DatePickerInput
@@ -264,7 +270,8 @@ const SearchContainer = ({ path: string }) => {
         <Table
           data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
           tableTop={tableTop()}
-          paginationData={(page) => getSearchPaginatedData(page)}
+          sortTypeProps = {sortType}
+          paginationData={(page, sortingField, sortingType) => getSearchPaginatedData(page, sortingField, sortingType)}
           showCheckbox
           showPagination
           page={page}

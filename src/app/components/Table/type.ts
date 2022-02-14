@@ -9,12 +9,12 @@ export interface TableProps{
     perPageRows?:number;
     selectedItems?:Array<unknown>;
     getSelectedItems?:(rows:Array<unknown>)=>void;
-    paginationData?: (page: number) => void;
+    paginationData?: (page: number, sortingField?: string, sortingType?: string) => void;
     onRowSelect?:Function;
     onRowChecked?: Function;
     dataChecked?: (data: any) => void
     page?: number
     totalPage?: number
     totalData?: any
-
+    sortTypeProps?: string
 }
