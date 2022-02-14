@@ -154,7 +154,6 @@ const InvoicesContainer = ({ path: string }) => {
   };
 
   const getSearchPaginatedData = async (page, sortingField, sortingType) => {
-    console.log(sortingType);
     setSortType(sortingType);
     let res;
     if (page === 0) {

@@ -48,6 +48,7 @@ const SearchContainer = ({ path: string }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
   const [totalData, setTotalData] = useState<any>(0);
+  const [sortType, setSortType] = useState<string | undefined>("desc");
 
   const getSearchListData = async (values?: object) => {
     let urlParams = "";
@@ -61,6 +62,7 @@ const SearchContainer = ({ path: string }) => {
             : "")
       );
     }
+    console.log(urlParams);
     getSearchOrderListData(urlParams);
   };
 
@@ -80,13 +82,14 @@ const SearchContainer = ({ path: string }) => {
     setLoading(false);
   };
 
-  const getSearchPaginatedData = async (page) => {
+  const getSearchPaginatedData = async (page, sortingField, sortingType) => {
     let res;
+    setSortType(sortingType);
     if (page === 0) {
-      res = (await getSearchOrderList('',0, 10)) as any;
+      res = (await getSearchOrderList('',0, 10, sortingField, sortingType)) as any;
     }
     else {
-      res = (await getSearchOrderList('',page+1, 10)) as any;
+      res = (await getSearchOrderList('',page+1, 10, sortingField, sortingType)) as any;
     }
     if (res.success) {
       const orderList = res.response.data.data;
@@ -261,7 +264,8 @@ const SearchContainer = ({ path: string }) => {
         <Table
           data={searchTable(searchRecordData?.list, openInvoiceDrawer)}
           tableTop={tableTop()}
-          paginationData={(page) => getSearchPaginatedData(page)}
+          sortTypeProps = {sortType}
+          paginationData={(page, sortingField, sortingType) => getSearchPaginatedData(page, sortingField, sortingType)}
           showCheckbox
           showPagination
           page={page}

@@ -30,7 +30,6 @@ const Table = ({
 
     // const pagePerRows = 10;
     let mySort;
-    console.log(mySort);
 
     useEffect(() => {
         setPageNumber?.(page)
@@ -41,7 +40,6 @@ const Table = ({
             setSortType(true);
         }
         else if(sortTypeProps === "asc") {
-            console.log(sortTypeProps);
             setSortType(false);
         }
     })
@@ -51,20 +49,18 @@ const Table = ({
     },[sortType])
 
     const sort = (title) => {
+        console.log(title);
         let tempTitle;
-        if (title === "Invoice Date") {
-            tempTitle = 'invoiceCreatedAt';
-        }
-        else if (title === 'Invoice Number'){
-            tempTitle = 'invoiceNumber';
-        }
-        // else if (title === 'Invoice Amount') {
-        //     tempTitle = "total";
-        // }
+        if (title === "Invoice Date") tempTitle = 'invoiceCreatedAt';
+        else if (title === 'Invoice Number') tempTitle = 'invoiceNumber';
+        else if (title === 'Invoice Amount') tempTitle = 'total';
+        else if (title === 'Invoice Id') tempTitle = 'invoiceId';
+        else if (title === 'Order Id') tempTitle = 'orderId';
+        else if (title === 'Order Date') tempTitle = 'shippingDate';
+        else if (title === 'Order Cost') tempTitle = 'total';
         setFieldTitle(tempTitle);
         if (tempTitle) {
             mySort = !sortType
-            console.log(mySort);
             paginationData?.(pageNumber, tempTitle, mySort? 'desc' : 'asc');
         }
     }
