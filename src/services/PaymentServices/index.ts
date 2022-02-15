@@ -30,18 +30,39 @@ export const addNewCardService = async (body: any) => {
     }
 }
 
-export const getInvoiceList = async (urlParams?: string, page?: number, chunk?: number)=>{
+export const getInvoiceList = async (urlParams?: string, page?: number, chunk?: number, sortingField?: string, sortingType?: string)=>{
+  // console.log(sortingType);
   try {
-    let api = `order/business/invoices${urlParams}`
-    if (page) {
-      api += `?page=${page}&&chunk=${chunk}`
+    let api = `order/business/invoices?${urlParams}`
+    if (sortingField) {
+      api += `sortingField=${sortingField}&sortingType=${sortingType}&`
     }
-      const res = await Services.get(api,"order");
-      console.log(res);
-      return{response: res, error:null};
+    if (page) {
+      api += `page=${page}&chunk=${chunk}`
+    }
+    const res = await Services.get(api,"order");
+    // console.log(res);
+    return{response: res, error:null};
   }catch(error){
   return {response: null, error: error};
   }
+}
+
+export const getColumnPaginate = async (urlParams?: string, page?: number, chunk?: number, sortingField?:string, sortingType?:string) => {
+try {
+  let api = `order/business/invoices${urlParams}`
+  if (page) {
+    api += `?page=${page}&&chunk=${chunk}`
+  }
+  if (sortingField) {
+    api += `?sortingField=${sortingField}&&sortingType=${sortingType}`
+  }
+    const res = await Services.get(api,"order");
+    console.log(res);
+    return{response: res, error:null};
+}catch(error){
+return {response: null, error: error};
+}
 }
 
 // export const updateCard = async (cardData: cardData) => {

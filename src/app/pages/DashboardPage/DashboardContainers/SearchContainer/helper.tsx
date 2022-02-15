@@ -20,7 +20,7 @@ export const searchTable = (
 ) => {
   let makeTableData: any = [];
   if (searchRecordData && searchRecordData.length) {
-    searchRecordData.map((item: any) => {
+    searchRecordData.forEach((item: any) => {
       makeTableData.push({
         Source: "Uploaded",
         "Invoice Id": getInvoiceIdItem(openInvoiceDrawer, item.invoiceId),
@@ -35,27 +35,29 @@ export const searchTable = (
 };
 
 export const advanceFilterInitValues = {
-  from_shipping: new Date(),
-  to_shipping: new Date(),
+  fromShippingDate: "",
+  toShippingDate: "",
   status: "",
-  origin_city: "",
-  origin_postal_code: "",
-  origin_province_state: "",
-  origin_country: "",
-  origin_email: "",
-  destination_city: "",
-  destination_postal_code: "",
-  destination_province_state: "",
-  destination_country: "",
-  destination_email: "",
-  destination_company_name: "",
+  originCity: "",
+  originPostalCode: "",
+  originProvinceState: "",
+  originCountry: "",
+  originEmail: "",
+  destinationCity: "",
+  destinationPostalCode: "",
+  destinationProvinceState: "",
+  destinationCountry: "",
+  destinationEmail: "",
+  destinationCompanyName: "",
+  weightOperand: "",
   weight: "",
-  weight_value: "",
-  weight_unit: "",
+  weightDimension: "",
+  volumnOperand: "",
   volume: "",
-  volume_value: "",
-  volume_unit: "",
+  volumeDimension: "",
   category: "",
+  // orderType: "",
+  // saveFilter: "",
 };
 
 export const STATUS_TYPES = [

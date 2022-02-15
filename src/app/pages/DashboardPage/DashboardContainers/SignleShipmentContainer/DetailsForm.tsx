@@ -96,6 +96,23 @@ function DetailsForm(props: {
         const newValue = categoryList.find((item) => item.categoryId === value);
         if (newValue) {
             // updateAllFieldsHandler(name, newValue);
+            if (
+                !newValue.setDimension &&
+                singleFormValues.shipmentDetails.length > 0
+            ) {
+                let tempItems = singleFormValues.shipmentDetails.map((item) => {
+                    return {
+                        ...item,
+                        height: "",
+                        length: "",
+                        width: "",
+                        weight: "",
+                        sizeDimension: "",
+                        weightDimension: "",
+                    };
+                });
+                setFieldValue(`${formFieldName}.shipmentDetails`, tempItems);
+            }
             setFieldValue(`${formFieldName}.${name}`, newValue);
         }
     };
@@ -166,7 +183,7 @@ function DetailsForm(props: {
                     <SelectNew
                         id={`${formFieldName}.dropOption`}
                         name={`${formFieldName}.dropOption`}
-                        label={"Delivery options"}
+                        label={"Delivery Options"}
                         placeholder={"Select Delivery Option"}
                         options={DROP_OPTION}
                         value={Number(singleFormValues.dropOption)}
@@ -188,7 +205,7 @@ function DetailsForm(props: {
                     <RadioGroup
                         id={`${formFieldName}.fragile`}
                         name={`${formFieldName}.fragile`}
-                        label={"Fragile Shipment"}
+                        label={"Fragile Order"}
                         defaultValue={
                             singleFormValues?.fragile
                                 ? singleFormValues.fragile

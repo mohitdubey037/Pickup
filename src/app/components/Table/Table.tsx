@@ -20,16 +20,51 @@ const Table = ({
     totalData,
     page,
     paginationData,
+    sortTypeProps,
 }: TableProps) => {
-    // const [page, setPage] = React.useState(0);
+    const [pageNumber, setPageNumber] = React.useState<any>(0);
+    const [sortType, setSortType] = React.useState<any>();
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [selectedRows, setSelected] = React.useState<Array<unknown>>([]);
+    const [fieldTitle, setFieldTitle] = React.useState<string>("")
 
     // const pagePerRows = 10;
+    let mySort;
 
-    // useEffect(() => {
-    //     perPageRows ? setRowsPerPage(perPageRows) : setRowsPerPage(5);
-    // }, [perPageRows]);
+    useEffect(() => {
+        setPageNumber?.(page)
+    }, []);
+
+    useEffect(() => {
+        if (sortTypeProps === "desc") {
+            setSortType(true);
+        }
+        else if(sortTypeProps === "asc") {
+            setSortType(false);
+        }
+    })
+
+    useEffect(() => {
+        console.log(sortType);
+    },[sortType])
+
+    const sort = (title) => {
+        console.log(title);
+        let tempTitle;
+        if (title === "Invoice Date") tempTitle = 'invoiceCreatedAt';
+        else if (title === 'Invoice Number') tempTitle = 'invoiceNumber';
+        else if (title === 'Invoice Amount') tempTitle = 'total';
+        else if (title === 'Invoice Id') tempTitle = 'invoiceId';
+        else if (title === 'Order Id') tempTitle = 'orderId';
+        else if (title === 'Order Date') tempTitle = 'shippingDate';
+        else if (title === 'Order Cost') tempTitle = 'total';
+        setFieldTitle(tempTitle);
+        if (tempTitle) {
+            mySort = !sortType
+            paginationData?.(pageNumber, tempTitle, mySort? 'desc' : 'asc');
+        }
+    }
+
 
     useEffect(() => {
         selectedItems ? setSelected(selectedItems) : setSelected([]);
@@ -37,12 +72,12 @@ const Table = ({
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value));
-        // setPage(0);
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
-        paginationData?.(newPage);
-        // setPage(newPage);
+        setPageNumber(newPage);
+        mySort = sortType
+        paginationData?.(newPage, fieldTitle, mySort ? 'desc' : 'asc');
         handleCheckboxClick(false, undefined, "header");
     };
 
@@ -78,7 +113,8 @@ const Table = ({
                                 Object.keys(data[0] as object).map((title, idx: number) => (
                                     <TableCell>
                                         {title}
-                                        {filterColumns?.includes(idx) && <img src={sortBy} alt="" />}
+                                        {filterColumns?.includes(idx) && <img src={sortBy} alt="" 
+                                        onClick={() => sort(title)}/>}
                                     </TableCell>
                                 ))}
                         </TableRow>
@@ -107,7 +143,7 @@ const Table = ({
                 <CustomPagination
                     count={totalData}
                     rowsPerPage={rowsPerPage}
-                    page={page ? page : 0}
+                    page={pageNumber}
                     onPageChange={handleChangePage}
                     labelRowsPerPage=""
                     rowsPerPageOptions={[]}

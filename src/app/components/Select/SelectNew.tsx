@@ -8,7 +8,7 @@ import { ErrorLabel } from "../Input/style";
 
 interface SelectOption {
   value: string | number;
-  label: string;
+  label: any;
 }
 interface SelectPropTypes {
   label?: string;

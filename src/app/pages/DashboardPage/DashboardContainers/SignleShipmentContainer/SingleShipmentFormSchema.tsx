@@ -19,6 +19,9 @@ export const singleShipmentFormSchema = yup.object().shape({
                 .required("Address Line 1 is a required field")
                 .test("Please", "Please enter valid address", function () {
                     return this.parent.originLatitude || this.parent.originLongitude;
+                })
+                .test("isSameAddress", "Origin & Destination address must be different", function () {
+                    return !(this.parent.originLatitude === this.parent.destinationLatitude && this.parent.originLongitude === this.parent.destinationLongitude);
                 }),
             originAddressLine2: yup.string(),
             originCity: yup.string().required("City is a required field"),
@@ -44,6 +47,9 @@ export const singleShipmentFormSchema = yup.object().shape({
                 .required("Address Line 1 is a required field")
                 .test("Please", "Please enter valid address", function () {
                     return this.parent.destinationLatitude || this.parent.destinationLongitude;
+                })
+                .test("isSameAddress", "Origin & Destination address must be different", function () {
+                    return !(this.parent.originLatitude === this.parent.destinationLatitude && this.parent.originLongitude === this.parent.destinationLongitude);
                 }),
             destinationAddressLine2: yup.string(),
             destinationCity: yup.string().required("City is a required field"),

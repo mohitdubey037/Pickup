@@ -56,7 +56,7 @@ const AddressDetails = ({ data }: any) => {
     <table>
       <thead>
         <tr>
-          <th scope="col">Type</th>
+          <th scope="col">Location Type</th>
           <th scope="col">Company Name</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
@@ -65,9 +65,9 @@ const AddressDetails = ({ data }: any) => {
       <tbody>
         <tr>
           <td>{locationType(data)}</td>
-          <td>{data.companyName ? data.companyName : "-"}</td>
-          <td>{data.locationFirstName ? data.locationFirstName : "-"}</td>
-          <td>{data.locationLastName ? data.locationLastName : "-"}</td>
+          <td>{data.companyName ? data.companyName : "NA"}</td>
+          <td>{data.locationFirstName ? data.locationFirstName : "NA"}</td>
+          <td>{data.locationLastName ? data.locationLastName : "NA"}</td>
         </tr>
       </tbody>
       <thead>
@@ -83,10 +83,10 @@ const AddressDetails = ({ data }: any) => {
       <tbody>
         <tr>
           <td colSpan={2}>
-            {data.locationAddressLine1 ? data.locationAddressLine1 : "-"}
+            {data.locationAddressLine1 ? data.locationAddressLine1 : "NA"}
           </td>
           <td colSpan={2}>
-            {data.locationAddressLine2 ? data.locationAddressLine2 : "-"}
+            {data.locationAddressLine2 ? data.locationAddressLine2 : "NA"}
           </td>
         </tr>
       </tbody>
@@ -100,10 +100,12 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td>{data.locationCity ? data.locationCity : "-"}</td>
-          <td>{data.locationPinCode ? data.locationPinCode : "-"}</td>
-          <td>{data.locationProvinceCode ? data.locationProvinceCode : "-"}</td>
-          <td>{data.locationCountry ? data.locationCountry : "-"}</td>
+          <td>{data.locationCity ? data.locationCity : "NA"}</td>
+          <td>{data.locationPinCode ? data.locationPinCode : "NA"}</td>
+          <td>
+            {data.locationProvinceCode ? data.locationProvinceCode : "NA"}
+          </td>
+          <td>{data.locationCountry ? data.locationCountry : "NA"}</td>
         </tr>
       </tbody>
       <thead>
@@ -115,11 +117,11 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td>{data.locationPhone ? data.locationPhone : "-"}</td>
+          <td>{data.locationPhone ? data.locationPhone : "NA"}</td>
           <td>
-            {data.locationAlternatePhone ? data.locationAlternatePhone : "-"}
+            {data.locationAlternatePhone ? data.locationAlternatePhone : "NA"}
           </td>
-          <td>{data.locationEmail ? data.locationEmail : "-"}</td>
+          <td>{data.locationEmail ? data.locationEmail : "NA"}</td>
         </tr>
       </tbody>
       <thead>
@@ -131,7 +133,7 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td colSpan={4}>{data.details ? data.details : "-"}</td>
+          <td colSpan={4}>{data.details ? data.details : "NA"}</td>
         </tr>
       </tbody>
     </table>
@@ -144,7 +146,7 @@ const ItemDetails = ({ orderData, item }: any) => {
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
     } else {
-      return "(lbs)";
+      return "";
     }
   };
 
@@ -155,7 +157,7 @@ const ItemDetails = ({ orderData, item }: any) => {
         <thead>
           <tr>
             <th scope="col">Category</th>
-            <th scope="col">{`Shipment Weight ${getLabelFromID(
+            <th scope="col">{`Item Weight ${getLabelFromID(
               item.weightDimension,
               WEIGHTDIMENSION
             )}`}</th>
@@ -168,26 +170,32 @@ const ItemDetails = ({ orderData, item }: any) => {
         </thead>
         <tbody>
           <tr>
-            <td>{orderData.category ? orderData.category : "-"}</td>
-            <td>{item.weight ? item.weight : "-"}</td>
+            <td>{orderData.category ? orderData.category : "NA"}</td>
+            <td>{item.weight ? item.weight : "NA"}</td>
             <td>
-              {item.length} x {item.width} x {item.height}
+              {item.length && item.width && item.height ? (
+                <span>
+                  {item.length} x {item.width} x {item.height}
+                </span>
+              ) : (
+                "NA"
+              )}
             </td>
-            <td>{item.quantity ? item.quantity : "-"}</td>
+            <td>{item.quantity ? item.quantity : "NA"}</td>
           </tr>
         </tbody>
         <thead>
           <tr>
-            <th scope="col">Shipment Cost</th>
-            <th scope="col">Fragile Shipment</th>
-            <th scope="col">Delivery options</th>
+            <th scope="col">Order Cost</th>
+            <th scope="col">Fragile Order</th>
+            <th scope="col">Delivery Options</th>
             <th scope="col">Customer Reference #</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              {orderData.shipmentCost ? "$" + orderData.shipmentCost : "-"}
+              {orderData.shipmentCost ? "$" + orderData.shipmentCost : "NA"}
             </td>
             <td>{item.fragile === 1 ? "Yes" : "No"}</td>
             <td>
@@ -195,12 +203,12 @@ const ItemDetails = ({ orderData, item }: any) => {
                 ? "Door Drop"
                 : orderData.dropOption === 11
                 ? "Safe Drop"
-                : "-"}
+                : "NA"}
             </td>
             <td>
               {orderData.customerReferenceNumber
                 ? orderData.customerReferenceNumber
-                : "-"}
+                : "NA"}
             </td>
           </tr>
         </tbody>
@@ -208,13 +216,13 @@ const ItemDetails = ({ orderData, item }: any) => {
         <thead>
           <tr>
             <th scope="col" colSpan={4}>
-              Order Description
+              Item Description
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colSpan={4}>{item.description ? item.description : "-"}</td>
+            <td colSpan={4}>{item.description ? item.description : "NA"}</td>
           </tr>
         </tbody>
       </table>

@@ -1,18 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
-// import { Input } from "app/components/Input";
-import Select from "app/components/Select";
-import { STATUS_TYPES } from "./helper";
+import { Divider } from "@mui/material";
+import { useFormik } from "formik";
+import moment from "moment";
+
+import SelectNew from "app/components/Select/SelectNew";
 import { H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { Divider } from "@mui/material";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { DrawerFooter } from "app/components/Drawer/style";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { Input } from "app/components/Input";
 import { AdvanceFilterBox } from "./style";
+import { STATUS, WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
+import { advanceFilterInitValues } from "./helper";
+import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
+import { saveAdvancedFilters } from "services/SearchItemService";
+import { getCategoryList } from "services/SingleShipmentServices";
+import { showToast } from "utils";
 
-function AdvanceFilters({ formik }) {
+const CusLabel = ({ label }) => (
+  <span>
+    {label}
+    <sup>3</sup>
+  </span>
+);
+
+const VOLUMEDIMENSION = [
+  {
+    label: <CusLabel label="INCH" />,
+    value: 12,
+  },
+  {
+    label: <CusLabel label="CM" />,
+    value: 13,
+  },
+];
+
+function AdvanceFilters({ applyFilters }) {
+  const [categoryList, setCategoryList] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getCategoryList();
+      if (response.success && response.response) {
+        const data = response.response as { data: any };
+        setCategoryList(data.data.data);
+      }
+    })();
+  }, []);
+
   const {
     handleChange,
     values,
@@ -21,110 +58,135 @@ function AdvanceFilters({ formik }) {
     handleBlur,
     setFieldValue,
     handleSubmit,
-  } = formik;
- 
+  } = useFormik({
+    initialValues: advanceFilterInitValues,
+    validationSchema: AdvanceFilterFormSchema,
+    onSubmit: (values) => applyAdvancedFilters(values),
+  });
+
+  const applyAdvancedFilters = async (values, isClear?: any) => {
+    values.fromShippingDate = values.fromShippingDate
+      ? moment(values.fromShippingDate).format("YYYY-MM-DD")
+      : null;
+    values.toShippingDate = values.toShippingDate
+      ? moment(values.toShippingDate).format("YYYY-MM-DD")
+      : null;
+    const res = await saveAdvancedFilters(values);
+    console.log(res);
+    if (res.success) {
+      showToast(
+        `Successfully ${isClear ? "removed" : "applied"} advanced filters`,
+        "success"
+      );
+      applyFilters();
+    } else {
+      showToast("Something went wrong", "error");
+    }
+  };
+
+  const removeAdvancedFilters = async () => {
+    applyAdvancedFilters(advanceFilterInitValues, true);
+  };
+
   return (
     <AdvanceFilterBox>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <DatePickerInput
-            label="Date"
+            label="From Order Date"
             placeholder={"e.g 06/06/2021"}
-            value={values.from_shipping}
-            onChange={(newValue) => {
-              setFieldValue("from_shipping", newValue);
-            }}
-            
+            maxDate={moment(values.toShippingDate).subtract(1, "days").toDate()}
+            value={values.fromShippingDate}
+            onChange={(val) => setFieldValue("fromShippingDate", val)}
           />
         </Grid>
         <Grid item xs={6}>
           <DatePickerInput
-            label="Date"
+            label="To Order Date"
             placeholder={"e.g 06/06/2021"}
-            value={values.to_shipping}
-            onChange={(newValue) => {
-              setFieldValue("to_shipping", newValue);
-            }}
+            minDate={moment(values.fromShippingDate).add(1, "days").toDate()}
+            maxDate={new Date()}
+            value={values.toShippingDate}
+            onChange={(val) => setFieldValue("toShippingDate", val)}
           />
         </Grid>
         <Grid item xs={12}>
-          <label htmlFor="cars">Status</label>
-          <Select
+          <SelectNew
             id={"status"}
             name={"status"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
+            label={"Status"}
+            placeholder={"Select Order Status"}
+            options={STATUS}
             value={values["status"]}
+            onChange={handleChange}
+            allowEmpty
           />
         </Grid>
       </Grid>
 
       <Divider />
 
-      <H3 text="Order Origin Details" className="heading"  />
+      <H3 text="Order Origin Details" className="heading" />
       <GridContainer container spacing={2}>
         <Grid item xs={6}>
           <Input
-            id={"origin_city"}
-            name={"origin_city"}
+            id={"originCity"}
+            name={"originCity"}
             label={"City"}
             placeholder={"eg. Toronto"}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched["origin_city"] && errors["origin_city"]}
+            error={touched["originCity"] && errors["originCity"]}
             validate
           />
         </Grid>
         <Grid item xs={6}>
           <Input
-            id={"origin_postal_code"}
-            name={"origin_postal_code"}
+            id={"originPostalCode"}
+            name={"originPostalCode"}
             label={"Postal Code"}
             placeholder={"ABC 123"}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={
-              touched["origin_postal_code"] && errors["origin_postal_code"]
-            }
+            error={touched["originPostalCode"] && errors["originPostalCode"]}
             validate
           />
         </Grid>
         <Grid item xs={6}>
           <Input
-            id={"origin_province_state"}
-            name={"origin_province_state"}
+            id={"originProvinceState"}
+            name={"originProvinceState"}
             label={"Province/State"}
             placeholder={"eg. Ontario"}
             onChange={handleChange}
             onBlur={handleBlur}
             error={
-              touched["origin_province_state"] &&
-              errors["origin_province_state"]
+              touched["originProvinceState"] && errors["originProvinceState"]
             }
             validate
           />
         </Grid>
         <Grid item xs={6}>
           <Input
-            id={"origin_country"}
-            name={"origin_country"}
+            id={"originCountry"}
+            name={"originCountry"}
             label={"Country"}
             placeholder={"eg. Canada"}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched["origin_country"] && errors["origin_country"]}
+            error={touched["originCountry"] && errors["originCountry"]}
             validate
           />
         </Grid>
         <Grid item xs={12}>
           <Input
-            id={"origin_email"}
-            name={"origin_email"}
+            id={"originEmail"}
+            name={"originEmail"}
             label={"Email"}
             placeholder={"johndoe@pickups.com"}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched["origin_email"] && errors["origin_email"]}
+            error={touched["originEmail"] && errors["originEmail"]}
             validate
           />
         </Grid>
@@ -132,88 +194,88 @@ function AdvanceFilters({ formik }) {
 
       <Divider />
 
-      <H3 text="Order Destination Details" className="heading"  />
+      <H3 text="Order Destination Details" className="heading" />
       <GridContainer container spacing={2}>
         <Grid item xs={12}>
           <Input
-            id={"destination_company_name"}
-            name={"destination_company_name"}
+            id={"destinationCompanyName"}
+            name={"destinationCompanyName"}
             label={"Company Name"}
             placeholder={"Example Company"}
             onChange={handleChange}
             onBlur={handleBlur}
             error={
-              touched["destination_company_name"] &&
-              errors["destination_company_name"]
+              touched["destinationCompanyName"] &&
+              errors["destinationCompanyName"]
             }
             validate
           />
         </Grid>
         <Grid item sm={6}>
           <Input
-            id={"destination_city"}
-            name={"destination_city"}
+            id={"destinationCity"}
+            name={"destinationCity"}
             label={"City"}
             placeholder={"eg. Toronto"}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched["destination_city"] && errors["destination_city"]}
+            error={touched["destinationCity"] && errors["destinationCity"]}
             validate
           />
         </Grid>
         <Grid item sm={6}>
           <Input
-            id={"destination_postal_code"}
-            name={"destination_postal_code"}
+            id={"destinationPostalCode"}
+            name={"destinationPostalCode"}
             label={"Postal Code"}
             placeholder={"ABC 123"}
             onChange={handleChange}
             onBlur={handleBlur}
             error={
-              touched["destination_postal_code"] &&
-              errors["destination_postal_code"]
+              touched["destinationPostalCode"] &&
+              errors["destinationPostalCode"]
             }
             validate
           />
         </Grid>
         <Grid item xs={6}>
           <Input
-            id={"destination_province_state"}
-            name={"destination_province_state"}
+            id={"destinationProvinceState"}
+            name={"destinationProvinceState"}
             label={"Province/State"}
             placeholder={"eg. Ontario"}
             onChange={handleChange}
             onBlur={handleBlur}
             error={
-              touched["destination_province_state"] &&
-              errors["destination_province_state"]
+              touched["destinationProvinceState"] &&
+              errors["destinationProvinceState"]
             }
             validate
           />
         </Grid>
         <Grid item xs={6}>
           <Input
-            id={"destination_country"}
-            name={"destination_country"}
+            id={"destinationCountry"}
+            name={"destinationCountry"}
             label={"Country"}
             placeholder={"eg. Canada"}
             onChange={handleChange}
             onBlur={handleBlur}
             error={
-              touched["destination_country"] && errors["destination_country"]
+              touched["destinationCountry"] && errors["destinationCountry"]
             }
             validate
           />
         </Grid>
         <Grid item xs={12}>
           <Input
-            id={"destination_email"}
-            name={"destination_email"}
+            id={"destinationEmail"}
+            name={"destinationEmail"}
             label={"Email"}
             placeholder={"johndoe@pickups.com"}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched["destination_email"] && errors["destination_email"]}
+            error={touched["destinationEmail"] && errors["destinationEmail"]}
             validate
           />
         </Grid>
@@ -224,86 +286,108 @@ function AdvanceFilters({ formik }) {
       <H3 text="Order Details" className="heading" />
       <GridContainer container spacing={2}>
         <Grid item xs={3}>
-          <Select
+          <SelectNew
+            id={"weightOperand"}
+            name={"weightOperand"}
+            label={"Weight"}
+            placeholder={"Select"}
+            options={OPERANDS}
+            value={values["weightOperand"]}
+            onChange={handleChange}
+            allowEmpty
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Input
             id={"weight"}
             name={"weight"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["weight"]}
-            label={"Weight"}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Input
-            id={"weight_value"}
-            name={"weight_value"}
             label={""}
             placeholder={"eg. 100"}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched["weight_value"] && errors["weight_value"]}
+            error={touched["weight"] && errors["weight"]}
             validate
           />
         </Grid>
         <Grid item xs={3}>
-          <Select
-            id={"weight_unit"}
-            name={"weight_unit"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["weight_unit"]}
+          <SelectNew
+            id={"weightDimension"}
+            name={"weightDimension"}
             label={"Unit"}
+            placeholder={"Select Unit"}
+            options={WEIGHTDIMENSION}
+            value={values["weightDimension"]}
+            onChange={handleChange}
+            allowEmpty
           />
         </Grid>
         <Grid item xs={3}>
-          <Select
+          <SelectNew
+            id={"volumnOperand"}
+            name={"volumnOperand"}
+            label={"Volume"}
+            placeholder={"Select"}
+            options={OPERANDS}
+            value={values["volumnOperand"]}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Input
             id={"volume"}
             name={"volume"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["volume"]}
-            label={"Volume"}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Input
-            id={"volume_value"}
-            name={"volume_value"}
             label={""}
             placeholder={"eg. 100"}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched["volume_value"] && errors["volume_value"]}
+            error={touched["volume"] && errors["volume"]}
             validate
           />
         </Grid>
         <Grid item xs={3}>
-          <Select
-            id={"volume_unit"}
-            name={"volume_unit"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["volume_unit"]}
+          <SelectNew
+            id={"volumeDimension"}
+            name={"volumeDimension"}
             label={"Unit"}
+            placeholder={"Select Unit"}
+            options={VOLUMEDIMENSION}
+            value={values["volumeDimension"]}
+            onChange={handleChange}
+            allowEmpty
           />
         </Grid>
         <Grid item xs={12}>
-          <Select
+          <SelectNew
             id={"category"}
             name={"category"}
-            options={STATUS_TYPES}
-            onSelect={handleChange}
-            value={values["category"]}
             label={"Category"}
+            placeholder={"Select Category"}
+            options={
+              categoryList
+                ? categoryList.map((option: any) => ({
+                    value: option.categoryId,
+                    label: option.name,
+                  }))
+                : []
+            }
+            value={Number(values["category"])}
+            onChange={handleChange}
+            allowEmpty
           />
         </Grid>
       </GridContainer>
 
       <DrawerFooter>
-        <div></div>
-        <Button label="Apply Filters" onClick={handleSubmit} size="medium"  />
+        <Button
+          label="Clear"
+          onClick={removeAdvancedFilters}
+          size="medium"
+          secondary
+        />
+        <Button label="Apply Filters" onClick={handleSubmit} size="medium" />
       </DrawerFooter>
     </AdvanceFilterBox>
   );
 }
+
 export default AdvanceFilters;

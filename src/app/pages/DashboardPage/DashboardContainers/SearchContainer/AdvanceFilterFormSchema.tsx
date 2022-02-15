@@ -1,5 +1,4 @@
 import * as yup from "yup";
-import { PHONE_NUMBER_REGX } from "../../../../../constants";
 
 export const AdvanceFilterFormSchema = yup.object().shape({
   from_shipping: yup.date(),

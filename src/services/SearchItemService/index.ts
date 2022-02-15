@@ -2,7 +2,7 @@ import Service from "../";
 
 export const getTrackStatus = async (orderId: number) => {
   try {
-    const response = await Service.get(`order/business/shipment/${orderId}/track`, "order")
+    const response = await Service.get(`order/business/shipment/${orderId}/track`, "order");
     // const response = await
     // fetch(
     //   `https://staging-api.pickups.mobi/order/api/order/business/shipment/${orderId}/track`,
@@ -28,32 +28,44 @@ export const getLocation = async (orderId: number) => {
   }
 };
 
-export const getSearchOrderList = async (urlParams?: string, page?: number, chunk?: number) => {
+export const getSearchOrderList = async (urlParams?: string, page?: number, chunk?: number, sortingField?: string, sortingType?: string)=>{
   try {
-    let api = `order/business/shipments${urlParams}`
+    let api = `order/business/shipments?${urlParams}`
+    if (sortingField) {
+      api += `sortingField=${sortingField}&sortingType=${sortingType}&`
+    }
     if (page) {
-      api += `?page=${page}&&chunk=${chunk}`
+      api += `page=${page}&chunk=${chunk}`
     }
     const response = await Service.get(api, "order");
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };
   }
-}
+};
 
-export const getPaginatedData = async (page?: number, chunk?: number) => {
-  try {
-    // const response = await Service.get(`order/business/shipments${urlParams}`, "order");
-    const response = await Service.get(`order/business/shipments?page=${page}&chunk=${chunk}`, "order");
-    return { response: response, success: true };
-  } catch (err) {
-    return { response: err, sucess: false };
-  }
-}
+// export const getPaginatedData = async (page?: number, chunk?: number) => {
+//   try {
+//     // const response = await Service.get(`order/business/shipments${urlParams}`, "order");
+//     const response = await Service.get(`order/business/shipments?page=${page}&chunk=${chunk}`, "order");
+//     return { response: response, success: true };
+//   } catch (err) {
+//     return { response: err, sucess: false };
+//   }
+// }
 
 export const getSearchOrderListById = async (orderId: number) => {
   try {
     const response = await Service.get(`order/business/shipment/${orderId}`, "order");
+    return { response: response, success: true };
+  } catch (err) {
+    return { response: err, sucess: false };
+  }
+};
+
+export const saveAdvancedFilters = async (data: any) => {
+  try {
+    const response = await Service.post(`order/business/shipment/adavanceFilters`, data, "order");
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };

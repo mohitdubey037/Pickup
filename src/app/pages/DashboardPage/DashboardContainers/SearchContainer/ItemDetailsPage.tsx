@@ -5,7 +5,6 @@ import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
 import { ItemDetailsBox } from "./style";
-import { OrderImage } from "../SignleShipmentContainer/style";
 
 function ItemDetailsPage(props: any) {
   const { singleOrderData } = props;
@@ -16,7 +15,7 @@ function ItemDetailsPage(props: any) {
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
     } else {
-      return "(lbs)";
+      return "";
     }
   };
 
@@ -29,30 +28,37 @@ function ItemDetailsPage(props: any) {
               <H4 text="Category" />
               <H4
                 className="value"
-                text={singleOrderData.category ? singleOrderData.category : "-"}
+                text={
+                  singleOrderData.category ? singleOrderData.category : "NA"
+                }
               />
             </Grid>
 
             <Grid item md={3}>
               <H4
-                text={`Shipment Weight ${getLabelFromID(
+                text={`Item Weight ${getLabelFromID(
                   item.weightDimension,
                   WEIGHTDIMENSION
                 )}`}
               />
-              <H4 className="value" text={item.weight ? item.weight : "-"} />
+              <H4 className="value" text={item.weight ? item.weight : "NA"} />
             </Grid>
 
             <Grid item md={3}>
               <H4
                 text={`LBH ${getLabelFromID(item.sizeDimension, DIMENSION2)}`}
               />
+
               <H4
                 className="value"
                 text={
-                  <div>
-                    {item.length} x {item.width} x {item.height}
-                  </div>
+                  item.length && item.width && item.height ? (
+                    <div>
+                      {item.length} x {item.width} x {item.height}
+                    </div>
+                  ) : (
+                    "NA"
+                  )
                 }
               />
             </Grid>
@@ -61,29 +67,29 @@ function ItemDetailsPage(props: any) {
               <H4 text="Pieces" />
               <H4
                 className="value"
-                text={item.quantity ? item.quantity : "-"}
+                text={item.quantity ? item.quantity : "NA"}
               />
             </Grid>
 
             <Grid item md={3}>
-              <H4 text="Shipment Cost" />
+              <H4 text="Order Cost" />
               <H4
                 className="value"
                 text={
                   singleOrderData.shipmentCost
                     ? "$" + singleOrderData.shipmentCost
-                    : "-"
+                    : "NA"
                 }
               />
             </Grid>
 
             <Grid item md={3}>
-              <H4 text="Fragile Shipment" />
+              <H4 text="Fragile Order" />
               <H4 className="value" text={item.fragile === 1 ? "Yes" : "No"} />
             </Grid>
 
             <Grid item md={3}>
-              <H4 text="Delivery options" />
+              <H4 text="Delivery Options" />
               <H4
                 className="value"
                 text={
@@ -91,7 +97,7 @@ function ItemDetailsPage(props: any) {
                     ? "Door Drop"
                     : singleOrderData.dropOption === 11
                     ? "Safe Drop"
-                    : "-"
+                    : "NA"
                 }
               />
             </Grid>
@@ -103,24 +109,18 @@ function ItemDetailsPage(props: any) {
                 text={
                   singleOrderData.customerReferenceNumber
                     ? singleOrderData.customerReferenceNumber
-                    : "-"
+                    : "NA"
                 }
               />
             </Grid>
 
             <Grid item md={12}>
-              <H4 text="Order Description" />
+              <H4 text="Item Description" />
               <H4
                 className="value"
-                text={item.description ? item.description : "-"}
+                text={item.description ? item.description : "NA"}
               />
             </Grid>
-
-            {item.picture && (
-              <Grid item md={12}>
-                <OrderImage src={item.picture} alt="" />
-              </Grid>
-            )}
           </Grid>
         </Accordion>
       </ItemDetailsBox>
