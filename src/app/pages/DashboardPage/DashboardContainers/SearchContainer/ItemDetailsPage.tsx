@@ -21,7 +21,6 @@ function ItemDetailsPage(props: any) {
   };
 
   const accordianItem = (item: any, index: number) => {
-    console.log(item);
     return (
       <ItemDetailsBox>
         <Accordion title={item.name} defaultExpanded={index === 0}>
@@ -30,7 +29,9 @@ function ItemDetailsPage(props: any) {
               <H4 text="Category" />
               <H4
                 className="value"
-                text={singleOrderData.category ? singleOrderData.category : "-"}
+                text={
+                  singleOrderData.category ? singleOrderData.category : "NA"
+                }
               />
             </Grid>
 
@@ -41,19 +42,24 @@ function ItemDetailsPage(props: any) {
                   WEIGHTDIMENSION
                 )}`}
               />
-              <H4 className="value" text={item.weight ? item.weight : "-"} />
+              <H4 className="value" text={item.weight ? item.weight : "NA"} />
             </Grid>
 
             <Grid item md={3}>
               <H4
                 text={`LBH ${getLabelFromID(item.sizeDimension, DIMENSION2)}`}
               />
+
               <H4
                 className="value"
                 text={
-                  <div>
-                    {item.length} x {item.width} x {item.height}
-                  </div>
+                  item.length && item.width && item.height ? (
+                    <div>
+                      {item.length} x {item.width} x {item.height}
+                    </div>
+                  ) : (
+                    "NA"
+                  )
                 }
               />
             </Grid>
@@ -62,7 +68,7 @@ function ItemDetailsPage(props: any) {
               <H4 text="Pieces" />
               <H4
                 className="value"
-                text={item.quantity ? item.quantity : "-"}
+                text={item.quantity ? item.quantity : "NA"}
               />
             </Grid>
 
@@ -73,7 +79,7 @@ function ItemDetailsPage(props: any) {
                 text={
                   singleOrderData.shipmentCost
                     ? "$" + singleOrderData.shipmentCost
-                    : "-"
+                    : "NA"
                 }
               />
             </Grid>
@@ -92,7 +98,7 @@ function ItemDetailsPage(props: any) {
                     ? "Door Drop"
                     : singleOrderData.dropOption === 11
                     ? "Safe Drop"
-                    : "-"
+                    : "NA"
                 }
               />
             </Grid>
@@ -104,7 +110,7 @@ function ItemDetailsPage(props: any) {
                 text={
                   singleOrderData.customerReferenceNumber
                     ? singleOrderData.customerReferenceNumber
-                    : "-"
+                    : "NA"
                 }
               />
             </Grid>
@@ -113,7 +119,7 @@ function ItemDetailsPage(props: any) {
               <H4 text="Item Description" />
               <H4
                 className="value"
-                text={item.description ? item.description : "-"}
+                text={item.description ? item.description : "NA"}
               />
             </Grid>
           </Grid>

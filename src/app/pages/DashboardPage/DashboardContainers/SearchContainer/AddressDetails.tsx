@@ -16,7 +16,9 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
           <Para text="Company Name" />
           <H4
             className="value"
-            text={addressDetails.companyName ? addressDetails.companyName : "-"}
+            text={
+              addressDetails.companyName ? addressDetails.companyName : "NA"
+            }
           />
         </Grid>
         <Grid item sm={3} xs={6}>
@@ -26,7 +28,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             text={
               addressDetails.locationFirstName
                 ? addressDetails.locationFirstName
-                : "-"
+                : "NA"
             }
           />
         </Grid>
@@ -37,7 +39,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             text={
               addressDetails.locationLastName
                 ? addressDetails.locationLastName
-                : "-"
+                : "NA"
             }
           />
         </Grid>
@@ -48,7 +50,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             text={
               addressDetails.locationAddressLine1
                 ? addressDetails.locationAddressLine1
-                : "-"
+                : "NA"
             }
           />
         </Grid>
@@ -59,7 +61,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             text={
               addressDetails.locationAddressLine2
                 ? addressDetails.locationAddressLine2
-                : "-"
+                : "NA"
             }
           />
         </Grid>
@@ -68,7 +70,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
           <H4
             className="value"
             text={
-              addressDetails.locationCity ? addressDetails.locationCity : "-"
+              addressDetails.locationCity ? addressDetails.locationCity : "NA"
             }
           />
         </Grid>
@@ -79,7 +81,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             text={
               addressDetails.locationPinCode
                 ? addressDetails.locationPinCode
-                : "-"
+                : "NA"
             }
           />
         </Grid>
@@ -90,7 +92,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             text={
               addressDetails.locationProvinceCode
                 ? addressDetails.locationProvinceCode
-                : "-"
+                : "NA"
             }
           />
         </Grid>
@@ -101,7 +103,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             text={
               addressDetails.locationCountry
                 ? addressDetails.locationCountry
-                : "-"
+                : "NA"
             }
           />
         </Grid>
@@ -110,7 +112,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
           <H4
             className="value"
             text={
-              addressDetails.locationPhone ? addressDetails.locationPhone : "-"
+              addressDetails.locationPhone ? addressDetails.locationPhone : "NA"
             }
           />
         </Grid>
@@ -121,7 +123,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             text={
               addressDetails.locationAlternatePhone
                 ? addressDetails.locationAlternatePhone
-                : "-"
+                : "NA"
             }
           />
         </Grid>
@@ -130,7 +132,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
           <H4
             className="value"
             text={
-              addressDetails.locationEmail ? addressDetails.locationEmail : "-"
+              addressDetails.locationEmail ? addressDetails.locationEmail : "NA"
             }
           />
         </Grid>
@@ -138,7 +140,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
           <Para text="Additional Notes" />
           <H4
             className="value"
-            text={addressDetails.details ? addressDetails.details : "-"}
+            text={addressDetails.details ? addressDetails.details : "NA"}
           />
         </Grid>
       </Grid>
