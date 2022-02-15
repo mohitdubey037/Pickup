@@ -37,6 +37,7 @@ import ShipmentSummaryTable from "app/pages/DashboardPage/DashboardContainers/Pa
 import BulkSummary from "app/components/Uploading/BulkSummary";
 import TokenExpire from "app/pages/AuthScreens/TokenExpire";
 import ChildAccountList from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccountList";
+import ChildAccountDetails from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccountDetails";
 
 const Routes = () => {
   return (
@@ -71,6 +72,7 @@ const Routes = () => {
         <PersonalProfileContainer path="my-account/personal-profile" />
         <ChildAccount path="/my-account/child-account" />
         <ChildAccountList path="/my-account/child-account-list" />
+        <ChildAccountDetails path="/my-account/child-account-details" />
         <FavoriteLocations path="my-account/favourite-locations" />
         <OnHoldShipmentContainer path="/holding-zone" />
         <InvoicesContainer path="/payments/invoices" />
