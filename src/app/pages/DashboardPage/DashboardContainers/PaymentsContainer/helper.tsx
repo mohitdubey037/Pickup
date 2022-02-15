@@ -98,3 +98,28 @@ export const invoiceTable = (
     }
     return makeTableData;
 };
+
+export const childDataTable = (
+    searchRecordData: any,
+    openInvoiceDrawer: (id?: any, type?: any) => void
+    ) => {
+        let makeTableData: any = [];
+        if (searchRecordData && searchRecordData.length) {
+            makeTableData = searchRecordData.map((item: any) => {
+                console.log(item);
+                return {
+                    "Company Name": getInvoiceIdItem(
+                        openInvoiceDrawer,
+                        item.companyName,
+                        item.companyName
+                    ),
+                    "Business Number": item.businessNumber,
+                    "Invitation Date": item.city,
+                    "Status": item.city,
+                    "Admin Name": item.city,
+                    
+                };
+            });
+        }
+    return makeTableData;
+}

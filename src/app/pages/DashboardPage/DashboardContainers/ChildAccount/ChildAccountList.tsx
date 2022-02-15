@@ -6,7 +6,7 @@ import { Button } from "app/components/Buttons";
 import { Table } from "app/components/Table";
 import { OnHoldTableTop } from "../OnHoldShipment/Style";
 import { useNavigate } from "@reach/router";
-import { invoiceTable } from "../PaymentsContainer/helper";
+import { childDataTable, invoiceTable } from "../PaymentsContainer/helper";
 import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
 
 
@@ -41,13 +41,15 @@ export default function ChildAccountList({ path: string }) {
 
   const getChildData = async () => {
     const res = (await getChildAccountData()) as any;
+    console.log(res);
     if (!res?.error) {
-      const InvoiceList = res.response.data.data.list;
+      const InvoiceList = res.response.data.data;
+      console.log(InvoiceList);
       setChildData(InvoiceList);
-      setPage(res.response.data.data.pageMetaData.page - 1);
-      setTotalPages(res.response.data.data.pageMetaData.totalPages);
-      setTotalData(res.response.data.data.pageMetaData.total);
-    } else if (!res.error) {
+      // setPage(res.response.data.data.pageMetaData.page - 1);
+      // setTotalPages(res.response.data.data.pageMetaData.totalPages);
+      // setTotalData(res.response.data.data.pageMetaData.total);
+    } else if (res.error) {
       const InvoiceList = res;
       setChildData(InvoiceList);
     }
@@ -88,7 +90,7 @@ export default function ChildAccountList({ path: string }) {
       </Flex>
 
         <Table
-        data={invoiceTable(childData, openInvoiceDrawer)}
+        data={childDataTable(childData, openInvoiceDrawer)}
         tableTop={tableTop()}
         sortTypeProps = {sortType}
         paginationData={(page, sortingField, sortingType) => getSearchPaginatedData(page, sortingField, sortingType)}
