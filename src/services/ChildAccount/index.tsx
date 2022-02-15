@@ -4,11 +4,11 @@ import { showToast } from "utils";
 export const getChildAccountData = async (urlParams?: string, page?: number, chunk?: number, sortingField?: string, sortingType?: string)=>{
   // console.log(sortingType);
   try {
-    let api = `business/FetchchildAccount?`
+    let api = `business/FetchchildAccount`
     if (page) {
-      api += `page=${page}&chunk=${chunk}`
+      api += `?page=${page}&chunk=${chunk}`
     }
-    const res = await services.get(api,"order");
+    const res = await services.get(api,"user_cr");
     // console.log(res);
     return{response: res, error:null};
   }catch(error){
