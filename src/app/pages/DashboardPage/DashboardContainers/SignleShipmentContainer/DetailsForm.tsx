@@ -96,6 +96,25 @@ function DetailsForm(props: {
         const newValue = categoryList.find((item) => item.categoryId === value);
         if (newValue) {
             // updateAllFieldsHandler(name, newValue);
+            console.log(newValue, singleFormValues.shipmentDetails);
+            if (
+                !newValue.setDimension &&
+                singleFormValues.shipmentDetails.length > 0
+            ) {
+                let tempItems = singleFormValues.shipmentDetails.map((item) => {
+                    return {
+                        ...item,
+                        height: "",
+                        length: "",
+                        width: "",
+                        weight: "",
+                        sizeDimension: "",
+                        weightDimension: "",
+                    };
+                });
+                console.log(tempItems);
+                setFieldValue(`${formFieldName}.shipmentDetails`, tempItems);
+            }
             setFieldValue(`${formFieldName}.${name}`, newValue);
         }
     };
