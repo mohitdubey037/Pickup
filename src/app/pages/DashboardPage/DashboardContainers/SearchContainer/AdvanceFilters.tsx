@@ -12,17 +12,30 @@ import { DrawerFooter } from "app/components/Drawer/style";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { Input } from "app/components/Input";
 import { AdvanceFilterBox } from "./style";
-import {
-  STATUS,
-  WEIGHTDIMENSION,
-  DIMENSION2,
-  OPERANDS,
-} from "../../../../../constants";
+import { STATUS, WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
 import { advanceFilterInitValues } from "./helper";
 import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import { saveAdvancedFilters } from "services/SearchItemService";
 import { getCategoryList } from "services/SingleShipmentServices";
 import { showToast } from "utils";
+
+const CusLabel = ({ label }) => (
+  <span>
+    {label}
+    <sup>3</sup>
+  </span>
+);
+
+const VOLUMEDIMENSION = [
+  {
+    label: <CusLabel label="INCH" />,
+    value: 12,
+  },
+  {
+    label: <CusLabel label="CM" />,
+    value: 13,
+  },
+];
 
 function AdvanceFilters({ applyFilters }) {
   const [categoryList, setCategoryList] = useState([]);
@@ -337,7 +350,7 @@ function AdvanceFilters({ applyFilters }) {
             name={"volumeDimension"}
             label={"Unit"}
             placeholder={"Select Unit"}
-            options={DIMENSION2}
+            options={VOLUMEDIMENSION}
             value={values["volumeDimension"]}
             onChange={handleChange}
             allowEmpty

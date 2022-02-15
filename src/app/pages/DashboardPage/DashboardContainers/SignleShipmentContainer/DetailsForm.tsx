@@ -166,7 +166,7 @@ function DetailsForm(props: {
                     <SelectNew
                         id={`${formFieldName}.dropOption`}
                         name={`${formFieldName}.dropOption`}
-                        label={"Delivery options"}
+                        label={"Delivery Options"}
                         placeholder={"Select Delivery Option"}
                         options={DROP_OPTION}
                         value={Number(singleFormValues.dropOption)}
@@ -188,7 +188,7 @@ function DetailsForm(props: {
                     <RadioGroup
                         id={`${formFieldName}.fragile`}
                         name={`${formFieldName}.fragile`}
-                        label={"Fragile Shipment"}
+                        label={"Fragile Order"}
                         defaultValue={
                             singleFormValues?.fragile
                                 ? singleFormValues.fragile

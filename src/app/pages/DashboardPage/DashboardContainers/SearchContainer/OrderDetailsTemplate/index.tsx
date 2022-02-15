@@ -56,7 +56,7 @@ const AddressDetails = ({ data }: any) => {
     <table>
       <thead>
         <tr>
-          <th scope="col">Type</th>
+          <th scope="col">Location Type</th>
           <th scope="col">Company Name</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
@@ -155,7 +155,7 @@ const ItemDetails = ({ orderData, item }: any) => {
         <thead>
           <tr>
             <th scope="col">Category</th>
-            <th scope="col">{`Shipment Weight ${getLabelFromID(
+            <th scope="col">{`Item Weight ${getLabelFromID(
               item.weightDimension,
               WEIGHTDIMENSION
             )}`}</th>
@@ -178,9 +178,9 @@ const ItemDetails = ({ orderData, item }: any) => {
         </tbody>
         <thead>
           <tr>
-            <th scope="col">Shipment Cost</th>
-            <th scope="col">Fragile Shipment</th>
-            <th scope="col">Delivery options</th>
+            <th scope="col">Order Cost</th>
+            <th scope="col">Fragile Order</th>
+            <th scope="col">Delivery Options</th>
             <th scope="col">Customer Reference #</th>
           </tr>
         </thead>
@@ -208,7 +208,7 @@ const ItemDetails = ({ orderData, item }: any) => {
         <thead>
           <tr>
             <th scope="col" colSpan={4}>
-              Order Description
+              Item Description
             </th>
           </tr>
         </thead>

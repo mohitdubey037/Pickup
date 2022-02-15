@@ -5,7 +5,6 @@ import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
 import { ItemDetailsBox } from "./style";
-import { OrderImage } from "../SignleShipmentContainer/style";
 
 function ItemDetailsPage(props: any) {
   const { singleOrderData } = props;
@@ -37,7 +36,7 @@ function ItemDetailsPage(props: any) {
 
             <Grid item md={3}>
               <H4
-                text={`Shipment Weight ${getLabelFromID(
+                text={`Item Weight ${getLabelFromID(
                   item.weightDimension,
                   WEIGHTDIMENSION
                 )}`}
@@ -68,7 +67,7 @@ function ItemDetailsPage(props: any) {
             </Grid>
 
             <Grid item md={3}>
-              <H4 text="Shipment Cost" />
+              <H4 text="Order Cost" />
               <H4
                 className="value"
                 text={
@@ -80,12 +79,12 @@ function ItemDetailsPage(props: any) {
             </Grid>
 
             <Grid item md={3}>
-              <H4 text="Fragile Shipment" />
+              <H4 text="Fragile Order" />
               <H4 className="value" text={item.fragile === 1 ? "Yes" : "No"} />
             </Grid>
 
             <Grid item md={3}>
-              <H4 text="Delivery options" />
+              <H4 text="Delivery Options" />
               <H4
                 className="value"
                 text={
@@ -111,18 +110,12 @@ function ItemDetailsPage(props: any) {
             </Grid>
 
             <Grid item md={12}>
-              <H4 text="Order Description" />
+              <H4 text="Item Description" />
               <H4
                 className="value"
                 text={item.description ? item.description : "-"}
               />
             </Grid>
-
-            {singleOrderData.picture && (
-              <Grid item md={12}>
-                <OrderImage src={singleOrderData.picture} alt="" />
-              </Grid>
-            )}
           </Grid>
         </Accordion>
       </ItemDetailsBox>
