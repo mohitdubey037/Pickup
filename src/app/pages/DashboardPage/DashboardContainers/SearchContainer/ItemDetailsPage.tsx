@@ -5,24 +5,21 @@ import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
 import { ItemDetailsBox } from "./style";
-import { OrderImage } from "../SignleShipmentContainer/style";
 
 function ItemDetailsPage(props: any) {
   const { singleOrderData } = props;
   const { items } = singleOrderData;
-  console.log(singleOrderData);
 
   const getLabelFromID = (id: number, list: any[]) => {
     const foundLabel = list.find((item) => item.value === id);
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
     } else {
-      return "(lbs)";
+      return "";
     }
   };
 
   const accordianItem = (item: any, index: number) => {
-    console.log(item);
     return (
       <ItemDetailsBox>
         <Accordion title={item.name} defaultExpanded={index === 0}>
@@ -31,13 +28,15 @@ function ItemDetailsPage(props: any) {
               <H4 text="Category" />
               <H4
                 className="value"
-                text={singleOrderData.category ? singleOrderData.category : "NA"}
+                text={
+                  singleOrderData.category ? singleOrderData.category : "NA"
+                }
               />
             </Grid>
 
             <Grid item md={3}>
               <H4
-                text={`Order Weight ${getLabelFromID(
+                text={`Item Weight ${getLabelFromID(
                   item.weightDimension,
                   WEIGHTDIMENSION
                 )}`}
@@ -49,16 +48,17 @@ function ItemDetailsPage(props: any) {
               <H4
                 text={`LBH ${getLabelFromID(item.sizeDimension, DIMENSION2)}`}
               />
-              
+
               <H4
                 className="value"
                 text={
-                  (item.length && item.width && item.height) ?
-                  <div>
-                    {item.length} x {item.width} x {item.height}
-                  </div>
-                  : 
-                  "NA"
+                  item.length && item.width && item.height ? (
+                    <div>
+                      {item.length} x {item.width} x {item.height}
+                    </div>
+                  ) : (
+                    "NA"
+                  )
                 }
               />
             </Grid>
@@ -89,7 +89,7 @@ function ItemDetailsPage(props: any) {
             </Grid>
 
             <Grid item md={3}>
-              <H4 text="Delivery options" />
+              <H4 text="Delivery Options" />
               <H4
                 className="value"
                 text={
@@ -115,18 +115,12 @@ function ItemDetailsPage(props: any) {
             </Grid>
 
             <Grid item md={12}>
-              <H4 text="Order Description" />
+              <H4 text="Item Description" />
               <H4
                 className="value"
                 text={item.description ? item.description : "NA"}
               />
             </Grid>
-
-            {singleOrderData.picture && (
-              <Grid item md={12}>
-                <OrderImage src={singleOrderData.picture} alt="" />
-              </Grid>
-            )}
           </Grid>
         </Accordion>
       </ItemDetailsBox>

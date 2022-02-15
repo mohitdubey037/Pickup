@@ -45,8 +45,9 @@ function OrderItemDetailsDrawer(props) {
     const foundLabel = list.find((item) => item.value === id);
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
+    } else {
+      return "";
     }
-    return null;
   };
 
   return (
@@ -94,7 +95,7 @@ function OrderItemDetailsDrawer(props) {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <H4 text="Fragile" />
+                      <H4 text="Fragile Order" />
                       <H4
                         text={
                           order?.items?.filter((item) => item.fragile === 1)
