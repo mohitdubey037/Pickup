@@ -102,7 +102,9 @@ const AddressDetails = ({ data }: any) => {
         <tr>
           <td>{data.locationCity ? data.locationCity : "NA"}</td>
           <td>{data.locationPinCode ? data.locationPinCode : "NA"}</td>
-          <td>{data.locationProvinceCode ? data.locationProvinceCode : "NA"}</td>
+          <td>
+            {data.locationProvinceCode ? data.locationProvinceCode : "NA"}
+          </td>
           <td>{data.locationCountry ? data.locationCountry : "NA"}</td>
         </tr>
       </tbody>
@@ -144,7 +146,7 @@ const ItemDetails = ({ orderData, item }: any) => {
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
     } else {
-      return "(lbs)";
+      return "";
     }
   };
 
@@ -171,7 +173,13 @@ const ItemDetails = ({ orderData, item }: any) => {
             <td>{orderData.category ? orderData.category : "NA"}</td>
             <td>{item.weight ? item.weight : "NA"}</td>
             <td>
-              {item.length} x {item.width} x {item.height}
+              {item.length && item.width && item.height ? (
+                <span>
+                  {item.length} x {item.width} x {item.height}
+                </span>
+              ) : (
+                "NA"
+              )}
             </td>
             <td>{item.quantity ? item.quantity : "NA"}</td>
           </tr>

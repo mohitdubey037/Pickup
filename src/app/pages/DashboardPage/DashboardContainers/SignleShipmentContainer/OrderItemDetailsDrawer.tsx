@@ -45,8 +45,9 @@ function OrderItemDetailsDrawer(props) {
     const foundLabel = list.find((item) => item.value === id);
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
+    } else {
+      return "";
     }
-    return null;
   };
 
   return (

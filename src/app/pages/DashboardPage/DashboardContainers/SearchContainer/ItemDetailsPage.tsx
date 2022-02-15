@@ -9,14 +9,13 @@ import { ItemDetailsBox } from "./style";
 function ItemDetailsPage(props: any) {
   const { singleOrderData } = props;
   const { items } = singleOrderData;
-  console.log(singleOrderData);
 
   const getLabelFromID = (id: number, list: any[]) => {
     const foundLabel = list.find((item) => item.value === id);
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
     } else {
-      return "(lbs)";
+      return "";
     }
   };
 
