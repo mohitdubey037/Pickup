@@ -9,8 +9,8 @@ import {IndividualCard} from "../../pages/DashboardPage/DashboardContainers/Paym
 
 interface PaymentCardProps{
     cardData:IndividualCard;
-    setDrawerOpen: Dispatch<SetStateAction<boolean>>;
-    setCardData: Dispatch<SetStateAction<IndividualCard>>;
+    setDrawerOpen?: Dispatch<SetStateAction<boolean>>;
+    setCardData?: Dispatch<SetStateAction<IndividualCard>>;
 }
 
 
@@ -26,12 +26,12 @@ export default function PaymentCard({cardData,setDrawerOpen, setCardData}:Paymen
         setAnchorEl(null);
     };
 
-    const handleEditCard = () => {
-        handleClose();
+    // const handleEditCard = () => {
+    //     handleClose();
         
-        setCardData(cardData)
-        setDrawerOpen(true)
-    }
+    //     setCardData(cardData)
+    //     setDrawerOpen(true)
+    // }
 
     const handleDeleteCard = async () => {
         handleClose();

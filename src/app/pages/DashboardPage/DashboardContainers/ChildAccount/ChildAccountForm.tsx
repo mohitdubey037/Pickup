@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Box, Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { RouteComponentProps } from "@reach/router";
@@ -8,37 +8,59 @@ import ChildAccountSchema from "./ChildAccountSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
 
-export default function ChildAccountForm({ navigate }: RouteComponentProps) {
+export default function ChildAccountForm({formik}:{formik: any}){
+
+  console.log(formik);
 
   const dispatch = useDispatch();
 
-  const handleConfirm = (value) => {
-    console.log('hii');
-  }
+  const onChangeHandler = (event: any, name: string) => {
+    handleChange(event);
+    //   timer[name] && clearTimeout(timer[name]);
+    //   let temp = timer;
+    //   temp[name] = setTimeout(() => {
+    //     updateAllFieldsHandler(name, event.target.value);
+    //   }, 1000);
+    //   setTimer(() => temp);
+    // }
+  };
 
-  const {
-    handleChange,
-    values: { CompanyName },
-    errors,
-    touched,
-    handleBlur,
-    // handleSubmit,
-  } = useFormik({
-    initialValues: {
-      CompanyName: "",
-      BusinessNumber: "",
-      Industry: "",
-      Employee: "",
-      AddressLine1: "",
-      AddressLine2: "",
-      Pincode: "",
-      Province: "",
-      City: "",
-      Country: "",
-    },
-    validationSchema: ChildAccountSchema,
-    onSubmit: (values) => handleConfirm(values),
-  });
+  // const updateAllFieldsHandler = (
+  //   name: string,
+  //   value: string | number | boolean
+  // ) => {
+  //   setFieldValue(name, value);
+  // };
+
+  const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
+    formik;
+
+
+  // const {
+  //   handleChange,
+  //   errors,
+  //   touched,
+  //   handleBlur,
+  //   // handleSubmit,
+  // } = useFormik({
+  //   initialValues: {
+  //     CompanyName: "",
+  //     BusinessNumber: "",
+  //     Industry: "",
+  //     Employee: "",
+  //     AddressLine1: "",
+  //     AddressLine2: "",
+  //     Pincode: "",
+  //     Province: "",
+  //     City: "",
+  //     Country: "",
+  //   },
+  //   validationSchema: ChildAccountSchema,
+  //   onSubmit: (values) => handleConfirm(values),
+  // });
+
+  const [timer, setTimer] = useState<any>({});
+
   return (
     <Box mt={4}>
         <form>
@@ -48,7 +70,8 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="CompanyName"
                 name="CompanyName"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `companyName`)}
                 error={touched.CompanyName && errors.CompanyName}
                 label={"Company Name"}
                 placeholder={"Example Company"}
@@ -59,7 +82,8 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="BusinessNumber"
                 name="BusinessNumber"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `businessNumber`)}
                 error={touched.BusinessNumber && errors.BusinessNumber}
                 label={"Business Number"}
                 placeholder="eg. 123456"
@@ -70,7 +94,8 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="Industry"
                 name="Industry"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `industry`)}
                 error={touched.Industry && errors.Industry}
                 label={"Industry"}
                 placeholder={"eg. Retail"}
@@ -81,7 +106,8 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="Employee"
                 name="Employee"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `employee`)}
                 error={touched.Employee && errors.Employee}
                 label={"Employee"}
                 placeholder={"eg. John Doe"}
@@ -92,7 +118,8 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="AddressLine1"
                 name="AddressLine1"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `addressLine1`)}
                 error={touched.AddressLine1 && errors.AddressLine1}
                 label={"Address Line 1"}
                 placeholder={"123 Address Street"}
@@ -103,7 +130,8 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="AddressLine2"
                 name="AddressLine2"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `addressLine2`)}
                 error={touched.AddressLine2 && errors.AddressLine2}
                 label={"Address Line 2"}
                 placeholder={"123 Address Street"}
@@ -114,7 +142,8 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="Pincode"
                 name="Pincode"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `pinCode`)}
                 error={touched.Pincode && errors.Pincode}
                 label={"Pincode"}
                 placeholder={"1234"}
@@ -125,7 +154,8 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="Province"
                 name="Province"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `province`)}
                 error={touched.Province && errors.Province}
                 label={"Province"}
                 placeholder={"eg. Ontario"}
@@ -137,7 +167,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="City"
                 name="City"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `city`)}
                 error={touched.City && errors.City}
                 label={"City"}
                 placeholder={"eg. Toronto"}
@@ -148,7 +178,7 @@ export default function ChildAccountForm({ navigate }: RouteComponentProps) {
                 id="Country"
                 name="Country"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `country`)}
                 error={touched.Country && errors.Country}
                 label={"Country"}
                 placeholder={"eg. Canada"}

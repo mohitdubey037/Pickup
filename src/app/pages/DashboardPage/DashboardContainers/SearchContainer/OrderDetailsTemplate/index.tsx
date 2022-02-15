@@ -56,7 +56,7 @@ const AddressDetails = ({ data }: any) => {
     <table>
       <thead>
         <tr>
-          <th scope="col">Type</th>
+          <th scope="col">Location Type</th>
           <th scope="col">Company Name</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
@@ -102,7 +102,9 @@ const AddressDetails = ({ data }: any) => {
         <tr>
           <td>{data.locationCity ? data.locationCity : "NA"}</td>
           <td>{data.locationPinCode ? data.locationPinCode : "NA"}</td>
-          <td>{data.locationProvinceCode ? data.locationProvinceCode : "NA"}</td>
+          <td>
+            {data.locationProvinceCode ? data.locationProvinceCode : "NA"}
+          </td>
           <td>{data.locationCountry ? data.locationCountry : "NA"}</td>
         </tr>
       </tbody>
@@ -144,7 +146,7 @@ const ItemDetails = ({ orderData, item }: any) => {
     if (foundLabel) {
       return `(${foundLabel.label.toLowerCase()})`;
     } else {
-      return "(lbs)";
+      return "";
     }
   };
 
@@ -155,7 +157,7 @@ const ItemDetails = ({ orderData, item }: any) => {
         <thead>
           <tr>
             <th scope="col">Category</th>
-            <th scope="col">{`Shipment Weight ${getLabelFromID(
+            <th scope="col">{`Item Weight ${getLabelFromID(
               item.weightDimension,
               WEIGHTDIMENSION
             )}`}</th>
@@ -171,16 +173,22 @@ const ItemDetails = ({ orderData, item }: any) => {
             <td>{orderData.category ? orderData.category : "NA"}</td>
             <td>{item.weight ? item.weight : "NA"}</td>
             <td>
-              {item.length} x {item.width} x {item.height}
+              {item.length && item.width && item.height ? (
+                <span>
+                  {item.length} x {item.width} x {item.height}
+                </span>
+              ) : (
+                "NA"
+              )}
             </td>
             <td>{item.quantity ? item.quantity : "NA"}</td>
           </tr>
         </tbody>
         <thead>
           <tr>
-            <th scope="col">Shipment Cost</th>
-            <th scope="col">Fragile Shipment</th>
-            <th scope="col">Delivery options</th>
+            <th scope="col">Order Cost</th>
+            <th scope="col">Fragile Order</th>
+            <th scope="col">Delivery Options</th>
             <th scope="col">Customer Reference #</th>
           </tr>
         </thead>
@@ -208,7 +216,7 @@ const ItemDetails = ({ orderData, item }: any) => {
         <thead>
           <tr>
             <th scope="col" colSpan={4}>
-              Order Description
+              Item Description
             </th>
           </tr>
         </thead>

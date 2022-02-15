@@ -9,6 +9,9 @@ import { useNavigate } from "@reach/router";
 import { childDataTable, invoiceTable } from "../PaymentsContainer/helper";
 import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
 
+import { useDispatch } from "react-redux";
+import { actions } from "store/reducers/PaymentReducer";
+
 
 export default function ChildAccountList({ path: string }) {
 
@@ -22,8 +25,18 @@ export default function ChildAccountList({ path: string }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+    useEffect(() => {
+          dispatch(actions.getCards());
+  }, []);
+
   const addChild = () => {
     navigate("/dashboard/my-account/child-account");
+  };
+
+  const childDetails = () => {
+    navigate("/dashboard/my-account/child-account-details");
   };
 
   useEffect(() => {
@@ -43,12 +56,12 @@ export default function ChildAccountList({ path: string }) {
     const res = (await getChildAccountData()) as any;
     console.log(res);
     if (!res?.error) {
-      const InvoiceList = res.response.data.data;
+      const InvoiceList = res.response.data.data.list;
       console.log(InvoiceList);
       setChildData(InvoiceList);
-      // setPage(res.response.data.data.pageMetaData.page - 1);
-      // setTotalPages(res.response.data.data.pageMetaData.totalPages);
-      // setTotalData(res.response.data.data.pageMetaData.total);
+      setPage(res.response.data.data.pageMetaData.page - 1);
+      setTotalPages(res.response.data.data.pageMetaData.totalPages);
+      setTotalData(res.response.data.data.pageMetaData.total);
     } else if (res.error) {
       const InvoiceList = res;
       setChildData(InvoiceList);
@@ -86,6 +99,7 @@ export default function ChildAccountList({ path: string }) {
     <ModuleContainer>
       <Flex justifyContent="space-between" bottom={24}>
         <H2 title="Child Accounts" />
+        <Button size="medium" label="child Details" onClick={childDetails} />
         <Button size="medium" label="Create New" onClick={addChild} />
       </Flex>
 

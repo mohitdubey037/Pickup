@@ -9,30 +9,32 @@ import { Flex, FullCard } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 import { actions } from "store/reducers/PaymentReducer";
 import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
-
+import { ChildInitValues } from './helper';
+import { ChildAccountSchema } from './ChildAccountSchema';
 export default function ChildAccount({ path: string }) {
   const dispatch = useDispatch();
   useEffect(() => {
         dispatch(actions.getCards());
 }, []);
 
-// const formik = useFormik({
-//   initialValues: shipmentDetails || shipmentInitValues,
-//   validate: (values: any) => {
-//     try {
-//       validateYupSchema(values, singleShipmentFormSchema, true, values);
-//     } catch (err) {
-//       return yupToFormErrors(err);
-//     }
-//   },
-//   onSubmit: async () => {
-//     dispatch(actions.submitShipment(formik.values));
-//   },
-// });
+const formik = useFormik({
+  initialValues: ChildInitValues,
+  validate: (values: any) => {
+    try {
+      validateYupSchema(values, ChildAccountSchema, true, values);
+    } catch (err) {
+      return yupToFormErrors(err);
+    }
+  },
+  onSubmit: () => {
+    console.log(formik.values);
+    // dispatch(actions.submitShipment(formik.values));
+  },
+});
 
-// useEffect(() => {
-//   (() => formik.validateForm())();
-// }, []);
+useEffect(() => {
+  (() => formik.validateForm())();
+}, []);
 
 // const handleConfirm = async (values: object) => {
 //   postChildAccountData(values);
@@ -45,7 +47,7 @@ export default function ChildAccount({ path: string }) {
       <FullCard>
         <H3 text="Create Child" />
         <ChildAccountForm 
-        // formik={formik}
+          formik={formik}
         />
       </FullCard>
 
@@ -59,7 +61,9 @@ export default function ChildAccount({ path: string }) {
       </FullCard>
 
       <Flex justifyContent="flex-end">
-        <Button  size="medium" label="Invite Child" />
+        <Button
+          onClick={formik.handleSubmit}
+          size="medium" label="Invite Child" />
       </Flex>
       
     </ModuleContainer>

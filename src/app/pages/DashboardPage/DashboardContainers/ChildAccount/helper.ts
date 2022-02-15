@@ -1,0 +1,25 @@
+export const ChildInitValues = {
+    companyName: '',
+    businessNumber: '',
+    industry: '',
+    address1: '',
+    address2: '',
+    pincode: '',
+    province: '',
+    city: '',
+    country:'',
+
+    superIntendentFirstName: '',
+    superIntendentLastName: '',
+    superIntendentPhoneNumber: '',
+    superIntendentRole: '',
+    superIntendentEmailId: '',
+
+    methodOfPayment: '',
+    creditCardNumber: '',
+    expirationDate: '',
+    cvc: '',
+    nameOnCard: '',
+    pinCard: '',
+    nickName: '',
+};
