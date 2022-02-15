@@ -15,7 +15,7 @@ export function PageNotFound({default:boolean}) {
     <PageNotFoundBox>
         <PageNotFoundHeading> 404 </PageNotFoundHeading>
         <PageNotFoundSubHeading>Page Not Found.</PageNotFoundSubHeading>
-        <Button type='button' size="medium" className="backBtn" label="Back To Home" onClick={handleLogout}/>
+        <Button type='button' size="medium" className="backBtn" label="Back To Home" onClick={handleLogout} />
     </PageNotFoundBox>
     )
 }

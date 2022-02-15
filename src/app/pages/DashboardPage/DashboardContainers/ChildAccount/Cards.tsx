@@ -1,130 +1,144 @@
-import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import React, { useState } from "react";
+import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
-import { FormWrapper } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
-import { Flex } from "app/components/Input/style";
 import { useFormik } from "formik";
 import RadioGroup from "app/components/RadioGroup";
 import { cardSchema } from "../PaymentsContainer/cardSchema";
+import { H3 } from "app/components/Typography/Typography";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import { Box } from "@mui/material";
+import { CustomLink } from "app/components/Typography/Links";
+import { Drawer } from "app/components/Drawer";
+import CardList from "./CardList";
 
-
-export default function Cards({ title }) {
+export default function Cards() {
   const Confirm = () => {};
-  const {
-    handleChange,
-    errors,
-    touched,
-    handleBlur,
-    handleSubmit,
-  } = useFormik({
-    initialValues: { cardType: "1", cardNumber: "", expiryDate: "", cvc: "", nameOnCard: "", pinCode: "", nickName: "" },
-    validationSchema: cardSchema,
-    onSubmit: Confirm,
-  });
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { handleChange, errors, touched, handleBlur, handleSubmit } = useFormik(
+    {
+      initialValues: {
+        cardType: "1",
+        cardNumber: "",
+        expiryDate: "",
+        cvc: "",
+        nameOnCard: "",
+        pinCode: "",
+        nickName: "",
+      },
+      validationSchema: cardSchema,
+      onSubmit: Confirm,
+    }
+  );
   return (
-    <>
-      <FormWrapper>
-        <form>
-          <Typography className="typography" variant="h1" component="h3">
-            {title}
-            
-          </Typography>
-          <RadioGroup
-             
+    <Box mb={2}>
+      <form>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={2}
+        >
+          <H3 text="Cards" />
+          <CustomLink
+            label={`Share Current Cards With Child`}
+            style={{ color: "#1B8AF0" }}
+            link={() => setDrawerOpen(true)}
+          />
+        </Box>
+        <GridContainer container spacing={2}>
+          <Grid item xs={12}>
+            <RadioGroup
+              label="Method of Payment"
               options={[
                 { label: "Credit Card", value: "1" },
                 { label: "Debit Card", value: "0" },
               ]}
               name={"Radio Options"}
             />
-          <Grid container spacing={3}>
-            <Grid item xs={12}></Grid>
-            <Grid item xs={5}>
-              <Input
-                id="cardNumber"
-                name="cardNumber"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.cardNumber && errors.cardNumber}
-                label={"Credit Card Number"}
-                placeholder={"**** **** **** ****"}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Input
-                id="expiryDate"
-                name="expiryDate"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.expiryDate && errors.expiryDate}
-                label={"Expiration Date"}
-                placeholder={"MM/YY"}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <Input
-                id="cvc"
-                name="cvc"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.cvc && errors.cvc}
-                label={"CVC"}
-                placeholder={"CVC"}
-              />
-            </Grid>
-            <Grid item xs={5}>
-              <Input
-                id="nameOnCard"
-                name="nameOnCard"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.nameOnCard && errors.nameOnCard}
-                label={"Name on Card"}
-                placeholder={"John Doe"}
-              />
-            </Grid>
-            <Grid item xs={5}>
-              <Input
-                id="pinCode"
-                name="pinCode"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.pinCode && errors.pinCode}
-                label={"Pin Code"}
-                placeholder={"Pin Code"}
-              />
-            </Grid>
-            <Grid item xs={5}>
-              <Input
-                id="nickName"
-                name="nickName"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.nickName && errors.nickName}
-                label={"Nick name (optional)"}
-                placeholder={"Nickname"}
-              />
-              <div style={{ marginRight: 30, width: 140, justifyContent:'center'}}>
-                <Button style={{marginTop:25,flexDirection:'inherit' }} label="+ Add New Card" />
-              </div>
-            </Grid>
-            
-              
-            
           </Grid>
-        </form>
-        
-            
-      </FormWrapper>
-      <Flex style={{justifyContent:'space-evenly'}}>
-      <div style={{ width: 180,marginLeft:510,justifyContent:'space-between'}}>
-                <Button secondary style={{marginTop:100 }} label="Invite and Create New" />
-              </div>
-              <div style={{ width: 170, justifyContent:'space-around'}}>
-                <Button  style={{marginRight:'100',marginTop:100}} label="Invite Child" />
-              </div>
-              </Flex>
-    </>
+          <Grid item xs={12} sm={6}>
+            <Input
+              id="cardNumber"
+              name="cardNumber"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.cardNumber && errors.cardNumber}
+              label={"Credit Card Number"}
+              placeholder={"**** **** **** ****"}
+            />
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <Input
+              id="expiryDate"
+              name="expiryDate"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.expiryDate && errors.expiryDate}
+              label={"Expiration Date"}
+              placeholder={"MM/YY"}
+            />
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <Input
+              id="cvc"
+              name="cvc"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.cvc && errors.cvc}
+              label={"CVC"}
+              placeholder={"CVC"}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Input
+              id="nameOnCard"
+              name="nameOnCard"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.nameOnCard && errors.nameOnCard}
+              label={"Name on Card"}
+              placeholder={"John Doe"}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Input
+              id="pinCode"
+              name="pinCode"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.pinCode && errors.pinCode}
+              label={"Pin Code"}
+              placeholder={"Pin Code"}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Input
+              id="nickName"
+              name="nickName"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.nickName && errors.nickName}
+              label={"Nick name (optional)"}
+              placeholder={"Nickname"}
+            />
+            <Button label="+ Add New Card" size="medium" />
+          </Grid>
+        </GridContainer>
+      </form>
+
+
+      <Drawer
+            open={drawerOpen}
+            title="Share Cards"
+            setDrawerOpen={(flag) => setDrawerOpen(flag)}
+            closeIcon={true}
+            actionButtons={true}
+          >
+           <CardList />
+          
+          </Drawer>
+
+    </Box>
   );
 }

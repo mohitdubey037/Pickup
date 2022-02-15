@@ -36,6 +36,7 @@ import SignUpDetails from "app/pages/AuthScreens/SignUpScreens/SignUpDetails";
 import ShipmentSummaryTable from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/ShipmentSummary";
 import BulkSummary from "app/components/Uploading/BulkSummary";
 import TokenExpire from "app/pages/AuthScreens/TokenExpire";
+import ChildAccountList from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccountList";
 
 const Routes = () => {
   return (
@@ -69,6 +70,7 @@ const Routes = () => {
         <PaymentsPage path="/payments/cards" />
         <PersonalProfileContainer path="my-account/personal-profile" />
         <ChildAccount path="/my-account/child-account" />
+        <ChildAccountList path="/my-account/child-account-list" />
         <FavoriteLocations path="my-account/favourite-locations" />
         <OnHoldShipmentContainer path="/holding-zone" />
         <InvoicesContainer path="/payments/invoices" />

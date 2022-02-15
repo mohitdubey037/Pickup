@@ -75,11 +75,11 @@ export const dashboardHelper: Array<Link> = [
         link: "/dashboard/my-account/personal-profile",
         access: [1, 2, 3, 4],
       },
-      // {
-      //   id: 2,
-      //   label: "Child Account",
-      //   link: "/dashboard/my-account/child-account",
-      // },
+      {
+        id: 2,
+        label: "Child Account",
+        link: "/dashboard/my-account/child-account-list",
+      },
       // {
       //   id: 3,
       //   label: "Favourite Locations",
