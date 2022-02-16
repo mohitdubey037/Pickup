@@ -6,6 +6,9 @@ import { Button } from "app/components/Buttons";
 import { Table } from "app/components/Table";
 import { OnHoldTableTop } from "../OnHoldShipment/Style";
 import { useNavigate } from "@reach/router";
+import TableSkeleton from "app/components/Table/TableSkeleton";
+import NullState from "app/components/NullState/NullState";
+
 import { childDataTable, invoiceTable } from "../PaymentsContainer/helper";
 import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
 
@@ -20,6 +23,7 @@ export default function ChildAccountList({ path: string }) {
   const [totalData, setTotalData] = useState<any>(0);
   const [sortType, setSortType] = useState<string | undefined>("desc");
   const [childData, setChildData] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [drawerType, setDrawerType] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -44,20 +48,16 @@ export default function ChildAccountList({ path: string }) {
   }, []);
 
   const openInvoiceDrawer = (id: any, type: any) => {
-    // if (type === "invoice" || type === "orderDetails") {
-    //   setSelectedInvoiceId(id);
-    // }
-    console.log('hii');
     setDrawerType(type);
     setDrawerOpen(true);
   };
 
   const getChildData = async () => {
+    setLoading(true);
     const res = (await getChildAccountData()) as any;
     console.log(res);
     if (!res?.error) {
-      const InvoiceList = res.response.data.data.list;
-      console.log(InvoiceList);
+      const InvoiceList = res.response.data.data;
       setChildData(InvoiceList);
       setPage(res.response.data.data.pageMetaData.page - 1);
       setTotalPages(res.response.data.data.pageMetaData.totalPages);
@@ -66,6 +66,7 @@ export default function ChildAccountList({ path: string }) {
       const InvoiceList = res;
       setChildData(InvoiceList);
     }
+    setLoading(false);
   }
 
   const getSearchPaginatedData = async (page, sortingField, sortingType) => {
@@ -78,7 +79,7 @@ export default function ChildAccountList({ path: string }) {
       res = (await getChildAccountData('',page+1, 10, sortingField, sortingType)) as any;
     }
     if (!res?.error) {
-      const InvoiceList = res.response.data.data.list;
+      const InvoiceList = res.response.data.data;
       setPage(page);
       setChildData(InvoiceList);
     } else if (!res.error) {
@@ -103,8 +104,11 @@ export default function ChildAccountList({ path: string }) {
         <Button size="medium" label="Create New" onClick={addChild} />
       </Flex>
 
+      {loading ? (
+        <TableSkeleton />
+      ) : childData?.list?.length > 0 ? (
         <Table
-        data={childDataTable(childData, openInvoiceDrawer)}
+        data={childDataTable(childData.list, openInvoiceDrawer)}
         tableTop={tableTop()}
         sortTypeProps = {sortType}
         paginationData={(page, sortingField, sortingType) => getSearchPaginatedData(page, sortingField, sortingType)}
@@ -116,6 +120,9 @@ export default function ChildAccountList({ path: string }) {
         totalPage={totalPages}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
+      ) : (
+        <NullState message="No Records Found" />
+      )}
     </ModuleContainer>
   );
 }

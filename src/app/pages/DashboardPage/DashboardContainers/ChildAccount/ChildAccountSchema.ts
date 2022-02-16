@@ -10,7 +10,7 @@ export const ChildAccountSchema = yup.object().shape({
     .typeError("Business Number must be a number")
     .required(" Business Number is a required field"),
     industry: yup.string().required("Industry is a required field"),
-    employeeStrength: yup.string().required("Employee is a required field"),
+    employeeStrength: yup.number().required("Employee is a required field"),
     address1: yup.string().required("Address Line 1 is a required field"),
     address2: yup.string().required("Address Line 2 is a required field"),
     pincode: yup.string().required("Pincode is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
@@ -24,9 +24,22 @@ export const ChildAccountSchema = yup.object().shape({
     role: yup.string().required('Role is required field'),
     emailId: yup.string().required('EmailId is required field').email("Please enter valid email"),
 
-    number: yup.string().required('Card number is required field'),
-    expiryYear: yup.string().required("Expiry Date is required field"),
-    cvd: yup.string().required('Cvc is required field'),
+    number: yup
+    .string()
+    .required("Card number is a required field")
+    .matches(
+        /\b\d{4}(| |-)\d{4}\1\d{4}\1\d{4}\b/,
+        "Enter a valid card number"
+    ),
+    expiryDate: yup
+    .string()
+    .required("Expiry date is a required field")
+    .matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/, "Enter a valid expiry date"),
+    cvd: yup
+    .string()
+    .required("CVC is a required field")
+    .min(3, "CVC must be atleast 3 digits")
+    .max(4),
     name: yup.string().required('Name is required field'),
     // pincard: yup.string().required("Pincard is required field"),
     // nickName: yup.string().notRequired()
