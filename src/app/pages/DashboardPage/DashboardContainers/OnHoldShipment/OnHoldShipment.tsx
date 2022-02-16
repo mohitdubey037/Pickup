@@ -2,13 +2,13 @@ import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { H2 } from "app/components/Typography/Typography";
+import { H2, H3 } from "app/components/Typography/Typography";
 import { OnHoldTableTop } from "./Style";
 import { sliders } from "app/assets/Icons";
 import { useCallback, useEffect, useState } from "react";
 import { getHoldingShipmentsService, scheduleShipmentService, deleteShipmentService } from "services/HoldingService";
 
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Grid } from "@material-ui/core";
@@ -17,6 +17,10 @@ import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 import { getOrderIdListFromIndexList, onHoldTable } from "./helper";
 import ScheduleShipmentsDrawer from "./ScheduleShipmentsDrawer";
 import { showToast } from "utils";
+import { FilterFlexBox } from "../PaymentsContainer/style";
+import DatePickerInput from "app/components/Input/DatePickerInput";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import { SearchTableTop } from "../SearchContainer/style";
 
 export interface OnHoldDataType {
     category: string;
@@ -94,13 +98,13 @@ const OnHoldShipmentContainer = ({ path: string }) => {
 
     const tableTop = () => {
         return (
-            <OnHoldTableTop>
-                <p>{onHoldData.length} orders</p>
-                <div>
-                    <Button label="Delete" secondary={true} onClick={() => deleteShipmentHandler()} style={{ borderColor: '#C94C43', color: '#C94C43' }} />
-                    <Button label="Schedule" onClick={() => setScheduleDrawerOpen(true)} />
-                </div>
-            </OnHoldTableTop>
+            <SearchTableTop>
+                <H3 text={`${onHoldData.length} Orders`} className="heading" />
+                    <Box>
+                    <Button label="Delete" secondary={true} onClick={() => deleteShipmentHandler()} size="medium" style={{marginRight:'12px'}} />
+                    <Button label="Schedule" onClick={() => setScheduleDrawerOpen(true)}  size="medium"  />
+                    </Box>
+            </SearchTableTop>
         );
     };
 
@@ -132,7 +136,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     return (
         <ModuleContainer>
             <H2 title="On Hold Shipments" />
-            <Grid container spacing={4} alignItems="center" style={{ marginTop: "20px", marginBottom: "20px" }}>
+            {/* <Grid container spacing={4} alignItems="center" style={{ marginTop: "20px", marginBottom: "20px" }}>
                 <Grid item xs={2}>
                     <Input label="Invoice Number" value={filters.invoiceNumber} onChange={(e) => onChangeHandler(e, 'invoiceNumber', null)} placeholder="eg. 123,321" />
                 </Grid>
@@ -184,7 +188,60 @@ const OnHoldShipmentContainer = ({ path: string }) => {
                 <Grid item xs={2}>
                     <img src={sliders} alt="" />
                 </Grid>
-            </Grid>
+            </Grid> */}
+
+
+            <Box mt={4} mb={2}>
+        <GridContainer container spacing={2}>
+          <Grid item xs={6} sm={4} lg={2}>
+            <Input
+              id="invoiceNumber"
+              name="invoiceNumber"
+              onChange={(e) => onChangeHandler(e, 'invoiceNumber', null)} 
+              label="Invoice Number"
+              placeholder="eg. 1234"
+            />
+          </Grid>
+          <Grid item xs={12} sm={4} lg={2}>
+            <Input
+              id="orderId"
+              name="orderId"
+              onChange={(e) => onChangeHandler(e, 'shippingId', null)} 
+              label="Order Id"
+              placeholder="eg. 1234"
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            <DatePickerInput
+              label="From Order Date"
+              placeholder={"e.g 06/06/2021"}
+              value={filters.fromDate || null}
+              onChange={(val) => onChangeHandler(null, "fromDate", val)}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            <DatePickerInput
+              label="To Order Date"
+              maxDate={new Date()}
+              placeholder={"e.g 06/06/2021"}
+              value={filters.toDate || null}
+              onChange={(val) => onChangeHandler(null, "toDate", val)}
+            />
+          </Grid>
+       
+          <Grid item xs={6} sm={1}>
+            <FilterFlexBox justifyContent="center">
+                <img
+                  src={sliders}
+                  alt=""
+                />
+            </FilterFlexBox>
+          </Grid>
+        </GridContainer>
+      </Box>
+
+
+
 
             <Table
                 data={onHoldTable(onHoldData, openInvoiceDrawer, singleScheduleHandler)}
@@ -209,12 +266,15 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             
             <Drawer
                 open={singleScheduleDrawerOpen}
-                title={"Order Items"}
+                title={"Schedule Shipments"}
                 setDrawerOpen={(flag) => setScheduleDrawerOpen(flag)}
                 closeIcon={true}
                 actionButtons={true}
             >
-                <ScheduleShipmentsDrawer handleSubmit={handleSubmitHandler} submitButtonLabel={"Save"} setDrawerOpen={setScheduleDrawerOpen} />
+                <ScheduleShipmentsDrawer 
+                handleSubmit={handleSubmitHandler} 
+                submitButtonLabel={"Save"} 
+                setDrawerOpen={setScheduleDrawerOpen} />
             </Drawer>
 
         </ModuleContainer>

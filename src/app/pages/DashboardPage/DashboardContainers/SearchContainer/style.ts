@@ -21,6 +21,11 @@ export const SearchTableTop = styled.div`
   .spanlabel{
     margin-left:8px;
   }
+  button{
+    height:32px;
+    padding:8px 16px;
+    min-width: 120px;
+  }
 `;
 
 

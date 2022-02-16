@@ -9,38 +9,28 @@ export const DropzoneWrapper = styled.div`
 
 export const DropzoneBox = styled.div`
   width: 100%;
-  height: 289px;
+  height: 300px;
   border: 1.5px dashed #c1d4d7;
   box-sizing: border-box;
-  border-radius: 8.71486px;
+  border-radius: 8px;
   display: flex;
-  flex-direction: center;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  section {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-  }
+  padding:16px;
+  margin-top:40px;
 `;
 
-export const DropText = styled.p`
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  text-align: center;
-  color: #a6a6a6;
-  a {
-    text-decoration: underline;
-    color: #1b8af0;
-  }
+export const DropeZoneText = styled.div`
+ text-align:center;
+ .label{
+  color: #A6A6A6;
+  margin:24px 0 12px 0;
+ }
+ .smalltext{
+  color: #C1D4D7;
+ }
 `;
 
-export const HelperText = styled.div`
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14px;
-  text-align: center;
-  color: #c1d4d7;
-`;
+
+

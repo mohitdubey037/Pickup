@@ -68,7 +68,7 @@ export const H4Typography = styled.p<Props>`
 export const Paratext = styled.p`
   ${commonStyle}
   font-size: 14px;
-  line-height: 16px;
+  line-height: 18px;
 `;
 
 export const H5Typography = styled.p`

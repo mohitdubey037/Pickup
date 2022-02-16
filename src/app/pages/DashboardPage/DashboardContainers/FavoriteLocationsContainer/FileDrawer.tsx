@@ -1,11 +1,16 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
 import { Button } from "app/components/Buttons";
 import { csvIcon } from "app/assets/Icons";
-import { DropText, DropzoneBox, Wrapper, HelperText } from "./style";
 import { CSVLink } from "react-csv";
 
 import Dropzone,{useDropzone} from "react-dropzone";
+import {H5, Para } from "app/components/Typography/Typography";
+import { Termslink } from "app/pages/AuthScreens/style";
+import { Link } from "app/components/Link";
+import { DropeZoneText, DropzoneBox } from "app/components/DropZone/style";
+import { Flex } from "app/components/Input/style";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
+
 const csvData = [
   ["Favourites","IndividualOrCompany", "LocationType", "CompanyName","FirstName","LastName","AddressLine1","AddressLine2","City","PostalCode","ProvinceOrState","Country","ContactNumber","AlternateNumber","EmailAddress","AdditionalNotes","Latitude","Longitude"],
 
@@ -25,39 +30,47 @@ function FileDrawer(props) {
   ));
   return (
     <>
-      <Wrapper style={{ width: 530 }}>
-        <Typography style={{ paddingBottom: 20 }}>
-          Download this file to organize your shipments correctly before upload
-          and we can import it
-        </Typography>
-        <div style={{ width: 200, paddingBottom: 40 }}>
-        <CSVLink filename={"Bulk-Location-Sample.csv"} data={csvData} target="_blank" >
-          <Button label="Download Sample" />
-          </CSVLink>
-        </div>
+   <DrawerInnerContent>
+        <Para text="Download this file to organize your shipments correctly before upload and we can import it" />
+     
+        <CSVLink filename={"Bulk-Location-Sample.csv"} data={csvData} target="_blank" style={{textDecoration:'none', margin: '16px 0', display: 'block'}}>
+        <Button label="Download Sample" size="medium" />
+        </CSVLink>
+        
         <DropzoneBox>
           <Dropzone  accept= ".xlsx, .xls, .csv">
             {({ getRootProps, getInputProps }) => (
-              <section>
+            <>
                 <img src={csvIcon} alt="" />
                 <div {...getRootProps()}>
                   <input {...getInputProps()} />
-                  <DropText>
-                    Drag and drop files or{" "}
-                    <a style={{ cursor: "pointer" }}>Click Here</a> to select a
+                  <DropeZoneText>
+                  <Termslink className="label">Drag and drop files or <Link to="">Click Here</Link> to select a
                     file
-                  </DropText>
-                  
+                  </Termslink>
+                  <H5 text="Files accepted CSV, XLS" className="smalltext" />
+                  </DropeZoneText>
                 </div>
-                <HelperText>Files accepted CSV, XLS</HelperText>
                 <aside>
                 {fileList}
                 </aside>
-              </section>
+                </>
             )}
           </Dropzone>
         </DropzoneBox>
-      </Wrapper>
+        </DrawerInnerContent>
+        <DrawerFooter>
+        <Button
+          secondary
+          label="Cancel"
+          size="medium"
+        />
+        <Button
+          label="import"
+          size="medium"
+        />
+      </DrawerFooter>
+   
     </>
   );
 }
