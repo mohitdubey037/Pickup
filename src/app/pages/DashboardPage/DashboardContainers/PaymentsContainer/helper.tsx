@@ -64,13 +64,13 @@ const getOrderIdItem = (
     id: any
 ) => {
     return (
-        <a onClick={() => openInvoiceDrawer(id, "orderDetails")}>
+        <a onClick={() => openInvoiceDrawer(id, "orderItemDetails")}>
             {shipmentCount}
         </a>
     );
 };
 
-export const invoiceTable = (
+export const getInvoiceData = (
     searchRecordData: any,
     openInvoiceDrawer: (id: any, type: any) => void
 ) => {
@@ -98,3 +98,31 @@ export const invoiceTable = (
     }
     return makeTableData;
 };
+
+export const invoiceColoumns = [
+    {
+        id: "invoiceCreatedAt",
+        label: "Invoice Date",
+        isSort: true,
+    },
+    {
+        id: "orderCount",
+        label: "Order Count",
+        isSort: false,
+    },
+    {
+        id: "shipedBy",
+        label: "Shipped By",
+        isSort: false,
+    },
+    {
+        id: "total",
+        label: "Invoice Amount",
+        isSort: true,
+    },
+    {
+        id: "invoiceNumber",
+        label: "Invoice Number",
+        isSort: true,
+    },
+];

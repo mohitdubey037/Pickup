@@ -11,59 +11,44 @@ export interface deleteCardData {
 const type = "payment";
 
 export const getUserCardsService = async () => {
-    try {
-        const res = await Services.get("api/profiles/paymentprofile/userprofilecards", type);
-        return {response: res, error: null};
-    } catch (error) {
-        return {response: null, error: error};
-    }
+  try {
+    const res = await Services.get(
+      "api/profiles/paymentprofile/userprofilecards",
+      type
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
 };
 
 export const addNewCardService = async (body: any) => {
-    try {
-        const res = await Services.post("api/profiles/paymentprofile/adprofilecard", body, type)
-        if(res)showToast('Your card has been successfully added', "success");
-        return {response: res, error: null};
-    }catch(error){
-        showToast("Invalid card details. Please check your information and try again.", "error");
-        return {response: null, error: error};
-    }
-}
-
-export const getInvoiceList = async (urlParams?: string, page?: number, chunk?: number, sortingField?: string, sortingType?: string)=>{
-  // console.log(sortingType);
   try {
-    let api = `order/business/invoices?${urlParams}`
-    if (sortingField) {
-      api += `sortingField=${sortingField}&sortingType=${sortingType}&`
-    }
-    if (page) {
-      api += `page=${page}&chunk=${chunk}`
-    }
-    const res = await Services.get(api,"order");
-    // console.log(res);
-    return{response: res, error:null};
-  }catch(error){
-  return {response: null, error: error};
+    const res = await Services.post(
+      "api/profiles/paymentprofile/adprofilecard",
+      body,
+      type
+    );
+    if (res) showToast("Your card has been successfully added", "success");
+    return { response: res, error: null };
+  } catch (error) {
+    showToast(
+      "Invalid card details. Please check your information and try again.",
+      "error"
+    );
+    return { response: null, error: error };
   }
-}
+};
 
-export const getColumnPaginate = async (urlParams?: string, page?: number, chunk?: number, sortingField?:string, sortingType?:string) => {
-try {
-  let api = `order/business/invoices${urlParams}`
-  if (page) {
-    api += `?page=${page}&&chunk=${chunk}`
+export const getInvoiceList = async (urlParams?: string) => {
+  try {
+    let api = `order/business/invoices?${urlParams}`;
+    const res = await Services.get(api, "order");
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
   }
-  if (sortingField) {
-    api += `?sortingField=${sortingField}&&sortingType=${sortingType}`
-  }
-    const res = await Services.get(api,"order");
-    console.log(res);
-    return{response: res, error:null};
-}catch(error){
-return {response: null, error: error};
-}
-}
+};
 
 // export const updateCard = async (cardData: cardData) => {
 //     const res = await Services.post("business/forgotPassword", { emailId: cardData }, type);
@@ -89,25 +74,29 @@ export const confirmPaymentService = async (body: any, invoiceId: number) => {
 };
 
 export const confirmPaymentInDrawer = async (body: any, invoiceId: string) => {
-    try {
-        // const header = {
-        //     payment_gateway: "bambora"
-        // }
-        const res = await Services.post(`order/business/invoice/${invoiceId}/cardPayment`, body, "order" )
-        return {response: res, error: null};
-
-    }catch(error){
-        return {response: null, error: error};
-    }
-}
+  try {
+    // const header = {
+    //     payment_gateway: "bambora"
+    // }
+    const res = await Services.post(
+      `order/business/invoice/${invoiceId}/cardPayment`,
+      body,
+      "order"
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
+};
 
 export const deleteCard = async (profileId: string, cardId: string) => {
   try {
     const res = await Services.delete(
-      `api/profiles/${profileId}/cards/${cardId}`,{},
+      `api/profiles/${profileId}/cards/${cardId}`,
+      {},
       "payment"
     );
-    showToast('Your card has been successfully removed', "success");
+    showToast("Your card has been successfully removed", "success");
     return { response: res, error: null };
   } catch (error) {
     return { response: null, error: error };
@@ -164,10 +153,10 @@ export const getOrderDetails = async (invoiceId: string) => {
     return { response: null, error: error };
   }
 };
+
 // export const editCardService = async (values: any) => {
 //   try {
 //     const body = {
-      
 //       "function": values.function,
 //       "name": values.name,
 //       "number": values.number,
