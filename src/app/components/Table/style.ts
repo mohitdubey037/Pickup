@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Table } from "@material-ui/core";
 import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
-import { TableCell } from "@mui/material";
 
 export const TableTop = styled.div`
   border: 1px solid #dcdcdc;
@@ -18,25 +17,26 @@ export const CustomTableContainer = styled(TableContainer)`
 export const CustomTable = styled(Table)`
   tr {
     border: 1px solid #dcdcdc;
-    &:first-child{
+    &:first-child {
       border-top: none !important;
     }
-    &:last-child{
+    &:last-child {
       border-top: none !important;
     }
     input[type="checkbox"] {
       padding: 8px 0;
     }
   }
-  th, td  {
+  th,
+  td {
     color: #828282;
     font-size: 14px;
     line-height: 150%;
-    border-bottom:none;
+    border-bottom: none;
     padding: 8px 16px;
     border: 1px solid #dcdcdc;
     font-family: "Roboto";
-    @media (max-width:768px){
+    @media (max-width: 768px) {
       padding: 8px;
     }
     img {
@@ -51,14 +51,17 @@ export const CustomTable = styled(Table)`
   .MuiTableCell-paddingCheckbox {
     width: 24px;
   }
-  a{
-    cursor:pointer;
-    color:#1B8AF0;
-    text-decoration:underline;
+  a {
+    cursor: pointer;
+    color: #1b8af0;
+    text-decoration: underline;
   }
   .MuiCheckbox-root {
     margin-right: 0px;
-}
+  }
+  .ascending {
+    transform: scaleY(-1);
+  }
 `;
 
 export const CustomPagination = styled(TablePagination)`
@@ -68,11 +71,10 @@ export const CustomPagination = styled(TablePagination)`
   border: 1px solid #dcdcdc;
   border-top: none;
   background: #ffffff;
-  .MuiTableCell-root{
-    padding:0;
+  .MuiTableCell-root {
+    padding: 0;
   }
   .MuiTablePagination-actions {
-    margin-left:0px;
-}
+    margin-left: 0px;
+  }
 `;
-
