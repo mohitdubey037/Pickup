@@ -22,7 +22,7 @@ export const searchTable = (
   if (searchRecordData && searchRecordData.length) {
     searchRecordData.forEach((item: any) => {
       makeTableData.push({
-        Source: "Uploaded",
+        Source: item.type,
         "Invoice Id": getInvoiceIdItem(openInvoiceDrawer, item.invoiceId),
         "Order Id": getOrderIdItem(openInvoiceDrawer, item.orderId),
         "Order Date": moment(item.shippingDate).format("DD/MM/YYYY"),
