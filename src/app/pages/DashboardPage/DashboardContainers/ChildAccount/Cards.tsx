@@ -12,24 +12,20 @@ import { CustomLink } from "app/components/Typography/Links";
 import { Drawer } from "app/components/Drawer";
 import CardList from "./CardList";
 
-export default function Cards() {
+export default function Cards({formik}:{formik: any}){
   const Confirm = () => {};
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { handleChange, errors, touched, handleBlur, handleSubmit } = useFormik(
-    {
-      initialValues: {
-        cardType: "1",
-        cardNumber: "",
-        expiryDate: "",
-        cvc: "",
-        nameOnCard: "",
-        pinCode: "",
-        nickName: "",
-      },
-      validationSchema: cardSchema,
-      onSubmit: Confirm,
-    }
-  );
+
+  const onChangeHandler = (event: any, name: string) => {
+    handleChange(event);
+  };
+
+  const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
+
+  const cardForm = values;
+  const cardFormTouched = touched;
+  const cardFormError = errors;
+
   return (
     <Box mb={2}>
       <form>
@@ -47,23 +43,24 @@ export default function Cards() {
           />
         </Box>
         <GridContainer container spacing={2}>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <RadioGroup
               label="Method of Payment"
               options={[
-                { label: "Credit Card", value: "1" },
-                { label: "Debit Card", value: "0" },
+                { label: "Credit Card", value: "creditCard" },
+                { label: "Debit Card", value: "debitCard" },
               ]}
               name={"Radio Options"}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={6}>
             <Input
               id="cardNumber"
-              name="cardNumber"
+              name="number"
               onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.cardNumber && errors.cardNumber}
+              value={cardForm.number}
+              onChange={(e) => onChangeHandler(e, `number`)}
+              error={cardFormTouched.number && cardFormError.number}
               label={"Credit Card Number"}
               placeholder={"**** **** **** ****"}
             />
@@ -71,10 +68,11 @@ export default function Cards() {
           <Grid item xs={12} sm={3}>
             <Input
               id="expiryDate"
-              name="expiryDate"
+              name="expiryYear"
               onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.expiryDate && errors.expiryDate}
+              value={cardForm.expiryYear}
+              onChange={(e) => onChangeHandler(e, `expiryYear`)}
+              error={cardFormTouched.expiryYear && cardFormError.expiryYear}
               label={"Expiration Date"}
               placeholder={"MM/YY"}
             />
@@ -82,10 +80,12 @@ export default function Cards() {
           <Grid item xs={12} sm={3}>
             <Input
               id="cvc"
-              name="cvc"
+              name="cvd"
               onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.cvc && errors.cvc}
+              value={cardForm.cvd}
+              // onChange={handleChange}
+              onChange={(e) => onChangeHandler(e, `cvd`)}
+              error={cardFormTouched.cvd && cardFormError.cvd}
               label={"CVC"}
               placeholder={"CVC"}
             />
@@ -93,32 +93,35 @@ export default function Cards() {
           <Grid item xs={12} sm={6}>
             <Input
               id="nameOnCard"
-              name="nameOnCard"
+              name="name"
               onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.nameOnCard && errors.nameOnCard}
+              value={cardForm.name}
+              onChange={(e) => onChangeHandler(e, `name`)}
+              error={cardFormTouched.name && cardFormError.name}
               label={"Name on Card"}
               placeholder={"John Doe"}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <Input
               id="pinCode"
-              name="pinCode"
+              name="pincard"
               onBlur={handleBlur}
               onChange={handleChange}
-              error={touched.pinCode && errors.pinCode}
+              value={cardForm.pincard}
+              error={cardFormTouched.pincard && cardFormError.pincard}
               label={"Pin Code"}
               placeholder={"Pin Code"}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={6}>
             <Input
               id="nickName"
-              name="nickName"
+              name="nickname"
               onBlur={handleBlur}
               onChange={handleChange}
-              error={touched.nickName && errors.nickName}
+              value={cardForm.nickname}
+              error={cardFormTouched.nickname && cardFormError.nickname}
               label={"Nick name (optional)"}
               placeholder={"Nickname"}
             />

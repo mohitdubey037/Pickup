@@ -16,50 +16,17 @@ export default function ChildAccountForm({formik}:{formik: any}){
 
   const onChangeHandler = (event: any, name: string) => {
     handleChange(event);
-    //   timer[name] && clearTimeout(timer[name]);
-    //   let temp = timer;
-    //   temp[name] = setTimeout(() => {
-    //     updateAllFieldsHandler(name, event.target.value);
-    //   }, 1000);
-    //   setTimer(() => temp);
-    // }
   };
-
-  // const updateAllFieldsHandler = (
-  //   name: string,
-  //   value: string | number | boolean
-  // ) => {
-  //   setFieldValue(name, value);
-  // };
 
   const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
     formik;
 
+  console.log(values);
 
-  // const {
-  //   handleChange,
-  //   errors,
-  //   touched,
-  //   handleBlur,
-  //   // handleSubmit,
-  // } = useFormik({
-  //   initialValues: {
-  //     CompanyName: "",
-  //     BusinessNumber: "",
-  //     Industry: "",
-  //     Employee: "",
-  //     AddressLine1: "",
-  //     AddressLine2: "",
-  //     Pincode: "",
-  //     Province: "",
-  //     City: "",
-  //     Country: "",
-  //   },
-  //   validationSchema: ChildAccountSchema,
-  //   onSubmit: (values) => handleConfirm(values),
-  // });
+  const childAccountForm = values;
+  const childAccountFormTouched = touched;
+  const childAccountFormError = errors;
 
-  const [timer, setTimer] = useState<any>({});
 
   return (
     <Box mt={4}>
@@ -68,11 +35,12 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="CompanyName"
-                name="CompanyName"
+                name="companyName"
                 onBlur={handleBlur}
                 // onChange={handleChange}
+                value = {childAccountForm.companyName}
                 onChange={(e) => onChangeHandler(e, `companyName`)}
-                error={touched.CompanyName && errors.CompanyName}
+                error={childAccountFormTouched.companyName && childAccountFormError.companyName}
                 label={"Company Name"}
                 placeholder={"Example Company"}
               />
@@ -80,11 +48,12 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="BusinessNumber"
-                name="BusinessNumber"
+                name="businessNumber"
                 onBlur={handleBlur}
                 // onChange={handleChange}
+                value = {childAccountForm.businessNumber}
                 onChange={(e) => onChangeHandler(e, `businessNumber`)}
-                error={touched.BusinessNumber && errors.BusinessNumber}
+                error={childAccountFormTouched.businessNumber && childAccountFormError.businessNumber}
                 label={"Business Number"}
                 placeholder="eg. 123456"
               />
@@ -92,11 +61,12 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Industry"
-                name="Industry"
+                name="industry"
                 onBlur={handleBlur}
                 // onChange={handleChange}
+                value = {childAccountForm.industry}
                 onChange={(e) => onChangeHandler(e, `industry`)}
-                error={touched.Industry && errors.Industry}
+                error={childAccountFormTouched.industry && childAccountFormError.industry}
                 label={"Industry"}
                 placeholder={"eg. Retail"}
               />
@@ -104,23 +74,25 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Employee"
-                name="Employee"
+                name="employeeStrength"
                 onBlur={handleBlur}
                 // onChange={handleChange}
-                onChange={(e) => onChangeHandler(e, `employee`)}
-                error={touched.Employee && errors.Employee}
-                label={"Employee"}
+                value = {childAccountForm.employeeStrength}
+                onChange={(e) => onChangeHandler(e, `employeeStrength`)}
+                error={childAccountFormTouched.employeeStrength && childAccountFormError.employeeStrength}
+                label={"Employee Strength"}
                 placeholder={"eg. John Doe"}
               />
             </Grid>
             <Grid item xs={12} lg={6}>
               <Input
                 id="AddressLine1"
-                name="AddressLine1"
+                name="address1"
                 onBlur={handleBlur}
                 // onChange={handleChange}
+                value = {childAccountForm.address1}
                 onChange={(e) => onChangeHandler(e, `addressLine1`)}
-                error={touched.AddressLine1 && errors.AddressLine1}
+                error={childAccountFormTouched.address1 && childAccountFormError.address1}
                 label={"Address Line 1"}
                 placeholder={"123 Address Street"}
               />
@@ -128,11 +100,12 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} lg={6}>
               <Input
                 id="AddressLine2"
-                name="AddressLine2"
+                name="address2"
                 onBlur={handleBlur}
                 // onChange={handleChange}
+                value = {childAccountForm.address2}
                 onChange={(e) => onChangeHandler(e, `addressLine2`)}
-                error={touched.AddressLine2 && errors.AddressLine2}
+                error={childAccountFormTouched.address2 && childAccountFormError.address2}
                 label={"Address Line 2"}
                 placeholder={"123 Address Street"}
               />
@@ -140,11 +113,12 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Pincode"
-                name="Pincode"
+                name="pincode"
                 onBlur={handleBlur}
                 // onChange={handleChange}
+                value = {childAccountForm.pincode}
                 onChange={(e) => onChangeHandler(e, `pinCode`)}
-                error={touched.Pincode && errors.Pincode}
+                error={childAccountFormTouched.pincode && childAccountFormError.pincode}
                 label={"Pincode"}
                 placeholder={"1234"}
               />
@@ -152,11 +126,12 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Province"
-                name="Province"
+                name="province"
                 onBlur={handleBlur}
                 // onChange={handleChange}
+                value = {childAccountForm.province}
                 onChange={(e) => onChangeHandler(e, `province`)}
-                error={touched.Province && errors.Province}
+                error={childAccountFormTouched.province && childAccountFormError.province}
                 label={"Province"}
                 placeholder={"eg. Ontario"}
               />
@@ -165,10 +140,11 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="City"
-                name="City"
+                name="city"
                 onBlur={handleBlur}
+                value = {childAccountForm.city}
                 onChange={(e) => onChangeHandler(e, `city`)}
-                error={touched.City && errors.City}
+                error={childAccountFormTouched.city && childAccountFormError.city}
                 label={"City"}
                 placeholder={"eg. Toronto"}
               />
@@ -176,10 +152,11 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Country"
-                name="Country"
+                name="country"
                 onBlur={handleBlur}
+                value = {childAccountForm.country}
                 onChange={(e) => onChangeHandler(e, `country`)}
-                error={touched.Country && errors.Country}
+                error={childAccountFormTouched.country && childAccountFormError.country}
                 label={"Country"}
                 placeholder={"eg. Canada"}
               />

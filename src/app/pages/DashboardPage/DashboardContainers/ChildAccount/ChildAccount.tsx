@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import ChildAccountForm from "./ChildAccountForm";
@@ -11,11 +11,17 @@ import { actions } from "store/reducers/PaymentReducer";
 import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
 import { ChildInitValues } from './helper';
 import { ChildAccountSchema } from './ChildAccountSchema';
+import { globalActions } from "store/reducers/GlobalReducer";
+
 export default function ChildAccount({ path: string }) {
   const dispatch = useDispatch();
   useEffect(() => {
         dispatch(actions.getCards());
 }, []);
+
+const loading = useSelector((state: { globalState: { showLoader } }) => {
+  return state.globalState.showLoader;
+});
 
 const formik = useFormik({
   initialValues: ChildInitValues,
@@ -27,14 +33,23 @@ const formik = useFormik({
     }
   },
   onSubmit: () => {
-    console.log(formik.values);
-    // dispatch(actions.submitShipment(formik.values));
+    console.log(formik.values, 'hiii 1');
+    dispatch(actions.submitAccou(formik.values));
   },
 });
 
 useEffect(() => {
+  dispatch(globalActions.showLoader(false));
+},[dispatch])
+
+useEffect(() => {
+  console.log(formik);
   (() => formik.validateForm())();
 }, []);
+
+useEffect(() => {
+  console.log(formik);
+})
 
 // const handleConfirm = async (values: object) => {
 //   postChildAccountData(values);
@@ -53,16 +68,19 @@ useEffect(() => {
 
       <FullCard>
         <H3 text="Superintendent Details" />
-        <AdminDetails />
+        <AdminDetails
+         formik = {formik} />
       </FullCard>
 
       <FullCard>
-        <Cards />
+        <Cards 
+        formik={formik} />
       </FullCard>
 
       <Flex justifyContent="flex-end">
         <Button
           onClick={formik.handleSubmit}
+          disabled={!formik.isValid}
           size="medium" label="Invite Child" />
       </Flex>
       
