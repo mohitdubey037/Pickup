@@ -14,7 +14,7 @@ import Switches from "app/components/Input/SwitchButton";
 import Select from "app/components/Select";
 import SelectBox from "app/components/Select/SelectBox";
 import { editColleagueSchema } from "./CompanyProfileSchema";
-import { DrawerFooter } from "app/components/Drawer/style";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { showToast } from "utils";
 import { imageUploadService } from "services/SingleShipmentServices";
@@ -98,6 +98,7 @@ const EditColleagueDetailsForm = ({
 
   return (
     <>
+    <DrawerInnerContent>
       <Box display="flex" justifyContent="center">
         <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
       </Box>
@@ -192,7 +193,7 @@ const EditColleagueDetailsForm = ({
           required={isChecked && true}
         />
       )}
-
+     </DrawerInnerContent>
       <DrawerFooter>
         <Button
           secondary

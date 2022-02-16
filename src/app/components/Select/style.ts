@@ -176,5 +176,11 @@ export const CustomNewSelect = styled(Select)<CustomNewSelectProps>`
   margin-bottom:16px;
   .MuiSelect-select {
     color: ${({ value }) => (value ? "#000" : "#c4c4c4")};
+    padding: 10px 8px;
+    background:#fff;
   }
+  .MuiOutlinedInput-notchedOutline {
+    border-color: #C4C4C4 !important;
+    border-width: 1px !important;
+}
 `;

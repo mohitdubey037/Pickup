@@ -8,7 +8,7 @@ import Select from "app/components/Select";
 import { imageUploadService } from "services/SingleShipmentServices";
 import { showToast } from "utils";
 import { Avatar, Box } from "@material-ui/core";
-import { DrawerFooter } from "app/components/Drawer/style";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { PersonalProfileType } from "./types";
 import { useState } from "react";
@@ -84,6 +84,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
 
   return (
     <>
+<DrawerInnerContent>
       <Box display="flex" justifyContent="center">
         {/* <Avatar
           src={values?.profileImage}
@@ -163,7 +164,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         value={values?.permission}
         onSelect={(e) => console.log(e)}
       />
-
+</DrawerInnerContent>
       <DrawerFooter>
         <Button
           secondary
