@@ -1,6 +1,5 @@
 import { useEffect, useState, createRef } from "react";
 import { createPortal } from "react-dom";
-// import { Modal } from "@material-ui/core";
 import { useBarcode } from "react-barcodes";
 import { Divider } from "@mui/material";
 import html2pdf from "html2pdf.js";
@@ -93,15 +92,9 @@ function AddNewPaymentDrawer(props) {
         <>
           <DrawerHeaderBox>
             <img className="imageStyle" src={Illustration} alt="" />
+
             {createPortal(
-              <div
-                className="bodyClass"
-                ref={ref}
-                style={{
-                  width: "21cm",
-                  minHeight: "29cm",
-                }}
-              >
+              <div id="print-container" ref={ref}>
                 <h4 style={{ textAlign: "center" }}>Invoice No. {invoiceId}</h4>
                 {ordersArray.length > 0 ? (
                   <div
@@ -121,37 +114,8 @@ function AddNewPaymentDrawer(props) {
                   </div>
                 ) : null}
               </div>,
-              document.body
+              document.getElementById("print-root") as HTMLElement
             )}
-            {/* <Modal id="portalModal" open={false}>
-              <div
-                className="bodyClass"
-                ref={ref}
-                style={{
-                  width: "21cm",
-                  minHeight: "29cm",
-                }}
-              >
-                <h4 style={{ textAlign: "center" }}>Invoice No. {invoiceId}</h4>
-                {ordersArray.length > 0 ? (
-                  <div
-                    style={{
-                      width: "100%",
-                      justifyContent: "space-around",
-                      alignItems: "space-around",
-                      display: "grid",
-                      gridTemplateColumns: "auto auto auto",
-                      gap: "50px 50px",
-                      marginTop: "-15px",
-                    }}
-                  >
-                    {ordersArray.map((item, index) => {
-                      return <BarCodeItem key={index} barcodeValue={item} />;
-                    })}
-                  </div>
-                ) : null}
-              </div>
-            </Modal> */}
 
             <DrawerHeading title="Paid Successfully" className="title" />
             <Para text="Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor vel. Integer a ornare nisi." />
