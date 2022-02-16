@@ -57,6 +57,7 @@ import executive from './executive.svg'
 import admin from './admin.svg'
 import emailsent from './email-sent-logo.svg'
 import tooltipIcon from './tooltip-icon.svg'
+import noSort from './noSort.svg'
 
 export {
     analytics,
@@ -117,5 +118,6 @@ export {
     executive,
     admin,
     emailsent,
-    tooltipIcon
+    tooltipIcon,
+    noSort
 };

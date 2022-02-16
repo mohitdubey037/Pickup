@@ -28,31 +28,15 @@ export const getLocation = async (orderId: number) => {
   }
 };
 
-export const getSearchOrderList = async (urlParams?: string, page?: number, chunk?: number, sortingField?: string, sortingType?: string)=>{
+export const getSearchOrderList = async (urlParams?: string) => {
   try {
-    let api = `order/business/shipments?${urlParams}`
-    if (sortingField) {
-      api += `sortingField=${sortingField}&sortingType=${sortingType}&`
-    }
-    if (page) {
-      api += `page=${page}&chunk=${chunk}`
-    }
+    let api = `order/business/shipments?${urlParams}`;
     const response = await Service.get(api, "order");
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };
   }
 };
-
-// export const getPaginatedData = async (page?: number, chunk?: number) => {
-//   try {
-//     // const response = await Service.get(`order/business/shipments${urlParams}`, "order");
-//     const response = await Service.get(`order/business/shipments?page=${page}&chunk=${chunk}`, "order");
-//     return { response: response, success: true };
-//   } catch (err) {
-//     return { response: err, sucess: false };
-//   }
-// }
 
 export const getSearchOrderListById = async (orderId: number) => {
   try {
