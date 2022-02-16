@@ -74,3 +74,7 @@ export const DrawerFooter = styled.div`
     padding: 16px 0;
   }
 `;
+
+export const DrawerInnerContent = styled.div`
+min-height: calc(100vh - 180px);
+`;

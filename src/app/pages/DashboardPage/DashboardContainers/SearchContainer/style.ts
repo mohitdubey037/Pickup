@@ -121,6 +121,10 @@ export const AdvanceFilterBox = styled.div`
 `;
 
 export const ItemDetailsBox = styled(Box)`
+border-bottom:1px solid #ddd;
+&:last-child{
+  border-bottom:none;
+}
 div{
   box-shadow:none !important;
 }

@@ -10,7 +10,7 @@ import {
 import Select from "app/components/Select";
 import { editCompanySchema } from "./CompanyProfileSchema";
 import { Box, Grid } from "@material-ui/core";
-import { DrawerFooter } from "app/components/Drawer/style";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { showToast } from "utils";
@@ -110,6 +110,7 @@ const EditCompanyDetailsForm = ({
 
   return (
     <>
+    <DrawerInnerContent>
       <Box display="flex" justifyContent="center">
         <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
       </Box>
@@ -270,6 +271,7 @@ const EditCompanyDetailsForm = ({
           />
         </Grid>
       </Grid>
+      </DrawerInnerContent>
       <DrawerFooter>
         <Button
           secondary
@@ -284,7 +286,7 @@ const EditCompanyDetailsForm = ({
           disabled={!isValid}
         />
       </DrawerFooter>
-    </>
+      </>
   );
 };
 
