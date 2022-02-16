@@ -10,18 +10,12 @@ import { getChildAccountData, postChildAccountData } from "../../../../../servic
 
 export default function ChildAccountForm({formik}:{formik: any}){
 
-  console.log(formik);
-
-  const dispatch = useDispatch();
-
   const onChangeHandler = (event: any, name: string) => {
     handleChange(event);
   };
 
   const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
     formik;
-
-  console.log(values);
 
   const childAccountForm = values;
   const childAccountFormTouched = touched;

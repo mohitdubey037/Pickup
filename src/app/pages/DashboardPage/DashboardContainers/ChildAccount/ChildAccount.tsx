@@ -7,7 +7,8 @@ import AdminDetails from "./AdminDetails";
 import Cards from "./Cards";
 import { Flex, FullCard } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
-import { actions } from "store/reducers/PaymentReducer";
+// import { actions } from "store/reducers/PaymentReducer";
+import { actions } from 'store/reducers/ChildAccountReducer';
 import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
 import { ChildInitValues } from './helper';
 import { ChildAccountSchema } from './ChildAccountSchema';
@@ -15,9 +16,9 @@ import { globalActions } from "store/reducers/GlobalReducer";
 
 export default function ChildAccount({ path: string }) {
   const dispatch = useDispatch();
-  useEffect(() => {
-        dispatch(actions.getCards());
-}, []);
+//   useEffect(() => {
+//         dispatch(actions.getCards());
+// }, []);
 
 const loading = useSelector((state: { globalState: { showLoader } }) => {
   return state.globalState.showLoader;
@@ -34,7 +35,7 @@ const formik = useFormik({
   },
   onSubmit: () => {
     console.log(formik.values, 'hiii 1');
-    dispatch(actions.submitAccou(formik.values));
+    dispatch(actions.submitDetails(formik.values));
   },
 });
 
@@ -43,13 +44,12 @@ useEffect(() => {
 },[dispatch])
 
 useEffect(() => {
-  console.log(formik);
   (() => formik.validateForm())();
 }, []);
 
-useEffect(() => {
-  console.log(formik);
-})
+// useEffect(() => {
+//   console.log(formik);
+// })
 
 // const handleConfirm = async (values: object) => {
 //   postChildAccountData(values);

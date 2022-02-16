@@ -16,13 +16,11 @@ export const getChildAccountData = async (urlParams?: string, page?: number, chu
   }
 }
 
-export const postChildAccountData = async () => {
+export const postChildAccountData = async (body?: any) => {
     try {
-        const response = await services.get(
-            `v1/api/business/user/profile`,
-            "user_cr"
-          );
-          return {response: response, success: true };
+        const response = await services.post('business/createChildAccount',body);
+        console.log(response);
+        return {response: response, success: true };
     }
     catch (err) {
         showToast(err.message, "error");
