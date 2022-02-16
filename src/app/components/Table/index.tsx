@@ -1,3 +1,4 @@
 import Table from "./Table";
+import TableNew from "./TableNew";
 
-export {Table};
+export { Table, TableNew };

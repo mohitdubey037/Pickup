@@ -1,30 +1,30 @@
 import moment from "moment";
 
 const getInvoiceIdItem = (
-  openInvoiceDrawer: (key: string, type: any) => void,
+  openOrderDrawer: (key: string, type: any) => void,
   id: any
 ) => {
-  return <a onClick={() => openInvoiceDrawer(id, "invoice")}>{id}</a>;
+  return <a onClick={() => openOrderDrawer(id, "invoice")}>{id}</a>;
 };
 
 const getOrderIdItem = (
-  openInvoiceDrawer: (key: string, type: any) => void,
+  openOrderDrawer: (key: string, type: any) => void,
   id: any
 ) => {
-  return <a onClick={() => openInvoiceDrawer(id, "orderDetails")}>{id}</a>;
+  return <a onClick={() => openOrderDrawer(id, "orderDetails")}>{id}</a>;
 };
 
-export const searchTable = (
+export const getSearchOrderData = (
   searchRecordData: any,
-  openInvoiceDrawer: (key: string, type: any) => void
+  openOrderDrawer: (key: string, type: any) => void
 ) => {
   let makeTableData: any = [];
   if (searchRecordData && searchRecordData.length) {
     searchRecordData.forEach((item: any) => {
       makeTableData.push({
-        Source: "Uploaded",
-        "Invoice Id": getInvoiceIdItem(openInvoiceDrawer, item.invoiceId),
-        "Order Id": getOrderIdItem(openInvoiceDrawer, item.orderId),
+        Source: item.type,
+        "Invoice Id": getInvoiceIdItem(openOrderDrawer, item.invoiceId),
+        "Order Id": getOrderIdItem(openOrderDrawer, item.orderId),
         "Order Date": moment(item.shippingDate).format("DD/MM/YYYY"),
         Status: item.status ? item.status : "-",
         "Order Cost": `$${item.total.toFixed(2)}`,
@@ -33,6 +33,39 @@ export const searchTable = (
   }
   return makeTableData;
 };
+
+export const searchOrderColoumns = [
+  {
+    id: "type",
+    label: "Source",
+    isSort: false,
+  },
+  {
+    id: "invoiceId",
+    label: "Invoice Id",
+    isSort: true,
+  },
+  {
+    id: "orderId",
+    label: "Order Id",
+    isSort: true,
+  },
+  {
+    id: "shippingDate",
+    label: "Order Date",
+    isSort: true,
+  },
+  {
+    id: "status",
+    label: "Status",
+    isSort: false,
+  },
+  {
+    id: "total",
+    label: "Order Cost",
+    isSort: true,
+  },
+];
 
 export const advanceFilterInitValues = {
   fromShippingDate: "",

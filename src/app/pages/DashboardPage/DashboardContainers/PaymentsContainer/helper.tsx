@@ -1,4 +1,3 @@
-import { navigate } from "@reach/router";
 import moment from "moment";
 
 export const creditCardDetails = [
@@ -59,28 +58,19 @@ const getInvoiceIdItem = (
     );
 };
 
-const getChildCompany = (
-    companyName: string,
-    companyId: number
-) => {
-    return (
-        <a onClick={() => navigate(`/dashboard/my-account/child-account-details/${companyId}`)}>{companyName}</a>
-    );
-};
-
 const getOrderIdItem = (
     openInvoiceDrawer: (id: any, type: any) => void,
     shipmentCount: number,
     id: any
 ) => {
     return (
-        <a onClick={() => openInvoiceDrawer(id, "orderDetails")}>
+        <a onClick={() => openInvoiceDrawer(id, "orderItemDetails")}>
             {shipmentCount}
         </a>
     );
 };
 
-export const invoiceTable = (
+export const getInvoiceData = (
     searchRecordData: any,
     openInvoiceDrawer: (id: any, type: any) => void
 ) => {
@@ -109,24 +99,30 @@ export const invoiceTable = (
     return makeTableData;
 };
 
-export const childDataTable = (
-    searchRecordData: any,
-    ) => {
-        let makeTableData: any = [];
-        if (searchRecordData && searchRecordData.length) {
-            makeTableData = searchRecordData.map((item: any) => {
-                return {
-                    "Company Name": getChildCompany(
-                        item.companyName,
-                        item.companyId
-                    ),
-                    "Business Number": item.businessNumber,
-                    "Invitation Date": item.city,
-                    "Status": item.city,
-                    "Admin Name": item.city,
-                    
-                };
-            });
-        }
-    return makeTableData;
-}
+export const invoiceColoumns = [
+    {
+        id: "invoiceCreatedAt",
+        label: "Invoice Date",
+        isSort: true,
+    },
+    {
+        id: "orderCount",
+        label: "Order Count",
+        isSort: false,
+    },
+    {
+        id: "shipedBy",
+        label: "Shipped By",
+        isSort: false,
+    },
+    {
+        id: "total",
+        label: "Invoice Amount",
+        isSort: true,
+    },
+    {
+        id: "invoiceNumber",
+        label: "Invoice Number",
+        isSort: true,
+    },
+];

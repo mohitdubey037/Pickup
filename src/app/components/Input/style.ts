@@ -200,5 +200,9 @@ margin-bottom:16px;
 .MuiTextField-root{
   background:#fff;
 }
+.MuiOutlinedInput-notchedOutline {
+  border-color: #C4C4C4 !important;
+  border-width: 1px !important;
+}
 `;
 

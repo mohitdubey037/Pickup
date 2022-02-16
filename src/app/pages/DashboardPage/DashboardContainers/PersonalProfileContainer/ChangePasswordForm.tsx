@@ -3,7 +3,7 @@ import { Flex } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 import { useFormik } from "formik";
 import { passwordSchema } from "./passwordSchema";
-import { DrawerFooter } from "app/components/Drawer/style";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Box } from "@material-ui/core";
 
 const ChangePasswordForm = ({
@@ -32,11 +32,8 @@ const ChangePasswordForm = ({
   });
 
   return (
-    <Flex
-      direction="column"
-      justifyContent="space-between"
-      // style={{ height: "100%" }}
-    >
+    <>
+    <DrawerInnerContent>
       <Box>
         <PasswordInput
           id="currentPassword"
@@ -75,6 +72,8 @@ const ChangePasswordForm = ({
         />
       </Box>
 
+      </DrawerInnerContent>
+
       <DrawerFooter>
         <Button
           secondary
@@ -88,7 +87,7 @@ const ChangePasswordForm = ({
           size="medium"
         ></Button>
       </DrawerFooter>
-    </Flex>
+      </>
   );
 };
 

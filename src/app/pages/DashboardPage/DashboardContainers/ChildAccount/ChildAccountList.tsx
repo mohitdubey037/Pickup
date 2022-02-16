@@ -9,7 +9,8 @@ import { useNavigate } from "@reach/router";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
 
-import { childDataTable, invoiceTable } from "../PaymentsContainer/helper";
+import { childDataTable } from "./helper";
+
 import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
 
 import { useDispatch } from "react-redux";

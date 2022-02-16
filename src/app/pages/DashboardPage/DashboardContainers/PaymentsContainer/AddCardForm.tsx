@@ -5,7 +5,7 @@ import { Box } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import { Checkbox } from "app/components/Checkbox";
-import { DrawerFooter } from "app/components/Drawer/style";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { cardSchema } from "./cardSchema";
 import { IndividualCard } from "./PaymentsCardContainer";
 
@@ -56,8 +56,8 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
     });
 
     return (
-        <Box 
-        style={{ height: "100%" }}>
+        <>
+        <DrawerInnerContent>
             <Input
                 id="cardNumber"
                 initValue={values.cardNumber}
@@ -146,6 +146,8 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
                     onChange={() => setFieldValue("saveCard", !values.saveCard)}
                 />
             )}
+            </DrawerInnerContent>
+
             <DrawerFooter>
                 <Button
                     secondary
@@ -159,7 +161,7 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
                     onClick={handleSubmit}
                 />
             </DrawerFooter>
-        </Box>
+        </>
     );
 };
 
