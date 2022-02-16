@@ -47,10 +47,10 @@ export default function ChildAccountList({ path: string }) {
     getChildData()
   }, []);
 
-  const openInvoiceDrawer = (id: any, type: any) => {
-    setDrawerType(type);
-    setDrawerOpen(true);
-  };
+  // const openInvoiceDrawer = (id: any, type: any) => {
+  //   setDrawerType(type);
+  //   setDrawerOpen(true);
+  // };
 
   const getChildData = async () => {
     setLoading(true);
@@ -108,7 +108,7 @@ export default function ChildAccountList({ path: string }) {
         <TableSkeleton />
       ) : childData?.list?.length > 0 ? (
         <Table
-        data={childDataTable(childData.list, openInvoiceDrawer)}
+        data={childDataTable(childData.list)}
         tableTop={tableTop()}
         sortTypeProps = {sortType}
         paginationData={(page, sortingField, sortingType) => getSearchPaginatedData(page, sortingField, sortingType)}

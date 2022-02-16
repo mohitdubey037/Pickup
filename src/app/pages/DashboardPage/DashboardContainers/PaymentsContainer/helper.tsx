@@ -1,3 +1,4 @@
+import { navigate } from "@reach/router";
 import moment from "moment";
 
 export const creditCardDetails = [
@@ -58,6 +59,15 @@ const getInvoiceIdItem = (
     );
 };
 
+const getChildCompany = (
+    companyName: string,
+    companyId: number
+) => {
+    return (
+        <a onClick={() => navigate(`/dashboard/my-account/child-account-details/${companyId}`)}>{companyName}</a>
+    );
+};
+
 const getOrderIdItem = (
     openInvoiceDrawer: (id: any, type: any) => void,
     shipmentCount: number,
@@ -101,17 +111,14 @@ export const invoiceTable = (
 
 export const childDataTable = (
     searchRecordData: any,
-    openInvoiceDrawer: (id?: any, type?: any) => void
     ) => {
         let makeTableData: any = [];
         if (searchRecordData && searchRecordData.length) {
             makeTableData = searchRecordData.map((item: any) => {
-                console.log(item);
                 return {
-                    "Company Name": getInvoiceIdItem(
-                        openInvoiceDrawer,
+                    "Company Name": getChildCompany(
                         item.companyName,
-                        item.companyName
+                        item.companyId
                     ),
                     "Business Number": item.businessNumber,
                     "Invitation Date": item.city,
