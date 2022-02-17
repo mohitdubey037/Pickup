@@ -165,6 +165,7 @@ export const INDUSTRY_TEXT = [
 ];
 
 export const STATUS = [
+  { label: "Payment Pending", value: "payment_pending" },
   { label: "Pending", value: "pending" },
   { label: "In Progress", value: "in_progres" },
   { label: "Completed", value: "completed" },
