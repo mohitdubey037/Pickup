@@ -1,20 +1,23 @@
-import { Box, Grid } from "@material-ui/core"
-import { Drawer } from "app/components/Drawer"
-import { useState } from "react"
+import { Box, Grid } from "@material-ui/core";
+import { useState } from "react";
+
+import { Drawer } from "app/components/Drawer";
+import NullState from "app/components/NullState/NullState";
 import services from "services";
 import { PaymentCard } from "../../../../components/PaymentCard/index";
 import AddCardForm from "./AddCardForm";
 import { showToast } from "utils";
-import NullState from "app/components/NullState/NullState";
 
 export interface IndividualCard {
-  card_id: string;
+  id: string;
   card_type: string;
   name: string;
-  expiry_month: string;
-  expiry_year: string;
+  exp_month: string;
+  exp_year: string;
   function: string;
   number: string;
+  last4?: string;
+  customer?: string;
 }
 
 interface PaymentCardContainerProps {
@@ -30,27 +33,28 @@ export interface cardData {
   nickName?: string;
 }
 
+const initialCardValue = {
+  id: "",
+  card_type: "",
+  name: "",
+  exp_month: "",
+  exp_year: "",
+  function: "",
+  number: "",
+};
+
 export default function PaymentCardContainer({
   individualCardData,
 }: PaymentCardContainerProps) {
-  const initialCardValue = {
-    card_id: "",
-    card_type: "",
-    name: "",
-    expiry_month: "",
-    expiry_year: "",
-    function: "",
-    number: "",
-  };
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const [cardData, setCardData] = useState<IndividualCard>(initialCardValue);
 
-  const saveCard = async (values) => {
-    console.log("Save card called");
+  const handleCardEdit = async (values) => {
+    // Note - this needs to be modified as per new stripe payment integration
     try {
       const body = {
-        "customer_code": values.customer_code,
-        "card": [
+        customer_code: values.customer_code,
+        card: [
           {
             function: values.function,
             name: values.name,
@@ -66,7 +70,6 @@ export default function PaymentCardContainer({
         body,
         "payment"
       );
-      console.log("body", body, "Res", res)
       if (res) showToast("Your card has been edited successfully", "success");
       return { response: res, error: null };
     } catch (error) {
@@ -74,35 +77,36 @@ export default function PaymentCardContainer({
     }
   };
 
-    return (
-     <Box mt={3}>
-            <Grid container spacing={2}>
-                {individualCardData?.length > 0 ?
-                (individualCardData?.map((value, idx) => (
-                <PaymentCard
-                setDrawerOpen={setDrawerOpen}
-                setCardData={setCardData}
-                key={idx}
-                cardData={value}
-                />
-                )))
-                :
-                <NullState message="No Card Added" />
-                }
-            </Grid>
-            <Drawer
-                open={drawerOpen}
-                title="Edit you card"
-                setDrawerOpen={(flag) => setDrawerOpen(flag)}
-                closeIcon={true}
-                actionButtons={true}
-            >
-            <AddCardForm
-                setDrawerOpen={setDrawerOpen}
-                saveAction={saveCard}
-                cardData={cardData}
+  return (
+    <Box mt={3}>
+      <Grid container spacing={2}>
+        {individualCardData?.length > 0 ? (
+          individualCardData?.map((value, idx) => (
+            <PaymentCard
+              key={idx}
+              cardData={value}
+              setCardData={setCardData}
+              setDrawerOpen={setDrawerOpen}
             />
-            </Drawer>
-        </Box>
-    )
+          ))
+        ) : (
+          <NullState message="No Card Added" />
+        )}
+      </Grid>
+
+      <Drawer
+        open={drawerOpen}
+        title="Edit you card"
+        setDrawerOpen={(flag) => setDrawerOpen(flag)}
+        closeIcon={true}
+        actionButtons={true}
+      >
+        <AddCardForm
+          setDrawerOpen={setDrawerOpen}
+          saveAction={handleCardEdit}
+          cardData={cardData}
+        />
+      </Drawer>
+    </Box>
+  );
 }
