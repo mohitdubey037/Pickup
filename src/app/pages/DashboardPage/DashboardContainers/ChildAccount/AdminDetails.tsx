@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { FormWrapper } from "app/components/Input/style";
@@ -29,6 +29,10 @@ export default function AdminDetails({formik}:{formik: any}){
   const AdminDetailsForm = values;
   const AdminDetailsFormTouched = touched;
   const AdminDetailsFormError = errors;
+
+  useEffect(() => {
+      console.log(AdminDetailsForm)
+  },[AdminDetailsForm])
 
   return (
     <Box mt={4}>
@@ -78,10 +82,10 @@ export default function AdminDetails({formik}:{formik: any}){
             <Grid item xs={12} sm={4} lg={3}>
               <Input
                 id="Role"
-                name="role"
+                name="roleId"
                 onBlur={handleBlur}
                 value={AdminDetailsForm.role}
-                onChange={(e) => onChangeHandler(e, `role`)}
+                onChange={(e) => onChangeHandler(e, `roleId`)}
                 // onChange={handleChange}
                 error={AdminDetailsFormTouched.role && AdminDetailsFormError.role}
                 label={"Role/Designation"}

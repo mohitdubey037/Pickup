@@ -5,8 +5,8 @@ export const ChildInitValues = {
     businessNumber: '',
     employeeStrength: '',
     industry: '',
-    address1: '',
-    address2: '',
+    addressLine1: '',
+    addressLine2: '',
     pincode: '',
     province: '',
     city: '',
@@ -15,7 +15,7 @@ export const ChildInitValues = {
     firstName: '',
     lastName: '',
     phoneNumber: '',
-    role: '',
+    roleId: '',
     emailId: '',
 
     name: '',
@@ -56,4 +56,16 @@ export const childDataTable = (
             });
         }
     return makeTableData;
+}
+
+export const transformPayloadToBackend = (values: any) => {
+    const payload = {
+        ...values,
+        phoneNumber: values.phoneNumber.replace(/[()-]/g,""),
+        number: values.number.replace(/ /g, ""),
+        expiryMonth: values.expiryDate.split("/")[0],
+        expiryYear: values.expiryDate.split("/")[1],
+        expiryDate: undefined
+    }
+    return payload
 }

@@ -11,8 +11,8 @@ export const ChildAccountSchema = yup.object().shape({
     .required(" Business Number is a required field"),
     industry: yup.string().required("Industry is a required field"),
     employeeStrength: yup.number().required("Employee is a required field"),
-    address1: yup.string().required("Address Line 1 is a required field"),
-    address2: yup.string().required("Address Line 2 is a required field"),
+    addressLine1: yup.string().required("Address Line 1 is a required field"),
+    addressLine2: yup.string().required("Address Line 2 is a required field"),
     pincode: yup.string().required("Pincode is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
     province: yup.string().required("Province is a required field"),
     city: yup.string().required("City is a required field"),
@@ -21,7 +21,7 @@ export const ChildAccountSchema = yup.object().shape({
     firstName:yup.string().required('First Name is required field'),
     lastName:yup.string().required('Last Name is required field'),
     phoneNumber: yup.string().required('Phone Number is required field').matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Contact Number"),
-    role: yup.string().required('Role is required field'),
+    roleId: yup.string().required('Role is required field'),
     emailId: yup.string().required('EmailId is required field').email("Please enter valid email"),
 
     number: yup

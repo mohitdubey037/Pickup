@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Box, Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { RouteComponentProps } from "@reach/router";
@@ -20,6 +20,10 @@ export default function ChildAccountForm({formik}:{formik: any}){
   const childAccountForm = values;
   const childAccountFormTouched = touched;
   const childAccountFormError = errors;
+
+  useEffect(() => {
+    console.log(childAccountForm);
+  },[childAccountForm])
 
 
   return (
@@ -81,7 +85,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} lg={6}>
               <Input
                 id="AddressLine1"
-                name="address1"
+                name="addressLine1"
                 onBlur={handleBlur}
                 // onChange={handleChange}
                 value = {childAccountForm.address1}
@@ -94,7 +98,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
             <Grid item xs={12} lg={6}>
               <Input
                 id="AddressLine2"
-                name="address2"
+                name="addressLine2"
                 onBlur={handleBlur}
                 // onChange={handleChange}
                 value = {childAccountForm.address2}

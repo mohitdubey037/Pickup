@@ -31,15 +31,7 @@ const formik = useFormik({
     }
   },
   onSubmit: () => {
-    console.log(formik.values, 'hiii 1');
-    const accountValues = {
-      ...formik.values,
-      expiryMonth: formik.values.expiryDate.split("/")[0],
-      expiryYear: formik.values.expiryDate.split("/")[1],
-      expiryDate: undefined
-    }
-
-    dispatch(actions.submitDetails(accountValues));
+    dispatch(actions.submitDetails(formik.values));
   },
 });
 
