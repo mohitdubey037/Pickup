@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Roboto:wght@900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Roboto:wght@900&display=swap");
 
 @font-face {
   font-family: "Roboto";
@@ -8,16 +8,15 @@
 
 @font-face {
   font-family: "Roboto-Bold";
-  src: local("Roboto-Bold"), url('./app/assets/fonts/Roboto/Roboto-Bold.ttf') format('opentype');
+  src: local("Roboto-Bold"),
+    url("./app/assets/fonts/Roboto/Roboto-Bold.ttf") format("opentype");
 }
 
 @font-face {
   font-family: "Roboto-Medium";
-  src: local("Roboto-Medium"), url('./app/assets/fonts/Roboto/Roboto-Medium.ttf') format('opentype');
+  src: local("Roboto-Medium"),
+    url("./app/assets/fonts/Roboto/Roboto-Medium.ttf") format("opentype");
 }
-
-
-
 
 body {
   margin: 0;
@@ -32,3 +31,10 @@ code {
     monospace;
 }
 
+#print-root {
+  overflow: hidden;
+}
+#print-root #print-container {
+  width: 21cm;
+  min-width: 29cm;
+}

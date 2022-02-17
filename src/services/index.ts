@@ -83,7 +83,8 @@ class Service {
     params: {},
     type: RequestType = "base",
     token: string = "",
-    header = {}
+    header = {},
+    config = {},
   ) => {
     return new Promise((resolve, reject) => {
       const localToken = this.getToken();
@@ -95,6 +96,7 @@ class Service {
             `${baseUrl}${url}`,
             { ...params },
             {
+              ...config,
               headers: {
                 Authorization: `${token ? "Bearer " + token : localToken}`,
                 ...header,
