@@ -31,6 +31,7 @@ const handleOpenDrawer = () => {
   setEmailSentDrawerOpen(true);
 };
 const handleCloseDrawer  = () => {
+  dispatch(actions.resetChildAccount());
   setEmailSentDrawerOpen(false);
 };
 
@@ -40,7 +41,8 @@ const handleCloseDrawer  = () => {
 // )
 
 const handleSubmit = () => {
-  navigate('/my-account/child-account')
+  handleCloseDrawer()
+  navigate('/dashboard/my-account/child-account-list')
 }
 
 const childAccountDetails = useSelector(
@@ -122,8 +124,7 @@ useEffect(() => {
         title="Email Sent"
         closeIcon={true}
         >
-         
-        <EmailSentDrawer/>
+        <EmailSentDrawer handleCloseDrawer={handleCloseDrawer} handleSubmit={handleSubmit}/>
       </Drawer>
       
     </ModuleContainer>

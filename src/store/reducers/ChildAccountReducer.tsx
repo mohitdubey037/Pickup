@@ -1,7 +1,7 @@
 import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
-    childAccountDetails: null,
+    childAccountDetails: {},
     childAccountCreated: false
 };
 
@@ -19,7 +19,7 @@ const onSetChildAccountDetails = (state = initialState, action) => ({
 
 const resetChildAccount = (state = initialState) => ({
     ...state,
-    childAccountDetails: null,
+    childAccountDetails: {},
     childAccountCreated: false,
 });
 

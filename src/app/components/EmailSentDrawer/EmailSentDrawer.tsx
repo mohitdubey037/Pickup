@@ -5,7 +5,12 @@ import { EmailSentBox } from "../../pages/DashboardPage/DashboardContainers/Pers
 import { DrawerFooter, DrawerInnerContent } from "../Drawer/style";
 import { Button } from "app/components/Buttons";
 
-const EmailSentDrawer = () => {
+interface props {
+  handleCloseDrawer?: () => void
+  handleSubmit?: () => void,
+}
+
+const EmailSentDrawer = ({handleCloseDrawer,handleSubmit}: props) => {
   return (
     <>
     <DrawerInnerContent>
@@ -25,13 +30,13 @@ const EmailSentDrawer = () => {
       <DrawerFooter>
         <Button
         secondary
-        // onClick={() => handleCloseDrawer()}
+        onClick={handleCloseDrawer}
         label="Cancel"
         size="medium"
         />
         <Button
           label={"Save"}
-          // onClick={handleSubmit}
+          onClick={handleSubmit}
           size="medium"
         />
       </DrawerFooter>
