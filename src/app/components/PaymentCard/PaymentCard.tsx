@@ -46,7 +46,6 @@ export default function PaymentCard({
         handleClose();
         try {
             const res: { response: any; error: any } = await deleteCard(
-                cardData.customer,
                 cardData.id
             );
             if (res.error === null) {

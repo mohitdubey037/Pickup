@@ -35,7 +35,7 @@ function OrderSummary({ path: string }) {
     const [loading, setLoading] = useState<boolean>(true);
 
     const redirectBack = () => {
-        navigate?.("/dashboard/charter-shipment/single-shipment", {
+        navigate?.("/dashboard/search-shipment", {
             replace: true,
         });
     };
@@ -68,7 +68,7 @@ function OrderSummary({ path: string }) {
     }, [orderIds, dispatch]);
 
     const onBackHandler = () => {
-        dispatch(actions.resetOrderIds());
+        dispatch(actions.resetSingleShipment());
         redirectBack();
     };
 

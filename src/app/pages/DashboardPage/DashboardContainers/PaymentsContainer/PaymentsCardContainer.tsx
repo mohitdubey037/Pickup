@@ -17,7 +17,6 @@ export interface IndividualCard {
   function: string;
   number: string;
   last4?: string;
-  customer?: string;
 }
 
 interface PaymentCardContainerProps {

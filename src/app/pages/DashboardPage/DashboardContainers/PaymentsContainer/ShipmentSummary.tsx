@@ -138,7 +138,6 @@ function ShipmentSummary({ path }: { path: string }) {
         //     showToast("Payment successful", "success");
         //     setShowInvoiceDrawer(true);
         //     dispatch(shipmentActions.resetOrderIds());
-        //     dispatch(shipmentActions.setShipmentDetails(null));
         // } else {
         //     showToast(
         //         res.error?.message || "Oops! Something went wrong!",
@@ -165,7 +164,6 @@ function ShipmentSummary({ path }: { path: string }) {
             showToast("Payment successful", "success");
             setShowInvoiceDrawer(true);
             dispatch(shipmentActions.resetOrderIds());
-            dispatch(shipmentActions.setShipmentDetails(null));
         } else {
             showToast(
                 res.error?.message || "Oops! Something went wrong!",

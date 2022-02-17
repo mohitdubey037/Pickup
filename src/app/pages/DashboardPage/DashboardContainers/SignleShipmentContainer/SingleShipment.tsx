@@ -32,11 +32,6 @@ function SingleShipment({ path: string }) {
     hasSameSchedule: [],
   });
 
-  const shipmentDetails = useSelector(
-    (state: { singleShipment: { shipmentDetails } }) => {
-      return state.singleShipment.shipmentDetails;
-    }
-  );
   const orderIds = useSelector((state: { singleShipment: { orderIds } }) => {
     return state.singleShipment.orderIds;
   });
@@ -52,12 +47,12 @@ function SingleShipment({ path: string }) {
   };
 
   useEffect(() => {
-    dispatch(actions.resetOrderIds());
+    dispatch(actions.resetSingleShipment());
     dispatch(globalActions.showLoader(false));
   }, [dispatch]);
 
   const formik = useFormik({
-    initialValues: shipmentDetails || shipmentInitValues,
+    initialValues: shipmentInitValues,
     validate: (values: any) => {
       try {
         validateYupSchema(values, singleShipmentFormSchema, true, values);
