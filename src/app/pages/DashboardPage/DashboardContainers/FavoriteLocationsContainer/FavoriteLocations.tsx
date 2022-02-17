@@ -12,6 +12,7 @@ import EditContactDetails from "./EditContactDetails";
 import services from "services";
 import FileDrawer from "./FileDrawer";
 import { H3 } from "app/components/Typography/Typography";
+import { Flex } from "app/components/Input/style";
 
 function FavoriteLocations(props: RouteComponentProps) {
   const [drawerOpenOne, setDrawerOpenOne] = useState(false);
@@ -55,8 +56,8 @@ function FavoriteLocations(props: RouteComponentProps) {
 
   const getActionItem = (item) => {
     return (
-      <div
-        style={{ display: "flex", gap: "20px" }}
+      <Flex
+      justifyContent="space-between"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -74,7 +75,7 @@ function FavoriteLocations(props: RouteComponentProps) {
           onClick={() => deleteClickHandler(item)}
           onKeyPress={(e) => e.key === "ENTER" && deleteClickHandler(item)}
         />
-      </div>
+      </Flex>
     );
   };
 
