@@ -109,7 +109,7 @@ export const confirmPaymentInDrawer = async (body: any, invoiceId: string) => {
 export const deleteCard = async (cardId: string) => {
   try {
     const res = await Services.delete(
-      `api/profiles/deletecards/${cardId}`,
+      `api/profiles/card/delete/${cardId}`,
       {},
       "payment"
     );
