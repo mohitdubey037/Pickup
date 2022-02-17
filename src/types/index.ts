@@ -24,11 +24,13 @@ export interface UserDetails {
 }
 
 export interface CardType {
-  card_id?: number;
+  id?: string;
   number?: string;
   name?: string;
   expiryDate?: string;
-  expiry_month?: string;
-  expiry_year?: string;
+  exp_month?: string;
+  exp_year?: string;
   card_type?: string;
+  last4?: string;
+  customer?: string;
 }
