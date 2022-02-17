@@ -1,21 +1,31 @@
 import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
-    childAccountDetails: null
+    childAccountDetails: null,
+    childAccountCreated: false
 };
 
 const { Types, Creators } = createActions({
     submitDetails: ["res"],
-    setChildAccountDetails: ["res"]
+    setChildAccountDetails: ["res"],
+    resetChildAccount: [],
 });
 
 const onSetChildAccountDetails = (state = initialState, action) => ({
     ...state,
-    childAccountDetails: action.res === null ? null : { ...action.res },
+    childAccountDetails: action.res === null ? null : action.res,
+    childAccountCreated: true
+});
+
+const resetChildAccount = (state = initialState) => ({
+    ...state,
+    childAccountDetails: null,
+    childAccountCreated: false,
 });
 
 const HANDLERS = {
     [Types.SET_CHILD_ACCOUNT_DETAILS]: onSetChildAccountDetails,
+    [Types.RESET_CHILD_ACCOUNT]: resetChildAccount,
 }
 
 const childAccountDetails = createReducer(initialState, HANDLERS);

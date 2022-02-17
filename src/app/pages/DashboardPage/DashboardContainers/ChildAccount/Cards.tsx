@@ -13,7 +13,6 @@ import { Drawer } from "app/components/Drawer";
 import CardList from "./CardList";
 
 export default function Cards({formik}:{formik: any}){
-  const Confirm = () => {};
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
@@ -22,18 +21,10 @@ export default function Cards({formik}:{formik: any}){
   const cardFormTouched = touched;
   const cardFormError = errors;
 
-
   const onChangeHandler = (event: any, name: string) => {
-    console.log(name);
-    // if (name === 'expiryDate') {
-
-    //   console.log(event.target.value.split("/")[1]);
-    // }
     handleChange(event);
   };
 
-
- 
   return (
     <Box mb={2}>
       <form>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
@@ -13,6 +13,10 @@ import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
 import { ChildInitValues } from './helper';
 import { ChildAccountSchema } from './ChildAccountSchema';
 import { globalActions } from "store/reducers/GlobalReducer";
+import EmailSentDrawer from "app/components/EmailSentDrawer/EmailSentDrawer";
+import { Drawer } from "app/components/Drawer";
+import { navigate } from "@reach/router";
+import { DrawerFooter } from "app/components/Drawer/style";
 
 export default function ChildAccount({ path: string }) {
   const dispatch = useDispatch();
@@ -20,6 +24,37 @@ export default function ChildAccount({ path: string }) {
 const loading = useSelector((state: { globalState: { showLoader } }) => {
   return state.globalState.showLoader;
 });
+
+const [emailSentDrawerOpen, setEmailSentDrawerOpen] = useState(false);
+
+const handleOpenDrawer = () => {
+  setEmailSentDrawerOpen(true);
+};
+const handleCloseDrawer  = () => {
+  setEmailSentDrawerOpen(false);
+};
+
+// const childAccountDetails = useSelector(state => {
+//   return state.childAccountDetails;
+// }
+// )
+
+const handleSubmit = () => {
+  navigate('/my-account/child-account')
+}
+
+const childAccountDetails = useSelector(
+  (state: { childAccountDetails: { childAccountDetails } }) => {
+    return state.childAccountDetails;
+  }
+);
+
+useEffect(() => {
+  console.log(childAccountDetails?.childAccountDetails?.message);
+  if (childAccountDetails?.childAccountDetails?.message) {
+    handleOpenDrawer();
+  }
+}, [childAccountDetails]);
 
 const formik = useFormik({
   initialValues: ChildInitValues,
@@ -36,6 +71,7 @@ const formik = useFormik({
 });
 
 useEffect(() => {
+  dispatch(actions.resetChildAccount());
   dispatch(globalActions.showLoader(false));
 },[dispatch])
 
@@ -79,6 +115,16 @@ useEffect(() => {
           disabled={!formik.isValid}
           size="medium" label="Invite Child" />
       </Flex>
+
+      <Drawer
+        open={emailSentDrawerOpen}
+        setDrawerOpen={() => setEmailSentDrawerOpen(false)}
+        title="Email Sent"
+        closeIcon={true}
+        >
+         
+        <EmailSentDrawer/>
+      </Drawer>
       
     </ModuleContainer>
   );

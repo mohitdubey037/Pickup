@@ -21,9 +21,9 @@ export default function ChildAccountForm({formik}:{formik: any}){
   const childAccountFormTouched = touched;
   const childAccountFormError = errors;
 
-  useEffect(() => {
-    console.log(childAccountForm);
-  },[childAccountForm])
+  // useEffect(() => {
+  //   console.log(childAccountForm);
+  // },[childAccountForm])
 
 
   return (
@@ -79,7 +79,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 onChange={(e) => onChangeHandler(e, `employeeStrength`)}
                 error={childAccountFormTouched.employeeStrength && childAccountFormError.employeeStrength}
                 label={"Employee Strength"}
-                placeholder={"eg. John Doe"}
+                placeholder={"eg. 1 or 4"}
               />
             </Grid>
             <Grid item xs={12} lg={6}>

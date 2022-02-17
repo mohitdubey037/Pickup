@@ -7,12 +7,12 @@ import { showToast } from "utils";
 import { Types, actions } from "../../store/reducers/ChildAccountReducer";
 
 function* submitChildAccountWorker(action) {
-    console.log(action,'child account saga');
     try {
         yield put(globalActions.showLoader(true))
 
         const res = yield call(postChildAccountData, action.res);
-        yield put(actions.setChildAccountDetails(res));
+        console.log(res.response.response.data);
+        yield put(actions.setChildAccountDetails(res.response.response.data));
         yield put(globalActions.showLoader(false))
 
     } catch (err: any) {
