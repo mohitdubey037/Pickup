@@ -16,9 +16,6 @@ import { globalActions } from "store/reducers/GlobalReducer";
 
 export default function ChildAccount({ path: string }) {
   const dispatch = useDispatch();
-//   useEffect(() => {
-//         dispatch(actions.getCards());
-// }, []);
 
 const loading = useSelector((state: { globalState: { showLoader } }) => {
   return state.globalState.showLoader;
@@ -35,7 +32,14 @@ const formik = useFormik({
   },
   onSubmit: () => {
     console.log(formik.values, 'hiii 1');
-    dispatch(actions.submitDetails(formik.values));
+    const accountValues = {
+      ...formik.values,
+      expiryMonth: formik.values.expiryDate.split("/")[0],
+      expiryYear: formik.values.expiryDate.split("/")[1],
+      expiryDate: undefined
+    }
+
+    dispatch(actions.submitDetails(accountValues));
   },
 });
 

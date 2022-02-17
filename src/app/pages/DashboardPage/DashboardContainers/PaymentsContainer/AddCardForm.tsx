@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import { Box } from "@material-ui/core";
 
@@ -54,6 +54,10 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
                 cardNumber: values.cardNumber.replace(/ /g, ""),
             }),
     });
+
+    useEffect(() => {
+        console.log(values);
+    })
 
     return (
         <>

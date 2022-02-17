@@ -6,8 +6,12 @@ import SuperintendentDetails from "./SuperintendentDetails";
 import CardsDetails from "./CardDetails";
 import { useDispatch } from "react-redux";
 
-export default function ChildAccountDetails({ path: string }) {
+export default function ChildAccountDetails(props: any) {
+  console.log(props);
+  console.log(Object.keys(props));
+  const {id} = props;
 
+  console.log(props.id);
  
   return (
     <ModuleContainer>

@@ -20,6 +20,8 @@ export const ChildInitValues = {
 
     name: '',
     number: '',
+    expiryDate: '',
+    expiryMonth: '',
     expiryYear: '',
     cvd: '',
     // pincard: '',

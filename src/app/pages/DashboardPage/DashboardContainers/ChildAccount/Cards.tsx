@@ -16,16 +16,24 @@ export default function Cards({formik}:{formik: any}){
   const Confirm = () => {};
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const onChangeHandler = (event: any, name: string) => {
-    handleChange(event);
-  };
-
   const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
 
   const cardForm = values;
   const cardFormTouched = touched;
   const cardFormError = errors;
 
+
+  const onChangeHandler = (event: any, name: string) => {
+    console.log(name);
+    // if (name === 'expiryDate') {
+
+    //   console.log(event.target.value.split("/")[1]);
+    // }
+    handleChange(event);
+  };
+
+
+ 
   return (
     <Box mb={2}>
       <form>
@@ -63,18 +71,28 @@ export default function Cards({formik}:{formik: any}){
               error={cardFormTouched.number && cardFormError.number}
               label={"Credit Card Number"}
               placeholder={"**** **** **** ****"}
+              type="mask"
+              maskProps={{
+                  mask: "9999 9999 9999 9999",
+                  maskPlaceholder: null,
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={3}>
             <Input
               id="expiryDate"
-              name="expiryYear"
+              name="expiryDate"
               onBlur={handleBlur}
               value={cardForm.expiryYear}
-              onChange={(e) => onChangeHandler(e, `expiryYear`)}
+              onChange={(e) => onChangeHandler(e, `expiryDate`)}
               error={cardFormTouched.expiryYear && cardFormError.expiryYear}
               label={"Expiration Date"}
               placeholder={"MM/YY"}
+              type="mask"
+              maskProps={{
+                mask: "99/99",
+                maskPlaceholder: null,
+            }}
             />
           </Grid>
           <Grid item xs={12} sm={3}>

@@ -101,7 +101,7 @@ export default function ChildAccountList({ path: string }) {
     <ModuleContainer>
       <Flex justifyContent="space-between" bottom={24}>
         <H2 title="Child Accounts" />
-        <Button size="medium" label="child Details" onClick={childDetails} />
+        {/* <Button size="medium" label="child Details" onClick={childDetails} /> */}
         <Button size="medium" label="Create New" onClick={addChild} />
       </Flex>
 

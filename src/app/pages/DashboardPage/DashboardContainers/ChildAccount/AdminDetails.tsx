@@ -9,6 +9,13 @@ import AdminDetailsSchema from "./AdminDetailsSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Box } from "@mui/material";
 
+import {
+  LOCATION_TYPES,
+  BILLING_TYPES,
+  PIN_CODE_MASK,
+  PHONE_NO_MASK,
+} from "../../../../../constants";
+
 export default function AdminDetails({formik}:{formik: any}){
   const dispatch = useDispatch();
   const Confirm = () => {};
@@ -64,6 +71,8 @@ export default function AdminDetails({formik}:{formik: any}){
                 error={AdminDetailsFormTouched.phoneNumber && AdminDetailsFormError.phoneNumber}
                 label={"Phone Number"}
                 placeholder={"+1 (999)-999-9999"}
+                type="mask"
+                maskProps={PHONE_NO_MASK}
               />
             </Grid>
             <Grid item xs={12} sm={4} lg={3}>
