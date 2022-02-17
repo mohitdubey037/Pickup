@@ -10,7 +10,8 @@ export const ModuleContainerWrapper = styled.div`
   @media (max-width:1023px){
     height:auto;
     padding:24px;
-    padding-top:100px !important;
+    padding-top:100px !important;    
+    min-height: calc(100vh - 125px);
   }
   @media (max-width:600px){
     padding:16px;

@@ -3,7 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Drawer } from "app/components/Drawer";
 import { SearchTableTop } from "../SearchContainer/style";
-import { Table } from "app/components/Table";
+import { Table, TableNew } from "app/components/Table";
 import { Button } from "app/components/Buttons";
 import ContactDetailsSidebar from "./ContactDetailsSidebar";
 import { getLocationList } from "../../../../../services/LocationServices/index";
@@ -13,11 +13,16 @@ import services from "services";
 import FileDrawer from "./FileDrawer";
 import { H3 } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
+import { FavoriteLocationColoumns } from "./helper";
 
 function FavoriteLocations(props: RouteComponentProps) {
   const [drawerOpenOne, setDrawerOpenOne] = useState(false);
   const [showDetailDrawer, setShowDetailDrawer] = useState(false);
-  const [showEditDrawer, setShowEditDrawer] = useState(false);
+  const [showEditDrawer, setShowEditDrawer] = useState(false);  
+  const [pagination, setPagination] = useState({
+    count: 0,
+    page: 0,
+  });
 
   const [selectedRow, setSelectedRow] = useState(null);
 
@@ -121,15 +126,13 @@ function FavoriteLocations(props: RouteComponentProps) {
   return (
     <>
       <ModuleContainer>
-        <Table
+        <TableNew
           data={getTableData()}
+          coloumns={FavoriteLocationColoumns}
           tableTop={tableTop()}
-          showCheckbox={false}
           showPagination
-          perPageRows={10}
-          filterColumns={[0, 1, 2, 3, 4, 5]}
-          onRowSelect={rowSelectHandler}
-          getSelectedItems={(val) => console.log("rowselecthandler", val)}
+          pagination={pagination}
+          // onRowSelect={rowSelectHandler}
         />
       </ModuleContainer>
       <Drawer

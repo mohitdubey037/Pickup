@@ -8,6 +8,7 @@ import {
   // reports,
   myAccount,
   clock,
+  reports,
 } from "app/assets/Icons";
 
 export const dashboardHelper: Array<Link> = [
@@ -57,7 +58,7 @@ export const dashboardHelper: Array<Link> = [
       { id: 1, label: "Cards", link: "/dashboard/payments/cards", access: [4] },
     ],
   },
-  // { id: 5, label: "Reports", link: "/dashboard/reports", logo: reports },
+  { id: 5, label: "Reports", link: "/dashboard/reports", logo: reports },
   {
     id: 6,
     label: "My Account",

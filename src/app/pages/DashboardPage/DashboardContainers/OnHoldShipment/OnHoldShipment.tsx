@@ -226,12 +226,15 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             />
           </Grid>
        
-          <Grid item xs={6} sm={1}>
-            <FilterFlexBox justifyContent="center">
+          <Grid item xs={12} sm={8} lg={4}>
+          <FilterFlexBox>
+              <Button size="small" label="Search" />
+              <Box>
                 <img
                   src={sliders}
                   alt=""
                 />
+              </Box>
             </FilterFlexBox>
           </Grid>
         </GridContainer>
