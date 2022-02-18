@@ -99,7 +99,6 @@ function ShipmentSummary({ path: string }, props: ShipmentSummaryProps) {
             actionButtons={true}
           >
             <AddCardForm
-              title="Payment Details"
               setDrawerOpen={setDrawerOpen}
               enableSave
               submitButtonLabel="Add New Payment"
