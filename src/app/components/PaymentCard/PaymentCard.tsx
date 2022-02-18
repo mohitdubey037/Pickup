@@ -16,9 +16,10 @@ import { actions } from "store/reducers/PaymentReducer";
 import { IndividualCard } from "../../pages/DashboardPage/DashboardContainers/PaymentsContainer/PaymentsCardContainer";
 
 interface PaymentCardProps {
+    key?: any;
     cardData: IndividualCard;
-    setDrawerOpen: Dispatch<SetStateAction<boolean>>;
-    setCardData: Dispatch<SetStateAction<IndividualCard>>;
+    setDrawerOpen?: Dispatch<SetStateAction<boolean>>;
+    setCardData?: Dispatch<SetStateAction<IndividualCard>>;
 }
 
 export default function PaymentCard({
@@ -38,8 +39,8 @@ export default function PaymentCard({
 
     const handleEditCard = () => {
         handleClose();
-        setCardData(cardData);
-        setDrawerOpen(true);
+        setCardData?.(cardData);
+        setDrawerOpen?.(true);
     };
 
     const handleDeleteCard = async () => {

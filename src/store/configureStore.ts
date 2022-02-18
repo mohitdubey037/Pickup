@@ -18,6 +18,7 @@ import { signIn } from "./reducers/SignInReducer";
 import { globalState } from "./reducers/GlobalReducer";
 import { singleShipment } from "./reducers/SingleShipmentReducer";
 import { paymentCardReducer } from "./reducers/PaymentReducer";
+import { childAccountDetails } from "./reducers/ChildAccountReducer";
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -55,6 +56,7 @@ export function configureAppStore() {
     singleShipment: singleShipment,
     order: orderReducer,
     paymentCard: paymentCardReducer,
+    childAccountDetails: childAccountDetails
   });
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);

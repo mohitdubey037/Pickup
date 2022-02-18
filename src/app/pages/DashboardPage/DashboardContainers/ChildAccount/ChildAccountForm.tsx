@@ -1,163 +1,167 @@
-import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import React,{useEffect, useState} from "react";
+import { Box, Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
-import { FormWrapper } from "app/components/Input/style";
 import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ChildAccountSchema from "./ChildAccountSchema";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
 
-export default function ChildAccountForm({ navigate }: RouteComponentProps) {
-  const dispatch = useDispatch();
-  const Confirm = () => {};
-  const {
-    handleChange,
-    values: { CompanyName },
-    errors,
-    touched,
-    handleBlur,
-    handleSubmit,
-  } = useFormik({
-    initialValues: {
-      CompanyName: "",
-      BusinessNumber: "",
-      Industry: "",
-      Employee: "",
-      AddressLine1: "",
-      AddressLine2: "",
-      Pincode: "",
-      Province: "",
-      City: "",
-      Country: "",
-    },
-    validationSchema: ChildAccountSchema,
-    onSubmit: Confirm,
-  });
+export default function ChildAccountForm({formik}:{formik: any}){
+
+  const onChangeHandler = (event: any, name: string) => {
+    handleChange(event);
+  };
+
+  const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
+    formik;
+
+  const childAccountForm = values;
+  const childAccountFormTouched = touched;
+  const childAccountFormError = errors;
+
+  // useEffect(() => {
+  //   console.log(childAccountForm);
+  // },[childAccountForm])
+
+
   return (
-    <>
-      <FormWrapper>
+    <Box mt={4}>
         <form>
-          <Typography
-            className="typography"
-            variant="h1"
-            component="h3"
-          ></Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12}></Grid>
-            <Grid item xs={3}>
+          <GridContainer container spacing={2}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="CompanyName"
-                name="CompanyName"
+                name="companyName"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.CompanyName && errors.CompanyName}
+                // onChange={handleChange}
+                value = {childAccountForm.companyName}
+                onChange={(e) => onChangeHandler(e, `companyName`)}
+                error={childAccountFormTouched.companyName && childAccountFormError.companyName}
                 label={"Company Name"}
-                placeholder={"Comapany Name"}
+                placeholder={"Example Company"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="BusinessNumber"
-                name="BusinessNumber"
+                name="businessNumber"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.BusinessNumber && errors.BusinessNumber}
+                // onChange={handleChange}
+                value = {childAccountForm.businessNumber}
+                onChange={(e) => onChangeHandler(e, `businessNumber`)}
+                error={childAccountFormTouched.businessNumber && childAccountFormError.businessNumber}
                 label={"Business Number"}
-                placeholder="+1 (999)-999-9999"
+                placeholder="eg. 123456"
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Industry"
-                name="Industry"
+                name="industry"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.Industry && errors.Industry}
+                // onChange={handleChange}
+                value = {childAccountForm.industry}
+                onChange={(e) => onChangeHandler(e, `industry`)}
+                error={childAccountFormTouched.industry && childAccountFormError.industry}
                 label={"Industry"}
-                placeholder={"Retail"}
+                placeholder={"eg. Retail"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Employee"
-                name="Employee"
+                name="employeeStrength"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.Employee && errors.Employee}
-                label={"Employee"}
-                placeholder={"Employee"}
+                // onChange={handleChange}
+                value = {childAccountForm.employeeStrength}
+                onChange={(e) => onChangeHandler(e, `employeeStrength`)}
+                error={childAccountFormTouched.employeeStrength && childAccountFormError.employeeStrength}
+                label={"Employee Strength"}
+                placeholder={"eg. 1 or 4"}
               />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={12} lg={6}>
               <Input
                 id="AddressLine1"
-                name="AddressLine1"
+                name="addressLine1"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.AddressLine1 && errors.AddressLine1}
+                // onChange={handleChange}
+                value = {childAccountForm.address1}
+                onChange={(e) => onChangeHandler(e, `addressLine1`)}
+                error={childAccountFormTouched.address1 && childAccountFormError.address1}
                 label={"Address Line 1"}
-                placeholder={"Address Line 1"}
+                placeholder={"123 Address Street"}
               />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={12} lg={6}>
               <Input
                 id="AddressLine2"
-                name="AddressLine2"
+                name="addressLine2"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.AddressLine2 && errors.AddressLine2}
+                // onChange={handleChange}
+                value = {childAccountForm.address2}
+                onChange={(e) => onChangeHandler(e, `addressLine2`)}
+                error={childAccountFormTouched.address2 && childAccountFormError.address2}
                 label={"Address Line 2"}
-                placeholder={"AddressLine2"}
+                placeholder={"123 Address Street"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Pincode"
-                name="Pincode"
+                name="pincode"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.Pincode && errors.Pincode}
+                // onChange={handleChange}
+                value = {childAccountForm.pincode}
+                onChange={(e) => onChangeHandler(e, `pinCode`)}
+                error={childAccountFormTouched.pincode && childAccountFormError.pincode}
                 label={"Pincode"}
-                placeholder={"Pincode"}
+                placeholder={"1234"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Province"
-                name="Province"
+                name="province"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.Province && errors.Province}
+                // onChange={handleChange}
+                value = {childAccountForm.province}
+                onChange={(e) => onChangeHandler(e, `province`)}
+                error={childAccountFormTouched.province && childAccountFormError.province}
                 label={"Province"}
-                placeholder={"Province"}
+                placeholder={"eg. Ontario"}
               />
             </Grid>
 
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="City"
-                name="City"
+                name="city"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.City && errors.City}
+                value = {childAccountForm.city}
+                onChange={(e) => onChangeHandler(e, `city`)}
+                error={childAccountFormTouched.city && childAccountFormError.city}
                 label={"City"}
-                placeholder={"City"}
+                placeholder={"eg. Toronto"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Input
                 id="Country"
-                name="Country"
+                name="country"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.Country && errors.Country}
+                value = {childAccountForm.country}
+                onChange={(e) => onChangeHandler(e, `country`)}
+                error={childAccountFormTouched.country && childAccountFormError.country}
                 label={"Country"}
-                placeholder={"Country"}
+                placeholder={"eg. Canada"}
               />
             </Grid>
-          </Grid>
+          </GridContainer>
         </form>
-      </FormWrapper>
-    </>
+    
+    </Box>
   );
 }

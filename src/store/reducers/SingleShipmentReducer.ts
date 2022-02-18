@@ -8,14 +8,13 @@ const initialState = {
 
 const { Types, Creators } = createActions({
     setShipmentDetails: ["res"],
-
     submitShipment: ["res"],
     setShipmentOrderIds: ["response"],
     setInvoice: ["response"],
     resetOrderIds: [],
     resetSingleShipment: [],
 });
-
+    
 const onSetShipmentDetails = (state = initialState, action) => ({
     ...state,
     shipmentDetails: action.res === null ? null : { ...action.res },

@@ -13,7 +13,7 @@ import EditAvatar from "app/components/Avatar/EditAvatar";
 import { PersonalProfileType } from "./types";
 import { useState } from "react";
 import { Drawer } from "app/components/Drawer";
-import EmailSentDrawer from "./EmailSentDrawer";
+import EmailSentDrawer from "../../../../components/EmailSentDrawer/EmailSentDrawer";
 interface EditPersonalInterface {
   personalProfileDetails: PersonalProfileType;
   setEditDetailsDrawerOpen: (value: boolean) => void;
