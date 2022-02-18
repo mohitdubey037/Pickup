@@ -7,10 +7,9 @@ import { Grid } from "@material-ui/core";
 
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
-import { Flex } from "app/components/Input/style";
 import ModuleContainer from "app/components/ModuleContainer";
 import { TableNew } from "app/components/Table";
-import { H2, H3, H5 } from "app/components/Typography/Typography";
+import { H2, H3 } from "app/components/Typography/Typography";
 import { sliders } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
 import DatePickerInput from "app/components/Input/DatePickerInput";
@@ -70,13 +69,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <Flex alignItems="center">
-          <H3 text={`${pagination.count} Orders`} className="heading" />
-          <H5
-            text={`(${selectedRows.length} Selected)`}
-            className="spanlabel"
-          />
-        </Flex>
+        <H3 text={`${pagination.count} Orders`} className="heading" />
         <Box>
           <Button
             size="medium"
@@ -203,7 +196,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
               onChange={(val) => setFieldValue("toDate", val)}
             />
           </Grid>
-          <Grid item xs={12} sm={8} lg={4}>
+          <Grid item xs={12} lg={6}>
             <FilterFlexBox>
               <Button size="small" label="Search" onClick={handleSubmit} />
               <Box>

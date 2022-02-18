@@ -20,6 +20,7 @@ export const SearchTableTop = styled.div`
   }
   .spanlabel{
     margin-left:8px;
+    margin-top:4px;
   }
   button{
     height:32px;

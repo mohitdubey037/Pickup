@@ -1,5 +1,22 @@
 import moment from "moment";
 import { calendar } from "app/assets/Icons";
+// import { OnHoldDataType } from "./OnHoldShipment";
+
+// export const getOrderIdFromIndex = (
+//   data: Array<OnHoldDataType>,
+//   index: number
+// ) => {
+//   return data[index].orderId;
+// };
+
+// export const getOrderIdListFromIndexList = (
+//   data: Array<OnHoldDataType>,
+//   index: Array<number>
+// ) => {
+//   // const orderList = []
+//   const orderList = index.map((i) => getOrderIdFromIndex(data, i));
+//   return orderList;
+// };
 
 const getActionItem = (
   openOnHoldDrawer: (id: any, type: any) => void,
@@ -35,7 +52,6 @@ export const getOnHoldOrderData = (
       makeTableData.push({
         Source: item.source,
         Category: item.category,
-        "Order Id": item.orderId,
         "Item Count": getOrderIdItem(
           openOnHoldDrawer,
           item.itemCount,
@@ -59,11 +75,6 @@ export const onHoldOrderColoumns = [
   {
     id: "category",
     label: "Category",
-    isSort: false,
-  },
-  {
-    id: "orderId",
-    label: "Order Id",
     isSort: false,
   },
   {
