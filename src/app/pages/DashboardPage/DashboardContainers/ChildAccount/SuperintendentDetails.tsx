@@ -11,10 +11,18 @@ import {
 import { useState } from "react";
 import { FlexGrid } from "../CompanyProfileContainer/style";
 import EditSuperintendentDetailsForm from "./EditSuperintendentDetailsForm";
+import { companyDetails } from "./type";
 
 
-export default function SuperintendentDetails() {
+export default function SuperintendentDetails({singleCompanyDetails}: companyDetails) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const companyFormDatails={
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    phoneNo: "Phone Number",
+    type : "Role",
+    emailId: 'Email Id'
+  }
   return (
     <>
       <FullCard>
@@ -28,7 +36,16 @@ export default function SuperintendentDetails() {
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              <Grid item lg={2} sm={4} xs={12}>
+              {Object.keys(companyFormDatails).map(key=> 
+                <Grid item lg={2} sm={4} xs={12}>
+                  <Para text={companyFormDatails[key]} />
+                  <H4
+                    text={singleCompanyDetails[key]}
+                    className="value"
+                  />
+                </Grid>
+                )}
+              {/* <Grid item lg={2} sm={4} xs={12}>
                 <Para text="First Name" />
                 <H4
                   text="John"
@@ -66,7 +83,7 @@ export default function SuperintendentDetails() {
                   text="johndoe@gmail.com"
                   className="value"
                 />
-              </Grid>
+              </Grid> */}
 
               
             </Grid>

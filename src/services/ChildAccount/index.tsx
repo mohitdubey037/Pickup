@@ -18,6 +18,17 @@ export const getChildAccountData = async (urlParams?: string, page?: number, chu
   }
 }
 
+export const fetchChildAccountById = async (companyId?: any) => {
+  try {
+    const response = await services.get(`business/FetchchildAccountDetails/${companyId}`,'user_cr');
+      return { response: response, success: true }
+  } catch (err) {
+      console.log(err)
+      showToast(err.message,"error")
+      return { response: err, sucess: false };
+  }
+}
+
 export const addChildAccountData = async (body: any) => {
   try {
     const response = await services.post('business/createChildAccount',body,'user_cr');
