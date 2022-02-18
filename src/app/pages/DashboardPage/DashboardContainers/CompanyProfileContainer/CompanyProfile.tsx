@@ -15,7 +15,6 @@ import {
   updateCompanyProfile,
 } from "services/CompanyService";
 import AdminDetails from "./AdminDetails";
-// import ColleagueDetails from "./ColleagueDetails";
 import { ColleagueDetailsType } from "./types";
 import EditColleagueDetailsForm from "./EditColleagueDetailsForm";
 import NewColleague from "./NewColleague";
