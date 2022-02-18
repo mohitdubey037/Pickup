@@ -1,4 +1,5 @@
 import { navigate } from "@reach/router";
+import moment from "moment";
 
 export const ChildInitValues = {
     companyName: '',
@@ -48,9 +49,11 @@ export const childDataTable = (
                         item.companyId
                     ),
                     "Business Number": item.businessNumber,
-                    "Invitation Date": item.city,
-                    "Status": item.city,
-                    "Admin Name": item.city,
+                    "Invitation Date": moment(item.invoiceCreatedAt).format(
+                        "DD/MM/YYYY"
+                    ),
+                    "Status": item.status === 1 ? "pending" : "completed",
+                    "Admin Name": item.admin,
                     
                 };
             });

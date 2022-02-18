@@ -32,16 +32,10 @@ function SearchOrderDetailsDrawer(props: any) {
   return (
     <TabWrapper>
       {createPortal(
-        <div
-          ref={ref}
-          style={{
-            width: "21cm",
-            minHeight: "29cm",
-          }}
-        >
+        <div id="print-container" ref={ref}>
           <OrderDetailsTemplate orderData={singleOrderData} orderId={orderId} />
         </div>,
-        document.body
+        document.getElementById("print-root") as HTMLElement
       )}
 
       <Tabs value={value} onChange={handleChange} className="tabs">

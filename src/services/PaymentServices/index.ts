@@ -50,6 +50,23 @@ export const getInvoiceList = async (urlParams?: string) => {
   }
 };
 
+export const getMultipleInvoicesPdf = async (invoiceIds: number[]) => {
+  try {
+    let api = `order/business/invoice/invoiceIds/download`;
+    const res: any = await Services.post(
+      api,
+      { invoiceIds },
+      "order",
+      "",
+      {},
+      { responseType: "arraybuffer" }
+    );
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
+};
+
 // export const updateCard = async (cardData: cardData) => {
 //     const res = await Services.post("business/forgotPassword", { emailId: cardData }, type);
 //     return res;
@@ -89,10 +106,10 @@ export const confirmPaymentInDrawer = async (body: any, invoiceId: string) => {
   }
 };
 
-export const deleteCard = async (profileId: string, cardId: string) => {
+export const deleteCard = async (cardId: string) => {
   try {
     const res = await Services.delete(
-      `api/profiles/${profileId}/cards/${cardId}`,
+      `api/profiles/card/delete/${cardId}`,
       {},
       "payment"
     );

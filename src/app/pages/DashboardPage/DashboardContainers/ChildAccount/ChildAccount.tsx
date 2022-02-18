@@ -25,39 +25,6 @@ const loading = useSelector((state: { globalState: { showLoader } }) => {
   return state.globalState.showLoader;
 });
 
-const [emailSentDrawerOpen, setEmailSentDrawerOpen] = useState(false);
-
-const handleOpenDrawer = () => {
-  setEmailSentDrawerOpen(true);
-};
-const handleCloseDrawer  = () => {
-  dispatch(actions.resetChildAccount());
-  setEmailSentDrawerOpen(false);
-};
-
-// const childAccountDetails = useSelector(state => {
-//   return state.childAccountDetails;
-// }
-// )
-
-const handleSubmit = () => {
-  handleCloseDrawer()
-  navigate('/dashboard/my-account/child-account-list')
-}
-
-const childAccountDetails = useSelector(
-  (state: { childAccountDetails: { childAccountDetails } }) => {
-    return state.childAccountDetails;
-  }
-);
-
-useEffect(() => {
-  console.log(childAccountDetails?.childAccountDetails?.message);
-  if (childAccountDetails?.childAccountDetails?.message) {
-    handleOpenDrawer();
-  }
-}, [childAccountDetails]);
-
 const formik = useFormik({
   initialValues: ChildInitValues,
   validate: (values: any) => {
@@ -71,6 +38,38 @@ const formik = useFormik({
     dispatch(actions.submitDetails(formik.values));
   },
 });
+
+const [emailSentDrawerOpen, setEmailSentDrawerOpen] = useState(false);
+
+const handleOpenDrawer = () => {
+  setEmailSentDrawerOpen(true);
+};
+const handleCloseDrawer  = () => {
+  // formik.initialValues=ChildInitValues,
+  setEmailSentDrawerOpen(false);
+};
+
+// const childAccountDetails = useSelector(state => {
+//   return state.childAccountDetails;
+// }
+// )
+
+const handleSubmit = () => {
+  setEmailSentDrawerOpen(false);
+  navigate('/dashboard/my-account/child-account-list')
+}
+
+const childAccountDetails = useSelector(
+  (state: { childAccountDetails: { childAccountDetails } }) => {
+    return state.childAccountDetails;
+  }
+);
+
+useEffect(() => {
+  if (childAccountDetails?.childAccountDetails?.message) {
+    handleOpenDrawer();
+  }
+}, [childAccountDetails]);
 
 useEffect(() => {
   dispatch(actions.resetChildAccount());

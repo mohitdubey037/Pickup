@@ -10,7 +10,7 @@ function* getAllCardsWorker() {
     yield put(globalActions.showLoader(true))
     const res: { response: any, error: any } = yield call(getUserCardsService);
     if(!res.error){
-        yield put(actions.paymentCardsData(res.response.data.data));
+        yield put(actions.paymentCardsData(res.response.data.data.data));
         // yield put(actions.onGetAllCardSuccess(res.response.data.data))
     }
     yield put(globalActions.showLoader(false))
@@ -27,7 +27,8 @@ function* addNewCardWorker(action) {
     yield put(globalActions.showLoader(true))
     const res: { response: any, error: any } = yield call(addNewCardService, action.cardData);
     if(!res.error){
-        yield put(actions.paymentCardsData(res.response.data.data));
+        // yield put(actions.paymentCardsData(res.response.data.data));
+        yield put(actions.getCards());
         yield put(actions.addNewCardResponse(res.error))
     }else{
         yield put(actions.addNewCardResponse(res.error))

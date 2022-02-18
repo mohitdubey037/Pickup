@@ -10,7 +10,11 @@ export const ChildAccountSchema = yup.object().shape({
     .typeError("Business Number must be a number")
     .required(" Business Number is a required field"),
     industry: yup.string().required("Industry is a required field"),
-    employeeStrength: yup.number().required("Employee is a required field"),
+    employeeStrength: yup
+    .number()
+    .positive("Please enter valid Employee Strength")
+    .min(0, "Please enter valid Employee Strength")
+    .typeError("Employee Strength must be a number"),
     addressLine1: yup.string().required("Address Line 1 is a required field"),
     addressLine2: yup.string().required("Address Line 2 is a required field"),
     pincode: yup.string().required("Pincode is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),

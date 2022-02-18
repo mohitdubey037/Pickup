@@ -1,8 +1,9 @@
+import React, { FC } from "react";
 import { Grid } from "@mui/material";
+
 import { Accordion } from "app/components/Accordion";
 import PaymentCardList from "app/components/PaymentCardList";
 import { H4 } from "app/components/Typography/Typography";
-import React, { FC } from "react";
 import { CardType } from "../../../../../types";
 import { AccordionOuterBox } from "../SignleShipmentContainer/style";
 import { CardsContainer } from "./style";
@@ -38,17 +39,21 @@ const CreditDebitCardHolder: FC<CreditDebitCardHolderProps> = ({
             defaultExpanded
           >
             <Grid container spacing={2}>
-            <Grid item md={6} xs={12}>
-            <PaymentCardList
-              cards={creditCardDetails}
-              selectedCard={selectedCard}
-              setSelectedCard={setSelectedCard}
-            />
-            </Grid>
+              {creditCardDetails.length > 0 &&
+                creditCardDetails.map((card, idx) => (
+                  <Grid item md={6} xs={12} key={idx}>
+                    <PaymentCardList
+                      card={card}
+                      selectedCard={selectedCard}
+                      setSelectedCard={setSelectedCard}
+                    />
+                  </Grid>
+                ))}
             </Grid>
           </Accordion>
         </AccordionOuterBox>
       )}
+
       {debitCardDetails.length > 0 && (
         <AccordionOuterBox>
           <Accordion
@@ -57,15 +62,17 @@ const CreditDebitCardHolder: FC<CreditDebitCardHolderProps> = ({
             }}
             title={getTitle("Debit Card", debitCardDetails)}
           >
-            
             <Grid container spacing={2}>
-            <Grid item md={6} xs={12}>
-            <PaymentCardList
-              cards={debitCardDetails}
-              selectedCard={selectedCard}
-              setSelectedCard={setSelectedCard}
-            />
-            </Grid>
+              {creditCardDetails.length > 0 &&
+                creditCardDetails.map((card, idx) => (
+                  <Grid item md={6} xs={12} key={idx}>
+                    <PaymentCardList
+                      card={card}
+                      selectedCard={selectedCard}
+                      setSelectedCard={setSelectedCard}
+                    />
+                  </Grid>
+                ))}
             </Grid>
           </Accordion>
         </AccordionOuterBox>

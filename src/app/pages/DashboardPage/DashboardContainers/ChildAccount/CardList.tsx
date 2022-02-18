@@ -18,11 +18,16 @@ const CardList: FC = () => {
         <>
         <Grid container spacing={2}>
             <Grid item xs={12}>
-            <PaymentCardList
-              cards={paymentCards?.card}
-              selectedCard={selectedCard}
-              setSelectedCard={setSelectedCard}
-            />
+            {paymentCards.length > 0 &&
+                paymentCards.map((card, idx) => (
+                  <PaymentCardList
+                    key={idx}
+                    card={card}
+                    selectedCard={selectedCard}
+                    setSelectedCard={setSelectedCard}
+                  />
+                ))}
+            
             </Grid>
             </Grid>
             <DrawerFooter>

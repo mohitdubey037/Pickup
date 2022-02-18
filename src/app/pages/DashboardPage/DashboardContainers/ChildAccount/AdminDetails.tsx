@@ -30,9 +30,9 @@ export default function AdminDetails({formik}:{formik: any}){
   const AdminDetailsFormTouched = touched;
   const AdminDetailsFormError = errors;
 
-  useEffect(() => {
-      console.log(AdminDetailsForm)
-  },[AdminDetailsForm])
+  // useEffect(() => {
+  //     console.log(AdminDetailsForm)
+  // },[AdminDetailsForm])
 
   return (
     <Box mt={4}>

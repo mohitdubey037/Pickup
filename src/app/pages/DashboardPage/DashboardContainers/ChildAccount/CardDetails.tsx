@@ -22,7 +22,7 @@ const CardsDetails: FC = () => {
             {
             paymentCards?.card?.map((value, idx) => (
                 <PaymentCard
-                key={idx}
+                // key={idx}
                 cardData={value}
                 />
                 ))

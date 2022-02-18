@@ -113,7 +113,7 @@ export default function ChildAccountList({ path: string }) {
         tableTop={tableTop()}
         sortTypeProps = {sortType}
         paginationData={(page, sortingField, sortingType) => getSearchPaginatedData(page, sortingField, sortingType)}
-        showCheckbox 
+        // showCheckbox 
         showPagination
         perPageRows={10}
         page={page}

@@ -9,7 +9,7 @@ import { Drawer } from "app/components/Drawer";
 import AddCardForm from "./AddCardForm";
 import {
     addInsuranceService,
-    confirmPaymentInDrawer,
+    // confirmPaymentInDrawer,
     confirmPaymentService,
     getInsuranceService,
     removeInsuranceService,
@@ -109,44 +109,41 @@ function ShipmentSummary({ path }: { path: string }) {
         }
     };
 
-    const addNewCardHandler = async (values) => {
-        if (values.saveCard) {
-            const body = {
-                name: values.nameOnCard,
-                number: values.cardNumber,
-                expiry_month: values.expiryDate.split("/")[0],
-                expiry_year: values.expiryDate.split("/")[1],
-                cvd: values.cvc,
-            };
-            dispatch(actions.addNewCard(body));
-        }
-
-        const data = {
-            amount: invoiceData.total,
-            card: {
-                name: values.nameOnCard,
-                number: values.cardNumber,
-                expiryMonth: values.expiryDate.split("/")[0],
-                expiryYear: values.expiryDate.split("/")[1],
-                cvd: values.cvc,
-                complete: true,
-            },
+    const handleAddNewCard = async (values) => {
+        const body = {
+            name: values.nameOnCard,
+            number: values.cardNumber,
+            expiryMonth: values.expiryDate.split("/")[0],
+            expiryYear: values.expiryDate.split("/")[1],
+            cvd: values.cvc,
         };
-        const res: { response: any; error: any } = await confirmPaymentInDrawer(
-            data,
-            invoiceId
-        );
-        if (!res.error) {
-            showToast("Payment successful", "success");
-            setShowInvoiceDrawer(true);
-            dispatch(shipmentActions.resetOrderIds());
-            dispatch(shipmentActions.setShipmentDetails(null));
-        } else {
-            showToast(
-                res.error?.message || "Oops! Something went wrong!",
-                "error"
-            );
-        }
+        dispatch(actions.addNewCard(body));
+        setShowAddCard(false);
+        // const data = {
+        //     amount: invoiceData.total,
+        //     card: {
+        //         name: values.nameOnCard,
+        //         number: values.cardNumber,
+        //         expiryMonth: values.expiryDate.split("/")[0],
+        //         expiryYear: values.expiryDate.split("/")[1],
+        //         cvd: values.cvc,
+        //         complete: true,
+        //     },
+        // };
+        // const res: { response: any; error: any } = await confirmPaymentInDrawer(
+        //     data,
+        //     invoiceId
+        // );
+        // if (!res.error) {
+        //     showToast("Payment successful", "success");
+        //     setShowInvoiceDrawer(true);
+        //     dispatch(shipmentActions.resetOrderIds());
+        // } else {
+        //     showToast(
+        //         res.error?.message || "Oops! Something went wrong!",
+        //         "error"
+        //     );
+        // }
     };
 
     const paymentHandler = async () => {
@@ -155,8 +152,8 @@ function ShipmentSummary({ path }: { path: string }) {
             return;
         }
         const data = {
-            profileId: paymentCards.customer_code,
-            cardId: selectedCard.card_id,
+            profileId: selectedCard.customer,
+            cardId: selectedCard.id,
             amount: invoiceData.total,
         };
         const res: { response: any; error: any } = await confirmPaymentService(
@@ -167,7 +164,6 @@ function ShipmentSummary({ path }: { path: string }) {
             showToast("Payment successful", "success");
             setShowInvoiceDrawer(true);
             dispatch(shipmentActions.resetOrderIds());
-            dispatch(shipmentActions.setShipmentDetails(null));
         } else {
             showToast(
                 res.error?.message || "Oops! Something went wrong!",
@@ -199,15 +195,15 @@ function ShipmentSummary({ path }: { path: string }) {
                     onClick={() => setShowAddCard(!showAddCard)}
                 >
                     <CustomLink
-                        label={`+ Add New Payment`}
+                        label={`+ Add New Card`}
                         style={{ color: "#1B8AF0" }}
                     />
                 </Box>
             </Flex>
 
             <CreditDebitCardHolder
-                // debitCardDetails={paymentCards?.card}
-                creditCardDetails={paymentCards?.card}
+                // debitCardDetails={paymentCards}
+                creditCardDetails={paymentCards}
                 selectedCard={selectedCard}
                 setSelectedCard={setSelectedCard}
             />
@@ -222,7 +218,6 @@ function ShipmentSummary({ path }: { path: string }) {
                 />
                 <Button
                     label="Confirm Payment"
-                    // disabled={!(isValid)}
                     onClick={paymentHandler}
                     showLoader={loading}
                     size="medium"
@@ -237,11 +232,8 @@ function ShipmentSummary({ path }: { path: string }) {
                 actionButtons={true}
             >
                 <AddCardForm
-                    title="Payment Details"
                     setDrawerOpen={setShowAddCard}
-                    enableSave
-                    submitButtonLabel="Add New Payment"
-                    saveAction={addNewCardHandler}
+                    saveAction={handleAddNewCard}
                 />
             </Drawer>
             <Drawer

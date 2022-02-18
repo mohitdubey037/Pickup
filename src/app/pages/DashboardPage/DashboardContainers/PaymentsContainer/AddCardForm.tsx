@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import { Box } from "@material-ui/core";
 
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
@@ -10,7 +9,6 @@ import { cardSchema } from "./cardSchema";
 import { IndividualCard } from "./PaymentsCardContainer";
 
 interface AddCardFromProps {
-    title?: string;
     setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
     saveAction: (data) => void;
     enableSave?: boolean;
@@ -19,7 +17,6 @@ interface AddCardFromProps {
 }
 
 const AddCardForm: React.FC<AddCardFromProps> = ({
-    title = "",
     setDrawerOpen,
     saveAction,
     enableSave = false,
@@ -38,9 +35,9 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
         initialValues: {
             cardType: "1",
             cardNumber: cardData.number || "",
-            expiryDate: `${
-                cardData.expiry_month ? cardData.expiry_month + "/" : ""
-            }${cardData.expiry_year || ""}`,
+            expiryDate: `${cardData.exp_month ? cardData.exp_month + "/" : ""}${
+                cardData.exp_year || ""
+            }`,
             cvc: "",
             nameOnCard: cardData.name || "",
             // pinCode: "",
@@ -61,63 +58,63 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
 
     return (
         <>
-        <DrawerInnerContent>
-            <Input
-                id="cardNumber"
-                initValue={values.cardNumber}
-                name="cardNumber"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.cardNumber && errors.cardNumber}
-                label="Card Number"
-                placeholder={"**** **** **** ****"}
-                type="mask"
-                maskProps={{
-                    mask: "9999 9999 9999 9999",
-                    maskPlaceholder: null,
-                }}
-            />
-            <Input
-                id="expiryDate"
-                name="expiryDate"
-                initValue={values.expiryDate}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.expiryDate && errors.expiryDate}
-                label="Expiration Date"
-                placeholder={"MM/YY"}
-                type="mask"
-                maskProps={{
-                    mask: "99/99",
-                    maskPlaceholder: null,
-                }}
-            />
-            <Input
-                id="cvc"
-                initValue={values.cvc}
-                name="cvc"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.cvc && errors.cvc}
-                label="CVC"
-                placeholder={"CVC"}
-                type="mask"
-                maskProps={{
-                    mask: "9999",
-                    maskPlaceholder: null,
-                }}
-            />
-            <Input
-                id="nameOnCard"
-                initValue={values.nameOnCard}
-                name="nameOnCard"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.nameOnCard && errors.nameOnCard}
-                label="Name on Card"
-                placeholder={"John Doe"}
-            />
-            {/* <Input
+            <DrawerInnerContent>
+                <Input
+                    id="cardNumber"
+                    initValue={values.cardNumber}
+                    name="cardNumber"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    error={touched.cardNumber && errors.cardNumber}
+                    label="Card Number"
+                    placeholder={"**** **** **** ****"}
+                    type="mask"
+                    maskProps={{
+                        mask: "9999 9999 9999 9999",
+                        maskPlaceholder: null,
+                    }}
+                />
+                <Input
+                    id="expiryDate"
+                    name="expiryDate"
+                    initValue={values.expiryDate}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    error={touched.expiryDate && errors.expiryDate}
+                    label="Expiration Date"
+                    placeholder={"MM/YY"}
+                    type="mask"
+                    maskProps={{
+                        mask: "99/99",
+                        maskPlaceholder: null,
+                    }}
+                />
+                <Input
+                    id="cvc"
+                    initValue={values.cvc}
+                    name="cvc"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    error={touched.cvc && errors.cvc}
+                    label="CVC"
+                    placeholder={"CVC"}
+                    type="mask"
+                    maskProps={{
+                        mask: "9999",
+                        maskPlaceholder: null,
+                    }}
+                />
+                <Input
+                    id="nameOnCard"
+                    initValue={values.nameOnCard}
+                    name="nameOnCard"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    error={touched.nameOnCard && errors.nameOnCard}
+                    label="Name on Card"
+                    placeholder={"John Doe"}
+                />
+                {/* <Input
                 id="pinCode"
                 initValue={values.pinCode}
                 name="pinCode"
@@ -132,24 +129,26 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
                     maskPlaceholder: null,
                 }}
             /> */}
-            <Input
-                id="nickName"
-                initValue={values.nickName}
-                name="nickName"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.nickName && errors.nickName}
-                label="Nickname (optional)"
-                placeholder={"Name your card"}
-            />
-            {enableSave && (
-                <Checkbox
-                    id="saveCard"
-                    name="saveCard"
-                    label="Save Card for Future"
-                    onChange={() => setFieldValue("saveCard", !values.saveCard)}
+                <Input
+                    id="nickName"
+                    initValue={values.nickName}
+                    name="nickName"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    error={touched.nickName && errors.nickName}
+                    label="Nickname (optional)"
+                    placeholder={"Name your card"}
                 />
-            )}
+                {enableSave && (
+                    <Checkbox
+                        id="saveCard"
+                        name="saveCard"
+                        label="Save Card for Future"
+                        onChange={() =>
+                            setFieldValue("saveCard", !values.saveCard)
+                        }
+                    />
+                )}
             </DrawerInnerContent>
 
             <DrawerFooter>

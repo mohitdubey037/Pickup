@@ -14,7 +14,10 @@ import { Flex } from "app/components/Input/style";
 import { getInvoiceData, invoiceColoumns } from "./helper";
 import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
-import { getInvoiceList } from "../../../../../services/PaymentServices/index";
+import {
+  getInvoiceList,
+  getMultipleInvoicesPdf,
+} from "../../../../../services/PaymentServices/index";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { SearchTableTop } from "../SearchContainer/style";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -32,6 +35,7 @@ const InvoicesContainer = ({ path: string }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [invoiceData, setInvoiceData] = useState<any>([]);
   const [selectedRows, setSelectedRows] = useState<any>([]);
+  const [downloading, setDownloading] = useState<boolean>(false)
   const [prevValues, setPrevValues] = useState<any>(initialValues);
   const [pagination, setPagination] = useState({
     count: 0,
@@ -64,22 +68,24 @@ const InvoicesContainer = ({ path: string }) => {
     setDrawerOpen(true);
   };
 
-  const downloadAll = () => {
-    const multiplePdf = invoiceData
-      .filter(
-        (item, idx) => selectedRows.includes(idx) && item.invoicePdf !== null
-      )
-      .map((inv) => inv.invoicePdf);
-    var link = document.createElement("a");
-    link.style.display = "none";
-    document.body.appendChild(link);
-    for (let i = 0; i < multiplePdf.length; i++) {
-      setTimeout(() => {
-        link.setAttribute("href", multiplePdf[i]);
-        link.click();
-      }, i * 100);
+  const downloadAll = async () => {
+    setDownloading(true)
+    const invoiceIds = invoiceData
+      .filter((item, idx) => selectedRows.includes(idx))
+      .map((inv) => inv.invoiceId);
+    const res = (await getMultipleInvoicesPdf(invoiceIds)) as any;
+    if (res?.error === null) {
+      const blob = new Blob([res.response.data], {
+        type: "application/x-rar-compressed",
+      });
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `Invoices_${moment().format("YYYYMMDD_HHmmss")}.rar`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
-    document.body.removeChild(link);
+    setDownloading(false)
   };
 
   const tableTop = () => {
@@ -93,11 +99,12 @@ const InvoicesContainer = ({ path: string }) => {
           />
         </Flex>
         <Button
-          size="small"
+          size="medium"
           secondary
           label="Download Selected"
-          disabled={selectedRows.length === 0}
+          disabled={selectedRows.length === 0 || downloading}
           onClick={downloadAll}
+          showLoader={downloading}
         />
       </SearchTableTop>
     );
