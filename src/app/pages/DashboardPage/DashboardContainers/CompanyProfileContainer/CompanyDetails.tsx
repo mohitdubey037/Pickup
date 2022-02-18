@@ -1,6 +1,6 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
-import { edit } from "app/assets/Icons";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
+import EditIcon from "app/components/EditIcon/EditIcon";
 import { FullCard } from "app/components/Input/style";
 import {
   H3,
@@ -24,7 +24,7 @@ export default function CompanyDetails(props: DetailInterface) {
       <FullCard>
         <Box mb={4} display="flex" justifyContent="space-between">
           <H3 text="Company Details" />
-          <img src={edit} onClick={() => setCompanyDrawerOpen(true)} alt="" />
+          <EditIcon onClick={() => setCompanyDrawerOpen(true)} />
         </Box>
         <FlexBox justifyContent="space-between">
           <Box mr={4}>

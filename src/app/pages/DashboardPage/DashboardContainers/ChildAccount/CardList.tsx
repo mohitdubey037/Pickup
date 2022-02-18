@@ -1,10 +1,9 @@
 import React, { FC, useState } from "react";
 import { Grid } from "@material-ui/core";
-import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
-import PaymentCardList from "app/components/PaymentCardList";
 import { DrawerFooter } from "app/components/Drawer/style";
 import { Button } from "app/components/Buttons";
+import PaymentCardList from "app/components/PaymentCard/PaymentCardList";
 
 
 
@@ -40,7 +39,7 @@ const CardList: FC = () => {
                 label="Confirm"
                 size="medium"
                 />
-      </DrawerFooter>
+            </DrawerFooter>
         </>
   );
 }

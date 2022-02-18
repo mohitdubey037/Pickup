@@ -9,7 +9,7 @@ import { FullCard } from "app/components/Input/style";
 import { FlexTable } from "./styles";
 import { PersonalProfileType } from "./types";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
-import { edit } from "app/assets/Icons";
+import EditIcon from "app/components/EditIcon/EditIcon";
 interface CardInterface {
   personalProfileDetails: PersonalProfileType;
   setPasswordDrawerOpen: (value: boolean) => void;
@@ -27,7 +27,7 @@ export default function PersonalProfile(props: CardInterface) {
     <FullCard>
       <Box mb={4} display="flex" justifyContent="space-between">
         <H3 text="Personal Details" />
-        <img src={edit} onClick={() => setEditDetailsDrawerOpen(true)} alt="editicon" />
+        <EditIcon onClick={() => setEditDetailsDrawerOpen(true)} />
       </Box>
 
       <FlexBox>

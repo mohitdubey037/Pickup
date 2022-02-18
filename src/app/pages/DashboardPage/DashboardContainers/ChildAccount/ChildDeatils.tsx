@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
-import { edit } from "app/assets/Icons";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { Drawer } from "app/components/Drawer";
+import EditIcon from "app/components/EditIcon/EditIcon";
 import { FullCard } from "app/components/Input/style";
 import { H3, Para, H4 } from "app/components/Typography/Typography";
 import { useState } from "react";
@@ -31,7 +31,7 @@ export default function ChildDetails({ singleCompanyDetails }: companyDetails) {
       <FullCard>
         <Box mb={4} display="flex" justifyContent="space-between">
           <H3 text="Child Details" />
-          <img src={edit} onClick={() => setDrawerOpen(true)} alt="" />
+          <EditIcon onClick={() => setDrawerOpen(true)} />
         </Box>
         <FlexBox justifyContent="space-between">
           <Box mr={4}>

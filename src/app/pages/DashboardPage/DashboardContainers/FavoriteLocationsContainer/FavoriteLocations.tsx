@@ -14,6 +14,7 @@ import FileDrawer from "./FileDrawer";
 import { H3 } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
 import { FavoriteLocationColoumns } from "./helper";
+import EditIcon from "app/components/EditIcon/EditIcon";
 
 function FavoriteLocations(props: RouteComponentProps) {
   const [drawerOpenOne, setDrawerOpenOne] = useState(false);
@@ -68,18 +69,8 @@ function FavoriteLocations(props: RouteComponentProps) {
           e.stopPropagation();
         }}
       >
-        <img
-          src={edit}
-          alt=""
-          onClick={() => editClickHandler(item)}
-          onKeyPress={(e) => e.key === "ENTER" && editClickHandler(item)}
-        />
-        <img
-          src={trash}
-          alt=""
-          onClick={() => deleteClickHandler(item)}
-          onKeyPress={(e) => e.key === "ENTER" && deleteClickHandler(item)}
-        />
+         <EditIcon onClick={() => editClickHandler(item)} />
+         <EditIcon src={trash} onClick={() => deleteClickHandler(item)} />
       </Flex>
     );
   };

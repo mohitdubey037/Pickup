@@ -2,7 +2,7 @@ import { useState } from "react";
 import { navigate } from "@reach/router";
 import ModuleContainer from "app/components/ModuleContainer";
 import {H2} from "app/components/Typography/Typography";
-import { BulkShipmentWrapper, HelperText } from "./style";
+import { BulkShipmentWrapper } from "./style";
 import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
 import { uploadFile } from "utils/commonUtils";
@@ -43,10 +43,10 @@ const BulkShipment = ({path:string}) => {
         <BulkShipmentWrapper>
           {!processing && (
             <>
-              <HelperText>
+              <p>
                 Download this file to organize your shipments correctly before
                 upload and we can import it
-              </HelperText>
+              </p>
               <Button label="Download Sample" onClick={() => {}} />
             </>
           )}

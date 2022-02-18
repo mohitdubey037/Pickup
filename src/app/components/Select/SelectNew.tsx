@@ -66,7 +66,7 @@ export default function SelectNew(props: SelectPropTypes) {
       </CustomNewSelect>
 
       {!!error && (
-        <ErrorLabel style={{ marginBottom: "8px 0 24px 0" }}>
+        <ErrorLabel>
           {error}
         </ErrorLabel>
       )}

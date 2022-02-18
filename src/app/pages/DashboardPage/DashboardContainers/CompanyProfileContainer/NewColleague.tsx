@@ -9,7 +9,7 @@ import { FlexGrid } from "./style";
 import { PERMISSION_TYPES } from "../../../../../constants";
 import { ColleagueDetailsType } from "./types";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
-import { edit } from "app/assets/Icons";
+import EditIcon from "app/components/EditIcon/EditIcon";
 
 interface DetailInterface {
   setColleagueDrawerOpen: any;
@@ -53,10 +53,10 @@ export default function NewColleague(props: DetailInterface) {
       <FullCard>
         <Box mb={4} display="flex" justifyContent="space-between">
           <H3 text={`Colleague ${index + 1}`} />
-          <img src={edit} onClick={() => {
+             <EditIcon onClick={() => {
               setSelectedColleague(inviteId);
               setColleagueDrawerOpen(true);
-            }} alt="" />
+            }} />
         </Box>
 
         <FlexBox justifyContent="space-between">

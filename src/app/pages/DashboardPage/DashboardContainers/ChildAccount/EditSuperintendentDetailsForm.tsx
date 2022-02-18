@@ -2,14 +2,14 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { DrawerFooter } from "app/components/Drawer/style";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Button } from "app/components/Buttons";
 
 export default function EditSuperintendentDetailsForm() {
   
   return (
     <>
-        <form>
+        <DrawerInnerContent>
         <GridContainer container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Input
@@ -52,6 +52,7 @@ export default function EditSuperintendentDetailsForm() {
               />
             </Grid>
           </GridContainer>
+          </DrawerInnerContent>
           <DrawerFooter>
                 <Button
                 secondary
@@ -63,8 +64,6 @@ export default function EditSuperintendentDetailsForm() {
                 size="medium"
                 />
       </DrawerFooter>
-        </form>
-    
     </>
   );
 }

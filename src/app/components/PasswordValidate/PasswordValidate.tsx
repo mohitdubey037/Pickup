@@ -1,7 +1,8 @@
-import { CustomPopOver, ListItem, GroupItem, HelperText } from "./style";
+import { CustomPopOver, ListItem, GroupItem } from "./style";
 import { redCross, greenCheck } from "../../assets/Icons";
 import { ValidityConditions } from "./helper";
 import { ValidityType } from "./type";
+import { H4 } from "../Typography/Typography";
 
 interface ValidityProps {
   input?: string;
@@ -22,7 +23,7 @@ const PasswordValidate = ({ input, isOpen = false }: ValidityProps) => {
               />
               <div>{cond.label}</div>
             </GroupItem>
-            <HelperText>{cond.example}</HelperText>
+            <H4 className="helpertext">{cond.example}</H4>
           </ListItem>
         );
       })}
