@@ -1,46 +1,100 @@
-import { calendar } from "app/assets/Icons"
-import { OnHoldDataType } from "./OnHoldShipment"
+import moment from "moment";
+import { calendar } from "app/assets/Icons";
+// import { OnHoldDataType } from "./OnHoldShipment";
 
-export const getOrderIdFromIndex = (data: Array<OnHoldDataType>, index: number) => {
-    return data[index].orderId
-}
+// export const getOrderIdFromIndex = (
+//   data: Array<OnHoldDataType>,
+//   index: number
+// ) => {
+//   return data[index].orderId;
+// };
 
-export const getOrderIdListFromIndexList = (data: Array<OnHoldDataType>, index: Array<number>) => {
-    // const orderList = []
-    const orderList = index.map((i) => getOrderIdFromIndex(data, i))
-    return orderList
-}
+// export const getOrderIdListFromIndexList = (
+//   data: Array<OnHoldDataType>,
+//   index: Array<number>
+// ) => {
+//   // const orderList = []
+//   const orderList = index.map((i) => getOrderIdFromIndex(data, i));
+//   return orderList;
+// };
 
-const getActionItem = (id: string, singleScheduleHandler, index) => {
-    return (
-        <div onClick={() => singleScheduleHandler(id, index)} style={{ display: 'flex', gap: '20px' }}>
-            <img src={calendar} alt="calendar" />
-        </div>
-    )
-}
-
-const getOrderIdItem = (openInvoiceDrawer, value, id: any) => {
-    return <span onClick={() => openInvoiceDrawer(id)}>{value}</span>;
-};
-
-export const onHoldTable = (
-    searchRecordData: OnHoldDataType[],
-    openInvoiceDrawer: any,
-    singleScheduleHandler: any
+const getActionItem = (
+  openOnHoldDrawer: (id: any, type: any) => void,
+  id: any
 ) => {
-    let makeTableData: any = [];
-    if (searchRecordData && searchRecordData.length) {
-        searchRecordData.map((item: OnHoldDataType, index: number) => {
-            makeTableData.push({
-                "Source": "Uploaded",
-                "Category": item.category,
-                "Order Id": item.orderId,
-                "Item Count": getOrderIdItem(openInvoiceDrawer, item.itemCount, item.orderId),
-                "Order Date": item.shippingDate,
-                "Status": item.status ? item.status : "-",
-                "Action": getActionItem(item.orderId, singleScheduleHandler, index),
-            });
-        });
-    }
-    return makeTableData;
+  return (
+    <div
+      onClick={() => openOnHoldDrawer(id, "scheduleOrder")}
+      style={{ display: "flex" }}
+    >
+      <img src={calendar} alt="calendar" />
+    </div>
+  );
 };
+
+const getOrderIdItem = (
+  openOnHoldDrawer: (id: any, type: any) => void,
+  itemCount: number,
+  id: any
+) => {
+  return (
+    <a onClick={() => openOnHoldDrawer(id, "orderDetails")}>{itemCount}</a>
+  );
+};
+
+export const getOnHoldOrderData = (
+  onHoldOrderData: any,
+  openOnHoldDrawer: any
+) => {
+  let makeTableData: any = [];
+  if (onHoldOrderData && onHoldOrderData.length) {
+    onHoldOrderData.forEach((item: any) => {
+      makeTableData.push({
+        Source: item.source,
+        Category: item.category,
+        "Item Count": getOrderIdItem(
+          openOnHoldDrawer,
+          item.itemCount,
+          item.orderId
+        ),
+        "Order Date": moment(item.shippingDate).format("DD/MM/YYYY"),
+        Status: item.status ? item.status : "-",
+        Action: getActionItem(openOnHoldDrawer, item.orderId),
+      });
+    });
+  }
+  return makeTableData;
+};
+
+export const onHoldOrderColoumns = [
+  {
+    id: "type",
+    label: "Source",
+    isSort: false,
+  },
+  {
+    id: "category",
+    label: "Category",
+    isSort: false,
+  },
+  {
+    id: "itemCount",
+    label: "Item Count",
+    isSort: false,
+  },
+  {
+    id: "shippingDate",
+    label: "Order Date",
+    isSort: true,
+  },
+  {
+    id: "status",
+    label: "Status",
+    isSort: false,
+  },
+  {
+    id: "action",
+    label: "Action",
+    isSort: false,
+  },
+];
