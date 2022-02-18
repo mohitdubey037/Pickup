@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import ModuleContainer from "app/components/ModuleContainer";
-import { FormContainer } from "app/components/ModuleContainer/style";
 import {H2 } from "app/components/Typography/Typography";
 import { BulkShipmentWrapper, HelperText } from "./style";
 import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
 import { uploadFile } from "utils/commonUtils";
 import ErrorDetails from "./ErrorDetails";
+import { Box } from "@mui/material";
 
 const DownloadSample = ({ navigate }: RouteComponentProps) => {
   const [error, setError] = useState(false);
@@ -35,7 +35,7 @@ const DownloadSample = ({ navigate }: RouteComponentProps) => {
         <div>
        <ModuleContainer>
       <H2 title="Bulk order" />
-      <FormContainer elevation={2}>
+      <Box>
         <BulkShipmentWrapper>
           {!processing && (
             <>
@@ -62,7 +62,7 @@ const DownloadSample = ({ navigate }: RouteComponentProps) => {
             inProgress={processing}
           />
         </BulkShipmentWrapper>
-      </FormContainer>
+      </Box>
     </ModuleContainer>
         </div>
     )

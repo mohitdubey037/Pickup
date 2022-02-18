@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link as RouterLink } from '@reach/router';
 
 interface Props {
   required?: boolean | undefined;
@@ -82,4 +83,19 @@ export const H5Typography = styled.p`
 export const CustomLinkStyle = styled(Paratext)`
   cursor: pointer;
   text-decoration: underline;
+`;
+
+export const LinkStyle = styled(RouterLink)`
+  color: ${p => p.theme.primary};
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.4;
+    color:"#2A95D1";
+  }
 `;

@@ -15,7 +15,7 @@ import {
 } from "./app/pages/AuthScreens/LoginScreens";
 import DashboardPage from "./app/pages/DashboardPage";
 import { NoAuthorizationPage } from "app/pages/NoAutorizationPage";
-import { PageNotFound } from "app/components/PageNotFound/PageNotFound";
+import PageNotFound  from "app/components/PageNotFound/PageNotFound";
 import { BulkShipment } from "app/pages/DashboardPage/DashboardContainers/BulkShipment";
 import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";

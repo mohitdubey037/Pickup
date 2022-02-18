@@ -13,14 +13,6 @@ interface CardProp {
   active?: string | boolean;
 }
 
-// export const CardWrapper = styled.div`
-//   box-sizing: border-box;
-//   display: flex;
-//   width: 100%;
-//   justify-content: space-between;
-//   align-items: center;
-//   flex-wrap: wrap;
-// `;
 
 export const Card = styled.div<CardProp>`
   position: relative;
@@ -32,8 +24,6 @@ export const Card = styled.div<CardProp>`
   cursor: pointer;
   align-items: center;
   padding: 24px;
-  // width: 400px;
-  // height: 80px;
   margin-bottom: 24px;
   border-radius: 8px;
 `;
@@ -71,13 +61,7 @@ export const CardRight = styled.div`
   align-items: flex-end;
 `;
 
-export const Text = styled.span<TextProp>`
-  font-size: ${({ fontSize }) => (fontSize ? fontSize : "16px")};
-  letter-spacing: ${({ letterSpacing }) => letterSpacing && letterSpacing};
-  font-weight: ${({ fontWeight }) => fontWeight && fontWeight};
-  margin-bottom: ${({ marginBottom }) => marginBottom && marginBottom};
-  margin-right: ${({ marginRight }) => marginRight && marginRight};
-`;
+
 
 export const CheckImageWrapper = styled.div`
     position: absolute;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Paper } from "@material-ui/core";
 
 export const ModuleContainerWrapper = styled.div`
   background-color: #fafafa;
@@ -39,22 +38,3 @@ export const ModuleContainerWrapper = styled.div`
  
 `;
 
-export const FormContainer = styled(Paper)`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
-  margin-top: 20px;
-
-`;
-
-export const InnerContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  // padding: 24px;
-  margin-top: 20px;
-  flex: 1;
-`;

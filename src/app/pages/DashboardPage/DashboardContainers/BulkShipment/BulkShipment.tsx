@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { navigate, RouteComponentProps } from "@reach/router";
+import { navigate } from "@reach/router";
 import ModuleContainer from "app/components/ModuleContainer";
-import { FormContainer } from "app/components/ModuleContainer/style";
 import {H2} from "app/components/Typography/Typography";
 import { BulkShipmentWrapper, HelperText } from "./style";
 import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
 import { uploadFile } from "utils/commonUtils";
 import { useSelector } from "react-redux";
+import { Box } from "@mui/material";
 
 
 const BulkShipment = ({path:string}) => {
@@ -38,7 +38,7 @@ const BulkShipment = ({path:string}) => {
   return (
     <ModuleContainer>
       <H2 title="Bulk order" />
-      <FormContainer elevation={2}>
+      <Box>
         <H2 title="Bulk order" />
         <BulkShipmentWrapper>
           {!processing && (
@@ -62,7 +62,7 @@ const BulkShipment = ({path:string}) => {
             inProgress={processing}
           />
         </BulkShipmentWrapper>
-      </FormContainer>
+      </Box>
     </ModuleContainer>
   );
 };

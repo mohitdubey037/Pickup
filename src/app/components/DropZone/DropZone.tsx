@@ -5,9 +5,8 @@ import { ErrorBox } from "./ErrorBox";
 import Uploading from "../Uploading";
 import {useState} from 'react'
 import { Termslink } from "app/pages/AuthScreens/style";
-import { Link } from "../Link";
 import { H5 } from "../Typography/Typography";
-import { Flex } from "../Input/style";
+import { Link } from "../Typography/Links";
 interface DropZoneProps {
   onDrop: (files: Array<File>) => void;
   isError?: boolean;
