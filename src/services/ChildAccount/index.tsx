@@ -50,3 +50,26 @@ export const postChildAccountData = async (body?: any) => {
         return { response: err, sucess: false };
       }
 }
+
+export const editChildAccountData = async (body?: any, childId?: any) => {
+  
+  try {
+      const response = await services.put(`/business/updateChildAccountDetails/${childId}`,body,'user_cr');
+      return {response: response, success: true };
+  }
+  catch (err) {
+      showToast(err.message, "error");
+      return { response: err, sucess: false };
+    }
+}
+
+export const editSuperIndendentAccountData = async (body?: any) => {
+  try {
+      const response = await services.post('/busineess/updateChildAccountDetails/${body.companyId}',body,'user_cr');
+      return {response: response, success: true };
+  }
+  catch (err) {
+      showToast(err.message, "error");
+      return { response: err, sucess: false };
+    }
+}

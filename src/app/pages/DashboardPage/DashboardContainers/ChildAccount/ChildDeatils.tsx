@@ -9,11 +9,10 @@ import { FlexGrid } from "../CompanyProfileContainer/style";
 import EditChildDetailsForm from "./EditChildDetailsForm";
 import {companyDetails } from "./type";
 
+export default function ChildDetails({ singleCompanyDetails, saveAction }){
 
-
-export default function ChildDetails({ singleCompanyDetails }: companyDetails) {
-  console.log(singleCompanyDetails);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
   const companyFormDatails={
     companyName:"Company Name",
     businessNumber:"Business Number", 
@@ -26,6 +25,12 @@ export default function ChildDetails({ singleCompanyDetails }: companyDetails) {
     province: 'Province',
     country: 'Country'
   }
+
+  const handleCloseDrawer = () => {
+    saveAction();
+    setDrawerOpen(false);
+  }
+
   return (
     <>
       <FullCard>
@@ -44,60 +49,11 @@ export default function ChildDetails({ singleCompanyDetails }: companyDetails) {
                 <Para text={companyFormDatails[key]} />
                 <H4 text={singleCompanyDetails[key] || "NA"}  className="value" />
               </Grid>)}
-              {/* <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Company Name" />
-                <H4 text={singleCompanyDetails&&singleCompanyDetails["companyName"]} className="value" />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Business Number" />
-                <H4 text={singleCompanyDetails&&singleCompanyDetails["businessNumber"]}  className="value" />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Industry" />
-                <H4 text="Retail" className="value" />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Employee Strength" />
-                <H4 text={singleCompanyDetails&&singleCompanyDetails["employeeStrength2"]}  className="value" />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Address Line 1" />
-                <H4 text={singleCompanyDetails&&singleCompanyDetails["addressLine2"]}  className="value" />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Address Line 2" />
-                <H4 text={singleCompanyDetails&&singleCompanyDetails["addressLine1"]}  className="value" />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="City" />
-                <H4 text={singleCompanyDetails&&singleCompanyDetails["city"]}  className="value" />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Pincode" />
-                <H4 text={singleCompanyDetails&&singleCompanyDetails["pincode"]} className="value" />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Province" />
-                <H4 text={singleCompanyDetails&&singleCompanyDetails["province"]} className="value" />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Country" />
-                <H4 text={singleCompanyDetails&&singleCompanyDetails["country"]}  className="value" />
-              </Grid> */}
             </Grid>
           </FlexGrid>
         </FlexBox>
       </FullCard>
-
+              
       <Drawer
         open={drawerOpen}
         title="Edit Child Details"
@@ -105,7 +61,10 @@ export default function ChildDetails({ singleCompanyDetails }: companyDetails) {
         closeIcon={true}
         actionButtons={true}
       >
-        <EditChildDetailsForm />
+        <EditChildDetailsForm 
+          saveAction = {() => saveAction()} 
+          singleCompanyDetails={singleCompanyDetails}
+          handleCloseDrawer = {handleCloseDrawer} />
       </Drawer>
     </>
   );

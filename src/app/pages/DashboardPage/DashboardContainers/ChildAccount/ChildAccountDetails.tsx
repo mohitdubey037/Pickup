@@ -12,27 +12,25 @@ import { fetchChildAccountById } from "services/ChildAccount";
 export default function ChildAccountDetails(props: any) {
   const {id} = props;
 
-  const [companyDetails, setCompanyDetails] = useState([])
+  const [companyDetails, setCompanyDetails] = useState<any>({})
 
-  const fetchDetailById = async(id) => {
-
+  const fetchDetailById = async() => {
     const res = await fetchChildAccountById(id);
-    console.log(res?.response?.data?.data[0]);
     setCompanyDetails(res?.response?.data?.data[0]);
   }
 
   useEffect(() => {
+    console.log('hyyyyyyyyyyyyy');
     if (id) {
-      fetchDetailById(id)
+      fetchDetailById()
     }
-    console.log(companyDetails);
   },[])
 
  
   return (
     <ModuleContainer>
       <H2 title="Company Profile" />
-          <ChildDetails singleCompanyDetails = {companyDetails}/>
+          <ChildDetails saveAction={() => fetchDetailById()} singleCompanyDetails={companyDetails}/>
           <SuperintendentDetails singleCompanyDetails = {companyDetails} />
           <CardsDetails />
     </ModuleContainer>

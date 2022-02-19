@@ -4,7 +4,7 @@ import { Input } from "app/components/Input";
 import { RouteComponentProps } from "@reach/router";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import ChildAccountSchema from "./ChildAccountSchema";
+import {ChildAccountSchema} from "./ChildAccountSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
 

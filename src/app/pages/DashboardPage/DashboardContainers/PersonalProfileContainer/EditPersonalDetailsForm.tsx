@@ -139,7 +139,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
         onBlur={handleBlur}
         onChange={handleChange}
         initValue={values.role}
-        // error={touched.role && errors.role}
+        error={touched.role && errors.role}
         disabled
         label="Role/Designation"
       />
