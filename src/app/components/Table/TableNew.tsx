@@ -32,6 +32,7 @@ const TableNew = ({
   });
 
   const handleSort = (field, type) => {
+    handleRowSelect(false, undefined, "header");
     onSortChange?.(field, type);
     setSortDetail({ field, type });
   };
