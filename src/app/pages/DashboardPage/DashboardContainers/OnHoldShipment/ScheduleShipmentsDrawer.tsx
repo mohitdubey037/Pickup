@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import moment from "moment";
-import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
+import { useFormik } from "formik";
 import { Grid } from "@material-ui/core";
 
 import { Button } from "app/components/Buttons";
@@ -32,6 +32,7 @@ const ScheduleShipmentsDrawer: FC<ScheduleShipmentsDrawerProps> = ({
   const {
     values,
     handleChange,
+    isValid,
     errors,
     touched,
     setFieldTouched,
@@ -39,17 +40,11 @@ const ScheduleShipmentsDrawer: FC<ScheduleShipmentsDrawerProps> = ({
     setFieldValue,
   } = useFormik({
     initialValues: {
-      scheduleType: "",
+      scheduleType: "16",
       shipmentDate: "",
       shipmentTime: "",
     },
-    validate: (values: any) => {
-      try {
-        validateYupSchema(values, scheduleShipmentFormSchema, true, values);
-      } catch (err) {
-        return yupToFormErrors(err);
-      }
-    },
+    validationSchema: scheduleShipmentFormSchema,
     onSubmit: (values) => {
       const data = {
         type: values.scheduleType,
@@ -119,7 +114,12 @@ const ScheduleShipmentsDrawer: FC<ScheduleShipmentsDrawerProps> = ({
           label="Cancel"
           size="medium"
         />
-        <Button label="Save" onClick={handleSubmit} size="medium" />
+        <Button
+          label="Save"
+          onClick={handleSubmit}
+          disabled={!isValid}
+          size="medium"
+        />
       </DrawerFooter>
     </>
   );
