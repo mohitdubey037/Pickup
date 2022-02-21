@@ -21,6 +21,7 @@ import HPlatform, { HMap, HMapLayer, Marker } from "react-here-map";
 import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
+import TrackingSteps from "app/components/Stepper/TrackingSteps";
 
 function TrackingDetailsPage(props: any) {
   const [activeStep, setActiveStep] = useState(0);
@@ -136,6 +137,7 @@ function TrackingDetailsPage(props: any) {
             <Typography>Shiment Delivered Successfully !</Typography>
           </Paper>
         )}
+        <TrackingSteps />
       </Box>
     </ContentBox>
   );
