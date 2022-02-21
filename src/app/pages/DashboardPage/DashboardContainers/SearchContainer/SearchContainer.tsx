@@ -121,7 +121,12 @@ const SearchContainer = ({ path: string }) => {
       rest = values !== undefined ? values : prevValues;
     let params: any = {
       ...rest,
-      page: page !== undefined ? page + 1 : pagination.page + 1,
+      page:
+        values !== undefined
+          ? 1
+          : page !== undefined
+          ? page + 1
+          : pagination.page + 1,
       chunk: 10,
       sortingField: sort !== undefined ? sort.field : sorting.field,
       sortingType: sort !== undefined ? sort.type : sorting.type,
@@ -175,7 +180,10 @@ const SearchContainer = ({ path: string }) => {
     resetForm,
   } = useFormik({
     initialValues,
-    onSubmit: (values) => getSearchOrderListData(values),
+    onSubmit: (values) => {
+      setLoading(true);
+      getSearchOrderListData(values);
+    },
   });
 
   const applyOrderFilters = () => {
