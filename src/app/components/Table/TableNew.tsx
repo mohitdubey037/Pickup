@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 
 import {
@@ -30,6 +30,10 @@ const TableNew = ({
     field: sorting?.field ? sorting?.field : "",
     type: sorting?.type ? sorting?.type : "",
   });
+
+  useEffect(() => {
+    handleRowSelect(false, undefined, "header");
+  }, []);
 
   const handleSort = (field, type) => {
     handleRowSelect(false, undefined, "header");
