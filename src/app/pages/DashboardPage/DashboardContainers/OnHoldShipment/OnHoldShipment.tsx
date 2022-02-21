@@ -16,13 +16,17 @@ import DatePickerInput from "app/components/Input/DatePickerInput";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
-import { getHoldingShipmentsService } from "services/HoldingService";
+import {
+  getHoldingShipmentsService,
+  deleteShipmentService,
+} from "services/HoldingService";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 import { onHoldOrderColoumns, getOnHoldOrderData } from "./helper";
 import ScheduleShipmentsDrawer from "./ScheduleShipmentsDrawer";
 import { FilterFlexBox } from "../PaymentsContainer/style";
 import { SearchTableTop } from "../SearchContainer/style";
+import { showToast } from "utils";
 
 const initialValues = {
   shippingId: "",
@@ -66,18 +70,41 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     setDrawerOpen(true);
   };
 
+  const deleteSelectedOrders = async () => {
+    const orderId = onHoldOrderData.filter((_, idx) =>
+      selectedRows.includes(idx)
+    )[0].orderId;
+
+    const res = (await deleteShipmentService(orderId)) as any;
+    if (res.error === null) {
+      showToast(
+        `Your order #${orderId} has been successfully deleted`,
+        "success"
+      );
+      getOnHoldOrderListData();
+    } else {
+      showToast(`Something went wrong`, "error");
+    }
+  };
+
   const tableTop = () => {
     return (
       <SearchTableTop>
         <H3 text={`${pagination.count} Orders`} className="heading" />
         <Box>
           <Button
-            size="medium"
             label="Delete"
-            secondary={true}
+            onClick={deleteSelectedOrders}
+            disabled={selectedRows.length !== 1}
+            size="medium"
+            secondary
             style={{ marginRight: "12px" }}
           />
-          <Button size="medium" label="Schedule" />
+          <Button
+            label="Schedule"
+            disabled={selectedRows.length === 0}
+            size="medium"
+          />
         </Box>
       </SearchTableTop>
     );
@@ -127,7 +154,6 @@ const OnHoldShipmentContainer = ({ path: string }) => {
           : "")
     );
     const res = (await getHoldingShipmentsService(urlParams)) as any;
-    console.log(res);
     if (res.error === null) {
       const data = res.response.data.data;
       setOnHoldOrderData(data.list);
