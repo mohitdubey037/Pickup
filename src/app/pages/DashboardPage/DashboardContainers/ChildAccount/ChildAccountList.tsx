@@ -26,8 +26,8 @@ export default function ChildAccountList({ path: string }) {
   const [childData, setChildData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [drawerType, setDrawerType] = useState("");
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  // const [drawerType, setDrawerType] = useState("");
+  // const [drawerOpen, setDrawerOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -40,9 +40,9 @@ export default function ChildAccountList({ path: string }) {
     navigate("/dashboard/my-account/child-account");
   };
 
-  const childDetails = () => {
-    navigate("/dashboard/my-account/child-account-details");
-  };
+  // const childDetails = () => {
+  //   navigate("/dashboard/my-account/child-account-details");
+  // };
 
   useEffect(() => {
     getChildData()

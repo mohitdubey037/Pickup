@@ -17,7 +17,6 @@ import { imageUploadService } from "services/SingleShipmentServices";
 export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails} ) {
 
   const {userId} = singleCompanyDetails;
-  console.log(userId);
 
   const changeHandler = async (e) => {
     const formData = new FormData();
