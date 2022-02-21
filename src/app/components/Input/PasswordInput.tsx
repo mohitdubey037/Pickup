@@ -65,7 +65,7 @@ const PasswordInput = ({
         style={{opacity: showPass ? 0.3 : 1}}
       /> */}
       <VisibilityBox onClick={() => setShowPass(!showPass)}>
-        {showPass ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
+        {showPass ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
       </VisibilityBox>
       {validate && (
         <PasswordValidate isOpen={!!value?.length && open} input={value} />
