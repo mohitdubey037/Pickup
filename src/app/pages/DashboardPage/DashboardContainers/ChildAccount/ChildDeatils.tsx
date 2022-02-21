@@ -39,9 +39,9 @@ export default function ChildDetails({ singleCompanyDetails, saveAction }){
           <EditIcon onClick={() => setDrawerOpen(true)} />
         </Box>
         <FlexBox justifyContent="space-between">
-          <Box mr={4}>
+          {/* <Box mr={4}>
             <Avatar src="" style={{ width: 86, height: 86 }} />
-          </Box>
+          </Box> */}
           <FlexGrid>
             <Grid container spacing={2}>
             {Object.keys(companyFormDatails).map(key=>

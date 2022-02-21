@@ -30,10 +30,12 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     errors,
     handleBlur,
     handleSubmit,
+    setFieldValue,
     isValid,
     validateForm
   } = useFormik({
     initialValues: {
+        profileImage: singleCompanyDetails.profileImage || "",
         companyId: singleCompanyDetails.companyId,
         companyName: singleCompanyDetails.companyName || "",
         businessNumber: singleCompanyDetails.businessNumber || "",
@@ -53,12 +55,16 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     },
   });
 
-  const childAccountForm = values;
-
   return (
     <>
       <form>
+
         <GridContainer container spacing={2}>
+
+          {/* <Grid item xs={12}> */}
+            
+          {/* </Grid> */}
+
           <Grid item xs={12}>
             <Input
               id="CompanyName"
@@ -176,6 +182,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
                 secondary
                 label="Cancel"
                 size="medium"
+                onClick={handleCloseDrawer}
                 />
                 <Button
                 label="Save"

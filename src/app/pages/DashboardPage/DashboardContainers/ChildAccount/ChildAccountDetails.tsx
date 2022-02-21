@@ -20,7 +20,6 @@ export default function ChildAccountDetails(props: any) {
   }
 
   useEffect(() => {
-    console.log('hyyyyyyyyyyyyy');
     if (id) {
       fetchDetailById()
     }
@@ -32,7 +31,7 @@ export default function ChildAccountDetails(props: any) {
       <H2 title="Company Profile" />
           <ChildDetails saveAction={() => fetchDetailById()} singleCompanyDetails={companyDetails}/>
           <SuperintendentDetails singleCompanyDetails = {companyDetails} saveAction={() => fetchDetailById()} />
-          <CardsDetails />
+          <CardsDetails cardDetails = {companyDetails} />
     </ModuleContainer>
   );
 }

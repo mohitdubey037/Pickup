@@ -7,13 +7,41 @@ import { Button } from "app/components/Buttons";
 import { editChildAccountSchema } from "./ChildAccountSchema";
 import { editSuperindedentData } from "./helper";
 import { useFormik } from "formik";
+import { Avatar, Box } from "@material-ui/core";
+import EditAvatar from "app/components/Avatar/EditAvatar";
+import { showToast } from "utils";
+import { IMAGE_FILE_TYPES } from "../../../../../constants";
 import { editSuperIndendentAccountData } from "services/ChildAccount";
+import { imageUploadService } from "services/SingleShipmentServices";
 
 export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails} ) {
 
   console.log(singleCompanyDetails)
 
   const companyId = singleCompanyDetails.companyId;
+
+  const changeHandler = async (e) => {
+    console.log('hiii');
+    const formData = new FormData();
+    const image = e?.target?.files[0];
+    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
+      showToast(
+        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
+        "error"
+      );
+      return;
+    }
+    formData.append("document", image, image?.name);
+    const res: { response: any; error: any } = await imageUploadService(
+      formData
+    );
+    console.log(res);
+    if (res.error) {
+      showToast(res.error.message, "error");
+    } else {
+      setFieldValue("companyProfileImage", res?.response?.data?.data || "");
+    }
+  };
 
   const handleEditSuperindendentAccount = async (values) => {
     values["hstNumber"] = "12345"
@@ -30,12 +58,14 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     values,
     touched,
     errors,
+    setFieldValue,
     handleBlur,
     handleSubmit,
     isValid,
     validateForm
   } = useFormik({
     initialValues: {
+        companyProfileImage: singleCompanyDetails?.profileImage || "",
         firstName: singleCompanyDetails.firstName,
         lastName: singleCompanyDetails.firstName || "",
         phoneNo: singleCompanyDetails.phoneNo || "",
@@ -49,14 +79,13 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
       handleEditSuperindendentAccount(values);
     },
   });
-
-  const editSuperindendent = values;
-  const editSuperindendentTouched = touched;
-  const editSuperindendentError = errors;
   
   return (
     <>
         <form>
+        <Box display="flex" justifyContent="center" mb={5}>
+          <EditAvatar icon={values?.companyProfileImage} changeHandler={changeHandler} />
+        </Box>
         <GridContainer container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Input
@@ -119,6 +148,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 secondary
                 label="Cancel"
                 size="medium"
+                onClick={handleCloseDrawer}
                 />
                 <Button
                 label="Save"

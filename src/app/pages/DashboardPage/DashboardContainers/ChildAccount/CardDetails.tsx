@@ -8,11 +8,14 @@ import { useSelector } from "react-redux";
 
 
 
-const CardsDetails: FC = () => {
-  const paymentCards = useSelector(
-    (state: { paymentCard: { paymentCardsData } }) =>
-        state.paymentCard.paymentCardsData
-);
+const CardsDetails = ({cardDetails}) => {
+//   const paymentCards = useSelector(
+//     (state: { paymentCard: { paymentCardsData } }) =>
+//         state.paymentCard.paymentCardsData
+// );
+
+console.log(cardDetails);
+
   return (
         <> <FullCard>
         <Box mb={4} display="flex" justifyContent="space-between">
@@ -20,7 +23,7 @@ const CardsDetails: FC = () => {
           </Box>
             <Grid container spacing={2}>
             {
-            paymentCards?.card?.map((value, idx) => (
+              cardDetails?.cardlist?.map((value, idx) => (
                 <PaymentCard
                 // key={idx}
                 cardData={value}
