@@ -2,11 +2,9 @@ import React,{useEffect, useState} from "react";
 import { Box, Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { RouteComponentProps } from "@reach/router";
-import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
 import {ChildAccountSchema} from "./ChildAccountSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
+import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 
 export default function ChildAccountForm({formik}:{formik: any}){
 
@@ -14,17 +12,67 @@ export default function ChildAccountForm({formik}:{formik: any}){
     handleChange(event);
   };
 
-  const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
+  const { handleChange, values, errors, touched, handleBlur, setFieldValue, onSelect } =
     formik;
+
+    const handler = (value) => {
+      console.log(value);
+      let temp = {};
+      if (
+        value?.location?.displayPosition?.longitude &&
+        value?.location?.displayPosition?.latitude
+      ) {
+        temp[`longitude`] =
+          value?.location?.displayPosition?.longitude || "";
+        temp[`latitude`] =
+          value?.location?.displayPosition?.latitude || "";
+        temp[`country`] = value?.location?.address?.country || "";
+        temp[`province`] =
+          value?.location?.address?.state ||
+          value?.location?.address?.county ||
+          "";
+        temp[`city`] = value?.location?.address?.city || "";
+        temp[`postalCode`] = value?.location?.address?.postalCode || "";
+        temp[`addressLine1`] = value?.location?.address?.label || "";
+        temp[`addressLine2`] = value?.location?.address?.street || "";
+      } else {
+        temp[`longitude`] = "";
+        temp[`latitude`] = "";
+        temp[`country`] = "";
+        temp[`province`] = "";
+        temp[`city`] = "";
+        temp[`pincode`] = "";
+        temp[`addressLine2`] = "";
+      }
+
+      console.log(temp);
+  
+      let updatedOrders = {...temp};
+      // updatedOrders[index] = {
+      //   ...updatedOrders[index],
+      //   ...temp,
+      // };
+  
+      // if (canBeDisabled) {
+      //   sameDetails &&
+      //     sameDetails[`hasSame${ADD_TYPE[title]}`].forEach((item) => {
+      //       updatedOrders[item] = {
+      //         ...updatedOrders[item],
+      //         ...temp,
+      //       };
+      //     });
+      // }
+      setFieldValue(updatedOrders);
+      console.log('hii');
+    };
+
+    useEffect(() => {
+      console.log(values);
+    },[values])
 
   const childAccountForm = values;
   const childAccountFormTouched = touched;
   const childAccountFormError = errors;
-
-  // useEffect(() => {
-  //   console.log(childAccountForm);
-  // },[childAccountForm])
-
 
   return (
     <Box mt={4}>
@@ -35,7 +83,6 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 id="CompanyName"
                 name="companyName"
                 onBlur={handleBlur}
-                // onChange={handleChange}
                 value = {childAccountForm.companyName}
                 onChange={(e) => onChangeHandler(e, `companyName`)}
                 error={childAccountFormTouched.companyName && childAccountFormError.companyName}
@@ -48,7 +95,6 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 id="BusinessNumber"
                 name="businessNumber"
                 onBlur={handleBlur}
-                // onChange={handleChange}
                 value = {childAccountForm.businessNumber}
                 onChange={(e) => onChangeHandler(e, `businessNumber`)}
                 error={childAccountFormTouched.businessNumber && childAccountFormError.businessNumber}
@@ -61,7 +107,6 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 id="Industry"
                 name="industry"
                 onBlur={handleBlur}
-                // onChange={handleChange}
                 value = {childAccountForm.industry}
                 onChange={(e) => onChangeHandler(e, `industry`)}
                 error={childAccountFormTouched.industry && childAccountFormError.industry}
@@ -74,7 +119,6 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 id="Employee"
                 name="employeeStrength"
                 onBlur={handleBlur}
-                // onChange={handleChange}
                 value = {childAccountForm.employeeStrength}
                 onChange={(e) => onChangeHandler(e, `employeeStrength`)}
                 error={childAccountFormTouched.employeeStrength && childAccountFormError.employeeStrength}
@@ -83,7 +127,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
               />
             </Grid>
             <Grid item xs={12} lg={6}>
-              <Input
+              {/* <Input
                 id="AddressLine1"
                 name="addressLine1"
                 onBlur={handleBlur}
@@ -93,14 +137,28 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 error={childAccountFormTouched.address1 && childAccountFormError.address1}
                 label={"Address Line 1"}
                 placeholder={"123 Address Street"}
-              />
+                onSelect={handler}
+              /> */}
+              <AutoComplete
+                  initValue={childAccountForm.address1}
+                  id="AddressLine1"
+                  name="addressLine1"
+                  label={"Address Line 1"}
+                  value = {childAccountForm.address1}
+                  error={childAccountFormTouched.address1 && childAccountFormError.address1}
+                  onChange={(e) => onChangeHandler(e, `addressLine1`)}
+                  placeholder={"123 Address Street"}
+                  setFieldValue={setFieldValue}
+                  handleBlur={handleBlur}
+                  onSelect={handler}
+                  disabled={false}
+                />
             </Grid>
             <Grid item xs={12} lg={6}>
               <Input
                 id="AddressLine2"
                 name="addressLine2"
                 onBlur={handleBlur}
-                // onChange={handleChange}
                 value = {childAccountForm.address2}
                 onChange={(e) => onChangeHandler(e, `addressLine2`)}
                 error={childAccountFormTouched.address2 && childAccountFormError.address2}
@@ -113,7 +171,6 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 id="Pincode"
                 name="pincode"
                 onBlur={handleBlur}
-                // onChange={handleChange}
                 value = {childAccountForm.pincode}
                 onChange={(e) => onChangeHandler(e, `pinCode`)}
                 error={childAccountFormTouched.pincode && childAccountFormError.pincode}

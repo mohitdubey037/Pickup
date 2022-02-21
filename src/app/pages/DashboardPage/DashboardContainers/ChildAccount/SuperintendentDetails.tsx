@@ -8,13 +8,14 @@ import {
   Para,
   H4,
 } from "app/components/Typography/Typography";
+import { companyDetailsSchema } from "app/pages/AuthScreens/SignUpScreens/signUpSchemas";
 import { useState } from "react";
 import { FlexGrid } from "../CompanyProfileContainer/style";
 import EditSuperintendentDetailsForm from "./EditSuperintendentDetailsForm";
-import { companyDetails } from "./type";
 
 
 export default function SuperintendentDetails({ singleCompanyDetails, saveAction }) {
+  
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const companyFormDatails={
@@ -43,14 +44,27 @@ export default function SuperintendentDetails({ singleCompanyDetails, saveAction
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              {Object.keys(companyFormDatails).map(key=> 
+              {Object.keys(companyFormDatails).map(key=> {
+                return (
                 <Grid item lg={2} sm={4} xs={12}>
                   <Para text={companyFormDatails[key]} />
                   <H4
-                    text={singleCompanyDetails[key]}
+                    text={
+                      singleCompanyDetails[key] === 1 ? "Executive" 
+                      : 
+                      singleCompanyDetails[key] === 2 ? "SuperIndendent" 
+                      :
+                      singleCompanyDetails[key] === 3 ? "Manager" 
+                      : 
+                      singleCompanyDetails[key] === 4 ? "Admin" 
+                      :
+                      singleCompanyDetails[key]
+                    }
                     className="value"
                   />
                 </Grid>
+                )
+              }
                 )}              
             </Grid>
           </FlexGrid>

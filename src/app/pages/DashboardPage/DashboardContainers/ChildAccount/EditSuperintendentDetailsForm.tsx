@@ -21,7 +21,6 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
   const companyId = singleCompanyDetails.companyId;
 
   const changeHandler = async (e) => {
-    console.log('hiii');
     const formData = new FormData();
     const image = e?.target?.files[0];
     if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
@@ -70,12 +69,14 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
         lastName: singleCompanyDetails.firstName || "",
         phoneNo: singleCompanyDetails.phoneNo || "",
         employeeStrength: singleCompanyDetails.employessStrength || "",
-        roleId: singleCompanyDetails.type === 2 ? 'Manager' : "",
+        roleId: singleCompanyDetails.type === 1 ? 'Executive' : 
+        singleCompanyDetails.type === 2 ? 'SuperIndendent' :
+        singleCompanyDetails.type === 3 ? 'Manager' : 
+        singleCompanyDetails.type === 4 ? 'Admin' : "",
         emailId: singleCompanyDetails.emailId || ""
     },
     validationSchema: editChildAccountSchema,
     onSubmit: () =>  {
-      console.log(values);
       handleEditSuperindendentAccount(values);
     },
   });

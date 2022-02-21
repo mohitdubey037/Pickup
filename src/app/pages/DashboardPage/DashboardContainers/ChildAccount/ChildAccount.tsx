@@ -10,7 +10,7 @@ import { Button } from "app/components/Buttons";
 // import { actions } from "store/reducers/PaymentReducer";
 import { actions } from 'store/reducers/ChildAccountReducer';
 import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
-import { ChildInitValues } from './helper';
+import { ChildInitValues, childNewInitValue } from './helper';
 import { ChildAccountSchema } from './ChildAccountSchema';
 import { globalActions } from "store/reducers/GlobalReducer";
 import EmailSentDrawer from "app/components/EmailSentDrawer/EmailSentDrawer";
@@ -26,7 +26,7 @@ const loading = useSelector((state: { globalState: { showLoader } }) => {
 });
 
 const formik = useFormik({
-  initialValues: ChildInitValues,
+  initialValues: childNewInitValue,
   validate: (values: any) => {
     try {
       validateYupSchema(values, ChildAccountSchema, true, values);
@@ -48,11 +48,6 @@ const handleCloseDrawer  = () => {
   // formik.initialValues=ChildInitValues,
   setEmailSentDrawerOpen(false);
 };
-
-// const childAccountDetails = useSelector(state => {
-//   return state.childAccountDetails;
-// }
-// )
 
 const handleSubmit = () => {
   setEmailSentDrawerOpen(false);
@@ -79,14 +74,6 @@ useEffect(() => {
 useEffect(() => {
   (() => formik.validateForm())();
 }, []);
-
-// useEffect(() => {
-//   console.log(formik);
-// })
-
-// const handleConfirm = async (values: object) => {
-//   postChildAccountData(values);
-// }
 
   return (
     <ModuleContainer>

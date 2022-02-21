@@ -49,7 +49,34 @@ export const editSuperindedentData = {
     emailId: '',
 }
 
-// export const editSuperindendent
+export const childNewInitValue = {
+    latitude: "",
+    longitude: "",
+    LocationType: 1,
+    companyName: "",
+    businessNumber: '',
+    employeeStrength: '',
+    industry: '',
+    addressLine1: "",
+    addressLine2: "",
+    pincode: "",
+    province: "",
+    city: "",
+    country: "",
+
+    firstName: "",
+    lastName: "",
+    roleId: '',
+    phoneNumber: "",
+    emailId: "",
+
+    name: '',
+    number: '',
+    expiryDate: '',
+    expiryMonth: '',
+    expiryYear: '',
+    cvd: '',
+};
 
 const getChildCompany = (
     companyName: string,
