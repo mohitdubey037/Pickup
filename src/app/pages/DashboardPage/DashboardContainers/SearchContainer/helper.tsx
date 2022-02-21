@@ -22,12 +22,18 @@ export const getSearchOrderData = (
   if (searchRecordData && searchRecordData.length) {
     searchRecordData.forEach((item: any) => {
       makeTableData.push({
-        Source: item.type,
-        "Invoice Id": getInvoiceIdItem(openOrderDrawer, item.invoiceId),
-        "Order Id": getOrderIdItem(openOrderDrawer, item.orderId),
-        "Order Date": moment(item.shippingDate).format("DD/MM/YYYY"),
-        Status: item.status ? item.status : "-",
-        "Order Cost": `$${item.total.toFixed(2)}`,
+        Source: item.type ? item.type : "N/A",
+        "Invoice Id": item.invoiceId
+          ? getInvoiceIdItem(openOrderDrawer, item.invoiceId)
+          : "N/A",
+        "Order Id": item.orderId
+          ? getOrderIdItem(openOrderDrawer, item.orderId)
+          : "N/A",
+        "Order Date": item.shippingDate
+          ? moment(item.shippingDate).format("DD/MM/YYYY")
+          : "N/A",
+        Status: item.status ? item.status : "N/A",
+        "Order Cost": item.total ? `$${item.total.toFixed(2)}` : "N/A",
       });
     });
   }
