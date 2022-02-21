@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { navigate } from "@reach/router";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Box } from "@mui/material";
 import { Grid } from "@material-ui/core";
@@ -18,6 +19,7 @@ import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
 import {
   getHoldingShipmentsService,
+  scheduleShipmentService,
   deleteShipmentService,
 } from "services/HoldingService";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
@@ -36,6 +38,10 @@ const initialValues = {
 
 const OnHoldShipmentContainer = ({ path: string }) => {
   const dispatch = useDispatch();
+
+  const orderIds = useSelector((state: { singleShipment: { orderIds } }) => {
+    return state.singleShipment.orderIds;
+  });
 
   const [loading, setLoading] = useState<boolean>(true);
   const [onHoldOrderData, setOnHoldOrderData] = useState<any>([]);
@@ -65,7 +71,9 @@ const OnHoldShipmentContainer = ({ path: string }) => {
   };
 
   const openOnHoldDrawer = (id: any, type: any) => {
-    setSelectedOrderId(id);
+    if (drawerType !== "scheduleSelectedOrders") {
+      setSelectedOrderId(id);
+    }
     setDrawerType(type);
     setDrawerOpen(true);
   };
@@ -82,6 +90,31 @@ const OnHoldShipmentContainer = ({ path: string }) => {
         "success"
       );
       getOnHoldOrderListData();
+    } else {
+      showToast(`Something went wrong`, "error");
+    }
+  };
+
+  const scheduleSelectedOrders = async (values) => {
+    let orderIds: any = [];
+    if (drawerType === "scheduleSelectedOrders") {
+      orderIds = onHoldOrderData
+        .filter((_, idx) => selectedRows.includes(idx))
+        .map((item) => item.orderId);
+    } else {
+      orderIds = [selectedOrderId];
+    }
+    const data = {
+      ...values,
+      shipment: orderIds,
+    };
+    const res = (await scheduleShipmentService(data)) as any;
+    if (res.error === null) {
+      showToast(
+        `Your order's schedule has been successfully updated`,
+        "success"
+      );
+      dispatch(singleActions.setShipmentOrderIds(orderIds));
     } else {
       showToast(`Something went wrong`, "error");
     }
@@ -104,11 +137,18 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             label="Schedule"
             disabled={selectedRows.length === 0}
             size="medium"
+            onClick={() => openOnHoldDrawer("", "scheduleSelectedOrders")}
           />
         </Box>
       </SearchTableTop>
     );
   };
+
+  useEffect(() => {
+    if (orderIds?.length > 0) {
+      navigate("/dashboard/charter-shipment/order-summary");
+    }
+  }, [orderIds]);
 
   useEffect(() => {
     dispatch(singleActions.resetSingleShipment());
@@ -124,7 +164,12 @@ const OnHoldShipmentContainer = ({ path: string }) => {
       rest = values !== undefined ? values : prevValues;
     let params: any = {
       ...rest,
-      page: page !== undefined ? page + 1 : pagination.page + 1,
+      page:
+        values !== undefined
+          ? 1
+          : page !== undefined
+          ? page + 1
+          : pagination.page + 1,
       chunk: 10,
       sortingField: sort !== undefined ? sort.field : sorting.field,
       sortingType: sort !== undefined ? sort.type : sorting.type,
@@ -178,7 +223,10 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     resetForm,
   } = useFormik({
     initialValues,
-    onSubmit: (values) => getOnHoldOrderListData(values),
+    onSubmit: (values) => {
+      setLoading(true);
+      getOnHoldOrderListData(values);
+    },
   });
 
   return (
@@ -266,12 +314,14 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             orderId={selectedOrderId}
             setDrawerOpen={setDrawerOpen}
           />
-        ) : (
+        ) : drawerType === "scheduleOrder" ||
+          drawerType === "scheduleSelectedOrders" ? (
           <ScheduleShipmentsDrawer
-            handleSubmit={() => {}}
+            handleSchedule={scheduleSelectedOrders}
             setDrawerOpen={setDrawerOpen}
-            submitButtonLabel={"Save"}
           />
+        ) : (
+          <></>
         )}
       </Drawer>
     </ModuleContainer>
