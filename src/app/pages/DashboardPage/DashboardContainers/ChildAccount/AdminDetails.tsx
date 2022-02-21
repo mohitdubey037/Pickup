@@ -1,24 +1,13 @@
 import React, { useEffect } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { Input } from "app/components/Input";
-import { FormWrapper } from "app/components/Input/style";
-import { RouteComponentProps } from "@reach/router";
-import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
 import AdminDetailsSchema from "./AdminDetailsSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Box } from "@mui/material";
 
-import {
-  LOCATION_TYPES,
-  BILLING_TYPES,
-  PIN_CODE_MASK,
-  PHONE_NO_MASK,
-} from "../../../../../constants";
+import {PHONE_NO_MASK} from "../../../../../constants";
 
 export default function AdminDetails({formik}:{formik: any}){
-  const dispatch = useDispatch();
-  const Confirm = () => {};
 
   const onChangeHandler = (event: any, name: string) => {
     handleChange(event);
@@ -43,7 +32,6 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="FirstName"
                 name="firstName"
                 onBlur={handleBlur}
-                // onChange={handleChange}
                 value={AdminDetailsForm.firstName}
                 onChange={(e) => onChangeHandler(e, `firstName`)}
                 error={AdminDetailsFormTouched.firstName && AdminDetailsFormError.firstName}
@@ -56,7 +44,6 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="LastName"
                 name="lastName"
                 onBlur={handleBlur}
-                // onChange={handleChange}
                 value={AdminDetailsForm.lastName}
                 onChange={(e) => onChangeHandler(e, `lastName`)}
                 error={AdminDetailsFormTouched.lastName && AdminDetailsFormError.lastName}
@@ -69,7 +56,6 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="PhoneNumber"
                 name="phoneNumber"
                 onBlur={handleBlur}
-                // onChange={handleChange}
                 value={AdminDetailsForm.phoneNumber}
                 onChange={(e) => onChangeHandler(e, `phoneNumber`)}
                 error={AdminDetailsFormTouched.phoneNumber && AdminDetailsFormError.phoneNumber}
@@ -82,11 +68,10 @@ export default function AdminDetails({formik}:{formik: any}){
             <Grid item xs={12} sm={4} lg={3}>
               <Input
                 id="Role"
-                name="roleId"
+                name="roleDesignation"
                 onBlur={handleBlur}
                 value={AdminDetailsForm.role}
-                onChange={(e) => onChangeHandler(e, `roleId`)}
-                // onChange={handleChange}
+                onChange={(e) => onChangeHandler(e, `roleDesignation`)}
                 error={AdminDetailsFormTouched.role && AdminDetailsFormError.role}
                 label={"Role/Designation"}
                 placeholder={"eg. Manager"}
@@ -99,7 +84,6 @@ export default function AdminDetails({formik}:{formik: any}){
                 onBlur={handleBlur}
                 value={AdminDetailsForm.emailId}
                 onChange={(e) => onChangeHandler(e, `emailId`)}
-                // onChange={handleChange}
                 error={AdminDetailsFormTouched.emailId && AdminDetailsFormError.emailId}
                 label={"Email id"}
                 placeholder={"johndoe@gmail.com"}

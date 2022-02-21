@@ -50,7 +50,6 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     },
     validationSchema: editChildAccountSchema,
     onSubmit: () =>  {
-      console.log(values);
       handleEditChildAccount(values);
     },
   });

@@ -21,8 +21,8 @@ export default function SuperintendentDetails({ singleCompanyDetails, saveAction
   const companyFormDatails={
     firstName: 'First Name',
     lastName: 'Last Name',
-    phoneNo: "Phone Number",
-    type : "Role",
+    phoneNumber: "Phone Number",
+    roleDesignation : "Role/Designation",
     emailId: 'Email Id'
   }
 
@@ -48,18 +48,7 @@ export default function SuperintendentDetails({ singleCompanyDetails, saveAction
                 return (
                 <Grid item lg={2} sm={4} xs={12}>
                   <Para text={companyFormDatails[key]} />
-                  <H4
-                    text={
-                      singleCompanyDetails[key] === 1 ? "Executive" 
-                      : 
-                      singleCompanyDetails[key] === 2 ? "SuperIndendent" 
-                      :
-                      singleCompanyDetails[key] === 3 ? "Manager" 
-                      : 
-                      singleCompanyDetails[key] === 4 ? "Admin" 
-                      :
-                      singleCompanyDetails[key]
-                    }
+                  <H4 text={singleCompanyDetails[key]}
                     className="value"
                   />
                 </Grid>

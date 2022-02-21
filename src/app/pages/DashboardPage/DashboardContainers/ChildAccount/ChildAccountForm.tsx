@@ -64,8 +64,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
     useEffect(() => {
       console.log(values);
     },[values])
-
-  const childAccountForm = values;
+    
   const childAccountFormTouched = touched;
   const childAccountFormError = errors;
 
@@ -122,18 +121,6 @@ export default function ChildAccountForm({formik}:{formik: any}){
               />
             </Grid>
             <Grid item xs={12} lg={6}>
-              {/* <Input
-                id="AddressLine1"
-                name="addressLine1"
-                onBlur={handleBlur}
-                // onChange={handleChange}
-                initValue = {values.address1}
-                onChange={(e) => onChangeHandler(e, `addressLine1`)}
-                error={childAccountFormTouched.address1 && childAccountFormError.address1}
-                label={"Address Line 1"}
-                placeholder={"123 Address Street"}
-                onSelect={handler}
-              /> */}
               <AutoComplete
                   id="AddressLine1"
                   name="addressLine1"

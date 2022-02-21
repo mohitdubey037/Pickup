@@ -66,7 +66,8 @@ export const childNewInitValue = {
 
     firstName: "",
     lastName: "",
-    roleId: '',
+    roleId: 2,
+    roleDesignation: '',
     phoneNumber: "",
     emailId: "",
 

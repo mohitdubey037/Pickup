@@ -4,7 +4,7 @@ import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { DrawerFooter } from "app/components/Drawer/style";
 import { Button } from "app/components/Buttons";
-import { editChildAccountSchema } from "./ChildAccountSchema";
+import { editSuperindedentDataSchema } from "./ChildAccountSchema";
 import { editSuperindedentData } from "./helper";
 import { useFormik } from "formik";
 import { Avatar, Box } from "@material-ui/core";
@@ -16,9 +16,7 @@ import { imageUploadService } from "services/SingleShipmentServices";
 
 export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails} ) {
 
-  console.log(singleCompanyDetails)
-
-  const companyId = singleCompanyDetails.companyId;
+  const {userId} = singleCompanyDetails;
 
   const changeHandler = async (e) => {
     const formData = new FormData();
@@ -34,7 +32,6 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     const res: { response: any; error: any } = await imageUploadService(
       formData
     );
-    console.log(res);
     if (res.error) {
       showToast(res.error.message, "error");
     } else {
@@ -44,7 +41,8 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
 
   const handleEditSuperindendentAccount = async (values) => {
     values["hstNumber"] = "12345"
-    const res = await editSuperIndendentAccountData(values, companyId);
+    console.log(values);
+    const res = await editSuperIndendentAccountData(values, userId);
     console.log(res);
     if (res.success) {
       handleCloseDrawer()
@@ -65,18 +63,15 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
   } = useFormik({
     initialValues: {
         companyProfileImage: singleCompanyDetails?.profileImage || "",
-        firstName: singleCompanyDetails.firstName,
-        lastName: singleCompanyDetails.firstName || "",
-        phoneNo: singleCompanyDetails.phoneNo || "",
-        employeeStrength: singleCompanyDetails.employessStrength || "",
-        roleId: singleCompanyDetails.type === 1 ? 'Executive' : 
-        singleCompanyDetails.type === 2 ? 'SuperIndendent' :
-        singleCompanyDetails.type === 3 ? 'Manager' : 
-        singleCompanyDetails.type === 4 ? 'Admin' : "",
+        firstName: singleCompanyDetails.firstName || "",
+        lastName: singleCompanyDetails.lastName || "",
+        phoneNumber: singleCompanyDetails.phoneNumber || "",
+        roleDesignation: singleCompanyDetails.roleDesignation || "",
         emailId: singleCompanyDetails.emailId || ""
     },
-    validationSchema: editChildAccountSchema,
+    validationSchema: editSuperindedentDataSchema,
     onSubmit: () =>  {
+      console.log('hii 3')
       handleEditSuperindendentAccount(values);
     },
   });
@@ -113,22 +108,22 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
             <Grid item xs={12}>
               <Input
                 id="PhoneNumber"
-                name="phoneNo"
+                name="phoneNumber"
                 label={"Phone Number"}
-                initValue={values?.phoneNo}
+                initValue={values?.phoneNumber}
                 onChange={handleChange}
-                error={touched.phoneNo && errors?.phoneNo}
+                error={touched.phoneNumber && errors?.phoneNumber}
                 placeholder={"+1 (999)-999-9999"}
               />
             </Grid>
             <Grid item xs={12}>
               <Input
                 id="Role"
-                name="roleId"
+                name="roleDesignation"
                 label={"Role/Designation"}
-                initValue={values?.roleId}
+                initValue={values?.roleDesignation}
                 onChange={handleChange}
-                error={touched.roleId && errors?.roleId}
+                error={touched.roleDesignation && errors?.roleDesignation}
                 placeholder={"eg. Manager"}
               />
             </Grid>

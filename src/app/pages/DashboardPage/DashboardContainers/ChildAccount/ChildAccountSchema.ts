@@ -73,10 +73,10 @@ export const ChildAccountSchema = yup.object().shape({
     country: yup.string().required("Country is a required field"),
   });
 
-  export const editSuperindedentData = yup.object().shape({
+  export const editSuperindedentDataSchema = yup.object().shape({
     firstName:yup.string().required('First Name is required field'),
     lastName:yup.string().required('Last Name is required field'),
     phoneNumber: yup.string().required('Phone Number is required field').matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Contact Number"),
-    roleId: yup.string().required('Role is required field'),
+    roleDesignation: yup.string().required('Role is required field'),
     emailId: yup.string().required('EmailId is required field').email("Please enter valid email"),
   });
