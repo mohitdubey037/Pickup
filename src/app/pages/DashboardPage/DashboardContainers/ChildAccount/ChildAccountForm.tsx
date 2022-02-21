@@ -49,11 +49,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
         temp[`addressLine2`] = "";
       }
 
-      console.log(temp);
-
       let updatedOrders = {...temp};
-      
-      setFieldValue('province', updatedOrders['province']);
 
       Object.keys(updatedOrders).forEach((key) => {
       console.log(key, updatedOrders[key]);

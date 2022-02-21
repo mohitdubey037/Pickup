@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { editChildAccountSchema } from "./ChildAccountSchema";
 import { editChildAccountData } from "services/ChildAccount";
 import { editChildAccountProps } from "./type";
+import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 
 export default function EditChildAccountForm({saveAction, handleCloseDrawer, singleCompanyDetails} ) {
 
@@ -22,6 +23,44 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
       saveAction()
     }
   }
+
+  const handler = (value) => {
+    console.log(value);
+    let temp = {};
+    if (
+      value?.location?.displayPosition?.longitude &&
+      value?.location?.displayPosition?.latitude
+    ) {
+      temp[`longitude`] =
+        value?.location?.displayPosition?.longitude || "";
+      temp[`latitude`] =
+        value?.location?.displayPosition?.latitude || "";
+      temp[`country`] = value?.location?.address?.country || "";
+      temp[`province`] =
+        value?.location?.address?.state ||
+        value?.location?.address?.county ||
+        "";
+      temp[`city`] = value?.location?.address?.city || "";
+      temp[`pincode`] = value?.location?.address?.postalCode || "";
+      temp[`addressLine1`] = value?.location?.address?.label || "";
+      temp[`addressLine2`] = value?.location?.address?.street || "";
+    } else {
+      temp[`longitude`] = "";
+      temp[`latitude`] = "";
+      temp[`country`] = "";
+      temp[`province`] = "";
+      temp[`city`] = "";
+      temp[`pincode`] = "";
+      temp[`addressLine2`] = "";
+    }
+
+    let updatedOrders = {...temp};
+
+    Object.keys(updatedOrders).forEach((key) => {
+    console.log(key, updatedOrders[key]);
+    setFieldValue(key, updatedOrders[key]);
+    })
+  };
 
   const {
     handleChange,
@@ -109,7 +148,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
             />
           </Grid>
           <Grid item xs={12}>
-            <Input
+            {/* <Input
               id="AddressLine1"
               name="addressLine1"
               initValue={values.addressLine1}
@@ -117,6 +156,20 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.addressLine1 && errors?.addressLine1}
               label={"Address Line 1"}
               placeholder={"123 Address Street"}
+            /> */}
+            <AutoComplete
+              id="addressLine1"
+              name="addressLine1"
+              label={"Address Line 1"}
+              value={values.addressLine1}
+              error={touched.addressLine1 && errors?.addressLine1?.toString()}
+              placeholder={"123 Address Street"}
+              setFieldValue={setFieldValue}
+              onChange={handleChange}
+              handleBlur={handleBlur}
+              onSelect={handler}
+              initValue={values.addressLine1}
+              disabled={undefined}
             />
           </Grid>
           <Grid item xs={12}>
