@@ -9,6 +9,6 @@ export interface inputProps {
 
 export interface editChildAccountProps {
     handleCloseDrawer: () => void
-    singleCompanyDetails: object
+    singleCompanyDetails: any
     saveAction: () => void
 }

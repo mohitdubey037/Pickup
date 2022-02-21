@@ -13,8 +13,9 @@ import { showToast } from "utils";
 import { IMAGE_FILE_TYPES } from "../../../../../constants";
 import { editSuperIndendentAccountData } from "services/ChildAccount";
 import { imageUploadService } from "services/SingleShipmentServices";
+import { editChildAccountProps } from "./type";
 
-export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails} ) {
+export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
   const {userId} = singleCompanyDetails;
 

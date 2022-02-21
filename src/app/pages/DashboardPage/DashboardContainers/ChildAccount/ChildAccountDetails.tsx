@@ -6,6 +6,8 @@ import SuperintendentDetails from "./SuperintendentDetails";
 import CardsDetails from "./CardDetails";
 import { fetchChildAccountById } from "services/ChildAccount";
 import CompanyDetailsSkeleton from "../CompanyProfileContainer/CompanyDetailsSkeleton";
+import AdminDetailsSkeleton from "../CompanyProfileContainer/AdminDetailsSkeleton";
+import PaymentCardSkeleton from "app/components/PaymentCard/PaymentCardSkeleton";
 
 export default function ChildAccountDetails(props: any) {
   const {id} = props;
@@ -30,7 +32,11 @@ export default function ChildAccountDetails(props: any) {
   return (
     <ModuleContainer>
       {loading ? (
+        <>
         <CompanyDetailsSkeleton />
+        <AdminDetailsSkeleton />
+        <PaymentCardSkeleton />
+        </>
         ) : (
           <>
           <H2 title="Company Profile" />

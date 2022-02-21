@@ -7,9 +7,9 @@ import { H3, Para, H4 } from "app/components/Typography/Typography";
 import { useState } from "react";
 import { FlexGrid } from "../CompanyProfileContainer/style";
 import EditChildDetailsForm from "./EditChildDetailsForm";
-import {companyDetails } from "./type";
+import {companyDetails, inputProps } from "./type";
 
-export default function ChildDetails({ singleCompanyDetails, saveAction }){
+export default function ChildDetails({ singleCompanyDetails, saveAction }: inputProps){
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 

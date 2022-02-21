@@ -12,9 +12,10 @@ import { companyDetailsSchema } from "app/pages/AuthScreens/SignUpScreens/signUp
 import { useState } from "react";
 import { FlexGrid } from "../CompanyProfileContainer/style";
 import EditSuperintendentDetailsForm from "./EditSuperintendentDetailsForm";
+import { inputProps } from "./type";
 
 
-export default function SuperintendentDetails({ singleCompanyDetails, saveAction }) {
+export default function SuperintendentDetails({ singleCompanyDetails, saveAction }: inputProps) {
   
   const [drawerOpen, setDrawerOpen] = useState(false);
 

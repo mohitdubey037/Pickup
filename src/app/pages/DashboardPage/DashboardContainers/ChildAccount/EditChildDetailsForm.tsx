@@ -10,7 +10,7 @@ import { editChildAccountData } from "services/ChildAccount";
 import { editChildAccountProps } from "./type";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 
-export default function EditChildAccountForm({saveAction, handleCloseDrawer, singleCompanyDetails} ) {
+export default function EditChildAccountForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
   const companyId = singleCompanyDetails.companyId;
 
