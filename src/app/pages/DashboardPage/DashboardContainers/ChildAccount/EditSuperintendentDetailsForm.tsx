@@ -7,8 +7,23 @@ import { Button } from "app/components/Buttons";
 import { editChildAccountSchema } from "./ChildAccountSchema";
 import { editSuperindedentData } from "./helper";
 import { useFormik } from "formik";
+import { editSuperIndendentAccountData } from "services/ChildAccount";
 
-export default function EditSuperintendentDetailsForm() {
+export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails} ) {
+
+  console.log(singleCompanyDetails)
+
+  const companyId = singleCompanyDetails.companyId;
+
+  const handleEditSuperindendentAccount = async (values) => {
+    values["hstNumber"] = "12345"
+    const res = await editSuperIndendentAccountData(values, companyId);
+    console.log(res);
+    if (res.success) {
+      handleCloseDrawer()
+      saveAction()
+    }
+  }
 
   const {
     handleChange,
@@ -20,9 +35,19 @@ export default function EditSuperintendentDetailsForm() {
     isValid,
     validateForm
   } = useFormik({
-    initialValues: editSuperindedentData,
+    initialValues: {
+        firstName: singleCompanyDetails.firstName,
+        lastName: singleCompanyDetails.firstName || "",
+        phoneNo: singleCompanyDetails.phoneNo || "",
+        employeeStrength: singleCompanyDetails.employessStrength || "",
+        roleId: singleCompanyDetails.type === 2 ? 'Manager' : "",
+        emailId: singleCompanyDetails.emailId || ""
+    },
     validationSchema: editChildAccountSchema,
-    onSubmit: () =>  {console.log(values)},
+    onSubmit: () =>  {
+      console.log(values);
+      handleEditSuperindendentAccount(values);
+    },
   });
 
   const editSuperindendent = values;
@@ -38,9 +63,9 @@ export default function EditSuperintendentDetailsForm() {
                 id="FirstName"
                 name="firstName"
                 label={"First Name"}
-                value={editSuperindendent.firstName}
+                initValue={values?.firstName}
                 onChange={handleChange}
-                error={editSuperindendentTouched.firstName && editSuperindendentError.firstName}
+                error={touched.firstName && errors?.firstName}
                 placeholder={"John"}
               />
             </Grid>
@@ -49,20 +74,20 @@ export default function EditSuperintendentDetailsForm() {
                 id="LastName"
                 name="lastName"
                 label={"Last Name"}
-                value={editSuperindendent.lastName}
+                initValue={values?.lastName}
                 onChange={handleChange}
-                error={editSuperindendentTouched.lastName && editSuperindendentError.lastName}
+                error={touched.lastName && errors?.lastName}
                 placeholder={"Doe"}
               />
             </Grid>
             <Grid item xs={12}>
               <Input
                 id="PhoneNumber"
-                name="phoneNumber"
+                name="phoneNo"
                 label={"Phone Number"}
-                value={editSuperindendent.phoneNumber}
+                initValue={values?.phoneNo}
                 onChange={handleChange}
-                error={editSuperindendentTouched.phoneNumber && editSuperindendentError.phoneNumber}
+                error={touched.phoneNo && errors?.phoneNo}
                 placeholder={"+1 (999)-999-9999"}
               />
             </Grid>
@@ -71,9 +96,9 @@ export default function EditSuperintendentDetailsForm() {
                 id="Role"
                 name="roleId"
                 label={"Role/Designation"}
-                value={editSuperindendent.roleId}
+                initValue={values?.roleId}
                 onChange={handleChange}
-                error={editSuperindendentTouched.roleId && editSuperindendentError.roleId}
+                error={touched.roleId && errors?.roleId}
                 placeholder={"eg. Manager"}
               />
             </Grid>
@@ -82,9 +107,9 @@ export default function EditSuperintendentDetailsForm() {
                 id="Email"
                 name="emailId"
                 label={"Email id"}
-                value={editSuperindendent.emailId}
+                initValue={values?.emailId}
                 onChange={handleChange}
-                error={editSuperindendentTouched.emailId && editSuperindendentError.emailId}
+                error={touched.emailId && errors?.emailId}
                 placeholder={"johndoe@gmail.com"}
               />
             </Grid>
@@ -98,6 +123,7 @@ export default function EditSuperintendentDetailsForm() {
                 <Button
                 label="Save"
                 size="medium"
+                onClick={handleSubmit}
                 />
       </DrawerFooter>
         </form>

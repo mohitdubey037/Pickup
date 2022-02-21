@@ -31,7 +31,7 @@ export default function ChildAccountDetails(props: any) {
     <ModuleContainer>
       <H2 title="Company Profile" />
           <ChildDetails saveAction={() => fetchDetailById()} singleCompanyDetails={companyDetails}/>
-          <SuperintendentDetails singleCompanyDetails = {companyDetails} />
+          <SuperintendentDetails singleCompanyDetails = {companyDetails} saveAction={() => fetchDetailById()} />
           <CardsDetails />
     </ModuleContainer>
   );

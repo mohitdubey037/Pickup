@@ -51,7 +51,7 @@ export const postChildAccountData = async (body?: any) => {
       }
 }
 
-export const editChildAccountData = async (body?: any, childId?: any) => {
+export const editChildAccountData = async (body?: any, childId?: number) => {
   
   try {
       const response = await services.put(`/business/updateChildAccountDetails/${childId}`,body,'user_cr');
@@ -63,9 +63,9 @@ export const editChildAccountData = async (body?: any, childId?: any) => {
     }
 }
 
-export const editSuperIndendentAccountData = async (body?: any) => {
+export const editSuperIndendentAccountData = async (body?: any, childId?: number) => {
   try {
-      const response = await services.post('/busineess/updateChildAccountDetails/${body.companyId}',body,'user_cr');
+      const response = await services.post(`/busineess/updateChildAccountDetails/${childId}`,body,'user_cr');
       return {response: response, success: true };
   }
   catch (err) {

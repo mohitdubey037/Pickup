@@ -14,8 +14,9 @@ import EditSuperintendentDetailsForm from "./EditSuperintendentDetailsForm";
 import { companyDetails } from "./type";
 
 
-export default function SuperintendentDetails({singleCompanyDetails}: companyDetails) {
+export default function SuperintendentDetails({ singleCompanyDetails, saveAction }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
   const companyFormDatails={
     firstName: 'First Name',
     lastName: 'Last Name',
@@ -23,6 +24,12 @@ export default function SuperintendentDetails({singleCompanyDetails}: companyDet
     type : "Role",
     emailId: 'Email Id'
   }
+
+  const handleCloseDrawer = () => {
+    saveAction();
+    setDrawerOpen(false);
+  }
+
   return (
     <>
       <FullCard>
@@ -44,48 +51,7 @@ export default function SuperintendentDetails({singleCompanyDetails}: companyDet
                     className="value"
                   />
                 </Grid>
-                )}
-              {/* <Grid item lg={2} sm={4} xs={12}>
-                <Para text="First Name" />
-                <H4
-                  text="John"
-                  className="value"
-                />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Last Name" />
-                <H4
-                   text="Doe"
-                   className="value"
-                />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Phone Number" />
-                <H4
-                    text="+1 (321) 321 123"
-                    className="value"
-                />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Role/Designation" />
-                <H4
-                   text="Manager"
-                   className="value"
-                />
-              </Grid>
-
-              <Grid item lg={4} sm={4} xs={12}>
-                <Para text="Email id" />
-                <H4
-                  text="johndoe@gmail.com"
-                  className="value"
-                />
-              </Grid> */}
-
-              
+                )}              
             </Grid>
           </FlexGrid>
         </FlexBox>
@@ -98,7 +64,11 @@ export default function SuperintendentDetails({singleCompanyDetails}: companyDet
         closeIcon={true}
         actionButtons={true}
       >
-        <EditSuperintendentDetailsForm />
+        <EditSuperintendentDetailsForm 
+          saveAction = {() => saveAction()} 
+          singleCompanyDetails={singleCompanyDetails}
+          handleCloseDrawer = {handleCloseDrawer}
+        />
       </Drawer>
 
     </>
