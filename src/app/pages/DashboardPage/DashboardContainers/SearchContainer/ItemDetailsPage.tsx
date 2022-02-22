@@ -1,4 +1,3 @@
-import React from "react";
 import { Grid } from "@material-ui/core";
 import { Accordion } from "app/components/Accordion";
 import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";

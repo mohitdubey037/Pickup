@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
 import { useFormik } from "formik";
