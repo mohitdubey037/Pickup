@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { PHONE_NUMBER_REGX, PASSWORD_REGX, NEWPASSWORD_REGEX } from "../../../../../constants";
+import { NEWPASSWORD_REGEX } from "../../../../../constants";
 
 export const passwordSchema = yup.object().shape({
   currentPassword: yup
@@ -11,7 +11,7 @@ export const passwordSchema = yup.object().shape({
     .string()
     .matches(NEWPASSWORD_REGEX, "Invalid Password")
     .required("New password is required field")
-    .test("newPassword", "Please enter new password", function (value) {
+    .test("newPassword", "New password must be different", function (value) {
       return this.parent.currentPassword !== value;
     }),
   newConfirmedPassword: yup
@@ -24,7 +24,7 @@ export const passwordSchema = yup.object().shape({
     )
     .test(
       "newConfirmedPassword",
-      "Please enter new password",
+      "New password must be different",
       function (value) {
         return this.parent.currentPassword !== value;
       }
