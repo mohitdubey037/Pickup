@@ -4,37 +4,47 @@ import ModuleContainer from "app/components/ModuleContainer";
 import ChildDetails from "./ChildDeatils";
 import SuperintendentDetails from "./SuperintendentDetails";
 import CardsDetails from "./CardDetails";
-import { useDispatch } from "react-redux";
 import { fetchChildAccountById } from "services/ChildAccount";
-
-
+import CompanyDetailsSkeleton from "../CompanyProfileContainer/CompanyDetailsSkeleton";
+import AdminDetailsSkeleton from "../CompanyProfileContainer/AdminDetailsSkeleton";
+import PaymentCardSkeleton from "app/components/PaymentCard/PaymentCardSkeleton";
 
 export default function ChildAccountDetails(props: any) {
   const {id} = props;
 
-  const [companyDetails, setCompanyDetails] = useState([])
+  const [companyDetails, setCompanyDetails] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchDetailById = async(id) => {
-
+  const fetchDetailById = async() => {
+    setLoading(true);
     const res = await fetchChildAccountById(id);
-    console.log(res?.response?.data?.data[0]);
     setCompanyDetails(res?.response?.data?.data[0]);
+    setLoading(false);
   }
 
   useEffect(() => {
     if (id) {
-      fetchDetailById(id)
+      fetchDetailById()
     }
-    console.log(companyDetails);
   },[])
 
  
   return (
     <ModuleContainer>
-      <H2 title="Company Profile" />
-          <ChildDetails singleCompanyDetails = {companyDetails}/>
-          <SuperintendentDetails singleCompanyDetails = {companyDetails} />
-          <CardsDetails />
-    </ModuleContainer>
+      {loading ? (
+        <>
+        <CompanyDetailsSkeleton />
+        <AdminDetailsSkeleton />
+        <PaymentCardSkeleton />
+        </>
+        ) : (
+          <>
+          <H2 title="Company Profile" />
+          <ChildDetails saveAction={() => fetchDetailById()} singleCompanyDetails={companyDetails}/>
+          <SuperintendentDetails singleCompanyDetails = {companyDetails} saveAction={() => fetchDetailById()} />
+          <CardsDetails cardDetails = {companyDetails} />
+        </>
+      )}
+      </ModuleContainer>
   );
 }

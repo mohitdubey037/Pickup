@@ -22,9 +22,9 @@ const TableSkeleton = () => {
         <CustomTable>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
+              {/* <TableCell padding="checkbox">
                 <Checkbox label={null} />
-              </TableCell>
+              </TableCell> */}
 
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
@@ -46,9 +46,9 @@ const TableSkeleton = () => {
           <TableBody>
             <TableRow>
               <>
-                <TableCell>
+                {/* <TableCell>
                   <Checkbox label={""} />
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell>
                   <Skeleton width="50%" height={28} className="value" />
@@ -68,9 +68,9 @@ const TableSkeleton = () => {
           <TableBody>
             <TableRow>
               <>
-                <TableCell>
+                {/* <TableCell>
                   <Checkbox label={""} />
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell>
                   <Skeleton width="50%" height={28} className="value" />

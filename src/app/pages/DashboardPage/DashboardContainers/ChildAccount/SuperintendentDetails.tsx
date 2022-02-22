@@ -8,21 +8,32 @@ import {
   Para,
   H4,
 } from "app/components/Typography/Typography";
+import { companyDetailsSchema } from "app/pages/AuthScreens/SignUpScreens/signUpSchemas";
 import { useState } from "react";
 import { FlexGrid } from "../CompanyProfileContainer/style";
 import EditSuperintendentDetailsForm from "./EditSuperintendentDetailsForm";
-import { companyDetails } from "./type";
+import { inputProps } from "./type";
 
 
-export default function SuperintendentDetails({singleCompanyDetails}: companyDetails) {
+export default function SuperintendentDetails({ singleCompanyDetails, saveAction }: inputProps) {
+
+  console.log(singleCompanyDetails);
+  
   const [drawerOpen, setDrawerOpen] = useState(false);
+
   const companyFormDatails={
     firstName: 'First Name',
     lastName: 'Last Name',
-    phoneNo: "Phone Number",
-    type : "Role",
-    emailId: 'Email Id'
+    phoneNumber: "Phone Number",
+    roleDesignation : "Role/Designation",
+    emailId: 'Email Id',
   }
+
+  const handleCloseDrawer = () => {
+    saveAction();
+    setDrawerOpen(false);
+  }
+
   return (
     <>
       <FullCard>
@@ -32,60 +43,21 @@ export default function SuperintendentDetails({singleCompanyDetails}: companyDet
         </Box>
         <FlexBox justifyContent="space-between">
           <Box mr={4}>
-            <Avatar src="" style={{ width: 86, height: 86 }} />
+            <Avatar src={singleCompanyDetails.userProfile} style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>
-              {Object.keys(companyFormDatails).map(key=> 
+              {Object.keys(companyFormDatails).map(key=> {
+                return (
                 <Grid item lg={2} sm={4} xs={12}>
                   <Para text={companyFormDatails[key]} />
-                  <H4
-                    text={singleCompanyDetails[key]}
+                  <H4 text={singleCompanyDetails[key]}
                     className="value"
                   />
                 </Grid>
-                )}
-              {/* <Grid item lg={2} sm={4} xs={12}>
-                <Para text="First Name" />
-                <H4
-                  text="John"
-                  className="value"
-                />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Last Name" />
-                <H4
-                   text="Doe"
-                   className="value"
-                />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Phone Number" />
-                <H4
-                    text="+1 (321) 321 123"
-                    className="value"
-                />
-              </Grid>
-
-              <Grid item lg={2} sm={4} xs={12}>
-                <Para text="Role/Designation" />
-                <H4
-                   text="Manager"
-                   className="value"
-                />
-              </Grid>
-
-              <Grid item lg={4} sm={4} xs={12}>
-                <Para text="Email id" />
-                <H4
-                  text="johndoe@gmail.com"
-                  className="value"
-                />
-              </Grid> */}
-
-              
+                )
+              }
+                )}              
             </Grid>
           </FlexGrid>
         </FlexBox>
@@ -98,7 +70,11 @@ export default function SuperintendentDetails({singleCompanyDetails}: companyDet
         closeIcon={true}
         actionButtons={true}
       >
-        <EditSuperintendentDetailsForm />
+        <EditSuperintendentDetailsForm 
+          saveAction = {() => saveAction()} 
+          singleCompanyDetails={singleCompanyDetails}
+          handleCloseDrawer = {handleCloseDrawer}
+        />
       </Drawer>
 
     </>

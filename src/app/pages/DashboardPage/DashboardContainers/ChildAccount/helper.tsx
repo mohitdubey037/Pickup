@@ -28,6 +28,57 @@ export const ChildInitValues = {
     // pincard: '',
 };
 
+export const editChildValues = {
+    companyName: '',
+    businessNumber: '',
+    employeeStrength: '',
+    industry: '',
+    addressLine1: '',
+    addressLine2: '',
+    pincode: '',
+    province: '',
+    city: '',
+    country:'',
+}
+
+export const editSuperindedentData = {
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    roleId: '',
+    emailId: '',
+}
+
+export const childNewInitValue = {
+    latitude: "",
+    longitude: "",
+    LocationType: 1,
+    companyName: "",
+    businessNumber: '',
+    employeeStrength: '',
+    industry: '',
+    addressLine1: "",
+    addressLine2: "",
+    pincode: "",
+    province: "",
+    city: "",
+    country: "",
+
+    firstName: "",
+    lastName: "",
+    roleId: 2,
+    roleDesignation: '',
+    phoneNumber: "",
+    emailId: "",
+
+    name: '',
+    number: '',
+    expiryDate: '',
+    expiryMonth: '',
+    expiryYear: '',
+    cvd: '',
+};
+
 const getChildCompany = (
     companyName: string,
     companyId: number

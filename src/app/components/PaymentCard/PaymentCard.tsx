@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
-import { Box, Grid, MenuItem } from "@material-ui/core";
+import { Box, Grid, Menu, MenuItem } from "@material-ui/core";
 
 import {
     Carddetails,
@@ -85,6 +85,7 @@ export default function PaymentCard({
                 >
                     {/* <MenuItem onClick={() => handleEditCard()}>Edit Card</MenuItem> */}
                     <MenuItem onClick={handleDeleteCard}>Delete Card</MenuItem>
+                    <MenuItem onClick={handleEditCard}>Edit Card</MenuItem>
                 </MenuBox>
             </IndividualCardDiv>
         </Grid>

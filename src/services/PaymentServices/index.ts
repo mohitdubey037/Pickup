@@ -109,6 +109,20 @@ export const confirmPaymentInDrawer = async (body: any, invoiceId: string) => {
 export const deleteCard = async (cardId: string) => {
   try {
     const res = await Services.delete(
+      `${cardId}`,
+      {},
+      "payment"
+    );
+    showToast("Your card has been successfully removed", "success");
+    return { response: res, error: null };
+  } catch (error) {
+    return { response: null, error: error };
+  }
+};
+
+export const editCard = async (cardId: string) => {
+  try {
+    const res = await Services.put(
       `api/profiles/card/delete/${cardId}`,
       {},
       "payment"

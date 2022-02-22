@@ -7,7 +7,8 @@ export interface InputProps {
   onChange?: (value: any) => void;
   id?: string;
   name?: string;
-  error?: string | boolean;
+  // error?: string | boolean;
+  error?: any;
   onBlur?: (value: any) => void;
   value?: string;
   disabled?: boolean;
