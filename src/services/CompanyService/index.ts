@@ -55,7 +55,7 @@ export const updateCompanyProfile = async (values: {
 }) => {
   try {
     const response: any = await services.put(
-      `v1/api/business/updateChildAccountDetails/${values.companyId}`,
+      `business/companyDetails/${values.companyId}`,
       {
         addressLine1: values?.address1,
         addressLine2: values?.address2,
@@ -95,7 +95,7 @@ export const inviteColleague = async (values: {
   try {
     const notificationFrequency =
       values?.notificationFrequency !== "" &&
-        values?.notificationFrequency !== null
+      values?.notificationFrequency !== null
         ? values?.notificationFrequency
         : undefined;
     const response: any = await services.post(
