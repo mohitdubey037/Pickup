@@ -31,11 +31,7 @@ export default function TrackingSteps({ data }: any) {
   const DriverDetails = (obj) => (
     <Box>
       <StepperInnerBox>
-        <Avatar
-          alt={obj.firstName || ""}
-          src={obj.profileImg}
-          className="avatar"
-        />
+        <Avatar src={obj.profileImg} className="avatar" />
         <Box ml={2} mr={2}>
           <H4
             text={
