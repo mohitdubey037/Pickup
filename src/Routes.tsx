@@ -34,10 +34,10 @@ import OrderSummary from "app/pages/DashboardPage/DashboardContainers/SignleShip
 import SignUpDetails from "app/pages/AuthScreens/SignUpScreens/SignUpDetails";
 // import { ShipmentSummary } from "app/components/PaymentCardDetails";
 import ShipmentSummaryTable from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/ShipmentSummary";
-import BulkSummary from "app/components/Uploading/BulkSummary";
 import TokenExpire from "app/pages/AuthScreens/TokenExpire";
 import ChildAccountList from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccountList";
 import ChildAccountDetails from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccountDetails";
+import BulkSummary from "app/pages/DashboardPage/DashboardContainers/BulkShipment/BulkSummary";
 
 const Routes = () => {
   return (

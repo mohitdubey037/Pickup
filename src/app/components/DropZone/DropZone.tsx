@@ -2,24 +2,25 @@ import { DropzoneWrapper, DropzoneBox, DropeZoneText } from "./style";
 import Dropzone from "react-dropzone";
 import { csvIcon } from "app/assets/Icons";
 import { ErrorBox } from "./ErrorBox";
-import Uploading from "../Uploading";
 import {useState} from 'react'
 import { Termslink } from "app/pages/AuthScreens/style";
 import { H5 } from "../Typography/Typography";
 import { Link } from "../Typography/Links";
+import UploadingFile from "./UploadingFile";
 interface DropZoneProps {
   onDrop: (files: Array<File>) => void;
   isError?: boolean;
   inProgress?: boolean;
 }
 
-const DropZone = ({ onDrop, isError }: DropZoneProps) => {
-  const[inProgress, setInProgress]=useState<boolean>(true)
+const DropZone = ({ onDrop, isError, inProgress }: DropZoneProps) => {
+  // const[inProgress, setInProgress]=useState<boolean>(false)
   return (
+<>
+    {isError && <ErrorBox />}
     <DropzoneWrapper>
-      {isError && <ErrorBox />}
       {inProgress ? (
-        <Uploading />
+        <UploadingFile />
       ) : (
         <DropzoneBox>
           <Dropzone onDrop={(acceptedFiles) => onDrop(acceptedFiles)}>
@@ -29,9 +30,9 @@ const DropZone = ({ onDrop, isError }: DropZoneProps) => {
                 <div {...getRootProps()}>
                   <input {...getInputProps()} />
                   <DropeZoneText>
-                  <Termslink>Drag and drop files or <Link to="">Click Here</Link> to select a
+                  <Termslink className="label">Drag and drop files or <Link to="">Click Here</Link> to select a
                     file</Termslink>
-                  <H5 text="Files accepted CSV, XLS" />
+                  <H5 text="Files accepted CSV, XLS" className="smalltext" />
                   </DropeZoneText>
                 </div>
               </>
@@ -40,6 +41,7 @@ const DropZone = ({ onDrop, isError }: DropZoneProps) => {
         </DropzoneBox>
       )}
     </DropzoneWrapper>
+    </>
   );
 };
 
