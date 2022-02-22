@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import {
   Stepper,
@@ -14,7 +14,7 @@ import { H4, H5 } from "../Typography/Typography";
 import { Button } from "../Buttons";
 
 export default function TrackingSteps({ data }: any) {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(-1);
 
   useEffect(() => {
     if (data?.logs && data?.logs.length > 0) {
@@ -31,7 +31,11 @@ export default function TrackingSteps({ data }: any) {
   const DriverDetails = (obj) => (
     <Box>
       <StepperInnerBox>
-        <Avatar alt="profile picture" src={obj.profileImg} className="avatar" />
+        <Avatar
+          alt={obj.firstName || ""}
+          src={obj.profileImg}
+          className="avatar"
+        />
         <Box ml={2} mr={2}>
           <H4
             text={
@@ -55,7 +59,10 @@ export default function TrackingSteps({ data }: any) {
         {data?.logs &&
           data?.logs.length > 0 &&
           data.logs.map((item, idx) => (
-            <Step key={idx}>
+            <Step
+              key={idx}
+              expanded={activeStep > 1 && activeStep < 8 && idx === 1}
+            >
               <StepLabel>
                 <H4 text={item.statusName} />
                 {item.timestamp && (
@@ -63,9 +70,7 @@ export default function TrackingSteps({ data }: any) {
                 )}
               </StepLabel>
               <StepContent>
-                {activeStep > 1 &&
-                  activeStep < 8 &&
-                  idx === 1 &&
+                {idx === 1 &&
                   data?.driverDetails &&
                   DriverDetails(data.driverDetails)}
               </StepContent>

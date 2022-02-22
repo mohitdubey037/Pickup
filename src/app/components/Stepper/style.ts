@@ -59,9 +59,12 @@ export const StepperBox = styled(Box)`
 
   .MuiStepConnector-line,
   .MuiStepContent-root {
-    border: 0 solid #979797;
+    border: 0 solid #989898;
     border-image-slice: 1;
     border-left-width: 3px;
+  }
+  .MuiStep-completed .MuiStepContent-root {
+    border-color: #fece3e;
   }
   .MuiStepConnector-completed .MuiStepConnector-line {
     border-left-color: #fece3e;
@@ -69,8 +72,11 @@ export const StepperBox = styled(Box)`
   .MuiStepConnector-active .MuiStepConnector-line {
     border-image-source: linear-gradient(to bottom, #fece3e, #fece3e);
   }
+  .MuiStepIcon-root.MuiStepIcon-active {
+    border-color: rgba(150,150,152,0.8);
+  }
   .MuiStepConnector-active + .MuiStep-vertical .MuiStepContent-root {
-    border-left: dotted #fece3e;
+    border-left: dotted #989898;
   }
   .MuiStepConnector-root.Mui-disabled .MuiStepConnector-line {
     border-left: dotted #989898;
