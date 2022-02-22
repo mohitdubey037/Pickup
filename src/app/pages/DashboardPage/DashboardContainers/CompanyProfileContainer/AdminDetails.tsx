@@ -20,7 +20,7 @@ export default function AdminDetails(props: any) {
         <FlexBox justifyContent="space-between">
           <Box mr={4}>
             <Avatar
-              src={user?.profileImage}
+              src={AdminDetails?.profileImage}
               style={{ width: 86, height: 86 }}
             />
           </Box>
