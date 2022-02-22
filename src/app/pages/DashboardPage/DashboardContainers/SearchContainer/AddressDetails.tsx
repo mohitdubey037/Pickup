@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 
 import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { H2, H4, Para } from "app/components/Typography/Typography";
+import { formatPhoneNo } from "utils/commonUtils";
 
 export const AddressDetails = ({ addressDetails, title, label }) => {
   return (
@@ -113,7 +114,9 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
           <H4
             className="value"
             text={
-              addressDetails.locationPhone ? addressDetails.locationPhone : "N/A"
+              addressDetails.locationPhone
+                ? formatPhoneNo(addressDetails.locationPhone)
+                : "N/A"
             }
           />
         </Grid>
@@ -123,7 +126,7 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
             className="value"
             text={
               addressDetails.locationAlternatePhone
-                ? addressDetails.locationAlternatePhone
+                ? formatPhoneNo(addressDetails.locationAlternatePhone)
                 : "N/A"
             }
           />
@@ -133,7 +136,9 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
           <H4
             className="value"
             text={
-              addressDetails.locationEmail ? addressDetails.locationEmail : "N/A"
+              addressDetails.locationEmail
+                ? addressDetails.locationEmail
+                : "N/A"
             }
           />
         </Grid>

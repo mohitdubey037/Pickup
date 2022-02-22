@@ -2,13 +2,10 @@ import { Avatar, Box, Grid } from "@material-ui/core";
 
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { FullCard } from "app/components/Input/style";
-import {
-  H3,
-  Para,
-  H4,
-} from "app/components/Typography/Typography";
+import { H3, Para, H4 } from "app/components/Typography/Typography";
 import { FlexGrid } from "./style";
 import { ADMIN_DETAILS_PERMISSION_TYPES } from "../../../../../constants";
+import { formatPhoneNo } from "utils/commonUtils";
 
 export default function AdminDetails(props: any) {
   const { AdminDetails, user } = props;
@@ -46,7 +43,11 @@ export default function AdminDetails(props: any) {
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Phone Number" />
                 <H4
-                  text={AdminDetails?.phoneNo ? AdminDetails?.phoneNo : "-"}
+                  text={
+                    AdminDetails?.phoneNo
+                      ? formatPhoneNo(AdminDetails?.phoneNo)
+                      : "-"
+                  }
                   className="value"
                 />
               </Grid>
