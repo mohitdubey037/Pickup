@@ -16,6 +16,8 @@ import { inputProps } from "./type";
 
 
 export default function SuperintendentDetails({ singleCompanyDetails, saveAction }: inputProps) {
+
+  console.log(singleCompanyDetails);
   
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -24,7 +26,7 @@ export default function SuperintendentDetails({ singleCompanyDetails, saveAction
     lastName: 'Last Name',
     phoneNumber: "Phone Number",
     roleDesignation : "Role/Designation",
-    emailId: 'Email Id'
+    emailId: 'Email Id',
   }
 
   const handleCloseDrawer = () => {
@@ -41,7 +43,7 @@ export default function SuperintendentDetails({ singleCompanyDetails, saveAction
         </Box>
         <FlexBox justifyContent="space-between">
           <Box mr={4}>
-            <Avatar src="" style={{ width: 86, height: 86 }} />
+            <Avatar src={singleCompanyDetails.userProfile} style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>

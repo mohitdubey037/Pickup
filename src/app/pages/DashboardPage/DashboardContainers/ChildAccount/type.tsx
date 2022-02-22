@@ -3,7 +3,7 @@ export interface companyDetails {
 }
 
 export interface inputProps {
-    singleCompanyDetails: object
+    singleCompanyDetails: any
     saveAction: () => void
 }
 

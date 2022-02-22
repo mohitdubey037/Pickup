@@ -36,15 +36,13 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     if (res.error) {
       showToast(res.error.message, "error");
     } else {
-      setFieldValue("companyProfileImage", res?.response?.data?.data || "");
+      setFieldValue("userProfile", res?.response?.data?.data || "");
     }
   };
 
   const handleEditSuperindendentAccount = async (values) => {
     values["hstNumber"] = "12345"
-    console.log(values);
     const res = await editSuperIndendentAccountData(values, userId);
-    console.log(res);
     if (res.success) {
       handleCloseDrawer()
       saveAction()
@@ -63,7 +61,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     validateForm
   } = useFormik({
     initialValues: {
-        companyProfileImage: singleCompanyDetails?.profileImage || "",
+        userProfile: singleCompanyDetails?.userProfile || "",
         firstName: singleCompanyDetails.firstName || "",
         lastName: singleCompanyDetails.lastName || "",
         phoneNumber: singleCompanyDetails.phoneNumber || "",
@@ -72,7 +70,6 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     },
     validationSchema: editSuperindedentDataSchema,
     onSubmit: () =>  {
-      console.log('hii 3')
       handleEditSuperindendentAccount(values);
     },
   });
@@ -81,7 +78,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     <>
         <form>
         <Box display="flex" justifyContent="center" mb={5}>
-          <EditAvatar icon={values?.companyProfileImage} changeHandler={changeHandler} />
+          <EditAvatar icon={values?.userProfile} changeHandler={changeHandler} />
         </Box>
         <GridContainer container spacing={2}>
             <Grid item xs={12} sm={6}>

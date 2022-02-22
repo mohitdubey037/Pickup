@@ -9,12 +9,6 @@ import { useSelector } from "react-redux";
 
 
 const CardsDetails = ({cardDetails}) => {
-//   const paymentCards = useSelector(
-//     (state: { paymentCard: { paymentCardsData } }) =>
-//         state.paymentCard.paymentCardsData
-// );
-
-console.log(cardDetails);
 
   return (
         <> <FullCard>
