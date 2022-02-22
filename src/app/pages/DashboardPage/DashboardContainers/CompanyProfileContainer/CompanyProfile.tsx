@@ -126,7 +126,7 @@ export default function CompanyProfile({ path: string }) {
       {loading ? (
         <AdminDetailsSkeleton />
       ) : (
-        <AdminDetails AdminDetails={adminDetails} user={user} />
+        <AdminDetails AdminDetails={adminDetails} />
       )}
 
       {colleagueList?.length > 0 &&
@@ -140,7 +140,7 @@ export default function CompanyProfile({ path: string }) {
             selectedColleague={selectedColleague}
           />
         ))}
-        
+
       <NewColleagueForm saveAction={saveColleague} />
       <Drawer
         open={colleagueDrawerOpen}

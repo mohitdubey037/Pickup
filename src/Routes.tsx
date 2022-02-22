@@ -15,7 +15,7 @@ import {
 } from "./app/pages/AuthScreens/LoginScreens";
 import DashboardPage from "./app/pages/DashboardPage";
 import { NoAuthorizationPage } from "app/pages/NoAutorizationPage";
-import PageNotFound  from "app/components/PageNotFound/PageNotFound";
+import PageNotFound from "app/components/PageNotFound/PageNotFound";
 import { BulkShipment } from "app/pages/DashboardPage/DashboardContainers/BulkShipment";
 import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
@@ -58,25 +58,25 @@ const Routes = () => {
       </AuthPages>
 
       <DashboardPage path="/dashboard">
-        <NoAuthorizationPage path="/non-authorized-page" />
-        <HelpContainer path="/my-account/help" />
-        <CompanyProfileContainer path="/my-account/company-profile" />
         <Dashboard path="/" />
-        <BulkSummary path="/charter-shipment/bulk-summary" />
         <SingleShipment path="/charter-shipment/single-shipment" />
         <OrderSummary path="/charter-shipment/order-summary" />
         <ShipmentSummaryTable path="/charter-shipment/shipment-summary" />
         <BulkShipment path="/charter-shipment/bulk-shipment" />
+        <BulkSummary path="/charter-shipment/bulk-summary" />
+        <OnHoldShipmentContainer path="/holding-zone" />
         <SearchContainer path="/search-shipment" />
+        <InvoicesContainer path="/payments/invoices" />
         <PaymentsPage path="/payments/cards" />
+        <ReportsContainer path="/reports" />
+        <CompanyProfileContainer path="/my-account/company-profile" />
         <PersonalProfileContainer path="my-account/personal-profile" />
         <ChildAccount path="/my-account/child-account" />
         <ChildAccountList path="/my-account/child-account-list" />
         <ChildAccountDetails path="/my-account/child-account-details/:id" />
         <FavoriteLocations path="my-account/favourite-locations" />
-        <OnHoldShipmentContainer path="/holding-zone" />
-        <InvoicesContainer path="/payments/invoices" />
-        <ReportsContainer path="/reports" />
+        <HelpContainer path="/my-account/help" />
+        <NoAuthorizationPage path="/non-authorized-page" />
         <PageNotFound default />
       </DashboardPage>
     </Router>

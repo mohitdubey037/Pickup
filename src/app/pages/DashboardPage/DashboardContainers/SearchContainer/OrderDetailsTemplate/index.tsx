@@ -1,4 +1,5 @@
 import { logo } from "app/assets/Icons";
+import { formatPhoneNo } from "utils/commonUtils";
 import {
   DIMENSION2,
   LOCATION_TYPES,
@@ -117,9 +118,13 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td>{data.locationPhone ? data.locationPhone : "N/A"}</td>
           <td>
-            {data.locationAlternatePhone ? data.locationAlternatePhone : "N/A"}
+            {data.locationPhone ? formatPhoneNo(data.locationPhone) : "N/A"}
+          </td>
+          <td>
+            {data.locationAlternatePhone
+              ? formatPhoneNo(data.locationAlternatePhone)
+              : "N/A"}
           </td>
           <td>{data.locationEmail ? data.locationEmail : "N/A"}</td>
         </tr>
@@ -194,7 +199,7 @@ const ItemDetails = ({ orderData, item }: any) => {
         </thead>
         <tbody>
           <tr>
-            <td>{orderData.total  ? "$" + orderData.total  : "N/A"}</td>
+            <td>{orderData.total ? "$" + orderData.total : "N/A"}</td>
             <td>{item.fragile === 1 ? "Yes" : "No"}</td>
             <td>
               {orderData.dropOption === 10
