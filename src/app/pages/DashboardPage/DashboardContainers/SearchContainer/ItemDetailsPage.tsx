@@ -23,8 +23,8 @@ function ItemDetailsPage(props: any) {
     return (
       <ItemDetailsBox>
         <Accordion title={item.name} defaultExpanded={index === 0}>
-          <Grid container spacing={2}>
-            <Grid item md={3}>
+          <Grid container spacing={3}>
+            <Grid item md={3} xs={12}>
               <H4 text="Category" />
               <H4
                 className="value"
@@ -34,7 +34,7 @@ function ItemDetailsPage(props: any) {
               />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item md={3} xs={6}>
               <H4
                 text={`Item Weight ${getLabelFromID(
                   item.weightDimension,
@@ -44,7 +44,7 @@ function ItemDetailsPage(props: any) {
               <H4 className="value" text={item.weight ? item.weight : "NA"} />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item md={3} xs={6}>
               <H4
                 text={`LBH ${getLabelFromID(item.sizeDimension, DIMENSION2)}`}
               />
@@ -63,7 +63,7 @@ function ItemDetailsPage(props: any) {
               />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item md={3} xs={6}>
               <H4 text="Pieces" />
               <H4
                 className="value"
@@ -71,7 +71,7 @@ function ItemDetailsPage(props: any) {
               />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item md={3} xs={6}>
               <H4 text="Order Cost" />
               <H4
                 className="value"
@@ -83,7 +83,7 @@ function ItemDetailsPage(props: any) {
               />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item md={3} xs={6}>
               <H4 text="Fragile Order" />
               <H4 className="value" text={item.fragile === 1 ? "Yes" : "No"} />
             </Grid>
@@ -102,7 +102,7 @@ function ItemDetailsPage(props: any) {
               />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item md={3} xs={12}>
               <H4 text="Customer Reference #" />
               <H4
                 className="value"
@@ -114,7 +114,7 @@ function ItemDetailsPage(props: any) {
               />
             </Grid>
 
-            <Grid item md={12}>
+            <Grid item md={12} xs={12}>
               <H4 text="Item Description" />
               <H4
                 className="value"

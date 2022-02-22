@@ -21,11 +21,6 @@ export const ScanText = styled.div`
   color: #515151;
 `;
 
-export const HelperText = styled.div`
-  font-size: 14px;
-  line-height: 150%;
-  color: #515151;
-`;
 
 export const OnHoldFieldsWrapper = styled.div`
   margin-top: 54px;

@@ -45,31 +45,29 @@ function OrderSummary({ path: string }) {
     };
 
     useEffect(() => {
-        (async () => {
-            if (orderIds?.length <= 0) {
-                redirectBack();
-                return;
-            }
-            setLoading(true);
-            const res = (await getShipmentDetails(orderIds)) as any;
-            if (res.success) {
-                const shipmentDetails = res.response.data.data;
-                const data = shipmentDetails.shipmentSummary;
-                const totalCost = data.reduce(
-                    (acc, curr) => acc + curr.total,
-                    0
-                );
-                dispatch(actions.setInvoice(shipmentDetails.invoiceId));
-                setTotalCost(totalCost);
-                setOrderSummaryData(data);
-                setLoading(false);
-            }
-        })();
-    }, [orderIds, dispatch]);
+        if (orderIds?.length > 0) {
+            fetchOrderSummary();
+        } else {
+            redirectBack();
+        }
+    }, [orderIds]);
+
+    const fetchOrderSummary = async () => {
+        setLoading(true);
+        const res = (await getShipmentDetails(orderIds)) as any;
+        if (res.success) {
+            const shipmentDetails = res.response.data.data;
+            const data = shipmentDetails.shipmentSummary;
+            const totalCost = data.reduce((acc, curr) => acc + curr.total, 0);
+            dispatch(actions.setInvoice(shipmentDetails.invoiceId));
+            setTotalCost(totalCost);
+            setOrderSummaryData(data);
+        }
+        setLoading(false);
+    };
 
     const onBackHandler = () => {
         dispatch(actions.resetSingleShipment());
-        redirectBack();
     };
 
     const onItemCountSelectHandler = (id: number) => {
@@ -78,9 +76,7 @@ function OrderSummary({ path: string }) {
     };
 
     const getOrderIdItem = (openInvoiceDrawer, value, id: any) => {
-        return (
-            <a onClick={() => openInvoiceDrawer(id)}>{value}</a>
-        );
+        return <a onClick={() => openInvoiceDrawer(id)}>{value}</a>;
     };
 
     const onHoldTable = (orderSummaryData: any[], openOrderDrawer: any) => {
@@ -116,30 +112,27 @@ function OrderSummary({ path: string }) {
             <ModuleContainer>
                 <H3 text="Order Summary" />
 
-      
                 {loading ? (
-                 <Box mt={3}>
-                <TableSkeleton />
-                </Box>
+                    <Box mt={3}>
+                        <TableSkeleton />
+                    </Box>
                 ) : (
                     <OrderSummaryTableOuter mt={3}>
-                    <Table
-                        data={onHoldTable(
-                            orderSummaryData,
-                            onItemCountSelectHandler
-                        )}
-                    />
-                    <TotalBox>
-                        <H4 text="Total" className="total" />
-                        <H4
-                            text={`$${Number(totalCost).toFixed(2)}`}
-                            className="total"
+                        <Table
+                            data={onHoldTable(
+                                orderSummaryData,
+                                onItemCountSelectHandler
+                            )}
                         />
-                    </TotalBox>
-                </OrderSummaryTableOuter>
+                        <TotalBox>
+                            <H4 text="Total" className="total" />
+                            <H4
+                                text={`$${Number(totalCost).toFixed(2)}`}
+                                className="total"
+                            />
+                        </TotalBox>
+                    </OrderSummaryTableOuter>
                 )}
-
-                
 
                 <Flex justifyContent="flex-end" top={24}>
                     <Button

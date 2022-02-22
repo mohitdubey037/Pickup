@@ -17,3 +17,52 @@ export const editContactDetailsSchema = yup.object().shape({
     alternate: yup.string().required("Phone number is required").matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
     email: yup.string().email("Please enter valid email").required("Email Address is a required field")
 });
+
+
+
+
+export const FavoriteLocationColoumns = [
+    {
+        id: "Client",
+        label: "Client",
+        isSort: false,
+    },
+    {
+        id: "Email",
+        label: "Email",
+        isSort: false,
+    },
+    {
+        id: "Date",
+        label: "Date",
+        isSort: true,
+    },
+    {
+        id: "Address",
+        label: "Address",
+        isSort: false,
+    },
+    {
+        id: "City",
+        label: "City",
+        isSort: false,
+    },
+    {
+        id: "ProvienceState",
+        label: "Provience/State",
+        isSort: false,
+    },
+    {
+        id: "Country",
+        label: "Country",
+        isSort: false,
+    },
+
+    {
+        id: "Action",
+        label: "Action",
+        isSort: false,
+    },
+];
+
+

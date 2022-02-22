@@ -1,8 +1,8 @@
+import { Box } from '@mui/material'
 import { navigate } from '@reach/router'
 import { Accordion } from 'app/components/Accordion'
 import { HelpContact } from 'app/components/HelpContact'
 import ModuleContainer from 'app/components/ModuleContainer'
-import { FormContainer } from 'app/components/ModuleContainer/style'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -20,7 +20,7 @@ export default function HelpContainer({path:string}) {
             <h3 style={{margin:0}}>
                 Help
             </h3>
-            <FormContainer elevation={0}>
+            <Box>
                 <h4 style={{margin:'0 0 1.5rem 0'}}>
                     Frequently Asked Questions
                 </h4>
@@ -34,7 +34,7 @@ export default function HelpContainer({path:string}) {
                     Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Exercitation veniam consequat sunt nostrud amet.
                 </Accordion>
                 <HelpContact/>
-            </FormContainer>
+            </Box>
         </ModuleContainer>
     )
 }

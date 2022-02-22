@@ -1,79 +1,77 @@
-import { sizing } from "@mui/system";
-import { Block, Flex } from "app/components/Input/style";
 import React from "react";
+import { Grid } from "@material-ui/core";
+import { H4 } from "app/components/Typography/Typography";
+import { ContentBox } from "app/components/CommonCss/CommonCss";
+
 interface ContactDetailsSidebarProps {
-    contactInfo: any;
+  contactInfo: any;
 }
 function ContactDetailsSidebar(props: ContactDetailsSidebarProps) {
+  let { contactInfo } = props;
 
-    let { contactInfo } = props;
+  return (
+    <ContentBox>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <H4 text="Company Name" />
+          <H4 text={contactInfo?.companyName || "-"}  className="value" />
+        </Grid>
 
-    return (
-        <Flex direction={"column"} style={{ width: '100%', padding: "16px 11px", boxSizing: "border-box" }}>
-            <Flex>
-                <Block style={{ flex: 1 }}>
-                    <div>Company Name</div>
-                    <b>{contactInfo?.companyName || '-'}</b>
-                </Block>
-                <Block style={{ flex: 1 }}>
-                    <div>First Name</div>
-                    <b>{contactInfo?.locationFirstName || '-'}</b>
-                </Block>
-                <Block style={{ flex: 1 }}>
-                    <div>Last Name</div>
-                    <b>{contactInfo?.locationLastName || '-'}</b>
-                </Block>
-            </Flex>
+        <Grid item xs={6}>
+          <H4 text="First Name" />
+          <H4 text={contactInfo?.locationFirstName || "-"}  className="value" />
+        </Grid>
+        <Grid item xs={6}>
+          <H4 text="Last Name" />
+          <H4 text={contactInfo?.locationLastName || "-"}  className="value" />
+        </Grid>
 
-            <Flex style={{ marginTop: 24 }}>
-                <Block style={{ flex: 1 }}>
-                    <div>Address Line 1</div>
-                    <b>{contactInfo?.locationAddressLine1 || '-'}</b>
-                </Block>
-                <Block style={{ flex: 1 }}>
-                    <div>Address Line 2</div>
-                    <b>{contactInfo?.locationAddressLine2 || '-'}</b>
-                </Block>
-                <Block style={{ flex: 1 }}></Block>
-            </Flex>
+        <Grid item xs={12} sm={6}>
+          <H4 text="Address Line 1" />
+          <H4 text={contactInfo?.locationAddressLine1 || "-"}  className="value" />
+        </Grid>
 
-            <Flex style={{ marginTop: 24 }}>
-                <Block style={{ flex: 1 }}>
-                    <div>City</div>
-                    <b>{contactInfo?.locationCity || "-"}</b>
-                </Block>
-                <Block style={{ flex: 1 }}>
-                    <div>Postal Code</div>
-                    <b>{contactInfo?.locationPinCode || "-"}</b>
-                </Block>
-                <Block style={{ flex: 1 }}>
-                    <div>Province/State</div>
-                    <b>{contactInfo?.locationProvinceCode || "-"}</b>
-                </Block>
-            </Flex>
+        <Grid item xs={12} sm={6}>
+          <H4 text="Address Line 2" />
+          <H4 text={contactInfo?.locationAddressLine2 || "-"}  className="value" />
+        </Grid>
 
-            <Flex style={{ marginTop: 24 }}>
-                <Block style={{ flex: 1 }}>
-                    <div>Country</div>
-                    <b>{contactInfo?.locationCountry || "-"}</b>
-                </Block>
-                <Block style={{ flex: 1 }}>
-                    <div>Contact Number</div>
-                    <b>{contactInfo?.locationPhone || "- "}</b>
-                </Block>
-                <Block style={{ flex: 1 }}>
-                    <div>Alternate Number</div>
-                    <b>{contactInfo?.locationAlternatePhone || '-'}</b>
-                </Block>
-            </Flex>
-            <Flex style={{ marginTop: 24 }}>
-                <Block style={{ flex: 1 }}>
-                    <div>Email Address</div>
-                    <b>{contactInfo?.locationEmail || "-"}</b>
-                </Block>
-            </Flex>
-        </Flex>
-    );
+        <Grid item xs={6}>
+          <H4 text="City" />
+          <H4 text={contactInfo?.locationCity || "-"}  className="value" />
+        </Grid>
+
+        <Grid item xs={6}>
+          <H4 text="Postal Code" />
+          <H4 text={contactInfo?.locationPinCode || "-"}  className="value" />
+        </Grid>
+
+        <Grid item xs={6}>
+          <H4 text="Province/State" />
+          <H4 text={contactInfo?.locationProvinceCode || "-"}  className="value" />
+        </Grid>
+
+        <Grid item xs={6}>
+          <H4 text="Country" />
+          <H4 text={contactInfo?.locationCountry || "-"}  className="value" />
+        </Grid>
+
+        <Grid item xs={6}>
+          <H4 text="Contact Number" />
+          <H4 text={contactInfo?.locationPhone || "- "}  className="value" />
+        </Grid>
+        <Grid item xs={6}>
+          <H4 text="Alternate Number" />
+          <H4 text={contactInfo?.locationAlternatePhone || "-"}  className="value" />
+        </Grid>
+
+        <Grid item xs={12}>
+          <H4 text="Email Address" />
+          <H4 text={contactInfo?.locationEmail || "-"}  className="value" />
+        </Grid>
+      </Grid>
+    </ContentBox>
+  );
 }
 
 export default ContactDetailsSidebar;

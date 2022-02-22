@@ -21,15 +21,13 @@ export const ListItem = styled.li`
   .validateLogo {
     position: inherit;
   }
+  .helpertext{
+    color: #a6a6a6;
+    margin:0;
+  }
 `;
 
 export const GroupItem = styled.div`
   display: flex;
   gap: 10px;
-`;
-
-export const HelperText = styled.div`
-  color: #a6a6a6;
-  font-weight: "Roboto";
-  font-size: 16px;
 `;

@@ -3,7 +3,6 @@ import { withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
 import Tooltip from '@material-ui/core/Tooltip';
 import { Box, useMediaQuery } from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
 
 interface TooltipProps {
   content?: any;
@@ -38,12 +37,7 @@ const HtmlTooltip = withStyles(() => ({
 
   }))(Tooltip);
 
-  const useStyles = makeStyles(() => ({
-    black:{
-      backgroundColor: '#000',
-      color: '#fff',
-    }
-    }));
+
 
 const CustomTooltip: FC<TooltipProps> = ({
 	content,
@@ -52,7 +46,6 @@ const CustomTooltip: FC<TooltipProps> = ({
 	className,
 }) => {
 	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
-	const classes = useStyles();
 	const isMobile = useMediaQuery('(max-width:600px)');
 	return (
 		<HtmlTooltip

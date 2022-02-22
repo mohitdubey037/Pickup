@@ -1,12 +1,10 @@
-import { Button } from "app/components/Buttons";
-import { Input } from "app/components/Input";
+
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { H2 } from "app/components/Typography/Typography";
 import { OnHoldTable } from "./helper";
-import { OnHoldFieldsWrapper, OnHoldTableTop } from "./style";
-import { dots3, sliders } from "app/assets/Icons";
-import Select from "app/components/Select";
+import { OnHoldTableTop } from "./style";
+import { dots3 } from "app/assets/Icons";
 import { Box } from "@material-ui/core";
 import {checkSquare} from "app/assets/Icons"
 import { useSelector } from "react-redux";

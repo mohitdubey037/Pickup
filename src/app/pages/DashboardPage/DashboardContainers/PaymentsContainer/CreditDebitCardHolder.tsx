@@ -1,12 +1,11 @@
 import React, { FC } from "react";
 import { Grid } from "@mui/material";
-
 import { Accordion } from "app/components/Accordion";
-import PaymentCardList from "app/components/PaymentCardList";
 import { H4 } from "app/components/Typography/Typography";
 import { CardType } from "../../../../../types";
 import { AccordionOuterBox } from "../SignleShipmentContainer/style";
 import { CardsContainer } from "./style";
+import PaymentCardList from "app/components/PaymentCard/PaymentCardList";
 
 interface CreditDebitCardHolderProps {
   debitCardDetails?: Array<CardType>;

@@ -1,7 +1,8 @@
 /* eslint-disable no-debugger */
 import { useState, useEffect } from "react";
+import { navigate } from "@reach/router";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
@@ -42,6 +43,10 @@ const initialValues = {
 
 const SearchContainer = ({ path: string }) => {
   const dispatch = useDispatch();
+
+  const orderIds = useSelector((state: { singleShipment: { orderIds } }) => {
+    return state.singleShipment.orderIds;
+  });
 
   const [loading, setLoading] = useState<boolean>(true);
   const [searchOrderData, setSearchOrderData] = useState<any>([]);
@@ -92,6 +97,10 @@ const SearchContainer = ({ path: string }) => {
     setDrawerOpen(true);
   };
 
+  const completeOrderPayment = (orderId) => {
+    dispatch(singleActions.setShipmentOrderIds([orderId]));
+  };
+
   const tableTop = () => {
     return (
       <SearchTableTop>
@@ -106,6 +115,12 @@ const SearchContainer = ({ path: string }) => {
       </SearchTableTop>
     );
   };
+
+  useEffect(() => {
+    if (orderIds?.length > 0) {
+      navigate("/dashboard/charter-shipment/order-summary");
+    }
+  }, [orderIds]);
 
   useEffect(() => {
     dispatch(singleActions.resetSingleShipment());
@@ -196,7 +211,7 @@ const SearchContainer = ({ path: string }) => {
     <ModuleContainer>
       <H2 title="Search Orders" />
 
-      <Box mt={3} mb={2}>
+      <Box mt={4} mb={2}>
         <GridContainer container spacing={2}>
           <Grid item xs={6} sm={4} lg={2}>
             <Input
@@ -278,7 +293,11 @@ const SearchContainer = ({ path: string }) => {
         <TableNew
           tableTop={tableTop()}
           coloumns={searchOrderColoumns}
-          data={getSearchOrderData(searchOrderData, openOrderDrawer)}
+          data={getSearchOrderData(
+            searchOrderData,
+            openOrderDrawer,
+            completeOrderPayment
+          )}
           showCheckbox
           onRowSelect={setSelectedRows}
           showPagination

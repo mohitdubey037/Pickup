@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Paper } from "@material-ui/core";
 
 export const ModuleContainerWrapper = styled.div`
   background-color: #fafafa;
@@ -10,7 +9,8 @@ export const ModuleContainerWrapper = styled.div`
   @media (max-width:1023px){
     height:auto;
     padding:24px;
-    padding-top:100px !important;
+    padding-top:100px !important;    
+    min-height: calc(100vh - 125px);
   }
   @media (max-width:600px){
     padding:16px;
@@ -38,22 +38,3 @@ export const ModuleContainerWrapper = styled.div`
  
 `;
 
-export const FormContainer = styled(Paper)`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
-  margin-top: 20px;
-
-`;
-
-export const InnerContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  // padding: 24px;
-  margin-top: 20px;
-  flex: 1;
-`;

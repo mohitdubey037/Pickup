@@ -1,5 +1,4 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
-import EditIcon from "app/components/EditIcon";
 import { FullCard } from "app/components/Input/style";
 import {
   H3,
@@ -10,6 +9,7 @@ import { FlexGrid } from "./style";
 import { PERMISSION_TYPES } from "../../../../../constants";
 import { ColleagueDetailsType } from "./types";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
+import EditIcon from "app/components/EditIcon/EditIcon";
 
 interface DetailInterface {
   setColleagueDrawerOpen: any;
@@ -53,12 +53,10 @@ export default function NewColleague(props: DetailInterface) {
       <FullCard>
         <Box mb={4} display="flex" justifyContent="space-between">
           <H3 text={`Colleague ${index + 1}`} />
-          <EditIcon
-            onClick={() => {
+             <EditIcon onClick={() => {
               setSelectedColleague(inviteId);
               setColleagueDrawerOpen(true);
-            }}
-          />
+            }} />
         </Box>
 
         <FlexBox justifyContent="space-between">

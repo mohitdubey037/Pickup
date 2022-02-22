@@ -7,6 +7,8 @@ import {
   creditCard,
   // reports,
   myAccount,
+  clock,
+  reports,
 } from "app/assets/Icons";
 
 export const dashboardHelper: Array<Link> = [
@@ -29,12 +31,12 @@ export const dashboardHelper: Array<Link> = [
       // },
     ],
   },
-  // {
-  //   id: 2,
-  //   label: "Holding Zone",
-  //   link: "/dashboard/holding-zone",
-  //   logo: clock,
-  // },
+  {
+    id: 2,
+    label: "Holding Zone",
+    link: "/dashboard/holding-zone",
+    logo: clock,
+  },
   {
     id: 3,
     label: "Search Orders",
@@ -80,11 +82,11 @@ export const dashboardHelper: Array<Link> = [
         label: "Child Account",
         link: "/dashboard/my-account/child-account-list",
       },
-      // {
-      //   id: 3,
-      //   label: "Favourite Locations",
-      //   link: "/dashboard/my-account/favourite-locations",
-      // },
+      {
+        id: 3,
+        label: "Favourite Locations",
+        link: "/dashboard/my-account/favourite-locations",
+      },
       // {
       //   id: 4,
       //   label: "Help",

@@ -14,12 +14,7 @@ export const BulkShipmentWrapper = styled.div`
   }
 `;
 
-export const HelperText = styled.div`
-  font-size: 14px;
-  line-height: 150%;
-  color: #515151;
-  text-align: left;
-`;
+
 export const CustomProgressCard = styled.div`
   background: #ffffff;
   box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);

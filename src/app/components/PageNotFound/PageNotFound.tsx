@@ -5,7 +5,7 @@ import { useNavigate } from '@reach/router';
 import { Button } from '../Buttons';
 
 
-export function PageNotFound({default:boolean}) {
+export default function PageNotFound({default:boolean}) {
     const navigate = useNavigate();
 	const handleLogout = () => {
 		navigate('/');
@@ -20,7 +20,6 @@ export function PageNotFound({default:boolean}) {
     )
 }
 
-// export default PageNotFound;
 
 
 

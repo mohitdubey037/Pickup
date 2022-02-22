@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { RouteComponentProps, useLocation } from "@reach/router";
-import Cookies from "js-cookie";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,7 +8,6 @@ import {
     FormContent,
     LogoImage,
     SignUpBackgroundWrapper,
-    RememberDiv,
     Termslink,
 } from "../style";
 import { Input } from "../../../components/Input";
@@ -21,10 +19,10 @@ import { Checkbox } from "app/components/Checkbox";
 import { getParamsFromUrl } from "utils/commonUtils";
 import { H1 } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { Link } from "app/components/Link";
 import Modal from 'react-modal';
 import TermsAndPolicies from "./Terms&Policies";
 import { PHONE_NO_MASK } from "../../../../constants";
+import { Link } from "app/components/Typography/Links";
 
 type SignUpProps = RouteComponentProps;
 

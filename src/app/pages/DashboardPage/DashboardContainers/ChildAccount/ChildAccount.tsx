@@ -16,7 +16,6 @@ import { globalActions } from "store/reducers/GlobalReducer";
 import EmailSentDrawer from "app/components/EmailSentDrawer/EmailSentDrawer";
 import { Drawer } from "app/components/Drawer";
 import { navigate } from "@reach/router";
-import { DrawerFooter } from "app/components/Drawer/style";
 
 export default function ChildAccount({ path: string }) {
   const dispatch = useDispatch();

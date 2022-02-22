@@ -2,8 +2,8 @@ import { Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { InsuranceIcon } from "app/assets/Icons";
 import { Checkbox } from "app/components/Checkbox";
-import { Link } from "app/components/Link";
 import  PaymentDetails  from "./PaymentDetails";
+import { Link } from "app/components/Typography/Links";
 function ShipmentSummaryAndPayments() {
 
   return (

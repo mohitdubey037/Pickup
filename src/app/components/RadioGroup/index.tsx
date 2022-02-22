@@ -6,7 +6,7 @@ import {
   Box,
 } from "@material-ui/core";
 
-import { ErrorLabel, Flex } from "../Input/style";
+import { ErrorLabel } from "../Input/style";
 import { H4 } from "../Typography/Typography";
 import { RadioBox, RadioFlex } from "./style";
 import CustomTooltip from "../Tooltip/CustomTooltip";
@@ -43,8 +43,6 @@ function RadioGroup({
   onChange,
   error,
   id,
-  checked,
-  onClick,
   value,
   required,
 }: RadioGroupProps) {

@@ -5,10 +5,10 @@ import { Box } from "@mui/system";
 import { InsuranceIcon } from "app/assets/Icons";
 import { Checkbox } from "app/components/Checkbox";
 import { Flex } from "app/components/Input/style";
-import { Link } from "app/components/Link";
 import { H3, H4 } from "app/components/Typography/Typography";
 import TermsAndPolicies from "app/pages/AuthScreens/SignUpScreens/Terms&Policies";
 import { Termslink } from "app/pages/AuthScreens/style";
+import { Link } from "app/components/Typography/Links";
 
 const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
     const [showTermsPolicies, setShowTermsPolicies] = useState("");

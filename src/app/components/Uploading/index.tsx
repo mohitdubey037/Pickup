@@ -3,7 +3,7 @@ import { navigate } from "@reach/router";
 import { csvIcon } from "app/assets/Icons";
 import { Button } from "../Buttons";
 import { Progressbar } from "../Progressbar";
-import { HelperText, UploadingWrapper, UploadText } from "./style";
+import { UploadingWrapper, UploadText } from "./style";
 
 interface UploadingProps{
     progressValue?:number;
@@ -15,7 +15,7 @@ const Uploading = ({progressValue}:UploadingProps) => {
             <img src={csvIcon} alt=''/>
             <UploadText>Uploading File</UploadText>
             <Typography style={{fontWeight:700}}>Scanning 20 out of 120 </Typography>
-            <HelperText>We're uploading your file and creating all Orders</HelperText>
+            <p>We're uploading your file and creating all Orders</p>
             <Progressbar value={progressValue||10}/>
             <div style={{paddingTop:50}}>
         <Button

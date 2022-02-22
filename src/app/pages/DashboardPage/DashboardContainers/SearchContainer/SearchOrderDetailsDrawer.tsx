@@ -10,6 +10,7 @@ import OrderDetailPage from "./OrderDetailsPage";
 import ItemDetailsPage from "./ItemDetailsPage";
 // import TrackingDetailsPage from "./TrackingDetailsPage";
 import OrderDetailsTemplate from "./OrderDetailsTemplate";
+import TrackingDetailsPage from "./TrackingDetailsPage";
 
 const ref: any = createRef();
 
@@ -41,7 +42,7 @@ function SearchOrderDetailsDrawer(props: any) {
       <Tabs value={value} onChange={handleChange} className="tabs">
         <Tab value="orderDetails" label="Order Details" />
         <Tab value="itemDetails" label="Item Details" />
-        {/* <Tab value="trackingDetails" label="Tracking Details" /> */}
+        <Tab value="trackingDetails" label="Tracking Details" />
       </Tabs>
 
       <Box mb={3}>
@@ -52,12 +53,13 @@ function SearchOrderDetailsDrawer(props: any) {
               downloadOrderDetails={downloadOrderDetails}
             />
           ) : (
-            // value === "itemDetails" ? (
+            value === "itemDetails" ? (
             <ItemDetailsPage singleOrderData={singleOrderData} />
           )
-          // )
-          // : (
-          // <TrackingDetailsPage singleOrderData={singleOrderData} />
+          : (
+          <TrackingDetailsPage singleOrderData={singleOrderData} />
+          )
+          )
         }
       </Box>
     </TabWrapper>

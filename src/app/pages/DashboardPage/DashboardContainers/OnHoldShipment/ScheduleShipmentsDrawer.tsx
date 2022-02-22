@@ -1,97 +1,128 @@
-import { Grid, Typography } from "@material-ui/core";
-import { DatePicker, LocalizationProvider, TimePicker } from "@mui/lab";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { TextField } from "@mui/material";
+import React, { FC } from "react";
+import moment from "moment";
+import { useFormik } from "formik";
+import { Grid } from "@material-ui/core";
+
 import { Button } from "app/components/Buttons";
-import { Flex } from "app/components/Input/style";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import DatePickerInput from "app/components/Input/DatePickerInput";
+import TimePickerInput from "app/components/Input/TimePickerInput";
 import RadioGroup from "app/components/RadioGroup";
-import React, { FC, useState } from "react";
+import { SCHEDULE_OPTIONS } from "../../../../../constants";
+import { getSingleDate } from "../SignleShipmentContainer/helper";
+import { scheduleShipmentFormSchema } from "./helper";
 
 interface ScheduleShipmentsDrawerProps {
-    submitButtonLabel: string;
-    setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>
-    handleSubmit: (shippingSchedule: string, date: string | null, time: string | null) => void; 
+  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSchedule: (values) => void;
 }
 
-const ScheduleShipmentsDrawer: FC<ScheduleShipmentsDrawerProps> = ({ setDrawerOpen, handleSubmit, submitButtonLabel }) => {
+const ScheduleShipmentsDrawer: FC<ScheduleShipmentsDrawerProps> = ({
+  setDrawerOpen,
+  handleSchedule,
+}) => {
+  const checkScheduleTime = () => {
+    touched?.shipmentDate !== true &&
+      setFieldTouched("shipmentDate", true, true);
+    touched?.shipmentTime !== true &&
+      setFieldTouched("shipmentTime", true, true);
+  };
 
-    const [shippingSchedule, setShippingSchedule] = useState<string>("1")
-    const [date, setDate] = useState<string | null>("")
-    const [time, setTime] = useState<string | null>("")
+  const {
+    values,
+    handleChange,
+    isValid,
+    errors,
+    touched,
+    setFieldTouched,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      scheduleType: "16",
+      shipmentDate: "",
+      shipmentTime: "",
+    },
+    validationSchema: scheduleShipmentFormSchema,
+    onSubmit: (values) => {
+      const data = {
+        type: values.scheduleType,
+        orderAt: getSingleDate(values.shipmentDate, values.shipmentTime),
+      };
+      handleSchedule(data);
+    },
+  });
 
-    const [dateOpen, setDateOpen] = useState(false)
-    const [timeOpen, setTimeOpen] = useState(false)
+  return (
+    <>
+      <DrawerInnerContent>
+        <GridContainer container spacing={2}>
+          <Grid item xs={12}>
+            <RadioGroup
+              id="scheduleType"
+              name="scheduleType"
+              defaultValue={values.scheduleType}
+              value={values.scheduleType}
+              label="When are you going to ship this?"
+              options={SCHEDULE_OPTIONS.slice(0, 2)}
+              error={touched?.scheduleType && errors?.scheduleType}
+              onChange={handleChange}
+              required
+            />
+          </Grid>
+          {values.scheduleType === "17" && (
+            <>
+              <Grid item xs={12}>
+                <DatePickerInput
+                  label="Date"
+                  placeholder={"e.g 06/06/2021"}
+                  minDate={moment().toDate()}
+                  maxDate={moment().add(120, "hours").toDate()}
+                  value={values.shipmentDate || null}
+                  onChange={(val) => {
+                    checkScheduleTime();
+                    setFieldValue("shipmentDate", val);
+                  }}
+                  error={touched?.shipmentDate && errors?.shipmentDate}
+                  disablePast={true}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TimePickerInput
+                  label="Time"
+                  value={values.shipmentTime || null}
+                  onChange={(val) => {
+                    checkScheduleTime();
+                    setFieldValue("shipmentTime", val);
+                  }}
+                  error={touched?.shipmentTime && errors?.shipmentTime}
+                  placeholder={"e.g 12:32"}
+                  required
+                />
+              </Grid>
+            </>
+          )}
+        </GridContainer>
+      </DrawerInnerContent>
 
-    const shippingScheduleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setShippingSchedule(e.target.value)
-    }
-
-    return (
-        <Flex direction="column" style={{ height: '100%' }}>
-            <Flex direction="column" style={{ gap: "20px" }}>
-                <Typography>When are you going to ship this?</Typography>
-                <Flex direction="row">
-                    <RadioGroup
-                        value={shippingSchedule}
-                        options={[
-                            { label: "Right Now", value: "1" },
-                            { label: "Ship Later", value: "0" },
-                        ]}
-                        name={"cardType"}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => shippingScheduleHandler(e)}
-                    />
-                </Flex>
-                <Grid item xs={11}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                            label="Date"
-                            value={date || null}
-                            onChange={(val) => setDate(val)}
-                            open={dateOpen}
-                            onOpen={() => setDateOpen(true)}
-                            onClose={() => setDateOpen(false)}
-                            disablePast
-                            renderInput={(params) => (
-                                <TextField
-                                    style={{ width: '100%' }}
-                                    label="Date"
-                                    placeholder={"e.g 06/06/2021"}
-                                    {...params}
-                                    onClick={() => setDateOpen(true)}
-                                    defaultValue={""}
-                                />
-                            )}
-                        />
-                    </LocalizationProvider>
-                </Grid>
-                <Grid item xs={11}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <TimePicker
-                        label="Time"
-                        value={time || null}
-                        onChange={(val) => setTime(val)}
-                        open={timeOpen}
-                        onOpen={() => setTimeOpen(true)}
-                        onClose={() => setTimeOpen(false)}
-                        renderInput={(params) => (
-                            <TextField
-                                style={{ width: '100%' }}
-                                placeholder={"e.g 12:32"}
-                                {...params}
-                                onClick={(e) => setTimeOpen(true)}
-                                defaultValue={""}
-                            />
-                        )}
-                        />
-                    </LocalizationProvider>
-                </Grid>
-            </Flex>
-            <Flex direction="row" justifyContent={'space-between'} style={{ alignItems: 'flex-end' }} >
-                <Button secondary style={{ width: 'fit-content', minWidth: '150px' }} onClick={() => setDrawerOpen(false)} label="Cancel"></Button>
-                <Button style={{ width: 'fit-content', minWidth: '150px' }} label={submitButtonLabel} onClick={() => handleSubmit(shippingSchedule, date, time)}></Button>
-            </Flex>
-        </Flex>
-    );
-}
+      <DrawerFooter>
+        <Button
+          secondary
+          onClick={() => setDrawerOpen(false)}
+          label="Cancel"
+          size="medium"
+        />
+        <Button
+          label="Save"
+          onClick={handleSubmit}
+          disabled={!isValid}
+          size="medium"
+        />
+      </DrawerFooter>
+    </>
+  );
+};
 
 export default ScheduleShipmentsDrawer;

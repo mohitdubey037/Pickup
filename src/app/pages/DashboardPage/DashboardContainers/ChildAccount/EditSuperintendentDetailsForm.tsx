@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { DrawerFooter } from "app/components/Drawer/style";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Button } from "app/components/Buttons";
 import { editSuperindedentDataSchema } from "./ChildAccountSchema";
 import { editSuperindedentData } from "./helper";
@@ -76,7 +76,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
   
   return (
     <>
-        <form>
+        {/* <form> */}
         <Box display="flex" justifyContent="center" mb={5}>
           <EditAvatar icon={values?.userProfile} changeHandler={changeHandler} />
         </Box>
@@ -137,6 +137,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
               />
             </Grid>
           </GridContainer>
+          {/* </DrawerInnerContent> */}
           <DrawerFooter>
                 <Button
                 secondary
@@ -150,8 +151,6 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 onClick={handleSubmit}
                 />
       </DrawerFooter>
-        </form>
-    
     </>
   );
 }

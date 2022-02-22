@@ -42,8 +42,6 @@ function SingleSipmentForm({
   const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
     formik;
 
-  console.log(formik);
-
   const [timer, setTimer] = useState<any>({});
 
   const formFieldName = `orders.${index}`;

@@ -2,12 +2,12 @@ import { Box } from "@mui/system";
 import { selectedCardCheck } from "app/assets/Icons";
 import { FC } from "react";
 import { CardType } from "types";
+import { CardNumber } from "../Card/style";
+import { Flex } from "../Input/style";
+import { Carddetails } from "../PaymentCard/style";
 import {
     Card,
-    CardLeft,
     CheckImageWrapper,
-    Carddetails,
-    CardNumber,
 } from "./style";
 
 interface PaymentCardListProps {
@@ -30,7 +30,7 @@ const PaymentCardList: FC<PaymentCardListProps> = ({
                     : setSelectedCard(card)
             }
         >
-            <CardLeft>
+            <Flex direction="column" justifyContent="space-between" alignItems="flex-start">
                 <Box>
                     <CardNumber>**** **** **** {card.last4}</CardNumber>
                 </Box>
@@ -42,7 +42,7 @@ const PaymentCardList: FC<PaymentCardListProps> = ({
                         }`}
                     </Carddetails>
                 </Box>
-            </CardLeft>
+            </Flex>
             {/* <CardRight>
                                 <img src={card?.card_type === "MC" ? masterCard : scotiaBank} alt="bank-icon" />
                             </CardRight> */}

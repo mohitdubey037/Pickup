@@ -135,7 +135,6 @@ export const SCHEDULE_OPTIONS = [
     label: "Move to Holding Zone",
     tooltipText:
       "Once your orders are ready to ship, you can schedule them later from the holding zone",
-    disabled: true,
   },
 ];
 
