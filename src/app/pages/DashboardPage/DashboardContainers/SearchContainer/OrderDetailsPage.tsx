@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "app/components/Buttons";
 import { LOCATION_TYPES } from "../../../../../constants";
 import { AddressDetails } from "./AddressDetails";
