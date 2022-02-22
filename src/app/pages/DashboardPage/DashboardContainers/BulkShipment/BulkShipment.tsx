@@ -1,23 +1,21 @@
 import { useState } from "react";
 import { navigate } from "@reach/router";
 import ModuleContainer from "app/components/ModuleContainer";
-import {H2} from "app/components/Typography/Typography";
+import {H2, H3, Para} from "app/components/Typography/Typography";
 import { BulkShipmentWrapper } from "./style";
 import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
 import { uploadFile } from "utils/commonUtils";
 import { useSelector } from "react-redux";
-import { Box } from "@mui/material";
-
 
 const BulkShipment = ({path:string}) => {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(true);
   const [processing, setProcessing] = useState(false);
 
   const onBulkUpload = () => {
     setProcessing(true);
     //async function
-    setProcessing(false);
+    // setProcessing(false);
   };
 
   const onError = () => {
@@ -38,16 +36,12 @@ const BulkShipment = ({path:string}) => {
   return (
     <ModuleContainer>
       <H2 title="Bulk order" />
-      <Box>
-        <H2 title="Bulk order" />
         <BulkShipmentWrapper>
           {!processing && (
             <>
-              <p>
-                Download this file to organize your shipments correctly before
-                upload and we can import it
-              </p>
-              <Button label="Download Sample" onClick={() => {}} />
+              <H3 text="Bulk Order" />
+              <Para text="Download this file to organize your shipments correctly before upload and we can import it"  className="label" />
+              <Button label="Download Sample" onClick={() => {}} size="medium" />
             </>
           )}
           <DropZone
@@ -61,8 +55,16 @@ const BulkShipment = ({path:string}) => {
             isError={error}
             inProgress={processing}
           />
+          
+          <Button
+                secondary
+                label="table"
+                onClick={() => {
+                navigate?.("bulk-summary");
+                }}
+                size="medium"
+                />
         </BulkShipmentWrapper>
-      </Box>
     </ModuleContainer>
   );
 };
