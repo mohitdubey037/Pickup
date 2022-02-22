@@ -50,17 +50,33 @@ export const ChildAccountSchema = yup.object().shape({
   });
 
   
-  export const ChildAccountDetailsSchema = yup.object().shape({
-    CompanyName: yup.string().required(),
-    BusinessNumber: yup.string().required(),
-    Industry: yup.string().required(),
-    Employee: yup.string().required(),
-    AddressLine1: yup.string().required(),
-    AddressLine2: yup.string().required(),
-    Pincode: yup.string().required(),
-    Province: yup.string().required(),
-    City: yup.string().required(),
-    Country: yup.string().required()
-
+  export const editChildAccountSchema = yup.object().shape({
+    companyName: yup.string().required("Company Name is a required field"),
+    businessNumber: yup
+    .number()
+    .positive("Please enter valid Business Number")
+    .min(0, "Please enter valid Business Number")
+    .typeError("Business Number must be a number")
+    .required(" Business Number is a required field"),
+    industry: yup.string().required("Industry is a required field"),
+    employeeStrength: yup
+    .number()
+    .positive("Please enter valid Employee Strength")
+    .min(0, "Please enter valid Employee Strength")
+    .typeError("Employee Strength must be a number")
+    .required("Employess Strength is a required field"),
+    addressLine1: yup.string().required("Address Line 1 is a required field"),
+    addressLine2: yup.string().required("Address Line 2 is a required field"),
+    pincode: yup.string().required("Pincode is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
+    province: yup.string().required("Province is a required field"),
+    city: yup.string().required("City is a required field"),
+    country: yup.string().required("Country is a required field"),
   });
-  export default ChildAccountSchema;
+
+  export const editSuperindedentDataSchema = yup.object().shape({
+    firstName:yup.string().required('First Name is required field'),
+    lastName:yup.string().required('Last Name is required field'),
+    phoneNumber: yup.string().required('Phone Number is required field').matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Contact Number"),
+    roleDesignation: yup.string().required('Role is required field'),
+    emailId: yup.string().required('EmailId is required field').email("Please enter valid email"),
+  });

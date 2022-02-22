@@ -134,9 +134,7 @@ export default function Cards({formik}:{formik: any}){
               label={"Nick name (optional)"}
               placeholder={"Nickname"}
             />
-          </Grid>
-          <Grid item xs={12}>
-            <Button label="+ Add New Card" size="medium" />
+            {/* <Button label="+ Add New Card" size="medium" /> */}
           </Grid>
         </GridContainer>
       </form>
