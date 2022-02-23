@@ -26,12 +26,7 @@ function ItemDetailsPage(props: any) {
           <Grid container spacing={3}>
             <Grid item md={3} xs={12}>
               <H4 text="Category" />
-              <H4
-                className="value"
-                text={
-                  singleOrderData.category ? singleOrderData.category : "N/A"
-                }
-              />
+              <H4 className="value" text={singleOrderData?.category || "N/A"} />
             </Grid>
 
             <Grid item md={3} xs={6}>
@@ -41,7 +36,7 @@ function ItemDetailsPage(props: any) {
                   WEIGHTDIMENSION
                 )}`}
               />
-              <H4 className="value" text={item.weight ? item.weight : "N/A"} />
+              <H4 className="value" text={item?.weight || "N/A"} />
             </Grid>
 
             <Grid item md={3} xs={6}>
@@ -65,10 +60,7 @@ function ItemDetailsPage(props: any) {
 
             <Grid item md={3} xs={6}>
               <H4 text="Pieces" />
-              <H4
-                className="value"
-                text={item.quantity ? item.quantity : "N/A"}
-              />
+              <H4 className="value" text={item?.quantity || "N/A"} />
             </Grid>
 
             <Grid item md={3} xs={6}>
@@ -104,20 +96,13 @@ function ItemDetailsPage(props: any) {
               <H4 text="Customer Reference #" />
               <H4
                 className="value"
-                text={
-                  singleOrderData.customerReferenceNumber
-                    ? singleOrderData.customerReferenceNumber
-                    : "N/A"
-                }
+                text={singleOrderData?.customerReferenceNumber || "N/A"}
               />
             </Grid>
 
             <Grid item md={12} xs={12}>
               <H4 text="Item Description" />
-              <H4
-                className="value"
-                text={item.description ? item.description : "N/A"}
-              />
+              <H4 className="value" text={item?.description || "N/A"} />
             </Grid>
           </Grid>
         </Accordion>
