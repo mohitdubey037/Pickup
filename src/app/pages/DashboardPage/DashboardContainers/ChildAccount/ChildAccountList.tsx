@@ -24,6 +24,7 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Input } from "app/components/Input";
 import { Box } from "@mui/system";
 import { FilterFlexBox } from "../PaymentsContainer/style";
+import CreateChildAccount from "./CreateChildAccount";
 
 export default function ChildAccountList({ path: string }) {
 
@@ -122,9 +123,11 @@ export default function ChildAccountList({ path: string }) {
       <Flex justifyContent="space-between" bottom={24}>
         <H2 title="Child Accounts" />
         {/* <Button size="medium" label="child Details" onClick={childDetails} /> */}
+        {childData?.list?.length > 0 &&
         <Button size="medium" label="Create New" onClick={addChild} />
+        }
       </Flex>
-
+      {childData?.list?.length > 0 &&
       <Box mt={4} mb={2}>
         <GridContainer container spacing={2}>
         <Grid item xs={6} sm={4} lg={2}>
@@ -179,6 +182,7 @@ export default function ChildAccountList({ path: string }) {
           </Grid>
         </GridContainer>
       </Box>
+}
 
       {loading ? (
         <TableSkeleton />
@@ -197,7 +201,7 @@ export default function ChildAccountList({ path: string }) {
         filterColumns={[0, 1, 2, 3, 4, 5]}
       />
       ) : (
-        <NullState message="No Records Found" />
+        <CreateChildAccount onClick={addChild} />
       )}
     </ModuleContainer>
   );
