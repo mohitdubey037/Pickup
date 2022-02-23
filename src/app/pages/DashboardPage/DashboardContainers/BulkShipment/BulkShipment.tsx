@@ -9,7 +9,7 @@ import { uploadFile } from "utils/commonUtils";
 import { useSelector } from "react-redux";
 
 const BulkShipment = ({path:string}) => {
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(false);
   const [processing, setProcessing] = useState(false);
 
   const onBulkUpload = () => {

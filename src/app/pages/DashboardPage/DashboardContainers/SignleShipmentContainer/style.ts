@@ -1,14 +1,6 @@
 import { Box } from "@material-ui/core";
 import styled from "styled-components";
 
-export const InnerAccordion = styled.div`
-  border-top: 1px solid #dddddd;
-  // margin: 24px 0;
-  .MuiAccordionSummary-content {
-    font-size: 16px !important;
-    margin: 12px 0 !important;
-}
-`;
 
 export const MainDiv = styled.div`
   .MuiAccordionSummary-content {
@@ -22,18 +14,7 @@ export const MainDiv = styled.div`
   }
 `;
 
-export const AccordionOuterBox = styled(Box)`
-  border: 1px solid #dcdcdc;
-  box-sizing: border-box;
-  border-radius: 4px;
-  padding: 16px 24px;
-  div {
-    box-shadow: none !important;
-  }
-  .value {
-    font-family: "Roboto-Medium";
-  }
-`;
+
 
 export const FavoritesBox = styled(Box)`
   display: flex;
@@ -77,13 +58,7 @@ export const OrderImageWrapper = styled(Box)`
   position: relative;
 `;
 
-export const OrderImage = styled.img`
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-  background: #f5f5f5;
-  border: 1px solid #eee;
-`;
+
 
 export const Remove = styled.img`
   position: absolute;

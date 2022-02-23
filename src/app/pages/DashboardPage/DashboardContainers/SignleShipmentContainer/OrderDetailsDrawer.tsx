@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Accordion } from "app/components/Accordion";
 import { getOrderDetails } from "services/SingleShipmentServices";
 import { showToast } from "utils";
-import { AccordionOuterBox, InnerAccordion, OrderImage } from "./style";
 import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { Grid } from "@mui/material";
 import { H4 } from "app/components/Typography/Typography";
 import { Box } from "@mui/system";
 import OrderDetailsSkeleton from "./OrderDetailsSkeleton";
+import { AccordionOuterBox, InnerAccordion, OrderImage } from "app/components/CommonCss/CommonCss";
 
 interface orderDetails {
   refNo?: string;

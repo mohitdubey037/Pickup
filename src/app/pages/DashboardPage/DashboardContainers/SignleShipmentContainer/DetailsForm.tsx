@@ -14,8 +14,9 @@ import {
 import DetailsFormItem from "./DetailsFormItem";
 import { DROP_OPTION, FRAGILE_OPTION } from "../../../../../constants";
 import { CustomInput } from "../CompanyProfileContainer/style";
-import { OrderImage, OrderImageWrapper, Remove } from "./style";
+import { OrderImageWrapper, Remove } from "./style";
 import { remove } from "../../../../assets/Icons";
+import { OrderImage } from "app/components/CommonCss/CommonCss";
 
 interface SelectBoardType {
     categoryId: number;

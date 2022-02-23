@@ -1,8 +1,7 @@
-import { Accordion } from "app/components/Accordion";
-import { AccordionOuterBox } from "./style";
 import { Grid, Skeleton } from "@mui/material";
 import { H4 } from "app/components/Typography/Typography";
 import { Box } from "@mui/system";
+import { AccordionOuterBox } from "app/components/CommonCss/CommonCss";
 
 
 
