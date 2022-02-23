@@ -6,9 +6,12 @@ import { Box } from "@mui/material";
 import { H3 } from "app/components/Typography/Typography";
 import { useSelector } from "react-redux";
 
+interface cardDetailsProps{
+  cardDetails: any;
+  updateCards? : () => void;
+}
 
-
-const CardsDetails = ({cardDetails}) => {
+const CardsDetails = ({cardDetails, updateCards}: cardDetailsProps) => {
 
   return (
         <> <FullCard>
@@ -20,6 +23,7 @@ const CardsDetails = ({cardDetails}) => {
               cardDetails?.cardlist?.map((value, idx) => (
                 <PaymentCard
                 // key={idx}
+                updateCards = {updateCards}
                 cardData={value}
                 />
                 ))
