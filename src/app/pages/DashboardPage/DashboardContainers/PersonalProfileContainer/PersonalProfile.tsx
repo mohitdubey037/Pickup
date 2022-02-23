@@ -1,15 +1,13 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
-import {
-  H3,
-  Para,
-  H4,
-} from "app/components/Typography/Typography";
+import { H3, Para, H4 } from "app/components/Typography/Typography";
 import { Button } from "../../../../components/Buttons";
 import { FullCard } from "app/components/Input/style";
 import { FlexTable } from "./styles";
 import { PersonalProfileType } from "./types";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import EditIcon from "app/components/EditIcon/EditIcon";
+import { formatPhoneNo } from "utils/commonUtils";
+
 interface CardInterface {
   personalProfileDetails: PersonalProfileType;
   setPasswordDrawerOpen: (value: boolean) => void;
@@ -57,7 +55,13 @@ export default function PersonalProfile(props: CardInterface) {
             <Grid item lg={3} xl={2} sm={4} xs={12}>
               <Para text="Phone Number" />
               <H4
-                text={personalProfileDetails?.userDetails?.phoneNo || "-"}
+                text={
+                  personalProfileDetails?.userDetails?.phoneNo
+                    ? formatPhoneNo(
+                        personalProfileDetails?.userDetails?.phoneNo
+                      )
+                    : "-"
+                }
                 className="value"
               />
             </Grid>
@@ -77,7 +81,7 @@ export default function PersonalProfile(props: CardInterface) {
             </Grid>
           </Grid>
         </FlexTable>
-      
+
         <Button
           label="Change Password"
           size="small"

@@ -1,15 +1,13 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
+
 import { FullCard } from "app/components/Input/style";
-import {
-  H3,
-  Para,
-  H4,
-} from "app/components/Typography/Typography";
+import { H3, Para, H4 } from "app/components/Typography/Typography";
 import { FlexGrid } from "./style";
 import { PERMISSION_TYPES } from "../../../../../constants";
 import { ColleagueDetailsType } from "./types";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import EditIcon from "app/components/EditIcon/EditIcon";
+import { formatPhoneNo } from "utils/commonUtils";
 
 interface DetailInterface {
   setColleagueDrawerOpen: any;
@@ -53,10 +51,12 @@ export default function NewColleague(props: DetailInterface) {
       <FullCard>
         <Box mb={4} display="flex" justifyContent="space-between">
           <H3 text={`Colleague ${index + 1}`} />
-             <EditIcon onClick={() => {
+          <EditIcon
+            onClick={() => {
               setSelectedColleague(inviteId);
               setColleagueDrawerOpen(true);
-            }} />
+            }}
+          />
         </Box>
 
         <FlexBox justifyContent="space-between">
@@ -67,21 +67,18 @@ export default function NewColleague(props: DetailInterface) {
             <Grid container spacing={2}>
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="First Name" />
-                <H4
-                  text={firstName ? firstName : "-"}
-                  className="value"
-                />
+                <H4 text={firstName ? firstName : "-"} className="value" />
               </Grid>
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Last Name" />
-                <H4
-                  text={lastName ? lastName : "-"}
-                  className="value"
-                />
+                <H4 text={lastName ? lastName : "-"} className="value" />
               </Grid>
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Phone Number" />
-                <H4 text={phoneNo ? phoneNo : "-"} className="value" />
+                <H4
+                  text={phoneNo ? formatPhoneNo(phoneNo) : "-"}
+                  className="value"
+                />
               </Grid>
               <Grid item lg={2} sm={4} xs={12}>
                 <Para text="Role/Designation" />

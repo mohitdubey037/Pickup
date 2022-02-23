@@ -1,4 +1,5 @@
 import { logo } from "app/assets/Icons";
+import { formatPhoneNo } from "utils/commonUtils";
 import {
   DIMENSION2,
   LOCATION_TYPES,
@@ -65,9 +66,9 @@ const AddressDetails = ({ data }: any) => {
       <tbody>
         <tr>
           <td>{locationType(data)}</td>
-          <td>{data.companyName ? data.companyName : "NA"}</td>
-          <td>{data.locationFirstName ? data.locationFirstName : "NA"}</td>
-          <td>{data.locationLastName ? data.locationLastName : "NA"}</td>
+          <td>{data.companyName ? data.companyName : "N/A"}</td>
+          <td>{data.locationFirstName ? data.locationFirstName : "N/A"}</td>
+          <td>{data.locationLastName ? data.locationLastName : "N/A"}</td>
         </tr>
       </tbody>
       <thead>
@@ -83,10 +84,10 @@ const AddressDetails = ({ data }: any) => {
       <tbody>
         <tr>
           <td colSpan={2}>
-            {data.locationAddressLine1 ? data.locationAddressLine1 : "NA"}
+            {data.locationAddressLine1 ? data.locationAddressLine1 : "N/A"}
           </td>
           <td colSpan={2}>
-            {data.locationAddressLine2 ? data.locationAddressLine2 : "NA"}
+            {data.locationAddressLine2 ? data.locationAddressLine2 : "N/A"}
           </td>
         </tr>
       </tbody>
@@ -100,12 +101,12 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td>{data.locationCity ? data.locationCity : "NA"}</td>
-          <td>{data.locationPinCode ? data.locationPinCode : "NA"}</td>
+          <td>{data.locationCity ? data.locationCity : "N/A"}</td>
+          <td>{data.locationPinCode ? data.locationPinCode : "N/A"}</td>
           <td>
-            {data.locationProvinceCode ? data.locationProvinceCode : "NA"}
+            {data.locationProvinceCode ? data.locationProvinceCode : "N/A"}
           </td>
-          <td>{data.locationCountry ? data.locationCountry : "NA"}</td>
+          <td>{data.locationCountry ? data.locationCountry : "N/A"}</td>
         </tr>
       </tbody>
       <thead>
@@ -117,11 +118,15 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td>{data.locationPhone ? data.locationPhone : "NA"}</td>
           <td>
-            {data.locationAlternatePhone ? data.locationAlternatePhone : "NA"}
+            {data.locationPhone ? formatPhoneNo(data.locationPhone) : "N/A"}
           </td>
-          <td>{data.locationEmail ? data.locationEmail : "NA"}</td>
+          <td>
+            {data.locationAlternatePhone
+              ? formatPhoneNo(data.locationAlternatePhone)
+              : "N/A"}
+          </td>
+          <td>{data.locationEmail ? data.locationEmail : "N/A"}</td>
         </tr>
       </tbody>
       <thead>
@@ -133,7 +138,7 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td colSpan={4}>{data.details ? data.details : "NA"}</td>
+          <td colSpan={4}>{data.details ? data.details : "N/A"}</td>
         </tr>
       </tbody>
     </table>
@@ -170,18 +175,18 @@ const ItemDetails = ({ orderData, item }: any) => {
         </thead>
         <tbody>
           <tr>
-            <td>{orderData.category ? orderData.category : "NA"}</td>
-            <td>{item.weight ? item.weight : "NA"}</td>
+            <td>{orderData.category ? orderData.category : "N/A"}</td>
+            <td>{item.weight ? item.weight : "N/A"}</td>
             <td>
               {item.length && item.width && item.height ? (
                 <span>
                   {item.length} x {item.width} x {item.height}
                 </span>
               ) : (
-                "NA"
+                "N/A"
               )}
             </td>
-            <td>{item.quantity ? item.quantity : "NA"}</td>
+            <td>{item.quantity ? item.quantity : "N/A"}</td>
           </tr>
         </tbody>
         <thead>
@@ -194,21 +199,19 @@ const ItemDetails = ({ orderData, item }: any) => {
         </thead>
         <tbody>
           <tr>
-            <td>
-              {orderData.shipmentCost ? "$" + orderData.shipmentCost : "NA"}
-            </td>
+            <td>{orderData.total ? "$" + orderData.total : "N/A"}</td>
             <td>{item.fragile === 1 ? "Yes" : "No"}</td>
             <td>
               {orderData.dropOption === 10
                 ? "Door Drop"
                 : orderData.dropOption === 11
                 ? "Safe Drop"
-                : "NA"}
+                : "N/A"}
             </td>
             <td>
               {orderData.customerReferenceNumber
                 ? orderData.customerReferenceNumber
-                : "NA"}
+                : "N/A"}
             </td>
           </tr>
         </tbody>
@@ -222,7 +225,7 @@ const ItemDetails = ({ orderData, item }: any) => {
         </thead>
         <tbody>
           <tr>
-            <td colSpan={4}>{item.description ? item.description : "NA"}</td>
+            <td colSpan={4}>{item.description ? item.description : "N/A"}</td>
           </tr>
         </tbody>
       </table>

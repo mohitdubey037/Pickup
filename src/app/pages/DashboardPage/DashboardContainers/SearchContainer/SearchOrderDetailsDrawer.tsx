@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import { createRef, SyntheticEvent, useState } from "react";
 import { TabWrapper } from "./style";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -8,17 +8,17 @@ import html2pdf from "html2pdf.js";
 
 import OrderDetailPage from "./OrderDetailsPage";
 import ItemDetailsPage from "./ItemDetailsPage";
-// import TrackingDetailsPage from "./TrackingDetailsPage";
-import OrderDetailsTemplate from "./OrderDetailsTemplate";
 import TrackingDetailsPage from "./TrackingDetailsPage";
+import OrderDetailsTemplate from "./OrderDetailsTemplate";
 
 const ref: any = createRef();
 
 function SearchOrderDetailsDrawer(props: any) {
   let { singleOrderData, orderId } = props;
-  const [value, setValue] = React.useState("orderDetails");
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const [value, setValue] = useState("orderDetails");
+
+  const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
@@ -46,21 +46,16 @@ function SearchOrderDetailsDrawer(props: any) {
       </Tabs>
 
       <Box mb={3}>
-        {
-          value === "orderDetails" ? (
-            <OrderDetailPage
-              singleOrderData={singleOrderData}
-              downloadOrderDetails={downloadOrderDetails}
-            />
-          ) : (
-            value === "itemDetails" ? (
-            <ItemDetailsPage singleOrderData={singleOrderData} />
-          )
-          : (
+        {value === "orderDetails" ? (
+          <OrderDetailPage
+            singleOrderData={singleOrderData}
+            downloadOrderDetails={downloadOrderDetails}
+          />
+        ) : value === "itemDetails" ? (
+          <ItemDetailsPage singleOrderData={singleOrderData} />
+        ) : (
           <TrackingDetailsPage singleOrderData={singleOrderData} />
-          )
-          )
-        }
+        )}
       </Box>
     </TabWrapper>
   );

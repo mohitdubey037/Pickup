@@ -24,11 +24,11 @@ export const dashboardHelper: Array<Link> = [
         label: "Single Order",
         link: "/dashboard/charter-shipment/single-shipment",
       },
-      // {
-      //   id: 1,
-      //   label: "Bulk Order",
-      //   link: "/dashboard/charter-shipment/bulk-shipment",
-      // },
+      {
+        id: 1,
+        label: "Bulk Order",
+        link: "/dashboard/charter-shipment/bulk-shipment",
+      },
     ],
   },
   {
@@ -81,6 +81,7 @@ export const dashboardHelper: Array<Link> = [
         id: 2,
         label: "Child Account",
         link: "/dashboard/my-account/child-account-list",
+        access: [4],
       },
       {
         id: 3,
