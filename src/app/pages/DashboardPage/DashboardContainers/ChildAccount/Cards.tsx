@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
-import { Button } from "app/components/Buttons";
-import { useFormik } from "formik";
-import RadioGroup from "app/components/RadioGroup";
-import { cardSchema } from "../PaymentsContainer/cardSchema";
 import { H3 } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Box } from "@mui/material";
@@ -17,10 +13,6 @@ export default function Cards({formik}:{formik: any}){
 
   const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
 
-  const cardForm = values;
-  const cardFormTouched = touched;
-  const cardFormError = errors;
-
   const onChangeHandler = (event: any, name: string) => {
     handleChange(event);
   };
@@ -32,7 +24,7 @@ export default function Cards({formik}:{formik: any}){
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          mb={2}
+          mb={4}
         >
           <H3 text="Cards" />
           <CustomLink
@@ -57,9 +49,9 @@ export default function Cards({formik}:{formik: any}){
               id="cardNumber"
               name="number"
               onBlur={handleBlur}
-              value={cardForm.number}
+              value={values.number}
               onChange={(e) => onChangeHandler(e, `number`)}
-              error={cardFormTouched.number && cardFormError.number}
+              error={touched.number && errors.number}
               label={"Credit Card Number"}
               placeholder={"**** **** **** ****"}
               type="mask"
@@ -67,6 +59,7 @@ export default function Cards({formik}:{formik: any}){
                   mask: "9999 9999 9999 9999",
                   maskPlaceholder: null,
               }}
+              required
             />
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -74,9 +67,9 @@ export default function Cards({formik}:{formik: any}){
               id="expiryDate"
               name="expiryDate"
               onBlur={handleBlur}
-              value={cardForm.expiryYear}
+              value={values.expiryYear}
               onChange={(e) => onChangeHandler(e, `expiryDate`)}
-              error={cardFormTouched.expiryYear && cardFormError.expiryYear}
+              error={touched.expiryYear && errors.expiryYear}
               label={"Expiration Date"}
               placeholder={"MM/YY"}
               type="mask"
@@ -84,6 +77,7 @@ export default function Cards({formik}:{formik: any}){
                 mask: "99/99",
                 maskPlaceholder: null,
             }}
+            required
             />
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -91,12 +85,13 @@ export default function Cards({formik}:{formik: any}){
               id="cvc"
               name="cvd"
               onBlur={handleBlur}
-              value={cardForm.cvd}
+              value={values.cvd}
               // onChange={handleChange}
               onChange={(e) => onChangeHandler(e, `cvd`)}
-              error={cardFormTouched.cvd && cardFormError.cvd}
+              error={touched.cvd && errors.cvd}
               label={"CVC"}
               placeholder={"CVC"}
+              required
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -104,9 +99,9 @@ export default function Cards({formik}:{formik: any}){
               id="nameOnCard"
               name="name"
               onBlur={handleBlur}
-              value={cardForm.name}
+              value={values.name}
               onChange={(e) => onChangeHandler(e, `name`)}
-              error={cardFormTouched.name && cardFormError.name}
+              error={touched.name && errors.name}
               label={"Name on Card"}
               placeholder={"John Doe"}
             />
@@ -117,8 +112,8 @@ export default function Cards({formik}:{formik: any}){
               name="pincard"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={cardForm.pincard}
-              error={cardFormTouched.pincard && cardFormError.pincard}
+              value={values.pincard}
+              error={touched.pincard && errors.pincard}
               label={"Pin Code"}
               placeholder={"Pin Code"}
             />
@@ -129,8 +124,8 @@ export default function Cards({formik}:{formik: any}){
               name="nickname"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={cardForm.nickname}
-              error={cardFormTouched.nickname && cardFormError.nickname}
+              value={values.nickname}
+              error={touched.nickname && errors.nickname}
               label={"Nick name (optional)"}
               placeholder={"Nickname"}
             />

@@ -84,6 +84,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 error={childAccountFormTouched.companyName && childAccountFormError.companyName}
                 label={"Company Name"}
                 placeholder={"Example Company"}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
@@ -96,6 +97,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 error={childAccountFormTouched.businessNumber && childAccountFormError.businessNumber}
                 label={"Business Number"}
                 placeholder="eg. 123456"
+                required
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
@@ -108,6 +110,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 error={childAccountFormTouched.industry && childAccountFormError.industry}
                 label={"Industry"}
                 placeholder={"eg. Retail"}
+                // required
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
@@ -163,6 +166,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 placeholder={"1234"}
                 type="mask"
                 maskProps={PIN_CODE_MASK}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
@@ -175,6 +179,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 error={childAccountFormTouched.province && childAccountFormError.province}
                 label={"Province"}
                 placeholder={"eg. Ontario"}
+                required
               />
             </Grid>
 
@@ -188,6 +193,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 error={childAccountFormTouched.city && childAccountFormError.city}
                 label={"City"}
                 placeholder={"eg. Toronto"}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
@@ -200,6 +206,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 error={childAccountFormTouched.country && childAccountFormError.country}
                 label={"Country"}
                 placeholder={"eg. Canada"}
+                required
               />
             </Grid>
           </GridContainer>

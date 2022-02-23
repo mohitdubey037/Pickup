@@ -20,14 +20,14 @@ interface PaymentCardProps {
     cardData: IndividualCard;
     setDrawerOpen?: Dispatch<SetStateAction<boolean>>;
     setCardData?: Dispatch<SetStateAction<IndividualCard>>;
-    updateCards?: () => void;
+    saveAction?: () => void;
 }
 
 export default function PaymentCard({
     cardData,
     setDrawerOpen,
     setCardData,
-    updateCards
+    saveAction
 }: PaymentCardProps) {
     const dispatch = useDispatch();
 
@@ -53,7 +53,7 @@ export default function PaymentCard({
             );
             if (res.error === null) {
                 dispatch(actions.getCards());
-                updateCards?.()
+                saveAction?.()
             }
         } catch (error) {
             console.log("error", error);

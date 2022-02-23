@@ -5,29 +5,33 @@ import { FullCard } from "app/components/Input/style";
 import { Box } from "@mui/material";
 import { H3 } from "app/components/Typography/Typography";
 import { useSelector } from "react-redux";
+import NullState from "app/components/NullState/NullState";
 
 interface cardDetailsProps{
   cardDetails: any;
-  updateCards? : () => void;
+  saveAction? : () => void;
 }
 
-const CardsDetails = ({cardDetails, updateCards}: cardDetailsProps) => {
+const CardsDetails = ({cardDetails, saveAction}: cardDetailsProps) => {
 
   return (
         <> <FullCard>
-        <Box mb={4} display="flex" justifyContent="space-between">
+        <Box mb={2} display="flex" justifyContent="space-between">
           <H3 text="Cards" />
           </Box>
             <Grid container spacing={2}>
             {
-              cardDetails?.cardlist?.map((value, idx) => (
-                <PaymentCard
-                // key={idx}
-                updateCards = {updateCards}
-                cardData={value}
-                />
-                ))
-            }
+              cardDetails?.cardlist?.length > 0 ?
+                cardDetails?.cardlist?.map((value, idx) => (
+                  <PaymentCard
+                  // key={idx}
+                  saveAction = {saveAction}
+                  cardData={value}
+                  />
+                  ))
+                  :
+                  <NullState message="No Cards Found" />
+                }
             </Grid>
             </FullCard>
         </>

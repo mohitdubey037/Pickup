@@ -97,9 +97,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     errors,
     handleBlur,
     handleSubmit,
-    setFieldValue,
-    isValid,
-    validateForm
+    setFieldValue
   } = useFormik({
     initialValues: {
         companyProfileImage: singleCompanyDetails.companyProfileImage || "",
@@ -161,7 +159,6 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.industry && errors?.industry}
               label={"Industry"}
               placeholder={"eg. Retail"}
-              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -173,7 +170,6 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.employeeStrength && errors?.employeeStrength}
               label={"Employee Strength"}
               placeholder={"min 5"}
-              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -210,7 +206,6 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.addressLine2 && errors?.addressLine2}
               label={"Address Line 2"}
               placeholder={"123 Address Street"}
-              required
             />
           </Grid>
 
