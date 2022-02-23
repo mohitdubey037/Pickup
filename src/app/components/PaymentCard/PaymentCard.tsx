@@ -85,7 +85,7 @@ export default function PaymentCard({
                 >
                     {/* <MenuItem onClick={() => handleEditCard()}>Edit Card</MenuItem> */}
                     <MenuItem onClick={handleDeleteCard}>Delete Card</MenuItem>
-                    <MenuItem onClick={handleEditCard}>Edit Card</MenuItem>
+                    {/* <MenuItem onClick={handleEditCard}>Edit Card</MenuItem> */}
                 </MenuBox>
             </IndividualCardDiv>
         </Grid>

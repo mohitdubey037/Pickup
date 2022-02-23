@@ -5,7 +5,6 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Button } from "app/components/Buttons";
 import { editSuperindedentDataSchema } from "./ChildAccountSchema";
-import { editSuperindedentData } from "./helper";
 import { useFormik } from "formik";
 import { Avatar, Box } from "@material-ui/core";
 import EditAvatar from "app/components/Avatar/EditAvatar";
@@ -14,6 +13,12 @@ import { IMAGE_FILE_TYPES } from "../../../../../constants";
 import { editSuperIndendentAccountData } from "services/ChildAccount";
 import { imageUploadService } from "services/SingleShipmentServices";
 import { editChildAccountProps } from "./type";
+import {
+  LOCATION_TYPES,
+  BILLING_TYPES,
+  PIN_CODE_MASK,
+  PHONE_NO_MASK,
+} from "../../../../../constants";
 
 export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
@@ -112,6 +117,9 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 onChange={handleChange}
                 error={touched.phoneNumber && errors?.phoneNumber}
                 placeholder={"+1 (999)-999-9999"}
+                required
+                type="mask"
+                maskProps={PHONE_NO_MASK}
               />
             </Grid>
             <Grid item xs={12}>

@@ -14,6 +14,9 @@ import EditAvatar from "app/components/Avatar/EditAvatar";
 import { showToast } from "utils";
 import { IMAGE_FILE_TYPES } from "../../../../../constants";
 import { imageUploadService } from "services/SingleShipmentServices";
+import {
+  PIN_CODE_MASK,
+} from "../../../../../constants";
 
 export default function EditChildAccountForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
@@ -166,7 +169,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               onChange={handleChange}
               error={touched.employeeStrength && errors?.employeeStrength}
               label={"Employee Strength"}
-              placeholder={"eg. John Doe"}
+              placeholder={"min 5"}
             />
           </Grid>
           <Grid item xs={12}>
@@ -226,6 +229,8 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.pincode && errors?.pincode}
               label={"Pincode"}
               placeholder={"1234"}
+              type="mask"
+              maskProps={PIN_CODE_MASK}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
