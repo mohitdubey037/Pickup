@@ -1,161 +1,158 @@
-import React, { useEffect, useState } from "react";
-import { RouteComponentProps } from "@reach/router";
+import { useEffect, useState } from "react";
+
 import ModuleContainer from "app/components/ModuleContainer";
 import { Drawer } from "app/components/Drawer";
-import { SearchTableTop } from "../SearchContainer/style";
-import { Table, TableNew } from "app/components/Table";
+import { TableNew } from "app/components/Table";
 import { Button } from "app/components/Buttons";
-import ContactDetailsSidebar from "./ContactDetailsSidebar";
-import { getLocationList } from "../../../../../services/LocationServices/index";
-import { edit, trash } from "app/assets/Icons";
-import EditContactDetails from "./EditContactDetails";
-import services from "services";
-import FileDrawer from "./FileDrawer";
-import { H3 } from "app/components/Typography/Typography";
+import { H2, H3 } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
-import { FavoriteLocationColoumns } from "./helper";
-import EditIcon from "app/components/EditIcon/EditIcon";
+import TableSkeleton from "app/components/Table/TableSkeleton";
+import NullState from "app/components/NullState/NullState";
+import { SearchTableTop } from "../SearchContainer/style";
+import ContactDetailsSidebar from "./ContactDetailsSidebar";
+import {
+  deleteSavedLocation,
+  getLocationList,
+} from "../../../../../services/LocationServices/index";
+import EditContactDetails from "./EditContactDetails";
+import FileDrawer from "./FileDrawer";
+import { favoriteLocationColoumns, getLocationData } from "./helper";
 
-function FavoriteLocations(props: RouteComponentProps) {
-  const [drawerOpenOne, setDrawerOpenOne] = useState(false);
-  const [showDetailDrawer, setShowDetailDrawer] = useState(false);
-  const [showEditDrawer, setShowEditDrawer] = useState(false);  
+const DRAWER_TITLE = {
+  contactDetails: "Contact Details",
+  editContactDetails: "Edit Contact Details",
+  importCSV: "Import CSV",
+};
+
+function FavoriteLocations({ path: string }) {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [locationData, setLocationData] = useState<any>([]);
+  const [selectedLocation, setSelectedLocation] = useState<any>(null);
   const [pagination, setPagination] = useState({
     count: 0,
     page: 0,
   });
+  const [sorting, setSorting] = useState({
+    field: "createdDate",
+    type: "desc",
+  });
 
-  const [selectedRow, setSelectedRow] = useState(null);
+  const [drawerType, setDrawerType] = useState("");
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const [locationData, setLocationData] = useState<any[]>([]);
-  useEffect(() => {
-    (async () => {
-      const res = (await getLocationList()) as any;
-      if (!res.error) {
-        const LocationDetails = res.response.data.data;
-        console.log("data", LocationDetails);
-        console.log("shipmentDetailsRes", LocationDetails);
-
-        setLocationData(LocationDetails);
-      }
-    })();
-  }, []);
-
-  const drawerCloseHandler = (flag) => {
-    setSelectedRow(null);
-    setShowDetailDrawer(flag);
-    setShowEditDrawer(flag);
+  const openDrawer = (type: string, item?: any) => {
+    if (type === "contactDetails" || type === "editContactDetails") {
+      setSelectedLocation(item);
+    }
+    setDrawerType(type);
+    setDrawerOpen(true);
   };
 
-  const editClickHandler = (item: any) => {
-    setShowEditDrawer(true);
-    setSelectedRow(item);
-  };
-
-  const deleteClickHandler = async (item: any) => {
-    const res = await services.delete(
-      `location/business/location/${item.locationId}`,
-      "location"
-    );
-    console.log("updateRes", res);
-  };
-
-  const getActionItem = (item) => {
-    return (
-      <Flex
-      justifyContent="space-between"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-      >
-         <EditIcon onClick={() => editClickHandler(item)} />
-         <EditIcon src={trash} onClick={() => deleteClickHandler(item)} />
-      </Flex>
-    );
-  };
-
-  const getTableData = () => {
-    return locationData.map((item) => {
-      return {
-        Client: `${item.locationFirstName} ${item.locationLastName}`,
-        Email: item.locationEmail,
-        Date: item.createdDate,
-        Address: item.locationAddressLine1,
-        City: item.locationCity,
-        "Provience/State": item.locationProvinceCode,
-        Country: item.locationCountry,
-        Action: getActionItem(item),
-      };
-    });
-  };
-
-  const rowSelectHandler = (_, index) => {
-    const detail = locationData[index];
-    if (detail) {
-      setSelectedRow(detail);
-      setShowDetailDrawer(true);
+  const deleteLocation = async (locationId: string) => {
+    const res = (await deleteSavedLocation(locationId)) as any;
+    if (res.error === null) {
+      getLocationListData();
     }
   };
 
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${locationData.length} Orders`} className="heading" />
+        <H3 text={`${locationData.length} Locations`} className="heading" />
         <Button
-          secondary={true}
-          label="Import from CSV"
           size="medium"
-          onClick={() => {
-            setDrawerOpenOne(true);
-          }}
+          secondary
+          label="Import from CSV"
+          onClick={() => openDrawer("importCSV")}
         />
       </SearchTableTop>
     );
   };
 
+  useEffect(() => {
+    getLocationListData();
+  }, []);
+
+  const getLocationListData = async (
+    page?: number,
+    sort?: { field: string; type: string }
+  ) => {
+    let urlParams = "";
+    let params: any = {
+      page: page !== undefined ? page + 1 : pagination.page + 1,
+      chunk: 10,
+      sortingField: sort !== undefined ? sort.field : sorting.field,
+      sortingType: sort !== undefined ? sort.type : sorting.type,
+    };
+    if (sort) {
+      setSorting({
+        field: sort.field,
+        type: sort.type,
+      });
+    }
+    let tempLen = Object.entries(params).length;
+    Object.entries(params).forEach(
+      ([key, value], index) =>
+        (urlParams += value
+          ? `${key}=${value}${index === tempLen - 1 ? "" : "&"}`
+          : "")
+    );
+    const res = (await getLocationList(urlParams)) as any;
+    if (res?.error === null) {
+      const data = res.response.data.data;
+      setLocationData(data);
+    } else {
+      setLocationData([]);
+    }
+    setLoading(false);
+  };
+
   return (
-    <>
-      <ModuleContainer>
+    <ModuleContainer>
+      <Flex bottom={24}>
+        <H2 title="Favourite Locations" />
+      </Flex>
+
+      {loading ? (
+        <TableSkeleton />
+      ) : locationData?.length > 0 ? (
         <TableNew
-          data={getTableData()}
-          coloumns={FavoriteLocationColoumns}
           tableTop={tableTop()}
+          coloumns={favoriteLocationColoumns}
+          data={getLocationData(locationData, openDrawer, deleteLocation)}
           showPagination
           pagination={pagination}
-          // onRowSelect={rowSelectHandler}
+          onPageChange={(page) => getLocationListData(page)}
+          sorting={sorting}
+          onSortChange={(field, type) =>
+            getLocationListData(undefined, { field, type })
+          }
         />
-      </ModuleContainer>
-      <Drawer
-        open={showDetailDrawer}
-        setDrawerOpen={(flag) => drawerCloseHandler(flag)}
-        closeIcon={true}
-        title="Contact Details"
-      >
-        <ContactDetailsSidebar contactInfo={selectedRow} />
-      </Drawer>
+      ) : (
+        <NullState message="No Records Found" />
+      )}
 
       <Drawer
-        open={showEditDrawer}
-        setDrawerOpen={(flag) => drawerCloseHandler(flag)}
-        closeIcon={true}
-        title="Edit Contact Details"
-      >
-        <EditContactDetails
-          contactInfo={selectedRow}
-          onClose={drawerCloseHandler}
-        />
-      </Drawer>
-      <Drawer
-        open={drawerOpenOne}
-        title="Import CSV"
-        setDrawerOpen={(flag) => setDrawerOpenOne(flag)}
+        open={drawerOpen}
+        title={DRAWER_TITLE?.[drawerType] || ""}
+        setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
         actionButtons={true}
       >
-        <FileDrawer />
+        {drawerType === "contactDetails" ? (
+          <ContactDetailsSidebar contactInfo={selectedLocation} />
+        ) : drawerType === "editContactDetails" ? (
+          <EditContactDetails
+            contactInfo={selectedLocation}
+            onClose={setDrawerOpen}
+          />
+        ) : drawerType === "importCSV" ? (
+          <FileDrawer />
+        ) : (
+          <></>
+        )}
       </Drawer>
-    </>
+    </ModuleContainer>
   );
 }
 
