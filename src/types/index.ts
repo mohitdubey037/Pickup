@@ -1,5 +1,5 @@
 export interface AuthUser {
-    profileImage?: string;
+  profileImage?: string;
   userId: number;
   firstName: string;
   lastName: string;
@@ -33,4 +33,13 @@ export interface CardType {
   card_type?: string;
   last4?: string;
   customer?: string;
+}
+
+export interface Token {
+  company: number;
+  exp: number;
+  iat: number;
+  role: number;
+  type: string;
+  userId: number;
 }

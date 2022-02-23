@@ -1,2 +1,3 @@
-import FavoriteLocations from './FavoriteLocations'
-export default FavoriteLocations
+import FavoriteLocations from "./FavoriteLocations";
+
+export default FavoriteLocations;

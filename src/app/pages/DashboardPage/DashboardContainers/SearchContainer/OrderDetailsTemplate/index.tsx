@@ -66,9 +66,9 @@ const AddressDetails = ({ data }: any) => {
       <tbody>
         <tr>
           <td>{locationType(data)}</td>
-          <td>{data.companyName ? data.companyName : "N/A"}</td>
-          <td>{data.locationFirstName ? data.locationFirstName : "N/A"}</td>
-          <td>{data.locationLastName ? data.locationLastName : "N/A"}</td>
+          <td>{data?.companyName || "N/A"}</td>
+          <td>{data?.locationFirstName || "N/A"}</td>
+          <td>{data?.locationLastName || "N/A"}</td>
         </tr>
       </tbody>
       <thead>
@@ -83,12 +83,8 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td colSpan={2}>
-            {data.locationAddressLine1 ? data.locationAddressLine1 : "N/A"}
-          </td>
-          <td colSpan={2}>
-            {data.locationAddressLine2 ? data.locationAddressLine2 : "N/A"}
-          </td>
+          <td colSpan={2}>{data?.locationAddressLine1 || "N/A"}</td>
+          <td colSpan={2}>{data?.locationAddressLine2 || "N/A"}</td>
         </tr>
       </tbody>
       <thead>
@@ -101,12 +97,10 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td>{data.locationCity ? data.locationCity : "N/A"}</td>
-          <td>{data.locationPinCode ? data.locationPinCode : "N/A"}</td>
-          <td>
-            {data.locationProvinceCode ? data.locationProvinceCode : "N/A"}
-          </td>
-          <td>{data.locationCountry ? data.locationCountry : "N/A"}</td>
+          <td>{data?.locationCity || "N/A"}</td>
+          <td>{data?.locationPinCode || "N/A"}</td>
+          <td>{data?.locationProvinceCode || "N/A"}</td>
+          <td>{data?.locationCountry || "N/A"}</td>
         </tr>
       </tbody>
       <thead>
@@ -126,7 +120,7 @@ const AddressDetails = ({ data }: any) => {
               ? formatPhoneNo(data.locationAlternatePhone)
               : "N/A"}
           </td>
-          <td>{data.locationEmail ? data.locationEmail : "N/A"}</td>
+          <td>{data.locationEmail || "N/A"}</td>
         </tr>
       </tbody>
       <thead>
@@ -138,7 +132,7 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td colSpan={4}>{data.details ? data.details : "N/A"}</td>
+          <td colSpan={4}>{data?.details || "N/A"}</td>
         </tr>
       </tbody>
     </table>
@@ -175,7 +169,7 @@ const ItemDetails = ({ orderData, item }: any) => {
         </thead>
         <tbody>
           <tr>
-            <td>{orderData.category ? orderData.category : "N/A"}</td>
+            <td>{orderData?.category || "N/A"}</td>
             <td>{item.weight ? item.weight : "N/A"}</td>
             <td>
               {item.length && item.width && item.height ? (
@@ -186,7 +180,7 @@ const ItemDetails = ({ orderData, item }: any) => {
                 "N/A"
               )}
             </td>
-            <td>{item.quantity ? item.quantity : "N/A"}</td>
+            <td>{item?.quantity || "N/A"}</td>
           </tr>
         </tbody>
         <thead>
@@ -208,11 +202,7 @@ const ItemDetails = ({ orderData, item }: any) => {
                 ? "Safe Drop"
                 : "N/A"}
             </td>
-            <td>
-              {orderData.customerReferenceNumber
-                ? orderData.customerReferenceNumber
-                : "N/A"}
-            </td>
+            <td>{orderData?.customerReferenceNumber || "N/A"}</td>
           </tr>
         </tbody>
 
@@ -225,7 +215,7 @@ const ItemDetails = ({ orderData, item }: any) => {
         </thead>
         <tbody>
           <tr>
-            <td colSpan={4}>{item.description ? item.description : "N/A"}</td>
+            <td colSpan={4}>{item?.description || "N/A"}</td>
           </tr>
         </tbody>
       </table>

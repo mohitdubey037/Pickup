@@ -16,97 +16,59 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
         </Grid>
         <Grid item sm={3} xs={6}>
           <Para text="Company Name" />
-          <H4
-            className="value"
-            text={
-              addressDetails.companyName ? addressDetails.companyName : "N/A"
-            }
-          />
+          <H4 className="value" text={addressDetails?.companyName || "N/A"} />
         </Grid>
         <Grid item sm={3} xs={6}>
           <Para text="First Name" />
           <H4
             className="value"
-            text={
-              addressDetails.locationFirstName
-                ? addressDetails.locationFirstName
-                : "N/A"
-            }
+            text={addressDetails?.locationFirstName || "N/A"}
           />
         </Grid>
         <Grid item sm={3} xs={6}>
           <Para text="Last Name" />
           <H4
             className="value"
-            text={
-              addressDetails.locationLastName
-                ? addressDetails.locationLastName
-                : "N/A"
-            }
+            text={addressDetails?.locationLastName || "N/A"}
           />
         </Grid>
         <Grid item sm={6} xs={12}>
           <Para text="Address Line 1" />
           <H4
             className="value"
-            text={
-              addressDetails.locationAddressLine1
-                ? addressDetails.locationAddressLine1
-                : "N/A"
-            }
+            text={addressDetails?.locationAddressLine1 || "N/A"}
           />
         </Grid>
         <Grid item sm={6} xs={12}>
           <Para text="Address Line 2" />
           <H4
             className="value"
-            text={
-              addressDetails.locationAddressLine2
-                ? addressDetails.locationAddressLine2
-                : "N/A"
-            }
+            text={addressDetails?.locationAddressLine2 || "N/A"}
           />
         </Grid>
         <Grid item sm={3} xs={6}>
           <Para text="City" />
-          <H4
-            className="value"
-            text={
-              addressDetails.locationCity ? addressDetails.locationCity : "N/A"
-            }
-          />
+          <H4 className="value" text={addressDetails?.locationCity || "N/A"} />
         </Grid>
         <Grid item sm={3} xs={6}>
           <Para text="Postal Code" />
           <H4
             className="value"
-            text={
-              addressDetails.locationPinCode
-                ? addressDetails.locationPinCode
-                : "N/A"
-            }
+            text={addressDetails?.locationPinCode || "N/A"}
           />
         </Grid>
         <Grid item sm={3} xs={6}>
           <Para text="Province/State" />
           <H4
             className="value"
-            text={
-              addressDetails.locationProvinceCode
-                ? addressDetails.locationProvinceCode
-                : "N/A"
-            }
+            text={addressDetails?.locationProvinceCode || "N/A"}
           />
         </Grid>
         <Grid item sm={3} xs={6}>
           <Para text="Country" />
           <H4
             className="value"
-            text={
-              addressDetails.locationCountry
-                ? addressDetails.locationCountry
-                : "N/A"
-            }
+            text={addressDetails?.locationCountry || "N/A"}
           />
         </Grid>
         <Grid item sm={3} xs={6}>
@@ -133,21 +95,11 @@ export const AddressDetails = ({ addressDetails, title, label }) => {
         </Grid>
         <Grid item sm={6} xs={12}>
           <Para text="Email Address" />
-          <H4
-            className="value"
-            text={
-              addressDetails.locationEmail
-                ? addressDetails.locationEmail
-                : "N/A"
-            }
-          />
+          <H4 className="value" text={addressDetails?.locationEmail || "N/A"} />
         </Grid>
         <Grid item sm={6} xs={6}>
           <Para text="Additional Notes" />
-          <H4
-            className="value"
-            text={addressDetails.details ? addressDetails.details : "N/A"}
-          />
+          <H4 className="value" text={addressDetails?.details || "N/A"} />
         </Grid>
       </Grid>
     </ContentBox>
