@@ -100,7 +100,11 @@ function FavoriteLocations({ path: string }) {
     const res = (await getLocationList(urlParams)) as any;
     if (res?.error === null) {
       const data = res.response.data.data;
-      setLocationData(data);
+      setLocationData(data.list);
+      setPagination({
+        count: data.pageMetaData.total,
+        page: data.pageMetaData.page - 1,
+      });
     } else {
       setLocationData([]);
     }

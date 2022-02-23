@@ -17,7 +17,8 @@ export const getLocationList = async (urlParams: string) => {
 export const deleteSavedLocation = async (locationId: string) => {
   try {
     const res = await Services.delete(
-      `location/business/location/${locationId}`,
+      `location/deleteSaved/${locationId}`,
+      {},
       "location"
     );
     showToast(`Your location has been successfully deleted`, "success");

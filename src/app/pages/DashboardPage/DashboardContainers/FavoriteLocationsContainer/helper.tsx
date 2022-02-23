@@ -79,7 +79,7 @@ export const getLocationData = (
 
 export const favoriteLocationColoumns = [
   {
-    id: "client",
+    id: "locationFirstName",
     label: "Client",
   },
   {
@@ -92,19 +92,19 @@ export const favoriteLocationColoumns = [
     isSort: true,
   },
   {
-    id: "address",
+    id: "locationAddressLine1",
     label: "Address",
   },
   {
-    id: "city",
+    id: "locationCity",
     label: "City",
   },
   {
-    id: "provienceState",
+    id: "locationProvinceCode",
     label: "Provience/State",
   },
   {
-    id: "country",
+    id: "locationCountry",
     label: "Country",
   },
   {
