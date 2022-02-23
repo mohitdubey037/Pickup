@@ -5,7 +5,6 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Button } from "app/components/Buttons";
 import { editSuperindedentDataSchema } from "./ChildAccountSchema";
-import { editSuperindedentData } from "./helper";
 import { useFormik } from "formik";
 import { Avatar, Box } from "@material-ui/core";
 import EditAvatar from "app/components/Avatar/EditAvatar";
@@ -14,6 +13,12 @@ import { IMAGE_FILE_TYPES } from "../../../../../constants";
 import { editSuperIndendentAccountData } from "services/ChildAccount";
 import { imageUploadService } from "services/SingleShipmentServices";
 import { editChildAccountProps } from "./type";
+import {
+  LOCATION_TYPES,
+  BILLING_TYPES,
+  PIN_CODE_MASK,
+  PHONE_NO_MASK,
+} from "../../../../../constants";
 
 export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
@@ -36,12 +41,12 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     if (res.error) {
       showToast(res.error.message, "error");
     } else {
-      setFieldValue("userProfile", res?.response?.data?.data || "");
+      setFieldValue("userProfileImage", res?.response?.data?.data || "");
     }
   };
 
   const handleEditSuperindendentAccount = async (values) => {
-    values["hstNumber"] = "12345"
+    // values["hstNumber"] = "12345"
     const res = await editSuperIndendentAccountData(values, userId);
     if (res.success) {
       handleCloseDrawer()
@@ -61,7 +66,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     validateForm
   } = useFormik({
     initialValues: {
-        userProfile: singleCompanyDetails?.userProfile || "",
+        userProfileImage: singleCompanyDetails?.userProfileImage || "",
         firstName: singleCompanyDetails.firstName || "",
         lastName: singleCompanyDetails.lastName || "",
         phoneNumber: singleCompanyDetails.phoneNumber || "",
@@ -78,7 +83,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     <>
         {/* <form> */}
         <Box display="flex" justifyContent="center" mb={5}>
-          <EditAvatar icon={values?.userProfile} changeHandler={changeHandler} />
+          <EditAvatar icon={values?.userProfileImage} changeHandler={changeHandler} />
         </Box>
         <GridContainer container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -112,6 +117,9 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 onChange={handleChange}
                 error={touched.phoneNumber && errors?.phoneNumber}
                 placeholder={"+1 (999)-999-9999"}
+                required
+                type="mask"
+                maskProps={PHONE_NO_MASK}
               />
             </Grid>
             <Grid item xs={12}>

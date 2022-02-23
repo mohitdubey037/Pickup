@@ -43,7 +43,7 @@ export default function SuperintendentDetails({ singleCompanyDetails, saveAction
         </Box>
         <FlexBox justifyContent="space-between">
           <Box mr={4}>
-            <Avatar src={singleCompanyDetails.userProfile} style={{ width: 86, height: 86 }} />
+            <Avatar src={singleCompanyDetails?.userProfileImage} style={{ width: 86, height: 86 }} />
           </Box>
           <FlexGrid>
             <Grid container spacing={2}>

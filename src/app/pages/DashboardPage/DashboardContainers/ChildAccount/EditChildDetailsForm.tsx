@@ -9,20 +9,48 @@ import { editChildAccountSchema } from "./ChildAccountSchema";
 import { editChildAccountData } from "services/ChildAccount";
 import { editChildAccountProps } from "./type";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import { Avatar, Box } from "@material-ui/core";
+import EditAvatar from "app/components/Avatar/EditAvatar";
+import { showToast } from "utils";
+import { IMAGE_FILE_TYPES } from "../../../../../constants";
+import { imageUploadService } from "services/SingleShipmentServices";
+import {
+  PIN_CODE_MASK,
+} from "../../../../../constants";
 
 export default function EditChildAccountForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
   const companyId = singleCompanyDetails.companyId;
 
   const handleEditChildAccount = async (values) => {
-    values["hstNumber"] = "12345"
+    // values["hstNumber"] = "12345"
     const res = await editChildAccountData(values, companyId);
-    console.log(res);
     if (res.success) {
       handleCloseDrawer()
       saveAction()
     }
   }
+
+  const changeHandler = async (e) => {
+    const formData = new FormData();
+    const image = e?.target?.files[0];
+    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
+      showToast(
+        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
+        "error"
+      );
+      return;
+    }
+    formData.append("document", image, image?.name);
+    const res: { response: any; error: any } = await imageUploadService(
+      formData
+    );
+    if (res.error) {
+      showToast(res.error.message, "error");
+    } else {
+      setFieldValue("companyProfileImage", res?.response?.data?.data || "");
+    }
+  };
 
   const handler = (value) => {
     console.log(value);
@@ -74,7 +102,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     validateForm
   } = useFormik({
     initialValues: {
-        profileImage: singleCompanyDetails.profileImage || "",
+        companyProfileImage: singleCompanyDetails.companyProfileImage || "",
         companyId: singleCompanyDetails.companyId,
         companyName: singleCompanyDetails.companyName || "",
         businessNumber: singleCompanyDetails.businessNumber || "",
@@ -96,13 +124,10 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
   return (
     <>
       <form>
-
+        <Box display="flex" justifyContent="center" mb={5}>
+          <EditAvatar icon={values?.companyProfileImage} changeHandler={changeHandler} />
+        </Box>
         <GridContainer container spacing={2}>
-
-          {/* <Grid item xs={12}> */}
-            
-          {/* </Grid> */}
-
           <Grid item xs={12}>
             <Input
               id="CompanyName"
@@ -144,7 +169,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               onChange={handleChange}
               error={touched.employeeStrength && errors?.employeeStrength}
               label={"Employee Strength"}
-              placeholder={"eg. John Doe"}
+              placeholder={"min 5"}
             />
           </Grid>
           <Grid item xs={12}>
@@ -204,6 +229,8 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.pincode && errors?.pincode}
               label={"Pincode"}
               placeholder={"1234"}
+              type="mask"
+              maskProps={PIN_CODE_MASK}
             />
           </Grid>
           <Grid item xs={12} sm={6}>

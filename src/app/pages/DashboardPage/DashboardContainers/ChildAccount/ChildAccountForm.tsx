@@ -5,6 +5,12 @@ import { RouteComponentProps } from "@reach/router";
 import {ChildAccountSchema} from "./ChildAccountSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import {
+  LOCATION_TYPES,
+  BILLING_TYPES,
+  PIN_CODE_MASK,
+  PHONE_NO_MASK,
+} from "../../../../../constants";
 
 export default function ChildAccountForm({formik}:{formik: any}){
 
@@ -155,6 +161,8 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 error={childAccountFormTouched.pincode && childAccountFormError.pincode}
                 label={"Pincode"}
                 placeholder={"1234"}
+                type="mask"
+                maskProps={PIN_CODE_MASK}
               />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>

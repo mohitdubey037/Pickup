@@ -19,7 +19,7 @@ const EmailSentDrawer = ({handleCloseDrawer,handleSubmit}: props) => {
           <img src={emailsent} alt="" className="mailLogo" />
         </Box>
 
-        <H1 title="EMAIL SENT" />
+        <H1 title="CHILD CREATED" />
         <H4
           className="para"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi mollis tempus"
@@ -31,11 +31,11 @@ const EmailSentDrawer = ({handleCloseDrawer,handleSubmit}: props) => {
         <Button
         secondary
         onClick={handleCloseDrawer}
-        label="Cancel"
+        label="Create Another"
         size="medium"
         />
         <Button
-          label={"Save"}
+          label={"Finish"}
           onClick={handleSubmit}
           size="medium"
         />

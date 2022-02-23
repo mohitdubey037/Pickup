@@ -45,10 +45,13 @@ const handleOpenDrawer = () => {
 };
 const handleCloseDrawer  = () => {
   // formik.initialValues=ChildInitValues,
+  dispatch(actions.resetChildAccount());
   setEmailSentDrawerOpen(false);
+  navigate('/dashboard/my-account/child-account-list');
 };
 
 const handleSubmit = () => {
+  dispatch(actions.resetChildAccount());
   setEmailSentDrawerOpen(false);
   navigate('/dashboard/my-account/child-account-list')
 }
