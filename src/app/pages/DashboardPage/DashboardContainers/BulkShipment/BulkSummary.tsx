@@ -3,8 +3,7 @@ import ModuleContainer from "app/components/ModuleContainer";
 import { TableNew } from "app/components/Table";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { BulkOrderColoumns, OnHoldTable } from "./helper";
-import { OnHoldTableTop, SuccessBox } from "./style";
-import { dots3 } from "app/assets/Icons";
+import { SuccessBox } from "./style";
 import {checkSquare} from "app/assets/Icons"
 import { useSelector } from "react-redux";
 import { navigate } from "@reach/router";
@@ -12,6 +11,10 @@ import { useState } from "react";
 import { SearchTableTop } from "../SearchContainer/style";
 import { Button } from "app/components/Buttons";
 import { Box } from "@mui/material";
+import { Drawer } from "app/components/Drawer";
+import PayementDetailsDrawer from "./PayementDetailsDrawer";
+
+
 const BulkSummary = ({ path: string }) => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
@@ -19,10 +22,21 @@ const BulkSummary = ({ path: string }) => {
   if([1,2,3,4].indexOf(authUser?.roleId) === -1) {
     navigate('/non-authorized-page')
   }
+  
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [payementDrawerOpen, setPayementDrawerOpen] = useState(false);
   const [pagination, setPagination] = useState({
     count: 0,
     page: 0,
   });
+
+  const openPaymentDrawer = () => {
+    setPayementDrawerOpen(true);
+	};
+  const openOrderDrawer = () => {
+    setDrawerOpen(true);
+  };
+
 
   const tableTop = () => {
     return (
@@ -48,12 +62,12 @@ const BulkSummary = ({ path: string }) => {
   };
 
   return (
+    <>
     <ModuleContainer>
       <H2 title="Bulk Orders" />
-
         <SuccessBox>
         <img src={checkSquare} alt="" />
-       <p> Success! <span> 17 orders ready </span>  to go and 3 orders added to order holding zone.</p>
+        <p> Success! <span> 17 orders ready </span>  to go and 3 orders added to order holding zone.</p>
         </SuccessBox>
 
       {/* <Table 
@@ -65,7 +79,7 @@ const BulkSummary = ({ path: string }) => {
         filterColumns={[0, 1, 2, 3, 4, 5]}
       /> */}
         <TableNew
-          data={OnHoldTable}
+          data={OnHoldTable(openOrderDrawer)}
           coloumns={BulkOrderColoumns}
           tableTop={tableTop()}
           showPagination
@@ -73,7 +87,33 @@ const BulkSummary = ({ path: string }) => {
           showCheckbox
           // onRowSelect={rowSelectHandler}
         />
+       <Button
+        label="Confirm Orders"
+        size="medium"
+        onClick={openPaymentDrawer}
+        style={{float:'right', margin: '16px 0'}}
+        />
     </ModuleContainer>
+
+    <Drawer
+    open={drawerOpen}
+    setDrawerOpen={(flag) => setDrawerOpen(flag)}
+    title="Order Items"
+    closeIcon={true}
+    >
+    </Drawer>
+   
+    <Drawer
+    open={payementDrawerOpen}
+    setDrawerOpen={(flag) => setPayementDrawerOpen(flag)}
+    title="Payment"
+    closeIcon={true}
+    >
+      <PayementDetailsDrawer  />
+    </Drawer>
+
+
+  </>
   );
 };
 

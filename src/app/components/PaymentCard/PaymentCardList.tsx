@@ -2,9 +2,8 @@ import { Box } from "@mui/system";
 import { selectedCardCheck } from "app/assets/Icons";
 import { FC } from "react";
 import { CardType } from "types";
-import { CardNumber } from "../Card/style";
 import { Flex } from "../Input/style";
-import { Carddetails } from "../PaymentCard/style";
+import { Carddetails, CardNumber } from "../PaymentCard/style";
 import {
     Card,
     CheckImageWrapper,
