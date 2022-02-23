@@ -137,6 +137,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               onChange={handleChange}
               error={touched.companyName && errors?.companyName}
               placeholder={"Example Company"}
+              required
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -148,6 +149,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.businessNumber && errors?.businessNumber}
               label={"Business Number"}
               placeholder="eg. 123456"
+              required
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -159,6 +161,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.industry && errors?.industry}
               label={"Industry"}
               placeholder={"eg. Retail"}
+              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -170,6 +173,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.employeeStrength && errors?.employeeStrength}
               label={"Employee Strength"}
               placeholder={"min 5"}
+              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -206,6 +210,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.addressLine2 && errors?.addressLine2}
               label={"Address Line 2"}
               placeholder={"123 Address Street"}
+              required
             />
           </Grid>
 
@@ -218,6 +223,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.city && errors?.city}
               label={"City"}
               placeholder={"eg. Toronto"}
+              required
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -231,6 +237,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               placeholder={"1234"}
               type="mask"
               maskProps={PIN_CODE_MASK}
+              required
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -242,6 +249,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.province && errors?.province}
               label={"Province"}
               placeholder={"eg. Ontario"}
+              required
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -253,6 +261,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.country && errors?.country}
               label={"Country"}
               placeholder={"eg. Canada"}
+              required
             />
           </Grid>
         </GridContainer>

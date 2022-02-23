@@ -63,9 +63,9 @@ export default function ChildAccountForm({formik}:{formik: any}){
       })
     };
 
-    useEffect(() => {
-      console.log(values);
-    },[values])
+    // useEffect(() => {
+    //   console.log(values);
+    // },[values])
     
   const childAccountFormTouched = touched;
   const childAccountFormError = errors;

@@ -95,6 +95,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 onChange={handleChange}
                 error={touched.firstName && errors?.firstName}
                 placeholder={"John"}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -106,6 +107,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 onChange={handleChange}
                 error={touched.lastName && errors?.lastName}
                 placeholder={"Doe"}
+                required
               />
             </Grid>
             <Grid item xs={12}>
@@ -131,6 +133,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 onChange={handleChange}
                 error={touched.roleDesignation && errors?.roleDesignation}
                 placeholder={"eg. Manager"}
+                required
               />
             </Grid>
             <Grid item xs={12}>
@@ -142,6 +145,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 onChange={handleChange}
                 error={touched.emailId && errors?.emailId}
                 placeholder={"johndoe@gmail.com"}
+                required
               />
             </Grid>
           </GridContainer>
