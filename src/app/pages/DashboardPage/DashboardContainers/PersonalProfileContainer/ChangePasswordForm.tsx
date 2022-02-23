@@ -1,12 +1,13 @@
+import { useFormik } from "formik";
+import { Box } from "@mui/material";
+
 import { PasswordInput } from "app/components/Input";
 import { Button } from "app/components/Buttons";
-import { useFormik } from "formik";
-import { passwordSchema } from "./passwordSchema";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
-import { Box } from "@material-ui/core";
+import { passwordSchema } from "./passwordSchema";
 
 const ChangePasswordForm = ({
-  setPasswordDrawerOpen,
+  setDrawerOpen,
   saveAction,
   submitButtonLabel = "Save",
 }) => {
@@ -34,9 +35,8 @@ const ChangePasswordForm = ({
             value={values.currentPassword}
             error={touched.currentPassword && errors.currentPassword}
             placeholder="Current Password"
-            required={true}
+            required
           />
-
           <PasswordInput
             id="newPassword"
             name="newPassword"
@@ -46,9 +46,8 @@ const ChangePasswordForm = ({
             onChange={handleChange}
             error={touched.newPassword && errors.newPassword}
             placeholder="New Password"
-            required={true}
+            required
           />
-
           <PasswordInput
             id="newConfirmedPassword"
             name="newConfirmedPassword"
@@ -58,7 +57,7 @@ const ChangePasswordForm = ({
             onChange={handleChange}
             error={touched.newConfirmedPassword && errors?.newConfirmedPassword}
             placeholder="Confirm New Password"
-            required={true}
+            required
           />
         </Box>
       </DrawerInnerContent>
@@ -66,15 +65,15 @@ const ChangePasswordForm = ({
       <DrawerFooter>
         <Button
           secondary
-          onClick={() => setPasswordDrawerOpen(false)}
+          onClick={() => setDrawerOpen(false)}
           label="Cancel"
           size="medium"
-        ></Button>
+        />
         <Button
           label={submitButtonLabel}
           onClick={handleSubmit}
           size="medium"
-        ></Button>
+        />
       </DrawerFooter>
     </>
   );

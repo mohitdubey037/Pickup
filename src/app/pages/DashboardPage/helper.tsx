@@ -2,13 +2,11 @@ import { Link } from "./type";
 import {
   dashboard,
   delivery,
-  // clock,
   search,
   creditCard,
   // reports,
   myAccount,
   clock,
-  reports,
 } from "app/assets/Icons";
 
 export const dashboardHelper: Array<Link> = [
@@ -24,11 +22,11 @@ export const dashboardHelper: Array<Link> = [
         label: "Single Order",
         link: "/dashboard/charter-shipment/single-shipment",
       },
-      {
-        id: 1,
-        label: "Bulk Order",
-        link: "/dashboard/charter-shipment/bulk-shipment",
-      },
+      // {
+      //   id: 1,
+      //   label: "Bulk Order",
+      //   link: "/dashboard/charter-shipment/bulk-shipment",
+      // },
     ],
   },
   {

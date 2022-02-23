@@ -1,10 +1,10 @@
 import { Router } from "@reach/router";
 
+import AuthPages from "app/pages/AuthScreens";
 import {
   SignUp,
-  // CompanyDetails,
-  Password,
   EmailSent,
+  Password,
   Congratulations,
 } from "./app/pages/AuthScreens/SignUpScreens";
 import {
@@ -13,48 +13,46 @@ import {
   MailSent,
   RecoverPassword,
 } from "./app/pages/AuthScreens/LoginScreens";
+import SignUpDetails from "app/pages/AuthScreens/SignUpScreens/SignUpDetails";
+import TokenExpire from "app/pages/AuthScreens/TokenExpire";
 import DashboardPage from "./app/pages/DashboardPage";
-import { NoAuthorizationPage } from "app/pages/NoAutorizationPage";
-import PageNotFound from "app/components/PageNotFound/PageNotFound";
-import { BulkShipment } from "app/pages/DashboardPage/DashboardContainers/BulkShipment";
 import Dashboard from "app/pages/DashboardPage/DashboardContainers/Dashboard";
 import SingleShipment from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer";
-import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/SearchContainer";
-import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
-import PersonalProfileContainer from "app/pages/DashboardPage/DashboardContainers/PersonalProfileContainer/PersonalProfileContainer";
-import { PaymentsPage } from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer";
-import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers/CompanyProfileContainer/CompanyProfile";
-import AuthPages from "app/pages/AuthScreens";
-import ChildAccount from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccount";
-import OnHoldShipmentContainer from "app/pages/DashboardPage/DashboardContainers/OnHoldShipment/OnHoldShipment";
-import FavoriteLocations from "app/pages/DashboardPage/DashboardContainers/FavoriteLocationsContainer";
-import InvoicesContainer from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/Invoices";
-import { ReportsContainer } from "app/pages/DashboardPage/DashboardContainers/Reports";
 import OrderSummary from "app/pages/DashboardPage/DashboardContainers/SignleShipmentContainer/OrderSummary";
-import SignUpDetails from "app/pages/AuthScreens/SignUpScreens/SignUpDetails";
-// import { ShipmentSummary } from "app/components/PaymentCardDetails";
 import ShipmentSummaryTable from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/ShipmentSummary";
-import TokenExpire from "app/pages/AuthScreens/TokenExpire";
+import { BulkShipment } from "app/pages/DashboardPage/DashboardContainers/BulkShipment";
+import BulkSummary from "app/pages/DashboardPage/DashboardContainers/BulkShipment/BulkSummary";
+import OnHoldShipmentContainer from "app/pages/DashboardPage/DashboardContainers/OnHoldShipment/OnHoldShipment";
+import { SearchContainer } from "app/pages/DashboardPage/DashboardContainers/SearchContainer";
+import InvoicesContainer from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/Invoices";
+import { PaymentsPage } from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer";
+import { ReportsContainer } from "app/pages/DashboardPage/DashboardContainers/Reports";
+import CompanyProfileContainer from "app/pages/DashboardPage/DashboardContainers/CompanyProfileContainer/CompanyProfile";
+import PersonalProfileContainer from "app/pages/DashboardPage/DashboardContainers/PersonalProfileContainer/PersonalProfileContainer";
+import ChildAccount from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccount";
 import ChildAccountList from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccountList";
 import ChildAccountDetails from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccountDetails";
-import BulkSummary from "app/pages/DashboardPage/DashboardContainers/BulkShipment/BulkSummary";
+import FavoriteLocations from "app/pages/DashboardPage/DashboardContainers/FavoriteLocationsContainer";
+import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
+import { NoAuthorizationPage } from "app/pages/NoAutorizationPage";
+import PageNotFound from "app/components/PageNotFound/PageNotFound";
 
 const Routes = () => {
   return (
     <Router>
       <AuthPages path="/">
         <Login path="/" />
+        <SignUp path="/sign-up" />
         <EmailSent path="/email-sent" />
-        {/* <CompanyDetails path="/company-details/:userId" /> */}
         <Password path="/password" />
         <Congratulations path="/congratulations" />
-        <SignUp path="/sign-up" />
         <ForgotPassword path="/forgot-password" />
         <MailSent path="/mail-sent" />
         <RecoverPassword path="/recover-password" />
         <SignUpDetails path="/sign-up-details/" />
         <TokenExpire path="/sign-up/verify-account" />
         <PageNotFound default />
+        {/* <CompanyDetails path="/company-details/:userId" /> */}
       </AuthPages>
 
       <DashboardPage path="/dashboard">

@@ -7,10 +7,3 @@ export interface PersonalProfileType {
   lastName: string;
   userDetails: { phoneNo: string };
 }
-export interface ProfileState {
-  emailId: string;
-  firstName: string;
-  lastName: string;
-}
-
-// export interface PersonalProfile

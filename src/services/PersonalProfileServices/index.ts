@@ -9,7 +9,7 @@ export const getPersonalProfileDetails = async (userId: number | undefined) => {
     );
     return { response: response, success: true };
   } catch (err) {
-    showToast(err.message, "error");
+    showToast(err.message || "Something Went Wrong", "error");
     return { response: err, sucess: false };
   }
 };
@@ -39,7 +39,7 @@ export const editPersonalProfileDetails = async (values: {
     showToast("Your personal details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
-    showToast(err.message, "error");
+    showToast(err.message || "Something Went Wrong", "error");
     return { response: err, sucess: false };
   }
 };
@@ -50,7 +50,6 @@ export const changeProfilePassword = async (values: {
   newConfirmedPassword: string;
 }) => {
   try {
-    console.log(values);
     const response: any = await services.post(
       `business/changePassword`,
       {
@@ -63,7 +62,7 @@ export const changeProfilePassword = async (values: {
     showToast(response.data.message, "success");
     return { response: response, success: true };
   } catch (err) {
-    showToast(err.message, "error");
+    showToast(err.message || "Something Went Wrong", "error");
     return { response: err, sucess: false };
   }
 };

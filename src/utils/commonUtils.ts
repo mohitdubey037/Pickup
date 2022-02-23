@@ -1,3 +1,7 @@
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
+import { Token } from "types";
+
 export const uploadFile = (
   files: Array<File>,
   { onLoad, onError, onAbort }
@@ -29,3 +33,9 @@ export const buildQueryParams = (queryParams: any) => {
 
 export const formatPhoneNo = (num: string) =>
   `(${num.slice(0, 3)})-${num.slice(3, 6)}-${num.slice(6)}`;
+
+export const getUserId = () => {
+  const token = Cookies?.get("token") || "";
+  const decoded: Token | null = token ? jwt_decode(token) : null;
+  return decoded?.userId;
+};
