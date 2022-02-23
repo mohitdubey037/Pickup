@@ -35,13 +35,13 @@ export default function ChildDetails({ singleCompanyDetails, saveAction }: input
     <>
       <FullCard>
         <Box mb={4} display="flex" justifyContent="space-between">
-          <H3 text="Child Details" />
+          <H3 text="Company Details" />
           <EditIcon onClick={() => setDrawerOpen(true)} />
         </Box>
         <FlexBox justifyContent="space-between">
-          {/* <Box mr={4}>
-            <Avatar src="" style={{ width: 86, height: 86 }} />
-          </Box> */}
+          <Box mr={4}>
+            <Avatar src={singleCompanyDetails?.companyProfileImage} style={{ width: 86, height: 86 }} />
+          </Box>
           <FlexGrid>
             <Grid container spacing={2}>
             {Object.keys(companyFormDatails).map(key=>
