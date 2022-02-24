@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -21,6 +21,7 @@ import {
 export default function EditChildAccountForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
   const companyId = singleCompanyDetails.companyId;
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleEditChildAccount = async (values) => {
     // values["hstNumber"] = "12345"
@@ -32,6 +33,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
   }
 
   const changeHandler = async (e) => {
+    setLoading(true)
     const formData = new FormData();
     const image = e?.target?.files[0];
     if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
@@ -47,7 +49,9 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     );
     if (res.error) {
       showToast(res.error.message, "error");
+      setLoading(false);
     } else {
+      setLoading(false);
       setFieldValue("companyProfileImage", res?.response?.data?.data || "");
     }
   };
@@ -97,9 +101,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     errors,
     handleBlur,
     handleSubmit,
-    setFieldValue,
-    isValid,
-    validateForm
+    setFieldValue
   } = useFormik({
     initialValues: {
         companyProfileImage: singleCompanyDetails.companyProfileImage || "",
@@ -161,7 +163,6 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.industry && errors?.industry}
               label={"Industry"}
               placeholder={"eg. Retail"}
-              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -173,7 +174,6 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.employeeStrength && errors?.employeeStrength}
               label={"Employee Strength"}
               placeholder={"min 5"}
-              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -210,7 +210,6 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.addressLine2 && errors?.addressLine2}
               label={"Address Line 2"}
               placeholder={"123 Address Street"}
-              required
             />
           </Grid>
 
@@ -276,6 +275,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
                 label="Save"
                 size="medium"
                 // disabled={isValid}
+                showLoader={loading}              
                 onClick={handleSubmit}
                 />
       </DrawerFooter>

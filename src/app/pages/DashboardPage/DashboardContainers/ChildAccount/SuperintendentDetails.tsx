@@ -15,7 +15,7 @@ import EditSuperintendentDetailsForm from "./EditSuperintendentDetailsForm";
 import { inputProps } from "./type";
 
 
-export default function SuperintendentDetails({ singleCompanyDetails, saveAction }: inputProps) {
+export default function SuperintendentDetails({ saveAction, singleCompanyDetails }: inputProps) {
 
   console.log(singleCompanyDetails);
   

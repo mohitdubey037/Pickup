@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { Input } from "app/components/Input";
-import AdminDetailsSchema from "./AdminDetailsSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Box } from "@mui/material";
 
@@ -13,15 +12,7 @@ export default function AdminDetails({formik}:{formik: any}){
     handleChange(event);
   };
 
-  const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
-
-  const AdminDetailsForm = values;
-  const AdminDetailsFormTouched = touched;
-  const AdminDetailsFormError = errors;
-
-  // useEffect(() => {
-  //     console.log(AdminDetailsForm)
-  // },[AdminDetailsForm])
+  const { handleChange, values, errors, touched, handleBlur } = formik;
 
   return (
     <Box mt={4}>
@@ -32,11 +23,12 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="FirstName"
                 name="firstName"
                 onBlur={handleBlur}
-                value={AdminDetailsForm.firstName}
+                initValue={values.firstName}
                 onChange={(e) => onChangeHandler(e, `firstName`)}
-                error={AdminDetailsFormTouched.firstName && AdminDetailsFormError.firstName}
+                error={touched.firstName && errors.firstName}
                 label={"First Name"}
                 placeholder={"John"}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={4} lg={3}>
@@ -44,11 +36,12 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="LastName"
                 name="lastName"
                 onBlur={handleBlur}
-                value={AdminDetailsForm.lastName}
+                initValue={values.lastName}
                 onChange={(e) => onChangeHandler(e, `lastName`)}
-                error={AdminDetailsFormTouched.lastName && AdminDetailsFormError.lastName}
+                error={touched.lastName && errors.lastName}
                 label={"Last Name"}
                 placeholder={"Doe"}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={4} lg={3}>
@@ -56,13 +49,14 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="PhoneNumber"
                 name="phoneNumber"
                 onBlur={handleBlur}
-                value={AdminDetailsForm.phoneNumber}
+                initValue={values.phoneNumber}
                 onChange={(e) => onChangeHandler(e, `phoneNumber`)}
-                error={AdminDetailsFormTouched.phoneNumber && AdminDetailsFormError.phoneNumber}
+                error={touched.phoneNumber && errors.phoneNumber}
                 label={"Phone Number"}
                 placeholder={"+1 (999)-999-9999"}
                 type="mask"
                 maskProps={PHONE_NO_MASK}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={4} lg={3}>
@@ -70,11 +64,12 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="Role"
                 name="roleDesignation"
                 onBlur={handleBlur}
-                value={AdminDetailsForm.role}
+                initValue={values.roleDesignation}
                 onChange={(e) => onChangeHandler(e, `roleDesignation`)}
-                error={AdminDetailsFormTouched.role && AdminDetailsFormError.role}
+                error={touched.role && errors.role}
                 label={"Role/Designation"}
                 placeholder={"eg. Manager"}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={8} lg={4}>
@@ -82,11 +77,12 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="Email"
                 name="emailId"
                 onBlur={handleBlur}
-                value={AdminDetailsForm.emailId}
+                initValue={values.emailId}
                 onChange={(e) => onChangeHandler(e, `emailId`)}
-                error={AdminDetailsFormTouched.emailId && AdminDetailsFormError.emailId}
+                error={touched.emailId && errors.emailId}
                 label={"Email id"}
                 placeholder={"johndoe@gmail.com"}
+                required
               />
             </Grid>
           </GridContainer>

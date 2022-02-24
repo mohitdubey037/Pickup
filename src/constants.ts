@@ -172,6 +172,12 @@ export const STATUS = [
   { label: "Cancelled By User", value: "cancel_by_user" },
 ];
 
+export const CHILD_STATUS = [
+  {label: "Active", value: 'active'},
+  {label: 'Pending', value: 'pending'},
+  {label: 'Verified', value: 'verified'}
+]
+
 export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];
 
 export const OPERANDS = [

@@ -3,13 +3,10 @@ import { showToast } from "utils";
 import { transformPayloadToBackend } from 'app/pages/DashboardPage/DashboardContainers/ChildAccount/helper';
 
 
-export const getChildAccountData = async (urlParams?: string, page?: number, chunk?: number, sortingField?: string, sortingType?: string)=>{
-  // console.log(sortingType);
+export const getChildAccountData = async (urlParams?: string)=>{
+  console.log(urlParams);
   try {
-    let api = `business/FetchchildAccount`
-    if (page) {
-      api += `?page=${page}&chunk=${chunk}`
-    }
+    let api = `business/FetchchildAccount?${urlParams}`
     const res = await services.get(api,"user_cr");
     // console.log(res);
     return{response: res, error:null};
@@ -65,7 +62,7 @@ export const editChildAccountData = async (body?: any, childId?: number) => {
 
 export const editSuperIndendentAccountData = async (body?: any, userId?: number) => {
   try {
-      const response = await services.put(`business/updateChildAccountUserDetails/${userId}`,body,'user_cr');
+      const response = await services.put(`business/updateChildAccountUserDetails/${userId}`,transformPayloadToBackend(body),'user_cr');
       return {response: response, success: true };
   }
   catch (err) {

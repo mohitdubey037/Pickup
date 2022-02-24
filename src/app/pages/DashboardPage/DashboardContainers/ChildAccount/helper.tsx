@@ -95,16 +95,11 @@ export const childDataTable = (
         if (searchRecordData && searchRecordData.length) {
             makeTableData = searchRecordData.map((item: any) => {
                 return {
-                    "Company Name": getChildCompany(
-                        item.companyName,
-                        item.companyId
-                    ),
-                    "Business Number": item.businessNumber,
-                    "Invitation Date": moment(item.invoiceCreatedAt).format(
-                        "DD/MM/YYYY"
-                    ),
-                    "Status": item.status === 1 ? "pending" : "completed",
-                    "Admin Name": item.admin,
+                    "Company Name": item.companyName ? getChildCompany(item.companyName,item.companyId) : "N/A",
+                    "Business Number": item.businessNumber || "N/A",
+                    "Invitation Date": item.createdAt ? moment(item.createdAt).format("DD/MM/YYYY") : "N/A",
+                    "Status": item.status.toLowerCase(),
+                    "Admin Name": item.admin || "N/A",
                     
                 };
             });
@@ -112,13 +107,41 @@ export const childDataTable = (
     return makeTableData;
 }
 
+export const ChildAccountListColumn = [
+    {
+      id: "companyName",
+      label: "Company Name",
+      isSort: true,
+    },
+    {
+      id: "businessNumber",
+      label: "Business Number",
+      isSort: true,
+    },
+    {
+      id: "createdAt",
+      label: "Created At",
+      isSort: true,
+    },
+    {
+      id: "status",
+      label: "Status",
+      isSort: true,
+    },
+    {
+      id: "admin",
+      label: "Admin Name",
+      isSort: false,
+    },
+  ];
+
 export const transformPayloadToBackend = (values: any) => {
     const payload = {
         ...values,
-        phoneNumber: values.phoneNumber.replace(/[()-]/g,""),
-        number: values.number.replace(/ /g, ""),
-        expiryMonth: values.expiryDate.split("/")[0],
-        expiryYear: values.expiryDate.split("/")[1],
+        phoneNumber: values?.phoneNumber? values.phoneNumber?.replace(/[()-]/g,"") : undefined,
+        number: values.number? values.number.replace(/ /g, "") : undefined,
+        expiryMonth: values.expiryDate ? values.expiryDate?.split("/")[0] : undefined ,
+        expiryYear: values.expiryDate ? values?.expiryDate?.split("/")[1] : undefined,
         expiryDate: undefined
     }
     return payload
