@@ -1,42 +1,56 @@
-import React from "react";
-
+import { useState } from "react";
 import { useFormik } from "formik";
 
-import { Input } from "app/components/Input";
-import { editContactDetailsSchema } from "./helper";
-import { Button } from "app/components/Buttons";
-import services from "services";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
+import { Input } from "app/components/Input";
+import { Button } from "app/components/Buttons";
+import { editContactDetailsSchema } from "./helper";
+import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import {
+  BILLING_TYPES,
+  LOCATION_TYPES,
+  PHONE_NO_MASK,
+  PIN_CODE_MASK,
+} from "../../../../../constants";
+import SelectNew from "app/components/Select/SelectNew";
+import RadioGroup from "app/components/RadioGroup";
+import { updateSavedLocation } from "services/LocationServices";
 
 interface EditContactDetailsProps {
-  contactInfo: any;
-  onClose: (a: boolean) => void;
+  data: any;
+  onClose: (a?: boolean) => void;
 }
 
-const EditContactDetails = ({
-  contactInfo,
-  onClose,
-}: EditContactDetailsProps) => {
+const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
+  const [loading, setLoading] = useState(false);
   const initialValues = {
-    companyName: contactInfo?.companyName || "",
-    firstName: contactInfo?.locationFirstName || "",
-    lastName: contactInfo?.locationLastName || "",
-    address1: contactInfo?.locationAddressLine1 || "",
-    address2: contactInfo?.locationAddressLine2 || "",
-    city: contactInfo?.locationCity || "",
-    postal: contactInfo?.locationPinCode || "",
-    state: contactInfo?.locationProvinceCode || "",
-    country: contactInfo?.locationCountry || "",
-    phone: contactInfo?.locationPhone || "",
-    alternate: contactInfo?.locationAlternatePhone || "",
-    email: contactInfo?.locationEmail || "",
+    latitude: data?.latitude || "",
+    longitude: data?.longitude || "",
+    billingType: data?.locationBillingType || "",
+    addressType: data?.addressType || "",
+    companyName: data?.companyName || "",
+    firstName: data?.locationFirstName || "",
+    lastName: data?.locationLastName || "",
+    address1: data?.locationAddressLine1 || "",
+    address2: data?.locationAddressLine2 || "",
+    city: data?.locationCity || "",
+    postal: data?.locationPinCode || "",
+    state: data?.locationProvinceCode || "",
+    country: data?.locationCountry || "",
+    phone: data?.locationPhone || "",
+    alternate: data?.locationAlternatePhone || "",
+    email: data?.locationEmail || "",
+    details: data?.details || "",
   };
 
   const onSubmitHandler = async (values) => {
+    setLoading(true);
     const body = {
-      latitude: 22.3,
-      longitude: 19.23,
-      companyName: values.companyName,
+      latitude: values.latitude,
+      longitude: values.longitude,
+      locationBillingType: values.billingType,
+      addressType: values.addressType,
+      companyName: values.billingType === 2 ? values.companyName : "",
       locationFirstName: values.firstName,
       locationLastName: values.lastName,
       locationAddressLine1: values.address1,
@@ -48,196 +62,212 @@ const EditContactDetails = ({
       locationPhone: values.phone,
       locationAlternatePhone: values.alternate,
       locationEmail: values.email,
+      details: values.details,
     };
-    const res = await services.put(
-      `location/business/location/${contactInfo.locationId}`,
-      body,
-      "location"
-    );
-    console.log("updateRes", res);
+    const res = (await updateSavedLocation(data.locationId, body)) as any;
+    if (res.error === null) {
+      onClose(true);
+    }
+    setLoading(false);
   };
 
-  const { values, handleChange, handleBlur, touched, errors, handleSubmit } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: editContactDetailsSchema,
-      onSubmit: onSubmitHandler,
-    });
+  const {
+    values,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    isValid,
+    touched,
+    errors,
+    handleSubmit,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: editContactDetailsSchema,
+    onSubmit: onSubmitHandler,
+  });
 
   return (
     <>
       <DrawerInnerContent>
-        <Input
-          id="companyName"
-          name="companyName"
-          label={"Company Name"}
-          initValue={values.companyName}
-          value={values.companyName}
-          placeholder={"Example Company"}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          // error={ touched?.companyName && errors?.companyName }
-          validate
+        <RadioGroup
+          name="billingType"
+          defaultValue={
+            values.billingType ? String(values.billingType - 1) : "0"
+          }
+          value={values.billingType ? String(values.billingType - 1) : "0"}
+          onChange={(e) =>
+            setFieldValue("billingType", Number(e.target.value) + 1)
+          }
+          options={BILLING_TYPES}
         />
-
+        <SelectNew
+          name="addressType"
+          label="Location Type"
+          placeholder="Select Location Type"
+          options={LOCATION_TYPES}
+          value={values.addressType}
+          onChange={handleChange}
+          error={touched.addressType && errors.addressType}
+          required
+        />
+        {values.billingType === 2 && (
+          <Input
+            name="companyName"
+            label="Company Name"
+            placeholder="Example Company"
+            initValue={values.companyName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.companyName && errors.companyName}
+            required
+          />
+        )}
         <Input
-          id="firstName"
           name="firstName"
+          label="First Name"
+          placeholder="John"
           initValue={values.firstName}
-          value={values.firstName}
-          label={"First Name"}
-          placeholder={"John"}
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={ touched.firstName && errors.firstName }
-          validate
+          error={touched.firstName && errors.firstName}
+          required
         />
-
         <Input
-          id="lastName"
           name="lastName"
-          label={"Last Name"}
+          label="Last Name"
+          placeholder="Doe"
           initValue={values.lastName}
-          value={values.lastName}
-          placeholder={"Doe"}
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={touched.lastName && errors.lastName}
-          validate
+          error={touched.lastName && errors.lastName}
+          required
         />
-
-        <Input
+        <AutoComplete
           id="address1"
           name="address1"
-          label={"Address Line 1"}
+          label="Address Line 1"
+          placeholder="123 Address Street"
           initValue={values.address1}
           value={values.address1}
-          placeholder={"123 Address Street"}
           onChange={handleChange}
-          onBlur={handleBlur}
-          // error={ touched.address1 && errors.address1 }
-          validate
+          handleBlur={handleBlur}
+          setFieldValue={setFieldValue}
+          onSelect={() => {}}
+          error={touched.address1 && errors.address1}
+          disabled={false}
         />
-
         <Input
-          id="address2"
           name="address2"
-          label={"Address Line 2"}
-          placeholder={"123 Address Street"}
+          label="Address Line 2"
+          placeholder="123 Address Street"
           initValue={values.address2}
-          value={values.address2}
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={ touched.address2 && errors.address2 }
-          validate
+          error={touched.address2 && errors.address2}
         />
-
         <Input
-          id="city"
           name="city"
-          label={"City"}
-          placeholder={"eg. Toronto"}
+          label="City"
+          placeholder="eg. Toronto"
           initValue={values.city}
-          value={values.city}
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={touched.city && errors.city}
-          validate
+          error={touched.city && errors.city}
+          required
         />
-
         <Input
-          id="postal"
           name="postal"
-          label={"Postal Code"}
+          label="Postal Code"
+          placeholder="ABC 123"
           initValue={values.postal}
-          value={values.postal}
-          placeholder={"ABC 123"}
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={ touched.postal && errors.postal}
-          validate
+          error={touched.postal && errors.postal}
+          required
+          type="mask"
+          maskProps={PIN_CODE_MASK}
         />
-
         <Input
-          id="state"
           name="state"
-          label={"Province/State"}
-          placeholder={"eg. Ontario"}
+          label="Province/State"
+          placeholder="eg. Ontario"
           initValue={values.state}
-          value={values.state}
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={ touched.state && errors.state}
-          validate
+          error={touched.state && errors.state}
+          required
         />
-
         <Input
-          id="country"
           name="country"
-          label={"Country"}
+          label="Country"
+          placeholder="eg. Canada"
           initValue={values.country}
-          value={values.country}
-          placeholder={"eg. Canada"}
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={touched.country && errors.country}
-          validate
+          error={touched.country && errors.country}
+          required
         />
-
         <Input
-          id="phone"
           name="phone"
-          label={"Contact Number"}
+          label="Contact Number"
+          placeholder="+1 (999)-999-9999"
           initValue={values.phone}
-          value={values.phone}
-          placeholder="+1 (999)-999-9999"
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={ touched.phone && errors.phone}
-          validate
+          error={touched.phone && errors.phone}
+          required
+          type="mask"
+          maskProps={PHONE_NO_MASK}
         />
-
         <Input
-          id="alternate"
           name="alternate"
-          initValue={values.alternate}
-          value={values.alternate}
-          label={"Alternate Contact Number"}
+          label="Alternate Contact Number"
           placeholder="+1 (999)-999-9999"
+          initValue={values.alternate}
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={touched.alternate && errors.alternate}
-          validate
+          error={touched.alternate && errors.alternate}
+          required
+          type="mask"
+          maskProps={PHONE_NO_MASK}
         />
-
         <Input
-          id="email"
           name="email"
-          label={"Email Address"}
+          label="Email Address"
+          placeholder="johndoe@pickups.com"
           initValue={values.email}
-          value={values.email}
-          placeholder={"johndoe@pickups.com"}
           onChange={handleChange}
           onBlur={handleBlur}
-          // error={touched.email && errors.email}
-          validate
+          error={touched.email && errors.email}
+          required
+        />
+        <Input
+          name="details"
+          label="Additional Notes"
+          placeholder="Add any notes here"
+          initValue={values.details}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.details && errors.details}
+          required
         />
       </DrawerInnerContent>
 
       <DrawerFooter>
-        <Button 
-        secondary 
-        onClick={() => onClose(false)} 
-        label="Cancel" 
-        size="medium"
+        <Button
+          secondary
+          onClick={() => onClose()}
+          label="Cancel"
+          size="medium"
         />
-        <Button 
-        label="Update" 
-        onClick={handleSubmit} 
-        size="medium"
+        <Button
+          label="Update"
+          onClick={handleSubmit}
+          size="medium"
+          showLoader={loading}
+          disabled={!isValid || loading}
         />
       </DrawerFooter>
-
     </>
   );
 };

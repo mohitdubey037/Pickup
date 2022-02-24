@@ -14,6 +14,21 @@ export const getLocationList = async (urlParams: string) => {
   }
 };
 
+export const updateSavedLocation = async (locationId: string, body: any) => {
+  try {
+    const res = await Services.put(
+      `location/business/location/${locationId}`,
+      body,
+      "location"
+    );
+    showToast(`Your location has been successfully updated`, "success");
+    return { response: res, error: null };
+  } catch (error) {
+    showToast(error.message || "Something Went Wrong", "error");
+    return { response: null, error: error };
+  }
+};
+
 export const deleteSavedLocation = async (locationId: string) => {
   try {
     const res = await Services.delete(

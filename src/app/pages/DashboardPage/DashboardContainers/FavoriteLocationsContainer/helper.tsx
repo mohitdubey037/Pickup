@@ -4,30 +4,47 @@ import * as yup from "yup";
 import EditIcon from "app/components/EditIcon/EditIcon";
 import { Flex } from "app/components/Input/style";
 import { trash } from "app/assets/Icons";
-import { PHONE_NUMBER_REGX } from "../../../../../constants";
+import {
+  PHONE_NUMBER_REGEX_NEW,
+  PIN_CODE_REGEX,
+} from "../../../../../constants";
 
 export const editContactDetailsSchema = yup.object().shape({
-  companyName: yup.string(),
-  firstName: yup.string().required("Firstname is required"),
-  lastName: yup.string().required("Lastname is required"),
-  address1: yup.string().required("Address Line 1 is required"),
-  address2: yup.string().required("Address Line 2 is required"),
-  city: yup.string().required("City is required"),
-  postal: yup.string().required("Postal Code is required"),
-  state: yup.string().required("State is required"),
-  country: yup.string().required("Country is required"),
+  latitude: yup.string().required("Latitude is a required field"),
+  longitude: yup.string().required("Longitude is a required field"),
+  companyName: yup.string().when("billingType", {
+    is: (billingType) => billingType === 2,
+    then: yup.string().required("Company Name is a required field"),
+  }),
+  firstName: yup.string().required("First Name is a required field"),
+  lastName: yup.string().required("Last Name is a required field"),
+  address1: yup
+    .string()
+    .required("Address Line 1 is a required field")
+    .test("isValidAddress", "Please enter valid address", function () {
+      return this.parent.latitude || this.parent.longitude;
+    }),
+  address2: yup.string(),
+  city: yup.string().required("City is a required field"),
+  postal: yup
+    .string()
+    .required("Postal Code is a required field")
+    .matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
+  state: yup.string().required("Province/State is a required field"),
+  country: yup.string().required("Country is a required field"),
   phone: yup
     .string()
-    .required("Phone number is required")
-    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+    .required("Contact Number is a required field")
+    .matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Contact Number"),
   alternate: yup
     .string()
-    .required("Phone number is required")
-    .matches(PHONE_NUMBER_REGX, "Phone number is not valid"),
+    .required("Alternate Contact Number is a required field")
+    .matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Contact Number"),
   email: yup
     .string()
-    .email("Please enter valid email")
-    .required("Email Address is a required field"),
+    .required("Email Address is a required field")
+    .email("Please enter valid email"),
+  details: yup.string().required("Additional Notes is a required field"),
 });
 
 const getClientItem = (
