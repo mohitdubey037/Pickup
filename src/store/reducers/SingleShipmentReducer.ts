@@ -2,7 +2,7 @@ import { createReducer, createActions } from "reduxsauce";
 
 const initialState = {
     shipmentDetails: null,
-    orderIds: [],
+    orderIds: [6002],
     invoiceId: null,
 };
 

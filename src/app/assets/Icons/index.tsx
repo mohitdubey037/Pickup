@@ -59,6 +59,9 @@ import emailsent from './email-sent-logo.svg'
 import tooltipIcon from './tooltip-icon.svg'
 import noSort from './noSort.svg'
 import CreateChildAccountIcon from './createChildAccountIcon.svg'
+import disclaimer from './disclaimer.svg'
+
+
 export {
     analytics,
     calendar,
@@ -120,5 +123,6 @@ export {
     emailsent,
     tooltipIcon,
     noSort,
-    CreateChildAccountIcon
+    CreateChildAccountIcon,
+    disclaimer
 };

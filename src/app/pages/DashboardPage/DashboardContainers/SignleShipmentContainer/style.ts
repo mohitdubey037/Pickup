@@ -97,3 +97,22 @@ th, td{
   width:25% !important;
 }
 `;
+
+export const DisclaimerBox = styled(Box)`
+background: rgba(255, 219, 110, 0.6);
+border-radius: 6px;
+padding:24px;
+box-sizing:border-box;
+max-width:645px;
+float:right;
+margin:24px 0 48px;
+display:flex;
+h3{
+  font-family:"Roboto-Bold";
+  color:#8C6D0F !important;
+  margin-bottom:10px;
+}
+p{
+  color:#8C6D0F !important;
+}
+`;
