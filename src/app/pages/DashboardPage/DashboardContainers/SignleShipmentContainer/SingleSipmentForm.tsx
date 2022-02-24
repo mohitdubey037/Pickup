@@ -12,10 +12,15 @@ import {
   PIN_CODE_MASK,
   PHONE_NO_MASK,
 } from "../../../../../constants";
-import { starimage, starImageEmpty } from "../../../../assets/Icons";
+import {
+  starimage,
+  starImageEmpty,
+  tooltipIcon,
+} from "../../../../assets/Icons";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import { FavoritesBox } from "./style";
 import { Checkbox } from "app/components/Checkbox";
+import CustomTooltip from "app/components/Tooltip/CustomTooltip";
 
 const ADD_TYPE = {
   origin: "Origin",
@@ -173,16 +178,17 @@ function SingleSipmentForm({
                 }}
               >
                 {singleFormValues[`${title}Favorite`] ? (
-                  <>
-                    <img src={starimage} alt="" className="icon" />
-                    <H5 text="Added to Favorites" className="label" />
-                  </>
+                  <img src={starimage} alt="" className="icon" />
                 ) : (
-                  <>
-                    <img src={starImageEmpty} alt="" className="icon" />
-                    <H5 text="Add to Favorites" className="label" />
-                  </>
+                  <img src={starImageEmpty} alt="" className="icon" />
                 )}
+                <H5 text="Add to Favorites" className="label" />
+                <CustomTooltip
+                  text="Your location will be saved once you have confirmed your order. 
+                        You can access them later from Favourite Locations."
+                  content={<img src={tooltipIcon} alt="" />}
+                  className="tooltip"
+                />
               </Box>
             </FavoritesBox>
           </Grid>
