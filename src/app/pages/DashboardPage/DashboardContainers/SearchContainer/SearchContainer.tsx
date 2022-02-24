@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid } from "@mui/material";
-import { Box } from "@mui/system";
+import { Grid, Box, Badge } from "@mui/material";
 import moment from "moment";
 
 import { Button } from "app/components/Buttons";
@@ -19,18 +18,17 @@ import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
 import SelectNew from "app/components/Select/SelectNew";
 import { getSearchOrderData, searchOrderColoumns } from "./helper";
-import { SearchTableTop } from "./style";
-import AddNewPaymentDrawer from "../PaymentsContainer/AddNewPaymentDrawer";
+import { CustomBadge, SearchTableTop } from "./style";
+import InvoiceDetailsDrawer from "../PaymentsContainer/InvoiceDetailsDrawer";
 import AdvanceFilters from "./AdvanceFilters";
 import SearchOrderDetailsDrawer from "./SearchOrderDetailsDrawer";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import {
+  getAdvancedFilter,
   getSearchOrderList,
-  getSearchOrderListById,
 } from "../../../../../services/SearchItemService";
 import { STATUS } from "../../../../../../src/constants";
 import { FilterFlexBox } from "../PaymentsContainer/style";
-import { AddressDetailsSkeleton } from "./AddressDetailsSkeleton";
 
 const initialValues = {
   invoiceNumber: "",
@@ -40,7 +38,7 @@ const initialValues = {
   status: "pending",
 };
 
-const SearchContainer = ({ path: string }) => {
+const SearchContainer = ({ path }: any) => {
   const dispatch = useDispatch();
 
   const orderIds = useSelector((state: { singleShipment: { orderIds } }) => {
@@ -60,9 +58,7 @@ const SearchContainer = ({ path: string }) => {
     type: "desc",
   });
 
-  const [loadingOrderDetails, setloadingOrderDetails] =
-    useState<boolean>(false);
-  const [singleOrderData, setSingleOrderData] = useState([{}]);
+  const [advanceFilterData, setAdvanceFilterData] = useState(null);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerType, setDrawerType] = useState("");
@@ -77,20 +73,7 @@ const SearchContainer = ({ path: string }) => {
     }
   };
 
-  const getSingleOrderData = async (id: any) => {
-    setloadingOrderDetails(true);
-    const res = (await getSearchOrderListById(id)) as any;
-    if (res.success) {
-      const orderListByID = res.response.data.data;
-      setSingleOrderData(orderListByID);
-    }
-    setloadingOrderDetails(false);
-  };
-
   const openOrderDrawer = (id: any, type: any) => {
-    if (type === "orderDetails") {
-      getSingleOrderData(id);
-    }
     setSelectedInvoiceId(id);
     setDrawerType(type);
     setDrawerOpen(true);
@@ -123,8 +106,18 @@ const SearchContainer = ({ path: string }) => {
 
   useEffect(() => {
     dispatch(singleActions.resetSingleShipment());
+    getAdvanceFiltersData();
     getSearchOrderListData();
   }, []);
+
+  const getAdvanceFiltersData = async () => {
+    const res = (await getAdvancedFilter()) as any;
+    if (res.success) {
+      setAdvanceFilterData(res.response.data.data);
+    } else {
+      setAdvanceFilterData(null);
+    }
+  };
 
   const getSearchOrderListData = async (
     values?: object,
@@ -204,6 +197,7 @@ const SearchContainer = ({ path: string }) => {
     setDrawerType("");
     setDrawerOpen(false);
     getSearchOrderListData();
+    getAdvanceFiltersData();
   };
 
   return (
@@ -272,11 +266,17 @@ const SearchContainer = ({ path: string }) => {
             <FilterFlexBox>
               <Button size="small" label="Search" onClick={handleSubmit} />
               <Box>
-                <img
-                  onClick={() => openOrderDrawer(null, "advanceFilter")}
-                  src={sliders}
-                  alt="Advanced Filter"
-                />
+                <CustomBadge
+                  badgeContent=""
+                  showZero
+                  invisible={advanceFilterData === null}
+                >
+                  <img
+                    onClick={() => openOrderDrawer(null, "advanceFilter")}
+                    src={sliders}
+                    alt="Advanced Filter"
+                  />
+                </CustomBadge>
               </Box>
             </FilterFlexBox>
           </Grid>
@@ -317,20 +317,16 @@ const SearchContainer = ({ path: string }) => {
         size={drawerType === "orderDetails" ? "large" : "small"}
       >
         {drawerType === "invoice" ? (
-          <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
+          <InvoiceDetailsDrawer invoiceId={selectedInvoiceId} />
         ) : drawerType === "advanceFilter" ? (
-          <AdvanceFilters applyFilters={applyOrderFilters} />
+          <AdvanceFilters
+            data={advanceFilterData}
+            applyFilters={applyOrderFilters}
+          />
+        ) : drawerType === "orderDetails" ? (
+          <SearchOrderDetailsDrawer orderId={selectedInvoiceId} />
         ) : (
-          <>
-            {loadingOrderDetails ? (
-              <AddressDetailsSkeleton />
-            ) : (
-              <SearchOrderDetailsDrawer
-                singleOrderData={singleOrderData}
-                orderId={selectedInvoiceId}
-              />
-            )}
-          </>
+          <></>
         )}
       </Drawer>
     </ModuleContainer>
