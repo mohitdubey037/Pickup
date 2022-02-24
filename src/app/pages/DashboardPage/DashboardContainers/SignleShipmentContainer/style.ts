@@ -67,10 +67,6 @@ export const ItemDetailsBox = styled(Box)`
   border-top: 1px solid #ddd;
   margin: 20px 0;
 
-  .delete {
-    color: red;
-    cursor: pointer;
-  }
   .heading {
     font-family: "Roboto-Bold";
   }
