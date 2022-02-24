@@ -7,15 +7,17 @@ import moment from "moment";
 import { Flex } from "app/components/Input/style";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { H3, H4 } from "app/components/Typography/Typography";
+import { H3, H4, Para } from "app/components/Typography/Typography";
 import { Button } from "../../../../components/Buttons";
 import { Drawer } from "app/components/Drawer";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
 import ShipmentSummaryAndPayments from "./ShipmentSummaryAndPayments";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
-import { OrderSummaryTableOuter, TotalBox } from "./style";
+import { DisclaimerBox, OrderSummaryTableOuter, TotalBox } from "./style";
 import TableSkeleton from "app/components/Table/TableSkeleton";
+import { disclaimer } from "app/assets/Icons";
+import NullState from "app/components/NullState/NullState";
 
 function OrderSummary({ path: string }) {
     const dispatch = useDispatch();
@@ -108,46 +110,60 @@ function OrderSummary({ path: string }) {
     }
 
     return (
-        <>
-            <ModuleContainer>
-                <H3 text="Order Summary" />
+      <>
+        <ModuleContainer>
+          <H3 text="Order Summary" />
 
-                {loading ? (
-                    <Box mt={3}>
-                        <TableSkeleton />
-                    </Box>
-                ) : (
-                    <OrderSummaryTableOuter mt={3}>
-                        <Table
-                            data={onHoldTable(
-                                orderSummaryData,
-                                onItemCountSelectHandler
-                            )}
-                        />
-                        <TotalBox>
-                            <H4 text="Total" className="total" />
-                            <H4
-                                text={`$${Number(totalCost).toFixed(2)}`}
-                                className="total"
-                            />
-                        </TotalBox>
-                    </OrderSummaryTableOuter>
-                )}
+          {loading ? (
+            <Box mt={3}>
+              <TableSkeleton />
+            </Box>
+          ) : (
+            <OrderSummaryTableOuter mt={3}>
+              {orderSummaryData?.length > 0 ? (
+                <>
+                  <Table
+                    data={onHoldTable(
+                      orderSummaryData,
+                      onItemCountSelectHandler
+                    )}
+                  />
+                  <TotalBox>
+                    <H4 text="Total" className="total" />
+                    <H4
+                      text={`$${Number(totalCost).toFixed(2)}`}
+                      className="total"
+                    />
+                  </TotalBox>
+                </>
+              ) : (
+                <NullState />
+              )}
+            </OrderSummaryTableOuter>
+          )}
 
-                <Flex justifyContent="flex-end" top={24}>
-                    <Button
-                        secondary
-                        label="Back"
-                        onClick={onBackHandler}
-                        size="small"
-                    />
-                    <Button
-                        label="Proceed to Payment"
-                        onClick={redirectForward}
-                        size="medium"
-                        style={{ marginLeft: "12px" }}
-                    />
-                    {/* <Button
+          <DisclaimerBox>
+            <img src={disclaimer} alt="" />
+            <Box ml={2}>
+              <H3 text="3 orders added to orders holding zone." />
+              <Para text="Once they are ready to ship you can schedule them from the holding zone" />
+            </Box>
+          </DisclaimerBox>
+
+          <Flex justifyContent="flex-end" top={24}>
+            <Button
+              secondary
+              label="Back"
+              onClick={onBackHandler}
+              size="small"
+            />
+            <Button
+              label="Proceed to Payment"
+              onClick={redirectForward}
+              size="medium"
+              style={{ marginLeft: "12px" }}
+            />
+            {/* <Button
                         style={{ marginLeft: "12px" }}
                         secondary
                         label="drawer"
@@ -156,31 +172,31 @@ function OrderSummary({ path: string }) {
                             setDrawerOpenOne(true);
                         }}
                     /> */}
-                </Flex>
-            </ModuleContainer>
+          </Flex>
+        </ModuleContainer>
 
-            <Drawer
-                open={drawerOpenOne}
-                title="Payments"
-                setDrawerOpen={(flag) => setDrawerOpenOne(flag)}
-                closeIcon={true}
-                actionButtons={true}
-            >
-                <ShipmentSummaryAndPayments />
-            </Drawer>
-            <Drawer
-                open={drawerOpen}
-                title="Order Details"
-                setDrawerOpen={(flag) => setDrawerOpen(flag)}
-                closeIcon={true}
-                actionButtons={true}
-            >
-                <OrderDetailsDrawer
-                    orderId={selectedOrder}
-                    setDrawerOpen={setDrawerOpen}
-                />
-            </Drawer>
-        </>
+        <Drawer
+          open={drawerOpenOne}
+          title="Payments"
+          setDrawerOpen={(flag) => setDrawerOpenOne(flag)}
+          closeIcon={true}
+          actionButtons={true}
+        >
+          <ShipmentSummaryAndPayments />
+        </Drawer>
+        <Drawer
+          open={drawerOpen}
+          title="Order Details"
+          setDrawerOpen={(flag) => setDrawerOpen(flag)}
+          closeIcon={true}
+          actionButtons={true}
+        >
+          <OrderDetailsDrawer
+            orderId={selectedOrder}
+            setDrawerOpen={setDrawerOpen}
+          />
+        </Drawer>
+      </>
     );
 }
 export default OrderSummary;

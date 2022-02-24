@@ -68,7 +68,9 @@ function ItemDetailsPage(props: any) {
               <H4
                 className="value"
                 text={
-                  singleOrderData.total ? "$" + singleOrderData.total : "N/A"
+                  singleOrderData.total
+                    ? `$${singleOrderData.total.toFixed(2)}`
+                    : "N/A"
                 }
               />
             </Grid>

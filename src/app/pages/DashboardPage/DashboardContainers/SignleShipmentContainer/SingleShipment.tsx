@@ -5,7 +5,6 @@ import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
 import { Box } from "@material-ui/core";
 
 import ModuleContainer from "app/components/ModuleContainer";
-import { remove } from "app/assets/Icons";
 import { H2, H3 } from "app/components/Typography/Typography";
 import SingleShipmentDetails from "./SingleShipmentDetails";
 import SingleSipmentForm from "./SingleSipmentForm";
@@ -16,12 +15,13 @@ import {
   shipmentInitValues,
   singleShipmentInitValues,
 } from "./helper";
-import { FullCard } from "app/components/Input/style";
+import { Flex, FullCard } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { globalActions } from "store/reducers/GlobalReducer";
 import { ButtonsGroup } from "app/components/Buttons/style";
 import { Checkbox } from "app/components/Checkbox";
+import { CustomLink } from "app/components/Typography/Links";
 
 function SingleShipment({ path: string }) {
   const dispatch = useDispatch();
@@ -110,6 +110,7 @@ function SingleShipment({ path: string }) {
   };
 
   const deleteOrderHandler = (index: number) => {
+    console.log(index)
     const orderDetails = [...formik.values.orders];
     orderDetails.splice(index, 1);
     formik.setFieldValue("orders", orderDetails);
@@ -125,28 +126,16 @@ function SingleShipment({ path: string }) {
       {new Array(formik.values.orders.length).fill("").map((_, index) => (
         <Fragment key={index}>
           {formik.values.orders.length > 1 && (
-            <H2 title={`Order ${index + 1}`} />
+            <Flex justifyContent="space-between" alignItems="center" top={24}>
+              <H2 title={`Order ${index + 1}`} />
+              <CustomLink
+                label="Delete"
+                style={{ color: "#C94C43" }}
+                link={() => deleteOrderHandler(index)}
+              />
+            </Flex>
           )}
           <FullCard key={index}>
-            {formik.values.orders.length > 1 && (
-              <Box
-                role="button"
-                tabIndex={0}
-                onKeyPress={(e) =>
-                  e.key === "Enter" && deleteOrderHandler(index)
-                }
-                onClick={() => deleteOrderHandler(index)}
-                style={{
-                  cursor: "pointer",
-                  position: "absolute",
-                  top: "20px",
-                  right: "20px",
-                }}
-              >
-                <img src={remove} alt="delete" />
-              </Box>
-            )}
-
             <H3 text="Address Details" className="section-title" />
             <SingleSipmentForm
               canBeDisabled={

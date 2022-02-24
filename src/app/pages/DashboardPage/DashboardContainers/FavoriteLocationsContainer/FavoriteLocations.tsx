@@ -24,7 +24,7 @@ const DRAWER_TITLE = {
   importCSV: "Import CSV",
 };
 
-function FavoriteLocations({ path: string }) {
+function FavoriteLocations({ path }: any) {
   const [loading, setLoading] = useState<boolean>(true);
   const [locationData, setLocationData] = useState<any>([]);
   const [selectedLocation, setSelectedLocation] = useState<any>(null);
@@ -59,12 +59,6 @@ function FavoriteLocations({ path: string }) {
     return (
       <SearchTableTop>
         <H3 text={`${locationData.length} Locations`} className="heading" />
-        <Button
-          size="medium"
-          secondary
-          label="Import from CSV"
-          onClick={() => openDrawer("importCSV")}
-        />
       </SearchTableTop>
     );
   };
@@ -111,10 +105,20 @@ function FavoriteLocations({ path: string }) {
     setLoading(false);
   };
 
+  const closeEditLocationDrawer = (isUpdate?: boolean) => {
+    setDrawerOpen(false);
+    isUpdate && getLocationListData();
+  };
+
   return (
     <ModuleContainer>
-      <Flex bottom={24}>
+      <Flex justifyContent="space-between" bottom={24}>
         <H2 title="Favourite Locations" />
+        <Button
+          size="medium"
+          label="Import from CSV"
+          onClick={() => openDrawer("importCSV")}
+        />
       </Flex>
 
       {loading ? (
@@ -147,8 +151,8 @@ function FavoriteLocations({ path: string }) {
           <ContactDetailsSidebar contactInfo={selectedLocation} />
         ) : drawerType === "editContactDetails" ? (
           <EditContactDetails
-            contactInfo={selectedLocation}
-            onClose={setDrawerOpen}
+            data={selectedLocation}
+            onClose={closeEditLocationDrawer}
           />
         ) : drawerType === "importCSV" ? (
           <FileDrawer />

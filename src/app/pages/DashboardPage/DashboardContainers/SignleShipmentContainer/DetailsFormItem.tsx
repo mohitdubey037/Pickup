@@ -3,10 +3,11 @@ import { Box, Grid } from "@material-ui/core";
 
 import SelectNew from "app/components/Select/SelectNew";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { H4 } from "app/components/Typography/Typography";
+import { H3 } from "app/components/Typography/Typography";
 import { CustomInput } from "../CompanyProfileContainer/style";
 import { WEIGHTDIMENSION, DIMENSION2 } from "../../../../../constants";
 import { ItemDetailsBox } from "./style";
+import { CustomLink } from "app/components/Typography/Links";
 
 function DetailsFormItem(props: {
     formik: FormikValues;
@@ -36,149 +37,133 @@ function DetailsFormItem(props: {
 
     return (
         <ItemDetailsBox>
-            
-                <Box display="flex" justifyContent="space-between" mt={3} mb={3}>
-                    <H4 text={`Item #${index + 1}`} className="heading" />
-                    {props?.formik?.values?.orders?.[props.orderIndex]
-                        .shipmentDetails?.length > 1 && (
-                        <Box
-                            role="button"
-                            tabIndex={0}
-                            onKeyPress={(e) =>
-                                e.key === "Enter" && deleteItemHandler(index)
-                            }
-                            onClick={() => deleteItemHandler(index)}
-                        >
-                            {/* <img src={remove} alt="delete" /> */}
-                            <H4 text="Delete" className="delete" />
-                        </Box>
-                    )}
-                </Box>
-           
+            <Box display="flex" justifyContent="space-between" mt={3} mb={4}>
+                <H3 text={`Item #${index + 1}`} className="heading" />
+                {props?.formik?.values?.orders?.[props.orderIndex]
+                    .shipmentDetails?.length > 1 && (
+                    <CustomLink
+                        label="Delete"
+                        style={{ color: "#C94C43" }}
+                        link={() => deleteItemHandler(index)}
+                    />
+                )}
+            </Box>
 
             {props.hasDimensions && (
-               
-                    <GridContainer container spacing={3}>
-                        <Grid item sm={6} xs={12}>
-                            <GridContainer container spacing={1}>
-                                <Grid item xs={6} lg={9}>
-                                    <CustomInput
-                                        name={`${formFieldName}.${formItem}.weight`}
-                                        id={`${formFieldName}.${formItem}.weight`}
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        error={
-                                            toucherItem?.weight &&
-                                            errorItem?.weight
-                                        }
-                                        label={"Item Weight"}
-                                        initValue={formItemValue.weight}
-                                        value={formItemValue.weight}
-                                        placeholder={"eg. 100"}
-                                        maxLength={8}
-                                        validate
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item xs={6} lg={3}>
-                                    <SelectNew
-                                        id={`${formFieldName}.${formItem}.weightDimension`}
-                                        name={`${formFieldName}.${formItem}.weightDimension`}
-                                        label={"Unit"}
-                                        placeholder={"Select Unit"}
-                                        options={WEIGHTDIMENSION}
-                                        value={Number(
-                                            formItemValue.weightDimension
-                                        )}
-                                        onChange={handleChange}
-                                        error={
-                                            toucherItem?.weightDimension &&
-                                            errorItem?.weightDimension
-                                        }
-                                        required
-                                    />
-                                </Grid>
-                            </GridContainer>
-                        </Grid>
+                <GridContainer container spacing={3}>
+                    <Grid item sm={6} xs={12}>
+                        <GridContainer container spacing={1}>
+                            <Grid item xs={6} lg={9}>
+                                <CustomInput
+                                    name={`${formFieldName}.${formItem}.weight`}
+                                    id={`${formFieldName}.${formItem}.weight`}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    error={
+                                        toucherItem?.weight && errorItem?.weight
+                                    }
+                                    label={"Item Weight"}
+                                    initValue={formItemValue.weight}
+                                    value={formItemValue.weight}
+                                    placeholder={"eg. 100"}
+                                    maxLength={8}
+                                    validate
+                                    required
+                                />
+                            </Grid>
+                            <Grid item xs={6} lg={3}>
+                                <SelectNew
+                                    id={`${formFieldName}.${formItem}.weightDimension`}
+                                    name={`${formFieldName}.${formItem}.weightDimension`}
+                                    label={"Unit"}
+                                    placeholder={"Select Unit"}
+                                    options={WEIGHTDIMENSION}
+                                    value={Number(
+                                        formItemValue.weightDimension
+                                    )}
+                                    onChange={handleChange}
+                                    error={
+                                        toucherItem?.weightDimension &&
+                                        errorItem?.weightDimension
+                                    }
+                                    required
+                                />
+                            </Grid>
+                        </GridContainer>
+                    </Grid>
 
-                        <Grid item lg={6} xs={12}>
-                            <GridContainer container spacing={1}>
-                                <Grid item xs={6} sm={3}>
-                                    <CustomInput
-                                        id={`${formFieldName}.${formItem}.length`}
-                                        name={`${formFieldName}.${formItem}.length`}
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        initValue={formItemValue.length}
-                                        value={formItemValue.length}
-                                        error={
-                                            toucherItem?.length &&
-                                            errorItem?.length
-                                        }
-                                        label={"Length"}
-                                        placeholder={"eg. 10"}
-                                        maxLength={8}
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item xs={6} sm={3}>
-                                    <CustomInput
-                                        id={`${formFieldName}.${formItem}.width`}
-                                        name={`${formFieldName}.${formItem}.width`}
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        error={
-                                            toucherItem?.width &&
-                                            errorItem?.width
-                                        }
-                                        label={"Width"}
-                                        initValue={formItemValue.width}
-                                        value={formItemValue.width}
-                                        placeholder={"eg. 10"}
-                                        maxLength={8}
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item xs={6} sm={3}>
-                                    <CustomInput
-                                        id={`${formFieldName}.${formItem}.height`}
-                                        name={`${formFieldName}.${formItem}.height`}
-                                        onBlur={handleBlur}
-                                        initValue={formItemValue.height}
-                                        value={formItemValue.height}
-                                        onChange={handleChange}
-                                        error={
-                                            toucherItem?.height &&
-                                            errorItem?.height
-                                        }
-                                        label={"Height"}
-                                        placeholder={"eg. 10"}
-                                        maxLength={8}
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item xs={6} sm={3}>
-                                    <SelectNew
-                                        id={`${formFieldName}.${formItem}.sizeDimension`}
-                                        name={`${formFieldName}.${formItem}.sizeDimension`}
-                                        label={"Unit"}
-                                        placeholder={"Select Unit"}
-                                        options={DIMENSION2}
-                                        value={Number(
-                                            formItemValue.sizeDimension
-                                        )}
-                                        onChange={handleChange}
-                                        error={
-                                            toucherItem?.sizeDimension &&
-                                            errorItem?.sizeDimension
-                                        }
-                                        required
-                                    />
-                                </Grid>
-                            </GridContainer>
-                        </Grid>
-                    </GridContainer>
-                
+                    <Grid item lg={6} xs={12}>
+                        <GridContainer container spacing={1}>
+                            <Grid item xs={6} sm={3}>
+                                <CustomInput
+                                    id={`${formFieldName}.${formItem}.length`}
+                                    name={`${formFieldName}.${formItem}.length`}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    initValue={formItemValue.length}
+                                    value={formItemValue.length}
+                                    error={
+                                        toucherItem?.length && errorItem?.length
+                                    }
+                                    label={"Length"}
+                                    placeholder={"eg. 10"}
+                                    maxLength={8}
+                                    required
+                                />
+                            </Grid>
+                            <Grid item xs={6} sm={3}>
+                                <CustomInput
+                                    id={`${formFieldName}.${formItem}.width`}
+                                    name={`${formFieldName}.${formItem}.width`}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    error={
+                                        toucherItem?.width && errorItem?.width
+                                    }
+                                    label={"Width"}
+                                    initValue={formItemValue.width}
+                                    value={formItemValue.width}
+                                    placeholder={"eg. 10"}
+                                    maxLength={8}
+                                    required
+                                />
+                            </Grid>
+                            <Grid item xs={6} sm={3}>
+                                <CustomInput
+                                    id={`${formFieldName}.${formItem}.height`}
+                                    name={`${formFieldName}.${formItem}.height`}
+                                    onBlur={handleBlur}
+                                    initValue={formItemValue.height}
+                                    value={formItemValue.height}
+                                    onChange={handleChange}
+                                    error={
+                                        toucherItem?.height && errorItem?.height
+                                    }
+                                    label={"Height"}
+                                    placeholder={"eg. 10"}
+                                    maxLength={8}
+                                    required
+                                />
+                            </Grid>
+                            <Grid item xs={6} sm={3}>
+                                <SelectNew
+                                    id={`${formFieldName}.${formItem}.sizeDimension`}
+                                    name={`${formFieldName}.${formItem}.sizeDimension`}
+                                    label={"Unit"}
+                                    placeholder={"Select Unit"}
+                                    options={DIMENSION2}
+                                    value={Number(formItemValue.sizeDimension)}
+                                    onChange={handleChange}
+                                    error={
+                                        toucherItem?.sizeDimension &&
+                                        errorItem?.sizeDimension
+                                    }
+                                    required
+                                />
+                            </Grid>
+                        </GridContainer>
+                    </Grid>
+                </GridContainer>
             )}
 
             <Box>
