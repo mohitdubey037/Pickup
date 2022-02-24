@@ -172,7 +172,7 @@ export const removeInsuranceService = async (invoiceId: string) => {
   }
 };
 
-export const getOrderDetails = async (invoiceId: string) => {
+export const getInvoiceDetails = async (invoiceId: string) => {
   try {
     const res: any = await Services.get(
       `order/business/invoice/${invoiceId}`,
