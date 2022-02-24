@@ -142,13 +142,13 @@ function OrderSummary({ path: string }) {
             </OrderSummaryTableOuter>
           )}
 
-          <DisclaimerBox>
+          {/* <DisclaimerBox>
             <img src={disclaimer} alt="" />
             <Box ml={2}>
               <H3 text="3 orders added to orders holding zone." />
               <Para text="Once they are ready to ship you can schedule them from the holding zone" />
             </Box>
-          </DisclaimerBox>
+          </DisclaimerBox> */}
 
           <Flex justifyContent="flex-end" top={24}>
             <Button
