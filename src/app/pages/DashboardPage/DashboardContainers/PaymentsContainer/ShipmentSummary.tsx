@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 
 import ModuleContainer from "app/components/ModuleContainer";
 import { Flex } from "../../../../components/Input/style";
@@ -21,7 +21,7 @@ import { actions as shipmentActions } from "store/reducers/SingleShipmentReducer
 import { Button } from "app/components/Buttons";
 import { showToast } from "utils";
 import { CardType } from "../../../../../types";
-import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
+import InvoiceDetailsDrawer from "./InvoiceDetailsDrawer";
 import { H3 } from "app/components/Typography/Typography";
 import { CustomLink } from "app/components/Typography/Links";
 
@@ -242,7 +242,7 @@ function ShipmentSummary({ path }: { path: string }) {
                 setDrawerOpen={(flag) => onInvoiceDrawerClose(flag)}
                 closeIcon={true}
             >
-                <AddNewPaymentDrawer invoiceId={invoiceId} />
+                <InvoiceDetailsDrawer invoiceId={invoiceId} />
             </Drawer>
         </ModuleContainer>
     );

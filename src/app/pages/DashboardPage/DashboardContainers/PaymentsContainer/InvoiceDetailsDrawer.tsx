@@ -8,14 +8,15 @@ import { Button } from "app/components/Buttons";
 import { DrawerHeading, Para } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
 import { LineDivider } from "app/components/CommonCss/CommonCss";
-import { getOrderDetails } from "services/PaymentServices";
+import CustomTooltip from "app/components/Tooltip/CustomTooltip";
+import { getInvoiceDetails } from "services/PaymentServices";
 import { Illustration } from "../../../../assets/Images/index";
 import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
 import InvoiceDrawerSkeleton from "./InvoiceDrawerSkeleton";
 
-interface OrderDetails {
+interface InvoiceDetails {
   billTo: string;
-  category: string;
+  category: string[];
   destinationCount: string;
   invoiceCreatedAt: string;
   invoiceNumber: string;
@@ -24,6 +25,7 @@ interface OrderDetails {
   total: number;
   shipmentItemMapping: any;
   invoicePdf: string;
+  isPayment: boolean;
 }
 
 const ref: any = createRef();
@@ -32,7 +34,6 @@ const BarCodeItem = ({ barcodeValue }) => {
   const { inputRef } = useBarcode({
     value: barcodeValue,
     options: {
-      // background: "lightblue",
       height: 94,
       width: 1.46,
       // displayValue: false,
@@ -41,17 +42,15 @@ const BarCodeItem = ({ barcodeValue }) => {
   return <svg ref={inputRef} />;
 };
 
-function AddNewPaymentDrawer(props) {
-  const { invoiceId } = props;
-
+function InvoiceDetailsDrawer({ invoiceId }: any) {
   const [ordersArray, setOrdersArray] = useState<string[]>([]);
-  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>();
+  const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetails | null>();
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const res = (await getOrderDetails(invoiceId)) as any;
+      const res = (await getInvoiceDetails(invoiceId)) as any;
       if (res?.error == null) {
         let data = res?.response?.data?.data;
         let tempArray: string[] = [];
@@ -62,7 +61,7 @@ function AddNewPaymentDrawer(props) {
           });
         });
         setOrdersArray(tempArray);
-        setOrderDetails(data);
+        setInvoiceDetails(data);
         setLoading(false);
       }
     })();
@@ -78,7 +77,7 @@ function AddNewPaymentDrawer(props) {
   const invoiceDownload = () => {
     let link: any = document.createElement("a");
     link.download = `Invoice_${invoiceId}.pdf`;
-    link.href = orderDetails?.invoicePdf;
+    link.href = invoiceDetails?.invoicePdf;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -117,59 +116,88 @@ function AddNewPaymentDrawer(props) {
               document.getElementById("print-root") as HTMLElement
             )}
 
-            <DrawerHeading title="Paid Successfully" className="title" />
+            <DrawerHeading
+              title={
+                invoiceDetails?.isPayment
+                  ? "Paid Successfully"
+                  : "Payment Pending"
+              }
+              className={`title ${!invoiceDetails?.isPayment && "title-sec"}`}
+            />
             <Para text="Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor vel. Integer a ornare nisi." />
 
             <Divider className="divider" />
           </DrawerHeaderBox>
 
-          <Button
-            label="Download Invoice Details"
-            secondary
-            style={{ marginBottom: "16px" }}
-            disabled={!orderDetails?.invoicePdf}
-            onClick={invoiceDownload}
-          />
-          <Button
-            label="Download Shipping Label"
-            secondary
-            onClick={shippingLabelDownload}
-          />
+          {invoiceDetails?.isPayment ? (
+            <>
+              <Button
+                label="Download Invoice Details"
+                secondary
+                style={{ marginBottom: "16px" }}
+                disabled={!invoiceDetails?.invoicePdf}
+                onClick={invoiceDownload}
+              />
+              <Button
+                label="Download Shipping Label"
+                secondary
+                onClick={shippingLabelDownload}
+              />
+            </>
+          ) : (
+            <Button label="Complete Payment" onClick={() => {}} disabled />
+          )}
 
           <InvoiceDetailsBox>
             <Flex justifyContent="space-between" bottom={16} top={32}>
               <Flex>
                 <Para text="Bill to" className="label" />
-                <Para text={orderDetails?.billTo} className="value" />
+                <Para text={invoiceDetails?.billTo} className="value" />
               </Flex>
               <Flex justifyContent="flex-end">
                 <Para text="Invoice Date" className="label" />
-                <Para text={orderDetails?.invoiceCreatedAt} className="value" />
+                <Para
+                  text={invoiceDetails?.invoiceCreatedAt}
+                  className="value"
+                />
               </Flex>
             </Flex>
             <Flex justifyContent="space-between">
               <Para text="Invoice Number" className="label" />
-              <Para text={orderDetails?.invoiceNumber} className="value" />
+              <Para text={invoiceDetails?.invoiceNumber} className="value" />
             </Flex>
 
             <LineDivider />
 
             <Flex justifyContent="space-between" bottom={16}>
               <Para text="Order Count" className="label" />
-              <Para text={orderDetails?.shipmentCount} className="value" />
+              <Para text={invoiceDetails?.shipmentCount} className="value" />
             </Flex>
             <Flex justifyContent="space-between" bottom={16}>
               <Para text="Category" className="label" />
-              <Para text={orderDetails?.category} className="value" />
+              {invoiceDetails?.category &&
+              invoiceDetails?.category.length > 1 ? (
+                <CustomTooltip
+                  text={invoiceDetails?.category.join(", ")}
+                  content={
+                    <Para
+                      text={`${invoiceDetails?.category[0]}, etc...`}
+                      className="value"
+                    />
+                  }
+                />
+              ) : (
+                <Para text={invoiceDetails?.category} className="value" />
+              )}
             </Flex>
             <Flex justifyContent="space-between" bottom={16}>
               <Para text="Destination Count" className="label" />
-              <Para text={orderDetails?.destinationCount} className="value" />
+              <Para text={invoiceDetails?.destinationCount} className="value" />
             </Flex>
             <Flex justifyContent="space-between" bottom={16}>
               <Para text="Invoice Amount" className="label" />
               <Para
-                text={`$${orderDetails?.total.toFixed(2)}`}
+                text={`$${invoiceDetails?.total.toFixed(2)}`}
                 className="value"
               />
             </Flex>
@@ -178,7 +206,10 @@ function AddNewPaymentDrawer(props) {
 
             <Flex justifyContent="space-between" bottom={40}>
               <Para text="Payment Detail" className="label" />
-              <Para text={orderDetails?.lastFourDigits} className="value" />
+              <Para
+                text={invoiceDetails?.lastFourDigits || "-"}
+                className="value"
+              />
             </Flex>
           </InvoiceDetailsBox>
         </>
@@ -187,4 +218,4 @@ function AddNewPaymentDrawer(props) {
   );
 }
 
-export default AddNewPaymentDrawer;
+export default InvoiceDetailsDrawer;

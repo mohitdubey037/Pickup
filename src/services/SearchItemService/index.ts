@@ -1,8 +1,12 @@
+import { showToast } from "utils";
 import Service from "../";
 
 export const getTrackStatus = async (orderId: number) => {
   try {
-    const response = await Service.get(`order/business/shipment/${orderId}/track`, "order");
+    const response = await Service.get(
+      `order/business/shipment/${orderId}/track`,
+      "order"
+    );
     // const response = await
     // fetch(
     //   `https://staging-api.pickups.mobi/order/api/order/business/shipment/${orderId}/track`,
@@ -21,7 +25,10 @@ export const getTrackStatus = async (orderId: number) => {
 
 export const getLocation = async (orderId: number) => {
   try {
-    const response = await Service.get(`order/business/shipment/${orderId}/liveLocation`, "order");
+    const response = await Service.get(
+      `order/business/shipment/${orderId}/liveLocation`,
+      "order"
+    );
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };
@@ -40,7 +47,22 @@ export const getSearchOrderList = async (urlParams?: string) => {
 
 export const getSearchOrderListById = async (orderId: number) => {
   try {
-    const response = await Service.get(`order/business/shipment/${orderId}`, "order");
+    const response = await Service.get(
+      `order/business/shipment/${orderId}`,
+      "order"
+    );
+    return { response: response, success: true };
+  } catch (err) {
+    return { response: err, sucess: false };
+  }
+};
+
+export const getAdvancedFilter = async () => {
+  try {
+    const response = await Service.get(
+      `order/business/shipment/adavanceFilters/get`,
+      "order"
+    );
     return { response: response, success: true };
   } catch (err) {
     return { response: err, sucess: false };
@@ -49,9 +71,29 @@ export const getSearchOrderListById = async (orderId: number) => {
 
 export const saveAdvancedFilters = async (data: any) => {
   try {
-    const response = await Service.post(`order/business/shipment/adavanceFilters`, data, "order");
+    const response = await Service.post(
+      `order/business/shipment/adavanceFilters`,
+      data,
+      "order"
+    );
+    showToast(`Successfully applied advanced filters`, "success");
     return { response: response, success: true };
   } catch (err) {
+    showToast(err.message || "Something Went Wrong", "error");
+    return { response: err, sucess: false };
+  }
+};
+
+export const deleteAdvancedFilter = async () => {
+  try {
+    const response = await Service.get(
+      `order/business/shipment/adavanceFilters/clear`,
+      "order"
+    );
+    showToast(`Successfully removed advanced filters`, "success");
+    return { response: response, success: true };
+  } catch (err) {
+    showToast(err.message || "Something Went Wrong", "error");
     return { response: err, sucess: false };
   }
 };
