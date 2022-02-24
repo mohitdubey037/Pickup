@@ -79,19 +79,13 @@ const OnHoldShipmentContainer = ({ path: string }) => {
   };
 
   const deleteSelectedOrders = async () => {
-    const orderId = onHoldOrderData.filter((_, idx) =>
-      selectedRows.includes(idx)
-    )[0].orderId;
+    const orderIds = onHoldOrderData
+      .filter((_, idx) => selectedRows.includes(idx))
+      .map((item) => item.orderId);
 
-    const res = (await deleteShipmentService(orderId)) as any;
+    const res = (await deleteShipmentService(orderIds)) as any;
     if (res.error === null) {
-      showToast(
-        `Your order #${orderId} has been successfully deleted`,
-        "success"
-      );
       getOnHoldOrderListData();
-    } else {
-      showToast(`Something went wrong`, "error");
     }
   };
 
@@ -128,7 +122,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
           <Button
             label="Delete"
             onClick={deleteSelectedOrders}
-            disabled={selectedRows.length !== 1}
+            disabled={selectedRows.length === 0}
             size="medium"
             secondary
             style={{ marginRight: "12px" }}

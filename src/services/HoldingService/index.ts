@@ -1,3 +1,4 @@
+import { showToast } from "utils";
 import Services from "../";
 
 export const getHoldingShipmentsService = async (urlParams?: string) => {
@@ -25,14 +26,17 @@ export const scheduleShipmentService = async (data) => {
   }
 };
 
-export const deleteShipmentService = async (shipmentId) => {
+export const deleteShipmentService = async (shipmentIds) => {
   try {
     const res = await Services.delete(
-      `order/business/shipment/${shipmentId}`,
+      `order/business/shipment`,
+      { shipmentIds },
       "order"
     );
+    showToast(`Your orders has been successfully deleted`, "success");
     return { response: res, error: null };
   } catch (error) {
+    showToast(error.message || `Something Went Wrong`, "error");
     return { response: null, error: error };
   }
 };
