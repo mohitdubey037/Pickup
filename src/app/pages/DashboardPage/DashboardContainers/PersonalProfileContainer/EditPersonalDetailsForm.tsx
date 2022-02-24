@@ -1,39 +1,29 @@
+import { useFormik } from "formik";
+import { Box } from "@mui/material";
+
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
-import { useFormik } from "formik";
+import SelectNew from "app/components/Select/SelectNew";
+import EditAvatar from "app/components/Avatar/EditAvatar";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { personalFormSchema } from "./personalFormSchema";
-import { PERMISSION_TYPES, IMAGE_FILE_TYPES, PHONE_NO_MASK } from "../../../../../constants";
-import Select from "app/components/Select";
-
+import {
+  PERMISSION_TYPES,
+  IMAGE_FILE_TYPES,
+  PHONE_NO_MASK,
+} from "../../../../../constants";
 import { imageUploadService } from "services/SingleShipmentServices";
 import { showToast } from "utils";
-import { Avatar, Box } from "@material-ui/core";
-import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
-import EditAvatar from "app/components/Avatar/EditAvatar";
 import { PersonalProfileType } from "./types";
-import { useState } from "react";
-import { Drawer } from "app/components/Drawer";
-import EmailSentDrawer from "../../../../components/EmailSentDrawer/EmailSentDrawer";
+
 interface EditPersonalInterface {
-  personalProfileDetails: PersonalProfileType;
-  setEditDetailsDrawerOpen: (value: boolean) => void;
-  saveAction: any;
+  data: PersonalProfileType;
+  setDrawerOpen: (value: boolean) => void;
+  saveAction: (values: any) => void;
 }
 
 const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
-  const { personalProfileDetails, setEditDetailsDrawerOpen, saveAction } =
-    props;
-
-    const [emailSentDrawerOpen, setEmailSentDrawerOpen] = useState(false);
-
-    
-    const handleOpenDrawer = () => {
-      setEmailSentDrawerOpen(true);
-    };
-    const handleCloseDrawer  = () => {
-      setEmailSentDrawerOpen(false);
-    };
-
+  const { data, setDrawerOpen, saveAction } = props;
 
   const {
     values,
@@ -46,13 +36,13 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
     isValid,
   } = useFormik({
     initialValues: {
-      profileImage: personalProfileDetails?.profileImage || "", // personalProfileDetails?.profileImage ||
-      firstName: personalProfileDetails?.firstName,
-      lastName: personalProfileDetails?.lastName,
-      emailId: personalProfileDetails?.emailId,
-      phone: personalProfileDetails?.userDetails?.phoneNo,
-      role: personalProfileDetails?.roleName,
-      permission: personalProfileDetails?.roleId,
+      profileImage: data?.profileImage || "",
+      firstName: data?.firstName,
+      lastName: data?.lastName,
+      emailId: data?.emailId,
+      phone: data?.userDetails?.phoneNo,
+      role: data?.roleName,
+      permission: data?.roleId,
     },
     validationSchema: personalFormSchema,
     onSubmit: (values) => {
@@ -84,91 +74,88 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
 
   return (
     <>
-<DrawerInnerContent>
-      <Box display="flex" justifyContent="center">
-        {/* <Avatar
-          src={values?.profileImage}
-          onChange={(e) => changeHandler(e)}
-          style={{
-            width: 86,
-            height: 86,
-          }}
-        /> */}
+      <DrawerInnerContent>
+        <Box display="flex" justifyContent="center">
+          <EditAvatar
+            icon={values?.profileImage}
+            changeHandler={changeHandler}
+          />
+        </Box>
+        <Input
+          id="firstName"
+          name="firstName"
+          label="First Name"
+          placeholder="John"
+          initValue={values.firstName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.firstName && errors.firstName}
+          required
+        />
+        <Input
+          id="lastName"
+          name="lastName"
+          label="Last Name"
+          placeholder="Doe"
+          initValue={values.lastName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.lastName && errors.lastName}
+          required
+        />
+        <Input
+          id="phone"
+          name="phone"
+          label="Phone Number"
+          placeholder="+1 (999)-999-9999"
+          initValue={values.phone}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.phone && errors.phone}
+          required
+          type="mask"
+          maskProps={PHONE_NO_MASK}
+        />
+        <Input
+          id="role"
+          name="role"
+          label="Role/Designation"
+          initValue={values.role}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.role && errors.role}
+          disabled
+          required
+        />
+        <Input
+          id="emailId"
+          name="emailId"
+          label="Email"
+          placeholder="johndoe@pickups.com"
+          initValue={values.emailId}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.emailId && errors.emailId}
+          required
+        />
+        <SelectNew
+          id="Permission"
+          name="Permission"
+          label="Permission"
+          placeholder="Select Permission"
+          options={PERMISSION_TYPES}
+          value={values?.permission}
+          onChange={handleChange}
+          error={touched.permission && errors.permission}
+          disabled
+          required
+        />
+      </DrawerInnerContent>
 
-        <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
-      </Box>
-      <Input
-        id="firstName"
-        name="firstName"
-        onBlur={handleBlur}
-        value={values.firstName}
-        initValue={values.firstName}
-        onChange={handleChange}
-        error={touched.firstName && errors.firstName}
-        label="First Name"
-        required={true}
-      />
-      <Input
-        id="lastName"
-        name="lastName"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        value={values.lastName}
-        initValue={values.lastName}
-        error={touched.lastName && errors.lastName}
-        label="Last Name"
-        required={true}
-      />
-      <Input
-        id="phone"
-        name="phone"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        initValue={values.phone}
-        value={values.phone}
-        error={touched.phone && errors.phone}
-        label="Phone Number"
-        placeholder="+1 (999)-999-9999"
-        required={true}
-        type="mask"
-        maskProps={PHONE_NO_MASK}
-      />
-      <Input
-        id="role"
-        name="role"
-        onBlur={handleBlur}
-        onChange={handleChange}
-        initValue={values.role}
-        error={touched.role && errors.role}
-        disabled
-        label="Role/Designation"
-      />
-      <Input
-        id="emailId"
-        name="emailId"
-        onBlur={handleBlur}
-        value={values.emailId}
-        initValue={values.emailId}
-        onChange={handleChange}
-        placeholder={values?.emailId}
-        error={touched.emailId && errors.emailId}
-        label="Email"
-        required={true}
-      />
-      <Select
-        disabled
-        id="Permission"
-        name="Permission"
-        options={PERMISSION_TYPES}
-        label={"Permission"}
-        value={values?.permission}
-        onSelect={(e) => console.log(e)}
-      />
-</DrawerInnerContent>
       <DrawerFooter>
         <Button
           secondary
-          onClick={() => setEditDetailsDrawerOpen(false)}
+          onClick={() => setDrawerOpen(false)}
           label="Cancel"
           size="medium"
         />
@@ -178,26 +165,7 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
           disabled={!isValid}
           size="medium"
         />
-        {/* <Button
-          label="sent"
-          size="small"
-          onClick={() => handleOpenDrawer()}
-        /> */}
       </DrawerFooter>
-
-      
-      {emailSentDrawerOpen &&
-      <Drawer
-        open={emailSentDrawerOpen}
-        setDrawerOpen={() => setEmailSentDrawerOpen(false)}
-        title="Edit Colleague Details"
-        closeIcon={true}
-      >
-        <EmailSentDrawer
-        />
-      </Drawer>
-      }
-
     </>
   );
 };

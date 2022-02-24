@@ -1,6 +1,5 @@
+import { Badge, Box, Paper } from "@mui/material";
 import styled from "styled-components";
-import Paper from "@mui/material/Paper";
-import { Box } from "@mui/material";
 
 export const SearchTableTop = styled.div`
   display: flex;
@@ -128,5 +127,13 @@ export const ItemDetailsBox = styled(Box)`
   }
   div {
     box-shadow: none !important;
+  }
+`;
+
+export const CustomBadge = styled(Badge)`
+  .MuiBadge-badge {
+    min-width: 15px;
+    height: 15px;
+    background-color: #f99746;
   }
 `;

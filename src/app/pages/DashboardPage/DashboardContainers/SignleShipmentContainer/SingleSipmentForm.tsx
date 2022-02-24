@@ -79,12 +79,28 @@ function SingleSipmentForm({
       value?.location?.displayPosition?.longitude &&
       value?.location?.displayPosition?.latitude
     ) {
+      let tempCountry = "",
+        tempProvinceState = "";
+      value?.location?.address?.additionalData.forEach((ele) => {
+        if (ele.key === "CountryName" && !tempCountry) {
+          tempCountry = ele.value;
+        }
+        if (
+          (ele.key === "StateName" || ele.key === "CountyName") &&
+          !tempProvinceState
+        ) {
+          tempProvinceState = ele.value;
+        }
+      });
+
       temp[`${title}Longitude`] =
         value?.location?.displayPosition?.longitude || "";
       temp[`${title}Latitude`] =
         value?.location?.displayPosition?.latitude || "";
-      temp[`${title}Country`] = value?.location?.address?.country || "";
+      temp[`${title}Country`] =
+        tempCountry || value?.location?.address?.country || "";
       temp[`${title}ProvinceState`] =
+        tempProvinceState ||
         value?.location?.address?.state ||
         value?.location?.address?.county ||
         "";

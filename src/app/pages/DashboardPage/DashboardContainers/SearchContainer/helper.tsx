@@ -49,11 +49,12 @@ export const getSearchOrderData = (
         "Order Date": item.shippingDate
           ? moment(item.shippingDate).format("DD/MM/YYYY")
           : "N/A",
-        Status: item.status
-          ? item.status === "Payment Pending"
-            ? getOrderStatusItem(completeOrderPayment, item.orderId)
-            : item.status
-          : "N/A",
+        // Status: item.status
+        //   ? item.status === "Payment Pending"
+        //     ? getOrderStatusItem(completeOrderPayment, item.orderId)
+        //     : item.status
+        //   : "N/A",
+        Status: item.status ? item.status.replaceAll("-", " ") : "N/A",
         "Order Cost": item.total ? `$${item.total.toFixed(2)}` : "N/A",
       });
     });
@@ -94,33 +95,27 @@ export const searchOrderColoumns = [
   },
 ];
 
-export const advanceFilterInitValues = {
-  fromShippingDate: "",
-  toShippingDate: "",
-  status: "",
-  originCity: "",
-  originPostalCode: "",
-  originProvinceState: "",
-  originCountry: "",
-  originEmail: "",
-  destinationCity: "",
-  destinationPostalCode: "",
-  destinationProvinceState: "",
-  destinationCountry: "",
-  destinationEmail: "",
-  destinationCompanyName: "",
-  weightOperand: "",
-  weight: "",
-  weightDimension: "",
-  volumnOperand: "",
-  volume: "",
-  volumeDimension: "",
-  category: "",
-  // orderType: "",
-  // saveFilter: "",
-};
-
-export const STATUS_TYPES = [
-  { label: "Active", value: 1 },
-  { label: "Inactive", value: 2 },
-];
+export const advanceFilterInitValues = (data) => ({
+  fromShippingDate: data?.fromShippingDate || null,
+  toShippingDate: data?.toShippingDate || null,
+  status: data?.status || "",
+  originCity: data?.originCity || "",
+  originPincode: data?.originPincode || "",
+  originProvince: data?.originProvince || "",
+  originCountry: data?.originCountry || "",
+  originEmail: data?.originEmail || "",
+  destinationCity: data?.destinationCity || "",
+  destinationPincode: data?.destinationPincode || "",
+  destinationProvince: data?.destinationProvince || "",
+  destinationCountry: data?.destinationCountry || "",
+  destinationEmail: data?.destinationEmail || "",
+  weightOperand: data?.weightOperand || "",
+  weight: data?.weight || "",
+  weightDimension: data?.weightDimension || "",
+  volumnOperand: data?.volumnOperand || "",
+  volume: data?.volume || "",
+  volumeDimension: data?.volumeDimension || "",
+  category: data?.category || "",
+  // orderType: data?.fromShippingDate || "",
+  // saveFilter: data?.fromShippingDate || "",
+});

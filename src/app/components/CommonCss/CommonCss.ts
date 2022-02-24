@@ -48,3 +48,33 @@ export const ContentBox = styled(Box)`
     margin-bottom: 0;
   }
 `;
+
+
+export const AccordionOuterBox = styled(Box)`
+  border: 1px solid #dcdcdc;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 16px 24px;
+  div {
+    box-shadow: none !important;
+  }
+  .value {
+    font-family: "Roboto-Medium";
+  }
+`;
+
+export const InnerAccordion = styled.div`
+  border-top: 1px solid #dddddd;
+  .MuiAccordionSummary-content {
+    font-size: 16px !important;
+    margin: 12px 0 !important;
+}
+`;
+
+export const OrderImage = styled.img`
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+`;

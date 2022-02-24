@@ -168,6 +168,8 @@ export const STATUS = [
   { label: "Pending", value: "pending" },
   { label: "In Progress", value: "in_progres" },
   { label: "Completed", value: "completed" },
+  { label: "Cancelled By Admin", value: "cancel_by_admin" },
+  { label: "Cancelled By User", value: "cancel_by_user" },
 ];
 
 export const CHILD_STATUS = [

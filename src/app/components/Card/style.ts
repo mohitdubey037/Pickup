@@ -46,10 +46,10 @@ background: ${props => props.isOrangeBox ? '#F99746' : ''};
 }
     
 `
-export const CardNumber = styled.h1`
-    color: #F99746;
-    margin-top: 12px;
-    font-size: 48px;
+// export const CardNumber = styled.h1`
+//     color: #F99746;
+//     margin-top: 12px;
+//     font-size: 48px;
     
-`
+// `
 

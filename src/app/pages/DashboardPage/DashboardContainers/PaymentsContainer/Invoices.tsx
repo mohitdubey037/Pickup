@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import moment from "moment";
-import { Box } from "@mui/system";
 
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
@@ -12,7 +11,7 @@ import { Drawer } from "app/components/Drawer";
 import { H2, H3, H5 } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
 import { getInvoiceData, invoiceColoumns } from "./helper";
-import AddNewPaymentDrawer from "./AddNewPaymentDrawer";
+import InvoiceDetailsDrawer from "./InvoiceDetailsDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
 import {
   getInvoiceList,
@@ -266,7 +265,7 @@ const InvoicesContainer = ({ path: string }) => {
         actionButtons={true}
       >
         {drawerType === "invoice" ? (
-          <AddNewPaymentDrawer invoiceId={selectedInvoiceId} />
+          <InvoiceDetailsDrawer invoiceId={selectedInvoiceId} />
         ) : drawerType === "orderItemDetails" ? (
           <OrderItemDetailsDrawer
             orderId={selectedInvoiceId}

@@ -4,10 +4,10 @@ import { Box, Grid } from "@mui/material";
 import { Accordion } from "app/components/Accordion";
 import { getOrderCountDetail } from "services/SingleShipmentServices";
 import { showToast } from "utils";
-import { InnerAccordion, AccordionOuterBox, OrderImage } from "./style";
 import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { H4 } from "app/components/Typography/Typography";
 import OrderDetailsSkeleton from "./OrderDetailsSkeleton";
+import { AccordionOuterBox, InnerAccordion, OrderImage } from "app/components/CommonCss/CommonCss";
 
 interface orderDetails {
   refNo?: string;

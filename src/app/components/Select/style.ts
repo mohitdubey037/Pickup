@@ -173,14 +173,18 @@ interface CustomNewSelectProps {
 export const CustomNewSelect = styled(Select)<CustomNewSelectProps>`
   width: 100%;
   height: 42px;
-  margin-bottom:16px;
+  margin-bottom: 16px;
+  // border: 1px solid #c4c4c4;
   .MuiSelect-select {
     color: ${({ value }) => (value ? "#000" : "#c4c4c4")};
     padding: 10px 8px;
-    background:#fff;
+    background: #fff;
   }
   .MuiOutlinedInput-notchedOutline {
-    border-color: #C4C4C4 !important;
+    border-color: #c4c4c4 !important;
     border-width: 1px !important;
-}
+  }
+  .Mui-disabled {
+    background-color: #ddd;
+  }
 `;
