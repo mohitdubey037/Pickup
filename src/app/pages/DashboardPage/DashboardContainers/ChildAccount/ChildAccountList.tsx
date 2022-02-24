@@ -27,6 +27,7 @@ import { FilterFlexBox } from "../PaymentsContainer/style";
 import SelectNew from "app/components/Select/SelectNew";
 import { CHILD_STATUS } from "../../../../../../src/constants";
 import CreateChildAccount from "./CreateChildAccount";
+import { SearchTableTop } from "../SearchContainer/style";
 
 export default function ChildAccountList({ path: string }) {
 
@@ -183,9 +184,11 @@ export default function ChildAccountList({ path: string }) {
 
   const tableTop = () => {
     return (
-      <OnHoldTableTop>
-        <p> Accounts</p>
-      </OnHoldTableTop>
+      // <OnHoldTableTop>
+         <SearchTableTop>
+          <H3 text={`${pagination.count} Accounts`} className="heading" />
+        </SearchTableTop>
+      // </OnHoldTableTop>
     );
   };
 
@@ -274,19 +277,6 @@ export default function ChildAccountList({ path: string }) {
         <TableSkeleton />
       ) : childData?.list?.length > 0 ? (
         <>
-        {/* <Table
-        data={childDataTable(childData.list)}
-        tableTop={tableTop()}
-        sortTypeProps = {sortType}
-        paginationData={(page, sortingField, sortingType) => getSearchPaginatedData(page, sortingField, sortingType)}
-        // showCheckbox 
-        showPagination
-        perPageRows={10}
-        page={page}
-        totalData={totalData}
-        totalPage={totalPages}
-        filterColumns={[0, 1, 2, 3, 4, 5]}
-      /> */}
       <TableNew
           tableTop={tableTop()}
           coloumns={ChildAccountListColumn}

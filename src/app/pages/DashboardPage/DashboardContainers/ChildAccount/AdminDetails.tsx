@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { Input } from "app/components/Input";
-import AdminDetailsSchema from "./AdminDetailsSchema";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Box } from "@mui/material";
 
@@ -13,7 +12,7 @@ export default function AdminDetails({formik}:{formik: any}){
     handleChange(event);
   };
 
-  const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
+  const { handleChange, values, errors, touched, handleBlur } = formik;
 
   return (
     <Box mt={4}>
@@ -24,7 +23,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="FirstName"
                 name="firstName"
                 onBlur={handleBlur}
-                value={values.firstName}
+                initValue={values.firstName}
                 onChange={(e) => onChangeHandler(e, `firstName`)}
                 error={touched.firstName && errors.firstName}
                 label={"First Name"}
@@ -37,7 +36,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="LastName"
                 name="lastName"
                 onBlur={handleBlur}
-                value={values.lastName}
+                initValue={values.lastName}
                 onChange={(e) => onChangeHandler(e, `lastName`)}
                 error={touched.lastName && errors.lastName}
                 label={"Last Name"}
@@ -50,7 +49,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="PhoneNumber"
                 name="phoneNumber"
                 onBlur={handleBlur}
-                value={values.phoneNumber}
+                initValue={values.phoneNumber}
                 onChange={(e) => onChangeHandler(e, `phoneNumber`)}
                 error={touched.phoneNumber && errors.phoneNumber}
                 label={"Phone Number"}
@@ -65,7 +64,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="Role"
                 name="roleDesignation"
                 onBlur={handleBlur}
-                value={values.role}
+                initValue={values.roleDesignation}
                 onChange={(e) => onChangeHandler(e, `roleDesignation`)}
                 error={touched.role && errors.role}
                 label={"Role/Designation"}
@@ -78,7 +77,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 id="Email"
                 name="emailId"
                 onBlur={handleBlur}
-                value={values.emailId}
+                initValue={values.emailId}
                 onChange={(e) => onChangeHandler(e, `emailId`)}
                 error={touched.emailId && errors.emailId}
                 label={"Email id"}

@@ -173,8 +173,9 @@ export const STATUS = [
 ];
 
 export const CHILD_STATUS = [
-  {label: "active", value: 'active'},
-  {label: 'completed', value: 'completed'}
+  {label: "Active", value: 'active'},
+  {label: 'Pending', value: 'pending'},
+  {label: 'Verified', value: 'verified'}
 ]
 
 export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];

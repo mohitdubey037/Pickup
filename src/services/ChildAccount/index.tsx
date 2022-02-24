@@ -62,7 +62,7 @@ export const editChildAccountData = async (body?: any, childId?: number) => {
 
 export const editSuperIndendentAccountData = async (body?: any, userId?: number) => {
   try {
-      const response = await services.put(`business/updateChildAccountUserDetails/${userId}`,body,'user_cr');
+      const response = await services.put(`business/updateChildAccountUserDetails/${userId}`,transformPayloadToBackend(body),'user_cr');
       return {response: response, success: true };
   }
   catch (err) {

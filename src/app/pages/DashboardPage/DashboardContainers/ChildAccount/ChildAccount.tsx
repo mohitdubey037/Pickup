@@ -10,7 +10,7 @@ import { Button } from "app/components/Buttons";
 // import { actions } from "store/reducers/PaymentReducer";
 import { actions } from 'store/reducers/ChildAccountReducer';
 import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
-import { ChildInitValues, childNewInitValue } from './helper';
+import { childNewInitValue } from './helper';
 import { ChildAccountSchema } from './ChildAccountSchema';
 import { globalActions } from "store/reducers/GlobalReducer";
 import EmailSentDrawer from "app/components/EmailSentDrawer/EmailSentDrawer";
@@ -45,9 +45,11 @@ const handleOpenDrawer = () => {
 };
 const handleCloseDrawer  = () => {
   // formik.initialValues=ChildInitValues,
+  
   dispatch(actions.resetChildAccount());
   setEmailSentDrawerOpen(false);
-  navigate('/dashboard/my-account/child-account-list');
+  formik.resetForm({ values : childNewInitValue });
+  // navigate('/dashboard/my-account/child-account-list');
 };
 
 const handleSubmit = () => {
@@ -103,6 +105,7 @@ useEffect(() => {
         <Button
           onClick={formik.handleSubmit}
           disabled={!formik.isValid}
+          showLoader={loading}
           size="medium" label="Invite Child" />
       </Flex>
 

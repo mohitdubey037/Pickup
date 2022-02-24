@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -14,17 +14,17 @@ import { editSuperIndendentAccountData } from "services/ChildAccount";
 import { imageUploadService } from "services/SingleShipmentServices";
 import { editChildAccountProps } from "./type";
 import {
-  LOCATION_TYPES,
-  BILLING_TYPES,
-  PIN_CODE_MASK,
   PHONE_NO_MASK,
 } from "../../../../../constants";
 
 export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const {userId} = singleCompanyDetails;
 
   const changeHandler = async (e) => {
+    setLoading(true)
     const formData = new FormData();
     const image = e?.target?.files[0];
     if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
@@ -39,8 +39,10 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
       formData
     );
     if (res.error) {
+      setLoading(false)
       showToast(res.error.message, "error");
     } else {
+      setLoading(false);
       setFieldValue("userProfileImage", res?.response?.data?.data || "");
     }
   };
@@ -160,6 +162,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 <Button
                 label="Save"
                 size="medium"
+                showLoader={loading}
                 onClick={handleSubmit}
                 />
       </DrawerFooter>

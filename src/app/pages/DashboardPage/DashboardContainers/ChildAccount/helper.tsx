@@ -138,10 +138,10 @@ export const ChildAccountListColumn = [
 export const transformPayloadToBackend = (values: any) => {
     const payload = {
         ...values,
-        phoneNumber: values.phoneNumber.replace(/[()-]/g,""),
-        number: values.number.replace(/ /g, ""),
-        expiryMonth: values.expiryDate.split("/")[0],
-        expiryYear: values.expiryDate.split("/")[1],
+        phoneNumber: values?.phoneNumber? values.phoneNumber?.replace(/[()-]/g,"") : undefined,
+        number: values.number? values.number.replace(/ /g, "") : undefined,
+        expiryMonth: values.expiryDate ? values.expiryDate?.split("/")[0] : undefined ,
+        expiryYear: values.expiryDate ? values?.expiryDate?.split("/")[1] : undefined,
         expiryDate: undefined
     }
     return payload

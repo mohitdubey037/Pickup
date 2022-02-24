@@ -49,10 +49,10 @@ export default function Cards({formik}:{formik: any}){
               id="cardNumber"
               name="number"
               onBlur={handleBlur}
-              value={values.number}
+              initValue={values.number}
               onChange={(e) => onChangeHandler(e, `number`)}
               error={touched.number && errors.number}
-              label={"Credit Card Number"}
+              label={"Card Number"}
               placeholder={"**** **** **** ****"}
               type="mask"
               maskProps={{
@@ -67,7 +67,7 @@ export default function Cards({formik}:{formik: any}){
               id="expiryDate"
               name="expiryDate"
               onBlur={handleBlur}
-              value={values.expiryYear}
+              initValue={values.expiryYear}
               onChange={(e) => onChangeHandler(e, `expiryDate`)}
               error={touched.expiryYear && errors.expiryYear}
               label={"Expiration Date"}
@@ -85,7 +85,7 @@ export default function Cards({formik}:{formik: any}){
               id="cvc"
               name="cvd"
               onBlur={handleBlur}
-              value={values.cvd}
+              initValue={values.cvd}
               // onChange={handleChange}
               onChange={(e) => onChangeHandler(e, `cvd`)}
               error={touched.cvd && errors.cvd}
@@ -99,7 +99,7 @@ export default function Cards({formik}:{formik: any}){
               id="nameOnCard"
               name="name"
               onBlur={handleBlur}
-              value={values.name}
+              initValue={values.name}
               onChange={(e) => onChangeHandler(e, `name`)}
               error={touched.name && errors.name}
               label={"Name on Card"}
@@ -112,7 +112,7 @@ export default function Cards({formik}:{formik: any}){
               name="pincard"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={values.pincard}
+              initValue={values.pincard}
               error={touched.pincard && errors.pincard}
               label={"Pin Code"}
               placeholder={"Pin Code"}
@@ -124,7 +124,7 @@ export default function Cards({formik}:{formik: any}){
               name="nickname"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={values.nickname}
+              initValue={values.nickname}
               error={touched.nickname && errors.nickname}
               label={"Nick name (optional)"}
               placeholder={"Nickname"}
