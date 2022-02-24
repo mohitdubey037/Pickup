@@ -5,6 +5,7 @@ import itempicture from "./itempicture.png";
 import Illustration from "./Illustration.png";
 import TorontoMap from "./TorontoMap.png";
 import DriverAvatar from "./DriverAvatar.svg";
+import trackorderbg from "./Track-order-download-section.png";
 
 export {
   bgImage,
@@ -14,4 +15,5 @@ export {
   Illustration,
   TorontoMap,
   DriverAvatar,
+  trackorderbg
 };

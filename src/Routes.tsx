@@ -36,6 +36,7 @@ import FavoriteLocations from "app/pages/DashboardPage/DashboardContainers/Favor
 import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
 import { NoAuthorizationPage } from "app/pages/NoAutorizationPage";
 import PageNotFound from "app/components/PageNotFound/PageNotFound";
+import { TrackYourOrder } from "app/pages/TrackYourOrder";
 
 const Routes = () => {
   return (
@@ -77,6 +78,8 @@ const Routes = () => {
         <NoAuthorizationPage path="/non-authorized-page" />
         <PageNotFound default />
       </DashboardPage>
+
+      <TrackYourOrder path="/track-your-order" />
     </Router>
   );
 };
