@@ -95,22 +95,45 @@ export const childDataTable = (
         if (searchRecordData && searchRecordData.length) {
             makeTableData = searchRecordData.map((item: any) => {
                 return {
-                    "Company Name": getChildCompany(
-                        item.companyName,
-                        item.companyId
-                    ),
-                    "Business Number": item.businessNumber,
-                    "Invitation Date": moment(item.invoiceCreatedAt).format(
-                        "DD/MM/YYYY"
-                    ),
+                    "Company Name": item.companyName ? getChildCompany(item.companyName,item.companyId) : "N/A",
+                    "Business Number": item.businessNumber || "N/A",
+                    "Invitation Date": item.createdAt ? moment(item.createdAt).format("DD/MM/YYYY") : "N/A",
                     "Status": item.status === 1 ? "pending" : "completed",
-                    "Admin Name": item.admin,
+                    "Admin Name": item.admin || "N/A",
                     
                 };
             });
         }
     return makeTableData;
 }
+
+export const ChildAccountListColumn = [
+    {
+      id: "companyName",
+      label: "Company Name",
+      isSort: false,
+    },
+    {
+      id: "businessNumber",
+      label: "Business Number",
+      isSort: false,
+    },
+    {
+      id: "createdAt",
+      label: "Created At",
+      isSort: false,
+    },
+    {
+      id: "status",
+      label: "Status",
+      isSort: true,
+    },
+    {
+      id: "status",
+      label: "Status",
+      isSort: false,
+    },
+  ];
 
 export const transformPayloadToBackend = (values: any) => {
     const payload = {

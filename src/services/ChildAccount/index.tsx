@@ -3,13 +3,10 @@ import { showToast } from "utils";
 import { transformPayloadToBackend } from 'app/pages/DashboardPage/DashboardContainers/ChildAccount/helper';
 
 
-export const getChildAccountData = async (urlParams?: string, page?: number, chunk?: number, sortingField?: string, sortingType?: string)=>{
-  // console.log(sortingType);
+export const getChildAccountData = async (urlParams?: string)=>{
+  console.log(urlParams);
   try {
-    let api = `business/FetchchildAccount`
-    if (page) {
-      api += `?page=${page}&chunk=${chunk}`
-    }
+    let api = `business/FetchchildAccount?${urlParams}`
     const res = await services.get(api,"user_cr");
     // console.log(res);
     return{response: res, error:null};

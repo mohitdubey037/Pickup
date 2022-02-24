@@ -3,7 +3,7 @@ import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
-import { Table } from "app/components/Table";
+import { Table, TableNew } from "app/components/Table";
 import { OnHoldTableTop } from "../OnHoldShipment/Style";
 import { useNavigate } from "@reach/router";
 import TableSkeleton from "app/components/Table/TableSkeleton";
@@ -14,7 +14,7 @@ import { useFormik } from "formik";
 
 import { Grid } from "@mui/material";
 
-import { childDataTable } from "./helper";
+import { ChildAccountListColumn, childDataTable } from "./helper";
 
 import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
 
@@ -33,6 +33,26 @@ export default function ChildAccountList({ path: string }) {
   const [sortType, setSortType] = useState<string | undefined>("desc");
   const [childData, setChildData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [selectedRows, setSelectedRows] = useState<any>([]);
+  const [searchOrderData, setSearchOrderData] = useState<any>([]);
+  const [pagination, setPagination] = useState({
+    count: 0,
+    page: 0,
+  });
+
+  const [sorting, setSorting] = useState({
+    field: "createdAt",
+    type: "desc",
+  });
+
+  const initialValues = {
+    companyName: "",
+    businessNumber: "",
+    createdAt: "",
+    status: ""
+  };
+  
+  const [prevValues, setPrevValues] = useState<any>(initialValues);
 
   const navigate = useNavigate();
 
@@ -46,50 +66,103 @@ export default function ChildAccountList({ path: string }) {
   };
 
   useEffect(() => {
-    getChildData()
+    // getChildData();
+    getChildOrderList();
   }, []);
 
-  const getChildData = async () => {
-    setLoading(true);
-    const res = (await getChildAccountData()) as any;
-    if (!res?.error) {
-      const InvoiceList = res.response.data.data;
-      setChildData(InvoiceList);
-      setPage(res.response.data.data.pageMetaData.page - 1);
-      setTotalPages(res.response.data.data.pageMetaData.totalPages);
-      setTotalData(res.response.data.data.pageMetaData.total);
-    } else if (res.error) {
-      const InvoiceList = res;
-      setChildData(InvoiceList);
+  // const getChildData = async () => {
+  //   setLoading(true);
+  //   const res = (await getChildAccountData()) as any;
+  //   if (!res?.error) {
+  //     const InvoiceList = res.response.data.data;
+  //     setChildData(InvoiceList);
+  //     setPage(res.response.data.data.pageMetaData.page - 1);
+  //     setTotalPages(res.response.data.data.pageMetaData.totalPages);
+  //     setTotalData(res.response.data.data.pageMetaData.total);
+  //   } else if (res.error) {
+  //     const InvoiceList = res;
+  //     setChildData(InvoiceList);
+  //   }
+  //   setLoading(false);
+  // }
+
+  // const getSearchPaginatedData = async (page, sortingField, sortingType) => {
+  //   setSortType(sortingType);
+  //   let res;
+  //   if (page === 0) {
+  //     res = (await getChildAccountData('',0, 10, sortingField, sortingType)) as any;
+  //   }
+  //   else {
+  //     res = (await getChildAccountData('',page+1, 10, sortingField, sortingType)) as any;
+  //   }
+  //   if (!res?.error) {
+  //     const InvoiceList = res.response.data.data;
+  //     setPage(page);
+  //     setChildData(InvoiceList);
+  //   } else if (!res.error) {
+  //     const InvoiceList = res;
+  //     setChildData(InvoiceList);
+  //   }
+  // };
+
+  const getChildOrderList = async (
+    values?: object,
+    page?: number,
+    sort?: { field: string; type: string }
+  ) => {
+    console.log(values);
+    let urlParams = "",
+      rest = values !== undefined ? values : prevValues;
+    let params: any = {
+      ...rest,
+      page:
+        values !== undefined
+          ? 1
+          : page !== undefined
+          ? page + 1
+          : pagination.page + 1,
+      chunk: 10,
+      sortingField: sort !== undefined ? sort.field : sorting.field,
+      sortingType: sort !== undefined ? sort.type : sorting.type,
+    };
+    if (values) {
+      setPrevValues(values);
+    } else {
+      resetForm({ values: prevValues });
+    }
+    if (sort) {
+      setSorting({
+        field: sort.field,
+        type: sort.type,
+      });
+    }
+    params["createdAt"] = params["createdAt"]
+      ? moment(params["createdAt"]).format("YYYY-MM-DD")
+      : "";
+    let tempLen = Object.entries(params).length;
+    console.log(tempLen);
+    Object.entries(params).forEach(
+      ([key, value], index) =>
+        (urlParams += value
+          ? `${key}=${value}${index === tempLen - 1 ? "" : "&"}`
+          : "")
+    );
+    const res = (await getChildAccountData(urlParams)) as any;
+    console.log(res);
+    if (!res.error) {
+      const data = res.response.data.data;
+      console.log(data);
+      setChildData(data);
+      setPagination({
+        count: data.pageMetaData.total,
+        page: data.pageMetaData.page - 1,
+      });
+    } else {
+      setSearchOrderData([]);
     }
     setLoading(false);
-  }
-
-  const getSearchPaginatedData = async (page, sortingField, sortingType) => {
-    setSortType(sortingType);
-    let res;
-    if (page === 0) {
-      res = (await getChildAccountData('',0, 10, sortingField, sortingType)) as any;
-    }
-    else {
-      res = (await getChildAccountData('',page+1, 10, sortingField, sortingType)) as any;
-    }
-    if (!res?.error) {
-      const InvoiceList = res.response.data.data;
-      setPage(page);
-      setChildData(InvoiceList);
-    } else if (!res.error) {
-      const InvoiceList = res;
-      setChildData(InvoiceList);
-    }
   };
-
-  const initialValues = {
-    companyName: "",
-    businessNumber: "",
-    createdAt: "",
-    status: ""
-  };
+  
 
   const {
     values,
@@ -103,8 +176,8 @@ export default function ChildAccountList({ path: string }) {
   } = useFormik({
     initialValues,
     onSubmit: (values) => {
-      // setLoading(true);
-      console.log(values);
+      setLoading(true);
+      getChildOrderList(values);
     },
   });
 
@@ -135,7 +208,7 @@ export default function ChildAccountList({ path: string }) {
               onBlur={handleBlur}
               onChange={handleChange}
               error={touched.companyName && errors.companyName}
-              label="company Name"
+              label="Company Name"
               placeholder="eg. 1234"
             />
           </Grid>
@@ -183,7 +256,8 @@ export default function ChildAccountList({ path: string }) {
       {loading ? (
         <TableSkeleton />
       ) : childData?.list?.length > 0 ? (
-        <Table
+        <>
+        {/* <Table
         data={childDataTable(childData.list)}
         tableTop={tableTop()}
         sortTypeProps = {sortType}
@@ -195,7 +269,22 @@ export default function ChildAccountList({ path: string }) {
         totalData={totalData}
         totalPage={totalPages}
         filterColumns={[0, 1, 2, 3, 4, 5]}
-      />
+      /> */}
+      <TableNew
+          tableTop={tableTop()}
+          coloumns={ChildAccountListColumn}
+          data={childDataTable(childData.list)}
+          // showCheckbox
+          onRowSelect={setSelectedRows}
+          showPagination
+          pagination={pagination}
+          onPageChange={(page) => getChildOrderList(undefined, page)}
+          sorting={sorting}
+          onSortChange={(field, type) =>
+            getChildOrderList(undefined, undefined, { field, type })
+          }
+        />
+        </>
       ) : (
         <NullState message="No Records Found" />
       )}
