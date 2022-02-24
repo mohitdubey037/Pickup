@@ -49,11 +49,12 @@ export const getSearchOrderData = (
         "Order Date": item.shippingDate
           ? moment(item.shippingDate).format("DD/MM/YYYY")
           : "N/A",
-        Status: item.status
-          ? item.status === "Payment Pending"
-            ? getOrderStatusItem(completeOrderPayment, item.orderId)
-            : item.status
-          : "N/A",
+        // Status: item.status
+        //   ? item.status === "Payment Pending"
+        //     ? getOrderStatusItem(completeOrderPayment, item.orderId)
+        //     : item.status
+        //   : "N/A",
+        Status: item.status ? item.status.replaceAll("-", " ") : "N/A",
         "Order Cost": item.total ? `$${item.total.toFixed(2)}` : "N/A",
       });
     });

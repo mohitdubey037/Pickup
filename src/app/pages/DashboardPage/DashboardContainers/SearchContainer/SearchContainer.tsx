@@ -109,7 +109,7 @@ const SearchContainer = ({ path: string }) => {
           onClick={() => {}}
           size="small"
           secondary
-          disabled
+          disabled={selectedRows.length === 0 || true}
         />
       </SearchTableTop>
     );
@@ -214,37 +214,35 @@ const SearchContainer = ({ path: string }) => {
         <GridContainer container spacing={2}>
           <Grid item xs={6} sm={4} lg={2}>
             <Input
-              id="invoiceNumber"
               name="invoiceNumber"
-              initValue={values.invoiceNumber}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.invoiceNumber && errors.invoiceNumber}
               label="Invoice Number"
               placeholder="eg. 1234"
+              initValue={values.invoiceNumber}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.invoiceNumber && errors.invoiceNumber}
             />
           </Grid>
           <Grid item xs={12} sm={4} lg={2}>
             <Input
-              id="orderId"
               name="orderId"
-              initValue={values.orderId}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.orderId && errors.orderId}
               label="Order Id"
               placeholder="eg. 1234"
+              initValue={values.orderId}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.orderId && errors.orderId}
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
             <DatePickerInput
               label="From Date"
+              placeholder="e.g 06/06/2021"
               maxDate={
                 values.toDate
                   ? moment(values.toDate).subtract(1, "days").toDate()
                   : new Date()
               }
-              placeholder={"e.g 06/06/2021"}
               value={values.fromDate || null}
               onChange={(val) => setFieldValue("fromDate", val)}
             />
@@ -252,19 +250,18 @@ const SearchContainer = ({ path: string }) => {
           <Grid item xs={6} sm={4} lg={2}>
             <DatePickerInput
               label="To Date"
+              placeholder="e.g 06/06/2021"
               maxDate={new Date()}
               minDate={moment(values.fromDate).add(1, "days").toDate()}
-              placeholder={"e.g 06/06/2021"}
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
             <SelectNew
-              id="status"
               name="status"
-              label={"Status"}
-              placeholder={"Select Order Status"}
+              label="Status"
+              placeholder="Select Order Status"
               options={STATUS}
               value={values.status}
               onChange={handleChange}
@@ -278,7 +275,7 @@ const SearchContainer = ({ path: string }) => {
                 <img
                   onClick={() => openOrderDrawer(null, "advanceFilter")}
                   src={sliders}
-                  alt=""
+                  alt="Advanced Filter"
                 />
               </Box>
             </FilterFlexBox>
