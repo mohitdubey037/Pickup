@@ -193,7 +193,9 @@ const ItemDetails = ({ orderData, item }: any) => {
         </thead>
         <tbody>
           <tr>
-            <td>{orderData.total ? "$" + orderData.total : "N/A"}</td>
+            <td>
+              {orderData.total ? `$${orderData.total.toFixed(2)}` : "N/A"}
+            </td>
             <td>{item.fragile === 1 ? "Yes" : "No"}</td>
             <td>
               {orderData.dropOption === 10
