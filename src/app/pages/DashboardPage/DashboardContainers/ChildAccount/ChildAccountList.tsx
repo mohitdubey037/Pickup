@@ -24,13 +24,11 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Input } from "app/components/Input";
 import { Box } from "@mui/system";
 import { FilterFlexBox } from "../PaymentsContainer/style";
+import SelectNew from "app/components/Select/SelectNew";
+import { CHILD_STATUS } from "../../../../../../src/constants";
 
 export default function ChildAccountList({ path: string }) {
 
-  const [totalPages, setTotalPages] = useState(1);
-  const [page, setPage] = useState(1);
-  const [totalData, setTotalData] = useState<any>(0);
-  const [sortType, setSortType] = useState<string | undefined>("desc");
   const [childData, setChildData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedRows, setSelectedRows] = useState<any>([]);
@@ -48,8 +46,9 @@ export default function ChildAccountList({ path: string }) {
   const initialValues = {
     companyName: "",
     businessNumber: "",
-    createdAt: "",
-    status: ""
+    fromDate: "",
+    toDate: '',
+    status: "active"
   };
   
   const [prevValues, setPrevValues] = useState<any>(initialValues);
@@ -225,24 +224,38 @@ export default function ChildAccountList({ path: string }) {
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
-            <Input
+            <SelectNew
               id="status"
               name="status"
-              initValue={values.status}
-              onBlur={handleBlur}
+              label={"Status"}
+              placeholder={"Select Status"}
+              options={CHILD_STATUS}
+              value={values.status}
               onChange={handleChange}
-              error={touched.status && errors.status}
-              label="Status"
-              placeholder="eg. pending"
+              allowEmpty
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
             <DatePickerInput
-              label="Created At"
-              maxDate={new Date()}
+              label="From Date"
+              maxDate={
+                values.toDate
+                  ? moment(values.toDate).subtract(1, "days").toDate()
+                  : new Date()
+              }
               placeholder={"e.g 06/06/2021"}
-              value={values.createdAt || null}
-              onChange={(val) => setFieldValue("createdAt", val)}
+              value={values.fromDate || null}
+              onChange={(val) => setFieldValue("fromDate", val)}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            <DatePickerInput
+              label="To Date"
+              maxDate={new Date()}
+              minDate={moment(values.fromDate).add(1, "days").toDate()}
+              placeholder={"e.g 06/06/2021"}
+              value={values.toDate || null}
+              onChange={(val) => setFieldValue("toDate", val)}
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>

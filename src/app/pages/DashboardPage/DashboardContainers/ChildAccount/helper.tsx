@@ -98,7 +98,7 @@ export const childDataTable = (
                     "Company Name": item.companyName ? getChildCompany(item.companyName,item.companyId) : "N/A",
                     "Business Number": item.businessNumber || "N/A",
                     "Invitation Date": item.createdAt ? moment(item.createdAt).format("DD/MM/YYYY") : "N/A",
-                    "Status": item.status === 1 ? "pending" : "completed",
+                    "Status": item.status.toLowerCase(),
                     "Admin Name": item.admin || "N/A",
                     
                 };
@@ -111,17 +111,17 @@ export const ChildAccountListColumn = [
     {
       id: "companyName",
       label: "Company Name",
-      isSort: false,
+      isSort: true,
     },
     {
       id: "businessNumber",
       label: "Business Number",
-      isSort: false,
+      isSort: true,
     },
     {
       id: "createdAt",
       label: "Created At",
-      isSort: false,
+      isSort: true,
     },
     {
       id: "status",
@@ -129,8 +129,8 @@ export const ChildAccountListColumn = [
       isSort: true,
     },
     {
-      id: "status",
-      label: "Status",
+      id: "admin",
+      label: "Admin Name",
       isSort: false,
     },
   ];

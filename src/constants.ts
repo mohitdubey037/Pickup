@@ -170,6 +170,11 @@ export const STATUS = [
   { label: "Completed", value: "completed" },
 ];
 
+export const CHILD_STATUS = [
+  {label: "active", value: 'active'},
+  {label: 'completed', value: 'completed'}
+]
+
 export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];
 
 export const OPERANDS = [
