@@ -8,6 +8,7 @@ import { Button } from "app/components/Buttons";
 import { DrawerHeading, Para } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
 import { LineDivider } from "app/components/CommonCss/CommonCss";
+import CustomTooltip from "app/components/Tooltip/CustomTooltip";
 import { getOrderDetails } from "services/PaymentServices";
 import { Illustration } from "../../../../assets/Images/index";
 import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
@@ -15,7 +16,7 @@ import InvoiceDrawerSkeleton from "./InvoiceDrawerSkeleton";
 
 interface OrderDetails {
   billTo: string;
-  category: string;
+  category: string[];
   destinationCount: string;
   invoiceCreatedAt: string;
   invoiceNumber: string;
@@ -160,7 +161,19 @@ function AddNewPaymentDrawer(props) {
             </Flex>
             <Flex justifyContent="space-between" bottom={16}>
               <Para text="Category" className="label" />
-              <Para text={orderDetails?.category} className="value" />
+              {orderDetails?.category && orderDetails?.category.length > 1 ? (
+                <CustomTooltip
+                  text={orderDetails?.category.join(", ")}
+                  content={
+                    <Para
+                      text={`${orderDetails?.category[0]}, etc...`}
+                      className="value"
+                    />
+                  }
+                />
+              ) : (
+                <Para text={orderDetails?.category} className="value" />
+              )}
             </Flex>
             <Flex justifyContent="space-between" bottom={16}>
               <Para text="Destination Count" className="label" />
