@@ -1,59 +1,59 @@
 import ModuleContainer from "app/components/ModuleContainer";
-import { H2 } from "app/components/Typography/Typography";
+import { H2, H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { Table } from "app/components/Table";
+import { TableNew } from "app/components/Table";
 import Select from "app/components/Select";
-
-import { ReportsTableTop } from "./styles";
-import { reportsTable } from "./helper";
-import { Flex } from "app/components/Input/style";
+import { reportsColoumns, reportsTable } from "./helper";
 import { useSelector } from "react-redux";
 import { navigate } from "@reach/router";
+import { Grid } from "@mui/material";
+import { SearchTableTop } from "../SearchContainer/style";
+import { useState } from "react";
+import SelectNew from "app/components/Select/SelectNew";
 
 function ReportsContainer({ path: string }) {
+  const [pagination, setPagination] = useState({
+    count: 0,
+    page: 0,
+  });
   const tableTop = () => {
     return (
-      <ReportsTableTop>
-        <p>{reportsTable.length} Shipments</p>
-        <div>
-          <Button
-            label="Download All"
-            secondary={true}
-            style={{ width: 150 }}
-            onClick={() => {}}
-          />
-        </div>
-      </ReportsTableTop>
+      <SearchTableTop>
+        <H3 text={`${reportsTable.length} Orders`} className="heading" />
+        <Button
+          label="Download All"
+          onClick={() => {}}
+          size="small"
+          secondary
+        />
+      </SearchTableTop>
     );
   };
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
   });
 
-  if([2,3].indexOf(authUser?.roleId) === -1) {
-    navigate(' /non-authorized-page')
+  if ([2, 3].indexOf(authUser?.roleId) === -1) {
+    navigate(" /non-authorized-page");
   }
   return (
     <ModuleContainer>
-      <Flex>
-        <Flex flex={1}>
-          <H2 title="Reports" />
-        </Flex>
-        <div style={{ width: 300 }}>
-          <Select style={{ backgroundColor: "white" }} />
-        </div>
-      </Flex>
-
-      <Flex direction={"column"} top={20}>
-        <Table
+        <Grid container alignItems="center">
+            <Grid item md={10} sm={9} xs={6}>
+                <H2 title="Reports" />
+            </Grid>
+            <Grid item md={2} sm={3} xs={6}>
+                <SelectNew />
+            </Grid>
+        </Grid>
+        
+        <TableNew
           data={reportsTable}
+          coloumns={reportsColoumns}
           tableTop={tableTop()}
-          
           showPagination
-          perPageRows={10}
-          filterColumns={[0, 1, 2, 3, 4, 5]}
+          pagination={pagination}
         />
-      </Flex>
     </ModuleContainer>
   );
 }
