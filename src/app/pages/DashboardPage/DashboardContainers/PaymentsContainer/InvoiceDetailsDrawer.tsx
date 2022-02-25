@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useBarcode } from "react-barcodes";
 import { Divider } from "@mui/material";
 import html2pdf from "html2pdf.js";
+import moment from "moment";
 
 import { Button } from "app/components/Buttons";
 import { DrawerHeading, Para } from "app/components/Typography/Typography";
@@ -157,7 +158,9 @@ function InvoiceDetailsDrawer({ invoiceId }: any) {
               <Flex justifyContent="flex-end">
                 <Para text="Invoice Date" className="label" />
                 <Para
-                  text={invoiceDetails?.invoiceCreatedAt}
+                  text={moment(invoiceDetails?.invoiceCreatedAt).format(
+                    "DD/MM/YYYY"
+                  )}
                   className="value"
                 />
               </Flex>

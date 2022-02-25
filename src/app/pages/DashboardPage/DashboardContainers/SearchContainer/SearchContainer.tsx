@@ -35,7 +35,7 @@ const initialValues = {
   orderId: "",
   fromDate: "",
   toDate: "",
-  status: "pending",
+  status: "",
 };
 
 const SearchContainer = ({ path }: any) => {
@@ -305,7 +305,7 @@ const SearchContainer = ({ path }: any) => {
           }
         />
       ) : (
-        <NullState message="No Records Found" />
+        <NullState />
       )}
 
       <Drawer

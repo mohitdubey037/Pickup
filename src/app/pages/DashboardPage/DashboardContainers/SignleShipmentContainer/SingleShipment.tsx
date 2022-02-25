@@ -2,7 +2,7 @@ import { useEffect, Fragment, useState } from "react";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik, validateYupSchema, yupToFormErrors } from "formik";
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
@@ -23,7 +23,7 @@ import { ButtonsGroup } from "app/components/Buttons/style";
 import { Checkbox } from "app/components/Checkbox";
 import { CustomLink } from "app/components/Typography/Links";
 
-function SingleShipment({ path: string }) {
+function SingleShipment({ path }) {
   const dispatch = useDispatch();
 
   const [sameDetails, setSameDetails] = useState<any>({
@@ -71,13 +71,9 @@ function SingleShipment({ path: string }) {
 
   useEffect(() => {
     if (orderIds?.length > 0) {
-      if (formik.values?.orders?.[0]?.scheduleType === "22") {
-        redirect("holding-zone");
-      } else {
-        redirect("charter-shipment/order-summary");
-      }
+      redirect("charter-shipment/order-summary");
     }
-  }, [orderIds, formik.values.orders]);
+  }, [orderIds]);
 
   const hasSameDetailsHandler = (index: number, sectionName: string) => {
     const fieldName = `orders.${index}.${sectionName}`;
@@ -110,7 +106,6 @@ function SingleShipment({ path: string }) {
   };
 
   const deleteOrderHandler = (index: number) => {
-    console.log(index)
     const orderDetails = [...formik.values.orders];
     orderDetails.splice(index, 1);
     formik.setFieldValue("orders", orderDetails);

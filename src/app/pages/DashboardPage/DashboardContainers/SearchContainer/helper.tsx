@@ -39,7 +39,7 @@ export const getSearchOrderData = (
   if (searchRecordData && searchRecordData.length) {
     searchRecordData.forEach((item: any) => {
       makeTableData.push({
-        Source: item.type ? item.type : "N/A",
+        Source: item?.type || "N/A",
         "Invoice Id": item.invoiceId
           ? getInvoiceIdItem(openOrderDrawer, item.invoiceId)
           : "N/A",
@@ -66,7 +66,6 @@ export const searchOrderColoumns = [
   {
     id: "type",
     label: "Source",
-    isSort: false,
   },
   {
     id: "invoiceId",
@@ -86,7 +85,6 @@ export const searchOrderColoumns = [
   {
     id: "status",
     label: "Status",
-    isSort: false,
   },
   {
     id: "total",

@@ -17,7 +17,6 @@ function ItemDetailsPage(props: any) {
       return "";
     }
   };
-  console.log(singleOrderData);
 
   const accordianItem = (item: any, index: number) => {
     return (

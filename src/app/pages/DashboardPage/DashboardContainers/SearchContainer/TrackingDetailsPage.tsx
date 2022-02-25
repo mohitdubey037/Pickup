@@ -6,6 +6,7 @@ import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
 import TrackingSteps from "app/components/Stepper/TrackingSteps";
+import NullState from "app/components/NullState/NullState";
 import { ShareIcon } from "../../../../assets/Icons/index";
 import { MapDiv, ShareBlock } from "./style";
 import {
@@ -23,7 +24,8 @@ function TrackingDetailsPage(props: any) {
     const res = (await getTrackStatus(singleOrderData.shippingId)) as any;
     if (res.success) {
       const trackDetails = res.response.data;
-      setTrackingDetails(trackDetails.data);
+      Object.keys(trackDetails.data).length > 0 &&
+        setTrackingDetails(trackDetails.data);
     }
   };
 
@@ -78,15 +80,18 @@ function TrackingDetailsPage(props: any) {
               }}
             >
               <HMapLayer mapLayerType="terrain.traffic" />
-              {/* <HMapPolyLine points={points} /> */}
             </HMap>
           </HPlatform>
         )}
       </MapDiv>
 
-      <Box mt={4}>
-        {trackingDetails && <TrackingSteps data={trackingDetails} />}
-      </Box>
+      {trackingDetails ? (
+        <Box mt={4}>
+          <TrackingSteps data={trackingDetails} />
+        </Box>
+      ) : (
+        <NullState />
+      )}
     </ContentBox>
   );
 }
