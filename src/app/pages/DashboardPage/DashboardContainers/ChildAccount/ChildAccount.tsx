@@ -44,13 +44,10 @@ const [emailSentDrawerOpen, setEmailSentDrawerOpen] = useState(false);
 const handleOpenDrawer = () => {
   setEmailSentDrawerOpen(true);
 };
-const handleCloseDrawer  = () => {
-  // formik.initialValues=ChildInitValues,
-  
+const handleCloseDrawer  = () => {  
   dispatch(actions.resetChildAccount());
   setEmailSentDrawerOpen(false);
   formik.resetForm({ values : childNewInitValue });
-  // navigate('/dashboard/my-account/child-account-list');
 };
 
 const handleSubmit = () => {
@@ -116,7 +113,7 @@ useEffect(() => {
 
       <Drawer
         open={emailSentDrawerOpen}
-        setDrawerOpen={() => setEmailSentDrawerOpen(false)}
+        setDrawerOpen={() => handleCloseDrawer()}
         title="Email Sent"
         closeIcon={true}
         >

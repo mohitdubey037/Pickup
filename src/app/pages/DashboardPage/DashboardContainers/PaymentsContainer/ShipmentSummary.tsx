@@ -194,7 +194,6 @@ function ShipmentSummary({ path }) {
                 title="Add New Payment"
                 setDrawerOpen={(flag) => setShowAddCard(flag)}
                 closeIcon={true}
-                actionButtons={true}
             >
                 <AddCardForm
                     setDrawerOpen={setShowAddCard}

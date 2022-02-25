@@ -147,7 +147,6 @@ export default function CompanyProfile({ path: string }) {
         title="Edit Colleague Details"
         setDrawerOpen={(flag) => setColleagueDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         <EditColleagueDetailsForm
           colleagueDetails={colleagueDetails}
@@ -160,7 +159,6 @@ export default function CompanyProfile({ path: string }) {
         title="Edit Company Details"
         setDrawerOpen={(flag) => setCompanyDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         <EditCompanyDetailsForm
           companyDetails={companyDetails}

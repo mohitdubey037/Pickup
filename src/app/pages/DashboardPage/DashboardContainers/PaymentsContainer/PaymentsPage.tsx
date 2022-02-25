@@ -19,6 +19,10 @@ export default function PaymentsPage({ path: string }) {
   });
   const cardsData = useSelector((state: any) => state.paymentCard);
 
+  const loading = useSelector((state: { globalState: { showLoader } }) => {
+    return state.globalState.showLoader;
+  });
+
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -40,7 +44,7 @@ export default function PaymentsPage({ path: string }) {
         />
       </Box>
 
-      {cardsData.showLoader ? (
+      {loading ? (
         <PaymentCardSkeleton />
       ) : (
         <PaymentCardContainer individualCardData={cardsData.paymentCardsData} />
@@ -51,7 +55,6 @@ export default function PaymentsPage({ path: string }) {
         title="Add New Card"
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         <AddCardForm setDrawerOpen={setDrawerOpen} />
       </Drawer>

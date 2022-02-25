@@ -67,7 +67,7 @@ export default function Cards({formik}:{formik: any}){
               id="expiryDate"
               name="expiryDate"
               onBlur={handleBlur}
-              initValue={values.expiryYear}
+              initValue={values.expiryDate}
               onChange={(e) => onChangeHandler(e, `expiryDate`)}
               error={touched.expiryYear && errors.expiryYear}
               label={"Expiration Date"}
@@ -140,7 +140,6 @@ export default function Cards({formik}:{formik: any}){
             title="Share Cards"
             setDrawerOpen={(flag) => setDrawerOpen(flag)}
             closeIcon={true}
-            actionButtons={true}
           >
            <CardList />
           
