@@ -301,7 +301,6 @@ const OnHoldShipmentContainer = ({ path: string }) => {
         title={getDrawerTitle()}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         {drawerType === "orderDetails" ? (
           <OrderDetailsDrawer

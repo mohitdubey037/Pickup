@@ -145,7 +145,6 @@ function FavoriteLocations({ path }: any) {
         title={DRAWER_TITLE?.[drawerType] || ""}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         {drawerType === "contactDetails" ? (
           <ContactDetailsSidebar contactInfo={selectedLocation} />

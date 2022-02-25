@@ -313,7 +313,6 @@ const SearchContainer = ({ path }: any) => {
         title={getDrawerTitle()}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
         size={drawerType === "orderDetails" ? "large" : "small"}
       >
         {drawerType === "invoice" ? (

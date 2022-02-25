@@ -140,7 +140,6 @@ export default function Cards({formik}:{formik: any}){
             title="Share Cards"
             setDrawerOpen={(flag) => setDrawerOpen(flag)}
             closeIcon={true}
-            actionButtons={true}
           >
            <CardList />
           

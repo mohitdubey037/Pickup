@@ -262,7 +262,6 @@ const InvoicesContainer = ({ path: string }) => {
         title={getDrawerTitle()}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         {drawerType === "invoice" ? (
           <InvoiceDetailsDrawer invoiceId={selectedInvoiceId} />

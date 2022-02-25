@@ -85,7 +85,6 @@ export default function PersonalProfileContainer({ path: string }) {
         title={DRAWER_TITLE?.[drawerType] || ""}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         {drawerType === "changePassword" ? (
           <ChangePasswordForm
