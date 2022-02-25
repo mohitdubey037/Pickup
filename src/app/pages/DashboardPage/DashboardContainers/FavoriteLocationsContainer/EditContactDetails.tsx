@@ -80,11 +80,62 @@ const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
     touched,
     errors,
     handleSubmit,
+    resetForm,
   } = useFormik({
     initialValues: initialValues,
     validationSchema: editContactDetailsSchema,
     onSubmit: onSubmitHandler,
   });
+
+  const handleAddressSelect = (value) => {
+    let temp = {};
+    if (
+      value?.location?.displayPosition?.longitude &&
+      value?.location?.displayPosition?.latitude
+    ) {
+      let tempCountry = "",
+        tempProvinceState = "";
+      value?.location?.address?.additionalData.forEach((ele) => {
+        if (ele.key === "CountryName" && !tempCountry) {
+          tempCountry = ele.value;
+        }
+        if (
+          (ele.key === "StateName" || ele.key === "CountyName") &&
+          !tempProvinceState
+        ) {
+          tempProvinceState = ele.value;
+        }
+      });
+
+      temp["latitude"] = value?.location?.displayPosition?.longitude || "";
+      temp["longitude"] = value?.location?.displayPosition?.latitude || "";
+      temp["country"] = tempCountry || value?.location?.address?.country || "";
+      temp["state"] =
+        tempProvinceState ||
+        value?.location?.address?.state ||
+        value?.location?.address?.county ||
+        "";
+      temp["city"] = value?.location?.address?.city || "";
+      temp["postal"] = value?.location?.address?.postalCode || "";
+      temp["address1"] = value?.location?.address?.label || "";
+      temp["address2"] = value?.location?.address?.street || "";
+    } else {
+      temp["latitude"] = "";
+      temp["longitude"] = "";
+      temp["country"] = "";
+      temp["state"] = "";
+      temp["city"] = "";
+      temp["postal"] = "";
+      temp["address2"] = "";
+    }
+    Object.entries(temp);
+    let updatedAddress = values;
+    updatedAddress = {
+      ...updatedAddress,
+      ...temp,
+    };
+    resetForm({ values: updatedAddress });
+  };
 
   return (
     <>
@@ -152,7 +203,7 @@ const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
           onChange={handleChange}
           handleBlur={handleBlur}
           setFieldValue={setFieldValue}
-          onSelect={() => {}}
+          onSelect={handleAddressSelect}
           error={touched.address1 && errors.address1}
           disabled={false}
         />
