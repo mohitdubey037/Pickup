@@ -59,7 +59,6 @@ export default function ChildDetails({ singleCompanyDetails, saveAction }: input
         title="Edit Child Details"
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         <EditChildDetailsForm 
           saveAction = {() => saveAction()} 

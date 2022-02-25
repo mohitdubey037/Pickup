@@ -1,10 +1,9 @@
-import React, { FC, useState } from "react";
+import React from "react";
 import { Grid } from "@material-ui/core";
 import { PaymentCard } from "app/components/PaymentCard";
 import { FullCard } from "app/components/Input/style";
 import { Box } from "@mui/material";
 import { H3 } from "app/components/Typography/Typography";
-import { useSelector } from "react-redux";
 import NullState from "app/components/NullState/NullState";
 
 interface cardDetailsProps{
