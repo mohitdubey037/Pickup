@@ -27,6 +27,7 @@ const CardsDetails = ({cardDetails, saveAction}: cardDetailsProps) => {
                   // key={idx}
                   saveAction = {saveAction}
                   cardData={value}
+                  cardFrom={true}
                   />
                   ))
                   :
