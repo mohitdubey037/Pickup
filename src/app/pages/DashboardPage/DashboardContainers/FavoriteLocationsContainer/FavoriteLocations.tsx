@@ -137,7 +137,7 @@ function FavoriteLocations({ path }: any) {
           }
         />
       ) : (
-        <NullState message="No Records Found" />
+        <NullState />
       )}
 
       <Drawer

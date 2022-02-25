@@ -254,7 +254,7 @@ const InvoicesContainer = ({ path: string }) => {
           }
         />
       ) : (
-        <NullState message="No Records Found" />
+        <NullState />
       )}
 
       <Drawer

@@ -293,7 +293,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
           }
         />
       ) : (
-        <NullState message="No Records Found" />
+        <NullState />
       )}
 
       <Drawer
