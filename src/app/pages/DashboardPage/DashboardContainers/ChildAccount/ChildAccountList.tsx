@@ -67,44 +67,8 @@ export default function ChildAccountList({ path: string }) {
   };
 
   useEffect(() => {
-    // getChildData();
     getChildOrderList();
   }, []);
-
-  // const getChildData = async () => {
-  //   setLoading(true);
-  //   const res = (await getChildAccountData()) as any;
-  //   if (!res?.error) {
-  //     const InvoiceList = res.response.data.data;
-  //     setChildData(InvoiceList);
-  //     setPage(res.response.data.data.pageMetaData.page - 1);
-  //     setTotalPages(res.response.data.data.pageMetaData.totalPages);
-  //     setTotalData(res.response.data.data.pageMetaData.total);
-  //   } else if (res.error) {
-  //     const InvoiceList = res;
-  //     setChildData(InvoiceList);
-  //   }
-  //   setLoading(false);
-  // }
-
-  // const getSearchPaginatedData = async (page, sortingField, sortingType) => {
-  //   setSortType(sortingType);
-  //   let res;
-  //   if (page === 0) {
-  //     res = (await getChildAccountData('',0, 10, sortingField, sortingType)) as any;
-  //   }
-  //   else {
-  //     res = (await getChildAccountData('',page+1, 10, sortingField, sortingType)) as any;
-  //   }
-  //   if (!res?.error) {
-  //     const InvoiceList = res.response.data.data;
-  //     setPage(page);
-  //     setChildData(InvoiceList);
-  //   } else if (!res.error) {
-  //     const InvoiceList = res;
-  //     setChildData(InvoiceList);
-  //   }
-  // };
 
   const getChildOrderList = async (
     values?: object,
@@ -214,7 +178,7 @@ export default function ChildAccountList({ path: string }) {
               onChange={handleChange}
               error={touched.companyName && errors.companyName}
               label="Company Name"
-              placeholder="eg. 1234"
+              placeholder="test inc. pvt. ltd"
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
