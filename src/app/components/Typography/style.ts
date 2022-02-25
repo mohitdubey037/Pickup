@@ -80,9 +80,17 @@ export const H5Typography = styled.p`
 `;
 
 
-export const CustomLinkStyle = styled(Paratext)`
+
+
+interface LinkProps {
+  redlink?: boolean;
+}
+
+
+export const CustomLinkStyle = styled(Paratext)<LinkProps>`
   cursor: pointer;
   text-decoration: underline;
+  color: ${LinkProps => LinkProps.redlink ? '#c94c43' : '343434'};
 `;
 
 export const LinkStyle = styled(RouterLink)`

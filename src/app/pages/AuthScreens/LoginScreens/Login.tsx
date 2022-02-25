@@ -158,7 +158,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
                 label="Remember me" />
               <CustomLink
                 label="Forgot my password"
-                link={() => navigate?.("/forgot-password")}
+                onClick={() => navigate?.("/forgot-password")}
               />
             </RememberDiv>
             {errorMessage ? <CommonError>{errorMessage} </CommonError> : null}
@@ -174,7 +174,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
               <Para text="Don't have an account?" />
               <CustomLink
                 label="Sign Up Here"
-                link={() => navigate?.("/sign-up")}
+                onClick={() => navigate?.("/sign-up")}
               />
             </LoginLink>
             {/* </form > */}

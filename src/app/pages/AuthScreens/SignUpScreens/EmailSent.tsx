@@ -26,7 +26,7 @@ const EmailSent = ({ navigate }: RouteComponentProps) => {
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi
               mollis tempus" />
               </Box>
-              <CustomLink label="Back to Signup" link={() => navigate?.("/sign-up")}  style={{color: '#c94c43'}}  />
+              <CustomLink label="Back to Signup" onClick={() => navigate?.("/sign-up")}  redlink />
         </FormContent>
       </FormWrapper>
       </SignUpBackgroundWrapper>

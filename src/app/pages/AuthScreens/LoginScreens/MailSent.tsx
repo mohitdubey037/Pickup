@@ -28,7 +28,7 @@ const MailSent = ({ navigate }: RouteComponentProps) => {
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi
               mollis tempus" />
               </Box>
-            <CustomLink label="Back to Login" link={() => navigate?.("/")}  style={{color: '#c94c43'}} />
+            <CustomLink label="Back to Login" onClick={() => navigate?.("/")}  redlink />
         </FormContent>
       </FormWrapper>
       </LoginBackgroundWrapper>

@@ -43,8 +43,8 @@ function DetailsFormItem(props: {
                     .shipmentDetails?.length > 1 && (
                     <CustomLink
                         label="Delete"
-                        style={{ color: "#C94C43" }}
-                        link={() => deleteItemHandler(index)}
+                        redlink
+                        onClick={() => deleteItemHandler(index)}
                     />
                 )}
             </Box>
