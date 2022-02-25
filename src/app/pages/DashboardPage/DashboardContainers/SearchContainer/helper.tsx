@@ -1,7 +1,5 @@
 import moment from "moment";
 
-import CustomTooltip from "app/components/Tooltip/CustomTooltip";
-
 const getInvoiceIdItem = (
   openOrderDrawer: (key: string, type: any) => void,
   id: any
@@ -16,24 +14,9 @@ const getOrderIdItem = (
   return <a onClick={() => openOrderDrawer(id, "orderDetails")}>{id}</a>;
 };
 
-const getOrderStatusItem = (
-  completeOrderPayment: (orderId: number) => void,
-  orderId: any
-) => {
-  return (
-    <a onClick={() => completeOrderPayment(orderId)}>
-      <CustomTooltip
-        text="Click here to complete payment"
-        content="Payment Pending"
-      />
-    </a>
-  );
-};
-
 export const getSearchOrderData = (
   searchRecordData: any,
-  openOrderDrawer: (key: string, type: any) => void,
-  completeOrderPayment: (orderId: number) => void
+  openOrderDrawer: (key: string, type: any) => void
 ) => {
   let makeTableData: any = [];
   if (searchRecordData && searchRecordData.length) {
@@ -50,11 +33,6 @@ export const getSearchOrderData = (
         "Order Date": item.shippingDate
           ? moment(item.shippingDate).format("DD/MM/YYYY")
           : "N/A",
-        // Status: item.status
-        //   ? item.status === "Payment Pending"
-        //     ? getOrderStatusItem(completeOrderPayment, item.orderId)
-        //     : item.status
-        //   : "N/A",
         Status: item.status ? item.status.replaceAll("-", " ") : "N/A",
         "Order Cost": item.total ? `$${item.total.toFixed(2)}` : "N/A",
       });

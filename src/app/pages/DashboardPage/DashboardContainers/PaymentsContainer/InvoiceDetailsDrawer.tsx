@@ -1,4 +1,5 @@
 import { useEffect, useState, createRef } from "react";
+import { navigate } from "@reach/router";
 import { createPortal } from "react-dom";
 import { useBarcode } from "react-barcodes";
 import { Divider } from "@mui/material";
@@ -14,6 +15,8 @@ import { getInvoiceDetails } from "services/PaymentServices";
 import { Illustration } from "../../../../assets/Images/index";
 import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
 import InvoiceDrawerSkeleton from "./InvoiceDrawerSkeleton";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "store/reducers/SingleShipmentReducer";
 
 interface InvoiceDetails {
   billTo: string;
@@ -27,6 +30,7 @@ interface InvoiceDetails {
   shipmentItemMapping: any;
   invoicePdf: string;
   isPayment: boolean;
+  orderIdList: number[];
 }
 
 const ref: any = createRef();
@@ -44,9 +48,16 @@ const BarCodeItem = ({ barcodeValue }) => {
 };
 
 function InvoiceDetailsDrawer({ invoiceId }: any) {
+  const dispatch = useDispatch();
+
+  const orderIds = useSelector((state: { singleShipment: { orderIds } }) => {
+    return state.singleShipment.orderIds;
+  });
+
   const [ordersArray, setOrdersArray] = useState<string[]>([]);
-  const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetails | null>();
+  const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetails>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [isCompletePayment, setIsCompletePayment] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -82,6 +93,17 @@ function InvoiceDetailsDrawer({ invoiceId }: any) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  useEffect(() => {
+    if (orderIds?.length > 0 && isCompletePayment) {
+      navigate("/dashboard/charter-shipment/order-summary");
+    }
+  }, [orderIds, isCompletePayment]);
+
+  const completeOrderPayment = () => {
+    setIsCompletePayment(true);
+    dispatch(actions.setShipmentOrderIds(invoiceDetails?.orderIdList));
   };
 
   return (
@@ -146,7 +168,13 @@ function InvoiceDetailsDrawer({ invoiceId }: any) {
               />
             </>
           ) : (
-            <Button label="Complete Payment" onClick={() => {}} disabled />
+            <Button
+              label="Complete Payment"
+              onClick={completeOrderPayment}
+              disabled={
+                !(invoiceDetails && invoiceDetails.orderIdList.length > 0)
+              }
+            />
           )}
 
           <InvoiceDetailsBox>
