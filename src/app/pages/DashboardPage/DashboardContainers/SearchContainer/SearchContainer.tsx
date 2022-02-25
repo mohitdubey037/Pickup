@@ -35,7 +35,7 @@ const initialValues = {
   orderId: "",
   fromDate: "",
   toDate: "",
-  status: "pending",
+  status: "",
 };
 
 const SearchContainer = ({ path }: any) => {
