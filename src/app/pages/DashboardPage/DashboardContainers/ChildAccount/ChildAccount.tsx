@@ -16,6 +16,7 @@ import { globalActions } from "store/reducers/GlobalReducer";
 import EmailSentDrawer from "app/components/EmailSentDrawer/EmailSentDrawer";
 import { Drawer } from "app/components/Drawer";
 import { navigate } from "@reach/router";
+import { CustomLink } from "app/components/Typography/Links";
 
 export default function ChildAccount({ path: string }) {
   const dispatch = useDispatch();
@@ -58,6 +59,8 @@ const handleSubmit = () => {
   navigate('/dashboard/my-account/child-account-list')
 }
 
+
+
 const childAccountDetails = useSelector(
   (state: { childAccountDetails: { childAccountDetails } }) => {
     return state.childAccountDetails;
@@ -81,8 +84,10 @@ useEffect(() => {
 
   return (
     <ModuleContainer>
+      <Flex justifyContent="space-between" alignItems="center">
       <H2 title="Create New Child" />
-
+      <CustomLink label="Back" onClick={() => navigate?.("/dashboard/my-account/child-account-list")}  redlink />
+      </Flex>
       <FullCard>
         <H3 text="Create Child" />
         <ChildAccountForm 

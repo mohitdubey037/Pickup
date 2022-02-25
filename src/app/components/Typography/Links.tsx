@@ -4,15 +4,15 @@ import {
 } from "./style";
 interface TypoProps {
   label?: string;
-  link?: any;
   onClick?: ()=>void;
   style?: any;
+  redlink?: boolean;
 }
 
 
 
-export const CustomLink = ({ label, link, style }: TypoProps) => {
-  return <CustomLinkStyle onClick={link} style={style}>{label}</CustomLinkStyle>;
+export const CustomLink = ({ label, onClick, style, redlink}: TypoProps) => {
+  return <CustomLinkStyle onClick={onClick} style={style} redlink={redlink}>{label}</CustomLinkStyle>;
 };
 
 

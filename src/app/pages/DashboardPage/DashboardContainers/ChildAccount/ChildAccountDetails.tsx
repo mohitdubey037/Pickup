@@ -8,6 +8,9 @@ import { fetchChildAccountById } from "services/ChildAccount";
 import CompanyDetailsSkeleton from "../CompanyProfileContainer/CompanyDetailsSkeleton";
 import AdminDetailsSkeleton from "../CompanyProfileContainer/AdminDetailsSkeleton";
 import PaymentCardSkeleton from "app/components/PaymentCard/PaymentCardSkeleton";
+import { Flex } from "app/components/Input/style";
+import { CustomLink } from "app/components/Typography/Links";
+import { navigate } from "@reach/router";
 
 export default function ChildAccountDetails(props: any) {
   const {id} = props;
@@ -30,7 +33,11 @@ export default function ChildAccountDetails(props: any) {
 
  
   return (
-    <ModuleContainer>
+    <ModuleContainer> 
+      <Flex justifyContent="space-between" alignItems="center">
+      <H2 title="Child Account" />
+      <CustomLink label="Back" onClick={() => navigate?.("/dashboard/my-account/child-account-list")} redlink  />
+      </Flex>
       {loading ? (
         <>
         <CompanyDetailsSkeleton />
@@ -39,7 +46,6 @@ export default function ChildAccountDetails(props: any) {
         </>
         ) : (
           <>
-          <H2 title="Child Account" />
           <ChildDetails saveAction={() => fetchDetailById()} singleCompanyDetails={companyDetails}/>
           <SuperintendentDetails saveAction={() => fetchDetailById()} singleCompanyDetails = {companyDetails} />
           <CardsDetails saveAction={() => fetchDetailById()} cardDetails = {companyDetails}  />

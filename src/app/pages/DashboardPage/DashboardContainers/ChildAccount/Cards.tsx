@@ -30,7 +30,7 @@ export default function Cards({formik}:{formik: any}){
           <CustomLink
             label={`Share Current Cards With Child`}
             style={{ color: "#1B8AF0" }}
-            link={() => setDrawerOpen(true)}
+            onClick={() => setDrawerOpen(true)}
           />
         </Box>
         <GridContainer container spacing={2}>

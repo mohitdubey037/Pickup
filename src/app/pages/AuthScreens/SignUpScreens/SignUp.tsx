@@ -106,7 +106,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
               <LoginLink>
                 Already have an account?{" "}
                 <CustomLink
-                  link={() => navigate?.("/")}
+                  onClick={() => navigate?.("/")}
                   label={"Login Here"}
                 />
               </LoginLink>

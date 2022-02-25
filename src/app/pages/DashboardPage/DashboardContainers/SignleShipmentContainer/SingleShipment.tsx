@@ -125,8 +125,8 @@ function SingleShipment({ path }) {
               <H2 title={`Order ${index + 1}`} />
               <CustomLink
                 label="Delete"
-                style={{ color: "#C94C43" }}
-                link={() => deleteOrderHandler(index)}
+                onClick={() => deleteOrderHandler(index)}
+                redlink
               />
             </Flex>
           )}
