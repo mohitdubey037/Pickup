@@ -101,7 +101,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                             type="submit"
                         />
                         <LoginLink>
-                            <CustomLink label="Back to Login" link={() => navigate?.("/")} style={{color: '#c94c43'}} />
+                            <CustomLink label="Back to Login" onClick={() => navigate?.("/")} redlink />
                         </LoginLink>
                     </FormContent>
                 </FormWrapper>

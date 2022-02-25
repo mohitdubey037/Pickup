@@ -29,8 +29,8 @@ const Congratulations = ({ navigate }: RouteComponentProps) => {
 
               <CustomLink
                 label="Back to Login"
-                link={() => navigate?.("/dashboard/charter-shipment/single-shipment/order-summary")}
-                style={{color: '#c94c43'}} 
+                onClick={() => navigate?.("/dashboard/charter-shipment/single-shipment/order-summary")}
+                redlink
               />
         </FormContent>
       </FormWrapper>
