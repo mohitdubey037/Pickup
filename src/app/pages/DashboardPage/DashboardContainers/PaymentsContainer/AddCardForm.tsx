@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { FC, useState } from "react";
 import { useFormik } from "formik";
 
 import { Input } from "app/components/Input";
@@ -7,22 +7,31 @@ import { Checkbox } from "app/components/Checkbox";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { cardSchema } from "./cardSchema";
 import { IndividualCard } from "./PaymentsCardContainer";
+import { addNewCardService } from "services/PaymentServices";
+import { useDispatch } from "react-redux";
+import { actions } from "store/reducers/PaymentReducer";
 
 interface AddCardFromProps {
-    setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    saveAction: (data) => void;
+    setDrawerOpen: (val: boolean) => void;
+    saveAction?: (data) => void;
+    getSavedCard?: (data) => void;
     enableSave?: boolean;
     submitButtonLabel?: string;
     cardData?: IndividualCard;
 }
 
-const AddCardForm: React.FC<AddCardFromProps> = ({
+const AddCardForm: FC<AddCardFromProps> = ({
     setDrawerOpen,
     saveAction,
+    getSavedCard,
     enableSave = false,
     submitButtonLabel = "Save",
     cardData = {},
 }) => {
+    const dispatch = useDispatch();
+
+    const [loading, setLoading] = useState(false);
+
     const {
         values,
         handleChange,
@@ -46,11 +55,29 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
         },
         validationSchema: cardSchema,
         onSubmit: (values) =>
-            saveAction({
+            handleAddNewCard({
                 ...values,
                 cardNumber: values.cardNumber.replace(/ /g, ""),
             }),
     });
+
+    const handleAddNewCard = async (values) => {
+        setLoading(true);
+        const body = {
+            name: values.nameOnCard,
+            number: values.cardNumber,
+            expiryMonth: values.expiryDate.split("/")[0],
+            expiryYear: values.expiryDate.split("/")[1],
+            cvd: values.cvc,
+        };
+        const res: any = await addNewCardService(body);
+        if (res.error === null) {
+            dispatch(actions.getCards());
+            setDrawerOpen(false);
+            getSavedCard?.(res.response.data.data);
+        }
+        setLoading(false);
+    };
 
     return (
         <>
@@ -111,20 +138,20 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
                     placeholder={"John Doe"}
                 />
                 {/* <Input
-                id="pinCode"
-                initValue={values.pinCode}
-                name="pinCode"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={touched.pinCode && errors.pinCode}
-                label="Pin Code"
-                placeholder={"1234"}
-                type="mask"
-                maskProps={{
-                    mask: "9999",
-                    maskPlaceholder: null,
-                }}
-            /> */}
+                    id="pinCode"
+                    initValue={values.pinCode}
+                    name="pinCode"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    error={touched.pinCode && errors.pinCode}
+                    label="Pin Code"
+                    placeholder={"1234"}
+                    type="mask"
+                    maskProps={{
+                        mask: "9999",
+                        maskPlaceholder: null,
+                    }}
+                /> */}
                 <Input
                     id="nickName"
                     initValue={values.nickName}
@@ -158,6 +185,7 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
                     size="medium"
                     label={submitButtonLabel}
                     onClick={handleSubmit}
+                    showLoader={loading}
                 />
             </DrawerFooter>
         </>

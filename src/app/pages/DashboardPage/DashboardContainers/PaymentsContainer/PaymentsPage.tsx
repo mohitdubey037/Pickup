@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Box } from "@material-ui/core";
+import { useState, useEffect } from "react";
+import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { navigate } from "@reach/router";
 
@@ -29,18 +29,6 @@ export default function PaymentsPage({ path: string }) {
     dispatch(actions.getCards());
   }, []);
 
-  const handleAddNewCard = async (values) => {
-    const body = {
-      name: values.nameOnCard,
-      number: values.cardNumber,
-      expiryMonth: values.expiryDate.split("/")[0],
-      expiryYear: values.expiryDate.split("/")[1],
-      cvd: values.cvc,
-    };
-    dispatch(actions.addNewCard(body));
-    setDrawerOpen(false);
-  };
-
   if ([4].indexOf(authUser?.roleId) === -1) {
     navigate("/non-authorized-page");
   }
@@ -68,10 +56,7 @@ export default function PaymentsPage({ path: string }) {
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
       >
-        <AddCardForm
-          setDrawerOpen={setDrawerOpen}
-          saveAction={handleAddNewCard}
-        />
+        <AddCardForm setDrawerOpen={setDrawerOpen} />
       </Drawer>
     </ModuleContainer>
   );
