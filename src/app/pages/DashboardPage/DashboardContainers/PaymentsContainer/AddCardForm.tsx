@@ -52,10 +52,6 @@ const AddCardForm: React.FC<AddCardFromProps> = ({
             }),
     });
 
-    useEffect(() => {
-        console.log(values);
-    })
-
     return (
         <>
             <DrawerInnerContent>
