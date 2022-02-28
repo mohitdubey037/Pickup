@@ -9,7 +9,7 @@ export const getPersonalProfileDetails = async (userId: number | undefined) => {
     );
     return { response: response, success: true };
   } catch (err) {
-    showToast(err.message || "Something Went Wrong", "error");
+    showToast(err?.message || "Something Went Wrong", "error");
     return { response: err, success: false };
   }
 };
@@ -36,7 +36,7 @@ export const editPersonalProfileDetails = async (values: {
     showToast("Your personal details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
-    showToast(err.message || "Something Went Wrong", "error");
+    showToast(err?.message || "Something Went Wrong", "error");
     return { response: err, success: false };
   }
 };
@@ -59,7 +59,7 @@ export const changeProfilePassword = async (values: {
     showToast(response.data.message, "success");
     return { response: response, success: true };
   } catch (err) {
-    showToast(err.message || "Something Went Wrong", "error");
+    showToast(err?.message || "Something Went Wrong", "error");
     return { response: err, success: false };
   }
 };

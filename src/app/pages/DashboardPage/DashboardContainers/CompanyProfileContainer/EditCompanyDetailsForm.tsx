@@ -1,292 +1,273 @@
+import { useState } from "react";
+import { useFormik } from "formik";
+import { Box, Grid } from "@mui/material";
+
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
-import { useFormik } from "formik";
-import {
-  // COUNTRY_TEXT,
-  INDUSTRY_TEXT,
-  IMAGE_FILE_TYPES,
-  PIN_CODE_MASK,
-} from "../../../../../constants";
-import Select from "app/components/Select";
-import { editCompanySchema } from "./CompanyProfileSchema";
-import { Box, Grid } from "@material-ui/core";
+import SelectNew from "app/components/Select/SelectNew";
+import EditAvatarNew from "app/components/Avatar/EditAvatarNew";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
+import { updateCompanyProfile } from "services/CompanyService";
+import { INDUSTRY_TEXT, PIN_CODE_MASK } from "../../../../../constants";
+import { editCompanySchema } from "./schema";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
-import EditAvatar from "app/components/Avatar/EditAvatar";
-import { showToast } from "utils";
-import { imageUploadService } from "services/SingleShipmentServices";
+import { CompanyDetailsType } from "./types";
 
-const EditCompanyDetailsForm = ({
-  title = "",
-  setCompanyDrawerOpen,
-  companyDetails,
-  saveAction,
-  // enableSave = false,
-  submitButtonLabel = "Save",
-}) => {
+interface EditDetailsInterface {
+  data: CompanyDetailsType;
+  setDrawerOpen: (value: boolean) => void;
+  onEditSuccess: () => void;
+}
+
+const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
+  const { data, setDrawerOpen, onEditSuccess } = props;
+
+  const [loading, setLoading] = useState<boolean>(false);
+
   const {
     values,
-    handleChange,
     errors,
     touched,
-    handleBlur,
-    handleSubmit,
-    setFieldValue,
     isValid,
+    resetForm,
+    handleBlur,
+    handleChange,
+    setFieldValue,
+    handleSubmit,
   } = useFormik({
     initialValues: {
-      profileImage: companyDetails?.companyProfileImage || "",
-      companyName: companyDetails?.companyName || "",
-      businessNumber: companyDetails?.businessNumber || "",
-      industry: companyDetails?.industry || "",
-      employeeStrength: companyDetails?.employeeStrength || "",
-      address1: companyDetails?.addressLine1 || "",
-      address2: companyDetails?.addressLine2 || "",
-      city: companyDetails?.city || "",
-      pincode: companyDetails?.pincode || "",
-      province: companyDetails?.province || "",
-      country: companyDetails?.country || "",
-      hstNumber: companyDetails?.hstNumber || "",
+      profileImage: data?.companyProfileImage || "",
+      companyName: data?.companyName || "",
+      businessNumber: data?.businessNumber || "",
+      industry: data?.industry || "",
+      employeeStrength: data?.employeeStrength || "",
+      address1: data?.addressLine1 || "",
+      address2: data?.addressLine2 || "",
+      city: data?.city || "",
+      pincode: data?.pincode || "",
+      province: data?.province || "",
+      country: data?.country || "",
+      hstNumber: data?.hstNumber || "",
     },
     validationSchema: editCompanySchema,
-    onSubmit: (values) => saveAction(values),
+    onSubmit: (values) => onSubmit(values),
   });
 
-  const changeHandler = async (e) => {
-    const formData = new FormData();
-    const image = e?.target?.files[0];
-    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
-      showToast(
-        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
-        "error"
-      );
-      return;
-    }
-    formData.append("document", image, image?.name);
-    const res: { response: any; error: any } = await imageUploadService(
-      formData
-    );
-    if (res.error) {
-      showToast(res.error.message, "error");
-    } else {
-      setFieldValue("profileImage", res?.response?.data?.data || "");
-    }
-  };
-
-  const handler = (value) => {
+  const handleAddressSelect = (value) => {
+    let temp = {};
     if (
       value?.location?.displayPosition?.longitude &&
       value?.location?.displayPosition?.latitude
     ) {
-      // setFieldValue(
-      //   `${formFieldName}.${title}Longitude`,
-      //   value?.location?.displayPosition?.longitude || ""
-      // );
-      // setFieldValue(
-      //   `${formFieldName}.${title}Latitude`,
-      //   value?.location?.displayPosition?.latitude || ""
-      // );
-      setFieldValue("country", value?.location?.address?.country || "");
-      setFieldValue(
-        "province",
+      let tempCountry = "",
+        tempProvinceState = "";
+      value?.location?.address?.additionalData.forEach((ele) => {
+        if (ele.key === "CountryName" && !tempCountry) {
+          tempCountry = ele.value;
+        }
+        if (
+          (ele.key === "StateName" || ele.key === "CountyName") &&
+          !tempProvinceState
+        ) {
+          tempProvinceState = ele.value;
+        }
+      });
+      temp["country"] = tempCountry || value?.location?.address?.country || "";
+      temp["province"] =
+        tempProvinceState ||
         value?.location?.address?.state ||
-          value?.location?.address?.county ||
-          ""
-      );
-      setFieldValue("city", value?.location?.address?.city || "");
-      setFieldValue("pincode", value?.location?.address?.postalCode || "");
-      // setFieldValue(`${formFieldName}.${title}AddressLine1`, value?.location?.address?.label || "");
-      setFieldValue("address2", value?.location?.address?.street || "");
+        value?.location?.address?.county ||
+        "";
+      temp["city"] = value?.location?.address?.city || "";
+      temp["pincode"] = value?.location?.address?.postalCode || "";
+      temp["address1"] = value?.location?.address?.label || "";
+      temp["address2"] = value?.location?.address?.street || "";
     } else {
-      // setFieldValue(`${formFieldName}.${title}Longitude`, "");
-      // setFieldValue(`${formFieldName}.${title}Latitude`, "");
-      setFieldValue("country", values.country);
-      setFieldValue("province", values.province);
-      setFieldValue("city", values.city);
-      setFieldValue("pincode", values.pincode);
-      setFieldValue("address2", values.address2);
+      temp["country"] = "";
+      temp["province"] = "";
+      temp["city"] = "";
+      temp["pincode"] = "";
+      temp["address2"] = "";
     }
+    let updated1company = values;
+    updated1company = {
+      ...updated1company,
+      ...temp,
+    };
+    resetForm({ values: updated1company });
+  };
+
+  const onSubmit = async (values) => {
+    setLoading(true);
+    values.companyId = data?.companyId;
+    const res: any = await updateCompanyProfile(values);
+    if (res?.success) {
+      onEditSuccess();
+      setDrawerOpen(false);
+    }
+    setLoading(false);
   };
 
   return (
     <>
-    <DrawerInnerContent>
-      <Box display="flex" justifyContent="center">
-        <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
-      </Box>
-      <Input
-        id="companyName"
-        name="companyName"
-        onBlur={handleBlur}
-        value={values.companyName}
-        initValue={values.companyName}
-        onChange={handleChange}
-        required={true}
-        error={touched.companyName && errors?.companyName?.toString()}
-        label="Company Name"
-        placeholder={"Example Company"}
-      />
-      <AutoComplete
-        id="address1"
-        name="address1"
-        label={"Address Line 1"}
-        value={values.address1}
-        error={touched.address1 && errors?.address1?.toString()}
-        placeholder={"123 Address Street"}
-        setFieldValue={setFieldValue}
-        onChange={handleChange}
-        handleBlur={handleBlur}
-        onSelect={handler}
-        initValue={values.address1}
-        disabled={undefined}
-      />
-      <Input
-        id="address2"
-        name="address2"
-        value={values.address2}
-        initValue={values.address2}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        required={true}
-        error={touched.address2 && errors?.address2?.toString()}
-        label="Address Line 2"
-        placeholder={"123 Address Street"}
-      />
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <Input
-            id="city"
-            name="city"
-            value={values.city}
-            initValue={values.city}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            required={true}
-            error={touched.city && errors?.city?.toString()}
-            label="City"
-            placeholder={"eg. Toronto"}
+      <DrawerInnerContent>
+        <Box display="flex" justifyContent="center">
+          <EditAvatarNew
+            src={values?.profileImage}
+            onChange={(val) => setFieldValue("profileImage", val || "")}
+            setLoading={setLoading}
           />
-        </Grid>
-
-        <Grid item xs={6}>
-          <Input
-            id="province"
-            name="province"
-            value={values.province}
-            initValue={values.province}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            required={true}
-            error={touched.province && errors?.province?.toString()}
-            label="Province"
-            placeholder={"eg. Ontario"}
-          />
-        </Grid>
-      </Grid>
-      <Grid item xs={12}>
+        </Box>
         <Input
-          id="country"
-          name="country"
-          value={values.country}
-          initValue={values.country}
-          onBlur={handleBlur}
+          name="companyName"
+          label="Company Name"
+          placeholder="Example Company"
+          initValue={values.companyName}
           onChange={handleChange}
-          required={true}
-          error={touched.country && errors?.country?.toString()}
-          label="Country"
-          placeholder={"eg. Canada"}
+          onBlur={handleBlur}
+          error={touched.companyName && errors.companyName}
+          required
         />
-      </Grid>
-      {/* <Select
-        id="country"
-        name="country"
-        options={COUNTRY_TEXT}
-        label={"Country"}
-        value={values["country"]}
-        onSelect={handleChange}
-      /> */}
-      <Input
-        id="hstNumber"
-        name="hstNumber"
-        value={values.hstNumber}
-        initValue={values.hstNumber}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        required={true}
-        error={touched.hstNumber && errors?.hstNumber?.toString()}
-        label="HST Number"
-        placeholder={"1245567842185"}
-      />
-      <Input
-        id="businessNumber"
-        name="businessNumber"
-        value={values.businessNumber}
-        initValue={values.businessNumber}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        required={true}
-        error={touched.businessNumber && errors?.businessNumber?.toString()}
-        label="Business Number"
-        placeholder={"5421369"}
-      />
-      <Input
-        id="pincode"
-        name="pincode"
-        value={values.pincode}
-        initValue={values.pincode}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        required={true}
-        error={touched.pincode && errors?.pincode?.toString()}
-        label="Pincode"
-        placeholder={"ABC 123"}
-        type="mask"
-        maskProps={PIN_CODE_MASK}
-      />
-      <Grid container spacing={2}>
-        <Grid item sm={6} xs={12}>
-          <Select
-            id="industry"
-            name="industry"
-            options={INDUSTRY_TEXT}
-            label={"Industry"}
-            value={values[title + "industry"]}
-            onSelect={handleChange}
-          />
+        <AutoComplete
+          id="address1"
+          name="address1"
+          label="Address Line 1"
+          placeholder="123 Address Street"
+          initValue={values.address1}
+          value={values.address1}
+          onChange={handleChange}
+          handleBlur={handleBlur}
+          setFieldValue={setFieldValue}
+          onSelect={handleAddressSelect}
+          error={touched.address1 && errors.address1}
+          disabled={false}
+        />
+        <Input
+          name="address2"
+          label="Address Line 2"
+          placeholder="123 Address Street"
+          initValue={values.address2}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.address2 && errors.address2}
+          required
+        />
+        <Grid container columnSpacing={2}>
+          <Grid item xs={6}>
+            <Input
+              name="city"
+              label="City"
+              placeholder="eg. Toronto"
+              initValue={values.city}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.city && errors.city}
+              required
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Input
+              name="pincode"
+              label="Pincode"
+              placeholder="ABC 123"
+              initValue={values.pincode}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.pincode && errors.pincode}
+              required
+              type="mask"
+              maskProps={PIN_CODE_MASK}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Input
+              name="province"
+              label="Province"
+              placeholder="eg. Ontario"
+              initValue={values.province}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.province && errors.province}
+              required
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Input
+              name="country"
+              label="Country"
+              placeholder="eg. Canada"
+              initValue={values.country}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.country && errors.country}
+              required
+            />
+          </Grid>
         </Grid>
+        <Input
+          name="hstNumber"
+          label="HST Number"
+          placeholder="eg. 1245567842185"
+          initValue={values.hstNumber}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.hstNumber && errors.hstNumber}
+          required
+        />
+        <Input
+          name="businessNumber"
+          label="Business Number"
+          placeholder="eg. 5421369"
+          initValue={values.businessNumber}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.businessNumber && errors.businessNumber}
+          required
+        />
 
-        <Grid item sm={6} xs={12}>
-          <Input
-            id="employeeStrength"
-            name="employeeStrength"
-            value={values.employeeStrength}
-            initValue={values.employeeStrength}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={
-              touched.employeeStrength && errors?.employeeStrength?.toString()
-            }
-            label="Employee Strength"
-            placeholder={"32"}
-          />
+        <Grid container columnSpacing={2}>
+          <Grid item sm={6} xs={12}>
+            <SelectNew
+              name="industry"
+              label="Industry"
+              placeholder="Select Industry"
+              options={INDUSTRY_TEXT}
+              value={values.industry}
+              onChange={handleChange}
+              error={touched.industry && errors.industry}
+              allowEmpty
+            />
+          </Grid>
+          <Grid item sm={6} xs={12}>
+            <Input
+              name="employeeStrength"
+              initValue={values.employeeStrength}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={touched.employeeStrength && errors.employeeStrength}
+              label="Employee Strength"
+              placeholder="e.g. 32"
+            />
+          </Grid>
         </Grid>
-      </Grid>
       </DrawerInnerContent>
+
       <DrawerFooter>
         <Button
-          secondary
-          size="medium"
-          onClick={() => setCompanyDrawerOpen(false)}
           label="Cancel"
+          onClick={() => setDrawerOpen(false)}
+          size="medium"
+          secondary
         />
         <Button
-          size="medium"
-          label={submitButtonLabel}
+          label="Save"
           onClick={handleSubmit}
+          size="medium"
+          showLoader={loading}
           disabled={!isValid}
         />
       </DrawerFooter>
-      </>
+    </>
   );
 };
 

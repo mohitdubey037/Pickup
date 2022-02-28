@@ -1,171 +1,157 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { navigate } from "@reach/router";
+
 import { H2 } from "app/components/Typography/Typography";
 import ModuleContainer from "app/components/ModuleContainer";
-import CompanyDetails from "./CompanyDetails";
-import NewColleagueForm from "./NewColleagueForm";
 import { Drawer } from "app/components/Drawer";
-import EditCompanyDetailsForm from "./EditCompanyDetailsForm";
 import {
   fetchColleagues,
   fetchCompanyDetails,
   fetchUserAdmin,
-  inviteColleague,
-  updateColleague,
-  updateCompanyProfile,
 } from "services/CompanyService";
+import CompanyDetails from "./CompanyDetails";
+import NewColleagueForm from "./NewColleagueForm";
+import EditCompanyDetailsForm from "./EditCompanyDetailsForm";
 import AdminDetails from "./AdminDetails";
 import { ColleagueDetailsType } from "./types";
 import EditColleagueDetailsForm from "./EditColleagueDetailsForm";
-import NewColleague from "./NewColleague";
+import ColleagueDetails from "./ColleagueDetails";
 import CompanyDetailsSkeleton from "./CompanyDetailsSkeleton";
 import AdminDetailsSkeleton from "./AdminDetailsSkeleton";
-import { AuthUser } from "types";
-import { navigate } from "@reach/router";
 
-export default function CompanyProfile({ path: string }) {
-  const auth = useSelector((state: { auth: { user: AuthUser } }) => {
-    return state.auth;
-  });
+const DRAWER_TITLE = {
+  editCompany: "Edit Company Details",
+  editColleague: "Edit Colleague Details",
+};
 
-  const { user } = auth;
-
-  const [colleagueDetails, setColleagueDetails] = useState<any>(null);
-  const [companyDrawerOpen, setCompanyDrawerOpen] = useState(false);
-  const [colleagueDrawerOpen, setColleagueDrawerOpen] = useState(false);
-  const [selectedColleague, setSelectedColleague] = useState<any>(null);
-  const [companyDetails, setCompanyDetails] = useState<any>(null);
-  const [adminDetails, setAdminDetails] = useState<any>(null);
-  const [colleagueList, setColleagueList] = useState<any>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const saveColleague = async (values) => {
-    values["companyId"] = companyDetails?.companyId;
-    const res = await inviteColleague(values);
-    if (res.success) {
-      const colleagueResponse = await fetchColleagues();
-      setColleagueList(colleagueResponse?.response?.data?.data);
-    }
-    return res.success;
-  };
-
-  const updateCompanyDetails = async (values) => {
-    values["companyId"] = companyDetails?.companyId;
-    const res = await updateCompanyProfile(values);
-    setCompanyDrawerOpen(false);
-    const companyResponse = await fetchCompanyDetails();
-    setCompanyDetails(companyResponse?.response?.data?.data?.[0]);
-  };
-
-  const updateColleagueDetails = async (values) => {
-    values["companyId"] = companyDetails?.companyId;
-    const res = await updateColleague(values);
-    setColleagueDrawerOpen(false);
-    const colleagueResponse = await fetchColleagues();
-    setColleagueList(colleagueResponse?.response?.data?.data);
-  };
-
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const companyResponse = await fetchCompanyDetails();
-      setCompanyDetails(companyResponse?.response?.data?.data?.[0]);
-      const adminResponse = await fetchUserAdmin();
-      setAdminDetails(adminResponse?.response?.data?.data?.[0]);
-      const colleagueResponse = await fetchColleagues();
-      setColleagueList(colleagueResponse?.response?.data?.data);
-      setLoading(false);
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (selectedColleague) {
-      colleagueList?.length > 0 &&
-        colleagueList?.map((data: ColleagueDetailsType) => {
-          if (data?.inviteId === selectedColleague) {
-            setColleagueDetails(data);
-          }
-        });
-    }
-  }, [colleagueDrawerOpen]);
-
+const CompanyProfile = ({ path }) => {
   const authUser = useSelector((state: any) => {
     return state.auth?.user;
   });
 
-  if ([4].indexOf(authUser?.roleId) === -1) {
+  const [loading, setLoading] = useState({
+    company: false,
+    admin: false,
+  });
+  const [companyDetails, setCompanyDetails] = useState<any>(null);
+  const [adminDetails, setAdminDetails] = useState<any>(null);
+  const [colleagueList, setColleagueList] = useState<any>(null);
+
+  const [drawerType, setDrawerType] = useState<string>("");
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const [selectedColleague, setSelectedColleague] = useState<
+    ColleagueDetailsType | undefined
+  >();
+
+  const openDrawer = (type: string, data?: ColleagueDetailsType) => {
+    if (type === "editColleague") {
+      setSelectedColleague(data);
+    }
+    setDrawerType(type);
+    setDrawerOpen(true);
+  };
+
+  useEffect(() => {
+    fetchCompanyProfile();
+    fetchUserAdminDetails();
+    fetchColleagueDetails();
+  }, []);
+
+  const showLoader = (type: string, value: boolean) => {
+    setLoading((state) => ({
+      ...state,
+      [type]: value,
+    }));
+  };
+
+  const fetchCompanyProfile = async () => {
+    showLoader("company", true);
+    const res: any = await fetchCompanyDetails();
+    if (res?.success) {
+      setCompanyDetails(res?.response?.data?.data?.[0]);
+    }
+    showLoader("company", false);
+  };
+
+  const fetchUserAdminDetails = async () => {
+    showLoader("admin", true);
+    const res: any = await fetchUserAdmin();
+    if (res?.success) {
+      setAdminDetails(res?.response?.data?.data?.[0]);
+    }
+    showLoader("admin", false);
+  };
+
+  const fetchColleagueDetails = async () => {
+    const res: any = await fetchColleagues();
+    if (res?.success) {
+      setColleagueList(res?.response?.data?.data);
+    }
+  };
+
+  if ([4].indexOf(authUser?.roleId)) {
     navigate("/non-authorized-page");
   }
 
   return (
     <ModuleContainer>
       <H2 title="Company Profile" />
-      {loading ? (
+
+      {loading.company ? (
         <CompanyDetailsSkeleton />
       ) : (
         <CompanyDetails
-          setCompanyDrawerOpen={setCompanyDrawerOpen}
-          companyDetails={companyDetails}
-          details={{
-            avatar: require("../../../../assets/Icons/logoImg.svg").default,
-            CompanyName: "DDT",
-            BusinessNumber: "212421",
-            Industry: "Retail",
-            EmployeeStrength: "32",
-            AddressLine1: "100 Broadview Avenue",
-            AddressLine2: "Address Line 2",
-            City: "Toronto",
-            Pincode: "123421",
-            Province: "Province",
-            Country: "Canada",
-            HSTNumber: "123 456 789",
-          }}
+          data={companyDetails}
+          handleEditDetails={() => openDrawer("editCompany")}
         />
       )}
 
-      {loading ? (
+      {loading.admin ? (
         <AdminDetailsSkeleton />
       ) : (
-        <AdminDetails AdminDetails={adminDetails} />
+        <AdminDetails data={adminDetails} />
       )}
 
       {colleagueList?.length > 0 &&
         colleagueList?.map((data: ColleagueDetailsType, index: number) => (
-          <NewColleague
-            setColleagueDrawerOpen={setColleagueDrawerOpen}
-            colleagueDetails={data}
+          <ColleagueDetails
             key={data?.inviteId}
             index={index}
-            setSelectedColleague={setSelectedColleague}
-            selectedColleague={selectedColleague}
+            data={data}
+            handleEditDetails={() => openDrawer("editColleague", data)}
           />
         ))}
 
-      <NewColleagueForm saveAction={saveColleague} />
+      <NewColleagueForm
+        companyId={companyDetails?.companyId}
+        onAddSuccess={fetchColleagueDetails}
+      />
+
       <Drawer
-        open={colleagueDrawerOpen}
-        title="Edit Colleague Details"
-        setDrawerOpen={(flag) => setColleagueDrawerOpen(flag)}
+        open={drawerOpen}
+        title={DRAWER_TITLE?.[drawerType] || ""}
+        setDrawerOpen={setDrawerOpen}
         closeIcon={true}
       >
-        <EditColleagueDetailsForm
-          colleagueDetails={colleagueDetails}
-          setColleagueDrawerOpen={setColleagueDrawerOpen}
-          saveAction={updateColleagueDetails}
-        />
-      </Drawer>
-      <Drawer
-        open={companyDrawerOpen}
-        title="Edit Company Details"
-        setDrawerOpen={(flag) => setCompanyDrawerOpen(flag)}
-        closeIcon={true}
-      >
-        <EditCompanyDetailsForm
-          companyDetails={companyDetails}
-          setCompanyDrawerOpen={setCompanyDrawerOpen}
-          saveAction={updateCompanyDetails}
-        />
+        {drawerType === "editCompany" ? (
+          <EditCompanyDetailsForm
+            data={companyDetails}
+            setDrawerOpen={setDrawerOpen}
+            onEditSuccess={fetchCompanyProfile}
+          />
+        ) : drawerType === "editColleague" ? (
+          <EditColleagueDetailsForm
+            data={selectedColleague}
+            setDrawerOpen={setDrawerOpen}
+            onEditSuccess={fetchColleagueDetails}
+          />
+        ) : (
+          <></>
+        )}
       </Drawer>
     </ModuleContainer>
   );
-}
+};
+
+export default CompanyProfile;

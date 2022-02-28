@@ -65,7 +65,7 @@ export const PERMISSION_TYPES = [
   { label: "Admin", value: 4 },
 ];
 
-export const ADMIN_DETAILS_PERMISSION_TYPES = {
+export const PERMISSION_TYPE_BY_ID = {
   1: "Executive",
   2: "Superintendent",
   3: "Manager",
@@ -157,7 +157,6 @@ export const INDUSTRY = [
 ];
 
 export const INDUSTRY_TEXT = [
-  { label: "Select Industry", value: "" },
   { label: "Agriculture", value: "Agriculture" },
   { label: "Construction", value: "Construction" },
   { label: "Manufacturing", value: "Manufacturing" },
@@ -173,10 +172,10 @@ export const STATUS = [
 ];
 
 export const CHILD_STATUS = [
-  {label: "Active", value: 'active'},
-  {label: 'Pending', value: 'pending'},
-  {label: 'Verified', value: 'verified'}
-]
+  { label: "Active", value: "active" },
+  { label: "Pending", value: "pending" },
+  { label: "Verified", value: "verified" },
+];
 
 export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];
 
