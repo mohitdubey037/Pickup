@@ -70,6 +70,7 @@ export const singleShipmentInitValues = {
     customerRefNo: "",
     dropOption: "",
     fragile: 0,
+    picture: "",
 
     shipmentDetails: [{ ...shipmentDetailsItemInitValue }],
 
