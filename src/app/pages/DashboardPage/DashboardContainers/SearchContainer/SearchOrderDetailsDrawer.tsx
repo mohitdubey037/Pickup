@@ -16,6 +16,7 @@ import { AddressDetailsSkeleton } from "./AddressDetailsSkeleton";
 const ref: any = createRef();
 
 function SearchOrderDetailsDrawer({ orderId }: any) {
+  console.log(orderId);
   const [loadingOrderDetails, setloadingOrderDetails] =
     useState<boolean>(false);
   const [singleOrderData, setSingleOrderData] = useState([{}]);
