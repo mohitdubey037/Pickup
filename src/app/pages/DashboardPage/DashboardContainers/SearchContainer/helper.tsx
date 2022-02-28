@@ -49,6 +49,7 @@ export const searchOrderColoumns = [
   {
     id: "consignmentId",
     label: "Consignment Id",
+    isSort: true,
   },
   {
     id: "invoiceId",
