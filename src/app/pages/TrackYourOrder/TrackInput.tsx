@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Drawer } from "app/components/Drawer";
 import { IconButton, InputBase } from "@mui/material";
 import { Box } from "@mui/system";
@@ -12,6 +12,10 @@ import { useFormik } from "formik";
 export function TrackInput() {
 
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(drawerOpen);
+  })
 
   const {
     values,
@@ -63,8 +67,9 @@ export function TrackInput() {
         open={drawerOpen}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
+        size={"large"}
       >
-        <SearchOrderDetailsDrawer orderId={values.orderId} />
+        <SearchOrderDetailsDrawer orderId={values.orderId} setDrawerOpen={(flag) => setDrawerOpen(flag)}/>
       </Drawer>
     </>
   );
