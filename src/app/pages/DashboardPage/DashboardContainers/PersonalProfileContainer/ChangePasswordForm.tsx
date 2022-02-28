@@ -1,62 +1,72 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import { Box } from "@mui/material";
 
 import { PasswordInput } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
-import { passwordSchema } from "./passwordSchema";
+import { changeProfilePassword } from "services/PersonalProfileServices";
+import { changePasswordSchema } from "./schema";
 
-const ChangePasswordForm = ({
-  setDrawerOpen,
-  saveAction,
-  submitButtonLabel = "Save",
-}) => {
-  const { values, handleChange, errors, touched, handleBlur, handleSubmit } =
+interface ChangePasswordInterface {
+  setDrawerOpen: (value: boolean) => void;
+}
+
+const ChangePasswordForm = ({ setDrawerOpen }: ChangePasswordInterface) => {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
         currentPassword: "",
         newPassword: "",
         newConfirmedPassword: "",
       },
-      validationSchema: passwordSchema,
-      onSubmit: (values) => saveAction(values),
+      validationSchema: changePasswordSchema,
+      onSubmit: (values) => onSubmit(values),
     });
+
+  const onSubmit = async (values) => {
+    setLoading(true);
+    const res: any = await changeProfilePassword(values);
+    if (res?.success) {
+      setDrawerOpen(false);
+    }
+    setLoading(false);
+  };
 
   return (
     <>
       <DrawerInnerContent>
         <Box>
           <PasswordInput
-            id="currentPassword"
             name="currentPassword"
             label="Current Password"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={values.currentPassword}
-            error={touched.currentPassword && errors.currentPassword}
             placeholder="Current Password"
+            value={values.currentPassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.currentPassword && errors.currentPassword}
             required
           />
           <PasswordInput
-            id="newPassword"
             name="newPassword"
             label="New Password"
-            value={values.newPassword}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.newPassword && errors.newPassword}
             placeholder="New Password"
+            value={values.newPassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.newPassword && errors.newPassword}
             required
           />
           <PasswordInput
-            id="newConfirmedPassword"
             name="newConfirmedPassword"
             label="Confirm Password"
-            value={values.newConfirmedPassword}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            error={touched.newConfirmedPassword && errors?.newConfirmedPassword}
             placeholder="Confirm New Password"
+            value={values.newConfirmedPassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.newConfirmedPassword && errors.newConfirmedPassword}
             required
           />
         </Box>
@@ -64,15 +74,16 @@ const ChangePasswordForm = ({
 
       <DrawerFooter>
         <Button
-          secondary
-          onClick={() => setDrawerOpen(false)}
           label="Cancel"
+          onClick={() => setDrawerOpen(false)}
           size="medium"
+          secondary
         />
         <Button
-          label={submitButtonLabel}
+          label="Save"
           onClick={handleSubmit}
           size="medium"
+          showLoader={loading}
         />
       </DrawerFooter>
     </>

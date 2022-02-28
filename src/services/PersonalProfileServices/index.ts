@@ -9,8 +9,8 @@ export const getPersonalProfileDetails = async (userId: number | undefined) => {
     );
     return { response: response, success: true };
   } catch (err) {
-    showToast(err.message || "Something Went Wrong", "error");
-    return { response: err, sucess: false };
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: err, success: false };
   }
 };
 
@@ -30,17 +30,14 @@ export const editPersonalProfileDetails = async (values: {
         lName: values?.lastName,
         phoneNumber: values?.phone,
         profileImage: values?.profileImage,
-        // notificationFrequency: "SomeThingString",
-        // notification: 1,
-        // roleDesignation: "super",
       },
       "user_cr"
     );
     showToast("Your personal details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
-    showToast(err.message || "Something Went Wrong", "error");
-    return { response: err, sucess: false };
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: err, success: false };
   }
 };
 
@@ -55,14 +52,14 @@ export const changeProfilePassword = async (values: {
       {
         newPassword: values.newPassword,
         currentPassword: values.currentPassword,
-        confirmPassword: values?.newConfirmedPassword,
+        confirmPassword: values.newConfirmedPassword,
       },
       "user_cr"
     );
     showToast(response.data.message, "success");
     return { response: response, success: true };
   } catch (err) {
-    showToast(err.message || "Something Went Wrong", "error");
-    return { response: err, sucess: false };
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: err, success: false };
   }
 };

@@ -1,214 +1,193 @@
 import { useState, useEffect } from "react";
+import { useFormik } from "formik";
+import { Box } from "@mui/material";
+
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
-import { useFormik } from "formik";
-import { Box } from "@material-ui/core";
+import Switches from "app/components/Input/SwitchButton";
+import SelectBox from "app/components/Select/SelectBox";
+import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
+import EditAvatarNew from "app/components/Avatar/EditAvatarNew";
+import SelectNew from "app/components/Select/SelectNew";
+import { updateColleague } from "services/CompanyService";
 import {
   NOTIFICATION_FREQUENCY_TYPES,
-  // PERMISSION_TYPES,
   NEW_PERMISSION_TYPES,
-  IMAGE_FILE_TYPES,
   PHONE_NO_MASK,
 } from "../../../../../constants";
-import Switches from "app/components/Input/SwitchButton";
-import Select from "app/components/Select";
-import SelectBox from "app/components/Select/SelectBox";
-import { editColleagueSchema } from "./CompanyProfileSchema";
-import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
-import EditAvatar from "app/components/Avatar/EditAvatar";
-import { showToast } from "utils";
-import { imageUploadService } from "services/SingleShipmentServices";
+import { addNewEditColleagueSchema } from "./schema";
+import { ColleagueDetailsType } from "./types";
 
-const EditColleagueDetailsForm = ({
-  colleagueDetails,
-  setColleagueDrawerOpen,
-  saveAction,
-  submitButtonLabel = "Save",
-}) => {
+interface EditDetailsInterface {
+  data?: ColleagueDetailsType;
+  setDrawerOpen: (value: boolean) => void;
+  onEditSuccess: () => void;
+}
+
+const EditColleagueDetailsForm = (props: EditDetailsInterface) => {
+  const { data, setDrawerOpen, onEditSuccess } = props;
+
+  const [loading, setLoading] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(
-    colleagueDetails?.notification == 1
+    Number(data?.notification) === 1
   );
-  
-
 
   const {
     values,
-    handleChange,
     errors,
     touched,
-    handleBlur,
-    handleSubmit,
-    setFieldValue,
     isValid,
+    handleBlur,
+    handleChange,
+    setFieldValue,
+    validateField,
+    handleSubmit,
   } = useFormik({
     initialValues: {
-      profileImage: colleagueDetails?.profileImage || "",
-      emailId: colleagueDetails?.emailId || "",
-      firstName: colleagueDetails?.firstName || "",
-      lastName: colleagueDetails?.lastName || "",
-      notification: colleagueDetails?.notification || "",
-      notificationFrequency: colleagueDetails?.notificationFrequency || "",
-      phoneNumber: colleagueDetails?.phoneNo || "",
-      role: colleagueDetails?.role || "",
-      roleDesignation: colleagueDetails?.roleDesignation || "",
-      type: colleagueDetails?.type || "",
-      inviteId: colleagueDetails?.inviteId,
+      profileImage: data?.profileImage || "",
+      firstName: data?.firstName || "",
+      lastName: data?.lastName || "",
+      emailId: data?.emailId || "",
+      phoneNumber: data?.phoneNo || "",
+      roleDesignation: data?.roleDesignation || "",
+      permission: data?.role || "",
+      notification: data?.notification || 0,
+      notificationFrequency: data?.notificationFrequency || "",
+      type: data?.type || 17,
     },
-    validationSchema: editColleagueSchema,
-    onSubmit: (values) => {
-      values.phoneNumber = values.phoneNumber.replace(/[()-]/g, "")
-      if (!isChecked) {
-        values.notification = 0;
-        values.notificationFrequency = "";
-      } else {
-        values.notification = 1;
-      }
-      saveAction(values);
-    },
+    validationSchema: addNewEditColleagueSchema,
+    onSubmit: (values) => onSubmit(values),
   });
 
   useEffect(() => {
     if (isChecked) {
       setFieldValue("notification", 1);
     } else {
+      setFieldValue("notificationFrequency", "");
       setFieldValue("notification", 0);
+      validateField("notificationFrequency");
     }
   }, [isChecked]);
 
-  const changeHandler = async (e) => {
-    const formData = new FormData();
-    const image = e?.target?.files[0];
-    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
-      showToast(
-        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
-        "error"
-      );
-      return;
+  const onSubmit = async (values) => {
+    setLoading(true);
+    values.role = values.permission;
+    delete values.permission;
+    values.phoneNumber = values.phoneNumber.replace(/[()-]/g, "");
+    values.inviteId = data?.inviteId;
+    values.companyId = data?.companyId;
+    const res: any = await updateColleague(values);
+    if (res?.success) {
+      onEditSuccess();
+      setDrawerOpen(false);
     }
-    formData.append("document", image, image?.name);
-    const res: { response: any; error: any } = await imageUploadService(
-      formData
-    );
-    if (res.error) {
-      showToast(res.error.message, "error");
-    } else {
-      setFieldValue("profileImage", res?.response?.data?.data || "");
-    }
+    setLoading(false);
   };
 
   return (
     <>
-    <DrawerInnerContent>
-      <Box display="flex" justifyContent="center">
-        <EditAvatar icon={values?.profileImage} changeHandler={changeHandler} />
-      </Box>
-
-      <Input
-        id="firstName"
-        name="firstName"
-        onBlur={handleBlur}
-        value={values?.firstName}
-        initValue={values?.firstName}
-        onChange={handleChange}
-        error={touched?.firstName && errors?.firstName?.toString()}
-        label="First Name"
-        placeholder={"Torinit"}
-      />
-
-      <Input
-        id="lastName"
-        name="lastName"
-        value={values?.lastName}
-        initValue={values?.lastName}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        error={touched?.lastName && errors?.lastName?.toString()}
-        label="Last Name"
-        placeholder={"100 Bond Street"}
-      />
-
-      <Input
-        id="emailId"
-        name="emailId"
-        value={values.emailId}
-        initValue={values?.emailId}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        error={touched.emailId && errors?.emailId?.toString()}
-        label="Email Id"
-        placeholder={"123 Avebue"}
-      />
-
-      <Input
-        id="phoneNumber"
-        name="phoneNumber"
-        value={values.phoneNumber}
-        initValue={values?.phoneNumber}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        error={touched.phoneNumber && errors?.phoneNumber?.toString()}
-        label="Phone Number"
-        placeholder="+1 (999)-999-9999"
-        type="mask"
-        maskProps={PHONE_NO_MASK}
-      />
-
-      <Input
-        id="roleDesignation"
-        name="roleDesignation"
-        value={values.roleDesignation}
-        initValue={values?.roleDesignation}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        error={touched.roleDesignation && errors?.roleDesignation?.toString()}
-        label="Role/Designation"
-        placeholder={"Manager"}
-      />
-
-      <SelectBox
-        id="role"
-        name="role"
-        options={NEW_PERMISSION_TYPES}
-        label={"Permission"}
-        value={values["role"]}
-        onSelect={handleChange}
-        error={touched.role && errors?.role?.toString()}
-        isNoSubtitle={true}
-      />
-
-      <Switches value={isChecked} setIsChecked={setIsChecked} />
-
-      {isChecked && (
-        <Select
-          id="notificationFrequency"
-          name="notificationFrequency"
-          options={NOTIFICATION_FREQUENCY_TYPES}
-          label={"Notification Frequency"}
-          value={isChecked ? values["notificationFrequency"] : ""}
-          onSelect={handleChange}
-          error={
-            touched.notificationFrequency &&
-            errors?.notificationFrequency?.toString()
-          }
-          required={isChecked && true}
+      <DrawerInnerContent>
+        <Box display="flex" justifyContent="center">
+          <EditAvatarNew
+            src={values?.profileImage}
+            onChange={(val) => setFieldValue("profileImage", val || "")}
+            setLoading={setLoading}
+          />
+        </Box>
+        <Input
+          name="firstName"
+          label="First Name"
+          placeholder="John"
+          initValue={values.firstName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.firstName && errors.firstName}
+          required
         />
-      )}
-     </DrawerInnerContent>
+        <Input
+          name="lastName"
+          label="Last Name"
+          placeholder="Doe"
+          initValue={values.lastName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.lastName && errors.lastName}
+          required
+        />
+        <Input
+          name="emailId"
+          label="Email Id"
+          placeholder="johndoe@pickups.com"
+          initValue={values.emailId}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.emailId && errors.emailId}
+          required
+        />
+        <Input
+          name="phoneNumber"
+          label="Phone Number"
+          placeholder="+1 (999)-999-9999"
+          initValue={values.phoneNumber}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.phoneNumber && errors.phoneNumber}
+          required
+          type="mask"
+          maskProps={PHONE_NO_MASK}
+        />
+        <Input
+          name="roleDesignation"
+          label="Role/Designation"
+          placeholder="Manager"
+          initValue={values.roleDesignation}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.roleDesignation && errors.roleDesignation}
+          required
+        />
+        <SelectBox
+          name="permission"
+          label="Permission"
+          options={NEW_PERMISSION_TYPES}
+          value={values.permission}
+          onSelect={handleChange}
+          error={touched.permission && errors.permission}
+          required
+          isNoSubtitle
+        />
+        <Switches value={isChecked} setIsChecked={setIsChecked} />
+        {isChecked && (
+          <SelectNew
+            name="notificationFrequency"
+            label="Notification Frequency"
+            placeholder="Select Notification Frequency"
+            options={NOTIFICATION_FREQUENCY_TYPES}
+            value={values.notificationFrequency}
+            onChange={handleChange}
+            error={
+              touched.notificationFrequency && errors.notificationFrequency
+            }
+            required
+          />
+        )}
+      </DrawerInnerContent>
+
       <DrawerFooter>
         <Button
-          secondary
-          onClick={() => setColleagueDrawerOpen(false)}
           label="Cancel"
+          onClick={() => setDrawerOpen(false)}
           size="medium"
+          secondary
         />
         <Button
-          label={submitButtonLabel}
+          label="Save"
           onClick={handleSubmit}
-          disabled={!isValid}
           size="medium"
+          showLoader={loading}
+          disabled={!isValid}
         />
       </DrawerFooter>
-
     </>
   );
 };

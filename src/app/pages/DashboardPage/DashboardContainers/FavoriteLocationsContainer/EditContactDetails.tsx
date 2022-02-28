@@ -4,6 +4,9 @@ import { useFormik } from "formik";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
+import SelectNew from "app/components/Select/SelectNew";
+import RadioGroup from "app/components/RadioGroup";
+import { updateSavedLocation } from "services/LocationServices";
 import { editContactDetailsSchema } from "./helper";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import {
@@ -12,17 +15,17 @@ import {
   PHONE_NO_MASK,
   PIN_CODE_MASK,
 } from "../../../../../constants";
-import SelectNew from "app/components/Select/SelectNew";
-import RadioGroup from "app/components/RadioGroup";
-import { updateSavedLocation } from "services/LocationServices";
 
 interface EditContactDetailsProps {
   data: any;
   onClose: (a?: boolean) => void;
 }
 
-const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
+const EditContactDetails = (props: EditContactDetailsProps) => {
+  const { data, onClose } = props;
+
   const [loading, setLoading] = useState(false);
+
   const initialValues = {
     latitude: data?.latitude || "",
     longitude: data?.longitude || "",
@@ -64,7 +67,7 @@ const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
       locationEmail: values.email,
       details: values.details,
     };
-    const res = (await updateSavedLocation(data.locationId, body)) as any;
+    const res: any = await updateSavedLocation(data.locationId, body);
     if (res.error === null) {
       onClose(true);
     }
@@ -128,7 +131,6 @@ const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
       temp["postal"] = "";
       temp["address2"] = "";
     }
-    Object.entries(temp);
     let updatedAddress = values;
     updatedAddress = {
       ...updatedAddress,

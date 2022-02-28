@@ -7,11 +7,10 @@ export const fetchCompanyDetails = async () => {
       `v1/api/business/fetchCompanyDetails`,
       "user_cr"
     );
-
     return { response: response, success: true };
   } catch (err) {
-    showToast(err?.message || "Error in processing request", "error");
-    return { response: err, sucess: false };
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: err, success: false };
   }
 };
 
@@ -23,8 +22,8 @@ export const fetchUserAdmin = async () => {
     );
     return { response: response, success: true };
   } catch (err) {
-    showToast(err?.message || "Error in processing request", "error");
-    return { response: err, sucess: false };
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: err, success: false };
   }
 };
 
@@ -33,8 +32,8 @@ export const fetchColleagues = async () => {
     const response = await services.get(`business/inviteColleague`, "user_cr");
     return { response: response, success: true };
   } catch (err) {
-    showToast(err?.message || "Error in processing request", "error");
-    return { response: err, sucess: false };
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: err, success: false };
   }
 };
 
@@ -75,8 +74,8 @@ export const updateCompanyProfile = async (values: {
     showToast("Your company details has been updated successfully", "success");
     return { response: response, success: true };
   } catch (err) {
-    showToast(err?.message || "Error in processing request", "error");
-    return { response: err, sucess: false };
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: err, success: false };
   }
 };
 
@@ -118,7 +117,7 @@ export const inviteColleague = async (values: {
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
-    return { response: err, sucess: false };
+    return { response: err, success: false };
   }
 };
 
@@ -161,30 +160,7 @@ export const updateColleague = async (values: {
     );
     return { response: response, success: true };
   } catch (err) {
-    showToast(err?.message || "Error in processing request", "error");
-    return { response: err, sucess: false };
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: err, success: false };
   }
 };
-
-// export const editPersonalProfileDetails = async (values: {
-//   emailId: string;
-//   firstName: string;
-//   lastName: string;
-//   phone: string;
-//   profileImage: string;
-// }) => {
-//   try {
-//     const response: any = await services.patch(
-//       `business/edit_personal_details`,
-//       {
-//         emailId: values?.emailId,
-//         fName: values?.firstName,
-//         lName: values?.lastName,
-//         phoneNumber: values?.phone,
-//         profileImage: values?.profileImage,
-//         // notificationFrequency: "SomeThingString",
-//         // notification: 1,
-//         // roleDesignation: "super",
-//       },
-//       "user_cr"
-//     );
