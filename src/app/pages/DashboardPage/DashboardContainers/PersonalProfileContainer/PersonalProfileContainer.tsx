@@ -4,31 +4,28 @@ import { useDispatch } from "react-redux";
 import { Drawer } from "app/components/Drawer";
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2 } from "app/components/Typography/Typography";
+import { getPersonalProfileDetails } from "services/PersonalProfileServices";
+import { getUserId } from "utils/commonUtils";
 import PersonalProfile from "./PersonalProfile";
 import ChangePasswordForm from "./ChangePasswordForm";
 import EditPersonalDetailsForm from "./EditPersonalDetailsForm";
-import {
-  editPersonalProfileDetails,
-  changeProfilePassword,
-  getPersonalProfileDetails,
-} from "services/PersonalProfileServices";
 import PersonalProfileSkeleton from "./PersonalProfileSkeleton";
-import { getUserId } from "utils/commonUtils";
 
 const DRAWER_TITLE = {
   changePassword: "Change Password",
   editDetails: "Edit Personal Details",
 };
 
-export default function PersonalProfileContainer({ path: string }) {
+const PersonalProfileContainer = ({ path }) => {
   const dispatch = useDispatch();
   const userId = getUserId();
 
-  const [drawerType, setDrawerType] = useState<string>("");
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [personalProfileDetails, setPersonalProfileDetails] =
     useState<any>(null);
+
+  const [drawerType, setDrawerType] = useState<string>("");
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   const openDrawer = (type: any) => {
     setDrawerType(type);
@@ -40,6 +37,7 @@ export default function PersonalProfileContainer({ path: string }) {
   }, []);
 
   const fetchPersonalProfile = async () => {
+    setLoading(true);
     const res: any = await getPersonalProfileDetails(userId);
     if (res?.success) {
       setPersonalProfileDetails(res?.response?.data?.data);
@@ -51,21 +49,6 @@ export default function PersonalProfileContainer({ path: string }) {
     setLoading(false);
   };
 
-  const editDetails = async (values) => {
-    const res: any = await editPersonalProfileDetails(values);
-    if (res?.success) {
-      fetchPersonalProfile();
-      setDrawerOpen(false);
-    }
-  };
-
-  const changePassword = async (values) => {
-    const res = (await changeProfilePassword(values)) as any;
-    if (res?.success) {
-      setDrawerOpen(false);
-    }
-  };
-
   return (
     <ModuleContainer>
       <H2 title="Personal Profile" />
@@ -75,8 +58,8 @@ export default function PersonalProfileContainer({ path: string }) {
       ) : (
         <PersonalProfile
           data={personalProfileDetails}
-          handleChangePassword={() => openDrawer("changePassword")}
           handleEditDetails={() => openDrawer("editDetails")}
+          handleChangePassword={() => openDrawer("changePassword")}
         />
       )}
 
@@ -87,15 +70,12 @@ export default function PersonalProfileContainer({ path: string }) {
         closeIcon={true}
       >
         {drawerType === "changePassword" ? (
-          <ChangePasswordForm
-            setDrawerOpen={setDrawerOpen}
-            saveAction={changePassword}
-          />
+          <ChangePasswordForm setDrawerOpen={setDrawerOpen} />
         ) : drawerType === "editDetails" ? (
           <EditPersonalDetailsForm
             data={personalProfileDetails}
             setDrawerOpen={setDrawerOpen}
-            saveAction={editDetails}
+            onEditSuccess={fetchPersonalProfile}
           />
         ) : (
           <></>
@@ -103,4 +83,6 @@ export default function PersonalProfileContainer({ path: string }) {
       </Drawer>
     </ModuleContainer>
   );
-}
+};
+
+export default PersonalProfileContainer;

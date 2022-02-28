@@ -2,20 +2,20 @@ import { Avatar, Box, Grid } from "@mui/material";
 
 import { H3, Para, H4 } from "app/components/Typography/Typography";
 import { FullCard } from "app/components/Input/style";
-import { Button } from "../../../../components/Buttons";
-import { FlexTable } from "./styles";
-import { PersonalProfileType } from "./types";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import EditIcon from "app/components/EditIcon/EditIcon";
 import { formatPhoneNo } from "utils/commonUtils";
+import { Button } from "../../../../components/Buttons";
+import { FlexTable } from "./styles";
+import { PersonalProfileType } from "./types";
 
-interface CardInterface {
+interface PersonalProfileInterface {
   data: PersonalProfileType;
   handleChangePassword: () => void;
   handleEditDetails: () => void;
 }
 
-export default function PersonalProfile(props: CardInterface) {
+const PersonalProfile = (props: PersonalProfileInterface) => {
   const { handleChangePassword, handleEditDetails, data } = props;
 
   return (
@@ -27,7 +27,7 @@ export default function PersonalProfile(props: CardInterface) {
 
       <FlexBox>
         <Box mr={4}>
-          <Avatar style={{ width: 86, height: 86 }} src={data?.profileImage} />
+          <Avatar src={data?.profileImage} style={{ width: 86, height: 86 }} />
         </Box>
 
         <FlexTable>
@@ -70,4 +70,6 @@ export default function PersonalProfile(props: CardInterface) {
       </FlexBox>
     </FullCard>
   );
-}
+};
+
+export default PersonalProfile;

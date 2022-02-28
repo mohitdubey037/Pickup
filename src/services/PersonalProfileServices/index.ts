@@ -10,7 +10,7 @@ export const getPersonalProfileDetails = async (userId: number | undefined) => {
     return { response: response, success: true };
   } catch (err) {
     showToast(err.message || "Something Went Wrong", "error");
-    return { response: err, sucess: false };
+    return { response: err, success: false };
   }
 };
 
@@ -30,9 +30,6 @@ export const editPersonalProfileDetails = async (values: {
         lName: values?.lastName,
         phoneNumber: values?.phone,
         profileImage: values?.profileImage,
-        // notificationFrequency: "SomeThingString",
-        // notification: 1,
-        // roleDesignation: "super",
       },
       "user_cr"
     );
@@ -40,7 +37,7 @@ export const editPersonalProfileDetails = async (values: {
     return { response: response, success: true };
   } catch (err) {
     showToast(err.message || "Something Went Wrong", "error");
-    return { response: err, sucess: false };
+    return { response: err, success: false };
   }
 };
 
@@ -55,7 +52,7 @@ export const changeProfilePassword = async (values: {
       {
         newPassword: values.newPassword,
         currentPassword: values.currentPassword,
-        confirmPassword: values?.newConfirmedPassword,
+        confirmPassword: values.newConfirmedPassword,
       },
       "user_cr"
     );
@@ -63,6 +60,6 @@ export const changeProfilePassword = async (values: {
     return { response: response, success: true };
   } catch (err) {
     showToast(err.message || "Something Went Wrong", "error");
-    return { response: err, sucess: false };
+    return { response: err, success: false };
   }
 };
