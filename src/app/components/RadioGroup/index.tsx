@@ -59,7 +59,7 @@ function RadioGroup({
       >
         <RadioFlex>
           {options?.map(({ value, label, disabled, tooltipText }, i) => (
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" key={i}>
               <FormControlLabel
                 key={i}
                 value={value}
