@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
+import { noSort, sortBy } from "app/assets/Icons";
 import {
   TableTop,
   CustomTableContainer,
@@ -8,7 +9,6 @@ import {
   CustomPagination,
 } from "./style";
 import { TableNewProps } from "./type";
-import { noSort, sortBy } from "app/assets/Icons";
 import { Checkbox } from "../Checkbox";
 
 const TableNew = ({
@@ -143,7 +143,12 @@ const TableNew = ({
           count={pagination.count}
           page={page}
           onPageChange={handlePageChange}
-          labelRowsPerPage=""
+          labelDisplayedRows={({ count, page }) => (
+            <span>
+              <b>{page + 1}</b>&nbsp;
+              {` out of ${Math.ceil(count / rowsPerPage)}`}
+            </span>
+          )}
           rowsPerPageOptions={[]}
         />
       )}
