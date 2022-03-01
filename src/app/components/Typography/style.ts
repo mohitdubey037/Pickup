@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link as RouterLink } from '@reach/router';
+import {Typography } from "@mui/material";
+import { TypoProps } from "./index";
 
 interface Props {
   required?: boolean | undefined;
@@ -12,6 +14,35 @@ export const commonStyle = `
   font-weight:normal;
   font-family: "Roboto";
   `;
+
+  const fontsize = {
+    'body1': '14px',
+    'h1': '32px',
+    'h2': '24px',
+    'h3': '18px',
+    'h4': '16px',
+    'subtitle1' : '12px'
+  }
+  const fontfamily = {
+    'body1': 'Roboto',
+    'h1': 'Roboto-Bold',
+    'h2': 'Roboto-Bold',
+    'h3': 'Roboto-Medium',
+    'h4': 'Roboto',
+    'subtitle1' : 'Roboto'
+  }
+
+
+
+
+export const CustomTypography = styled(Typography)(({ variant, font } : TypoProps) => ({
+  fontSize: fontsize[variant],
+  color: fontsize[variant],
+  fontFamily: font ? font : fontfamily[variant],
+  margin: 0,
+  padding: 0,
+  lineHeight: 1.5,
+}));
 
 
 export const H1Typography = styled.h1`

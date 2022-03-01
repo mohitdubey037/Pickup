@@ -20,7 +20,7 @@ const CategoryProgressCard = ({contents}:ProgressCardProps) => {
                 return(
                     <ProgressRow>
                         <Para className="name" text={category.category} />
-                        <Progressbar value={category.progressValue}/>
+                        <Progressbar value={category.progressValue} smallProgreebar />
                         <Para className="cost" text={`${category.cost}`} />
                     </ProgressRow> 
                 )

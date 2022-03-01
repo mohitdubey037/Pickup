@@ -5,9 +5,7 @@ import {
   CardContent,
   LeftContent,
   RightContent,
-  LogoImage,
   SplashHeader,
-  SplashSubHeader,
   ButtonBox,
   CardCount,
 } from "./style";
@@ -15,6 +13,8 @@ import { SplashScreenType } from "./type";
 import { Button } from "../Buttons";
 import { useEffect } from "react";
 import { navigate } from "@reach/router";
+import { H4 } from "../Typography/Typography";
+import { logo } from "app/assets/Icons";
 
 interface SplashScreensTypes {
   onHide?: Function;
@@ -49,13 +49,14 @@ const SplashScreens = (props: SplashScreensTypes) => {
           return (
             <CardContent>
               <LeftContent>
-                <div className="yellowSplash"> </div>
-                <img src={content.svg} alt="" />
+                {/* <div className="yellowSplash"> </div>
+                <img src={content.svg} alt="" /> */}
+                <img src={content.splashscreenimg} alt="" />
               </LeftContent>
               <RightContent>
-                <LogoImage />
+              <img src={logo} alt="logo" className="logo" />
                 <SplashHeader>{content.headerText}</SplashHeader>
-                <SplashSubHeader>{content.subHeaderText}</SplashSubHeader>
+                <H4 text={content.subHeaderText} />
                 {content.screenNo === SplashScreensArr.length ? (
                   <Button label="Go to Dashboard" onClick={() => {
                     setShow(false)
@@ -68,8 +69,10 @@ const SplashScreens = (props: SplashScreensTypes) => {
                       label="Skip"
                       secondary
                       onClick={() => setShow(false)}
+                      size="medium"
                     />
-                    <Button label="Next" onClick={handleNext} />
+                    <Button label="Next" onClick={handleNext} 
+                      size="medium" />
                   </ButtonBox>
                 )}
               </RightContent>

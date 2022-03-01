@@ -5,11 +5,12 @@ import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 
 import { LeftDashboard, RightDashboard } from "./DashboardComponents";
-import { DasboardWrapper } from "./style";
+import { DasboardWrapper, Overlay } from "./style";
 // import SplashScreens from "app/components/SplashScreens/SplashScreens";
 import { LeftDashboardWrapper, SidebarLogo } from "./DashboardComponents/style";
 import { logo } from "app/assets/Icons";
 import { getPersonalProfileDetails } from "services/PersonalProfileServices";
+import SplashScreens from "app/components/SplashScreens/SplashScreens";
 
 interface DashboardProps extends RouteComponentProps {
   children?: any;
