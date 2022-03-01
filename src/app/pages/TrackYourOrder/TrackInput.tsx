@@ -13,10 +13,6 @@ export function TrackInput() {
 
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log(drawerOpen);
-  })
-
   const {
     values,
     handleChange,

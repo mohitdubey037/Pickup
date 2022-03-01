@@ -112,7 +112,6 @@ export const confirmPaymentInDrawer = async (body: any, invoiceId: string) => {
 };
 
 export const deleteCard = async ({cardId,cardFrom,customerId}:deleteCardInterface) => {
-  console.log(cardId,cardFrom,customerId);
   let api;
   if (!cardFrom) {
     api = `api/profiles/card/delete/${cardId}`

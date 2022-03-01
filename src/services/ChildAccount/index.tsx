@@ -4,11 +4,9 @@ import { transformPayloadToBackend } from 'app/pages/DashboardPage/DashboardCont
 
 
 export const getChildAccountData = async (urlParams?: string)=>{
-  console.log(urlParams);
   try {
     let api = `business/FetchchildAccount?${urlParams}`
     const res = await services.get(api,"user_cr");
-    // console.log(res);
     return{response: res, error:null};
   }catch(error){
   return {response: null, error: error};
@@ -20,7 +18,6 @@ export const fetchChildAccountById = async (companyId?: any) => {
     const response = await services.get(`business/FetchchildAccountDetails/${companyId}`,'user_cr');
       return { response: response, success: true }
   } catch (err) {
-      console.log(err)
       showToast(err.message,"error")
       return { response: err, sucess: false };
   }
@@ -31,7 +28,6 @@ export const addChildAccountData = async (body: any) => {
     const response = await services.post('business/createChildAccount',body,'user_cr');
       return { response: response, success: true }
   } catch (err) {
-      console.log(err)
       showToast(err.message,"error")
       return { response: err, sucess: false };
   }

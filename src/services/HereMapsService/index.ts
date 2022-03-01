@@ -9,7 +9,6 @@ export const fetchSuggestions = async (value) => {
     return res?.data;
   } catch (err) {
     showToast("Error in fetching suggestions", "error")
-    console.log(err);
   }
 };
 
@@ -20,6 +19,5 @@ export const fetchLatLong = async (value) => {
     return res?.data;
   } catch (err) {
     showToast("Error in fetching co-ordinates", "error")
-    console.log(err);
   }
 };

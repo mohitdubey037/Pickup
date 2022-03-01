@@ -16,8 +16,6 @@ import { inputProps } from "./type";
 
 
 export default function SuperintendentDetails({ saveAction, singleCompanyDetails }: inputProps) {
-
-  console.log(singleCompanyDetails);
   
   const [drawerOpen, setDrawerOpen] = useState(false);
 
