@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Grid, Box } from "@mui/material";
 import moment from "moment";
-
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { TableNew } from "app/components/Table";
 import { Drawer } from "app/components/Drawer";
 import { H2, H3, H5 } from "app/components/Typography/Typography";
-import { Flex } from "app/components/Input/style";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import TableSkeleton from "app/components/Table/TableSkeleton";
@@ -25,6 +23,7 @@ import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsD
 import { SearchTableTop } from "../SearchContainer/style";
 import { FilterFlexBox } from "./style";
 import { PAYMENT_STATUS } from "../../../../../constants";
+import { Flex } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
   invoiceNumber: "",

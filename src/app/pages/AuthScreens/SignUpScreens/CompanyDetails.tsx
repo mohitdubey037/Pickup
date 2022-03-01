@@ -95,7 +95,7 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
           <CircularProgress />
         ) : (
           <FormContent>
-            <H1 title="COMPANY DETAILS" />
+            <H1 title="COMPANY DETAILS" mb={24} />
             <Row>
               <Input
                 id={"firstName"}

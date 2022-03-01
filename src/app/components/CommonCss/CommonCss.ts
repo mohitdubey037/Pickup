@@ -1,6 +1,51 @@
 import { Box } from "@material-ui/core";
 import { Divider } from "@mui/material";
 import styled from "styled-components";
+interface FlexProps {
+  direction?: string;
+  justifyContent?: any;
+  left?: number;
+  flex?: number;
+  top?: number
+  right?: number,
+  bottom?: number
+  alignItems?: any;
+}
+
+
+
+export const Flex = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: ${(props: FlexProps) => props.direction || "row"};
+  justify-content: ${(props: FlexProps) => props.justifyContent};
+  align-items: ${(props: FlexProps) => props.alignItems};
+  margin-left: ${(props: FlexProps) => props.left || 0}px;
+  margin-top: ${(props: FlexProps) => props.top || 0}px;
+  margin-right: ${(props: FlexProps) => props.right || 0}px;
+  margin-bottom: ${(props: FlexProps) => props.bottom || 0}px;
+  flex: ${(props: FlexProps) => props.flex || 0}px;
+`;
+
+
+
+export const FullCard = styled(Box)`
+  padding: 24px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);
+  border-radius: 8px;
+  margin:24px 0;
+    @media (max-width:600px){
+      padding: 24px 16px;
+      margin:16px 0;
+      }
+  .section-title {
+    margin-bottom: 32px;
+  }
+`;
+
+
+
 
 export const FlexBox = styled(Box)`
   display: flex;
@@ -62,6 +107,32 @@ export const AccordionOuterBox = styled(Box)`
     font-family: "Roboto-Medium";
   }
 `;
+
+
+export const AccordionNoBorderOuterBox = styled(Box)`
+  border: none;
+  padding: 0;
+  margin-top:24px;
+  div {
+    box-shadow: none !important;
+  }
+  .MuiAccordion-root.Mui-expanded {
+    margin: 16px 0;
+    border-bottom: 1px solid #DCDCDC;
+}
+.MuiAccordion-root:before {
+  top: 0px;
+}
+ .MuiAccordionSummary-root, .MuiAccordionSummary-content.Mui-expanded{
+  margin: 8px 0px;
+  min-height:auto;
+}
+.MuiAccordionSummary-content{
+  margin:12px 0 0px;
+}
+
+`;
+
 
 export const InnerAccordion = styled.div`
   border-top: 1px solid #dddddd;

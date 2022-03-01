@@ -89,7 +89,7 @@ const SignUp = ({ navigate }: SignUpProps) => {
           <LogoImage />
           <FormWrapper>
             <FormContent>
-              <H1 title="SIGN UP" />
+              <H1 title="SIGN UP" mb={24} />
               <Input
                 label="Business Email"
                 placeholder="johndoe@pickups.com"

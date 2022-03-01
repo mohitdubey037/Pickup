@@ -8,9 +8,9 @@ import { fetchChildAccountById } from "services/ChildAccount";
 import CompanyDetailsSkeleton from "../CompanyProfileContainer/CompanyDetailsSkeleton";
 import AdminDetailsSkeleton from "../CompanyProfileContainer/AdminDetailsSkeleton";
 import PaymentCardSkeleton from "app/components/PaymentCard/PaymentCardSkeleton";
-import { Flex } from "app/components/Input/style";
 import { CustomLink } from "app/components/Typography/Links";
 import { navigate } from "@reach/router";
+import { Flex } from "app/components/CommonCss/CommonCss";
 
 export default function ChildAccountDetails(props: any) {
   const {id} = props;

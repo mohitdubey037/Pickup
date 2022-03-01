@@ -125,7 +125,7 @@ const Login = ({ navigate }: RouteComponentProps) => {
         <LogoImage />
         <FormWrapper>
           <FormContent>
-            <H1 title="LOGIN" />
+            <H1 title="LOGIN" mb={24} />
             {/* <form onSubmit={handleSubmit}> */}
             <Input
               ref={firstFieldRef}

@@ -1,8 +1,6 @@
 import { Box, Grid, Skeleton } from "@mui/material";
-
 import { H3, Para } from "app/components/Typography/Typography";
-import { FullCard } from "app/components/Input/style";
-import { FlexBox } from "app/components/CommonCss/CommonCss";
+import { FlexBox, FullCard } from "app/components/CommonCss/CommonCss";
 import { FlexTable } from "./styles";
 
 const PersonalProfileSkeleton = () => {

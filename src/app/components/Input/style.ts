@@ -1,21 +1,12 @@
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 import styled from "styled-components";
 
-interface FlexProps {
-  direction?: string;
-  justifyContent?: any;
-  left?: number;
-  flex?: number;
-  top?: number
-  right?: number,
-  bottom?: number
-  alignItems?: any;
-}
+
 export const FormWrapper = styled.div`
  margin-top:20px;
   }
- 
 `;
+
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,12 +20,7 @@ export const InputWrapper = styled.div`
     top: 36px;
     right: 5px;
   }
-  .label{
-    min-height:20px;
-  }
 `;
-
-
 
 export const CustomInput = styled.input`
   height: 42px;
@@ -77,43 +63,11 @@ export const ErrorLabel = styled.span`
   font-size:12px;
 `;
 
-export const CommonError = styled(Box)`
+export const CommonError = styled.div`
   color: #c94c43;
   font-size:12px;
   margin-bottom:16px;
 `;
-
-
-export const FullCard = styled(Box)`
-  padding: 24px;
-  background: #FFFFFF;
-  box-shadow: 0px 4px 13px rgba(172, 172, 172, 0.2);
-  border-radius: 8px;
-  margin:24px 0;
-    @media (max-width:600px){
-      padding: 24px 16px;
-      margin:16px 0;
-      }
-  .section-title {
-    margin-bottom: 32px;
-  }
-`;
-
-export const Flex = styled.div`
-  display: flex;
-  flex-direction: ${(props: FlexProps) => props.direction || "row"};
-  justify-content: ${(props: FlexProps) => props.justifyContent};
-  align-items: ${(props: FlexProps) => props.alignItems};
-  width: 100%;
-  margin-left: ${(props: FlexProps) => props.left || 0}px;
-  margin-top: ${(props: FlexProps) => props.top || 0}px;
-  margin-right: ${(props: FlexProps) => props.right || 0}px;
-  margin-bottom: ${(props: FlexProps) => props.bottom || 0}px;
-
-  flex: ${(props: FlexProps) => props.flex || 0}px;
-`;
-
-
 
 
 export const Block = styled.div`

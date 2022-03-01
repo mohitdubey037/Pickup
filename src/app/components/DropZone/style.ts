@@ -1,17 +1,11 @@
 import styled from "styled-components";
-import { Flex } from "../Input/style";
+import { Flex } from "../CommonCss/CommonCss";
 
 export const DropzoneWrapper = styled.div`
   display:flex;
   flex-direction:column;
   justify-content:center;
   gap:10px;
-  height: 300px;
-  border: 1.5px dashed #c1d4d7;
-  box-sizing: border-box;
-  border-radius: 8px;
-  padding:16px;
-  margin:24px 0;
 `;
 
 export const DropzoneBox = styled.div`
@@ -20,6 +14,12 @@ export const DropzoneBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 300px;
+  border: 1.5px dashed #c1d4d7;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding:16px;
+  margin:24px 0;
 `;
 
 export const DropeZoneText = styled.div`

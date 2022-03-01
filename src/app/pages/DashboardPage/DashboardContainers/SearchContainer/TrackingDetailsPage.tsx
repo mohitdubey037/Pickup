@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import HPlatform, { HMap, HMapLayer } from "react-here-map";
 
-import { ContentBox } from "app/components/CommonCss/CommonCss";
+import { ContentBox, Flex } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
-import { Flex } from "app/components/Input/style";
 import TrackingSteps from "app/components/Stepper/TrackingSteps";
 import NullState from "app/components/NullState/NullState";
 import { ShareIcon } from "../../../../assets/Icons/index";

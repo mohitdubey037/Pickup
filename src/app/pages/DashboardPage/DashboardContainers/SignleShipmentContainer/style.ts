@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Flex } from "app/components/Input/style";
+import { Flex } from "app/components/CommonCss/CommonCss";
 import styled from "styled-components";
 
 export const MainDiv = styled.div`

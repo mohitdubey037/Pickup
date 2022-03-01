@@ -15,13 +15,13 @@ import {
   shipmentInitValues,
   singleShipmentInitValues,
 } from "./helper";
-import { Flex, FullCard } from "app/components/Input/style";
 import ScheduleShipmentForm from "./ScheduleShipmentForm";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { globalActions } from "store/reducers/GlobalReducer";
 import { ButtonsGroup } from "app/components/Buttons/style";
 import { Checkbox } from "app/components/Checkbox";
 import { CustomLink } from "app/components/Typography/Links";
+import { Flex, FullCard } from "app/components/CommonCss/CommonCss";
 
 function SingleShipment({ path }) {
   const dispatch = useDispatch();

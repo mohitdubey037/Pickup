@@ -5,7 +5,7 @@ export const CustomProgressCard = styled.div`
   margin-bottom:24px;
 }
 @media (min-width:1024px){
-  min-height:250px;
+  min-height:245px;
 }
   `;
 
@@ -14,15 +14,16 @@ export const CustomProgressCard = styled.div`
 export const ProgressRow = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin: 8px 0;
+  gap: 10px;
+  margin: 12px 0;
   .name {
-    width:35%;
-    @media (max-width:600px){
-      width:50%;
+    width:60%;
+    @media (max-width:768px){
+      width:100%;
     }
   }
   .cost{
-    width:10%;
+    width:100px;
+    margin-left:16px;
   }
 `;
