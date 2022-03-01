@@ -19,7 +19,6 @@ export default function ChildAccountForm({formik}:{formik: any}){
     formik;
 
     const handler = (value) => {
-      console.log(value);
       let temp = {};
       if (
         value?.location?.displayPosition?.longitude &&
@@ -51,7 +50,6 @@ export default function ChildAccountForm({formik}:{formik: any}){
       let updatedOrders = {...temp};
 
       Object.keys(updatedOrders).forEach((key) => {
-      console.log(key, updatedOrders[key]);
       setFieldValue(key, updatedOrders[key]);
       })
     };
@@ -99,6 +97,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 // required
               /> */}
               <SelectNew
+              placeholder="Select Industry"
               id="industry"
               name="industry"
               label={"Industry"}

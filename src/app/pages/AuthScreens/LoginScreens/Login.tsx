@@ -65,7 +65,6 @@ const Login = ({ navigate }: RouteComponentProps) => {
 
   useEffect(() => {
     if (Cookies.get('token')) {
-      console.log(Cookies.get('token'));
       navigate?.("/dashboard");
     }
   }, [])
@@ -76,7 +75,6 @@ const Login = ({ navigate }: RouteComponentProps) => {
         type: "SET_LOGEDIN_USER",
         user: signInUserResponse?.data?.data,
       });
-      console.log(signInUserResponse?.data?.data?.token);
       Cookies.set("token", signInUserResponse?.data?.data?.token);
 
       navigate?.("/dashboard");
