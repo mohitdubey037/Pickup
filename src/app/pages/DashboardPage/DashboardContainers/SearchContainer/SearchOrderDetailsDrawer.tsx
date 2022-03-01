@@ -12,10 +12,16 @@ import ItemDetailsPage from "./ItemDetailsPage";
 import TrackingDetailsPage from "./TrackingDetailsPage";
 import OrderDetailsTemplate from "./OrderDetailsTemplate";
 import { AddressDetailsSkeleton } from "./AddressDetailsSkeleton";
+import { showToast } from "utils";
 
 const ref: any = createRef();
 
-function SearchOrderDetailsDrawer({ orderId }: any) {
+export interface Props {
+  orderId: any;
+  setDrawerOpen?: (flag: boolean) => void
+}
+
+function SearchOrderDetailsDrawer({ orderId, setDrawerOpen }: Props) {
   const [loadingOrderDetails, setloadingOrderDetails] =
     useState<boolean>(false);
   const [singleOrderData, setSingleOrderData] = useState([{}]);
@@ -32,9 +38,15 @@ function SearchOrderDetailsDrawer({ orderId }: any) {
   const getSingleOrderData = async () => {
     setloadingOrderDetails(true);
     const res = (await getSearchOrderListById(orderId)) as any;
+    console.log(res);
     if (res.success) {
       const orderListByID = res.response.data.data;
       setSingleOrderData(orderListByID);
+    }
+    else if (res.response.status === 400 && res.response.message === "Order not Found!") {
+      console.log('hii');
+      setDrawerOpen?.(false);
+      showToast("Order Not Found", "error");
     }
     setloadingOrderDetails(false);
   };
