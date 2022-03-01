@@ -35,7 +35,6 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     );
 
     const onResetPassword = async (values: any) => {
-        console.log('hii');
         const requestData: { password: string, token: string } = {
             password: values.password,
             token: jwtToken
@@ -66,7 +65,6 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
     useEffect(() => {
         const params = getParamsFromUrl(location.search)
         setToken(params['token'])
-        console.log('Params', params['token'])
     }, [location.search])
 
     useEffect(() => {

@@ -42,8 +42,6 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
         ({ signUp: { companyRegisterResponse: { companyId } } }: { signUp: { companyRegisterResponse: { companyId: number } } }) => companyId
     );
 
-    console.log(companyResponse);
-
     const showLoader = useSelector((state: { globalState: { showLoader: boolean } }) => state.globalState.showLoader)
 
     const [token, setToken] = useState<string>('');
@@ -51,7 +49,6 @@ const SignUpDetails = ({ navigate }: SignUpProps) => {
 
     useEffect(() => {
         const params = getParamsFromUrl(location.search);
-        console.log(params);
         setToken(params['token']);
     }, [location.search])
 

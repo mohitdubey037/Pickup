@@ -75,7 +75,6 @@ export default function ChildAccountList({ path: string }) {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
-    console.log(values);
     let urlParams = "",
       rest = values !== undefined ? values : prevValues;
     let params: any = {
@@ -105,7 +104,6 @@ export default function ChildAccountList({ path: string }) {
       ? moment(params["createdAt"]).format("YYYY-MM-DD")
       : "";
     let tempLen = Object.entries(params).length;
-    console.log(tempLen);
     Object.entries(params).forEach(
       ([key, value], index) =>
         (urlParams += value
@@ -113,10 +111,8 @@ export default function ChildAccountList({ path: string }) {
           : "")
     );
     const res = (await getChildAccountData(urlParams)) as any;
-    console.log(res);
     if (!res.error) {
       const data = res.response.data.data;
-      console.log(data);
       setChildData(data);
       setPagination({
         count: data.pageMetaData.total,
