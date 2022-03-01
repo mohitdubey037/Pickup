@@ -1,5 +1,5 @@
-import moment from "moment";
 import * as yup from "yup";
+import moment from "moment";
 
 import { calendar } from "app/assets/Icons";
 import { getSingleDate } from "../SignleShipmentContainer/helper";
@@ -84,15 +84,16 @@ export const getOnHoldOrderData = (
   if (onHoldOrderData && onHoldOrderData.length) {
     onHoldOrderData.forEach((item: any) => {
       makeTableData.push({
-        Source: item.source ? item.source : "N/A",
-        Category: item.category ? item.category : "N/A",
+        Source: item?.source || "N/A",
+        Category: item?.category || "N/A",
+        "Order Id": item?.orderId || "N/A",
         "Item Count": item.itemCount
           ? getOrderIdItem(openOnHoldDrawer, item.itemCount, item.orderId)
           : "N/A",
         "Order Date": item.shippingDate
           ? moment(item.shippingDate).format("DD/MM/YYYY")
           : "N/A",
-        Status: item.status ? item.status : "N/A",
+        Status: item?.status || "N/A",
         Action: getActionItem(openOnHoldDrawer, item.orderId),
       });
     });
@@ -104,17 +105,19 @@ export const onHoldOrderColoumns = [
   {
     id: "type",
     label: "Source",
-    isSort: false,
   },
   {
     id: "category",
     label: "Category",
-    isSort: false,
+  },
+  {
+    id: "orderId",
+    label: "Order Id",
+    isSort: true,
   },
   {
     id: "itemCount",
     label: "Item Count",
-    isSort: false,
   },
   {
     id: "shippingDate",
@@ -124,11 +127,9 @@ export const onHoldOrderColoumns = [
   {
     id: "status",
     label: "Status",
-    isSort: false,
   },
   {
     id: "action",
     label: "Action",
-    isSort: false,
   },
 ];

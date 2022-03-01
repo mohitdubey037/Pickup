@@ -8,12 +8,12 @@ import { H2, H3 } from "app/components/Typography/Typography";
 import { Flex } from "app/components/Input/style";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
-import { SearchTableTop } from "../SearchContainer/style";
-import ContactDetailsSidebar from "./ContactDetailsSidebar";
 import {
   deleteSavedLocation,
   getLocationList,
-} from "../../../../../services/LocationServices/index";
+} from "services/LocationServices";
+import { SearchTableTop } from "../SearchContainer/style";
+import ContactDetailsSidebar from "./ContactDetailsSidebar";
 import EditContactDetails from "./EditContactDetails";
 import FileDrawer from "./FileDrawer";
 import { favoriteLocationColoumns, getLocationData } from "./helper";
@@ -49,7 +49,7 @@ function FavoriteLocations({ path }: any) {
   };
 
   const deleteLocation = async (locationId: string) => {
-    const res = (await deleteSavedLocation(locationId)) as any;
+    const res: any = await deleteSavedLocation(locationId);
     if (res.error === null) {
       getLocationListData();
     }
@@ -91,7 +91,7 @@ function FavoriteLocations({ path }: any) {
           ? `${key}=${value}${index === tempLen - 1 ? "" : "&"}`
           : "")
     );
-    const res = (await getLocationList(urlParams)) as any;
+    const res: any = await getLocationList(urlParams);
     if (res?.error === null) {
       const data = res.response.data.data;
       setLocationData(data.list);
@@ -145,7 +145,6 @@ function FavoriteLocations({ path }: any) {
         title={DRAWER_TITLE?.[drawerType] || ""}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         {drawerType === "contactDetails" ? (
           <ContactDetailsSidebar contactInfo={selectedLocation} />

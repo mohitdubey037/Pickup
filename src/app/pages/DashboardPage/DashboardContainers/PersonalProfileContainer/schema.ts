@@ -1,7 +1,23 @@
 import * as yup from "yup";
-import { NEWPASSWORD_REGEX } from "../../../../../constants";
+import {
+  NEWPASSWORD_REGEX,
+  PHONE_NUMBER_REGEX_NEW,
+} from "../../../../../constants";
 
-export const passwordSchema = yup.object().shape({
+export const editPersonalProfileSchema = yup.object().shape({
+  firstName: yup.string().required("First Name is a required field"),
+  lastName: yup.string().required("Last Name is a required field"),
+  phone: yup
+    .string()
+    .required("Phone Number is a required field")
+    .matches(PHONE_NUMBER_REGEX_NEW, "Please enter valid Phone Number"),
+  emailId: yup
+    .string()
+    .required("Email Id is a required field")
+    .email("Please enter valid Email Id"),
+});
+
+export const changePasswordSchema = yup.object().shape({
   currentPassword: yup
     .string()
     .matches(NEWPASSWORD_REGEX, "Invalid Password")

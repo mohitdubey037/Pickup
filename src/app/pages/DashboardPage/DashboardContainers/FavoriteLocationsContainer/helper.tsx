@@ -98,6 +98,7 @@ export const favoriteLocationColoumns = [
   {
     id: "locationFirstName",
     label: "Client",
+    isSort: true,
   },
   {
     id: "locationEmail",

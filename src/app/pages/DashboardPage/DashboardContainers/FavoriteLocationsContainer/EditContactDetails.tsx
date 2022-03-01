@@ -4,6 +4,9 @@ import { useFormik } from "formik";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
+import SelectNew from "app/components/Select/SelectNew";
+import RadioGroup from "app/components/RadioGroup";
+import { updateSavedLocation } from "services/LocationServices";
 import { editContactDetailsSchema } from "./helper";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import {
@@ -12,17 +15,17 @@ import {
   PHONE_NO_MASK,
   PIN_CODE_MASK,
 } from "../../../../../constants";
-import SelectNew from "app/components/Select/SelectNew";
-import RadioGroup from "app/components/RadioGroup";
-import { updateSavedLocation } from "services/LocationServices";
 
 interface EditContactDetailsProps {
   data: any;
   onClose: (a?: boolean) => void;
 }
 
-const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
+const EditContactDetails = (props: EditContactDetailsProps) => {
+  const { data, onClose } = props;
+
   const [loading, setLoading] = useState(false);
+
   const initialValues = {
     latitude: data?.latitude || "",
     longitude: data?.longitude || "",
@@ -64,7 +67,7 @@ const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
       locationEmail: values.email,
       details: values.details,
     };
-    const res = (await updateSavedLocation(data.locationId, body)) as any;
+    const res: any = await updateSavedLocation(data.locationId, body);
     if (res.error === null) {
       onClose(true);
     }
@@ -80,11 +83,61 @@ const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
     touched,
     errors,
     handleSubmit,
+    resetForm,
   } = useFormik({
     initialValues: initialValues,
     validationSchema: editContactDetailsSchema,
     onSubmit: onSubmitHandler,
   });
+
+  const handleAddressSelect = (value) => {
+    let temp = {};
+    if (
+      value?.location?.displayPosition?.longitude &&
+      value?.location?.displayPosition?.latitude
+    ) {
+      let tempCountry = "",
+        tempProvinceState = "";
+      value?.location?.address?.additionalData.forEach((ele) => {
+        if (ele.key === "CountryName" && !tempCountry) {
+          tempCountry = ele.value;
+        }
+        if (
+          (ele.key === "StateName" || ele.key === "CountyName") &&
+          !tempProvinceState
+        ) {
+          tempProvinceState = ele.value;
+        }
+      });
+
+      temp["latitude"] = value?.location?.displayPosition?.longitude || "";
+      temp["longitude"] = value?.location?.displayPosition?.latitude || "";
+      temp["country"] = tempCountry || value?.location?.address?.country || "";
+      temp["state"] =
+        tempProvinceState ||
+        value?.location?.address?.state ||
+        value?.location?.address?.county ||
+        "";
+      temp["city"] = value?.location?.address?.city || "";
+      temp["postal"] = value?.location?.address?.postalCode || "";
+      temp["address1"] = value?.location?.address?.label || "";
+      temp["address2"] = value?.location?.address?.street || "";
+    } else {
+      temp["latitude"] = "";
+      temp["longitude"] = "";
+      temp["country"] = "";
+      temp["state"] = "";
+      temp["city"] = "";
+      temp["postal"] = "";
+      temp["address2"] = "";
+    }
+    let updatedAddress = values;
+    updatedAddress = {
+      ...updatedAddress,
+      ...temp,
+    };
+    resetForm({ values: updatedAddress });
+  };
 
   return (
     <>
@@ -152,7 +205,7 @@ const EditContactDetails = ({ data, onClose }: EditContactDetailsProps) => {
           onChange={handleChange}
           handleBlur={handleBlur}
           setFieldValue={setFieldValue}
-          onSelect={() => {}}
+          onSelect={handleAddressSelect}
           error={touched.address1 && errors.address1}
           disabled={false}
         />

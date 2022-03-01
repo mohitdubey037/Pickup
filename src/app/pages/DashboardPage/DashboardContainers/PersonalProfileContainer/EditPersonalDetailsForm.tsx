@@ -1,88 +1,73 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import { Box } from "@mui/material";
 
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import SelectNew from "app/components/Select/SelectNew";
-import EditAvatar from "app/components/Avatar/EditAvatar";
+import EditAvatarNew from "app/components/Avatar/EditAvatarNew";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
-import { personalFormSchema } from "./personalFormSchema";
-import {
-  PERMISSION_TYPES,
-  IMAGE_FILE_TYPES,
-  PHONE_NO_MASK,
-} from "../../../../../constants";
-import { imageUploadService } from "services/SingleShipmentServices";
-import { showToast } from "utils";
+import { editPersonalProfileDetails } from "services/PersonalProfileServices";
+import { editPersonalProfileSchema } from "./schema";
+import { PERMISSION_TYPES, PHONE_NO_MASK } from "../../../../../constants";
 import { PersonalProfileType } from "./types";
 
-interface EditPersonalInterface {
+interface EditDetailsInterface {
   data: PersonalProfileType;
   setDrawerOpen: (value: boolean) => void;
-  saveAction: (values: any) => void;
+  onEditSuccess: () => void;
 }
 
-const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
-  const { data, setDrawerOpen, saveAction } = props;
+const EditPersonalDetailsForm = (props: EditDetailsInterface) => {
+  const { data, setDrawerOpen, onEditSuccess } = props;
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const {
     values,
-    handleChange,
     errors,
     touched,
-    handleBlur,
-    handleSubmit,
-    setFieldValue,
     isValid,
+    handleBlur,
+    handleChange,
+    setFieldValue,
+    handleSubmit,
   } = useFormik({
     initialValues: {
       profileImage: data?.profileImage || "",
-      firstName: data?.firstName,
-      lastName: data?.lastName,
-      emailId: data?.emailId,
-      phone: data?.userDetails?.phoneNo,
-      role: data?.roleName,
-      permission: data?.roleId,
+      firstName: data?.firstName || "",
+      lastName: data?.lastName || "",
+      phone: data?.userDetails?.phoneNo || "",
+      role: data?.roleName || "",
+      emailId: data?.emailId || "",
+      permission: data?.roleId || "",
     },
-    validationSchema: personalFormSchema,
-    onSubmit: (values) => {
-      values.phone = values.phone.replace(/[()-]/g, "");
-      saveAction(values);
-    },
+    validationSchema: editPersonalProfileSchema,
+    onSubmit: (values) => onSubmit(values),
   });
 
-  const changeHandler = async (e) => {
-    const formData = new FormData();
-    const image = e?.target?.files[0];
-    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
-      showToast(
-        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
-        "error"
-      );
-      return;
+  const onSubmit = async (values) => {
+    setLoading(true);
+    values.phone = values.phone.replace(/[()-]/g, "");
+    const res: any = await editPersonalProfileDetails(values);
+    if (res?.success) {
+      onEditSuccess();
+      setDrawerOpen(false);
     }
-    formData.append("document", image, image?.name);
-    const res: { response: any; error: any } = await imageUploadService(
-      formData
-    );
-    if (res.error) {
-      showToast(res.error.message, "error");
-    } else {
-      setFieldValue("profileImage", res?.response?.data?.data || "");
-    }
+    setLoading(false);
   };
 
   return (
     <>
       <DrawerInnerContent>
         <Box display="flex" justifyContent="center">
-          <EditAvatar
-            icon={values?.profileImage}
-            changeHandler={changeHandler}
+          <EditAvatarNew
+            src={values?.profileImage}
+            onChange={(val) => setFieldValue("profileImage", val || "")}
+            setLoading={setLoading}
           />
         </Box>
         <Input
-          id="firstName"
           name="firstName"
           label="First Name"
           placeholder="John"
@@ -93,7 +78,6 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
           required
         />
         <Input
-          id="lastName"
           name="lastName"
           label="Last Name"
           placeholder="Doe"
@@ -104,7 +88,6 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
           required
         />
         <Input
-          id="phone"
           name="phone"
           label="Phone Number"
           placeholder="+1 (999)-999-9999"
@@ -117,20 +100,18 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
           maskProps={PHONE_NO_MASK}
         />
         <Input
-          id="role"
           name="role"
           label="Role/Designation"
           initValue={values.role}
           onChange={handleChange}
           onBlur={handleBlur}
           error={touched.role && errors.role}
-          disabled
           required
+          disabled
         />
         <Input
-          id="emailId"
           name="emailId"
-          label="Email"
+          label="Email Id"
           placeholder="johndoe@pickups.com"
           initValue={values.emailId}
           onChange={handleChange}
@@ -139,31 +120,31 @@ const EditPersonalDetailsForm = (props: EditPersonalInterface) => {
           required
         />
         <SelectNew
-          id="Permission"
           name="Permission"
           label="Permission"
           placeholder="Select Permission"
           options={PERMISSION_TYPES}
-          value={values?.permission}
+          value={values.permission}
           onChange={handleChange}
           error={touched.permission && errors.permission}
-          disabled
           required
+          disabled
         />
       </DrawerInnerContent>
 
       <DrawerFooter>
         <Button
-          secondary
-          onClick={() => setDrawerOpen(false)}
           label="Cancel"
+          onClick={() => setDrawerOpen(false)}
           size="medium"
+          secondary
         />
         <Button
-          label={"Save"}
+          label="Save"
           onClick={handleSubmit}
-          disabled={!isValid}
           size="medium"
+          showLoader={loading}
+          disabled={!isValid}
         />
       </DrawerFooter>
     </>

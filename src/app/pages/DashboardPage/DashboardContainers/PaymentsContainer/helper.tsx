@@ -30,19 +30,20 @@ export const getInvoiceData = (
   if (searchRecordData && searchRecordData.length) {
     makeTableData = searchRecordData.map((item: any) => {
       return {
-        "Invoice Date": moment(item.invoiceCreatedAt).format("DD/MM/YYYY"),
+        "Invoice Number": getInvoiceIdItem(
+          openInvoiceDrawer,
+          item.invoiceNumber,
+          item.invoiceId
+        ),
         "Order Count": getOrderIdItem(
           openInvoiceDrawer,
           item.shipmentCount,
           item.invoiceId
         ),
         "Shipped By": item.shippedBy,
+        "Invoice Date": moment(item.invoiceCreatedAt).format("DD/MM/YYYY"),
+        "Payment Status": item.isPayment ? "Complete" : "Pending",
         "Invoice Amount": `$${item.total.toFixed(2)}`,
-        "Invoice Number": getInvoiceIdItem(
-          openInvoiceDrawer,
-          item.invoiceNumber,
-          item.invoiceId
-        ),
       };
     });
   }
@@ -51,10 +52,11 @@ export const getInvoiceData = (
 
 export const invoiceColoumns = [
   {
-    id: "invoiceCreatedAt",
-    label: "Invoice Date",
+    id: "invoiceNumber",
+    label: "Invoice Number",
     isSort: true,
   },
+
   {
     id: "orderCount",
     label: "Order Count",
@@ -64,13 +66,17 @@ export const invoiceColoumns = [
     label: "Shipped By",
   },
   {
-    id: "total",
-    label: "Invoice Amount",
+    id: "invoiceCreatedAt",
+    label: "Invoice Date",
     isSort: true,
   },
   {
-    id: "invoiceNumber",
-    label: "Invoice Number",
+    id: "isPayment",
+    label: "Payment Status",
+  },
+  {
+    id: "total",
+    label: "Invoice Amount",
     isSort: true,
   },
 ];

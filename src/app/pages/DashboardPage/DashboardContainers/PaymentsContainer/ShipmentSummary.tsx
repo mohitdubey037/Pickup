@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
@@ -32,8 +32,7 @@ interface InvoiceDataType {
     total: number;
 }
 
-// eslint-disable-next-line unused-imports/no-unused-vars
-function ShipmentSummary({ path }: { path: string }) {
+function ShipmentSummary({ path }) {
     const dispatch = useDispatch();
 
     const invoiceId = useSelector(
@@ -44,13 +43,14 @@ function ShipmentSummary({ path }: { path: string }) {
         (state: { paymentCard: { paymentCardsData } }) =>
             state.paymentCard.paymentCardsData
     );
-    const loading = useSelector(
+    const showLoader = useSelector(
         (state: { globalState: { showLoader } }) => state.globalState.showLoader
     );
     const authUser = useSelector((state: any) => {
         return state.auth?.user;
     });
 
+    const [loading, setLoading] = useState(false);
     const [showAddCard, setShowAddCard] = useState<boolean>(false);
     const [showInvoiceDrawer, setShowInvoiceDrawer] = useState(false);
     const [selectedCard, setSelectedCard] = useState<CardType>({});
@@ -89,7 +89,6 @@ function ShipmentSummary({ path }: { path: string }) {
     useEffect(() => {
         return () => {
             dispatch(shipmentActions.setInvoice(null));
-            dispatch(actions.addNewCardResponse(null));
         };
     }, [dispatch]);
 
@@ -109,44 +108,8 @@ function ShipmentSummary({ path }: { path: string }) {
         }
     };
 
-    const handleAddNewCard = async (values) => {
-        const body = {
-            name: values.nameOnCard,
-            number: values.cardNumber,
-            expiryMonth: values.expiryDate.split("/")[0],
-            expiryYear: values.expiryDate.split("/")[1],
-            cvd: values.cvc,
-        };
-        dispatch(actions.addNewCard(body));
-        setShowAddCard(false);
-        // const data = {
-        //     amount: invoiceData.total,
-        //     card: {
-        //         name: values.nameOnCard,
-        //         number: values.cardNumber,
-        //         expiryMonth: values.expiryDate.split("/")[0],
-        //         expiryYear: values.expiryDate.split("/")[1],
-        //         cvd: values.cvc,
-        //         complete: true,
-        //     },
-        // };
-        // const res: { response: any; error: any } = await confirmPaymentInDrawer(
-        //     data,
-        //     invoiceId
-        // );
-        // if (!res.error) {
-        //     showToast("Payment successful", "success");
-        //     setShowInvoiceDrawer(true);
-        //     dispatch(shipmentActions.resetOrderIds());
-        // } else {
-        //     showToast(
-        //         res.error?.message || "Oops! Something went wrong!",
-        //         "error"
-        //     );
-        // }
-    };
-
     const paymentHandler = async () => {
+        setLoading(true);
         if (Object.keys(selectedCard).length === 0) {
             showToast("Please select a card or add one", "error");
             return;
@@ -170,6 +133,7 @@ function ShipmentSummary({ path }: { path: string }) {
                 "error"
             );
         }
+        setLoading(false);
     };
 
     const onInvoiceDrawerClose = (flag: boolean) => {
@@ -219,8 +183,9 @@ function ShipmentSummary({ path }: { path: string }) {
                 <Button
                     label="Confirm Payment"
                     onClick={paymentHandler}
-                    showLoader={loading}
+                    showLoader={showLoader || loading}
                     size="medium"
+                    disabled={Object.keys(selectedCard).length === 0}
                 />
             </Flex>
 
@@ -229,11 +194,10 @@ function ShipmentSummary({ path }: { path: string }) {
                 title="Add New Payment"
                 setDrawerOpen={(flag) => setShowAddCard(flag)}
                 closeIcon={true}
-                actionButtons={true}
             >
                 <AddCardForm
                     setDrawerOpen={setShowAddCard}
-                    saveAction={handleAddNewCard}
+                    getSavedCard={setSelectedCard}
                 />
             </Drawer>
             <Drawer

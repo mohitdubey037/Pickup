@@ -68,7 +68,7 @@ export default function SuperintendentDetails({ saveAction, singleCompanyDetails
         title="Edit Superintendent Details"
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
+        
       >
         <EditSuperintendentDetailsForm 
           saveAction = {() => saveAction()} 

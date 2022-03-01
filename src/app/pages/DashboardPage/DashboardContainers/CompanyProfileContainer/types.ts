@@ -1,38 +1,39 @@
 export interface CompanyDetailsType {
-  avatar: string;
-  CompanyName: string;
-  BusinessNumber: string;
-  Industry: string;
-  EmployeeStrength: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  City: string;
-  Pincode: string;
-  Province: string;
-  Country: string;
-  HSTNumber: string;
+  companyProfileImage: string;
+  companyName: string;
+  businessNumber: string;
+  industry: string;
+  employeeStrength: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  pincode: string;
+  province: string;
+  country: string;
+  hstNumber: string;
+  companyId: string;
 }
 
 export interface AdminDetailsType {
-  avatar: string;
-  emailId: string;
+  profileImage: string;
   firstName: string;
   lastName: string;
   phoneNo: string;
   role: string;
+  emailId: string;
 }
 
 export interface ColleagueDetailsType {
-  profileImage: string;
-  companyId: number;
-  emailId: string;
-  firstName: string;
   inviteId: number;
+  profileImage: string;
+  firstName: string;
   lastName: string;
-  notification: number;
-  notificationFrequency: string | null;
   phoneNo: string;
   role: number;
+  emailId: string;
+  notificationFrequency: string;
   roleDesignation: string;
+  notification: number;
   type: number;
+  companyId: number;
 }

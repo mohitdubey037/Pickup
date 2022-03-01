@@ -1,211 +1,192 @@
-import React, { useEffect, useState } from "react";
-import { Box, Grid } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import { Box, Grid } from "@mui/material";
+
 import { FullCard } from "app/components/Input/style";
 import { H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { useFormik } from "formik";
-// import { Input } from "./style";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import SelectNew from "app/components/Select/SelectNew";
+import { Input } from "app/components/Input";
+import SelectBox from "app/components/Select/SelectBox";
+import Switches from "app/components/Input/SwitchButton";
+import { inviteColleague } from "services/CompanyService";
 import {
-  // PERMISSION_TYPES,
   NOTIFICATION_FREQUENCY_TYPES,
   NEW_PERMISSION_TYPES,
   PHONE_NO_MASK,
 } from "../../../../../constants";
-import Select from "app/components/Select";
-import { addNewColleague } from "./CompanyProfileSchema";
-import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import Switches from "app/components/Input/SwitchButton";
-// import EditAvatar from "app/components/Avatar/EditAvatar";
-// import { Input } from "app/components/Input";
-import { CustomInput } from "./style";
-import SelectBox from "app/components/Select/SelectBox";
+import { addNewEditColleagueSchema } from "./schema";
 
-function NewColleagueForm({ saveAction }) {
+interface NewColleagueInterface {
+  companyId: string;
+  onAddSuccess: () => void;
+}
+
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
+  roleDesignation: "",
+  emailId: "",
+  notification: 0,
+  notificationFrequency: "",
+  permission: "",
+  type: 17,
+};
+
+const NewColleagueForm = (props: NewColleagueInterface) => {
+  const { companyId, onAddSuccess } = props;
+
+  const [loading, setLoading] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
+
   const {
     values,
-    handleChange,
     errors,
     touched,
-    handleBlur,
-    handleSubmit,
     isValid,
+    resetForm,
+    handleBlur,
+    handleChange,
     setFieldValue,
+    validateField,
+    handleSubmit,
   } = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      roleDesignation: "",
-      emailId: "",
-      notificationFrequency: "",
-      permission: "",
-      notification: 0,
-      type: 17,
-    },
-    validationSchema: addNewColleague,
-    onSubmit: async (values, actions) => {
-      values.phoneNumber = values.phoneNumber.replace(/[()-]/g, "")
-      if (!isChecked) {
-        values.notification = 0;
-        values.notificationFrequency = "";
-      } else {
-        values.notification = 1;
-      }
-      const isSaved = await saveAction(values);
-      if (isSaved) {
-        setIsChecked(false);
-        actions.resetForm({
-          values: {
-            firstName: "",
-            lastName: "",
-            phoneNumber: "",
-            roleDesignation: "",
-            emailId: "",
-            notificationFrequency: "",
-            permission: "",
-            notification: 0,
-            type: 17,
-          },
-        });
-      }
-    },
+    initialValues,
+    validationSchema: addNewEditColleagueSchema,
+    onSubmit: (values) => onSubmit(values),
   });
 
   useEffect(() => {
     if (isChecked) {
       setFieldValue("notification", 1);
     } else {
+      setFieldValue("notificationFrequency", "");
       setFieldValue("notification", 0);
+      validateField("notificationFrequency");
     }
   }, [isChecked]);
+
+  const onSubmit = async (values) => {
+    setLoading(true);
+    values.phoneNumber = values.phoneNumber.replace(/[()-]/g, "");
+    values.companyId = companyId;
+    const res: any = await inviteColleague(values);
+    if (res?.success) {
+      onAddSuccess();
+      setIsChecked(false);
+      resetForm({ values: initialValues });
+    }
+    setLoading(false);
+  };
 
   return (
     <FullCard>
       <Box mb={4}>
         <H3 text="Add New Colleague" />
       </Box>
+
       <GridContainer container spacing={2}>
         <Grid item lg={3} md={6} xs={12}>
-          <CustomInput
-            id="firstName"
+          <Input
             name="firstName"
-            onBlur={handleBlur}
+            label="First Name"
+            placeholder="John"
+            initValue={values.firstName}
             onChange={handleChange}
-            value={values?.firstName}
-            initValue={values?.firstName}
-            error={touched.firstName && errors?.firstName?.toString()}
-            label={"First Name"}
-            placeholder={"John"}
-            required={true}
+            onBlur={handleBlur}
+            error={touched.firstName && errors.firstName}
+            required
           />
         </Grid>
-
         <Grid item lg={3} md={6} xs={12}>
-          <CustomInput
-            id="lastName"
+          <Input
             name="lastName"
-            onBlur={handleBlur}
+            label="Last Name"
+            placeholder="Doe"
+            initValue={values.lastName}
             onChange={handleChange}
-            value={values?.lastName}
-            initValue={values?.lastName}
-            error={touched.lastName && errors?.lastName}
-            label={"Last Name"}
-            placeholder={"Doe"}
-            required={true}
+            onBlur={handleBlur}
+            error={touched.lastName && errors.lastName}
+            required
           />
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
-          <CustomInput
-            id="phoneNumber"
+          <Input
             name="phoneNumber"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={values?.phoneNumber}
-            initValue={values?.phoneNumber}
-            error={touched.phoneNumber && errors?.phoneNumber?.toString()}
-            label={"Phone Number"}
+            label="Phone Number"
             placeholder="+1 (999)-999-9999"
-            required={true}
+            initValue={values.phoneNumber}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.phoneNumber && errors.phoneNumber}
+            required
             type="mask"
             maskProps={PHONE_NO_MASK}
           />
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
-          <CustomInput
-            id="roleDesignation"
+          <Input
             name="roleDesignation"
-            onBlur={handleBlur}
+            label="Role/Designation"
+            placeholder="Manager"
+            initValue={values.roleDesignation}
             onChange={handleChange}
-            value={values?.roleDesignation}
-            initValue={values?.roleDesignation}
-            error={
-              touched.roleDesignation && errors?.roleDesignation?.toString()
-            }
-            label={"Role / Designation"}
-            placeholder={"Manager"}
-            required={true}
+            onBlur={handleBlur}
+            error={touched.roleDesignation && errors.roleDesignation}
+            required
           />
         </Grid>
-      </GridContainer>
-
-      <GridContainer container spacing={2}>
-        <Grid item lg={12} xs={12}>
+        <Grid item xs={12}>
           <Switches value={isChecked} setIsChecked={setIsChecked} />
         </Grid>
         <Grid item lg={3} md={6} xs={12}>
-          <CustomInput
-            id="emailId"
+          <Input
             name="emailId"
-            onBlur={handleBlur}
+            label="Email Id"
+            placeholder="johndoe@pickups.com"
+            initValue={values.emailId}
             onChange={handleChange}
-            value={values?.emailId}
-            initValue={values?.emailId}
-            error={touched.emailId && errors?.emailId?.toString()}
-            label={"Email id"}
-            placeholder={"johndoe@pickups.com"}
-            required={true}
+            onBlur={handleBlur}
+            error={touched.emailId && errors.emailId}
+            required
           />
         </Grid>
         {isChecked && (
           <Grid item lg={3} md={6} xs={12}>
-            <Select
-              id="notificationFrequency"
+            <SelectNew
               name="notificationFrequency"
+              label="Notification Frequency"
+              placeholder="Select Notification Frequency"
               options={NOTIFICATION_FREQUENCY_TYPES}
-              label={"Notification Frequency"}
-              value={isChecked ? values["notificationFrequency"] : ""}
-              onSelect={handleChange}
-              disabled={!isChecked}
-              error={errors?.notificationFrequency?.toString()}
-              required={isChecked && true}
+              value={values.notificationFrequency}
+              onChange={handleChange}
+              error={
+                touched.notificationFrequency && errors.notificationFrequency
+              }
+              required
             />
           </Grid>
         )}
-      </GridContainer>
-
-      <GridContainer container spacing={2}>
         <Grid item xs={12}>
           <SelectBox
-            id="permission"
             name="permission"
+            label="Permission"
             options={NEW_PERMISSION_TYPES}
-            label={"Permission"}
-            value={values?.permission}
+            value={values.permission}
             onSelect={handleChange}
-            error={
-              touched.permission &&
-              // touched?.notificationFrequency &&
-              errors?.permission?.toString()
-            }
-            required={true}
+            error={touched.permission && errors.permission}
+            required
           />
         </Grid>
+
         <Grid item xs={12}>
           <Button
             label="Save"
             onClick={handleSubmit}
             size="medium"
+            showLoader={loading}
             disabled={!isValid}
             style={{ float: "right" }}
           />
@@ -213,6 +194,6 @@ function NewColleagueForm({ saveAction }) {
       </GridContainer>
     </FullCard>
   );
-}
+};
 
 export default NewColleagueForm;

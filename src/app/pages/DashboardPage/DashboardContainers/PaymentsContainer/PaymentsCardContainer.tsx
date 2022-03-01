@@ -17,6 +17,7 @@ export interface IndividualCard {
   function: string;
   number: string;
   last4?: string;
+  customer?:string
 }
 
 interface PaymentCardContainerProps {
@@ -98,7 +99,6 @@ export default function PaymentCardContainer({
         title="Edit you card"
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         <AddCardForm
           setDrawerOpen={setDrawerOpen}

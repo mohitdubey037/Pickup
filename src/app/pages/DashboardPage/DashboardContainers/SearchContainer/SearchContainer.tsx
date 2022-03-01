@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { navigate } from "@reach/router";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, Box, Badge } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Grid, Box } from "@mui/material";
 import moment from "moment";
 
 import { Button } from "app/components/Buttons";
@@ -41,10 +40,6 @@ const initialValues = {
 const SearchContainer = ({ path }: any) => {
   const dispatch = useDispatch();
 
-  const orderIds = useSelector((state: { singleShipment: { orderIds } }) => {
-    return state.singleShipment.orderIds;
-  });
-
   const [loading, setLoading] = useState<boolean>(true);
   const [searchOrderData, setSearchOrderData] = useState<any>([]);
   const [selectedRows, setSelectedRows] = useState<any>([]);
@@ -79,10 +74,6 @@ const SearchContainer = ({ path }: any) => {
     setDrawerOpen(true);
   };
 
-  const completeOrderPayment = (orderId) => {
-    dispatch(singleActions.setShipmentOrderIds([orderId]));
-  };
-
   const tableTop = () => {
     return (
       <SearchTableTop>
@@ -97,12 +88,6 @@ const SearchContainer = ({ path }: any) => {
       </SearchTableTop>
     );
   };
-
-  useEffect(() => {
-    if (orderIds?.length > 0) {
-      navigate("/dashboard/charter-shipment/order-summary");
-    }
-  }, [orderIds]);
 
   useEffect(() => {
     dispatch(singleActions.resetSingleShipment());
@@ -289,11 +274,7 @@ const SearchContainer = ({ path }: any) => {
         <TableNew
           tableTop={tableTop()}
           coloumns={searchOrderColoumns}
-          data={getSearchOrderData(
-            searchOrderData,
-            openOrderDrawer,
-            completeOrderPayment
-          )}
+          data={getSearchOrderData(searchOrderData, openOrderDrawer)}
           showCheckbox
           onRowSelect={setSelectedRows}
           showPagination
@@ -313,7 +294,6 @@ const SearchContainer = ({ path }: any) => {
         title={getDrawerTitle()}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
         size={drawerType === "orderDetails" ? "large" : "small"}
       >
         {drawerType === "invoice" ? (

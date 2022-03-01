@@ -5,7 +5,7 @@ import { FullCard } from "app/components/Input/style";
 import { FlexBox } from "app/components/CommonCss/CommonCss";
 import { FlexTable } from "./styles";
 
-export default function PersonalProfileSkeleton() {
+const PersonalProfileSkeleton = () => {
   return (
     <FullCard>
       <Box mb={4} display="flex" justifyContent="space-between">
@@ -50,4 +50,6 @@ export default function PersonalProfileSkeleton() {
       </FlexBox>
     </FullCard>
   );
-}
+};
+
+export default PersonalProfileSkeleton;

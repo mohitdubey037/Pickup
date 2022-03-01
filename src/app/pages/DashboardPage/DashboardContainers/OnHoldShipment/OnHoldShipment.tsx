@@ -3,8 +3,7 @@ import moment from "moment";
 import { navigate } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { Box } from "@mui/material";
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@mui/material";
 
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
@@ -22,13 +21,13 @@ import {
   scheduleShipmentService,
   deleteShipmentService,
 } from "services/HoldingService";
+import { showToast } from "utils";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 import { onHoldOrderColoumns, getOnHoldOrderData } from "./helper";
 import ScheduleShipmentsDrawer from "./ScheduleShipmentsDrawer";
 import { FilterFlexBox } from "../PaymentsContainer/style";
 import { SearchTableTop } from "../SearchContainer/style";
-import { showToast } from "utils";
 
 const initialValues = {
   shippingId: "",
@@ -122,16 +121,16 @@ const OnHoldShipmentContainer = ({ path: string }) => {
           <Button
             label="Delete"
             onClick={deleteSelectedOrders}
-            disabled={selectedRows.length === 0}
             size="medium"
             secondary
+            disabled={selectedRows.length === 0}
             style={{ marginRight: "12px" }}
           />
           <Button
             label="Schedule"
-            disabled={selectedRows.length === 0}
-            size="medium"
             onClick={() => openOnHoldDrawer("", "scheduleSelectedOrders")}
+            size="medium"
+            disabled={selectedRows.length === 0}
           />
         </Box>
       </SearchTableTop>
@@ -208,13 +207,13 @@ const OnHoldShipmentContainer = ({ path: string }) => {
 
   const {
     values,
-    handleChange,
     errors,
     touched,
-    handleBlur,
-    handleSubmit,
-    setFieldValue,
     resetForm,
+    handleBlur,
+    handleChange,
+    setFieldValue,
+    handleSubmit,
   } = useFormik({
     initialValues,
     onSubmit: (values) => {
@@ -268,7 +267,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             <FilterFlexBox>
               <Button size="small" label="Search" onClick={handleSubmit} />
               <Box>
-                <img src={sliders} alt="" />
+                <img src={sliders} alt="Advanced Filter" />
               </Box>
             </FilterFlexBox>
           </Grid>
@@ -301,7 +300,6 @@ const OnHoldShipmentContainer = ({ path: string }) => {
         title={getDrawerTitle()}
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
-        actionButtons={true}
       >
         {drawerType === "orderDetails" ? (
           <OrderDetailsDrawer

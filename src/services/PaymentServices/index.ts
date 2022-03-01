@@ -8,6 +8,11 @@ export interface deleteCardData {
   password: string;
   token: string;
 }
+export interface deleteCardInterface {
+  cardId: string;
+  cardFrom?: boolean|undefined;
+  customerId?:string;
+}
 const type = "payment";
 
 export const getUserCardsService = async () => {
@@ -106,13 +111,17 @@ export const confirmPaymentInDrawer = async (body: any, invoiceId: string) => {
   }
 };
 
-export const deleteCard = async (cardId: string) => {
+export const deleteCard = async ({cardId,cardFrom,customerId}:deleteCardInterface) => {
+  console.log(cardId,cardFrom,customerId);
+  let api;
+  if (!cardFrom) {
+    api = `api/profiles/card/delete/${cardId}`
+  }
+  else if (cardFrom) {
+    api = `api/profiles/card/delete/${customerId}/${cardId}`
+  }
   try {
-    const res = await Services.delete(
-      `api/profiles/card/delete/${cardId}`,
-      {},
-      "payment"
-    );
+    const res = await Services.delete(api,{},"payment")
     showToast("Your card has been successfully removed", "success");
     return { response: res, error: null };
   } catch (error) {

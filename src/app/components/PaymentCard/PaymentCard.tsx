@@ -21,13 +21,15 @@ interface PaymentCardProps {
     setDrawerOpen?: Dispatch<SetStateAction<boolean>>;
     setCardData?: Dispatch<SetStateAction<IndividualCard>>;
     saveAction?: () => void;
+    cardFrom?:boolean
 }
 
 export default function PaymentCard({
     cardData,
     setDrawerOpen,
     setCardData,
-    saveAction
+    saveAction,
+    cardFrom
 }: PaymentCardProps) {
     const dispatch = useDispatch();
 
@@ -49,8 +51,10 @@ export default function PaymentCard({
         handleClose();
         try {
             const res: { response: any; error: any } = await deleteCard(
-                cardData.id
-            );
+              {cardId: cardData.id,
+                cardFrom,
+                customerId:cardData.customer
+           } ) ;
             if (res.error === null) {
                 dispatch(actions.getCards());
                 saveAction?.()

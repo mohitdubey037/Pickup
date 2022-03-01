@@ -72,48 +72,49 @@ export const singleShipmentFormSchema = yup.object().shape({
                 yup.object({
                     quantity: yup.number().required("Pieces is a required field").integer("Pieces must be a number").typeError("Pieces must be a number").min(1, "Invalid Pieces"),
                     description: yup.string(),
-                    height: yup.string().test(
-                        "maxDigitsAfterDecimal",
-                        // "Height could only have maximum of 2 digits after decimal or less",
-                        "Please enter valid height",
-                        function (number: any) {
-                            if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
-                                return Number(number) > 0 && number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
-                            } else {
-                                return true;
-                            }
-                        }
-                    ),
-                    length: yup.string().test("maxDigitsAfterDecimal", "Please enter valid length", function (number: any) {
-                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                    height: yup.string().test("maxDigitsAfterDecimal", "Please enter valid height", function (number: any, context: any) {
+                        const orderIdx = context.path.match(/\[([^\]]+)\]/)[1];
+                        if (this?.options?.context?.orders?.[orderIdx]?.categoryId?.setDimension) {
                             return Number(number) > 0 && number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
                         } else {
                             return true;
                         }
                     }),
-                    width: yup.string().test("maxDigitsAfterDecimal", "Please enter valid width", function (number: any) {
-                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                    length: yup.string().test("maxDigitsAfterDecimal", "Please enter valid length", function (number: any, context: any) {
+                        const orderIdx = context.path.match(/\[([^\]]+)\]/)[1];
+                        if (this?.options?.context?.orders?.[orderIdx]?.categoryId?.setDimension) {
                             return Number(number) > 0 && number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
                         } else {
                             return true;
                         }
                     }),
-                    sizeDimension: yup.string().test("maxDigitsAfterDecimal", "Please select valid unit", function (number: any) {
-                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                    width: yup.string().test("maxDigitsAfterDecimal", "Please enter valid width", function (number: any, context: any) {
+                        const orderIdx = context.path.match(/\[([^\]]+)\]/)[1];
+                        if (this?.options?.context?.orders?.[orderIdx]?.categoryId?.setDimension) {
+                            return Number(number) > 0 && number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
+                        } else {
+                            return true;
+                        }
+                    }),
+                    sizeDimension: yup.string().test("maxDigitsAfterDecimal", "Please select valid unit", function (number: any, context: any) {
+                        const orderIdx = context.path.match(/\[([^\]]+)\]/)[1];
+                        if (this?.options?.context?.orders?.[orderIdx]?.categoryId?.setDimension) {
                             return number && (number === "12" || number === "13" || number === 12 || number || 13);
                         } else {
                             return true;
                         }
                     }),
-                    weight: yup.string().test("maxDigitsAfterDecimal", "Please enter valid weight", function (number: any) {
-                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                    weight: yup.string().test("maxDigitsAfterDecimal", "Please enter valid weight", function (number: any, context: any) {
+                        const orderIdx = context.path.match(/\[([^\]]+)\]/)[1];
+                        if (this?.options?.context?.orders?.[orderIdx]?.categoryId?.setDimension) {
                             return Number(number) > 0 && number?.length > 0 && /^\d+(\.\d{1,2})?$/.test(number);
                         } else {
                             return true;
                         }
                     }),
-                    weightDimension: yup.number().test("maxDigitsAfterDecimal", "Please select valid unit", function (number: any) {
-                        if (this?.options?.context?.orders?.[0]?.categoryId?.setDimension) {
+                    weightDimension: yup.number().test("maxDigitsAfterDecimal", "Please select valid unit", function (number: any, context: any) {
+                        const orderIdx = context.path.match(/\[([^\]]+)\]/)[1];
+                        if (this?.options?.context?.orders?.[orderIdx]?.categoryId?.setDimension) {
                             return number && (number === "14" || number === "15" || number === 14 || number || 15);
                         } else {
                             return true;
