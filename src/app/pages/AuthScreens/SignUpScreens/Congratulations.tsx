@@ -20,7 +20,7 @@ const Congratulations = ({ navigate }: RouteComponentProps) => {
         <FormContent className="CenterContent">
             <img src={congrats} alt="" className="mailLogo" />
             <Box mt={3} mb={2}>
-            <H1 title="CONGRATULATIONS" />
+            <H1 title="CONGRATULATIONS" mb={24} />
             <H4 text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Vestibulum pretium porttitor nunc, vitae dapibus augue porttitor
               vel. Integer a ornare nisi. Phasellus fringilla lectus eget mi

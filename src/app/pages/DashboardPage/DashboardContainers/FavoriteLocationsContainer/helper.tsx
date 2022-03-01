@@ -2,12 +2,12 @@ import moment from "moment";
 import * as yup from "yup";
 
 import EditIcon from "app/components/EditIcon/EditIcon";
-import { Flex } from "app/components/Input/style";
 import { trash } from "app/assets/Icons";
 import {
   PHONE_NUMBER_REGEX_NEW,
   PIN_CODE_REGEX,
 } from "../../../../../constants";
+import { Flex } from "app/components/CommonCss/CommonCss";
 
 export const editContactDetailsSchema = yup.object().shape({
   latitude: yup.string().required("Latitude is a required field"),

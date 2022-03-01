@@ -3,8 +3,6 @@ import { navigate } from "@reach/router";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-
-import { Flex } from "app/components/Input/style";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { H3, H4, Para } from "app/components/Typography/Typography";
@@ -17,6 +15,7 @@ import OrderDetailsDrawer from "./OrderDetailsDrawer";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
 import { DisclaimerBox, OrderSummaryTableOuter, TotalBox } from "./style";
+import { Flex } from "app/components/CommonCss/CommonCss";
 
 function OrderSummary({ path }) {
   const dispatch = useDispatch();

@@ -35,7 +35,7 @@ export function TrackInput() {
       </LogoBox>
       <TrackInputBox>
         <Box className="inputbox">
-          <H1 title="Track Your Order" />
+          <H1 title="Track Your Order" mb={24} />
 
           <InputPaper>
             <InputBase

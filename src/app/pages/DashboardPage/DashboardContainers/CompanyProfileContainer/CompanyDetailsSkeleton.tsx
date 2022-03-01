@@ -1,7 +1,6 @@
 import { Box, Grid, Skeleton } from "@mui/material";
 
-import { FlexBox } from "app/components/CommonCss/CommonCss";
-import { FullCard } from "app/components/Input/style";
+import { FlexBox, FullCard } from "app/components/CommonCss/CommonCss";
 import { H3, Para } from "app/components/Typography/Typography";
 import { FlexGrid } from "./style";
 

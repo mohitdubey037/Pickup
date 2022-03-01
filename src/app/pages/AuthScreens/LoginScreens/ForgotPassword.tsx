@@ -80,7 +80,7 @@ const ForgotPassword = ({ navigate }: RouteComponentProps) => {
                 <LogoImage />
                 <FormWrapper>
                     <FormContent>
-                        <H1 title="FORGOT PASSWORD" />
+                        <H1 title="FORGOT PASSWORD" mb={24} />
                         <Input
                             id={"email"}
                             name={"email"}

@@ -1,7 +1,6 @@
 import React,{useEffect, useState} from "react";
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
-import { Flex } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 import { Table, TableNew } from "app/components/Table";
 import { OnHoldTableTop } from "../OnHoldShipment/Style";
@@ -28,6 +27,7 @@ import SelectNew from "app/components/Select/SelectNew";
 import { CHILD_STATUS } from "../../../../../../src/constants";
 import CreateChildAccount from "./CreateChildAccount";
 import { SearchTableTop } from "../SearchContainer/style";
+import { Flex } from "app/components/CommonCss/CommonCss";
 
 export default function ChildAccountList({ path: string }) {
 
