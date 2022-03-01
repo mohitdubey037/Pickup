@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import moment from "moment";
 import { useFormik } from "formik";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 
 import { Button } from "app/components/Buttons";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
@@ -14,7 +14,7 @@ import { getSingleDate } from "../SignleShipmentContainer/helper";
 import { scheduleShipmentFormSchema } from "./helper";
 
 interface ScheduleShipmentsDrawerProps {
-  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setDrawerOpen: (val: boolean) => void;
   handleSchedule: (values) => void;
 }
 

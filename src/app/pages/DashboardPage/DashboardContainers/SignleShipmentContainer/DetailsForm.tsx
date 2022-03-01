@@ -1,22 +1,27 @@
 import { useEffect, useState } from "react";
 import { FormikValues } from "formik";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid } from "@mui/material";
+import AddIcon from "@material-ui/icons/Add";
 
 import RadioGroup from "app/components/RadioGroup";
 import SelectNew from "app/components/Select/SelectNew";
-import AddImage from "app/components/AddImage";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import { OrderImage } from "app/components/CommonCss/CommonCss";
+import { H4 } from "app/components/Typography/Typography";
 import { showToast } from "utils";
 import {
     getCategoryList,
     imageUploadService,
 } from "services/SingleShipmentServices";
 import DetailsFormItem from "./DetailsFormItem";
-import { DROP_OPTION, FRAGILE_OPTION } from "../../../../../constants";
+import {
+    DROP_OPTION,
+    FRAGILE_OPTION,
+    IMAGE_FILE_TYPES,
+} from "../../../../../constants";
 import { CustomInput } from "../CompanyProfileContainer/style";
-import { OrderImageWrapper, Remove } from "./style";
+import { AddImgBox, OrderImageWrapper, Remove } from "./style";
 import { remove } from "../../../../assets/Icons";
-import { OrderImage } from "app/components/CommonCss/CommonCss";
 
 interface SelectBoardType {
     categoryId: number;
@@ -49,6 +54,7 @@ function DetailsForm(props: {
     const singleFormErrors = errors?.orders?.[props.index];
     const singleFormTouched = touched?.orders?.[props.index];
 
+    const [uploading, setUploading] = useState(false);
     const [categoryList, setCategoryList] = useState<SelectBoardType[]>([]);
     // const [selectedImage, setSelectedImage] = useState<null | string>(null)
 
@@ -69,28 +75,6 @@ function DetailsForm(props: {
                 Number(singleFormValues.categoryId.categoryId)
         );
         return selectedCategory?.setDimension || false;
-    };
-
-    const changeHandler = async (e) => {
-        const formData = new FormData();
-        const image = e.target.files[0];
-        formData.append("document", image, image.name);
-        const res: { response: any; error: any } = await imageUploadService(
-            formData
-        );
-        if (res.error) {
-            showToast(res.error.message, "error");
-        } else {
-            setFieldValue(
-                `${formFieldName}.picture`,
-                res?.response?.data?.data || ""
-            );
-            // setSelectedImage(res?.response?.data?.data)
-        }
-    };
-
-    const imageHandler = (value) => {
-        setFieldValue(`${formFieldName}.picture`, value || "");
     };
 
     const updateCategoryHandler = (name: string, value: number) => {
@@ -126,6 +110,47 @@ function DetailsForm(props: {
     //         setFieldValue(`orders.${idx}.${name}`, value);
     //     });
     // };
+
+    const handleImageRemove = () => {
+        let index = props.index;
+        setFieldValue(`orders.${index}.picture`, "");
+    };
+
+    const handleImageUpload = () => {
+        if (uploading) return;
+        let index = props.index;
+        let element = document.createElement("input");
+        element.setAttribute("type", "file");
+        element.setAttribute("accept", IMAGE_FILE_TYPES.toString());
+        element.click();
+        element.addEventListener("change", async (e: any) => {
+            setUploading(true);
+            const formData = new FormData();
+            const image = e?.target?.files[0];
+            if (
+                !IMAGE_FILE_TYPES.includes(image.type) ||
+                image.size > 5242880
+            ) {
+                showToast(
+                    "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
+                    "error"
+                );
+                setUploading(false);
+                return;
+            }
+            formData.append("document", image, image?.name);
+            const res: any = await imageUploadService(formData);
+            if (res.error) {
+                showToast(res.error.message, "error");
+            } else {
+                setFieldValue(
+                    `orders.${index}.picture`,
+                    res?.response?.data?.data || ""
+                );
+            }
+            setUploading(false);
+        });
+    };
 
     return (
         <Box mt={4}>
@@ -235,7 +260,7 @@ function DetailsForm(props: {
                 {singleFormValues.picture && (
                     <OrderImageWrapper className="orderImageWrapper">
                         <Remove
-                            onClick={() => imageHandler(null)}
+                            onClick={handleImageRemove}
                             src={remove}
                             alt="remove"
                         />
@@ -245,17 +270,16 @@ function DetailsForm(props: {
                         />
                     </OrderImageWrapper>
                 )}
-                {singleFormValues?.categoryId && !singleFormValues.picture && (
-                    <AddImage
-                        changeHandler={(e) => changeHandler(e)}
-                        text={"Add Shipment Picture"}
-                    />
-                )}
-                {singleFormValues?.categoryId && singleFormValues.picture && (
-                    <AddImage
-                        changeHandler={(e) => changeHandler(e)}
-                        text={"Replace Shipment Picture"}
-                    />
+                {singleFormValues?.categoryId && (
+                    <AddImgBox onClick={handleImageUpload} disabled={uploading}>
+                        <AddIcon className="icon" />
+                        <H4
+                            text={`${
+                                singleFormValues.picture ? "Replace " : "Add "
+                            } Shipment Picture`}
+                            className="label"
+                        />
+                    </AddImgBox>
                 )}
             </Box>
 

@@ -75,8 +75,19 @@ function OrderSummary({ path }) {
     setLoading(false);
   };
 
+  const alertUser = (e) => (e.returnValue = "");
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", alertUser);
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+    };
+  }, []);
+
   const onBackHandler = () => {
-    dispatch(actions.resetSingleShipment());
+    if (window.confirm("Are you sure you want to leave this page?")) {
+      dispatch(actions.resetSingleShipment());
+    }
   };
 
   const onItemCountSelectHandler = (id: number) => {

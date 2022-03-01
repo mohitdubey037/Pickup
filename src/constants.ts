@@ -171,6 +171,11 @@ export const STATUS = [
   { label: "Cancelled By User", value: "cancel_by_user" },
 ];
 
+export const PAYMENT_STATUS = [
+  { label: "Payment Pending", value: "false" },
+  { label: "Payment Complete", value: "true" },
+];
+
 export const CHILD_STATUS = [
   { label: "Active", value: "active" },
   { label: "Pending", value: "pending" },
