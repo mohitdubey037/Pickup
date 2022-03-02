@@ -168,7 +168,7 @@ function InvoiceDetailsDrawer({ invoiceId }: any) {
             </>
           ) : (
             <Button
-              label="Complete Payment"
+              label="Pay Now"
               onClick={completeOrderPayment}
               disabled={
                 !(invoiceDetails && invoiceDetails.orderIdList.length > 0)

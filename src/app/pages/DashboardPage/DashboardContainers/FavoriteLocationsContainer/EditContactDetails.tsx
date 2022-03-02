@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFormik } from "formik";
+import { Grid } from "@mui/material";
 
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Input } from "app/components/Input";
@@ -62,8 +63,8 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
       locationPinCode: values.postal,
       locationProvinceCode: values.state,
       locationCountry: values.country,
-      locationPhone: values.phone,
-      locationAlternatePhone: values.alternate,
+      locationPhone: values.phone?.replace(/[()-]/g, ""),
+      locationAlternatePhone: values.alternate?.replace(/[()-]/g, ""),
       locationEmail: values.email,
       details: values.details,
     };
@@ -151,7 +152,7 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
           onChange={(e) =>
             setFieldValue("billingType", Number(e.target.value) + 1)
           }
-          options={BILLING_TYPES}
+          options={BILLING_TYPES.map((item) => ({ ...item, disabled: true }))}
         />
         <SelectNew
           name="addressType"
@@ -163,7 +164,7 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
           error={touched.addressType && errors.addressType}
           required
         />
-        {values.billingType === 2 && (
+        {values.billingType === "2" && (
           <Input
             name="companyName"
             label="Company Name"
@@ -218,48 +219,58 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
           onBlur={handleBlur}
           error={touched.address2 && errors.address2}
         />
-        <Input
-          name="city"
-          label="City"
-          placeholder="eg. Toronto"
-          initValue={values.city}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.city && errors.city}
-          required
-        />
-        <Input
-          name="postal"
-          label="Postal Code"
-          placeholder="ABC 123"
-          initValue={values.postal}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.postal && errors.postal}
-          required
-          type="mask"
-          maskProps={PIN_CODE_MASK}
-        />
-        <Input
-          name="state"
-          label="Province/State"
-          placeholder="eg. Ontario"
-          initValue={values.state}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.state && errors.state}
-          required
-        />
-        <Input
-          name="country"
-          label="Country"
-          placeholder="eg. Canada"
-          initValue={values.country}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.country && errors.country}
-          required
-        />
+        <Grid container columnSpacing={2}>
+          <Grid item sm={6} xs={12}>
+            <Input
+              name="city"
+              label="City"
+              placeholder="eg. Toronto"
+              initValue={values.city}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.city && errors.city}
+              required
+            />
+          </Grid>
+          <Grid item sm={6} xs={12}>
+            <Input
+              name="postal"
+              label="Postal Code"
+              placeholder="ABC 123"
+              initValue={values.postal}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.postal && errors.postal}
+              required
+              type="mask"
+              maskProps={PIN_CODE_MASK}
+            />
+          </Grid>
+          <Grid item sm={6} xs={12}>
+            <Input
+              name="state"
+              label="Province/State"
+              placeholder="eg. Ontario"
+              initValue={values.state}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.state && errors.state}
+              required
+            />
+          </Grid>
+          <Grid item sm={6} xs={12}>
+            <Input
+              name="country"
+              label="Country"
+              placeholder="eg. Canada"
+              initValue={values.country}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.country && errors.country}
+              required
+            />
+          </Grid>
+        </Grid>
         <Input
           name="phone"
           label="Contact Number"
@@ -303,6 +314,7 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
           onBlur={handleBlur}
           error={touched.details && errors.details}
           required
+          disabled
         />
       </DrawerInnerContent>
 

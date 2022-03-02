@@ -11,7 +11,7 @@ import Switches from "app/components/Input/SwitchButton";
 import { inviteColleague } from "services/CompanyService";
 import {
   NOTIFICATION_FREQUENCY_TYPES,
-  NEW_PERMISSION_TYPES,
+  PERMISSION_TYPES_DESC,
   PHONE_NO_MASK,
 } from "../../../../../constants";
 import { addNewEditColleagueSchema } from "./schema";
@@ -172,7 +172,7 @@ const NewColleagueForm = (props: NewColleagueInterface) => {
           <SelectBox
             name="permission"
             label="Permission"
-            options={NEW_PERMISSION_TYPES}
+            options={PERMISSION_TYPES_DESC}
             value={values.permission}
             onSelect={handleChange}
             error={touched.permission && errors.permission}

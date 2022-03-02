@@ -33,16 +33,14 @@ export const commonStyle = (props: TypoProps, defaultFont = "Roboto") => `
   font-family: ${props.fontFamily ? fontfamily[props.fontFamily] : defaultFont};
   ${
     props.required
-      ? `
-     &::after {
-    content: "*";
-    color: #c94c43;
-    margin-left: 5px;
-  }
-  `
-      : ''
+      ? `&::after {
+      content: "*";
+      color: #c94c43;
+      margin-left: 5px;
+    }`
+      : ""
   };
-  `;
+`;
 
 export const H1Typography = styled.h1<TypoProps>`
   ${(props) => commonStyle(props, "Roboto-Bold")}
