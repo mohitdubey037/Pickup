@@ -44,12 +44,7 @@ const Table = ({
         }
     })
 
-    useEffect(() => {
-        console.log(sortType);
-    },[sortType])
-
     const sort = (title) => {
-        console.log(title);
         let tempTitle;
         if (title === "Invoice Date") tempTitle = 'invoiceCreatedAt';
         else if (title === 'Invoice Number') tempTitle = 'invoiceNumber';

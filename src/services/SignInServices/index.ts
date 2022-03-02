@@ -21,6 +21,5 @@ export const forgetPasswordService = async (email: string) => {
 
 export const resetPasswordService = async (resetPassword: resetPassword) => {
     const res = await Services.post("business/resetPassword", { newPassword: resetPassword.password }, "user", resetPassword.token);
-    console.log(res, 'service');
     return res;
 };

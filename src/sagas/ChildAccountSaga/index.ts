@@ -11,7 +11,6 @@ function* submitChildAccountWorker(action) {
         yield put(globalActions.showLoader(true))
 
         const res = yield call(postChildAccountData, action.res);
-        console.log(res.response.response.data);
         yield put(actions.setChildAccountDetails(res.response.response.data));
         yield put(globalActions.showLoader(false))
 

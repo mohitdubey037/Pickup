@@ -57,7 +57,6 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
   };
 
   const handler = (value) => {
-    console.log(value);
     let temp = {};
     if (
       value?.location?.displayPosition?.longitude &&
@@ -89,7 +88,6 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     let updatedOrders = {...temp};
 
     Object.keys(updatedOrders).forEach((key) => {
-    console.log(key, updatedOrders[key]);
     setFieldValue(key, updatedOrders[key]);
     })
   };
