@@ -3,7 +3,7 @@ import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { Table, TableNew } from "app/components/Table";
-import { OnHoldTableTop } from "../OnHoldShipment/Style";
+// import { OnHoldTableTop } from "../OnHoldShipment/Style";
 import { useNavigate } from "@reach/router";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
@@ -26,8 +26,7 @@ import { FilterFlexBox } from "../PaymentsContainer/style";
 import SelectNew from "app/components/Select/SelectNew";
 import { CHILD_STATUS } from "../../../../../../src/constants";
 import CreateChildAccount from "./CreateChildAccount";
-import { SearchTableTop } from "../SearchContainer/style";
-import { Flex } from "app/components/CommonCss/CommonCss";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 export default function ChildAccountList({ path: string }) {
 

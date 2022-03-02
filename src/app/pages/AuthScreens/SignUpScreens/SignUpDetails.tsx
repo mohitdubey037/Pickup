@@ -8,7 +8,6 @@ import {
     FormContent,
     LogoImage,
     SignUpBackgroundWrapper,
-    Termslink,
 } from "../style";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
@@ -23,6 +22,7 @@ import Modal from 'react-modal';
 import TermsAndPolicies from "./Terms&Policies";
 import { PHONE_NO_MASK } from "../../../../constants";
 import { Link } from "app/components/Typography/Links";
+import { Termslink } from "app/components/Typography/style";
 
 type SignUpProps = RouteComponentProps;
 

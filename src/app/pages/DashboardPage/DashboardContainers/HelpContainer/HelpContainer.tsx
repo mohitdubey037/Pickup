@@ -4,11 +4,11 @@ import {
   AccordionNoBorderOuterBox,
   FullCard,
 } from "app/components/CommonCss/CommonCss";
-import { HelpContact } from "app/components/HelpContact";
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import React from "react";
 import { useSelector } from "react-redux";
+import HelpContact from "./HelpContact";
 
 export default function HelpContainer({ path: string }) {
   const authUser = useSelector((state: any) => {

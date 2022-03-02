@@ -1,9 +1,9 @@
 import { Grid } from '@material-ui/core'
 import { Box } from '@mui/material'
-import { Button } from '../Buttons'
-import { GridContainer } from '../GridSpacing/GridSpacing'
-import { Input } from '../Input'
-import { H3 } from '../Typography/Typography'
+import { Button } from 'app/components/Buttons'
+import { GridContainer } from 'app/components/GridSpacing/GridSpacing'
+import { Input } from 'app/components/Input'
+import { H3 } from 'app/components/Typography/Typography'
 import ContactDetails from './ContactDetails'
 import { ContactFlex, ContactForm } from './style'
 

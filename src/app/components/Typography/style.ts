@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link as RouterLink } from "@reach/router";
+import { Box } from "@mui/material";
 
 export interface TypoProps {
   link?: any;
@@ -14,6 +15,7 @@ export interface TypoProps {
   mr?: number;
   mb?: number;
   color?: string;
+  textTransform?: string;
 }
 
 const fontfamily = {
@@ -25,6 +27,7 @@ const fontfamily = {
 export const commonStyle = (props: TypoProps, defaultFont = "Roboto") => `
   line-height: 1.2;
   font-weight:normal;
+  text-transform: ${props.textTransform || "unset"};
   color: ${props.color || "#343434"};
   margin-left: ${props.ml || 0}px;
   margin-top: ${props.mt || 0}px;
@@ -103,5 +106,16 @@ export const LinkStyle = styled(RouterLink)`
   &:active {
     opacity: 0.4;
     color: "#2A95D1";
+  }
+`;
+
+
+export const Termslink = styled(Box)`
+  font-size: 16px;
+  line-height: 19px;
+  color: #343434;
+  font-family: "Roboto";
+  a {
+    color: #1b8af0;
   }
 `;

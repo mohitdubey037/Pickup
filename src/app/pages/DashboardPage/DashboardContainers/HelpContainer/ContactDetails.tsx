@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { ContactSvg, email, phone } from "app/assets/Icons";
-import { H3, H4 } from "../Typography/Typography";
+import { H3, H4 } from "app/components/Typography/Typography";
 import { ContactDetailsBox } from "./style";
 
 export default function ContactDetails() {

@@ -45,8 +45,6 @@ export const FullCard = styled(Box)`
 `;
 
 
-
-
 export const FlexBox = styled(Box)`
   display: flex;
   width: 100%;
@@ -56,6 +54,24 @@ export const FlexBox = styled(Box)`
     align-items: flex-start;
   }
 `;
+
+
+export const FlexGrid = styled(Box)`
+  display: flex;
+  align-items: center;
+  width: calc(100% - 110px) !important;
+  justify-content: space-between;
+  @media (max-width: 1023px) {
+    width: 100% !important;
+    margin: 24px 0 12px 0;
+  }
+  .value {
+    margin: 5px 0 16px;
+    font-family: "Roboto-Bold";
+  }
+`;
+
+
 
 export const DateComponent = styled.div`
   margin-bottom: 16px;
@@ -149,3 +165,34 @@ export const OrderImage = styled.img`
   background: #f5f5f5;
   border: 1px solid #eee;
 `;
+
+
+export const SearchTableTop = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 12px 24px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  @media (max-width: 600px) {
+    padding: 12px;
+  }
+  .heading {
+    color: #f99746;
+    @media (max-width: 600px) {
+      font-size: 16px;
+    }
+  }
+  .spanlabel {
+    margin-left: 8px;
+    margin-top: 4px;
+  }
+  button {
+    height: 32px;
+    padding: 8px 16px;
+    min-width: 120px;
+  }
+`;
+
+
+

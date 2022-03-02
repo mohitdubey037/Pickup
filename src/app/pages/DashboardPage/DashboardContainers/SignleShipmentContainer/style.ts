@@ -17,20 +17,11 @@ export const MainDiv = styled.div`
 export const FavoritesBox = styled(Box)`
   display: flex;
   align-items: center;
-  // margin: 32px 0 0 0;
-  .title {
-    font-family: "Roboto-Bold";
-    margin: 0;
-    margin-right: 16px;
-    text-transform: capitalize;
-  }
   .icon {
     margin-right: 5px;
   }
   .label {
-    color: #878787;
     display: inline-block;
-    margin-right: 6px;
   }
   .favorites {
     display: flex;
@@ -39,18 +30,7 @@ export const FavoritesBox = styled(Box)`
   }
 `;
 
-export const LabelSpan = styled.span`
-  margin: 5px 0;
-  font-size: 16px;
-  font-weight: 400;
-`;
 
-export const ContentSpan = styled.span`
-  margin: 5px 0;
-  font-weight: 600;
-  font-size: 16px;
-  color: #343434;
-`;
 
 export const OrderImageWrapper = styled(Box)`
   width: fit-content;
@@ -67,10 +47,6 @@ export const Remove = styled.img`
 export const ItemDetailsBox = styled(Box)`
   border-top: 1px solid #ddd;
   margin: 20px 0;
-
-  .heading {
-    font-family: "Roboto-Bold";
-  }
 `;
 
 export const TotalBox = styled(Box)`
@@ -78,10 +54,6 @@ export const TotalBox = styled(Box)`
   margin-right: calc(25% - 73px);
   display: flex;
   justify-content: flex-end;
-  .total {
-    font-family: "Roboto-Bold";
-    margin-left: 24px;
-  }
 `;
 
 export const OrderSummaryTableOuter = styled(Box)`
@@ -100,14 +72,6 @@ export const DisclaimerBox = styled(Box)`
   float: right;
   margin: 24px 0 48px;
   display: flex;
-  h3 {
-    font-family: "Roboto-Bold";
-    color: #8c6d0f !important;
-    margin-bottom: 10px;
-  }
-  p {
-    color: #8c6d0f !important;
-  }
 `;
 
 export const AddImgBox = styled(Flex)`
@@ -124,6 +88,5 @@ export const AddImgBox = styled(Flex)`
   .label {
     color: ${(props: { disabled?: boolean }) =>
       props.disabled ? "#ddd" : "#1b8af0"};
-    margin: 0;
   }
 `;

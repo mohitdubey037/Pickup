@@ -1,9 +1,8 @@
 import { Avatar, Box, Grid } from "@mui/material";
 
-import { FlexBox, FullCard } from "app/components/CommonCss/CommonCss";
+import { FlexBox, FlexGrid, FullCard } from "app/components/CommonCss/CommonCss";
 import EditIcon from "app/components/EditIcon/EditIcon";
 import { H3, Para, H4 } from "app/components/Typography/Typography";
-import { FlexGrid } from "./style";
 import { CompanyDetailsType } from "./types";
 
 interface DetailInterface {

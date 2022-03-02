@@ -11,12 +11,11 @@ import {
   deleteSavedLocation,
   getLocationList,
 } from "services/LocationServices";
-import { SearchTableTop } from "../SearchContainer/style";
 import ContactDetailsSidebar from "./ContactDetailsSidebar";
 import EditContactDetails from "./EditContactDetails";
 import FileDrawer from "./FileDrawer";
 import { favoriteLocationColoumns, getLocationData } from "./helper";
-import { Flex } from "app/components/CommonCss/CommonCss";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const DRAWER_TITLE = {
   contactDetails: "Contact Details",

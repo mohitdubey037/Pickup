@@ -23,7 +23,7 @@ const TimePickerInput = React.forwardRef<any, DateTimeInputProps>(
 
     return (
       <DateTimePickerBox>
-        <H4 text={label} required={required} />
+        <H4 text={label} required={required} mb={8} />
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <TimePicker
             value={value}

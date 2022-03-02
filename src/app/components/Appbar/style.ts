@@ -1,11 +1,7 @@
-import { AppBar, Box, Menu } from "@material-ui/core";
+import { Menu } from "@material-ui/core";
+import { Box } from "@mui/material";
 import styled from "styled-components";
 
-export const MainAppBar = styled(AppBar)`
-  &.MuiAppBar-root {
-    background-color: #fff;
-  }
-`;
 
 export const AppbarContainer = styled.div`
   display: flex;
@@ -68,11 +64,6 @@ export const RightBox = styled(Box)`
 
 export const ProfileBox = styled(Box)`
   margin: 0 16px;
-  text-align: right;
-  .profilename {
-    margin: 0;
-    margin-bottom: 2px;
-  }
   .designation {
     opacity: 0.8;
   }

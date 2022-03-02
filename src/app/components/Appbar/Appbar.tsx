@@ -91,8 +91,8 @@ export default function Appbar() {
         </LeftBox>
 
         <RightBox>
-          <ProfileBox>
-            <H4 text={user?.firstName} className="profilename" />
+          <ProfileBox textAlign="right">
+            <H4 text={user?.firstName} mb={2} />
             <H5
               className="designation"
               text={

@@ -7,7 +7,7 @@ import { H4 } from "app/components/Typography/Typography";
 import TrackingSteps from "app/components/Stepper/TrackingSteps";
 import NullState from "app/components/NullState/NullState";
 import { ShareIcon } from "../../../../assets/Icons/index";
-import { MapDiv, ShareBlock } from "./style";
+import { MapDiv } from "./style";
 import {
   getLocation,
   getTrackStatus,
@@ -48,10 +48,10 @@ function TrackingDetailsPage(props: any) {
     <ContentBox>
       <Flex justifyContent="space-between" bottom={12}>
         <H4 text="Track Shipment" className="subtitle" />
-        <ShareBlock>
+        <Box display="flex" style={{cursor:'pointer'}}>
           <img src={ShareIcon} alt="" />
-          <H4 text="Share Tracking" className="ShareText" />
-        </ShareBlock>
+          <H4 text="Share Tracking"  ml={7} color="#1b8af0" />
+        </Box>
       </Flex>
 
       <MapDiv>

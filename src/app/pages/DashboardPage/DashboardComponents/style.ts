@@ -126,11 +126,7 @@ export const ListItem = styled.div`
   align-items: center;
 `;
 
-export const MainAppBar = styled(AppBar)`
-  &.MuiAppBar-root {
-    background-color: transparent;
-  }
-`;
+
 
 export const AppbarContainer = styled.div`
   display: flex;
