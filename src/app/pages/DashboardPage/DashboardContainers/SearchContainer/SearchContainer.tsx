@@ -7,7 +7,7 @@ import moment from "moment";
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { sliders } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
@@ -274,7 +274,7 @@ const SearchContainer = ({ path }: any) => {
       {loading && searchOrderData.length === 0 ? (
         <TableSkeleton />
       ) : searchOrderData.length > 0 ? (
-        <TableNew
+        <Table
           loading={loading}
           tableTop={tableTop()}
           coloumns={searchOrderColoumns}

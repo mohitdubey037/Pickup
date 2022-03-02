@@ -5,7 +5,7 @@ import moment from "moment";
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import { Drawer } from "app/components/Drawer";
 import { H2, H3, H5 } from "app/components/Typography/Typography";
 import DatePickerInput from "app/components/Input/DatePickerInput";
@@ -255,7 +255,7 @@ const InvoicesContainer = ({ path: string }) => {
       {loading && invoiceData?.length === 0 ? (
         <TableSkeleton />
       ) : invoiceData?.length > 0 ? (
-        <TableNew
+        <Table
           loading={loading}
           tableTop={tableTop()}
           coloumns={invoiceColoumns}

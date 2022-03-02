@@ -1,7 +1,7 @@
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import Select from "app/components/Select";
 import { reportsColoumns, reportsTable } from "./helper";
 import { useSelector } from "react-redux";
@@ -47,7 +47,7 @@ function ReportsContainer({ path: string }) {
             </Grid>
         </Grid>
         
-        <TableNew
+        <Table
           data={reportsTable}
           coloumns={reportsColoumns}
           tableTop={tableTop()}

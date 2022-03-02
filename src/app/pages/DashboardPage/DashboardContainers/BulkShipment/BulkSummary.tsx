@@ -1,6 +1,6 @@
 
 import ModuleContainer from "app/components/ModuleContainer";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { BulkOrderColoumns, OnHoldTable } from "./helper";
 import { SuccessBox } from "./style";
@@ -78,7 +78,7 @@ const BulkSummary = ({ path: string }) => {
         perPageRows={15}
         filterColumns={[0, 1, 2, 3, 4, 5]}
       /> */}
-        <TableNew
+        <Table
           data={OnHoldTable(openOrderDrawer)}
           coloumns={BulkOrderColoumns}
           tableTop={tableTop()}

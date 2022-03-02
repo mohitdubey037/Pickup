@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
 import ModuleContainer from "app/components/ModuleContainer";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import { H3, H4, Para } from "app/components/Typography/Typography";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import { disclaimer } from "app/assets/Icons";
@@ -149,7 +149,7 @@ function OrderSummary({ path }) {
           </Box>
         ) : orderSummaryData?.length > 0 ? (
           <OrderSummaryTableOuter mt={3}>
-            <TableNew
+            <Table
               coloumns={orderSummaryColoumns}
               data={getOrderSummaryData(
                 orderSummaryData,

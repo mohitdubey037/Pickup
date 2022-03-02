@@ -8,7 +8,7 @@ import moment from "moment";
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import SelectNew from "app/components/Select/SelectNew";
@@ -222,7 +222,7 @@ export default function ChildAccountList({ path }) {
       {loading && childData.length === 0 ? (
         <TableSkeleton />
       ) : childData.length > 0 ? (
-        <TableNew
+        <Table
           loading={loading}
           tableTop={tableTop()}
           coloumns={ChildAccountListColumn}

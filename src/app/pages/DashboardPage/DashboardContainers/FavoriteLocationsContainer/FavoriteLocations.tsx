@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import ModuleContainer from "app/components/ModuleContainer";
 import { Drawer } from "app/components/Drawer";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import { Button } from "app/components/Buttons";
 import { H2, H3 } from "app/components/Typography/Typography";
 import TableSkeleton from "app/components/Table/TableSkeleton";
@@ -125,7 +125,7 @@ function FavoriteLocations({ path }: any) {
       {loading && locationData?.length === 0 ? (
         <TableSkeleton />
       ) : locationData?.length > 0 ? (
-        <TableNew
+        <Table
           loading={loading}
           tableTop={tableTop()}
           coloumns={favoriteLocationColoumns}
