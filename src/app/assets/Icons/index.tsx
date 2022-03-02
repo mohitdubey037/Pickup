@@ -1,4 +1,3 @@
-import analytics from './analytics.svg';
 import clock from './clock.svg';
 import congrats from './congrats.svg';
 import creditCard from './credit-card.svg';
@@ -13,11 +12,8 @@ import redCross from './redCross.svg';
 import reports from './reports.svg';
 import search from './search.svg';
 import sortBy from './sortby.svg';
-import speaker from './speaker.svg';
-import track from './track.svg';
 import settings from './settings.svg';
 import dropdown from './dropdown.svg';
-import truck from './truck.svg';
 import arrowUp from './arrow-up.svg'
 import arrowUpWhite from './arrow-up-white.svg'
 import ChevronDown from './ChevronDown.svg'
@@ -63,7 +59,6 @@ import disclaimer from './disclaimer.svg'
 
 
 export {
-    analytics,
     calendar,
     clock,
     congrats,
@@ -80,11 +75,8 @@ export {
     reports,
     search,
     sortBy,
-    speaker,
-    track,
     settings,
     dropdown,
-    truck,
     arrowUp,
     arrowUpWhite,
     ChevronDown,

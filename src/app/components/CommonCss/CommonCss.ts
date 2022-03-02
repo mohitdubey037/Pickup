@@ -63,6 +63,32 @@ export const AccordionOuterBox = styled(Box)`
   }
 `;
 
+
+export const AccordionNoBorderOuterBox = styled(Box)`
+  border: none;
+  padding: 0;
+  margin-top:24px;
+  div {
+    box-shadow: none !important;
+  }
+  .MuiAccordion-root.Mui-expanded {
+    margin: 16px 0;
+    border-bottom: 1px solid #DCDCDC;
+}
+.MuiAccordion-root:before {
+  top: 0px;
+}
+ .MuiAccordionSummary-root, .MuiAccordionSummary-content.Mui-expanded{
+  margin: 8px 0px;
+  min-height:auto;
+}
+.MuiAccordionSummary-content{
+  margin:12px 0 0px;
+}
+
+`;
+
+
 export const InnerAccordion = styled.div`
   border-top: 1px solid #dddddd;
   .MuiAccordionSummary-content {
