@@ -24,6 +24,7 @@ export interface TableProps {
 }
 
 export interface TableNewProps {
+  loading?: boolean;
   tableTop?: ReactNode;
   coloumns: Array<{
     id: string;

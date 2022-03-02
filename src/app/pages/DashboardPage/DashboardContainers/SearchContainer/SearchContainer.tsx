@@ -109,6 +109,7 @@ const SearchContainer = ({ path }: any) => {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
+    setLoading(true);
     let urlParams = "",
       rest = values !== undefined ? values : prevValues;
     let params: any = {
@@ -172,10 +173,7 @@ const SearchContainer = ({ path }: any) => {
     resetForm,
   } = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      setLoading(true);
-      getSearchOrderListData(values);
-    },
+    onSubmit: (values) => getSearchOrderListData(values),
   });
 
   const applyOrderFilters = () => {
@@ -249,7 +247,12 @@ const SearchContainer = ({ path }: any) => {
           </Grid>
           <Grid item xs={6} sm={4} lg={2}>
             <FilterFlexBox>
-              <Button size="small" label="Search" onClick={handleSubmit} />
+              <Button
+                label="Search"
+                onClick={handleSubmit}
+                size="small"
+                disabled={loading}
+              />
               <Box>
                 <CustomBadge
                   badgeContent=""
@@ -268,10 +271,11 @@ const SearchContainer = ({ path }: any) => {
         </GridContainer>
       </Box>
 
-      {loading ? (
+      {loading && searchOrderData.length === 0 ? (
         <TableSkeleton />
       ) : searchOrderData.length > 0 ? (
         <TableNew
+          loading={loading}
           tableTop={tableTop()}
           coloumns={searchOrderColoumns}
           data={getSearchOrderData(searchOrderData, openOrderDrawer)}

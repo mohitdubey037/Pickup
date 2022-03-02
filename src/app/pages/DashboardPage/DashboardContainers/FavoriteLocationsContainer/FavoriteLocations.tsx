@@ -71,6 +71,7 @@ function FavoriteLocations({ path }: any) {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
+    setLoading(true);
     let urlParams = "";
     let params: any = {
       page: page !== undefined ? page + 1 : pagination.page + 1,
@@ -121,10 +122,11 @@ function FavoriteLocations({ path }: any) {
         />
       </Flex>
 
-      {loading ? (
+      {loading && locationData?.length === 0 ? (
         <TableSkeleton />
       ) : locationData?.length > 0 ? (
         <TableNew
+          loading={loading}
           tableTop={tableTop()}
           coloumns={favoriteLocationColoumns}
           data={getLocationData(locationData, openDrawer, deleteLocation)}

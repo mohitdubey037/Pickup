@@ -120,6 +120,7 @@ const InvoicesContainer = ({ path: string }) => {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
+    setLoading(true);
     let urlParams = "",
       rest = values !== undefined ? values : prevValues;
     let params: any = {
@@ -183,10 +184,7 @@ const InvoicesContainer = ({ path: string }) => {
     handleSubmit,
   } = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      setLoading(true);
-      getInvoiceListData(values);
-    },
+    onSubmit: (values) => getInvoiceListData(values),
   });
 
   return (
@@ -243,16 +241,22 @@ const InvoicesContainer = ({ path: string }) => {
           </Grid>
           <Grid item xs={6} sm={3} lg={2}>
             <FilterFlexBox>
-              <Button label="Search" onClick={handleSubmit} size="small" />
+              <Button
+                label="Search"
+                onClick={handleSubmit}
+                size="small"
+                disabled={loading}
+              />
             </FilterFlexBox>
           </Grid>
         </GridContainer>
       </Box>
 
-      {loading ? (
+      {loading && invoiceData?.length === 0 ? (
         <TableSkeleton />
       ) : invoiceData?.length > 0 ? (
         <TableNew
+          loading={loading}
           tableTop={tableTop()}
           coloumns={invoiceColoumns}
           data={getInvoiceData(invoiceData, openInvoiceDrawer)}

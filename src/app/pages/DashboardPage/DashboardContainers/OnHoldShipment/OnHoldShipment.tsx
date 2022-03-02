@@ -153,6 +153,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
+    setLoading(true);
     let urlParams = "",
       rest = values !== undefined ? values : prevValues;
     let params: any = {
@@ -216,10 +217,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     handleSubmit,
   } = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      setLoading(true);
-      getOnHoldOrderListData(values);
-    },
+    onSubmit: (values) => getOnHoldOrderListData(values),
   });
 
   return (
@@ -265,7 +263,12 @@ const OnHoldShipmentContainer = ({ path: string }) => {
           </Grid>
           <Grid item xs={12} lg={6}>
             <FilterFlexBox>
-              <Button size="small" label="Search" onClick={handleSubmit} />
+              <Button
+                label="Search"
+                onClick={handleSubmit}
+                size="small"
+                disabled={loading}
+              />
               <Box>
                 <img src={sliders} alt="Advanced Filter" />
               </Box>
@@ -274,10 +277,11 @@ const OnHoldShipmentContainer = ({ path: string }) => {
         </GridContainer>
       </Box>
 
-      {loading ? (
+      {loading && onHoldOrderData?.length === 0 ? (
         <TableSkeleton />
       ) : onHoldOrderData.length > 0 ? (
         <TableNew
+          loading={loading}
           tableTop={tableTop()}
           coloumns={onHoldOrderColoumns}
           data={getOnHoldOrderData(onHoldOrderData, openOnHoldDrawer)}

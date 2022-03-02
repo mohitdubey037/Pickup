@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import {
+  Skeleton,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 import { noSort, sortBy } from "app/assets/Icons";
 import {
@@ -12,6 +18,7 @@ import { TableNewProps } from "./type";
 import { Checkbox } from "../Checkbox";
 
 const TableNew = ({
+  loading,
   tableTop,
   coloumns,
   data,
@@ -77,6 +84,7 @@ const TableNew = ({
                         handleRowSelect(e.target.checked, undefined, "header")
                       }
                       isChecked={selectedRows.length === data.length}
+                      disabled={loading}
                     />
                   </TableCell>
                 )}
@@ -89,10 +97,12 @@ const TableNew = ({
                           <img
                             src={sortBy}
                             alt=""
+                            style={loading ? { cursor: "default" } : {}}
                             className={
                               sortDetail.type === "asc" ? "ascending" : ""
                             }
                             onClick={() =>
+                              !loading &&
                               handleSort(
                                 col.id,
                                 sortDetail.type === "asc" ? "desc" : "asc"
@@ -103,7 +113,10 @@ const TableNew = ({
                           <img
                             src={noSort}
                             alt=""
-                            onClick={() => handleSort(col.id, "desc")}
+                            style={loading ? { cursor: "default" } : {}}
+                            onClick={() =>
+                              !loading && handleSort(col.id, "desc")
+                            }
                           />
                         )}
                       </>
@@ -125,12 +138,19 @@ const TableNew = ({
                           handleRowSelect(e.target.checked, index, undefined)
                         }
                         isChecked={selectedRows.includes(index)}
+                        disabled={loading}
                       />
                     </TableCell>
                   )}
-                  {Object.values(row).map((colData: any, idx: number) => (
-                    <TableCell key={idx}>{colData}</TableCell>
-                  ))}
+                  {loading
+                    ? coloumns.map((col: any) => (
+                        <TableCell key={col.id}>
+                          <Skeleton width="50%" />
+                        </TableCell>
+                      ))
+                    : Object.values(row).map((colData: any, idx: number) => (
+                        <TableCell key={idx}>{colData}</TableCell>
+                      ))}
                 </TableRow>
               ))}
           </TableBody>
@@ -150,6 +170,13 @@ const TableNew = ({
             </span>
           )}
           rowsPerPageOptions={[]}
+          backIconButtonProps={{
+            disabled: loading || page === 0,
+          }}
+          nextIconButtonProps={{
+            disabled:
+              loading || page + 1 === Math.ceil(pagination.count / rowsPerPage),
+          }}
         />
       )}
     </>
