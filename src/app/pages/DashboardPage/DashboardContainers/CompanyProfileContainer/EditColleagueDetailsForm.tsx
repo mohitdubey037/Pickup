@@ -12,7 +12,7 @@ import SelectNew from "app/components/Select/SelectNew";
 import { updateColleague } from "services/CompanyService";
 import {
   NOTIFICATION_FREQUENCY_TYPES,
-  NEW_PERMISSION_TYPES,
+  PERMISSION_TYPES_DESC,
   PHONE_NO_MASK,
 } from "../../../../../constants";
 import { addNewEditColleagueSchema } from "./schema";
@@ -149,7 +149,7 @@ const EditColleagueDetailsForm = (props: EditDetailsInterface) => {
         <SelectBox
           name="permission"
           label="Permission"
-          options={NEW_PERMISSION_TYPES}
+          options={PERMISSION_TYPES_DESC}
           value={values.permission}
           onSelect={handleChange}
           error={touched.permission && errors.permission}

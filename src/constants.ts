@@ -8,11 +8,7 @@ export const ORDER_BASE_URL = process.env.REACT_APP_ORDER_URL;
 export const LOCATION_URL = process.env.REACT_APP_LOCATION_URL;
 export const HERE_MAPS_API_KEY = process.env.REACT_APP_HERE_MAPS_API_KEY;
 
-export const PHONE_NUMBER_REGX =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const PHONE_NUMBER_REGEX_NEW = /^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
-export const PASSWORD_REGX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 export const NEWPASSWORD_REGEX =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#$%&+'`()*,-./:;/\/<=>?@[\]~{}_^!&]).{8,}$/;
 export const EMAIL_REGEX =
@@ -58,6 +54,12 @@ export const LOCATION_TYPES = [
   { label: "RETAIL", value: 3 },
 ];
 
+export const LOCATION_TYPE_BY_ID = {
+  1: "RESIDENTIAL",
+  2: "COMMERCIAL",
+  3: "RETAIL",
+};
+
 export const PERMISSION_TYPES = [
   { label: "Executive", value: 1 },
   { label: "Superintendent", value: 2 },
@@ -72,7 +74,7 @@ export const PERMISSION_TYPE_BY_ID = {
   4: "Admin",
 };
 
-export const NEW_PERMISSION_TYPES = [
+export const PERMISSION_TYPES_DESC = [
   {
     title: "Executive",
     value: 1,
@@ -136,24 +138,6 @@ export const SCHEDULE_OPTIONS = [
     tooltipText:
       "Once your orders are ready to ship, you can schedule them later from the holding zone",
   },
-];
-
-export const COUNTRY = [
-  { label: "Afghanistan", value: 1 },
-  { label: "Albania", value: 2 },
-  { label: "Algeria", value: 3 },
-];
-
-export const COUNTRY_TEXT = [
-  { label: "Afghanistan", value: "Afghanistan" },
-  { label: "Albania", value: "Albania" },
-  { label: "Algeria", value: "Algeria" },
-];
-
-export const INDUSTRY = [
-  { label: "Agriculture", value: 1 },
-  { label: "Construction", value: 2 },
-  { label: "Manufacturing", value: 3 },
 ];
 
 export const INDUSTRY_TEXT = [

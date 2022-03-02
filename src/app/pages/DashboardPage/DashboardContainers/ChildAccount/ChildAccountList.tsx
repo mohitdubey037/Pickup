@@ -17,7 +17,7 @@ import { ChildAccountListColumn, childDataTable } from "./helper";
 
 import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Input } from "app/components/Input";
@@ -30,6 +30,9 @@ import { SearchTableTop } from "../SearchContainer/style";
 import { Flex } from "app/components/CommonCss/CommonCss";
 
 export default function ChildAccountList({ path: string }) {
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
 
   const [childData, setChildData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -151,6 +154,10 @@ export default function ChildAccountList({ path: string }) {
       // </OnHoldTableTop>
     );
   };
+
+  if ([4].indexOf(authUser?.roleId) || authUser?.childAccount === 1) {
+    navigate("/non-authorized-page");
+  }
 
   return (
     <ModuleContainer>

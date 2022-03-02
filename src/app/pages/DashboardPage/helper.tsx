@@ -68,6 +68,7 @@ export const dashboardHelper: Array<Link> = [
         label: "Company Profile",
         link: "/dashboard/my-account/company-profile",
         access: [4],
+        hideChild: true,
       },
       {
         id: 1,
@@ -77,9 +78,10 @@ export const dashboardHelper: Array<Link> = [
       },
       {
         id: 2,
-        label: "Child Account",
+        label: "Child Accounts",
         link: "/dashboard/my-account/child-account-list",
         access: [4],
+        hideChild: true,
       },
       {
         id: 3,

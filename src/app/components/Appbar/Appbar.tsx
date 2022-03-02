@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, IconButton, MenuItem } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { navigate } from "@reach/router";
+import { navigate, useLocation } from "@reach/router";
+import { Avatar, IconButton } from "@mui/material";
+import { MenuItem } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/Close";
 
+import { SidebarLogo } from "app/pages/DashboardPage/DashboardComponents/style";
+import { LeftDashboard } from "app/pages/DashboardPage/DashboardComponents";
 import { dropdown, logo } from "app/assets/Icons";
+import { globalActions } from "store/reducers/GlobalReducer";
+import services from "services";
 import {
   AppbarContainer,
   LeftBox,
@@ -12,55 +19,32 @@ import {
   ProfileMenu,
   RightBox,
 } from "./style";
-import { AuthUser } from "types";
-import services from "services";
-import { PERMISSION_TYPES } from "../../../constants";
-import MenuIcon from "@material-ui/icons/Menu";
-import CloseIcon from "@material-ui/icons/Close";
-import { SidebarLogo } from "app/pages/DashboardPage/DashboardComponents/style";
+import { PERMISSION_TYPE_BY_ID } from "../../../constants";
 import { DrawerHeading, H4, H5 } from "../Typography/Typography";
-import { LeftDashboard } from "app/pages/DashboardPage/DashboardComponents";
-import { globalActions } from "store/reducers/GlobalReducer";
 
 export default function Appbar() {
-  const [menuVisibility, setMenuVisibility] = React.useState(false);
-  const [link, setLink] = useState("");
-  // const [showMenu, setShowMenu] = useState(true);
-  const [anchorEl, setAnchorEl] = useState(null);
-  // const [profileImage, setProfileImage] = useState(null);
-  const pathname = window?.location?.pathname;
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
-  const auth = useSelector((state: { auth: { user: AuthUser } }) => {
-    return state.auth;
-  });
-  const { user } = auth;
+  const user = useSelector((state: any) => state.auth?.user);
 
-  let getRole = (roleId) =>
-    PERMISSION_TYPES.filter((role) => role.value === roleId);
+  const [menuVisibility, setMenuVisibility] = React.useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     const authToken = services.getToken();
     if (!authToken) {
       navigate("/");
     }
-  }, [auth.user?.userId]);
+  }, [user?.userId]);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const profileHandler = () => {
-    navigate("/dashboard/my-account/personal-profile");
-    setAnchorEl(null);
-  };
-  const accountHandler = () => {
-    navigate("/dashboard/my-account/company-profile");
-    setAnchorEl(null);
-  };
   const handleClose = (e) => {
     const { id } = e.target;
-    if (id === "logout") {
+    if (id === "profile") {
+      navigate("/dashboard/my-account/personal-profile");
+    } else if (id === "my-account") {
+      navigate("/dashboard/my-account/company-profile");
+    } else if (id === "logout") {
       dispatch({ type: "LOGOUT_USER" });
       dispatch(globalActions.showLoader(false));
       services.removeToken();
@@ -75,87 +59,75 @@ export default function Appbar() {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <>
-      <AppbarContainer>
-        <LeftBox>
-          <SidebarLogo className="logo">
-            <img src={logo} alt="logo" />
-          </SidebarLogo>
-          {pathname.includes("/charter-shipment/order-summary") ? (
-            <DrawerHeading title="Order Confirmation" className="title" />
-          ) : pathname.includes("/charter-shipment/shipment-summary") ? (
-            <DrawerHeading title="Payment" className="title" />
-          ) : (
-            <></>
-          )}
-        </LeftBox>
+    <AppbarContainer>
+      <LeftBox>
+        <SidebarLogo className="logo">
+          <img src={logo} alt="PICKUPS" />
+        </SidebarLogo>
+        {pathname.includes("/charter-shipment/order-summary") ? (
+          <DrawerHeading title="Order Confirmation" className="title" />
+        ) : pathname.includes("/charter-shipment/shipment-summary") ? (
+          <DrawerHeading title="Payment" className="title" />
+        ) : (
+          <></>
+        )}
+      </LeftBox>
 
-        <RightBox>
-          <ProfileBox>
-            <H4 text={user?.firstName} className="profilename" />
-            <H5
-              className="designation"
-              text={
-                user?.roleId
-                  ? getRole(user?.roleId)?.[0]?.label
-                  : getRole(4)?.[0]?.label
-              }
-            />
-          </ProfileBox>
-
-          <Avatar
-            alt="profile picture"
-            src={user?.profileImage}
-            className="avatar"
+      <RightBox>
+        <ProfileBox>
+          <H4 text={user?.firstName} className="profilename" />
+          <H5
+            className="designation"
+            text={PERMISSION_TYPE_BY_ID?.[user?.roleId] || "-"}
           />
+        </ProfileBox>
 
-          <ProfileMenu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={profileHandler}>Profile</MenuItem>
-            {[4].indexOf(user?.roleId) !== -1 && (
-              <MenuItem onClick={accountHandler}>My account</MenuItem>
-            )}
-            <MenuItem id={"logout"} onClick={handleClose}>
-              Logout
+        <Avatar src={user?.profileImage} className="avatar" />
+
+        <ProfileMenu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem id="profile" onClick={handleClose}>
+            Profile
+          </MenuItem>
+          {[4].indexOf(user?.roleId) !== -1 && user?.childAccount !== 1 && (
+            <MenuItem id="my-account" onClick={handleClose}>
+              My Account
             </MenuItem>
-          </ProfileMenu>
+          )}
+          <MenuItem id="logout" onClick={handleClose}>
+            Logout
+          </MenuItem>
+        </ProfileMenu>
 
-          <img
-            src={dropdown}
-            alt="dropdown"
-            aria-describedby={id}
-            onClick={handleClick}
-            className="drodwonicon"
-          />
+        <img
+          src={dropdown}
+          alt="dropdown"
+          aria-describedby={id}
+          onClick={(e: any) => setAnchorEl(e.currentTarget)}
+          className="drodwonicon"
+        />
 
-          <IconButton
-            className="menuicon"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={() => setMenuVisibility((previous) => !previous)}
-          >
-            {menuVisibility ? <CloseIcon /> : <MenuIcon />}
-          </IconButton>
+        <IconButton
+          className="menuicon"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={() => setMenuVisibility((previous) => !previous)}
+        >
+          {menuVisibility ? <CloseIcon /> : <MenuIcon />}
+        </IconButton>
 
-          <MenuLinks display={menuVisibility ? "block" : "none"}>
-            <LeftDashboard
-              onDrawerItemSelect={(id) => {
-                navigate?.(id);
-                setLink(id);
-                setMenuVisibility(false);
-              }}
-            />
-          </MenuLinks>
-        </RightBox>
-      </AppbarContainer>
-    </>
+        <MenuLinks display={menuVisibility ? "block" : "none"}>
+          <LeftDashboard onDrawerItemSelect={() => setMenuVisibility(false)} />
+        </MenuLinks>
+      </RightBox>
+    </AppbarContainer>
   );
 }
