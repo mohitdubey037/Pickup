@@ -1,4 +1,9 @@
 import { useState, useEffect } from "react";
+import { navigate, useLocation } from "@reach/router";
+import { useDispatch, useSelector } from "react-redux";
+
+import { H3 } from "app/components/Typography/Typography";
+import services from "services";
 import {
   LeftContent,
   CustomListItem,
@@ -8,27 +13,27 @@ import {
 } from "./style";
 import { dashboardHelper } from "../helper";
 import { Link } from "../type";
-import { H3 } from "app/components/Typography/Typography";
-import services from "services";
-import { navigate } from "@reach/router";
-import { useDispatch, useSelector } from "react-redux";
 
 interface LeftDashboardProps {
-  onDrawerItemSelect: (link: string) => void;
+  onDrawerItemSelect?: () => void;
 }
 
 const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
-  const [selectedLink, setSelectedLink] = useState("");
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
-  useEffect(() => {
-    const url = window.location.pathname;
-    setSelectedLink(url);
-  }, []);
+  const userRoleId = useSelector((state: any) => state.auth?.user?.roleId);
+  const isChildUser = useSelector(
+    (state: any) => state.auth?.user?.childAccount
+  );
 
-  const onLinkSelectHandler = (link: string) => {
-    setSelectedLink(link);
-    onDrawerItemSelect(link);
+  const [selectedLink, setSelectedLink] = useState("");
+
+  useEffect(() => setSelectedLink(pathname), [pathname]);
+
+  const handleLinkSelect = (link: string) => {
+    onDrawerItemSelect?.();
+    navigate(link);
   };
 
   const handleLogOut = () => {
@@ -38,10 +43,6 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
       navigate("/");
     }, 500);
   };
-
-  const userRoleId = useSelector((state: any) => {
-    return state.auth?.user?.roleId;
-  });
 
   return (
     <LeftContent>
@@ -55,16 +56,16 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
         return (
           (parent.access ? parent.access.indexOf(userRoleId) !== -1 : true) && (
             <CustomListItem
+              key={parent.id}
               onClick={() =>
                 parent?.isLogOut === true
                   ? handleLogOut()
                   : parent.children && parent.children.length > 0
                   ? null
-                  : onLinkSelectHandler(parent.link)
+                  : handleLinkSelect(parent.link)
               }
               selected={isSelected}
               hasChild={parent.children && parent.children.length > 0}
-              key={parent.id}
             >
               <ListItem>
                 <LogoIcon>
@@ -75,15 +76,16 @@ const LeftDashboard = ({ onDrawerItemSelect }: LeftDashboardProps) => {
               {parent.children?.map((child: Link) => {
                 return (
                   (child.access
-                    ? child.access.indexOf(userRoleId) !== -1
+                    ? child.access.indexOf(userRoleId) !== -1 &&
+                      (child?.hideChild ? isChildUser !== 1 : true)
                     : true) && (
                     <ChildLink
+                      key={child.id}
                       onClick={(e) => {
                         e.stopPropagation();
-                        onLinkSelectHandler(child.link);
+                        handleLinkSelect(child.link);
                       }}
                       selected={selectedLink === child.link}
-                      key={child.id}
                     >
                       <p className="labeltext">{child.label}</p>
                     </ChildLink>

@@ -1,4 +1,5 @@
-import { AppBar, Box, Menu } from "@material-ui/core";
+import { AppBar, Box } from "@mui/material";
+import { Menu } from "@material-ui/core";
 import styled from "styled-components";
 
 export const MainAppBar = styled(AppBar)`
@@ -26,21 +27,21 @@ export const AppbarContainer = styled.div`
 `;
 
 export const LeftBox = styled(Box)`
-display:flex;
-align-items:center;
-    .logo{
+  display: flex;
+  align-items: center;
+  .logo {
     display: none;
     @media (max-width: 1023px) {
-    display: block;
-    }
-    }
-    .title{
-      margin:0; 
       display: block;
-      @media (max-width: 1023px) {
-      display: none;
-      }
     }
+  }
+  .title {
+    margin: 0;
+    display: block;
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  }
 `;
 
 export const RightBox = styled(Box)`
@@ -91,7 +92,7 @@ export const MenuLinks = styled(Box)`
 `;
 
 export const ProfileMenu = styled(Menu)`
-.MuiPopover-paper{
-  top:55px !important;
-}
+  .MuiPopover-paper {
+    top: 55px !important;
+  }
 `;
