@@ -69,7 +69,7 @@ export default function Cards({formik}:{formik: any}){
               onBlur={handleBlur}
               initValue={values.expiryDate}
               onChange={(e) => onChangeHandler(e, `expiryDate`)}
-              error={touched.expiryYear && errors.expiryYear}
+              error={touched.expiryDate && errors.expiryDate}
               label={"Expiration Date"}
               placeholder={"MM/YY"}
               type="mask"
