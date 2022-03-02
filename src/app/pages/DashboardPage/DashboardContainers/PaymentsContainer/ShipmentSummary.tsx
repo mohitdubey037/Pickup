@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
 
 import ModuleContainer from "app/components/ModuleContainer";
-import { Flex } from "../../../../components/Input/style";
 import { Drawer } from "app/components/Drawer";
 import AddCardForm from "./AddCardForm";
 import {
@@ -24,6 +23,7 @@ import { CardType } from "../../../../../types";
 import InvoiceDetailsDrawer from "./InvoiceDetailsDrawer";
 import { H3 } from "app/components/Typography/Typography";
 import { CustomLink } from "app/components/Typography/Links";
+import { Flex } from "app/components/CommonCss/CommonCss";
 
 interface InvoiceDataType {
     insuranceAmount: number;

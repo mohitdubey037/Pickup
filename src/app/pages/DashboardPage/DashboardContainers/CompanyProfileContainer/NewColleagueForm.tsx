@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Box, Grid } from "@mui/material";
-
-import { FullCard } from "app/components/Input/style";
 import { H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -17,6 +15,7 @@ import {
   PHONE_NO_MASK,
 } from "../../../../../constants";
 import { addNewEditColleagueSchema } from "./schema";
+import { FullCard } from "app/components/CommonCss/CommonCss";
 
 interface NewColleagueInterface {
   companyId: string;

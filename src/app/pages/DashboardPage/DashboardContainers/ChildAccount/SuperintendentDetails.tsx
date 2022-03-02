@@ -1,8 +1,7 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
-import { FlexBox } from "app/components/CommonCss/CommonCss";
+import { FlexBox, FullCard } from "app/components/CommonCss/CommonCss";
 import { Drawer } from "app/components/Drawer";
 import EditIcon from "app/components/EditIcon/EditIcon";
-import { FullCard } from "app/components/Input/style";
 import {
   H3,
   Para,

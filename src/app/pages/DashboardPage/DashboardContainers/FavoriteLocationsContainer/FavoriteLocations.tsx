@@ -5,7 +5,6 @@ import { Drawer } from "app/components/Drawer";
 import { TableNew } from "app/components/Table";
 import { Button } from "app/components/Buttons";
 import { H2, H3 } from "app/components/Typography/Typography";
-import { Flex } from "app/components/Input/style";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
 import {
@@ -17,6 +16,7 @@ import ContactDetailsSidebar from "./ContactDetailsSidebar";
 import EditContactDetails from "./EditContactDetails";
 import FileDrawer from "./FileDrawer";
 import { favoriteLocationColoumns, getLocationData } from "./helper";
+import { Flex } from "app/components/CommonCss/CommonCss";
 
 const DRAWER_TITLE = {
   contactDetails: "Contact Details",

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Card } from "@material-ui/core";
+import { H2Typography } from "../Typography/style";
 
 export const CustomCard = styled(Card)`
   width: 998px;
@@ -8,71 +9,71 @@ export const CustomCard = styled(Card)`
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 16px !important;
   position: relative;
+  @media (max-width: 1023px) {
+    width: 90%;
+    max-width:600px;
+    height:auto;
+  }
 `;
 
 export const CardContent = styled.div`
   display: flex;
-  gap: 20px;
+  align-items:center;
 `;
 
 export const LeftContent = styled.div`
-  width: 40%;
-  position:relative;
-  .yellowSplash {
-    position: absolute;
-    width: 88%;
-    height: 167%;
-    left: -75.29px;
-    background: #fece3e;
-    transform: rotate(-30.06deg);
-  }
+  width: 50%;
   img{
-    position:absolute;
-    top:20%;
-    left: 10%;
-    width: -webkit-fill-available;
-}
+    height:519px;
+    width:100%;
+  }
+  
+  @media (max-width: 1023px) {
+    display:none;
+  }
+
 `;
 
 export const RightContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 52%;
-  padding: 40px;
-  padding-right:0px;
-  align-items: inherit;
-  text-align: initial;
+  width: 50%;
+  padding: 50px 80px 50px 0;
+  box-sizing: border-box;
+  gap:20px;
+  .logo{
+    width:84px;
+  }
+  @media (max-width: 1023px) {
+    width: 100%;
+    padding: 50px;
+  }
+  @media (max-width: 600px) {
+    padding: 24px 16px;
+  }
 `;
 
 export const SplashHeader = styled.div`
-  font-weight: 900;
-  font-size: 45.8947px;
+  font-weight:900;
+  font-size: 46px;
   line-height: 54px;
   color: #343434;
+  @media (max-width: 600px) {
+    font-size: 30px;
+    line-height: 36px;
+  }
 `;
 
-export const SplashSubHeader = styled.div`
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  color: #343434;
-`;
 
-export const LogoImage = styled.img`
-  width: 84px;
-`;
 
 export const ButtonBox = styled.div`
   display: flex;
-  gap: 50px;
+  justify-content:space-between;
 `;
 
-export const CardCount = styled.div`
+export const CardCount = styled(H2Typography)`
   position: absolute;
-  right: 20px;
-  top: 15px;
-  font-size: 24px;
-  line-height: 28px;
-  color: #343434;
+  right: 24px;
+  top: 24px;
+  font-family:"Roboto"
 `;

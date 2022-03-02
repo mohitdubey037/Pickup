@@ -2,32 +2,34 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Grid, Box } from "@mui/material";
 import moment from "moment";
-
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { TableNew } from "app/components/Table";
 import { Drawer } from "app/components/Drawer";
 import { H2, H3, H5 } from "app/components/Typography/Typography";
-import { Flex } from "app/components/Input/style";
-import { getInvoiceData, invoiceColoumns } from "./helper";
-import InvoiceDetailsDrawer from "./InvoiceDetailsDrawer";
-import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
+import DatePickerInput from "app/components/Input/DatePickerInput";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
+import TableSkeleton from "app/components/Table/TableSkeleton";
+import SelectNew from "app/components/Select/SelectNew";
+import NullState from "app/components/NullState/NullState";
 import {
   getInvoiceList,
   getMultipleInvoicesPdf,
-} from "../../../../../services/PaymentServices/index";
-import DatePickerInput from "app/components/Input/DatePickerInput";
+} from "services/PaymentServices";
+import { getInvoiceData, invoiceColoumns } from "./helper";
+import InvoiceDetailsDrawer from "./InvoiceDetailsDrawer";
+import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
 import { SearchTableTop } from "../SearchContainer/style";
-import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { FilterFlexBox } from "./style";
-import TableSkeleton from "app/components/Table/TableSkeleton";
-import NullState from "app/components/NullState/NullState";
+import { PAYMENT_STATUS } from "../../../../../constants";
+import { Flex } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
   invoiceNumber: "",
   fromDate: "",
   toDate: "",
+  isPayment: "",
 };
 
 const InvoicesContainer = ({ path: string }) => {
@@ -172,13 +174,13 @@ const InvoicesContainer = ({ path: string }) => {
 
   const {
     values,
-    handleChange,
     errors,
     touched,
     handleBlur,
-    handleSubmit,
-    setFieldValue,
     resetForm,
+    handleChange,
+    setFieldValue,
+    handleSubmit,
   } = useFormik({
     initialValues,
     onSubmit: (values) => {
@@ -226,6 +228,17 @@ const InvoicesContainer = ({ path: string }) => {
               placeholder={"e.g 06/06/2021"}
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}
+            />
+          </Grid>
+          <Grid item xs={6} sm={3} lg={2}>
+            <SelectNew
+              name="isPayment"
+              label="Status"
+              placeholder="Select Invoice Status"
+              options={PAYMENT_STATUS}
+              value={values.isPayment}
+              onChange={handleChange}
+              allowEmpty
             />
           </Grid>
           <Grid item xs={6} sm={3} lg={2}>

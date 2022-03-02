@@ -1,6 +1,7 @@
 export interface SplashScreenType{
     screenNo:number;
-    svg?:any;
+    // svg?:any;
     headerText?:string;
     subHeaderText?:string;
+    splashscreenimg?:any;
 }

@@ -1,6 +1,6 @@
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 import styled from "styled-components";
-import { Flex } from "../Input/style";
+import { Flex } from "../CommonCss/CommonCss";
 
 export const RadioFlex = styled(Flex)`
 flex-flow: wrap;

@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { Flex } from "app/components/CommonCss/CommonCss";
 import styled from "styled-components";
 
 export const MainDiv = styled.div`
@@ -106,5 +107,23 @@ export const DisclaimerBox = styled(Box)`
   }
   p {
     color: #8c6d0f !important;
+  }
+`;
+
+export const AddImgBox = styled(Flex)`
+  margin: 24px 0;
+  cursor: ${(props: { disabled?: boolean }) =>
+    props.disabled ? "not-allowed" : "pointer"};
+  align-items: center;
+  box-sizing: border-box;
+  .icon {
+    fill: ${(props: { disabled?: boolean }) =>
+      props.disabled ? "#ddd" : "#1b8af0"};
+    margin-right: 5px;
+  }
+  .label {
+    color: ${(props: { disabled?: boolean }) =>
+      props.disabled ? "#ddd" : "#1b8af0"};
+    margin: 0;
   }
 `;

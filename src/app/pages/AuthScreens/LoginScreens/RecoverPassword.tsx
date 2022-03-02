@@ -101,7 +101,7 @@ const RecoverPassword = ({ navigate }: RouteComponentProps) => {
                 <LogoImage />
                 <FormWrapper>
                     <FormContent>
-                        <H1 title="RECOVER PASSWORD" />
+                        <H1 title="RECOVER PASSWORD" mb={24} />
                         <PasswordInput
                             id="password"
                             name="password"
