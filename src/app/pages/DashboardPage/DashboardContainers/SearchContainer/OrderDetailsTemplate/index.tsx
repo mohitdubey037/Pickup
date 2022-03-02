@@ -2,7 +2,7 @@ import { logo } from "app/assets/Icons";
 import { formatPhoneNo } from "utils/commonUtils";
 import {
   DIMENSION2,
-  LOCATION_TYPES,
+  LOCATION_TYPE_BY_ID,
   WEIGHTDIMENSION,
 } from "../../../../../../constants";
 import "./styles.css";
@@ -43,16 +43,6 @@ const OrderDetailsTemplate = ({ orderData, orderId }: any) => {
 };
 
 const AddressDetails = ({ data }: any) => {
-  function locationType(location): string {
-    const search = (obj) => obj.value === location.addressType;
-    const arrayResult = LOCATION_TYPES.filter(search);
-    let labelValue: string = "";
-    arrayResult.forEach(function (next) {
-      labelValue = next.label;
-    });
-    return labelValue;
-  }
-
   return (
     <table>
       <thead>
@@ -65,7 +55,7 @@ const AddressDetails = ({ data }: any) => {
       </thead>
       <tbody>
         <tr>
-          <td>{locationType(data)}</td>
+          <td>{LOCATION_TYPE_BY_ID?.[data?.addressType] || "N/A"}</td>
           <td>{data?.companyName || "N/A"}</td>
           <td>{data?.locationFirstName || "N/A"}</td>
           <td>{data?.locationLastName || "N/A"}</td>

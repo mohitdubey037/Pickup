@@ -90,7 +90,7 @@ const CompanyProfile = ({ path }) => {
     }
   };
 
-  if ([4].indexOf(authUser?.roleId)) {
+  if ([4].indexOf(authUser?.roleId) || authUser?.childAccount === 1) {
     navigate("/non-authorized-page");
   }
 

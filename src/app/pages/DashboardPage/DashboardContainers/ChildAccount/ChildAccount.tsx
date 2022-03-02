@@ -25,6 +25,10 @@ const loading = useSelector((state: { globalState: { showLoader } }) => {
   return state.globalState.showLoader;
 });
 
+  const authUser = useSelector((state: any) => {
+    return state.auth?.user;
+  });
+
 const formik = useFormik({
   initialValues: childNewInitValue,
   validate: (values: any) => {
@@ -78,6 +82,10 @@ useEffect(() => {
 useEffect(() => {
   (() => formik.validateForm())();
 }, []);
+
+  if ([4].indexOf(authUser?.roleId) || authUser?.childAccount === 1) {
+    navigate("/non-authorized-page");
+  }
 
   return (
     <ModuleContainer>
