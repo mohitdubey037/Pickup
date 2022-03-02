@@ -1,4 +1,4 @@
-import { FullCard } from "app/components/Input/style";
+import { FullCard } from "app/components/CommonCss/CommonCss";
 import styled from "styled-components";
 
 export const CreateChildAccountBox = styled(FullCard)`

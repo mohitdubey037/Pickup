@@ -1,6 +1,5 @@
-import { Box } from "@material-ui/core";
 import styled from "styled-components";
-import { Flex } from "../Input/style";
+import { Flex } from "../CommonCss/CommonCss";
 
 export const AddImgBox = styled(Flex)`
 margin:24px 0;
@@ -11,9 +10,6 @@ box-sizing:border-box;
     fill: #1B8AF0;
     margin-right:5px;
 }
-.label{
-    color: #1B8AF0;
-    margin:0;
-}
+
 `;
 

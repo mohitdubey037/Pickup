@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Flex } from "../Input/style";
+import { Flex } from "../CommonCss/CommonCss";
 
 export const DropzoneWrapper = styled.div`
   display:flex;

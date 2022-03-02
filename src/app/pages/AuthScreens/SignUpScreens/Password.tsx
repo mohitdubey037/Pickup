@@ -93,7 +93,7 @@ const Password = ({ navigate }: RouteComponentProps) => {
                     <LogoImage />
                     <FormWrapper>
                         <FormContent>
-                            <H1 title="PASSWORD" />
+                            <H1 title="PASSWORD" mb={24} />
                             <PasswordInput
                                 id="password"
                                 name="password"

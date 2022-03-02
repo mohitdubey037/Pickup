@@ -46,7 +46,7 @@ const PasswordInput = ({
 
   return (
     <InputWrapper ref={ref}>
-      <H4 text={label} required={required} />
+      <H4 text={label} required={required} mb={8} />
 
       <CustomInput
         autoComplete={autoComplete}

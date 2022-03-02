@@ -1,8 +1,6 @@
 import { Avatar, Box, Grid } from "@mui/material";
-
 import { H3, Para, H4 } from "app/components/Typography/Typography";
-import { FullCard } from "app/components/Input/style";
-import { FlexBox } from "app/components/CommonCss/CommonCss";
+import { FlexBox, FullCard } from "app/components/CommonCss/CommonCss";
 import EditIcon from "app/components/EditIcon/EditIcon";
 import { formatPhoneNo } from "utils/commonUtils";
 import { Button } from "../../../../components/Buttons";

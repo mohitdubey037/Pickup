@@ -5,7 +5,6 @@ import { H2, H3 } from "app/components/Typography/Typography";
 import ChildAccountForm from "./ChildAccountForm";
 import AdminDetails from "./AdminDetails";
 import Cards from "./Cards";
-import { Flex, FullCard } from "app/components/Input/style";
 import { Button } from "app/components/Buttons";
 // import { actions } from "store/reducers/PaymentReducer";
 import { actions } from 'store/reducers/ChildAccountReducer';
@@ -17,6 +16,7 @@ import EmailSentDrawer from "app/components/EmailSentDrawer/EmailSentDrawer";
 import { Drawer } from "app/components/Drawer";
 import { navigate } from "@reach/router";
 import { CustomLink } from "app/components/Typography/Links";
+import { Flex, FullCard } from "app/components/CommonCss/CommonCss";
 
 export default function ChildAccount({ path: string }) {
   const dispatch = useDispatch();

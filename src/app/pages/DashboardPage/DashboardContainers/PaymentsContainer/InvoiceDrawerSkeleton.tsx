@@ -1,8 +1,7 @@
 import { Divider, Skeleton } from "@mui/material";
 
 import { Para } from "app/components/Typography/Typography";
-import { Flex } from "app/components/Input/style";
-import { LineDivider } from "app/components/CommonCss/CommonCss";
+import { Flex, LineDivider } from "app/components/CommonCss/CommonCss";
 import { Illustration } from "../../../../assets/Images/index";
 import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
 

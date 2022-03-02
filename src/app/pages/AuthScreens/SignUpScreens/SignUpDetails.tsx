@@ -97,7 +97,7 @@ useEffect(() => {
                     <FormWrapper>
                         <form>
                             <FormContent>
-                                <H1 title="SIGN UP" />
+                                <H1 title="SIGN UP" mb={24} />
                                 <GridContainer container spacing={2}>
                                     <Grid item xs={6}>
                                         <Input
