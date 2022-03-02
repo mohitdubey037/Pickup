@@ -1,5 +1,5 @@
 import React from "react";
-import MenuItem from "@mui/material/MenuItem";
+import { MenuItem } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
 import { ComponentContainer, CustomNewSelect } from "./style";
@@ -65,11 +65,7 @@ export default function SelectNew(props: SelectPropTypes) {
         ))}
       </CustomNewSelect>
 
-      {!!error && (
-        <ErrorLabel>
-          {error}
-        </ErrorLabel>
-      )}
+      {!!error && <ErrorLabel>{error}</ErrorLabel>}
     </ComponentContainer>
   );
 }

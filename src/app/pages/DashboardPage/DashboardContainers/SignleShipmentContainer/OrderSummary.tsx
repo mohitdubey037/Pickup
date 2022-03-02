@@ -84,9 +84,18 @@ function OrderSummary({ path }) {
   }, []);
 
   const onBackHandler = () => {
-    if (window.confirm("Are you sure you want to leave this page?")) {
-      dispatch(actions.resetSingleShipment());
-    }
+    if (orderSummaryData?.length > 0 || onHoldShipment > 0) {
+      let msg = "Are you sure you want to leave this page?";
+      msg +=
+        orderSummaryData?.length > 0
+          ? "\nYour orders will be listed in search orders. You can pay them later."
+          : onHoldShipment > 0
+          ? "\nYour orders will be listed in holding zone. You can schedule them later."
+          : "";
+      if (window.confirm(msg)) {
+        dispatch(actions.resetSingleShipment());
+      }
+    } else dispatch(actions.resetSingleShipment());
   };
 
   const onItemCountSelectHandler = (id: number) => {

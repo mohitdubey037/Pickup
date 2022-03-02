@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import AppBar from "@material-ui/core/AppBar";
-import { Box } from "@material-ui/core";
+import { Box, AppBar } from "@mui/material";
 
 export const LeftDashboardWrapper = styled.div`
   text-align: left;

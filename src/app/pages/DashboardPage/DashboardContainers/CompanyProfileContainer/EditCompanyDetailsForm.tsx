@@ -153,7 +153,7 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
           required
         />
         <Grid container columnSpacing={2}>
-          <Grid item xs={6}>
+          <Grid item sm={6} xs={12}>
             <Input
               name="city"
               label="City"
@@ -165,7 +165,7 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
               required
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item sm={6} xs={12}>
             <Input
               name="pincode"
               label="Pincode"
@@ -179,7 +179,7 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
               maskProps={PIN_CODE_MASK}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item sm={6} xs={12}>
             <Input
               name="province"
               label="Province"
@@ -191,7 +191,7 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
               required
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item sm={6} xs={12}>
             <Input
               name="country"
               label="Country"

@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import { H4, Para } from "app/components/Typography/Typography";
 import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { formatPhoneNo } from "utils/commonUtils";
-import { LOCATION_TYPES } from "../../../../../constants";
+import { LOCATION_TYPE_BY_ID } from "../../../../../constants";
 
 interface ContactDetailsSidebarProps {
   contactInfo: any;
@@ -12,16 +12,15 @@ interface ContactDetailsSidebarProps {
 function ContactDetailsSidebar(props: ContactDetailsSidebarProps) {
   let { contactInfo } = props;
 
-  const locationType = (location: any) =>
-    LOCATION_TYPES.find((obj) => obj.value === location.addressType)?.label ||
-    "N/A";
-
   return (
     <ContentBox>
       <Grid container rowSpacing={3} columnSpacing={3}>
         <Grid item xs={6}>
           <Para text="Location Type" />
-          <H4 text={locationType(contactInfo)} className="value" />
+          <H4
+            text={LOCATION_TYPE_BY_ID?.[contactInfo?.addressType] || "N/A"}
+            className="value"
+          />
         </Grid>
         <Grid item xs={6}>
           <Para text="Company Name" />

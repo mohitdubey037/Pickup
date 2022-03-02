@@ -1,9 +1,8 @@
-import React from "react";
+import { useState, useCallback } from "react";
+import { CSVLink } from "react-csv";
+import Dropzone, { useDropzone } from "react-dropzone";
 import { Button } from "app/components/Buttons";
 import { csvIcon } from "app/assets/Icons";
-import { CSVLink } from "react-csv";
-
-import Dropzone, { useDropzone } from "react-dropzone";
 import { H5, Para } from "app/components/Typography/Typography";
 import { DropeZoneText, DropzoneBox } from "app/components/DropZone/style";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
@@ -32,24 +31,28 @@ const csvData = [
     "Longitude",
   ],
 ];
-function FileDrawer(props) {
-  const [files, setFiles] = React.useState<any>([]);
-  const onDrop = React.useCallback((acceptedFiles) => {
+
+function FileDrawer() {
+  const [files, setFiles] = useState<any>([]);
+
+  const onDrop = useCallback((acceptedFiles) => {
     setFiles((prev) => [...prev, ...acceptedFiles]);
   }, []);
+
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
   const fileList = files.map((file) => (
     <li key={file.path}>
       {file.path} - {file.size} bytes
     </li>
   ));
+
   return (
     <>
       <DrawerInnerContent>
         <Para text="Download this file to organize your shipments correctly before upload and we can import it" />
 
         <CSVLink
-          filename={"Bulk-Location-Sample.csv"}
+          filename="Bulk-Location-Sample.csv"
           data={csvData}
           target="_blank"
           style={{ textDecoration: "none", margin: "16px 0", display: "block" }}
@@ -79,7 +82,7 @@ function FileDrawer(props) {
         </DropzoneBox>
       </DrawerInnerContent>
       <DrawerFooter>
-        <Button secondary label="Cancel" size="medium" />
+        <Button label="Cancel" size="medium" secondary />
         <Button label="import" size="medium" />
       </DrawerFooter>
     </>

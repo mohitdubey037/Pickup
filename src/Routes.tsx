@@ -69,11 +69,11 @@ const Routes = () => {
         <PaymentsPage path="/payments/cards" />
         <ReportsContainer path="/reports" />
         <CompanyProfileContainer path="/my-account/company-profile" />
-        <PersonalProfileContainer path="my-account/personal-profile" />
+        <PersonalProfileContainer path="/my-account/personal-profile" />
         <ChildAccount path="/my-account/child-account" />
         <ChildAccountList path="/my-account/child-account-list" />
         <ChildAccountDetails path="/my-account/child-account-details/:id" />
-        <FavoriteLocations path="my-account/favourite-locations" />
+        <FavoriteLocations path="/my-account/favourite-locations" />
         <HelpContainer path="/my-account/help" />
         <NoAuthorizationPage path="/non-authorized-page" />
         <PageNotFound default />

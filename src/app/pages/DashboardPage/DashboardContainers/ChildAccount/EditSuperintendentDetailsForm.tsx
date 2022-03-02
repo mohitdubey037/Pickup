@@ -148,6 +148,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
                 error={touched.emailId && errors?.emailId}
                 placeholder={"johndoe@gmail.com"}
                 required
+                disabled
               />
             </Grid>
           </GridContainer>
