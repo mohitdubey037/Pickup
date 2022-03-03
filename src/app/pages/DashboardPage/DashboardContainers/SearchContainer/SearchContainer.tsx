@@ -31,6 +31,7 @@ import { FilterFlexBox } from "../PaymentsContainer/style";
 import { SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
+  consignmentId: "",
   invoiceNumber: "",
   orderId: "",
   fromDate: "",
@@ -192,6 +193,17 @@ const SearchContainer = ({ path }: any) => {
         <GridContainer container spacing={2}>
           <Grid item xs={6} sm={4} lg={2}>
             <Input
+              name="consignmentId"
+              label="Consignment Id"
+              placeholder="eg. 1234"
+              initValue={values.consignmentId}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.consignmentId && errors.consignmentId}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={2}>
+            <Input
               name="invoiceNumber"
               label="Invoice Number"
               placeholder="eg. 1234"
@@ -201,7 +213,7 @@ const SearchContainer = ({ path }: any) => {
               error={touched.invoiceNumber && errors.invoiceNumber}
             />
           </Grid>
-          <Grid item xs={12} sm={4} lg={2}>
+          <Grid item xs={6} sm={4} lg={2}>
             <Input
               name="orderId"
               label="Order Id"
@@ -230,7 +242,11 @@ const SearchContainer = ({ path }: any) => {
               label="To Date"
               placeholder="e.g 06/06/2021"
               maxDate={new Date()}
-              minDate={(!values.fromDate) ? null : moment(values.fromDate).add(1, "days").toDate()}
+              minDate={
+                !values.fromDate
+                  ? null
+                  : moment(values.fromDate).add(1, "days").toDate()
+              }
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}
             />

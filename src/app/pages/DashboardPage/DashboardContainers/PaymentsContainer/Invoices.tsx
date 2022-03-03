@@ -96,7 +96,8 @@ const InvoicesContainer = ({ path: string }) => {
           <H5
             text={`(${selectedRows.length} Selected)`}
             className="spanlabel"
-            ml={8} mt={4}
+            ml={8}
+            mt={4}
           />
         </Flex>
         <Button
@@ -222,8 +223,11 @@ const InvoicesContainer = ({ path: string }) => {
             <DatePickerInput
               label="To Date"
               maxDate={new Date()}
-              // minDate={moment(values.fromDate).add(1, "days").toDate()}
-              minDate={(!values.fromDate) ? null : moment(values.fromDate).add(1, "days").toDate()}
+              minDate={
+                !values.fromDate
+                  ? null
+                  : moment(values.fromDate).add(1, "days").toDate()
+              }
               placeholder={"e.g 06/06/2021"}
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}
