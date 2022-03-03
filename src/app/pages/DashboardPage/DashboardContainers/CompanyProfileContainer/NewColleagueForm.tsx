@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Box, Grid } from "@mui/material";
+
 import { H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -8,6 +9,7 @@ import SelectNew from "app/components/Select/SelectNew";
 import { Input } from "app/components/Input";
 import SelectBox from "app/components/Select/SelectBox";
 import Switches from "app/components/Input/SwitchButton";
+import { FullCard } from "app/components/CommonCss/CommonCss";
 import { inviteColleague } from "services/CompanyService";
 import {
   NOTIFICATION_FREQUENCY_TYPES,
@@ -15,7 +17,6 @@ import {
   PHONE_NO_MASK,
 } from "../../../../../constants";
 import { addNewEditColleagueSchema } from "./schema";
-import { FullCard } from "app/components/CommonCss/CommonCss";
 
 interface NewColleagueInterface {
   companyId: string;

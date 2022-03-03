@@ -1,74 +1,65 @@
-import React,{useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { navigate } from "@reach/router";
+import { useFormik } from "formik";
+import { Grid, Box } from "@mui/material";
+import moment from "moment";
+
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { Table, TableNew } from "app/components/Table";
-// import { OnHoldTableTop } from "../OnHoldShipment/Style";
-import { useNavigate } from "@reach/router";
+import { Table } from "app/components/Table";
 import TableSkeleton from "app/components/Table/TableSkeleton";
-import NullState from "app/components/NullState/NullState";
 import DatePickerInput from "app/components/Input/DatePickerInput";
-import moment from "moment";
-import { useFormik } from "formik";
-
-import { Grid } from "@mui/material";
-
-import { ChildAccountListColumn, childDataTable } from "./helper";
-
-import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
-
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "store/reducers/PaymentReducer";
+import SelectNew from "app/components/Select/SelectNew";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Input } from "app/components/Input";
-import { Box } from "@mui/system";
-import { FilterFlexBox } from "../PaymentsContainer/style";
-import SelectNew from "app/components/Select/SelectNew";
-import { CHILD_STATUS } from "../../../../../../src/constants";
-import CreateChildAccount from "./CreateChildAccount";
 import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
+import { actions } from "store/reducers/PaymentReducer";
+import { getChildAccountData } from "services/ChildAccount/index";
+import { ChildAccountListColumn, childDataTable } from "./helper";
+import { FilterFlexBox } from "../PaymentsContainer/style";
+import { CHILD_STATUS } from "../../../../../constants";
+import CreateChildAccount from "./CreateChildAccount";
 
-export default function ChildAccountList({ path: string }) {
-  const authUser = useSelector((state: any) => {
-    return state.auth?.user;
-  });
+const initialValues = {
+  companyName: "",
+  businessNumber: "",
+  fromDate: "",
+  toDate: "",
+  status: "active",
+};
 
-  const [childData, setChildData] = useState<any>([]);
+export default function ChildAccountList({ path }) {
+  const dispatch = useDispatch();
+  const authUser = useSelector((state: any) => state.auth?.user);
+
   const [loading, setLoading] = useState<boolean>(true);
-  const [selectedRows, setSelectedRows] = useState<any>([]);
-  const [searchOrderData, setSearchOrderData] = useState<any>([]);
+  const [childData, setChildData] = useState<any>([]);
+  const [prevValues, setPrevValues] = useState<any>(initialValues);
   const [pagination, setPagination] = useState({
     count: 0,
     page: 0,
   });
-
   const [sorting, setSorting] = useState({
     field: "createdAt",
     type: "desc",
   });
 
-  const initialValues = {
-    companyName: "",
-    businessNumber: "",
-    fromDate: "",
-    toDate: '',
-    status: "active"
-  };
-  
-  const [prevValues, setPrevValues] = useState<any>(initialValues);
-
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-    useEffect(() => {
-          dispatch(actions.getCards());
-  }, []);
-
-  const addChild = () => {
+  const addNewChild = () => {
     navigate("/dashboard/my-account/child-account");
   };
 
+  const tableTop = () => {
+    return (
+      <SearchTableTop>
+        <H3 text={`${pagination.count} Accounts`} className="heading" />
+      </SearchTableTop>
+    );
+  };
+
   useEffect(() => {
+    dispatch(actions.getCards());
     getChildOrderList();
   }, []);
 
@@ -77,6 +68,7 @@ export default function ChildAccountList({ path: string }) {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
+    setLoading(true);
     let urlParams = "",
       rest = values !== undefined ? values : prevValues;
     let params: any = {
@@ -115,17 +107,16 @@ export default function ChildAccountList({ path: string }) {
     const res = (await getChildAccountData(urlParams)) as any;
     if (!res.error) {
       const data = res.response.data.data;
-      setChildData(data);
+      setChildData(data.list);
       setPagination({
         count: data.pageMetaData.total,
         page: data.pageMetaData.page - 1,
       });
     } else {
-      setSearchOrderData([]);
+      setChildData([]);
     }
     setLoading(false);
   };
-  
 
   const {
     values,
@@ -138,21 +129,8 @@ export default function ChildAccountList({ path: string }) {
     resetForm,
   } = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      setLoading(true);
-      getChildOrderList(values);
-    },
+    onSubmit: (values) => getChildOrderList(values),
   });
-
-  const tableTop = () => {
-    return (
-      // <OnHoldTableTop>
-         <SearchTableTop>
-          <H3 text={`${pagination.count} Accounts`} className="heading" />
-        </SearchTableTop>
-      // </OnHoldTableTop>
-    );
-  };
 
   if ([4].indexOf(authUser?.roleId) || authUser?.childAccount === 1) {
     navigate("/non-authorized-page");
@@ -160,95 +138,98 @@ export default function ChildAccountList({ path: string }) {
 
   return (
     <ModuleContainer>
-
       <Flex justifyContent="space-between" bottom={24}>
         <H2 title="Child Accounts" />
-        {/* <Button size="medium" label="child Details" onClick={childDetails} /> */}
-        {childData?.list?.length > 0 &&
-        <Button size="medium" label="Create New" onClick={addChild} />
-        }
+        {childData.length > 0 && (
+          <Button size="medium" label="Create New" onClick={addNewChild} />
+        )}
       </Flex>
-      {childData?.list?.length > 0 &&
-      <Box mt={4} mb={2}>
-        <GridContainer container spacing={2}>
-        <Grid item xs={6} sm={4} lg={2}>
-            <Input
-              id="companyName"
-              name="companyName"
-              initValue={values.companyName}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.companyName && errors.companyName}
-              label="Company Name"
-              placeholder="test inc. pvt. ltd"
-            />
-          </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
-            <Input
-              id="businessNumber"
-              name="businessNumber"
-              initValue={values.businessNumber}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              error={touched.businessNumber && errors.businessNumber}
-              label="Business Number"
-              placeholder="eg. 1234"
-            />
-          </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
-            <SelectNew
-              id="status"
-              name="status"
-              label={"Status"}
-              placeholder={"Select Status"}
-              options={CHILD_STATUS}
-              value={values.status}
-              onChange={handleChange}
-              allowEmpty
-            />
-          </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
-            <DatePickerInput
-              label="From Date"
-              maxDate={
-                values.toDate
-                  ? moment(values.toDate).subtract(1, "days").toDate()
-                  : new Date()
-              }
-              placeholder={"e.g 06/06/2021"}
-              value={values.fromDate || null}
-              onChange={(val) => setFieldValue("fromDate", val)}
-            />
-          </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
-            <DatePickerInput
-              label="To Date"
-              maxDate={new Date()}
-              minDate={(!values.fromDate) ? null : moment(values.fromDate).add(1, "days").toDate()}
-              placeholder={"e.g 06/06/2021"}
-              value={values.toDate || null}
-              onChange={(val) => setFieldValue("toDate", val)}
-            />
-          </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
-            <FilterFlexBox>
-              <Button size="small" label="Search" onClick={handleSubmit} />
-            </FilterFlexBox>
-          </Grid>
-        </GridContainer>
-      </Box>
-}
 
-      {loading ? (
+      {childData.length > 0 && (
+        <Box mt={4} mb={2}>
+          <GridContainer container spacing={2}>
+            <Grid item xs={6} sm={4} lg={2}>
+              <Input
+                name="companyName"
+                label="Company Name"
+                placeholder="Example Company"
+                initValue={values.companyName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.companyName && errors.companyName}
+              />
+            </Grid>
+            <Grid item xs={6} sm={4} lg={2}>
+              <Input
+                name="businessNumber"
+                label="Business Number"
+                placeholder="eg. 1234"
+                initValue={values.businessNumber}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.businessNumber && errors.businessNumber}
+              />
+            </Grid>
+            <Grid item xs={6} sm={4} lg={2}>
+              <DatePickerInput
+                label="From Date"
+                placeholder="e.g 06/06/2021"
+                maxDate={
+                  values.toDate
+                    ? moment(values.toDate).subtract(1, "days").toDate()
+                    : new Date()
+                }
+                value={values.fromDate || null}
+                onChange={(val) => setFieldValue("fromDate", val)}
+              />
+            </Grid>
+            <Grid item xs={6} sm={4} lg={2}>
+              <DatePickerInput
+                label="To Date"
+                placeholder="e.g 06/06/2021"
+                maxDate={new Date()}
+                minDate={
+                  !values.fromDate
+                    ? null
+                    : moment(values.fromDate).add(1, "days").toDate()
+                }
+                value={values.toDate || null}
+                onChange={(val) => setFieldValue("toDate", val)}
+              />
+            </Grid>
+            <Grid item xs={6} sm={4} lg={2}>
+              <SelectNew
+                name="status"
+                label="Status"
+                placeholder="Select Status"
+                options={CHILD_STATUS}
+                value={values.status}
+                onChange={handleChange}
+                allowEmpty
+              />
+            </Grid>
+            <Grid item xs={6} sm={4} lg={2}>
+              <FilterFlexBox>
+                <Button
+                  label="Search"
+                  onClick={handleSubmit}
+                  size="small"
+                  disabled={loading}
+                />
+              </FilterFlexBox>
+            </Grid>
+          </GridContainer>
+        </Box>
+      )}
+
+      {loading && childData.length === 0 ? (
         <TableSkeleton />
-      ) : childData?.list?.length > 0 ? (
-        <>
-      <TableNew
+      ) : childData.length > 0 ? (
+        <Table
+          loading={loading}
           tableTop={tableTop()}
           coloumns={ChildAccountListColumn}
-          data={childDataTable(childData.list)}
-          // showCheckbox
-          onRowSelect={setSelectedRows}
+          data={childDataTable(childData)}
           showPagination
           pagination={pagination}
           onPageChange={(page) => getChildOrderList(undefined, page)}
@@ -257,9 +238,8 @@ export default function ChildAccountList({ path: string }) {
             getChildOrderList(undefined, undefined, { field, type })
           }
         />
-        </>
       ) : (
-        <CreateChildAccount onClick={addChild} />
+        <CreateChildAccount onClick={addNewChild} />
       )}
     </ModuleContainer>
   );

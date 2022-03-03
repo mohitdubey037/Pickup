@@ -1,13 +1,12 @@
+import { showToast } from "utils";
 import Services from "../";
-import { toast } from "react-toastify";
 
 export const getDashboardDetails = async () => {
   try {
-    const response = (await Services.get(
-      `order/business/dashboard`, "order")) as any;
-    return { response: response, success: true };
+    const res = await Services.get("order/business/dashboard", "order");
+    return { response: res, success: true };
   } catch (err) {
-    // toast.error("Something went wrong");    
+    showToast(err?.message || "Something Went Wrong", "error");
     return { response: err, success: false };
   }
 };

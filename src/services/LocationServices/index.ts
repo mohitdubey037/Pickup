@@ -7,10 +7,10 @@ export const getLocationList = async (urlParams: string) => {
       `location/business/location/getsavedLocation?${urlParams}`,
       "location"
     );
-    return { response: res, error: null };
-  } catch (error) {
-    showToast(error.message || "Something Went Wrong", "error");
-    return { response: null, error: error };
+    return { response: res, success: true };
+  } catch (err) {
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: null, success: false };
   }
 };
 
@@ -21,11 +21,11 @@ export const updateSavedLocation = async (locationId: string, body: any) => {
       body,
       "location"
     );
-    showToast(`Your location has been successfully updated`, "success");
-    return { response: res, error: null };
-  } catch (error) {
-    showToast(error.message || "Something Went Wrong", "error");
-    return { response: null, error: error };
+    showToast("Your location has been successfully updated", "success");
+    return { response: res, success: true };
+  } catch (err) {
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: null, success: false };
   }
 };
 
@@ -36,10 +36,10 @@ export const deleteSavedLocation = async (locationId: string) => {
       {},
       "location"
     );
-    showToast(`Your location has been successfully deleted`, "success");
-    return { response: res, error: null };
-  } catch (error) {
-    showToast(error.message || "Something Went Wrong", "error");
-    return { response: null, error: error };
+    showToast("Your location has been successfully deleted", "success");
+    return { response: res, success: true };
+  } catch (err) {
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: null, success: false };
   }
 };

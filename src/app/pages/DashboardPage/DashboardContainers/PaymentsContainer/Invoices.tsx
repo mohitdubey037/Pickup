@@ -5,7 +5,7 @@ import moment from "moment";
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import { Drawer } from "app/components/Drawer";
 import { H2, H3, H5 } from "app/components/Typography/Typography";
 import DatePickerInput from "app/components/Input/DatePickerInput";
@@ -96,7 +96,8 @@ const InvoicesContainer = ({ path: string }) => {
           <H5
             text={`(${selectedRows.length} Selected)`}
             className="spanlabel"
-            ml={8} mt={4}
+            ml={8}
+            mt={4}
           />
         </Flex>
         <Button
@@ -120,6 +121,7 @@ const InvoicesContainer = ({ path: string }) => {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
+    setLoading(true);
     let urlParams = "",
       rest = values !== undefined ? values : prevValues;
     let params: any = {
@@ -183,10 +185,7 @@ const InvoicesContainer = ({ path: string }) => {
     handleSubmit,
   } = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      setLoading(true);
-      getInvoiceListData(values);
-    },
+    onSubmit: (values) => getInvoiceListData(values),
   });
 
   return (
@@ -224,8 +223,11 @@ const InvoicesContainer = ({ path: string }) => {
             <DatePickerInput
               label="To Date"
               maxDate={new Date()}
-              // minDate={moment(values.fromDate).add(1, "days").toDate()}
-              minDate={(!values.fromDate) ? null : moment(values.fromDate).add(1, "days").toDate()}
+              minDate={
+                !values.fromDate
+                  ? null
+                  : moment(values.fromDate).add(1, "days").toDate()
+              }
               placeholder={"e.g 06/06/2021"}
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}
@@ -244,16 +246,22 @@ const InvoicesContainer = ({ path: string }) => {
           </Grid>
           <Grid item xs={6} sm={3} lg={2}>
             <FilterFlexBox>
-              <Button label="Search" onClick={handleSubmit} size="small" />
+              <Button
+                label="Search"
+                onClick={handleSubmit}
+                size="small"
+                disabled={loading}
+              />
             </FilterFlexBox>
           </Grid>
         </GridContainer>
       </Box>
 
-      {loading ? (
+      {loading && invoiceData?.length === 0 ? (
         <TableSkeleton />
       ) : invoiceData?.length > 0 ? (
-        <TableNew
+        <Table
+          loading={loading}
           tableTop={tableTop()}
           coloumns={invoiceColoumns}
           data={getInvoiceData(invoiceData, openInvoiceDrawer)}

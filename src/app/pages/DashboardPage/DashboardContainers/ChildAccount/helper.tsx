@@ -100,7 +100,6 @@ export const childDataTable = (
                     "Invitation Date": item.createdAt ? moment(item.createdAt).format("DD/MM/YYYY") : "N/A",
                     "Status": item.status.toLowerCase(),
                     "Admin Name": item.admin || "N/A",
-                    
                 };
             });
         }
@@ -126,12 +125,10 @@ export const ChildAccountListColumn = [
     {
       id: "status",
       label: "Status",
-      isSort: true,
     },
     {
       id: "admin",
       label: "Admin Name",
-      isSort: false,
     },
   ];
 

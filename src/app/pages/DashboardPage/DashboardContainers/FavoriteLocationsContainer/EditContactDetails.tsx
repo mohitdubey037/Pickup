@@ -69,7 +69,7 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
       details: values.details,
     };
     const res: any = await updateSavedLocation(data.locationId, body);
-    if (res.error === null) {
+    if (res?.success) {
       onClose(true);
     }
     setLoading(false);

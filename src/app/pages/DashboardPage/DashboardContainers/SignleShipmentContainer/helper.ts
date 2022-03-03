@@ -304,3 +304,22 @@ export const getNextOrderValues = (order: any) => {
         shipmentDetails: [{ ...shipmentDetailsItemInitValue }],
     };
 };
+
+export const orderSummaryColoumns = [
+    {
+        id: "refNo",
+        label: "Order Id",
+    },
+    {
+        id: "scheduledTime",
+        label: "Schedule",
+    },
+    {
+        id: "itemCount",
+        label: "Item Count",
+    },
+    {
+        id: "total",
+        label: "Order Cost",
+    },
+];

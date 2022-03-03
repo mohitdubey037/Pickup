@@ -1,6 +1,10 @@
 import { Avatar, Box, Grid } from "@mui/material";
 
-import { FlexBox, FlexGrid, FullCard } from "app/components/CommonCss/CommonCss";
+import {
+  FlexBox,
+  FlexGrid,
+  FullCard,
+} from "app/components/CommonCss/CommonCss";
 import { H3, Para, H4 } from "app/components/Typography/Typography";
 import { formatPhoneNo } from "utils/commonUtils";
 import { PERMISSION_TYPE_BY_ID } from "../../../../../constants";

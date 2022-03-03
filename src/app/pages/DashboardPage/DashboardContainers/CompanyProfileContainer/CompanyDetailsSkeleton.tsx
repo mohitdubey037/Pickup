@@ -1,5 +1,10 @@
 import { Box, Grid, Skeleton } from "@mui/material";
-import { FlexBox, FlexGrid, FullCard } from "app/components/CommonCss/CommonCss";
+
+import {
+  FlexBox,
+  FlexGrid,
+  FullCard,
+} from "app/components/CommonCss/CommonCss";
 import { H3, Para } from "app/components/Typography/Typography";
 
 const CompanyDetailsSkeleton = () => {

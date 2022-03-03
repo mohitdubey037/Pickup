@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 
 import ModuleContainer from "app/components/ModuleContainer";
 import { Drawer } from "app/components/Drawer";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import { Button } from "app/components/Buttons";
 import { H2, H3 } from "app/components/Typography/Typography";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 import {
   deleteSavedLocation,
   getLocationList,
@@ -15,7 +16,6 @@ import ContactDetailsSidebar from "./ContactDetailsSidebar";
 import EditContactDetails from "./EditContactDetails";
 import FileDrawer from "./FileDrawer";
 import { favoriteLocationColoumns, getLocationData } from "./helper";
-import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const DRAWER_TITLE = {
   contactDetails: "Contact Details",
@@ -23,7 +23,7 @@ const DRAWER_TITLE = {
   importCSV: "Import CSV",
 };
 
-function FavoriteLocations({ path }: any) {
+function FavoriteLocations({ path }) {
   const [loading, setLoading] = useState<boolean>(true);
   const [locationData, setLocationData] = useState<any>([]);
   const [selectedLocation, setSelectedLocation] = useState<any>(null);
@@ -49,7 +49,7 @@ function FavoriteLocations({ path }: any) {
 
   const deleteLocation = async (locationId: string) => {
     const res: any = await deleteSavedLocation(locationId);
-    if (res.error === null) {
+    if (res?.success) {
       getLocationListData();
     }
   };
@@ -70,6 +70,7 @@ function FavoriteLocations({ path }: any) {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
+    setLoading(true);
     let urlParams = "";
     let params: any = {
       page: page !== undefined ? page + 1 : pagination.page + 1,
@@ -91,7 +92,7 @@ function FavoriteLocations({ path }: any) {
           : "")
     );
     const res: any = await getLocationList(urlParams);
-    if (res?.error === null) {
+    if (res?.success) {
       const data = res.response.data.data;
       setLocationData(data.list);
       setPagination({
@@ -120,10 +121,11 @@ function FavoriteLocations({ path }: any) {
         />
       </Flex>
 
-      {loading ? (
+      {loading && locationData?.length === 0 ? (
         <TableSkeleton />
       ) : locationData?.length > 0 ? (
-        <TableNew
+        <Table
+          loading={loading}
           tableTop={tableTop()}
           coloumns={favoriteLocationColoumns}
           data={getLocationData(locationData, openDrawer, deleteLocation)}
