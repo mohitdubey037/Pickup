@@ -27,10 +27,6 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
     (state: { signUp: { companyRegisterResponse: { companyId: number } } }) =>
       state.signUp.companyRegisterResponse
   );
-  const showLoader = useSelector(
-    (state: { globalState: { showLoader: boolean } }) =>
-      state.globalState.showLoader
-  );
 
   const dispatch = useDispatch();
 

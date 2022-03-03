@@ -2,11 +2,9 @@ import React,{useEffect, useState} from "react";
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
-import { Table, TableNew } from "app/components/Table";
-// import { OnHoldTableTop } from "../OnHoldShipment/Style";
+import { TableNew } from "app/components/Table";
 import { useNavigate } from "@reach/router";
 import TableSkeleton from "app/components/Table/TableSkeleton";
-import NullState from "app/components/NullState/NullState";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import moment from "moment";
 import { useFormik } from "formik";
@@ -15,7 +13,7 @@ import { Grid } from "@mui/material";
 
 import { ChildAccountListColumn, childDataTable } from "./helper";
 
-import { getChildAccountData, postChildAccountData } from "../../../../../services/ChildAccount/index";
+import { getChildAccountData } from "../../../../../services/ChildAccount/index";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
@@ -35,8 +33,7 @@ export default function ChildAccountList({ path: string }) {
 
   const [childData, setChildData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [selectedRows, setSelectedRows] = useState<any>([]);
-  const [searchOrderData, setSearchOrderData] = useState<any>([]);
+  // const [searchOrderData, setSearchOrderData] = useState<any>([]);
   const [pagination, setPagination] = useState({
     count: 0,
     page: 0,
@@ -121,7 +118,7 @@ export default function ChildAccountList({ path: string }) {
         page: data.pageMetaData.page - 1,
       });
     } else {
-      setSearchOrderData([]);
+      setChildData([]);
     }
     setLoading(false);
   };
@@ -248,7 +245,7 @@ export default function ChildAccountList({ path: string }) {
           coloumns={ChildAccountListColumn}
           data={childDataTable(childData.list)}
           // showCheckbox
-          onRowSelect={setSelectedRows}
+          // onRowSelect={setSelectedRows}
           showPagination
           pagination={pagination}
           onPageChange={(page) => getChildOrderList(undefined, page)}

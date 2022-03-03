@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { Drawer } from "app/components/Drawer";
 import { IconButton, InputBase } from "@mui/material";
 import { Box } from "@mui/system";

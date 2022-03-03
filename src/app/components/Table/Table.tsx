@@ -16,7 +16,6 @@ const Table = ({
     getSelectedItems,
     onRowSelect,
     dataChecked,
-    totalPage,
     totalData,
     page,
     paginationData,
