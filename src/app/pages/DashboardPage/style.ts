@@ -8,13 +8,6 @@ export const DasboardWrapper = styled.div`
     background: #fff;
   }
 `
-
-
-export const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-`;
-
 export const Overlay = styled.div`
 position: fixed;
 width: 100%;
@@ -32,8 +25,3 @@ align-items: center;
 
 `;
 
-export const Center = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;

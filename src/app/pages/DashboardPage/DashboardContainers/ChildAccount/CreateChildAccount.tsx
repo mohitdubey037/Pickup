@@ -6,18 +6,24 @@ import { CreateChildAccountBox } from "./style";
 import { Box } from "@mui/material";
 
 interface nullStateProps {
-    onClick?: () => void;
+  onClick?: () => void;
 }
 
-const CreateChildAccount: FC<nullStateProps> = ({onClick }) => {
+const CreateChildAccount: FC<nullStateProps> = ({ onClick }) => {
   return (
     <CreateChildAccountBox>
-    <Box><img src={CreateChildAccountIcon} alt="" /></Box>
-      
-      <H4 text="Create a Child Account" className="label" />
       <Box>
-       <Button type='button' size="medium" className="backBtn" label="Create Child Account" onClick={onClick} />
-       </Box>
+        <img src={CreateChildAccountIcon} alt="" />
+      </Box>
+      <H4 text="Create a Child Account" color="#A6A6A6" />
+      <Box>
+        <Button
+          type="button"
+          size="medium"
+          label="Create Child Account"
+          onClick={onClick}
+        />
+      </Box>
     </CreateChildAccountBox>
   );
 };

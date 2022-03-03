@@ -27,7 +27,7 @@ import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 import { onHoldOrderColoumns, getOnHoldOrderData } from "./helper";
 import ScheduleShipmentsDrawer from "./ScheduleShipmentsDrawer";
 import { FilterFlexBox } from "../PaymentsContainer/style";
-import { SearchTableTop } from "../SearchContainer/style";
+import { SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
   shippingId: "",

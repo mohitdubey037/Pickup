@@ -12,16 +12,15 @@ import { Table } from "app/components/Table";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import SelectNew from "app/components/Select/SelectNew";
-import { Flex } from "app/components/CommonCss/CommonCss";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Input } from "app/components/Input";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 import { actions } from "store/reducers/PaymentReducer";
 import { getChildAccountData } from "services/ChildAccount/index";
 import { ChildAccountListColumn, childDataTable } from "./helper";
 import { FilterFlexBox } from "../PaymentsContainer/style";
 import { CHILD_STATUS } from "../../../../../constants";
 import CreateChildAccount from "./CreateChildAccount";
-import { SearchTableTop } from "../SearchContainer/style";
 
 const initialValues = {
   companyName: "",

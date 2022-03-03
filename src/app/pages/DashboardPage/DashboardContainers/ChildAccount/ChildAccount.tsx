@@ -122,7 +122,7 @@ useEffect(() => {
       <Drawer
         open={emailSentDrawerOpen}
         setDrawerOpen={() => handleCloseDrawer()}
-        title="Email Sent"
+        title="Child Created"
         closeIcon={true}
         >
         <EmailSentDrawer handleCloseDrawer={handleCloseDrawer} handleSubmit={handleSubmit}/>

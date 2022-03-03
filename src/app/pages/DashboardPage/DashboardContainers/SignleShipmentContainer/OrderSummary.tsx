@@ -157,8 +157,12 @@ function OrderSummary({ path }) {
               )}
             />
             <TotalBox>
-              <H4 text="Total" className="total" />
-              <H4 text={`$${Number(totalCost).toFixed(2)}`} className="total" />
+              <H4 text="Total" ml={24} fontFamily="bold" />
+              <H4
+                text={`$${Number(totalCost).toFixed(2)}`}
+                ml={24}
+                fontFamily="bold"
+              />
             </TotalBox>
           </OrderSummaryTableOuter>
         ) : (
@@ -173,8 +177,14 @@ function OrderSummary({ path }) {
                 text={`${onHoldShipment} order${
                   onHoldShipment > 1 ? "s" : ""
                 } added to holding zone.`}
+                fontFamily="bold"
+                color="#8c6d0f"
+                mb={10}
               />
-              <Para text="Once your orders are ready to ship, you can schedule them later from the holding zone" />
+              <Para
+                text="Once your orders are ready to ship, you can schedule them later from the holding zone"
+                color="#8c6d0f"
+              />
             </Box>
           </DisclaimerBox>
         )}

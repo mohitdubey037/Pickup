@@ -9,10 +9,7 @@ export const Error = styled(Box)`
   text-align:center;
   padding:24px 12px;
   margin:24px 0;
-  .heading{
-    color: #EB5757;
-    margin-bottom:16px;
-  }
+  
   .subheading{
     color: #515151;
     font-size:14px;

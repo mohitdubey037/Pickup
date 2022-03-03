@@ -20,10 +20,9 @@ import {
 import { getInvoiceData, invoiceColoumns } from "./helper";
 import InvoiceDetailsDrawer from "./InvoiceDetailsDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
-import { SearchTableTop } from "../SearchContainer/style";
 import { FilterFlexBox } from "./style";
 import { PAYMENT_STATUS } from "../../../../../constants";
-import { Flex } from "app/components/CommonCss/CommonCss";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
   invoiceNumber: "",
@@ -97,6 +96,7 @@ const InvoicesContainer = ({ path: string }) => {
           <H5
             text={`(${selectedRows.length} Selected)`}
             className="spanlabel"
+            ml={8} mt={4}
           />
         </Flex>
         <Button

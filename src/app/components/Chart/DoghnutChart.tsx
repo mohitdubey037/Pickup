@@ -1,7 +1,7 @@
-import { Box, Grid } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import React from 'react'
 import ReactApexChart from 'react-apexcharts'
-import { DoghnutChip, DoghnutContainer, DoghnutLabelContainer } from './style'
+import { DoghnutChip, DoghnutLabelContainer } from './style'
 
 interface DoghnutProps{
     onTimePercentage: number;
@@ -11,7 +11,7 @@ interface DoghnutProps{
 
 export default function DoghnutChart({onTimePercentage,delayedPercentage,doghnutData}:DoghnutProps) {
     return (
-        <DoghnutContainer>
+        <>
             <Box display="flex" alignItems="center">
                 <Box>
                     <ReactApexChart
@@ -112,6 +112,6 @@ export default function DoghnutChart({onTimePercentage,delayedPercentage,doghnut
                 </Box>
             </Box>
             
-        </DoghnutContainer>
+        </>
     )
 }

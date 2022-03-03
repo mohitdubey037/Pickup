@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const CustomProgressCard = styled.div`
-.heading{
-  margin-bottom:24px;
-}
 @media (min-width:1024px){
   min-height:245px;
 }
@@ -24,6 +21,7 @@ export const ProgressRow = styled.div`
   }
   .cost{
     width:100px;
-    margin-left:16px;
   }
 `;
+
+

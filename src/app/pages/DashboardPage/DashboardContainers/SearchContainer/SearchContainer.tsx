@@ -17,7 +17,7 @@ import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
 import SelectNew from "app/components/Select/SelectNew";
 import { getSearchOrderData, searchOrderColoumns } from "./helper";
-import { CustomBadge, SearchTableTop } from "./style";
+import { CustomBadge } from "./style";
 import InvoiceDetailsDrawer from "../PaymentsContainer/InvoiceDetailsDrawer";
 import AdvanceFilters from "./AdvanceFilters";
 import SearchOrderDetailsDrawer from "./SearchOrderDetailsDrawer";
@@ -28,6 +28,7 @@ import {
 } from "../../../../../services/SearchItemService";
 import { STATUS } from "../../../../../../src/constants";
 import { FilterFlexBox } from "../PaymentsContainer/style";
+import { SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
   invoiceNumber: "",

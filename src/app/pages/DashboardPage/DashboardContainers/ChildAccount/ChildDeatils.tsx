@@ -1,10 +1,9 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
-import { FlexBox, FullCard } from "app/components/CommonCss/CommonCss";
+import { FlexBox, FlexGrid, FullCard } from "app/components/CommonCss/CommonCss";
 import { Drawer } from "app/components/Drawer";
 import EditIcon from "app/components/EditIcon/EditIcon";
 import { H3, Para, H4 } from "app/components/Typography/Typography";
 import { useState } from "react";
-import { FlexGrid } from "../CompanyProfileContainer/style";
 import EditChildDetailsForm from "./EditChildDetailsForm";
 import {companyDetails, inputProps } from "./type";
 
