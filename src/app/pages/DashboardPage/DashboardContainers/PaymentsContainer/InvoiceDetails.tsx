@@ -37,11 +37,11 @@ const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
 
         <Flex top={5}>
           <Termslink ml={4} style={{ color: "#1B8AF0" }}>
-            Check our
+            Check our {""}
             <Link to="" onClick={() => setShowTermsPolicies("terms")}>
               Terms
             </Link>
-            &
+            {" & "}
             <Link to="" onClick={() => setShowTermsPolicies("policies")}>
               Conditions
             </Link>
