@@ -12,11 +12,12 @@ import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import { Avatar, Box } from "@material-ui/core";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { showToast } from "utils";
-import { IMAGE_FILE_TYPES } from "../../../../../constants";
+import { IMAGE_FILE_TYPES, INDUSTRY_TEXT } from "../../../../../constants";
 import { imageUploadService } from "services/SingleShipmentServices";
 import {
   PIN_CODE_MASK,
 } from "../../../../../constants";
+import SelectNew from "app/components/Select/SelectNew";
 
 export default function EditChildAccountForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
@@ -153,7 +154,7 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Input
+            {/* <Input
               id="Industry"
               name="industry"
               initValue={values.industry}
@@ -161,7 +162,16 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
               error={touched.industry && errors?.industry}
               label={"Industry"}
               placeholder={"eg. Retail"}
-            />
+            /> */}
+            <SelectNew
+              placeholder="Select Industry"
+              id="industry"
+              name="industry"
+              label={"Industry"}
+              options={INDUSTRY_TEXT}
+              onChange={handleChange}
+              value={values.industry}
+              allowEmpty/>
           </Grid>
           <Grid item xs={12}>
             <Input
