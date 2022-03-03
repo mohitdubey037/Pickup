@@ -15,13 +15,13 @@ interface ProgressCardProps{
 const CategoryProgressCard = ({contents}:ProgressCardProps) => {
     return (
         <CustomProgressCard>
-            <H3 text="Spent by Category" className="heading" />
+            <H3 text="Spent by Category" mb={24} />
             {contents.map((category:ProgressCategory)=>{
                 return(
                     <ProgressRow>
                         <Para className="name" text={category.category} />
                         <Progressbar value={category.progressValue} smallProgreebar />
-                        <Para className="cost" text={`${category.cost}`} />
+                        <Para className="cost" text={`${category.cost}`} ml={16} />
                     </ProgressRow> 
                 )
             })}   

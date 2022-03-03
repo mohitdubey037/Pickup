@@ -1,14 +1,13 @@
 import { useState, useCallback } from "react";
 import { CSVLink } from "react-csv";
 import Dropzone, { useDropzone } from "react-dropzone";
-
 import { Button } from "app/components/Buttons";
 import { csvIcon } from "app/assets/Icons";
 import { H5, Para } from "app/components/Typography/Typography";
-import { Termslink } from "app/pages/AuthScreens/style";
 import { DropeZoneText, DropzoneBox } from "app/components/DropZone/style";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Link } from "app/components/Typography/Links";
+import { Termslink } from "app/components/Typography/style";
 
 const csvData = [
   [
@@ -41,7 +40,6 @@ function FileDrawer() {
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
-
   const fileList = files.map((file) => (
     <li key={file.path}>
       {file.path} - {file.size} bytes

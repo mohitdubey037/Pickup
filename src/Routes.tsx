@@ -33,10 +33,10 @@ import ChildAccount from "app/pages/DashboardPage/DashboardContainers/ChildAccou
 import ChildAccountList from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccountList";
 import ChildAccountDetails from "app/pages/DashboardPage/DashboardContainers/ChildAccount/ChildAccountDetails";
 import FavoriteLocations from "app/pages/DashboardPage/DashboardContainers/FavoriteLocationsContainer";
-import { HelpContainer } from "app/pages/DashboardPage/DashboardContainers/HelpContainer";
 import { NoAuthorizationPage } from "app/pages/NoAutorizationPage";
 import PageNotFound from "app/components/PageNotFound/PageNotFound";
 import { TrackYourOrder } from "app/pages/TrackYourOrder";
+import HelpContainer from "app/pages/DashboardPage/DashboardContainers/HelpContainer/HelpContainer";
 
 const Routes = () => {
   return (

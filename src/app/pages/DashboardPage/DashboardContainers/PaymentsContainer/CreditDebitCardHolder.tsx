@@ -7,7 +7,7 @@ import PaymentCardList from "app/components/PaymentCard/PaymentCardList";
 import { AccordionOuterBox } from "app/components/CommonCss/CommonCss";
 import NullState from "app/components/NullState/NullState";
 import { CardType } from "../../../../../types";
-import { CardsContainer } from "./style";
+import { Box } from "@material-ui/core";
 
 interface CreditDebitCardHolderProps {
   debitCardDetails?: Array<CardType>;
@@ -27,8 +27,8 @@ const CreditDebitCardHolder: FC<CreditDebitCardHolderProps> = ({
   };
 
   return (
-    <CardsContainer>
-      <H4 text="Saved cards and accounts" className="cardsTitle" />
+    <Box mt={4} mb={4}>
+      <H4 text="Saved cards and accounts" mb={16} />
 
       {creditCardDetails.length > 0 ? (
         <AccordionOuterBox>
@@ -80,7 +80,7 @@ const CreditDebitCardHolder: FC<CreditDebitCardHolderProps> = ({
           </Accordion>
         </AccordionOuterBox>
       )}
-    </CardsContainer>
+    </Box>
   );
 };
 

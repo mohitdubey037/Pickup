@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { Paper } from '@material-ui/core'
 
 export const CardContainer = styled.div`
-  
 .count{
     margin:8px 0;
 }
@@ -20,8 +18,6 @@ export const CardContainer = styled.div`
 }
 `
 
-export const DoghnutContainer = styled.div`
-`
 
 export const DoghnutChip = styled.div`
     width: 10px;

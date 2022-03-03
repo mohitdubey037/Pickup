@@ -2,10 +2,10 @@ import { DropzoneWrapper, DropzoneBox, DropeZoneText } from "./style";
 import Dropzone from "react-dropzone";
 import { csvIcon } from "app/assets/Icons";
 import { ErrorBox } from "./ErrorBox";
-import { Termslink } from "app/pages/AuthScreens/style";
 import { H5 } from "../Typography/Typography";
 import { Link } from "../Typography/Links";
 import UploadingFile from "./UploadingFile";
+import { Termslink } from "../Typography/style";
 interface DropZoneProps {
   onDrop: (files: Array<File>) => void;
   isError?: boolean;

@@ -8,8 +8,4 @@ export const CreateChildAccountBox = styled(FullCard)`
  justify-content:center;
  align-items:center;
  gap: 16px;
- .label{
-     color:#A6A6A6;
-     margin:0;
- }
 `;

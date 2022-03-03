@@ -2,14 +2,13 @@ import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { TableNew } from "app/components/Table";
-import Select from "app/components/Select";
 import { reportsColoumns, reportsTable } from "./helper";
 import { useSelector } from "react-redux";
 import { navigate } from "@reach/router";
 import { Grid } from "@mui/material";
-import { SearchTableTop } from "../SearchContainer/style";
 import { useState } from "react";
 import SelectNew from "app/components/Select/SelectNew";
+import { SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 function ReportsContainer({ path: string }) {
   const [pagination, setPagination] = useState({
