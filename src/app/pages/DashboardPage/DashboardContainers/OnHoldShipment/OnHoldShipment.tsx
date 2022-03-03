@@ -21,7 +21,6 @@ import {
   scheduleShipmentService,
   deleteShipmentService,
 } from "services/HoldingService";
-import { showToast } from "utils";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 import { onHoldOrderColoumns, getOnHoldOrderData } from "./helper";
@@ -82,8 +81,8 @@ const OnHoldShipmentContainer = ({ path: string }) => {
       .filter((_, idx) => selectedRows.includes(idx))
       .map((item) => item.orderId);
 
-    const res = (await deleteShipmentService(orderIds)) as any;
-    if (res.error === null) {
+    const res: any = await deleteShipmentService(orderIds);
+    if (res?.success) {
       getOnHoldOrderListData();
     }
   };
@@ -101,15 +100,9 @@ const OnHoldShipmentContainer = ({ path: string }) => {
       ...values,
       shipment: orderIds,
     };
-    const res = (await scheduleShipmentService(data)) as any;
-    if (res.error === null) {
-      showToast(
-        `Your order's schedule has been successfully updated`,
-        "success"
-      );
+    const res: any = await scheduleShipmentService(data);
+    if (res?.success) {
       dispatch(singleActions.setShipmentOrderIds(orderIds));
-    } else {
-      showToast(`Something went wrong`, "error");
     }
   };
 
@@ -192,8 +185,8 @@ const OnHoldShipmentContainer = ({ path: string }) => {
           ? `${key}=${value}${index === tempLen - 1 ? "" : "&"}`
           : "")
     );
-    const res = (await getHoldingShipmentsService(urlParams)) as any;
-    if (res.error === null) {
+    const res: any = await getHoldingShipmentsService(urlParams);
+    if (res?.success) {
       const data = res.response.data.data;
       setOnHoldOrderData(data.list);
       setPagination({
