@@ -1,7 +1,5 @@
 import { useState } from "react";
-import Modal from "react-modal";
 import { Box } from "@mui/system";
-
 import { InsuranceIcon } from "app/assets/Icons";
 import { Checkbox } from "app/components/Checkbox";
 import { H3, H4 } from "app/components/Typography/Typography";
@@ -9,6 +7,7 @@ import TermsAndPolicies from "app/pages/AuthScreens/SignUpScreens/Terms&Policies
 import { Link } from "app/components/Typography/Links";
 import { Flex } from "app/components/CommonCss/CommonCss";
 import { Termslink } from "app/components/Typography/style";
+import AlertDialog from "app/components/Dialog";
 
 const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
   const [showTermsPolicies, setShowTermsPolicies] = useState("");
@@ -59,12 +58,17 @@ const InvoiceDetails = ({ invoiceData, insuranceHandler }) => {
         <hr />
       </Box>
 
-      <Modal
-        isOpen={!!showTermsPolicies}
-        onRequestClose={() => setShowTermsPolicies("")}
-      >
-        <TermsAndPolicies name={showTermsPolicies} />
-      </Modal>
+      <AlertDialog
+        fullWidth
+        open={!!showTermsPolicies}
+        handleCloseLabel="Close"
+        handleClose={() => setShowTermsPolicies("")}
+        content={
+          <Box textAlign="left">
+            <TermsAndPolicies name={showTermsPolicies} />
+          </Box>
+        }
+      />
     </Box>
   );
 };

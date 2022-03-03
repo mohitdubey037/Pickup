@@ -15,6 +15,7 @@ interface Props {
   handleClose?: () => void;
   handleConfirmLabel?: string;
   handleCloseLabel?: string;
+  fullWidth?: boolean;
 }
 
 const AlertDialog: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const AlertDialog: React.FC<Props> = ({
   handleClose,
   handleConfirmLabel,
   handleCloseLabel,
+  fullWidth,
 }) => {
   return (
     <>
@@ -33,6 +35,7 @@ const AlertDialog: React.FC<Props> = ({
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        fullWidth={fullWidth}
       >
         <DialogTitle id="alert-dialog-title">
           <H3 text={heading} className="heading" />
@@ -40,24 +43,25 @@ const AlertDialog: React.FC<Props> = ({
 
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <H4 text={content} />
+            <H4 text={content} className="content" />
           </DialogContentText>
         </DialogContent>
 
         <DialogActions>
-          <Button
-            onClick={handleConfirm}
-            label={handleConfirmLabel}
-            size="small"
-          ></Button>
+          {handleConfirmLabel && (
+            <Button
+              onClick={handleConfirm}
+              label={handleConfirmLabel}
+              size="small"
+            />
+          )}
           <Button
             onClick={handleClose}
             label={handleCloseLabel}
             size="small"
             secondary
-          ></Button>
+          />
         </DialogActions>
-        
       </CustomDialog>
     </>
   );

@@ -141,7 +141,7 @@ export default function ChildAccountList({ path }) {
       <Flex justifyContent="space-between" bottom={24}>
         <H2 title="Child Accounts" />
         {childData.length > 0 && (
-          <Button size="medium" label="Create New" onClick={addNewChild} />
+          <Button size="small" label="Create New" onClick={addNewChild} />
         )}
       </Flex>
 
