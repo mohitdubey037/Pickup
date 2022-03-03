@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { CSVLink } from "react-csv";
-import Dropzone from "react-dropzone";
+import Dropzone, { useDropzone } from "react-dropzone";
+
 import { Button } from "app/components/Buttons";
 import { csvIcon } from "app/assets/Icons";
 import { H5, Para } from "app/components/Typography/Typography";
@@ -35,7 +36,11 @@ const csvData = [
 function FileDrawer() {
   const [files, setFiles] = useState<any>([]);
 
-  // const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const onDrop = useCallback((acceptedFiles) => {
+    setFiles((prev) => [...prev, ...acceptedFiles]);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
   const fileList = files.map((file) => (
     <li key={file.path}>
       {file.path} - {file.size} bytes

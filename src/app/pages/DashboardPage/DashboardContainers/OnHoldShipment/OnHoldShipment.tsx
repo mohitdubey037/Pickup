@@ -8,7 +8,7 @@ import { Box, Grid } from "@mui/material";
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { sliders } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
@@ -21,7 +21,6 @@ import {
   scheduleShipmentService,
   deleteShipmentService,
 } from "services/HoldingService";
-import { showToast } from "utils";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 import { onHoldOrderColoumns, getOnHoldOrderData } from "./helper";
@@ -82,8 +81,8 @@ const OnHoldShipmentContainer = ({ path: string }) => {
       .filter((_, idx) => selectedRows.includes(idx))
       .map((item) => item.orderId);
 
-    const res = (await deleteShipmentService(orderIds)) as any;
-    if (res.error === null) {
+    const res: any = await deleteShipmentService(orderIds);
+    if (res?.success) {
       getOnHoldOrderListData();
     }
   };
@@ -101,15 +100,9 @@ const OnHoldShipmentContainer = ({ path: string }) => {
       ...values,
       shipment: orderIds,
     };
-    const res = (await scheduleShipmentService(data)) as any;
-    if (res.error === null) {
-      showToast(
-        `Your order's schedule has been successfully updated`,
-        "success"
-      );
+    const res: any = await scheduleShipmentService(data);
+    if (res?.success) {
       dispatch(singleActions.setShipmentOrderIds(orderIds));
-    } else {
-      showToast(`Something went wrong`, "error");
     }
   };
 
@@ -153,6 +146,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
+    setLoading(true);
     let urlParams = "",
       rest = values !== undefined ? values : prevValues;
     let params: any = {
@@ -191,8 +185,8 @@ const OnHoldShipmentContainer = ({ path: string }) => {
           ? `${key}=${value}${index === tempLen - 1 ? "" : "&"}`
           : "")
     );
-    const res = (await getHoldingShipmentsService(urlParams)) as any;
-    if (res.error === null) {
+    const res: any = await getHoldingShipmentsService(urlParams);
+    if (res?.success) {
       const data = res.response.data.data;
       setOnHoldOrderData(data.list);
       setPagination({
@@ -216,10 +210,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     handleSubmit,
   } = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      setLoading(true);
-      getOnHoldOrderListData(values);
-    },
+    onSubmit: (values) => getOnHoldOrderListData(values),
   });
 
   return (
@@ -257,7 +248,11 @@ const OnHoldShipmentContainer = ({ path: string }) => {
             <DatePickerInput
               label="To Date"
               maxDate={new Date()}
-              minDate={moment(values.fromDate).add(1, "days").toDate()}
+              minDate={
+                !values.fromDate
+                  ? null
+                  : moment(values.fromDate).add(1, "days").toDate()
+              }
               placeholder={"e.g 06/06/2021"}
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}
@@ -265,7 +260,12 @@ const OnHoldShipmentContainer = ({ path: string }) => {
           </Grid>
           <Grid item xs={12} lg={6}>
             <FilterFlexBox>
-              <Button size="small" label="Search" onClick={handleSubmit} />
+              <Button
+                label="Search"
+                onClick={handleSubmit}
+                size="small"
+                disabled={loading}
+              />
               <Box>
                 <img src={sliders} alt="Advanced Filter" />
               </Box>
@@ -274,10 +274,11 @@ const OnHoldShipmentContainer = ({ path: string }) => {
         </GridContainer>
       </Box>
 
-      {loading ? (
+      {loading && onHoldOrderData?.length === 0 ? (
         <TableSkeleton />
       ) : onHoldOrderData.length > 0 ? (
-        <TableNew
+        <Table
+          loading={loading}
           tableTop={tableTop()}
           coloumns={onHoldOrderColoumns}
           data={getOnHoldOrderData(onHoldOrderData, openOnHoldDrawer)}

@@ -1,13 +1,13 @@
-import services from "../";
 import { showToast } from "utils";
+import services from "../";
 
 export const fetchCompanyDetails = async () => {
   try {
-    const response = await services.get(
+    const res = await services.get(
       `v1/api/business/fetchCompanyDetails`,
       "user_cr"
     );
-    return { response: response, success: true };
+    return { response: res, success: true };
   } catch (err) {
     showToast(err?.message || "Something Went Wrong", "error");
     return { response: err, success: false };
@@ -16,11 +16,8 @@ export const fetchCompanyDetails = async () => {
 
 export const fetchUserAdmin = async () => {
   try {
-    const response = await services.get(
-      `v1/api/business/fetchUserAdmin`,
-      "user_cr"
-    );
-    return { response: response, success: true };
+    const res = await services.get(`v1/api/business/fetchUserAdmin`, "user_cr");
+    return { response: res, success: true };
   } catch (err) {
     showToast(err?.message || "Something Went Wrong", "error");
     return { response: err, success: false };
@@ -29,8 +26,8 @@ export const fetchUserAdmin = async () => {
 
 export const fetchColleagues = async () => {
   try {
-    const response = await services.get(`business/inviteColleague`, "user_cr");
-    return { response: response, success: true };
+    const res = await services.get(`business/inviteColleague`, "user_cr");
+    return { response: res, success: true };
   } catch (err) {
     showToast(err?.message || "Something Went Wrong", "error");
     return { response: err, success: false };
@@ -53,7 +50,7 @@ export const updateCompanyProfile = async (values: {
   profileImage: string;
 }) => {
   try {
-    const response: any = await services.put(
+    const res = await services.put(
       `business/companyDetails/${values.companyId}`,
       {
         addressLine1: values?.address1,
@@ -71,8 +68,8 @@ export const updateCompanyProfile = async (values: {
       },
       "user_cr"
     );
-    showToast("Your company details has been updated successfully", "success");
-    return { response: response, success: true };
+    showToast("Your company details has been successfully updated", "success");
+    return { response: res, success: true };
   } catch (err) {
     showToast(err?.message || "Something Went Wrong", "error");
     return { response: err, success: false };
@@ -97,7 +94,7 @@ export const inviteColleague = async (values: {
       values?.notificationFrequency !== null
         ? values?.notificationFrequency
         : undefined;
-    const response: any = await services.post(
+    const res = await services.post(
       `business/inviteColleague`,
       {
         emailId: values?.emailId,
@@ -113,8 +110,8 @@ export const inviteColleague = async (values: {
       },
       "user_cr"
     );
-    showToast("Your new colleague has been added successfully", "success");
-    return { response: response, success: true };
+    showToast("Your new colleague has been successfully added", "success");
+    return { response: res, success: true };
   } catch (err) {
     showToast(err?.message || "Error in processing request", "error");
     return { response: err, success: false };
@@ -137,7 +134,7 @@ export const updateColleague = async (values: {
   profileImage: string;
 }) => {
   try {
-    const response: any = await services.put(
+    const res = await services.put(
       `business/inviteColleague/${values.inviteId}`,
       {
         emailId: values?.emailId,
@@ -155,10 +152,10 @@ export const updateColleague = async (values: {
       "user_cr"
     );
     showToast(
-      "Your colleague details has been updated successfully",
+      "Your colleague details has been successfully updated",
       "success"
     );
-    return { response: response, success: true };
+    return { response: res, success: true };
   } catch (err) {
     showToast(err?.message || "Something Went Wrong", "error");
     return { response: err, success: false };

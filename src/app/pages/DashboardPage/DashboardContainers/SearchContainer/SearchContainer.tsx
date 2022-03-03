@@ -7,7 +7,7 @@ import moment from "moment";
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
-import { TableNew } from "app/components/Table";
+import { Table } from "app/components/Table";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { sliders } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
@@ -31,6 +31,7 @@ import { FilterFlexBox } from "../PaymentsContainer/style";
 import { SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
+  consignmentId: "",
   invoiceNumber: "",
   orderId: "",
   fromDate: "",
@@ -110,6 +111,7 @@ const SearchContainer = ({ path }: any) => {
     page?: number,
     sort?: { field: string; type: string }
   ) => {
+    setLoading(true);
     let urlParams = "",
       rest = values !== undefined ? values : prevValues;
     let params: any = {
@@ -173,10 +175,7 @@ const SearchContainer = ({ path }: any) => {
     resetForm,
   } = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      setLoading(true);
-      getSearchOrderListData(values);
-    },
+    onSubmit: (values) => getSearchOrderListData(values),
   });
 
   const applyOrderFilters = () => {
@@ -192,7 +191,18 @@ const SearchContainer = ({ path }: any) => {
 
       <Box mt={4} mb={2}>
         <GridContainer container spacing={2}>
-          <Grid item xs={6} sm={4} lg={2}>
+          <Grid item xs={6} sm={4} lg={3}>
+            <Input
+              name="consignmentId"
+              label="Consignment Id"
+              placeholder="eg. 1234"
+              initValue={values.consignmentId}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.consignmentId && errors.consignmentId}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={3}>
             <Input
               name="invoiceNumber"
               label="Invoice Number"
@@ -203,7 +213,7 @@ const SearchContainer = ({ path }: any) => {
               error={touched.invoiceNumber && errors.invoiceNumber}
             />
           </Grid>
-          <Grid item xs={12} sm={4} lg={2}>
+          <Grid item xs={6} sm={4} lg={3}>
             <Input
               name="orderId"
               label="Order Id"
@@ -214,7 +224,18 @@ const SearchContainer = ({ path }: any) => {
               error={touched.orderId && errors.orderId}
             />
           </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
+          <Grid item xs={6} sm={4} lg={3}>
+            <SelectNew
+              name="status"
+              label="Status"
+              placeholder="Select Order Status"
+              options={STATUS}
+              value={values.status}
+              onChange={handleChange}
+              allowEmpty
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} lg={3}>
             <DatePickerInput
               label="From Date"
               placeholder="e.g 06/06/2021"
@@ -227,30 +248,28 @@ const SearchContainer = ({ path }: any) => {
               onChange={(val) => setFieldValue("fromDate", val)}
             />
           </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
+          <Grid item xs={6} sm={4} lg={3}>
             <DatePickerInput
               label="To Date"
               placeholder="e.g 06/06/2021"
               maxDate={new Date()}
-              minDate={(!values.fromDate) ? null : moment(values.fromDate).add(1, "days").toDate()}
+              minDate={
+                !values.fromDate
+                  ? null
+                  : moment(values.fromDate).add(1, "days").toDate()
+              }
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}
             />
           </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
-            <SelectNew
-              name="status"
-              label="Status"
-              placeholder="Select Order Status"
-              options={STATUS}
-              value={values.status}
-              onChange={handleChange}
-              allowEmpty
-            />
-          </Grid>
-          <Grid item xs={6} sm={4} lg={2}>
+          <Grid item xs={12} sm={4} lg={6}>
             <FilterFlexBox>
-              <Button size="small" label="Search" onClick={handleSubmit} />
+              <Button
+                label="Search"
+                onClick={handleSubmit}
+                size="small"
+                disabled={loading}
+              />
               <Box>
                 <CustomBadge
                   badgeContent=""
@@ -269,10 +288,11 @@ const SearchContainer = ({ path }: any) => {
         </GridContainer>
       </Box>
 
-      {loading ? (
+      {loading && searchOrderData.length === 0 ? (
         <TableSkeleton />
       ) : searchOrderData.length > 0 ? (
-        <TableNew
+        <Table
+          loading={loading}
           tableTop={tableTop()}
           coloumns={searchOrderColoumns}
           data={getSearchOrderData(searchOrderData, openOrderDrawer)}

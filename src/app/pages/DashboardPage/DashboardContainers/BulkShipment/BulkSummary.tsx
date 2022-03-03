@@ -1,25 +1,21 @@
-import ModuleContainer from "app/components/ModuleContainer";
-import { TableNew } from "app/components/Table";
-import { H2, H3 } from "app/components/Typography/Typography";
-import { BulkOrderColoumns, OnHoldTable } from "./helper";
-import { SuccessBox } from "./style";
-import { checkSquare } from "app/assets/Icons";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { navigate } from "@reach/router";
-import { useState } from "react";
-import { Button } from "app/components/Buttons";
 import { Box } from "@mui/material";
-import { Drawer } from "app/components/Drawer";
-import PayementDetailsDrawer from "./PayementDetailsDrawer";
-import { SearchTableTop } from "app/components/CommonCss/CommonCss";
 
-const BulkSummary = ({ path: string }) => {
-  const authUser = useSelector((state: any) => {
-    return state.auth?.user;
-  });
-  if ([1, 2, 3, 4].indexOf(authUser?.roleId) === -1) {
-    navigate("/non-authorized-page");
-  }
+import ModuleContainer from "app/components/ModuleContainer";
+import { Table } from "app/components/Table";
+import { H2, H3 } from "app/components/Typography/Typography";
+import { checkSquare } from "app/assets/Icons";
+import { Button } from "app/components/Buttons";
+import { Drawer } from "app/components/Drawer";
+import { SearchTableTop } from "app/components/CommonCss/CommonCss";
+import { BulkOrderColoumns, OnHoldTable } from "./helper";
+import { SuccessBox } from "./style";
+import PayementDetailsDrawer from "./PayementDetailsDrawer";
+
+const BulkSummary = ({ path }) => {
+  const authUser = useSelector((state: any) => state.auth?.user);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [payementDrawerOpen, setPayementDrawerOpen] = useState(false);
@@ -31,9 +27,14 @@ const BulkSummary = ({ path: string }) => {
   const openPaymentDrawer = () => {
     setPayementDrawerOpen(true);
   };
+
   const openOrderDrawer = () => {
     setDrawerOpen(true);
   };
+
+  if ([1, 2, 3, 4].indexOf(authUser?.roleId) === -1) {
+    navigate("/non-authorized-page");
+  }
 
   const tableTop = () => {
     return (
@@ -71,7 +72,7 @@ const BulkSummary = ({ path: string }) => {
           </p>
         </SuccessBox>
 
-        <TableNew
+        <Table
           data={OnHoldTable(openOrderDrawer)}
           coloumns={BulkOrderColoumns}
           tableTop={tableTop()}

@@ -1,20 +1,24 @@
-import ModuleContainer from "app/components/ModuleContainer";
-import { H2, H3 } from "app/components/Typography/Typography";
-import { Button } from "app/components/Buttons";
-import { TableNew } from "app/components/Table";
-import { reportsColoumns, reportsTable } from "./helper";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { navigate } from "@reach/router";
 import { Grid } from "@mui/material";
-import { useState } from "react";
+
+import ModuleContainer from "app/components/ModuleContainer";
+import { H2, H3 } from "app/components/Typography/Typography";
+import { Button } from "app/components/Buttons";
+import { Table } from "app/components/Table";
 import SelectNew from "app/components/Select/SelectNew";
 import { SearchTableTop } from "app/components/CommonCss/CommonCss";
+import { reportsColoumns, reportsTable } from "./helper";
 
-function ReportsContainer({ path: string }) {
+function ReportsContainer({ path }) {
+  const authUser = useSelector((state: any) => state.auth?.user);
+
   const [pagination, setPagination] = useState({
     count: 0,
     page: 0,
   });
+
   const tableTop = () => {
     return (
       <SearchTableTop>
@@ -28,31 +32,29 @@ function ReportsContainer({ path: string }) {
       </SearchTableTop>
     );
   };
-  const authUser = useSelector((state: any) => {
-    return state.auth?.user;
-  });
 
   if ([2, 3].indexOf(authUser?.roleId) === -1) {
     navigate(" /non-authorized-page");
   }
+
   return (
     <ModuleContainer>
-        <Grid container alignItems="center">
-            <Grid item md={10} sm={9} xs={6}>
-                <H2 title="Reports" />
-            </Grid>
-            <Grid item md={2} sm={3} xs={6}>
-                <SelectNew />
-            </Grid>
+      <Grid container alignItems="center">
+        <Grid item md={10} sm={9} xs={6}>
+          <H2 title="Reports" />
         </Grid>
-        
-        <TableNew
-          data={reportsTable}
-          coloumns={reportsColoumns}
-          tableTop={tableTop()}
-          showPagination
-          pagination={pagination}
-        />
+        <Grid item md={2} sm={3} xs={6}>
+          <SelectNew />
+        </Grid>
+      </Grid>
+
+      <Table
+        data={reportsTable}
+        coloumns={reportsColoumns}
+        tableTop={tableTop()}
+        showPagination
+        pagination={pagination}
+      />
     </ModuleContainer>
   );
 }

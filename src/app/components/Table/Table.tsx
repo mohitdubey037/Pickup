@@ -1,160 +1,186 @@
-import React, { useEffect } from "react";
-import { TableTop, CustomTableContainer, CustomTable, CustomPagination } from "./style";
-import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import {
+  Skeleton,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+
+import { noSort, sortBy } from "app/assets/Icons";
+import {
+  TableTop,
+  CustomTableContainer,
+  CustomTable,
+  CustomPagination,
+} from "./style";
 import { TableProps } from "./type";
-import { sortBy } from "app/assets/Icons";
 import { Checkbox } from "../Checkbox";
 
 const Table = ({
-    tableTop,
-    data,
-    showCheckbox,
-    showPagination,
-    filterColumns,
-    // perPageRows,
-    selectedItems,
-    getSelectedItems,
-    onRowSelect,
-    dataChecked,
-    totalData,
-    page,
-    paginationData,
-    sortTypeProps,
+  loading,
+  tableTop,
+  coloumns,
+  data,
+  showCheckbox,
+  onRowSelect,
+  showPagination,
+  pagination,
+  onPageChange,
+  sorting,
+  onSortChange,
 }: TableProps) => {
-    const [pageNumber, setPageNumber] = React.useState<any>(0);
-    const [sortType, setSortType] = React.useState<any>();
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [selectedRows, setSelected] = React.useState<Array<unknown>>([]);
-    const [fieldTitle, setFieldTitle] = React.useState<string>("")
+  const rowsPerPage = 10;
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [page, setPage] = useState<number>(0);
+  const [sortDetail, setSortDetail] = useState({
+    field: sorting?.field ? sorting?.field : "",
+    type: sorting?.type ? sorting?.type : "",
+  });
 
-    // const pagePerRows = 10;
-    let mySort;
+  useEffect(() => {
+    handleRowSelect(false, undefined, "header");
+  }, []);
 
-    useEffect(() => {
-        setPageNumber?.(page)
-    }, []);
+  const handleSort = (field, type) => {
+    handleRowSelect(false, undefined, "header");
+    onSortChange?.(field, type);
+    setSortDetail({ field, type });
+  };
 
-    useEffect(() => {
-        if (sortTypeProps === "desc") {
-            setSortType(true);
-        }
-        else if(sortTypeProps === "asc") {
-            setSortType(false);
-        }
-    })
-
-    const sort = (title) => {
-        let tempTitle;
-        if (title === "Invoice Date") tempTitle = 'invoiceCreatedAt';
-        else if (title === 'Invoice Number') tempTitle = 'invoiceNumber';
-        else if (title === 'Invoice Amount') tempTitle = 'total';
-        else if (title === 'Invoice Id') tempTitle = 'invoiceId';
-        else if (title === 'Order Id') tempTitle = 'orderId';
-        else if (title === 'Order Date') tempTitle = 'shippingDate';
-        else if (title === 'Order Cost') tempTitle = 'total';
-        setFieldTitle(tempTitle);
-        if (tempTitle) {
-            mySort = !sortType
-            paginationData?.(pageNumber, tempTitle, mySort? 'desc' : 'asc');
-        }
+  const handleRowSelect = (checked: boolean, rowIndex?: any, id?: "header") => {
+    let tempSR: number[] = [...selectedRows];
+    if (checked) {
+      if (id === "header") {
+        tempSR = Array.from(Array(data.length).keys());
+      } else tempSR.push(rowIndex);
+    } else {
+      if (id === "header") tempSR = [];
+      else tempSR.splice(tempSR.indexOf(rowIndex), 1);
     }
+    onRowSelect?.(tempSR);
+    setSelectedRows(tempSR);
+  };
 
+  const handlePageChange = (event: any, newPage: number) => {
+    handleRowSelect(false, undefined, "header");
+    onPageChange?.(newPage);
+    setPage(newPage);
+  };
 
-    useEffect(() => {
-        selectedItems ? setSelected(selectedItems) : setSelected([]);
-    }, [selectedItems]);
+  return (
+    <>
+      {tableTop && <TableTop>{tableTop}</TableTop>}
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value));
-    };
-
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPageNumber(newPage);
-        mySort = sortType
-        paginationData?.(newPage, fieldTitle, mySort ? 'desc' : 'asc');
-        handleCheckboxClick(false, undefined, "header");
-    };
-
-    const handleCheckboxClick = (checked: boolean, selected?: unknown, id?: "header") => {
-        let localSelected: Array<unknown> = [...selectedRows];
-        if (checked) {
-            if (id === "header") {
-                localSelected = [];
-                localSelected = Array.from(Array(data.length).keys());
-            } else localSelected.push(selected);
-        } else {
-            if (id === "header") localSelected = [];
-            else localSelected.splice(localSelected.indexOf(selected), 1);
-        }
-        setSelected(localSelected);
-        getSelectedItems && getSelectedItems(localSelected);
-        dataChecked?.(localSelected);
-    };
-
-    return (
-        <>
-            {tableTop && <TableTop>{tableTop}</TableTop>}
-            <CustomTableContainer>
-                <CustomTable>
-                    <TableHead>
-                        <TableRow>
-                            {!!data?.length && showCheckbox && (
-                                <TableCell padding="checkbox">
-                                    <Checkbox label="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCheckboxClick(e.target.checked, undefined, "header")} isChecked={selectedRows.length === data.length} />
-                                </TableCell>
-                            )}
-                            {!!data?.length &&
-                                Object.keys(data[0] as object).map((title, idx: number) => (
-                                    <TableCell>
-                                        {title}
-                                        {filterColumns?.includes(idx) && <img src={sortBy} alt="" 
-                                        onClick={() => sort(title)}/>}
-                                    </TableCell>
-                                ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data
-                            // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row: any, index: number) => (
-                                <TableRow onClick={() => onRowSelect && onRowSelect(row, index)}>
-                                    {Object.values(row).map((cellData: any, idx: number) => (
-                                        <>
-                                            {showCheckbox && idx === 0 && (
-                                                <TableCell>
-                                                    <Checkbox label="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCheckboxClick(e.target.checked, index, undefined)} isChecked={selectedRows.includes(index)} />
-                                                </TableCell>
-                                            )}
-                                            <TableCell>{cellData}</TableCell>
-                                        </>
-                                    ))}
-                                </TableRow>
-                            ))}
-                    </TableBody>
-                </CustomTable>
-            </CustomTableContainer>
-            {showPagination && (
-                <CustomPagination
-                    count={totalData}
-                    rowsPerPage={rowsPerPage}
-                    page={pageNumber}
-                    onPageChange={handleChangePage}
-                    labelRowsPerPage=""
-                    rowsPerPageOptions={[]}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    // labelRowsPerPage={
-                    //     <Input
-                    //         placeholder={"e.g 5"}
-                    //         onChange={(val) =>
-                    //             val !== 0 ? setRowsPerPage(val) : setRowsPerPage(5)
-                    //         }
-                    //         initValue={rowsPerPage}
-                    //     />
-                    // }
-                />
+      <CustomTableContainer>
+        <CustomTable>
+          <TableHead>
+            {coloumns && coloumns.length > 0 && (
+              <TableRow>
+                {showCheckbox && (
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      onChange={(e) =>
+                        handleRowSelect(e.target.checked, undefined, "header")
+                      }
+                      isChecked={selectedRows.length === data.length}
+                      disabled={loading}
+                    />
+                  </TableCell>
+                )}
+                {coloumns.map((col: any) => (
+                  <TableCell key={col.id}>
+                    {col.label}
+                    {col.isSort && (
+                      <>
+                        {sortDetail.field === col.id ? (
+                          <img
+                            src={sortBy}
+                            alt=""
+                            style={loading ? { cursor: "default" } : {}}
+                            className={
+                              sortDetail.type === "asc" ? "ascending" : ""
+                            }
+                            onClick={() =>
+                              !loading &&
+                              handleSort(
+                                col.id,
+                                sortDetail.type === "asc" ? "desc" : "asc"
+                              )
+                            }
+                          />
+                        ) : (
+                          <img
+                            src={noSort}
+                            alt=""
+                            style={loading ? { cursor: "default" } : {}}
+                            onClick={() =>
+                              !loading && handleSort(col.id, "desc")
+                            }
+                          />
+                        )}
+                      </>
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
             )}
-        </>
-    );
+          </TableHead>
+
+          <TableBody>
+            {data.length > 0 &&
+              data.map((row: any, index: number) => (
+                <TableRow key={index}>
+                  {showCheckbox && (
+                    <TableCell>
+                      <Checkbox
+                        onChange={(e) =>
+                          handleRowSelect(e.target.checked, index, undefined)
+                        }
+                        isChecked={selectedRows.includes(index)}
+                        disabled={loading}
+                      />
+                    </TableCell>
+                  )}
+                  {loading
+                    ? coloumns.map((col: any) => (
+                        <TableCell key={col.id}>
+                          <Skeleton width="50%" />
+                        </TableCell>
+                      ))
+                    : Object.values(row).map((colData: any, idx: number) => (
+                        <TableCell key={idx}>{colData}</TableCell>
+                      ))}
+                </TableRow>
+              ))}
+          </TableBody>
+        </CustomTable>
+      </CustomTableContainer>
+
+      {showPagination && (
+        <CustomPagination
+          rowsPerPage={rowsPerPage}
+          count={pagination.count}
+          page={page}
+          onPageChange={handlePageChange}
+          labelDisplayedRows={({ count, page }) => (
+            <span>
+              <b>{page + 1}</b>&nbsp;
+              {` out of ${Math.ceil(count / rowsPerPage)}`}
+            </span>
+          )}
+          rowsPerPageOptions={[]}
+          backIconButtonProps={{
+            disabled: loading || page === 0,
+          }}
+          nextIconButtonProps={{
+            disabled:
+              loading || page + 1 === Math.ceil(pagination.count / rowsPerPage),
+          }}
+        />
+      )}
+    </>
+  );
 };
 
 export default Table;

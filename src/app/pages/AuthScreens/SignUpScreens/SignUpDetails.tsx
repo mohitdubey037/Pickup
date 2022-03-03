@@ -18,11 +18,11 @@ import { Checkbox } from "app/components/Checkbox";
 import { getParamsFromUrl } from "utils/commonUtils";
 import { H1 } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import Modal from 'react-modal';
 import TermsAndPolicies from "./Terms&Policies";
 import { PHONE_NO_MASK } from "../../../../constants";
 import { Link } from "app/components/Typography/Links";
 import { Termslink } from "app/components/Typography/style";
+import AlertDialog from "app/components/Dialog";
 
 type SignUpProps = RouteComponentProps;
 
@@ -161,12 +161,13 @@ useEffect(() => {
                                                 error={touched.consent && errors.consent}
                                             />
                                         </Box>
-                                        <Modal
-                                            isOpen={!!showTermsPolicies}
-                                            onRequestClose={() => setShowTermsPolicies('')}
-                                        >
-                                            <TermsAndPolicies name={showTermsPolicies} />
-                                        </Modal>
+                                        <AlertDialog
+                                            fullWidth
+                                            open={!!showTermsPolicies}
+                                            handleCloseLabel="Close"
+                                            handleClose={() => setShowTermsPolicies('')}
+                                            content={<Box textAlign="left"><TermsAndPolicies name={showTermsPolicies} /></Box>}
+                                        />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Button type="submit" label="Next" disabled={!(isValid)} showLoader={showLoader} onClick={handleSubmit} size="large" />
