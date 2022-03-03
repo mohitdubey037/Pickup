@@ -1,5 +1,5 @@
 import React from 'react'
-import { Carddetails, CardEllipse,CardNumber, CardOption, IndividualCardDiv } from './style'
+import { CardEllipse, CardOption, IndividualCardDiv } from './style'
 import { dots, ellipse } from '../../assets/Icons/index'
 import { Box, Grid } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
