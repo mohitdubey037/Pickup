@@ -69,10 +69,25 @@ export const CustomPagination = styled(TablePagination)`
   border: 1px solid #dcdcdc;
   border-top: none;
   background: #ffffff;
-  .MuiTableCell-root {
-    padding: 0;
+
+  .MuiTablePagination-displayedRows {
+    position: absolute;
+    right: 30px;
+    width: 80px;
+    text-align: center;
   }
   .MuiTablePagination-actions {
-    margin-left: 0px;
+    margin-left: 0px !important;
+    width: 140px;
+  }
+  .MuiButtonBase-root:last-child {
+    position: absolute;
+    right: 0;
+  }
+  .MuiTablePagination-toolbar {
+    margin-right: 20px;
+  }
+  .MuiIconButton-root {
+    padding: 7px;
   }
 `;
