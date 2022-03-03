@@ -163,6 +163,7 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
           onChange={handleChange}
           error={touched.addressType && errors.addressType}
           required
+          disabled
         />
         {values.billingType === "2" && (
           <Input
