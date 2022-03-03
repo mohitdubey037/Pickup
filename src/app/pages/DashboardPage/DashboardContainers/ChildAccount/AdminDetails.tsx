@@ -14,8 +14,6 @@ export default function AdminDetails({formik}:{formik: any}){
 
   const { handleChange, values, errors, touched, handleBlur } = formik;
 
-  console.log(values);
-
   return (
     <Box mt={4}>
         <form>
