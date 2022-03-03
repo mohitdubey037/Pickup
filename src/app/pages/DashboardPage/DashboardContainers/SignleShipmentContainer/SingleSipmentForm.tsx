@@ -147,7 +147,7 @@ function SingleSipmentForm({
         <Grid container>
           <Grid item xs>
             <FavoritesBox>
-              <H4 text={title} className="title" />
+              <H4 text={title}  mr={16} fontFamily="bold" textTransform="capitalize"/>
 
               <Box
                 role="button"
@@ -182,7 +182,7 @@ function SingleSipmentForm({
                 ) : (
                   <img src={starImageEmpty} alt="" className="icon" />
                 )}
-                <H5 text="Add to Favorites" className="label" />
+                <H5 text="Add to Favorites" className="label" mr={6} color="#878787" />
                 <CustomTooltip
                   text="Your location will be saved once you have confirmed your order. 
                         You can access them later from Favourite Locations."

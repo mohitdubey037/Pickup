@@ -1,5 +1,5 @@
-import services from "../";
 import { showToast } from "utils";
+import services from "../";
 
 export const getPersonalProfileDetails = async (userId: number | undefined) => {
   try {
@@ -33,7 +33,7 @@ export const editPersonalProfileDetails = async (values: {
       },
       "user_cr"
     );
-    showToast("Your personal details has been updated successfully", "success");
+    showToast("Your personal details has been successfully updated", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Something Went Wrong", "error");
@@ -56,7 +56,7 @@ export const changeProfilePassword = async (values: {
       },
       "user_cr"
     );
-    showToast(response.data.message, "success");
+    showToast("Your password has been successfully changed", "success");
     return { response: response, success: true };
   } catch (err) {
     showToast(err?.message || "Something Went Wrong", "error");

@@ -21,7 +21,7 @@ const Card: React.FC<CardProps> = ({title, numberValue, label, onClick, isOrange
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box display="flex" alignItems="center">
           <img src={arrowUp} alt="" className="icon"  />
-         <H5 text={label} className="label" />
+         <H5 text={label} className="label" ml={5} />
         </Box>
         {/* <H5 onClick={onClick} text="View All" className="viewall" /> */}
       </Box>

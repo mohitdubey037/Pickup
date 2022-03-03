@@ -16,6 +16,7 @@ import { editChildAccountProps } from "./type";
 import {
   PHONE_NO_MASK,
 } from "../../../../../constants";
+import EditAvatarNew from "app/components/Avatar/EditAvatarNew";
 
 export default function EditSuperintendentDetailsForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
@@ -85,7 +86,12 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     <>
         {/* <form> */}
         <Box display="flex" justifyContent="center" mb={5}>
-          <EditAvatar icon={values?.userProfileImage} changeHandler={changeHandler} />
+          {/* <EditAvatar icon={values?.userProfileImage} changeHandler={changeHandler} /> */}
+          <EditAvatarNew
+            src={values?.userProfileImage}
+            onChange={(val) => setFieldValue("userProfileImage", val || "")}
+            setLoading={setLoading}
+          />
         </Box>
         <GridContainer container spacing={2}>
             <Grid item xs={12} sm={6}>

@@ -69,7 +69,7 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
       details: values.details,
     };
     const res: any = await updateSavedLocation(data.locationId, body);
-    if (res.error === null) {
+    if (res?.success) {
       onClose(true);
     }
     setLoading(false);
@@ -163,6 +163,7 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
           onChange={handleChange}
           error={touched.addressType && errors.addressType}
           required
+          disabled
         />
         {values.billingType === "2" && (
           <Input

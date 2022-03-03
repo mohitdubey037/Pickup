@@ -1,9 +1,13 @@
 import { Avatar, Box, Grid } from "@mui/material";
+
 import { H3, Para, H4 } from "app/components/Typography/Typography";
-import { FlexBox, FullCard } from "app/components/CommonCss/CommonCss";
+import {
+  FlexBox,
+  FlexGrid,
+  FullCard,
+} from "app/components/CommonCss/CommonCss";
 import EditIcon from "app/components/EditIcon/EditIcon";
 import { formatPhoneNo } from "utils/commonUtils";
-import { FlexGrid } from "./style";
 import { PERMISSION_TYPE_BY_ID } from "../../../../../constants";
 import { ColleagueDetailsType } from "./types";
 

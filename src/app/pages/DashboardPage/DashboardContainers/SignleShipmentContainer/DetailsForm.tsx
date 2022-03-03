@@ -19,9 +19,11 @@ import {
     FRAGILE_OPTION,
     IMAGE_FILE_TYPES,
 } from "../../../../../constants";
-import { CustomInput } from "../CompanyProfileContainer/style";
+// import { CustomInput } from "../CompanyProfileContainer/style";
 import { AddImgBox, OrderImageWrapper, Remove } from "./style";
 import { remove } from "../../../../assets/Icons";
+import { Input } from "app/components/Input";
+// import { CustomInput } from "app/components/Input/style";
 
 interface SelectBoardType {
     categoryId: number;
@@ -182,7 +184,7 @@ function DetailsForm(props: {
                     />
                 </Grid>
                 <Grid item sm={6} xs={12}>
-                    <CustomInput
+                    <Input
                         name={`${formFieldName}.customerRefNo`}
                         id={`${formFieldName}.customerRefNo`}
                         onBlur={handleBlur}

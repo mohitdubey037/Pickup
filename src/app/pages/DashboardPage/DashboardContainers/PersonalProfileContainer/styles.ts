@@ -1,14 +1,6 @@
 import { Box } from "@mui/material";
 import styled from "styled-components";
-
 import { FlexBox } from "app/components/CommonCss/CommonCss";
-
-export const ComponentStyle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-`;
 
 export const FlexTable = styled(Box)`
   display: flex;

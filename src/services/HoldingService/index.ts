@@ -7,9 +7,10 @@ export const getHoldingShipmentsService = async (urlParams?: string) => {
       `order/business/shipments/onHold?${urlParams}`,
       "order"
     );
-    return { response: res, error: null };
-  } catch (error) {
-    return { response: null, error: error };
+    return { response: res, success: true };
+  } catch (err) {
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: null, success: false };
   }
 };
 
@@ -20,9 +21,11 @@ export const scheduleShipmentService = async (data) => {
       data,
       "order"
     );
-    return { response: res, error: null };
-  } catch (error) {
-    return { response: null, error: error };
+    showToast("Your order's schedule has been successfully updated", "success");
+    return { response: res, success: true };
+  } catch (err) {
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: null, success: false };
   }
 };
 
@@ -33,10 +36,10 @@ export const deleteShipmentService = async (shipmentIds) => {
       { shipmentIds },
       "order"
     );
-    showToast(`Your orders has been successfully deleted`, "success");
-    return { response: res, error: null };
-  } catch (error) {
-    showToast(error.message || `Something Went Wrong`, "error");
-    return { response: null, error: error };
+    showToast("Your orders has been successfully deleted", "success");
+    return { response: res, success: true };
+  } catch (err) {
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: null, success: false };
   }
 };

@@ -1,5 +1,5 @@
 import { Avatar, Box, Grid } from "@material-ui/core";
-import { FlexBox, FullCard } from "app/components/CommonCss/CommonCss";
+import { FlexBox, FlexGrid, FullCard } from "app/components/CommonCss/CommonCss";
 import { Drawer } from "app/components/Drawer";
 import EditIcon from "app/components/EditIcon/EditIcon";
 import {
@@ -9,7 +9,6 @@ import {
 } from "app/components/Typography/Typography";
 import { companyDetailsSchema } from "app/pages/AuthScreens/SignUpScreens/signUpSchemas";
 import { useState } from "react";
-import { FlexGrid } from "../CompanyProfileContainer/style";
 import EditSuperintendentDetailsForm from "./EditSuperintendentDetailsForm";
 import { inputProps } from "./type";
 

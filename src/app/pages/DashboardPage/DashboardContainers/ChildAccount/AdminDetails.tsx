@@ -66,7 +66,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 onBlur={handleBlur}
                 initValue={values.roleDesignation}
                 onChange={(e) => onChangeHandler(e, `roleDesignation`)}
-                error={touched.role && errors.role}
+                error={touched.roleDesignation && errors.roleDesignation}
                 label={"Role/Designation"}
                 placeholder={"eg. Manager"}
                 required

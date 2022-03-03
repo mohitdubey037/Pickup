@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Grid, Divider } from "@mui/material";
+import { Grid, Divider, Box } from "@mui/material";
 import { useFormik } from "formik";
 import moment from "moment";
 
@@ -10,7 +10,6 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { DrawerFooter } from "app/components/Drawer/style";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { Input } from "app/components/Input";
-import { AdvanceFilterBox } from "./style";
 import { STATUS, WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
 import { advanceFilterInitValues } from "./helper";
 import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
@@ -92,7 +91,7 @@ function AdvanceFilters({ data, applyFilters }) {
   };
 
   return (
-    <AdvanceFilterBox>
+    <Box>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <DatePickerInput
@@ -128,7 +127,7 @@ function AdvanceFilters({ data, applyFilters }) {
 
       <Divider />
 
-      <H3 text="Order Origin Details" className="heading" />
+      <H3 text="Order Origin Details" mt={24} mb={24} />
       <GridContainer container spacing={2}>
         <Grid item xs={6}>
           <Input
@@ -189,7 +188,7 @@ function AdvanceFilters({ data, applyFilters }) {
 
       <Divider />
 
-      <H3 text="Order Destination Details" className="heading" />
+      <H3 text="Order Destination Details" mb={24} mt={24} />
       <GridContainer container spacing={2}>
         <Grid item sm={6}>
           <Input
@@ -250,7 +249,7 @@ function AdvanceFilters({ data, applyFilters }) {
 
       <Divider />
 
-      <H3 text="Order Details" className="heading" />
+      <H3 text="Order Details" mb={24} mt={24} />
       <GridContainer container spacing={2}>
         <Grid item xs={3}>
           <SelectNew
@@ -339,7 +338,7 @@ function AdvanceFilters({ data, applyFilters }) {
         />
         <Button label="Apply Filters" onClick={handleSubmit} size="medium" />
       </DrawerFooter>
-    </AdvanceFilterBox>
+    </Box>
   );
 }
 

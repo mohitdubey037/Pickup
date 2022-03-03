@@ -5,7 +5,6 @@ import { H1 } from "../../../components/Typography/Typography";
 import {
     FormContent,
     FormWrapper,
-    Header,
     LoginBackgroundWrapper,
     LoginLink,
     LoginWrapper,

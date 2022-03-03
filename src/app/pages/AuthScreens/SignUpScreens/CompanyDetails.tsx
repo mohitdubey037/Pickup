@@ -7,7 +7,6 @@ import {
   FormContent,
   FormWrapper,
   LogoImage,
-  Row,
   SignUpBackgroundWrapper,
 } from "../style";
 import { Input } from "../../../components/Input";
@@ -20,6 +19,7 @@ import { showToast } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SignUpReducer";
 import { H1 } from "app/components/Typography/Typography";
+import { Grid } from "@mui/material";
 
 const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   const { userId } = useParams();
@@ -27,7 +27,10 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
     (state: { signUp: { companyRegisterResponse: { companyId: number } } }) =>
       state.signUp.companyRegisterResponse
   );
-  const showLoader=useSelector((state:{globalState:{showLoader:boolean}})=>state.globalState.showLoader )
+  const showLoader = useSelector(
+    (state: { globalState: { showLoader: boolean } }) =>
+      state.globalState.showLoader
+  );
 
   const dispatch = useDispatch();
 
@@ -41,7 +44,6 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
     revalidateOnFocus: false,
   });
 
-  
   const { emailId } = data || {};
 
   useEffect(() => {
@@ -89,67 +91,71 @@ const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   return (
     <SignUpWrapper>
       <SignUpBackgroundWrapper>
-      <LogoImage />
-      <FormWrapper isValidating={isValidating}>
-        {isValidating ? (
-          <CircularProgress />
-        ) : (
-          <FormContent>
-            <H1 title="COMPANY DETAILS" mb={24} />
-            <Row>
+        <LogoImage />
+        <FormWrapper isValidating={isValidating}>
+          {isValidating ? (
+            <CircularProgress />
+          ) : (
+            <FormContent>
+              <H1 title="COMPANY DETAILS" mb={24} />
+              <Grid container spacing={2}>
+                <Grid item sm={6} xs={12}>
+                  <Input
+                    id={"firstName"}
+                    name={"firstName"}
+                    label="Fist Name"
+                    placeholder="John"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.firstName && errors.firstName}
+                  />
+                </Grid>
+                <Grid item sm={6} xs={12}>
+                  <Input
+                    id={"lastName"}
+                    name={"lastName"}
+                    label="Last Name"
+                    placeholder="Doe"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.lastName && errors.lastName}
+                  />
+                </Grid>
+              </Grid>
               <Input
-                id={"firstName"}
-                name={"firstName"}
-                label="Fist Name"
-                placeholder="John"
+                id={"companyName"}
+                name={"companyName"}
+                label="Company Name"
+                placeholder="Company Name"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={touched.firstName && errors.firstName}
+                error={touched.companyName && errors.companyName}
               />
               <Input
-                id={"lastName"}
-                name={"lastName"}
-                label="Last Name"
-                placeholder="Doe"
+                id={"email"}
+                name={"email"}
+                label="Email address"
+                placeholder="johndoe@pickups.com"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={touched.lastName && errors.lastName}
+                error={touched.email && errors.email}
+                initValue={values.email}
+                disabled={true}
               />
-            </Row>
-            <Input
-              id={"companyName"}
-              name={"companyName"}
-              label="Company Name"
-              placeholder="Company Name"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.companyName && errors.companyName}
-            />
-            <Input
-              id={"email"}
-              name={"email"}
-              label="Email address"
-              placeholder="johndoe@pickups.com"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.email && errors.email}
-              initValue={values.email}
-              disabled={true}
-            />
 
-            <Input
-              id={"phoneNumber"}
-              name={"phoneNumber"}
-              label="Phone number"
-              placeholder="+1 (999)-999-9999"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.phoneNumber && errors.phoneNumber}
-            />
-            <Button  disabled={!isValid} label="Next" onClick={handleSubmit} />
-          </FormContent>
-        )}
-      </FormWrapper>
+              <Input
+                id={"phoneNumber"}
+                name={"phoneNumber"}
+                label="Phone number"
+                placeholder="+1 (999)-999-9999"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.phoneNumber && errors.phoneNumber}
+              />
+              <Button disabled={!isValid} label="Next" onClick={handleSubmit} />
+            </FormContent>
+          )}
+        </FormWrapper>
       </SignUpBackgroundWrapper>
     </SignUpWrapper>
   );

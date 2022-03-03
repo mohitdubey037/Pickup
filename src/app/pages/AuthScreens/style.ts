@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { bgImage, bgImage2 } from "../../assets/Images";
 import { logo } from "../../assets/Icons";
-import { Box } from "@material-ui/core";
 
 export const SignUpWrapper = styled.div`
   background: url(${bgImage}) no-repeat center center fixed;
@@ -103,22 +102,6 @@ export const FormContent = styled.div`
   }
 `;
 
-export const CenterContent = styled.div`
-  align-items: center;
-`;
-
-export const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-`;
-
-export const Header = styled.div`
-  font-weight: 900;
-  font-size: 32px;
-  color: #343434;
-  line-height: 37px;
-`;
 
 export const LoginLink = styled.div`
   display: flex;
@@ -142,15 +125,6 @@ export const RememberDiv = styled.div`
   }
 `;
 
-export const Termslink = styled(Box)`
-  font-size: 16px;
-  line-height: 19px;
-  color: #343434;
-  font-family: "Roboto";
-  a {
-    color: #1b8af0;
-  }
-`;
 
 
 

@@ -3,6 +3,7 @@ import { navigate } from "@reach/router";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
 import { H3, H4, Para } from "app/components/Typography/Typography";
@@ -10,12 +11,13 @@ import TableSkeleton from "app/components/Table/TableSkeleton";
 import { disclaimer } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
 import NullState from "app/components/NullState/NullState";
-import { Button } from "../../../../components/Buttons";
-import OrderDetailsDrawer from "./OrderDetailsDrawer";
+import { Flex } from "app/components/CommonCss/CommonCss";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
+import { Button } from "../../../../components/Buttons";
+import OrderDetailsDrawer from "./OrderDetailsDrawer";
 import { DisclaimerBox, OrderSummaryTableOuter, TotalBox } from "./style";
-import { Flex } from "app/components/CommonCss/CommonCss";
+import { orderSummaryColoumns } from "./helper";
 
 function OrderSummary({ path }) {
   const dispatch = useDispatch();
@@ -107,7 +109,10 @@ function OrderSummary({ path }) {
     return <a onClick={() => openInvoiceDrawer(id)}>{value}</a>;
   };
 
-  const onHoldTable = (orderSummaryData: any[], openOrderDrawer: any) => {
+  const getOrderSummaryData = (
+    orderSummaryData: any[],
+    openOrderDrawer: any
+  ) => {
     let makeTableData: any = [];
     if (orderSummaryData && orderSummaryData.length) {
       orderSummaryData.forEach((item: any) => {
@@ -145,11 +150,19 @@ function OrderSummary({ path }) {
         ) : orderSummaryData?.length > 0 ? (
           <OrderSummaryTableOuter mt={3}>
             <Table
-              data={onHoldTable(orderSummaryData, onItemCountSelectHandler)}
+              coloumns={orderSummaryColoumns}
+              data={getOrderSummaryData(
+                orderSummaryData,
+                onItemCountSelectHandler
+              )}
             />
             <TotalBox>
-              <H4 text="Total" className="total" />
-              <H4 text={`$${Number(totalCost).toFixed(2)}`} className="total" />
+              <H4 text="Total" ml={24} fontFamily="bold" />
+              <H4
+                text={`$${Number(totalCost).toFixed(2)}`}
+                ml={24}
+                fontFamily="bold"
+              />
             </TotalBox>
           </OrderSummaryTableOuter>
         ) : (
@@ -164,8 +177,14 @@ function OrderSummary({ path }) {
                 text={`${onHoldShipment} order${
                   onHoldShipment > 1 ? "s" : ""
                 } added to holding zone.`}
+                fontFamily="bold"
+                color="#8c6d0f"
+                mb={10}
               />
-              <Para text="Once your orders are ready to ship, you can schedule them later from the holding zone" />
+              <Para
+                text="Once your orders are ready to ship, you can schedule them later from the holding zone"
+                color="#8c6d0f"
+              />
             </Box>
           </DisclaimerBox>
         )}
