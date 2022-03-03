@@ -222,7 +222,8 @@ const InvoicesContainer = ({ path: string }) => {
             <DatePickerInput
               label="To Date"
               maxDate={new Date()}
-              minDate={moment(values.fromDate).add(1, "days").toDate()}
+              // minDate={moment(values.fromDate).add(1, "days").toDate()}
+              minDate={(!values.fromDate) ? null : moment(values.fromDate).add(1, "days").toDate()}
               placeholder={"e.g 06/06/2021"}
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}

@@ -188,7 +188,11 @@ export default function ChildAccountList({ path }) {
                 label="To Date"
                 placeholder="e.g 06/06/2021"
                 maxDate={new Date()}
-                minDate={moment(values.fromDate).add(1, "days").toDate()}
+                minDate={
+                  !values.fromDate
+                    ? null
+                    : moment(values.fromDate).add(1, "days").toDate()
+                }
                 value={values.toDate || null}
                 onChange={(val) => setFieldValue("toDate", val)}
               />

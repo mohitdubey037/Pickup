@@ -18,6 +18,7 @@ import {
   PIN_CODE_MASK,
 } from "../../../../../constants";
 import SelectNew from "app/components/Select/SelectNew";
+import EditAvatarNew from "app/components/Avatar/EditAvatarNew";
 
 export default function EditChildAccountForm({saveAction, handleCloseDrawer, singleCompanyDetails}: editChildAccountProps ) {
 
@@ -33,29 +34,29 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     }
   }
 
-  const changeHandler = async (e) => {
-    setLoading(true)
-    const formData = new FormData();
-    const image = e?.target?.files[0];
-    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
-      showToast(
-        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
-        "error"
-      );
-      return;
-    }
-    formData.append("document", image, image?.name);
-    const res: { response: any; error: any } = await imageUploadService(
-      formData
-    );
-    if (res.error) {
-      showToast(res.error.message, "error");
-      setLoading(false);
-    } else {
-      setLoading(false);
-      setFieldValue("companyProfileImage", res?.response?.data?.data || "");
-    }
-  };
+  // const changeHandler = async (e) => {
+  //   setLoading(true)
+  //   const formData = new FormData();
+  //   const image = e?.target?.files[0];
+  //   if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
+  //     showToast(
+  //       "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
+  //       "error"
+  //     );
+  //     return;
+  //   }
+  //   formData.append("document", image, image?.name);
+  //   const res: { response: any; error: any } = await imageUploadService(
+  //     formData
+  //   );
+  //   if (res.error) {
+  //     showToast(res.error.message, "error");
+  //     setLoading(false);
+  //   } else {
+  //     setLoading(false);
+  //     setFieldValue("companyProfileImage", res?.response?.data?.data || "");
+  //   }
+  // };
 
   const handler = (value) => {
     let temp = {};
@@ -126,7 +127,11 @@ export default function EditChildAccountForm({saveAction, handleCloseDrawer, sin
     <>
       <form>
         <Box display="flex" justifyContent="center" mb={5}>
-          <EditAvatar icon={values?.companyProfileImage} changeHandler={changeHandler} />
+          <EditAvatarNew
+            src={values?.companyProfileImage}
+            onChange={(val) => setFieldValue("companyProfileImage", val || "")}
+            setLoading={setLoading}
+          />
         </Box>
         <GridContainer container spacing={2}>
           <Grid item xs={12}>
