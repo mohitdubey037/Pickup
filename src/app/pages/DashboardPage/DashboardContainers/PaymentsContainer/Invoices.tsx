@@ -19,7 +19,11 @@ import {
   getInvoiceList,
   getMultipleInvoicesPdf,
 } from "services/PaymentServices";
-import { getInvoiceData, invoiceColoumns } from "./helper";
+import {
+  getDisabledInvoiceRows,
+  getInvoiceData,
+  invoiceColoumns,
+} from "./helper";
 import InvoiceDetailsDrawer from "./InvoiceDetailsDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
 import { FilterFlexBox } from "./style";
@@ -267,6 +271,7 @@ const InvoicesContainer = ({ path }) => {
           coloumns={invoiceColoumns}
           data={getInvoiceData(invoiceData, openInvoiceDrawer)}
           showCheckbox
+          disabledRows={getDisabledInvoiceRows(invoiceData)}
           onRowSelect={setSelectedRows}
           showPagination
           pagination={pagination}
