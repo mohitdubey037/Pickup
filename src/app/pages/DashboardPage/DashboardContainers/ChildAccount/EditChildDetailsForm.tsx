@@ -5,7 +5,7 @@ import { Box, Grid } from "@mui/material";
 import { Input } from "app/components/Input";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Button } from "app/components/Buttons";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { editChildAccountData } from "services/ChildAccount";
 import { editChildAccountSchema } from "./ChildAccountSchema";
@@ -212,7 +212,7 @@ export default function EditChildAccountForm({
         />
         <Grid container spacing={2}>
           <Grid item sm={6} xs={12}>
-            <SelectNew
+            <Select
               name="industry"
               label="Industry"
               placeholder="Select Industry"

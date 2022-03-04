@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import RadioGroup from "app/components/RadioGroup";
 import { updateSavedLocation } from "services/LocationServices";
 import { editContactDetailsSchema } from "./helper";
@@ -156,7 +156,7 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
           }
           options={BILLING_TYPES.map((item) => ({ ...item, disabled: true }))}
         />
-        <SelectNew
+        <Select
           name="addressType"
           label="Location Type"
           placeholder="Select Location Type"
