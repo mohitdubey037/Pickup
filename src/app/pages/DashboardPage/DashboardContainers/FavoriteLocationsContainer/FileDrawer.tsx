@@ -63,7 +63,7 @@ function FileDrawer() {
 
         <DropzoneBox>
           <Dropzone accept=".xlsx, .xls, .csv">
-            {({ getRootProps, getInputProps }) => (
+            {() => (
               <>
                 <img src={csvIcon} alt="" />
                 <div {...getRootProps()}>
