@@ -19,11 +19,12 @@ import {
 
 interface EditContactDetailsProps {
   data: any;
-  onClose: (a?: boolean) => void;
+  setDrawerOpen: (value: boolean) => void;
+  onEditSuccess: () => void;
 }
 
 const EditContactDetails = (props: EditContactDetailsProps) => {
-  const { data, onClose } = props;
+  const { data, setDrawerOpen, onEditSuccess } = props;
 
   const [loading, setLoading] = useState(false);
 
@@ -70,7 +71,8 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
     };
     const res: any = await updateSavedLocation(data.locationId, body);
     if (res?.success) {
-      onClose(true);
+      onEditSuccess();
+      setDrawerOpen(false);
     }
     setLoading(false);
   };
@@ -321,17 +323,17 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
 
       <DrawerFooter>
         <Button
-          secondary
-          onClick={() => onClose()}
           label="Cancel"
+          onClick={() => setDrawerOpen(false)}
+          secondary
           size="medium"
         />
         <Button
-          label="Update"
+          label="Save"
           onClick={handleSubmit}
           size="medium"
           showLoader={loading}
-          disabled={!isValid || loading}
+          disabled={!isValid}
         />
       </DrawerFooter>
     </>
