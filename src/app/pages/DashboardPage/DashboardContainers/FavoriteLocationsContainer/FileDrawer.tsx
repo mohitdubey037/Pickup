@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { CSVLink } from "react-csv";
-import Dropzone, { useDropzone } from "react-dropzone";
+import Dropzone from "react-dropzone";
 
 import { Button } from "app/components/Buttons";
 import { csvIcon } from "app/assets/Icons";
@@ -9,6 +9,12 @@ import { DropeZoneText, DropzoneBox } from "app/components/DropZone/style";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Link } from "app/components/Typography/Links";
 import { Termslink } from "app/components/Typography/style";
+import { addLocationsFromCSV } from "services/LocationServices";
+
+interface FileDrawerProps {
+  setDrawerOpen: (value: boolean) => void;
+  onAddSuccess: () => void;
+}
 
 const csvData = [
   [
@@ -33,24 +39,30 @@ const csvData = [
   ],
 ];
 
-function FileDrawer() {
+const FileDrawer = (props: FileDrawerProps) => {
+  const { setDrawerOpen, onAddSuccess } = props;
+
   const [files, setFiles] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles((prev) => [...prev, ...acceptedFiles]);
-  }, []);
+  const onDrop = (newFiles) => setFiles([...newFiles]);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
-  const fileList = files.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
+  const handleImportLocation = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("files", files[0], files[0].name);
+    const res: any = await addLocationsFromCSV(formData);
+    if (res?.success) {
+      onAddSuccess();
+      setDrawerOpen(false);
+    }
+    setLoading(false);
+  };
 
   return (
     <>
       <DrawerInnerContent>
-        <Para text="Download this file to organize your shipments correctly before upload and we can import it" />
+        <Para text="Download this file to organize your locations correctly before upload and we can import it" />
 
         <CSVLink
           filename="Bulk-Location-Sample.csv"
@@ -61,13 +73,13 @@ function FileDrawer() {
           <Button label="Download Sample" size="medium" />
         </CSVLink>
 
-        <DropzoneBox>
-          <Dropzone accept=".xlsx, .xls, .csv">
-            {() => (
-              <>
-                <img src={csvIcon} alt="" />
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
+        <Dropzone accept=".xlsx,.xls,.csv" maxFiles={1} onDrop={onDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <>
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <DropzoneBox>
+                  <img src={csvIcon} alt="CSVi" />
                   <DropeZoneText>
                     <Termslink className="label">
                       Drag and drop files or <Link to="">Click Here</Link> to
@@ -75,19 +87,37 @@ function FileDrawer() {
                     </Termslink>
                     <H5 text="Files accepted CSV, XLS" className="smalltext" />
                   </DropeZoneText>
-                </div>
-                <aside>{fileList}</aside>
-              </>
-            )}
-          </Dropzone>
-        </DropzoneBox>
+                </DropzoneBox>
+              </div>
+              <aside>
+                {files.map((file) => (
+                  <li key={file.path}>
+                    {file.path} - {file.size} bytes
+                  </li>
+                ))}
+              </aside>
+            </>
+          )}
+        </Dropzone>
       </DrawerInnerContent>
+
       <DrawerFooter>
-        <Button label="Cancel" size="medium" secondary />
-        <Button label="import" size="medium" />
+        <Button
+          label="Cancel"
+          onClick={() => setDrawerOpen(false)}
+          size="medium"
+          secondary
+        />
+        <Button
+          label="Import"
+          onClick={handleImportLocation}
+          size="medium"
+          showLoader={loading}
+          disabled={files.length === 0}
+        />
       </DrawerFooter>
     </>
   );
-}
+};
 
 export default FileDrawer;

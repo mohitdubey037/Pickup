@@ -61,11 +61,11 @@ export function TrackInput() {
       <Drawer
         title=""
         open={drawerOpen}
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
-        closeIcon={true}
-        size={"large"}
+        setDrawerOpen={setDrawerOpen}
+        closeIcon
+        size="large"
       >
-        <SearchOrderDetailsDrawer orderId={values.orderId} setDrawerOpen={(flag) => setDrawerOpen(flag)}/>
+        <SearchOrderDetailsDrawer orderId={values.orderId} setDrawerOpen={setDrawerOpen}/>
       </Drawer>
     </>
   );
