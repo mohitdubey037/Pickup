@@ -1,6 +1,6 @@
-import { Box, FormControl } from "@material-ui/core";
+import { FormControl } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Select } from "@mui/material";
+import { Box, Select } from "@mui/material";
 import styled, { css } from "styled-components";
 import { H4 } from "../Typography/Typography";
 

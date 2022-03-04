@@ -1,4 +1,5 @@
-import { Avatar, Box, Grid } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
+import { Box, Grid } from "@mui/material";
 import { FlexBox, FlexGrid, FullCard } from "app/components/CommonCss/CommonCss";
 import { Drawer } from "app/components/Drawer";
 import EditIcon from "app/components/EditIcon/EditIcon";

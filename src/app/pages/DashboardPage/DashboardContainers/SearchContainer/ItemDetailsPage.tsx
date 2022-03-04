@@ -1,9 +1,10 @@
-import { Grid } from "@material-ui/core";
+
 import { Accordion } from "app/components/Accordion";
 import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
 import { ItemDetailsBox } from "./style";
+import { Grid } from "@mui/material";
 
 function ItemDetailsPage(props: any) {
   const { singleOrderData } = props;

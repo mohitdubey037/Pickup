@@ -13,7 +13,6 @@ import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
 import { companyDetailsSchema } from "./signUpSchemas";
 import { actions } from "store/reducers/SignUpReducer";
-import { Box, Grid } from "@material-ui/core";
 import { Checkbox } from "app/components/Checkbox";
 import { getParamsFromUrl } from "utils/commonUtils";
 import { H1 } from "app/components/Typography/Typography";
@@ -23,6 +22,7 @@ import { PHONE_NO_MASK } from "../../../../constants";
 import { Link } from "app/components/Typography/Links";
 import { Termslink } from "app/components/Typography/style";
 import AlertDialog from "app/components/Dialog";
+import { Box, Grid } from "@mui/material";
 
 type SignUpProps = RouteComponentProps;
 

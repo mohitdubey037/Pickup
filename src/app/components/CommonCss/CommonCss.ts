@@ -1,5 +1,4 @@
-import { Box } from "@material-ui/core";
-import { Divider } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import styled from "styled-components";
 interface FlexProps {
   direction?: string;

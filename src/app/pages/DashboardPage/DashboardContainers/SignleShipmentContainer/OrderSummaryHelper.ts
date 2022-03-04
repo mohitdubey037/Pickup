@@ -1,5 +1,3 @@
-// import { ColDef } from "@material-ui/data-grid";
-
 const getActionItem = () => {};
 
 export const columns = [

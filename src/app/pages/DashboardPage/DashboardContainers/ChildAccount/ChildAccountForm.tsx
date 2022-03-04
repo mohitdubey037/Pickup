@@ -1,5 +1,4 @@
 import React from "react";
-import { Box, Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
@@ -8,6 +7,7 @@ import {
   PIN_CODE_MASK,
 } from "../../../../../constants";
 import SelectNew from "app/components/Select/SelectNew";
+import { Box, Grid } from "@mui/material";
 
 export default function ChildAccountForm({formik}:{formik: any}){
 

@@ -14,17 +14,13 @@ const TableSkeleton = () => {
           justifyContent: "space-between",
         }}
       >
-        <Skeleton width="15%" height={36} style={{minWidth: '120px'}} />
-        <Skeleton width="7%" height={56} style={{minWidth: '80px'}} />
+        <Skeleton width="15%" height={36} style={{ minWidth: "120px" }} />
+        <Skeleton width="7%" height={56} style={{ minWidth: "80px" }} />
       </TableTop>
       <CustomTableContainer>
         <CustomTable>
           <TableHead>
             <TableRow>
-              {/* <TableCell padding="checkbox">
-                <Checkbox label={null} />
-              </TableCell> */}
-
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
               </TableCell>
@@ -42,50 +38,26 @@ const TableSkeleton = () => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            <TableRow>
-              <>
-                {/* <TableCell>
-                  <Checkbox label={""} />
-                </TableCell> */}
-
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-              </>
-            </TableRow>
-          </TableBody>
-          <TableBody>
-            <TableRow>
-              <>
-                {/* <TableCell>
-                  <Checkbox label={""} />
-                </TableCell> */}
-
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-              </>
-            </TableRow>
-          </TableBody>
+          {Array.from(Array(5).keys()).map(() => (
+            <TableBody>
+              <TableRow>
+                <>
+                  <TableCell>
+                    <Skeleton width="50%" height={28} className="value" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton width="50%" height={28} className="value" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton width="50%" height={28} className="value" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton width="50%" height={28} className="value" />
+                  </TableCell>
+                </>
+              </TableRow>
+            </TableBody>
+          ))}
         </CustomTable>
       </CustomTableContainer>
     </>

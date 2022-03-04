@@ -1,4 +1,4 @@
-import { Box, Grid } from "@material-ui/core";
+
 import { Card } from "app/components/Card";
 import { CategoryProgressCard } from "app/components/Cards";
 import { ChartDashboard, DoghnutChart } from "app/components/Chart";
@@ -9,6 +9,7 @@ import { getDashboardDetails } from "../../../../../services/DashboardService";
 import CountUp from "react-countup";
 import { PaperBox } from "app/components/Card/style";
 import NullState from "app/components/NullState/NullState";
+import { Box, Grid } from "@mui/material";
 
 const Dashboard = ({ path: string }) => {
   const [dashboard, setDashboard] = useState<any>({});

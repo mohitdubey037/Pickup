@@ -1,6 +1,5 @@
-import React from "react";
-import { Box } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
+import { Box, Skeleton } from "@mui/material";
+
 
 export default function TermsContentSkeleton() {
   return (

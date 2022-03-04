@@ -1,5 +1,4 @@
 import { FormikValues } from "formik";
-import { Box, Grid } from "@material-ui/core";
 
 import SelectNew from "app/components/Select/SelectNew";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -9,6 +8,7 @@ import { WEIGHTDIMENSION, DIMENSION2 } from "../../../../../constants";
 import { ItemDetailsBox } from "./style";
 import { CustomLink } from "app/components/Typography/Links";
 import { Input } from "app/components/Input";
+import { Box, Grid } from "@mui/material";
 
 function DetailsFormItem(props: {
     formik: FormikValues;

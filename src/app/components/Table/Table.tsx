@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Box,
   Skeleton,
   TableBody,
   TableCell,
@@ -90,7 +91,7 @@ const Table = ({
                 )}
                 {coloumns.map((col: any) => (
                   <TableCell key={col.id}>
-                    {col.label}
+                   <Box display="flex" justifyContent="space-between"> <span>{col.label}</span>
                     {col.isSort && (
                       <>
                         {sortDetail.field === col.id ? (
@@ -121,6 +122,7 @@ const Table = ({
                         )}
                       </>
                     )}
+                    </Box>
                   </TableCell>
                 ))}
               </TableRow>

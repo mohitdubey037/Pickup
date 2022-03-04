@@ -143,7 +143,7 @@ export const DateTimePickerBox = styled(Box)`
   .MuiInputBase-input {
     height: 42px;
     box-sizing: border-box;
-    padding-left: 10px;
+    padding: 0 10px
   }
   .MuiTextField-root {
     background: #fff;

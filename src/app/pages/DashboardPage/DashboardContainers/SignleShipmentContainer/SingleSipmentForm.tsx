@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Box, Grid } from "@material-ui/core";
-
 import { Input } from "app/components/Input";
 import SelectNew from "app/components/Select/SelectNew";
 import RadioGroup from "app/components/RadioGroup";
@@ -21,6 +19,7 @@ import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import { FavoritesBox } from "./style";
 import { Checkbox } from "app/components/Checkbox";
 import CustomTooltip from "app/components/Tooltip/CustomTooltip";
+import { Box, Grid } from "@mui/material";
 
 const ADD_TYPE = {
   origin: "Origin",
