@@ -1,5 +1,5 @@
-import { Grid } from '@material-ui/core'
-import { Box } from '@mui/material'
+
+import { Box, Grid } from '@mui/material'
 import { Button } from 'app/components/Buttons'
 import { GridContainer } from 'app/components/GridSpacing/GridSpacing'
 import { Input } from 'app/components/Input'

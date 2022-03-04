@@ -2,8 +2,8 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { CardContainer } from "./style";
 import { arrowUp } from "app/assets/Icons";
-import { Box, Grid } from "@material-ui/core";
 import { H2, H3, H5 } from "../Typography/Typography";
+import { Box, Grid } from "@mui/material";
 
 interface ChartProps {
     marketPriceNumber: string;
