@@ -9,11 +9,8 @@ import { editChildAccountSchema } from "./ChildAccountSchema";
 import { editChildAccountData } from "services/ChildAccount";
 import { editChildAccountProps } from "./type";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
-import { Avatar, Box } from "@material-ui/core";
-import EditAvatar from "app/components/Avatar/EditAvatar";
-import { showToast } from "utils";
-import { IMAGE_FILE_TYPES, INDUSTRY_TEXT } from "../../../../../constants";
-import { imageUploadService } from "services/SingleShipmentServices";
+import { Box } from "@material-ui/core";
+import { INDUSTRY_TEXT } from "../../../../../constants";
 import {
   PIN_CODE_MASK,
 } from "../../../../../constants";

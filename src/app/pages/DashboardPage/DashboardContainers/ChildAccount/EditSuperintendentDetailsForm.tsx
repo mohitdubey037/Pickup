@@ -2,16 +2,12 @@ import React, {useState} from "react";
 import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
+import { DrawerFooter } from "app/components/Drawer/style";
 import { Button } from "app/components/Buttons";
 import { editSuperindedentDataSchema } from "./ChildAccountSchema";
 import { useFormik } from "formik";
-import { Avatar, Box } from "@material-ui/core";
-import EditAvatar from "app/components/Avatar/EditAvatar";
-import { showToast } from "utils";
-import { IMAGE_FILE_TYPES } from "../../../../../constants";
+import { Box } from "@material-ui/core";
 import { editSuperIndendentAccountData } from "services/ChildAccount";
-import { imageUploadService } from "services/SingleShipmentServices";
 import { editChildAccountProps } from "./type";
 import {
   PHONE_NO_MASK,
@@ -23,30 +19,6 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
   const [loading, setLoading] = useState<boolean>(false);
 
   const {userId} = singleCompanyDetails;
-
-  const changeHandler = async (e) => {
-    setLoading(true)
-    const formData = new FormData();
-    const image = e?.target?.files[0];
-    if (!IMAGE_FILE_TYPES.includes(image.type) || image.size > 5242880) {
-      showToast(
-        "You can only upload JPG, JPEG, PNG image (size less than 5MB)",
-        "error"
-      );
-      return;
-    }
-    formData.append("document", image, image?.name);
-    const res: { response: any; error: any } = await imageUploadService(
-      formData
-    );
-    if (res.error) {
-      setLoading(false)
-      showToast(res.error.message, "error");
-    } else {
-      setLoading(false);
-      setFieldValue("userProfileImage", res?.response?.data?.data || "");
-    }
-  };
 
   const handleEditSuperindendentAccount = async (values) => {
     // values["hstNumber"] = "12345"
@@ -63,10 +35,7 @@ export default function EditSuperintendentDetailsForm({saveAction, handleCloseDr
     touched,
     errors,
     setFieldValue,
-    handleBlur,
     handleSubmit,
-    isValid,
-    validateForm
   } = useFormik({
     initialValues: {
         userProfileImage: singleCompanyDetails?.userProfileImage || "",

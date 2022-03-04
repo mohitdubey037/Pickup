@@ -23,7 +23,6 @@ const ChartDashboard: React.FC<ChartProps> = ({
     labelSpentNumber,
     savedNumber,
     labelSavedNumber,
-    chartData,
     chartSeries,
 }) => {
     return (

@@ -1,7 +1,6 @@
 import React from "react";
 import { CustomTableContainer, CustomTable, TableTop } from "./style";
 import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
-import { Checkbox } from "../Checkbox";
 import { Skeleton } from "@mui/material";
 
 const TableSkeleton = () => {
