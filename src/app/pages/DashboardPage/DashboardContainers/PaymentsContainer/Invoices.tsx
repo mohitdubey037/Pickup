@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Grid, Box } from "@mui/material";
 import moment from "moment";
+
 import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
@@ -13,6 +14,7 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import SelectNew from "app/components/Select/SelectNew";
 import NullState from "app/components/NullState/NullState";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 import {
   getInvoiceList,
   getMultipleInvoicesPdf,
@@ -22,7 +24,6 @@ import InvoiceDetailsDrawer from "./InvoiceDetailsDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
 import { FilterFlexBox } from "./style";
 import { PAYMENT_STATUS } from "../../../../../constants";
-import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
   invoiceNumber: "",
@@ -31,7 +32,7 @@ const initialValues = {
   isPayment: "",
 };
 
-const InvoicesContainer = ({ path: string }) => {
+const InvoicesContainer = ({ path }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [invoiceData, setInvoiceData] = useState<any>([]);
   const [selectedRows, setSelectedRows] = useState<any>([]);
@@ -282,8 +283,8 @@ const InvoicesContainer = ({ path: string }) => {
       <Drawer
         open={drawerOpen}
         title={getDrawerTitle()}
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
-        closeIcon={true}
+        setDrawerOpen={setDrawerOpen}
+        closeIcon
       >
         {drawerType === "invoice" ? (
           <InvoiceDetailsDrawer invoiceId={selectedInvoiceId} />

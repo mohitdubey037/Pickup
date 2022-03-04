@@ -51,6 +51,7 @@ function FavoriteLocations({ path }) {
     const res: any = await deleteSavedLocation(locationId);
     if (res?.success) {
       getLocationListData();
+      setDrawerOpen(false);
     }
   };
 
@@ -105,11 +106,6 @@ function FavoriteLocations({ path }) {
     setLoading(false);
   };
 
-  const closeEditLocationDrawer = (isUpdate?: boolean) => {
-    setDrawerOpen(false);
-    isUpdate && getLocationListData();
-  };
-
   return (
     <ModuleContainer>
       <Flex justifyContent="space-between" bottom={24}>
@@ -144,18 +140,28 @@ function FavoriteLocations({ path }) {
       <Drawer
         open={drawerOpen}
         title={DRAWER_TITLE?.[drawerType] || ""}
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
-        closeIcon={true}
+        setDrawerOpen={setDrawerOpen}
+        closeIcon
       >
         {drawerType === "contactDetails" ? (
-          <ContactDetailsSidebar contactInfo={selectedLocation} />
+          <ContactDetailsSidebar
+            data={selectedLocation}
+            handleDelete={() => deleteLocation(selectedLocation?.locationId)}
+            handleEdit={() =>
+              openDrawer("editContactDetails", selectedLocation)
+            }
+          />
         ) : drawerType === "editContactDetails" ? (
           <EditContactDetails
             data={selectedLocation}
-            onClose={closeEditLocationDrawer}
+            setDrawerOpen={setDrawerOpen}
+            onEditSuccess={getLocationListData}
           />
         ) : drawerType === "importCSV" ? (
-          <FileDrawer />
+          <FileDrawer
+            setDrawerOpen={setDrawerOpen}
+            onAddSuccess={getLocationListData}
+          />
         ) : (
           <></>
         )}

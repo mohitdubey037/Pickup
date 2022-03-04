@@ -101,7 +101,7 @@ useEffect(() => {
       </FullCard>
 
       <FullCard>
-        <H3 text="Superintendent Details" />
+        <H3 text="Admin Details" />
         <AdminDetails
          formik = {formik} />
       </FullCard>

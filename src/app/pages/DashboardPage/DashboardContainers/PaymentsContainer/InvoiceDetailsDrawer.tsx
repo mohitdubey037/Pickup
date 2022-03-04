@@ -1,4 +1,5 @@
 import { useEffect, useState, createRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { navigate } from "@reach/router";
 import { createPortal } from "react-dom";
 import { useBarcode } from "react-barcodes";
@@ -11,11 +12,10 @@ import { DrawerHeading, Para } from "app/components/Typography/Typography";
 import { Flex, LineDivider } from "app/components/CommonCss/CommonCss";
 import CustomTooltip from "app/components/Tooltip/CustomTooltip";
 import { getInvoiceDetails } from "services/PaymentServices";
+import { actions } from "store/reducers/SingleShipmentReducer";
 import { Illustration } from "../../../../assets/Images/index";
 import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
 import InvoiceDrawerSkeleton from "./InvoiceDrawerSkeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "store/reducers/SingleShipmentReducer";
 
 interface InvoiceDetails {
   billTo: string;
