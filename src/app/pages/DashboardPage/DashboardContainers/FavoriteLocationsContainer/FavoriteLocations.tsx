@@ -158,7 +158,10 @@ function FavoriteLocations({ path }) {
             onEditSuccess={getLocationListData}
           />
         ) : drawerType === "importCSV" ? (
-          <FileDrawer />
+          <FileDrawer
+            setDrawerOpen={setDrawerOpen}
+            onAddSuccess={getLocationListData}
+          />
         ) : (
           <></>
         )}

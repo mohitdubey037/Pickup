@@ -34,7 +34,7 @@ export default function SuperintendentDetails({ saveAction, singleCompanyDetails
     <>
       <FullCard>
         <Box mb={4} display="flex" justifyContent="space-between">
-          <H3 text="Superintendent Details" />
+          <H3 text="Admin Details" />
           <EditIcon onClick={() => setDrawerOpen(true)} />
         </Box>
         <FlexBox justifyContent="space-between">
@@ -61,7 +61,7 @@ export default function SuperintendentDetails({ saveAction, singleCompanyDetails
 
       <Drawer
         open={drawerOpen}
-        title="Edit Superintendent Details"
+        title="Edit Admin Details"
         setDrawerOpen={(flag) => setDrawerOpen(flag)}
         closeIcon={true}
         
