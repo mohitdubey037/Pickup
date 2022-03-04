@@ -40,22 +40,22 @@ export const DrawerContent = styled.div`
   @media (max-width: 600px) {
     padding: 16px 16px 0;
   }
+ 
+  scrollbar-width: thin;
+  scrollbar-color: #aaa #bbb;
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
+    height: 4px;
   }
-
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #ddd;
-    border-radius: 10px;
+    background-color: #ddd;
   }
-
   &::-webkit-scrollbar-thumb {
-    background: #aaa;
-    border-radius: 10px;
+    background-color: #aaa;
   }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
   }
 `;
 

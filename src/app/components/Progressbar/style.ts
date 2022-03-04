@@ -1,5 +1,5 @@
+import { LinearProgress } from '@mui/material';
 import styled from 'styled-components';
-import { LinearProgress } from '@material-ui/core';
 
 interface Props {
 smallProgreebar?: boolean;
