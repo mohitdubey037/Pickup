@@ -31,7 +31,7 @@ export const CustomTable = styled(Table)`
     font-size: 14px;
     line-height: 150%;
     border-bottom: none;
-    padding: 8px;
+    padding: 8px 12px;
     border: 1px solid #dcdcdc;
     font-family: "Roboto";
     @media (max-width: 768px) {
