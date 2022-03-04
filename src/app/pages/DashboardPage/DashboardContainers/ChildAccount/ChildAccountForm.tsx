@@ -7,7 +7,7 @@ import {
   INDUSTRY_TEXT,
   PIN_CODE_MASK,
 } from "../../../../../constants";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 
 export default function ChildAccountForm({formik}:{formik: any}){
 
@@ -96,7 +96,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 placeholder={"eg. Retail"}
                 // required
               /> */}
-              <SelectNew
+              <Select
               placeholder="Select Industry"
               id="industry"
               name="industry"

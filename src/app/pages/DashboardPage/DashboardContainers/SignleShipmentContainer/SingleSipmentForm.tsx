@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Grid } from "@material-ui/core";
 
 import { Input } from "app/components/Input";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import RadioGroup from "app/components/RadioGroup";
 import { H4, H5 } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -239,7 +239,7 @@ function SingleSipmentForm({
           <>
             <GridContainer container spacing={2}>
               <Grid item lg={4} sm={6} xs={12}>
-                <SelectNew
+                <Select
                   id={`${formFieldName}.${title}LocationType`}
                   name={`${formFieldName}.${title}LocationType`}
                   label={"Location Type"}

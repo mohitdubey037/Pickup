@@ -11,7 +11,7 @@ import { Button } from "app/components/Buttons";
 import { Table } from "app/components/Table";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import DatePickerInput from "app/components/Input/DatePickerInput";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { Input } from "app/components/Input";
 import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
@@ -198,7 +198,7 @@ export default function ChildAccountList({ path }) {
               />
             </Grid>
             <Grid item xs={6} sm={4} lg={2}>
-              <SelectNew
+              <Select
                 name="status"
                 label="Status"
                 placeholder="Select Status"

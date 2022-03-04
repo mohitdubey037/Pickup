@@ -7,7 +7,7 @@ import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { Table } from "app/components/Table";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import { SearchTableTop } from "app/components/CommonCss/CommonCss";
 import { reportsColoumns, reportsTable } from "./helper";
 
@@ -44,7 +44,7 @@ function ReportsContainer({ path }) {
           <H2 title="Reports" />
         </Grid>
         <Grid item md={2} sm={3} xs={6}>
-          <SelectNew />
+          <Select />
         </Grid>
       </Grid>
 

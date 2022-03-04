@@ -15,7 +15,7 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import { getSearchOrderData, searchOrderColoumns } from "./helper";
 import { CustomBadge } from "./style";
 import InvoiceDetailsDrawer from "../PaymentsContainer/InvoiceDetailsDrawer";
@@ -225,7 +225,7 @@ const SearchContainer = ({ path }: any) => {
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={3}>
-            <SelectNew
+            <Select
               name="status"
               label="Status"
               placeholder="Select Order Status"
