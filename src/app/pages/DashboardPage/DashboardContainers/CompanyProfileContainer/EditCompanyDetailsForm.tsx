@@ -5,7 +5,7 @@ import { Box, Grid } from "@mui/material";
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import SelectNew from "app/components/Select/SelectNew";
-import EditAvatarNew from "app/components/Avatar/EditAvatarNew";
+import EditAvatar from "app/components/Avatar/EditAvatar";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { updateCompanyProfile } from "services/CompanyService";
 import { INDUSTRY_TEXT, PIN_CODE_MASK } from "../../../../../constants";
@@ -89,12 +89,12 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
       temp["pincode"] = "";
       temp["address2"] = "";
     }
-    let updated1company = values;
-    updated1company = {
-      ...updated1company,
+    let updatedCompany = values;
+    updatedCompany = {
+      ...updatedCompany,
       ...temp,
     };
-    resetForm({ values: updated1company });
+    resetForm({ values: updatedCompany });
   };
 
   const onSubmit = async (values) => {
@@ -111,8 +111,8 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
   return (
     <>
       <DrawerInnerContent>
-        <Box display="flex" justifyContent="center">
-          <EditAvatarNew
+        <Box display="flex" justifyContent="center" mb={4}>
+          <EditAvatar
             src={values?.profileImage}
             onChange={(val) => setFieldValue("profileImage", val || "")}
             setLoading={setLoading}
@@ -152,7 +152,7 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
           error={touched.address2 && errors.address2}
           required
         />
-        <Grid container columnSpacing={2}>
+        <Grid container spacing={2}>
           <Grid item sm={6} xs={12}>
             <Input
               name="city"
@@ -207,7 +207,7 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
         <Input
           name="hstNumber"
           label="HST Number"
-          placeholder="eg. 1245567842185"
+          placeholder="eg. 123456"
           initValue={values.hstNumber}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -217,15 +217,14 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
         <Input
           name="businessNumber"
           label="Business Number"
-          placeholder="eg. 5421369"
+          placeholder="eg. 123456"
           initValue={values.businessNumber}
           onChange={handleChange}
           onBlur={handleBlur}
           error={touched.businessNumber && errors.businessNumber}
           required
         />
-
-        <Grid container columnSpacing={2}>
+        <Grid container spacing={2}>
           <Grid item sm={6} xs={12}>
             <SelectNew
               name="industry"
@@ -241,12 +240,12 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
           <Grid item sm={6} xs={12}>
             <Input
               name="employeeStrength"
+              label="Employee Strength"
+              placeholder="e.g. 32"
               initValue={values.employeeStrength}
               onBlur={handleBlur}
               onChange={handleChange}
               error={touched.employeeStrength && errors.employeeStrength}
-              label="Employee Strength"
-              placeholder="e.g. 32"
             />
           </Grid>
         </Grid>

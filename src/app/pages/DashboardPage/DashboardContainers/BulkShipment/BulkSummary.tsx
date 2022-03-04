@@ -91,9 +91,9 @@ const BulkSummary = ({ path }) => {
 
       <Drawer
         open={drawerOpen}
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
+        setDrawerOpen={setDrawerOpen}
         title="Order Items"
-        closeIcon={true}
+        closeIcon
       ></Drawer>
 
       <Drawer

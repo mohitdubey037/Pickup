@@ -43,3 +43,20 @@ export const deleteSavedLocation = async (locationId: string) => {
     return { response: null, success: false };
   }
 };
+
+export const addLocationsFromCSV = async (data: any) => {
+  try {
+    const res = await Services.postImage(
+      `location/business/location/bulk`,
+      data,
+      "location",
+      "",
+      { "Content-Type": "multipart/form-data; boundary=???" }
+    );
+    showToast("Your locations has been successfully added", "success");
+    return { response: res, success: true };
+  } catch (err) {
+    showToast(err?.message || "Something Went Wrong", "error");
+    return { response: null, success: false };
+  }
+};
