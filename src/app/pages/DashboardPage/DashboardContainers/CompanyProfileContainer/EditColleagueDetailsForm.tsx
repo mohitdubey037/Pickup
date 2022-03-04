@@ -7,7 +7,7 @@ import { Button } from "app/components/Buttons";
 import Switches from "app/components/Input/SwitchButton";
 import SelectBox from "app/components/Select/SelectBox";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
-import EditAvatarNew from "app/components/Avatar/EditAvatarNew";
+import EditAvatar from "app/components/Avatar/EditAvatar";
 import SelectNew from "app/components/Select/SelectNew";
 import { updateColleague } from "services/CompanyService";
 import {
@@ -87,8 +87,8 @@ const EditColleagueDetailsForm = (props: EditDetailsInterface) => {
   return (
     <>
       <DrawerInnerContent>
-        <Box display="flex" justifyContent="center">
-          <EditAvatarNew
+        <Box display="flex" justifyContent="center" mb={4}>
+          <EditAvatar
             src={values?.profileImage}
             onChange={(val) => setFieldValue("profileImage", val || "")}
             setLoading={setLoading}

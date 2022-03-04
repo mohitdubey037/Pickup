@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
 import SelectNew from "app/components/Select/SelectNew";
-import EditAvatarNew from "app/components/Avatar/EditAvatarNew";
+import EditAvatar from "app/components/Avatar/EditAvatar";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { editPersonalProfileDetails } from "services/PersonalProfileServices";
 import { editPersonalProfileSchema } from "./schema";
@@ -60,8 +60,8 @@ const EditPersonalDetailsForm = (props: EditDetailsInterface) => {
   return (
     <>
       <DrawerInnerContent>
-        <Box display="flex" justifyContent="center">
-          <EditAvatarNew
+        <Box display="flex" justifyContent="center" mb={4}>
+          <EditAvatar
             src={values?.profileImage}
             onChange={(val) => setFieldValue("profileImage", val || "")}
             setLoading={setLoading}
