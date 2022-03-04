@@ -13,7 +13,7 @@ interface CardProps {
 }
 
 
-const Card: React.FC<CardProps> = ({title, numberValue, label, onClick, isOrangeBox}) => {
+const Card: React.FC<CardProps> = ({title, numberValue, label, isOrangeBox}) => {
   return (
     <CardDiv isOrangeBox={isOrangeBox}>
        <H3 text={title} className="heading"/>

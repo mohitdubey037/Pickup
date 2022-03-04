@@ -22,7 +22,6 @@ interface AddCardFromProps {
 
 const AddCardForm: FC<AddCardFromProps> = ({
     setDrawerOpen,
-    saveAction,
     getSavedCard,
     enableSave = false,
     submitButtonLabel = "Save",

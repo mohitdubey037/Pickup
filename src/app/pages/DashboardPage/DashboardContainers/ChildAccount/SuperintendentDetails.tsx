@@ -7,7 +7,6 @@ import {
   Para,
   H4,
 } from "app/components/Typography/Typography";
-import { companyDetailsSchema } from "app/pages/AuthScreens/SignUpScreens/signUpSchemas";
 import { useState } from "react";
 import EditSuperintendentDetailsForm from "./EditSuperintendentDetailsForm";
 import { inputProps } from "./type";

@@ -11,7 +11,7 @@ import CardList from "./CardList";
 export default function Cards({formik}:{formik: any}){
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const { handleChange, values, errors, touched, handleBlur, setFieldValue } = formik;
+  const { handleChange, values, errors, touched, handleBlur } = formik;
 
   const onChangeHandler = (event: any, name: string) => {
     handleChange(event);

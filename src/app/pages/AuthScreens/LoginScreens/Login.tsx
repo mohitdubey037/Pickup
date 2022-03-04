@@ -44,7 +44,6 @@ const Login = ({ navigate }: RouteComponentProps) => {
   const dispatch = useDispatch();
 
   const [errorMessage, setErrorMessage] = useState('');
-  const [checked, setChecked] = useState(true);
 
   const signInUserResponse = useSelector(
     (state: {

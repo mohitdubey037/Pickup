@@ -5,7 +5,7 @@ import EditIcon from "app/components/EditIcon/EditIcon";
 import { H3, Para, H4 } from "app/components/Typography/Typography";
 import { useState } from "react";
 import EditChildDetailsForm from "./EditChildDetailsForm";
-import {companyDetails, inputProps } from "./type";
+import {inputProps } from "./type";
 
 export default function ChildDetails({ singleCompanyDetails, saveAction }: inputProps){
 
