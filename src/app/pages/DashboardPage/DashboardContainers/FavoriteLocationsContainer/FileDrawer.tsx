@@ -62,7 +62,7 @@ const FileDrawer = (props: FileDrawerProps) => {
   return (
     <>
       <DrawerInnerContent>
-        <Para text="Download this file to organize your shipments correctly before upload and we can import it" />
+        <Para text="Download this file to organize your locations correctly before upload and we can import it" />
 
         <CSVLink
           filename="Bulk-Location-Sample.csv"

@@ -66,8 +66,8 @@ const PersonalProfileContainer = ({ path }) => {
       <Drawer
         open={drawerOpen}
         title={DRAWER_TITLE?.[drawerType] || ""}
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
-        closeIcon={true}
+        setDrawerOpen={setDrawerOpen}
+        closeIcon
       >
         {drawerType === "changePassword" ? (
           <ChangePasswordForm setDrawerOpen={setDrawerOpen} />

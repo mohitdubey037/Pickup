@@ -212,7 +212,7 @@ function OrderSummary({ path }) {
       <Drawer
         open={drawerOpen}
         title="Order Details"
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
+        setDrawerOpen={setDrawerOpen}
         closeIcon
       >
         <OrderDetailsDrawer

@@ -53,8 +53,8 @@ export default function PaymentsPage({ path: string }) {
       <Drawer
         open={drawerOpen}
         title="Add New Card"
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
-        closeIcon={true}
+        setDrawerOpen={setDrawerOpen}
+        closeIcon
       >
         <AddCardForm setDrawerOpen={setDrawerOpen} />
       </Drawer>

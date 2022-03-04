@@ -97,8 +97,8 @@ export default function PaymentCardContainer({
       <Drawer
         open={drawerOpen}
         title="Edit you card"
-        setDrawerOpen={(flag) => setDrawerOpen(flag)}
-        closeIcon={true}
+        setDrawerOpen={setDrawerOpen}
+        closeIcon
       >
         <AddCardForm
           setDrawerOpen={setDrawerOpen}
