@@ -9,13 +9,14 @@ import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { H2, H3 } from "app/components/Typography/Typography";
+import { H2, H3, H5 } from "app/components/Typography/Typography";
 import { sliders } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 import {
   getHoldingShipmentsService,
   scheduleShipmentService,
@@ -26,7 +27,6 @@ import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 import { onHoldOrderColoumns, getOnHoldOrderData } from "./helper";
 import ScheduleShipmentsDrawer from "./ScheduleShipmentsDrawer";
 import { FilterFlexBox } from "../PaymentsContainer/style";
-import { SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
   shippingId: "",
@@ -109,7 +109,15 @@ const OnHoldShipmentContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${pagination.count} Orders`} className="heading" />
+        <Flex alignItems="center">
+          <H3 text={`${pagination.count} Orders`} className="heading" />
+          <H5
+            text={`(${selectedRows.length} Selected)`}
+            className="spanlabel"
+            ml={8}
+            mt={4}
+          />
+        </Flex>
         <Box>
           <Button
             label="Delete"
