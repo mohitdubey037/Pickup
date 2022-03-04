@@ -8,27 +8,27 @@ import { Button } from "app/components/Buttons";
 import { Input } from "app/components/Input";
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { H2, H3 } from "app/components/Typography/Typography";
+import { H2, H3, H5 } from "app/components/Typography/Typography";
 import { sliders } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
+import {
+  getAdvancedFilter,
+  getSearchOrderList,
+} from "services/SearchItemService";
+import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import { getSearchOrderData, searchOrderColoumns } from "./helper";
 import { CustomBadge } from "./style";
 import InvoiceDetailsDrawer from "../PaymentsContainer/InvoiceDetailsDrawer";
 import AdvanceFilters from "./AdvanceFilters";
 import SearchOrderDetailsDrawer from "./SearchOrderDetailsDrawer";
-import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
-import {
-  getAdvancedFilter,
-  getSearchOrderList,
-} from "../../../../../services/SearchItemService";
 import { STATUS } from "../../../../../../src/constants";
 import { FilterFlexBox } from "../PaymentsContainer/style";
-import { SearchTableTop } from "app/components/CommonCss/CommonCss";
 
 const initialValues = {
   consignmentId: "",
@@ -79,7 +79,15 @@ const SearchContainer = ({ path }: any) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${pagination.count} Orders`} className="heading" />
+        <Flex alignItems="center">
+          <H3 text={`${pagination.count} Orders`} className="heading" />
+          <H5
+            text={`(${selectedRows.length} Selected)`}
+            className="spanlabel"
+            ml={8}
+            mt={4}
+          />
+        </Flex>
         <Button
           label="Print"
           onClick={() => {}}
@@ -225,7 +233,7 @@ const SearchContainer = ({ path }: any) => {
             />
           </Grid>
           <Grid item xs={6} sm={4} lg={3}>
-            <SelectNew
+            <Select
               name="status"
               label="Status"
               placeholder="Select Order Status"

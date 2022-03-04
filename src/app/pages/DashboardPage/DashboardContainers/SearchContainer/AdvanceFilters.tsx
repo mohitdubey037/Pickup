@@ -3,7 +3,7 @@ import { Grid, Divider, Box } from "@mui/material";
 import { useFormik } from "formik";
 import moment from "moment";
 
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import { H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -113,7 +113,7 @@ function AdvanceFilters({ data, applyFilters }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <SelectNew
+          <Select
             name="status"
             label="Status"
             placeholder="Select Order Status"
@@ -252,7 +252,7 @@ function AdvanceFilters({ data, applyFilters }) {
       <H3 text="Order Details" mb={24} mt={24} />
       <GridContainer container spacing={2}>
         <Grid item xs={3}>
-          <SelectNew
+          <Select
             name="weightOperand"
             label="Weight"
             placeholder="Select"
@@ -274,7 +274,7 @@ function AdvanceFilters({ data, applyFilters }) {
           />
         </Grid>
         <Grid item xs={3}>
-          <SelectNew
+          <Select
             name="weightDimension"
             label="Unit"
             placeholder="Select Unit"
@@ -285,7 +285,7 @@ function AdvanceFilters({ data, applyFilters }) {
           />
         </Grid>
         <Grid item xs={3}>
-          <SelectNew
+          <Select
             name="volumnOperand"
             label="Volume"
             placeholder="Select"
@@ -306,7 +306,7 @@ function AdvanceFilters({ data, applyFilters }) {
           />
         </Grid>
         <Grid item xs={3}>
-          <SelectNew
+          <Select
             name="volumeDimension"
             label="Unit"
             placeholder="Select Unit"
@@ -317,7 +317,7 @@ function AdvanceFilters({ data, applyFilters }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <SelectNew
+          <Select
             name="category"
             label="Category"
             placeholder="Select Category"

@@ -23,12 +23,12 @@ const getOrderIdItem = (
 };
 
 export const getInvoiceData = (
-  searchRecordData: any,
+  invoiceData: any,
   openInvoiceDrawer: (id: any, type: any) => void
 ) => {
   let makeTableData: any = [];
-  if (searchRecordData && searchRecordData.length) {
-    makeTableData = searchRecordData.map((item: any) => {
+  if (invoiceData && invoiceData.length) {
+    makeTableData = invoiceData.map((item: any) => {
       return {
         "Invoice Number": getInvoiceIdItem(
           openInvoiceDrawer,
@@ -48,6 +48,16 @@ export const getInvoiceData = (
     });
   }
   return makeTableData;
+};
+
+export const getDisabledInvoiceRows = (invoiceData: any) => {
+  let invoiceIds: any = [];
+  invoiceData.forEach((item, idx) => {
+    if (!item.invoicePdf) {
+      invoiceIds.push(idx);
+    }
+  });
+  return invoiceIds;
 };
 
 export const invoiceColoumns = [

@@ -5,7 +5,7 @@ import { Box, Grid } from "@mui/material";
 import { H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import { Input } from "app/components/Input";
 import SelectBox from "app/components/Select/SelectBox";
 import Switches from "app/components/Input/SwitchButton";
@@ -155,7 +155,7 @@ const NewColleagueForm = (props: NewColleagueInterface) => {
         </Grid>
         {isChecked && (
           <Grid item lg={3} md={6} xs={12}>
-            <SelectNew
+            <Select
               name="notificationFrequency"
               label="Notification Frequency"
               placeholder="Select Notification Frequency"

@@ -24,6 +24,7 @@ const Table = ({
   coloumns,
   data,
   showCheckbox,
+  disabledRows,
   onRowSelect,
   showPagination,
   pagination,
@@ -54,6 +55,9 @@ const Table = ({
     if (checked) {
       if (id === "header") {
         tempSR = Array.from(Array(data.length).keys());
+        if (disabledRows) {
+          tempSR = tempSR.filter((idx) => !disabledRows.includes(idx));
+        }
       } else tempSR.push(rowIndex);
     } else {
       if (id === "header") tempSR = [];
@@ -84,7 +88,10 @@ const Table = ({
                       onChange={(e) =>
                         handleRowSelect(e.target.checked, undefined, "header")
                       }
-                      isChecked={selectedRows.length === data.length}
+                      isChecked={
+                        selectedRows.length ===
+                        data.length - (disabledRows ? disabledRows?.length : 0)
+                      }
                       disabled={loading}
                     />
                   </TableCell>
@@ -140,7 +147,7 @@ const Table = ({
                           handleRowSelect(e.target.checked, index, undefined)
                         }
                         isChecked={selectedRows.includes(index)}
-                        disabled={loading}
+                        disabled={loading || disabledRows?.includes(index)}
                       />
                     </TableCell>
                   )}
