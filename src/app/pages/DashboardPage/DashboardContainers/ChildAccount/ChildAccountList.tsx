@@ -173,11 +173,7 @@ export default function ChildAccountList({ path }) {
               <DatePickerInput
                 label="From Date"
                 placeholder="e.g 06/06/2021"
-                maxDate={
-                  values.toDate
-                    ? moment(values.toDate).subtract(1, "days").toDate()
-                    : new Date()
-                }
+                maxDate={values.toDate ? values.toDate : new Date()}
                 value={values.fromDate || null}
                 onChange={(val) => setFieldValue("fromDate", val)}
               />
@@ -187,11 +183,7 @@ export default function ChildAccountList({ path }) {
                 label="To Date"
                 placeholder="e.g 06/06/2021"
                 maxDate={new Date()}
-                minDate={
-                  !values.fromDate
-                    ? null
-                    : moment(values.fromDate).add(1, "days").toDate()
-                }
+                minDate={!values.fromDate ? null : values.fromDate}
                 value={values.toDate || null}
                 onChange={(val) => setFieldValue("toDate", val)}
               />
