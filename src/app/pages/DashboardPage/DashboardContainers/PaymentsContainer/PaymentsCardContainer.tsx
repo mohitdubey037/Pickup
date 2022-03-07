@@ -1,4 +1,4 @@
-import { Box, Grid } from "@material-ui/core";
+
 import { useState } from "react";
 
 import { Drawer } from "app/components/Drawer";
@@ -7,6 +7,7 @@ import services from "services";
 import { PaymentCard } from "../../../../components/PaymentCard/index";
 import AddCardForm from "./AddCardForm";
 import { showToast } from "utils";
+import { Box, Grid } from "@mui/material";
 
 export interface IndividualCard {
   id: string;

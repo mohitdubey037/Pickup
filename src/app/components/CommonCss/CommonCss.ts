@@ -1,5 +1,4 @@
-import { Box } from "@material-ui/core";
-import { Divider } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import styled from "styled-components";
 interface FlexProps {
   direction?: string;
@@ -85,7 +84,7 @@ export const DateComponent = styled.div`
 `;
 
 export const LineDivider = styled(Divider)`
-  margin: 24px 0 !important;
+  margin: 12px 0 24px 0 !important;
 `;
 
 export const ContentBox = styled(Box)`

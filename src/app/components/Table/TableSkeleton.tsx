@@ -1,7 +1,12 @@
-import React from "react";
+import {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Skeleton,
+} from "@mui/material";
+
 import { CustomTableContainer, CustomTable, TableTop } from "./style";
-import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
-import { Skeleton } from "@mui/material";
 
 const TableSkeleton = () => {
   return (
@@ -14,41 +19,30 @@ const TableSkeleton = () => {
           justifyContent: "space-between",
         }}
       >
-        <Skeleton width="15%" height={36} style={{minWidth: '120px'}} />
-        <Skeleton width="7%" height={56} style={{minWidth: '80px'}} />
+        <Skeleton width="15%" height={36} style={{ minWidth: "120px" }} />
+        <Skeleton width="7%" height={56} style={{ minWidth: "80px" }} />
       </TableTop>
       <CustomTableContainer>
         <CustomTable>
           <TableHead>
             <TableRow>
-              {/* <TableCell padding="checkbox">
-                <Checkbox label={null} />
-              </TableCell> */}
-
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
               </TableCell>
-
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
               </TableCell>
-
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
               </TableCell>
-
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <>
-                {/* <TableCell>
-                  <Checkbox label={""} />
-                </TableCell> */}
-
+            {Array.from(Array(5).keys()).map((idx) => (
+              <TableRow key={idx}>
                 <TableCell>
                   <Skeleton width="50%" height={28} className="value" />
                 </TableCell>
@@ -61,30 +55,8 @@ const TableSkeleton = () => {
                 <TableCell>
                   <Skeleton width="50%" height={28} className="value" />
                 </TableCell>
-              </>
-            </TableRow>
-          </TableBody>
-          <TableBody>
-            <TableRow>
-              <>
-                {/* <TableCell>
-                  <Checkbox label={""} />
-                </TableCell> */}
-
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton width="50%" height={28} className="value" />
-                </TableCell>
-              </>
-            </TableRow>
+              </TableRow>
+            ))}
           </TableBody>
         </CustomTable>
       </CustomTableContainer>

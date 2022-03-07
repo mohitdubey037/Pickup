@@ -7,18 +7,18 @@ import { createPortal } from "react-dom";
 import html2pdf from "html2pdf.js";
 
 import { getSearchOrderListById } from "services/SearchItemService";
+import { showToast } from "utils";
 import OrderDetailPage from "./OrderDetailsPage";
 import ItemDetailsPage from "./ItemDetailsPage";
 import TrackingDetailsPage from "./TrackingDetailsPage";
 import OrderDetailsTemplate from "./OrderDetailsTemplate";
 import { AddressDetailsSkeleton } from "./AddressDetailsSkeleton";
-import { showToast } from "utils";
 
 const ref: any = createRef();
 
 export interface Props {
   orderId: any;
-  setDrawerOpen?: (flag: boolean) => void
+  setDrawerOpen?: (flag: boolean) => void;
 }
 
 function SearchOrderDetailsDrawer({ orderId, setDrawerOpen }: Props) {
@@ -41,8 +41,10 @@ function SearchOrderDetailsDrawer({ orderId, setDrawerOpen }: Props) {
     if (res.success) {
       const orderListByID = res.response.data.data;
       setSingleOrderData(orderListByID);
-    }
-    else if (res.response.status === 400 && res.response.message === "Order not Found!") {
+    } else if (
+      res.response.status === 400 &&
+      res.response.message === "Order not Found!"
+    ) {
       setDrawerOpen?.(false);
       showToast("Order Not Found", "error");
     }

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 import { Accordion } from "app/components/Accordion";
 import { H4 } from "app/components/Typography/Typography";
@@ -7,7 +7,6 @@ import PaymentCardList from "app/components/PaymentCard/PaymentCardList";
 import { AccordionOuterBox } from "app/components/CommonCss/CommonCss";
 import NullState from "app/components/NullState/NullState";
 import { CardType } from "../../../../../types";
-import { Box } from "@material-ui/core";
 
 interface CreditDebitCardHolderProps {
   debitCardDetails?: Array<CardType>;

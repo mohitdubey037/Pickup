@@ -10,14 +10,15 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { DrawerFooter } from "app/components/Drawer/style";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { Input } from "app/components/Input";
-import { STATUS, WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
-import { advanceFilterInitValues } from "./helper";
-import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import {
   deleteAdvancedFilter,
   saveAdvancedFilters,
 } from "services/SearchItemService";
 import { getCategoryList } from "services/SingleShipmentServices";
+import { STATUS, WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
+import { advanceFilterInitValues } from "./helper";
+import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
+import { LineDivider } from "app/components/CommonCss/CommonCss";
 
 const CusLabel = ({ label }) => (
   <span>
@@ -91,8 +92,8 @@ function AdvanceFilters({ data, applyFilters }) {
   };
 
   return (
-    <Box>
-      <Grid container spacing={2}>
+    <Box mt={2}>
+      <GridContainer container spacing={2}>
         <Grid item xs={6}>
           <DatePickerInput
             label="From Order Date"
@@ -123,13 +124,13 @@ function AdvanceFilters({ data, applyFilters }) {
             allowEmpty
           />
         </Grid>
-      </Grid>
+      </GridContainer>
 
-      <Divider />
+      <LineDivider />
 
-      <H3 text="Order Origin Details" mt={24} mb={24} />
-      <GridContainer container spacing={2}>
-        <Grid item xs={6}>
+      <H3 text="Order Origin Details" />
+      <GridContainer container spacing={2} mt={2}>
+        <Grid item xs={12} sm={6}>
           <Input
             name="originCity"
             label="City"
@@ -140,7 +141,7 @@ function AdvanceFilters({ data, applyFilters }) {
             error={touched.originCity && errors.originCity}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Input
             name="originPincode"
             label="Postal Code"
@@ -151,7 +152,7 @@ function AdvanceFilters({ data, applyFilters }) {
             error={touched.originPincode && errors.originPincode}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Input
             name="originProvince"
             label="Province/State"
@@ -162,7 +163,7 @@ function AdvanceFilters({ data, applyFilters }) {
             error={touched.originProvince && errors.originProvince}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Input
             name="originCountry"
             label="Country"
@@ -186,11 +187,11 @@ function AdvanceFilters({ data, applyFilters }) {
         </Grid>
       </GridContainer>
 
-      <Divider />
+      <LineDivider />
 
-      <H3 text="Order Destination Details" mb={24} mt={24} />
-      <GridContainer container spacing={2}>
-        <Grid item sm={6}>
+      <H3 text="Order Destination Details" />
+      <GridContainer container spacing={2} mt={2}>
+        <Grid item xs={12} sm={6}>
           <Input
             name="destinationCity"
             label="City"
@@ -201,7 +202,7 @@ function AdvanceFilters({ data, applyFilters }) {
             error={touched.destinationCity && errors.destinationCity}
           />
         </Grid>
-        <Grid item sm={6}>
+        <Grid item xs={12} sm={6}>
           <Input
             name="destinationPincode"
             label="Postal Code"
@@ -212,7 +213,7 @@ function AdvanceFilters({ data, applyFilters }) {
             error={touched.destinationPincode && errors.destinationPincode}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Input
             name="destinationProvince"
             label="Province/State"
@@ -223,7 +224,7 @@ function AdvanceFilters({ data, applyFilters }) {
             error={touched.destinationProvince && errors.destinationProvince}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Input
             name="destinationCountry"
             label="Country"
@@ -247,10 +248,10 @@ function AdvanceFilters({ data, applyFilters }) {
         </Grid>
       </GridContainer>
 
-      <Divider />
+      <LineDivider />
 
-      <H3 text="Order Details" mb={24} mt={24} />
-      <GridContainer container spacing={2}>
+      <H3 text="Order Details" />
+      <GridContainer container spacing={2} mt={2}>
         <Grid item xs={3}>
           <Select
             name="weightOperand"
@@ -265,7 +266,6 @@ function AdvanceFilters({ data, applyFilters }) {
         <Grid item xs={6}>
           <Input
             name="weight"
-            label=""
             placeholder={"eg. 100"}
             initValue={values.weight}
             onChange={handleChange}
@@ -297,7 +297,6 @@ function AdvanceFilters({ data, applyFilters }) {
         <Grid item xs={6}>
           <Input
             name="volume"
-            label=""
             placeholder="eg. 100"
             initValue={values.volume}
             onChange={handleChange}

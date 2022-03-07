@@ -1,8 +1,7 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 import {PHONE_NO_MASK} from "../../../../../constants";
 

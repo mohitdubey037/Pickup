@@ -107,7 +107,6 @@ export const LinkStyle = styled(RouterLink)`
   }
 `;
 
-
 export const Termslink = styled(Box)`
   font-size: 16px;
   line-height: 19px;

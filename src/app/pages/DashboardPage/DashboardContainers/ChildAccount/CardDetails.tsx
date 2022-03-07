@@ -1,7 +1,6 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
 import { PaymentCard } from "app/components/PaymentCard";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { H3 } from "app/components/Typography/Typography";
 import NullState from "app/components/NullState/NullState";
 import { FullCard } from "app/components/CommonCss/CommonCss";

@@ -8,8 +8,8 @@ import {
 } from "../style";
 import { H1, H4 } from "app/components/Typography/Typography";
 import { congrats } from "app/assets/Icons";
-import { Box } from "@material-ui/core";
 import { CustomLink } from "app/components/Typography/Links";
+import { Box } from "@mui/material";
 
 const Congratulations = ({ navigate }: RouteComponentProps) => {
   return (

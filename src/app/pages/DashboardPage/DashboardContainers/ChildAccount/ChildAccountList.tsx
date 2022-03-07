@@ -33,7 +33,6 @@ const initialValues = {
 export default function ChildAccountList({ path }) {
   const dispatch = useDispatch();
   const authUser = useSelector((state: any) => state.auth?.user);
-
   const [loading, setLoading] = useState<boolean>(true);
   const [childData, setChildData] = useState<any>([]);
   const [prevValues, setPrevValues] = useState<any>(initialValues);

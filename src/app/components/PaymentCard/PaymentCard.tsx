@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
-import { Box, Grid, MenuItem } from "@material-ui/core";
-
+import { MenuItem } from "@material-ui/core";
 import {
   Carddetails,
   CardEllipse,
@@ -15,6 +14,7 @@ import { deleteCard } from "services/PaymentServices";
 import { actions } from "store/reducers/PaymentReducer";
 import { IndividualCard } from "../../pages/DashboardPage/DashboardContainers/PaymentsContainer/PaymentsCardContainer";
 import AlertDialog from "../Dialog";
+import { Box, Grid } from "@mui/material";
 
 interface PaymentCardProps {
   key?: any;

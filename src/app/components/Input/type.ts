@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactNode } from "react";
 export interface InputProps {
-  label?: string;
+  label?: string | ReactNode;
   placeholder?: string;
   validate?: boolean;
   initValue?: any;

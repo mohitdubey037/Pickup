@@ -26,6 +26,9 @@ export const InvoiceDetailsBox = styled.div`
     font-family: "Roboto-bold";
     color: #000;
   }
+  .divider{
+    margin-top:24px !important;
+  }
 `;
 
 export const FilterFlexBox = styled(Box)`

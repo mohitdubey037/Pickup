@@ -18,6 +18,9 @@ export const InputWrapper = styled.div`
     top: 36px;
     right: 5px;
   }
+  .label{
+    min-height:20px;
+  }
 `;
 
 export const CustomInput = styled.input`
@@ -132,6 +135,9 @@ export const SwitchBox = styled.div`
     font-family: "Roboto";
     margin: 0 0 8px 0;
   }
+  .MuiButtonBase-root-MuiSwitch-switchBase:hover {
+    background-color: transparent;
+}
 `;
 
 export const DateTimePickerBox = styled(Box)`
@@ -143,7 +149,7 @@ export const DateTimePickerBox = styled(Box)`
   .MuiInputBase-input {
     height: 42px;
     box-sizing: border-box;
-    padding-left: 10px;
+    padding: 0 10px
   }
   .MuiTextField-root {
     background: #fff;

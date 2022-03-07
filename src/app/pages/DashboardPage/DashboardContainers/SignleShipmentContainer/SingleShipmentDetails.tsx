@@ -1,9 +1,8 @@
 import { FormikValues } from "formik";
-import { Box } from "@material-ui/core";
-
 import { Button } from "app/components/Buttons";
 import DetailsForm from "./DetailsForm";
 import { shipmentDetailsItemInitValue } from "./helper";
+import { Box } from "@mui/material";
 
 function SingleShipmentDetails(props: {
   formik: FormikValues;
@@ -24,7 +23,7 @@ function SingleShipmentDetails(props: {
   };
 
   return (
-    <Box mb={8}>
+    <Box mb={5}>
       <DetailsForm
         disabled={disabled}
         formik={props.formik}

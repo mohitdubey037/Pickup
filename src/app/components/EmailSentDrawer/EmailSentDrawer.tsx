@@ -1,9 +1,9 @@
-import { Box } from "@material-ui/core";
 import { emailsent } from "app/assets/Icons";
 import { H1, H4 } from "app/components/Typography/Typography";
 import { EmailSentBox } from "../../pages/DashboardPage/DashboardContainers/PersonalProfileContainer/styles";
 import { DrawerFooter, DrawerInnerContent } from "../Drawer/style";
 import { Button } from "app/components/Buttons";
+import { Box } from "@mui/material";
 
 interface props {
   handleCloseDrawer?: () => void

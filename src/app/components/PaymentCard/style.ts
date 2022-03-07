@@ -1,4 +1,5 @@
-import { Box, Menu } from "@material-ui/core";
+import { Menu } from "@material-ui/core";
+import { Box } from "@mui/material";
 import styled from "styled-components";
 
 export const IndividualCardDiv = styled(Box)`

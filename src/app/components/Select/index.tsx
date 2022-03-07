@@ -1,6 +1,6 @@
 import React from "react";
 import { MenuItem } from "@material-ui/core";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import { ComponentContainer, CustomNewSelect } from "./style";
 import { H4 } from "../Typography/Typography";
@@ -42,7 +42,7 @@ export default function Select(props: SelectPropTypes) {
 
   return (
     <ComponentContainer>
-      <H4 text={label} required={required} mb={8} />
+      <H4 text={label} required={required} mb={8} className="label" />
 
       <CustomNewSelect
         id={id}

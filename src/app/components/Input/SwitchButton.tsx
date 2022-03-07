@@ -1,9 +1,6 @@
+import { FormControl, FormControlLabel, FormGroup, Switch } from "@mui/material";
 import React from "react";
-import Switch from "@material-ui/core/Switch";
 import { SwitchBox } from "./style";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
 
 export default function Switches({ value, setIsChecked }) {
 
