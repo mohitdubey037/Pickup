@@ -197,7 +197,7 @@ function InvoiceDetailsDrawer({ invoiceId }: any) {
               <Para text={invoiceDetails?.invoiceNumber} className="value" />
             </Flex>
 
-            <LineDivider />
+            <LineDivider className="divider" />
 
             <Flex justifyContent="space-between" bottom={16}>
               <Para text="Order Count" className="label" />
@@ -232,7 +232,7 @@ function InvoiceDetailsDrawer({ invoiceId }: any) {
               />
             </Flex>
 
-            <LineDivider />
+            <LineDivider className="divider" />
 
             <Flex justifyContent="space-between" bottom={40}>
               <Para text="Payment Detail" className="label" />

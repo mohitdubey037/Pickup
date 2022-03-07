@@ -23,7 +23,7 @@ function SingleShipmentDetails(props: {
   };
 
   return (
-    <Box mb={8}>
+    <Box mb={5}>
       <DetailsForm
         disabled={disabled}
         formik={props.formik}

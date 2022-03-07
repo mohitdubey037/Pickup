@@ -42,7 +42,7 @@ export default function Select(props: SelectPropTypes) {
 
   return (
     <ComponentContainer>
-      <H4 text={label} required={required} mb={8} />
+      <H4 text={label} required={required} mb={8} className="label" />
 
       <CustomNewSelect
         id={id}

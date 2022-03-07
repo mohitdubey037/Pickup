@@ -155,7 +155,7 @@ function DetailsForm(props: {
     };
 
     return (
-        <Box mt={4}>
+        <Box mt={5}>
             <GridContainer container spacing={3}>
                 <Grid item sm={6} xs={12}>
                     <Select
@@ -258,7 +258,7 @@ function DetailsForm(props: {
                 </Grid>
             </GridContainer>
 
-            <Box mt={5}>
+            <Box mt={2}>
                 {singleFormValues.picture && (
                     <OrderImageWrapper className="orderImageWrapper">
                         <Remove
