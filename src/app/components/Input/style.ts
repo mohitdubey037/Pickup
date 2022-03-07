@@ -135,6 +135,9 @@ export const SwitchBox = styled.div`
     font-family: "Roboto";
     margin: 0 0 8px 0;
   }
+  .MuiButtonBase-root-MuiSwitch-switchBase:hover {
+    background-color: transparent;
+}
 `;
 
 export const DateTimePickerBox = styled(Box)`
