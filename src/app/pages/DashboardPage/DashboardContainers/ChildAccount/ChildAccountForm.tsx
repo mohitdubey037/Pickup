@@ -4,6 +4,7 @@ import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import {
+  EMPLOYEE_STRENGTH_MASK,
   INDUSTRY_TEXT,
   PIN_CODE_MASK,
 } from "../../../../../constants";
@@ -12,10 +13,6 @@ import Select from "app/components/Select";
 export default function ChildAccountForm({formik}:{formik: any}){
 
   const { handleChange, values, errors, touched, handleBlur, setFieldValue } =formik;
-
-  useEffect(() => {
-    console.log(values);
-  },[values])
 
     const handler = (value) => {
       let temp = {};
@@ -111,14 +108,16 @@ export default function ChildAccountForm({formik}:{formik: any}){
               <Input
                 id="Employee"
                 name="employeeStrength"
+                initValue={values.employeeStrength}
                 onBlur={handleBlur}
-                // initValue = {values.employeeStrength}
                 onChange={handleChange}
-                // onChange={(e) => onChangeHandler(e, `employeeStrength`)}
                 error={touched.employeeStrength && errors.employeeStrength}
                 label={"Employee Strength"}
                 placeholder={"eg. 1 or 4"}
+                type="mask"
+                maskProps={EMPLOYEE_STRENGTH_MASK}
               />
+              
             </Grid>
             <Grid item xs={12} lg={6}>
               <AutoComplete
@@ -154,7 +153,6 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 name="pincode"
                 onBlur={handleBlur}
                 initValue={values.pincode}
-                // initValue = {values.pincode}
                 onChange={handleChange}
                 error={touched.pincode && errors.pincode}
                 label={"Pincode"}

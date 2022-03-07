@@ -41,17 +41,8 @@ const Input = React.forwardRef<any, InputProps>(
     }, [initValue]);
 
     const onChangeHandler = (e: any) => {
-      if (e.target.name === 'employeeStrength') {
-        const isValid = EMPLOYEE_STRENGTH.test(e.target.value);
-        if (isValid) {
-          setValue(e.target.value);
-          onChange && onChange(e);
-        }
-      }
-      else {
-        setValue(e.target.value);
-        onChange && onChange(e);
-      }
+      setValue(e.target.value);
+      onChange && onChange(e);
     };
 
     return (
