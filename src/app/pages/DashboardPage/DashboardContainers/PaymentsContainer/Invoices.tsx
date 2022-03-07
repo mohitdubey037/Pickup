@@ -214,11 +214,7 @@ const InvoicesContainer = ({ path }) => {
           <Grid item xs={6} sm={3} lg={2}>
             <DatePickerInput
               label="From Date"
-              maxDate={
-                values.toDate
-                  ? moment(values.toDate).subtract(1, "days").toDate()
-                  : new Date()
-              }
+              maxDate={values.toDate ? values.toDate : new Date()}
               placeholder={"e.g 06/06/2021"}
               value={values.fromDate || null}
               onChange={(val) => setFieldValue("fromDate", val)}
@@ -228,11 +224,7 @@ const InvoicesContainer = ({ path }) => {
             <DatePickerInput
               label="To Date"
               maxDate={new Date()}
-              minDate={
-                !values.fromDate
-                  ? null
-                  : moment(values.fromDate).add(1, "days").toDate()
-              }
+              minDate={!values.fromDate ? null : values.fromDate}
               placeholder={"e.g 06/06/2021"}
               value={values.toDate || null}
               onChange={(val) => setFieldValue("toDate", val)}
