@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
-import { Grid, Divider, Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { useFormik } from "formik";
-import moment from "moment";
 
 import Select from "app/components/Select";
 import { H3 } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { DrawerFooter } from "app/components/Drawer/style";
-import DatePickerInput from "app/components/Input/DatePickerInput";
 import { Input } from "app/components/Input";
 import {
   deleteAdvancedFilter,
   saveAdvancedFilters,
 } from "services/SearchItemService";
 import { getCategoryList } from "services/SingleShipmentServices";
-import { STATUS, WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
+import { WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
 import { advanceFilterInitValues } from "./helper";
 import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import { LineDivider } from "app/components/CommonCss/CommonCss";
@@ -57,27 +55,20 @@ function AdvanceFilters({ data, applyFilters }) {
     })();
   }, []);
 
-  const {
-    handleChange,
-    values,
-    errors,
-    touched,
-    handleBlur,
-    setFieldValue,
-    handleSubmit,
-  } = useFormik({
-    initialValues: advanceFilterInitValues(data),
-    validationSchema: AdvanceFilterFormSchema,
-    onSubmit: (values) => applyAdvancedFilters(values),
-  });
+  const { handleChange, values, errors, touched, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: advanceFilterInitValues(data),
+      validationSchema: AdvanceFilterFormSchema,
+      onSubmit: (values) => applyAdvancedFilters(values),
+    });
 
   const applyAdvancedFilters = async (values) => {
-    values.fromShippingDate = values.fromShippingDate
-      ? moment(values.fromShippingDate).format("YYYY-MM-DD")
-      : null;
-    values.toShippingDate = values.toShippingDate
-      ? moment(values.toShippingDate).format("YYYY-MM-DD")
-      : null;
+    // values.fromShippingDate = values.fromShippingDate
+    //   ? moment(values.fromShippingDate).format("YYYY-MM-DD")
+    //   : null;
+    // values.toShippingDate = values.toShippingDate
+    //   ? moment(values.toShippingDate).format("YYYY-MM-DD")
+    //   : null;
     const res = await saveAdvancedFilters(values);
     if (res.success) {
       applyFilters();
@@ -93,12 +84,12 @@ function AdvanceFilters({ data, applyFilters }) {
 
   return (
     <Box mt={2}>
-      <GridContainer container spacing={2}>
+      {/* <GridContainer container spacing={2}>
         <Grid item xs={6}>
           <DatePickerInput
             label="From Order Date"
             placeholder="e.g 06/06/2021"
-            maxDate={moment(values.toShippingDate).subtract(1, "days").toDate()}
+            maxDate={values.toDate ? values.toDate : new Date()}
             value={values.fromShippingDate}
             onChange={(val) => setFieldValue("fromShippingDate", val)}
           />
@@ -107,7 +98,7 @@ function AdvanceFilters({ data, applyFilters }) {
           <DatePickerInput
             label="To Order Date"
             placeholder="e.g 06/06/2021"
-            minDate={moment(values.fromShippingDate).add(1, "days").toDate()}
+            minDate={!values.fromDate ? null : values.fromDate}
             maxDate={new Date()}
             value={values.toShippingDate}
             onChange={(val) => setFieldValue("toShippingDate", val)}
@@ -126,7 +117,7 @@ function AdvanceFilters({ data, applyFilters }) {
         </Grid>
       </GridContainer>
 
-      <LineDivider />
+      <LineDivider /> */}
 
       <H3 text="Order Origin Details" />
       <GridContainer container spacing={2} mt={2}>
