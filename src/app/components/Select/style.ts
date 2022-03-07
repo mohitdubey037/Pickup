@@ -13,6 +13,9 @@ export const ComponentContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
+  .label{
+    line-height:20px;
+  }
 `;
 
 interface StyledProps {

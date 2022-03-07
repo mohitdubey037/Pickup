@@ -18,6 +18,9 @@ export const InputWrapper = styled.div`
     top: 36px;
     right: 5px;
   }
+  .label{
+    min-height:20px;
+  }
 `;
 
 export const CustomInput = styled.input`

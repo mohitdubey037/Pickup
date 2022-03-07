@@ -5,7 +5,8 @@ import RadioGroup from "app/components/RadioGroup";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import TimePickerInput from "app/components/Input/TimePickerInput";
 import { SCHEDULE_OPTIONS } from "../../../../../constants";
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
+import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 
 function ScheduleShipmentForm(props: {
   formik: FormikValues;
@@ -42,8 +43,7 @@ function ScheduleShipmentForm(props: {
   };
 
   return (
-    <Box mb={2} mt={1}>
-      <Grid container spacing={2}>
+      <GridContainer container spacing={2} mt={1}>
         <Grid item xs={12}>
           <RadioGroup
             id={`${formFieldName}.scheduleType`}
@@ -110,8 +110,7 @@ function ScheduleShipmentForm(props: {
             </Grid>
           </>
         )}
-      </Grid>
-    </Box>
+      </GridContainer>
   );
 }
 

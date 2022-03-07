@@ -84,7 +84,7 @@ export const DateComponent = styled.div`
 `;
 
 export const LineDivider = styled(Divider)`
-  margin: 24px 0 !important;
+  margin: 12px 0 24px 0 !important;
 `;
 
 export const ContentBox = styled(Box)`
