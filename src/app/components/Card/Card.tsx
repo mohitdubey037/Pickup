@@ -1,8 +1,8 @@
 import React from "react";
 import { arrowUp } from "app/assets/Icons";
 import { CardDiv } from "./style";
-import { Box } from "@material-ui/core";
 import { H3, H5 } from "../Typography/Typography";
+import { Box } from "@mui/material";
 interface CardProps {
 	title: string;
 	numberValue: any;

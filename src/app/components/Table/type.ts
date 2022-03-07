@@ -10,6 +10,7 @@ export interface TableProps {
   }>;
   data: Array<unknown>;
   showCheckbox?: boolean;
+  disabledRows?: number[];
   onRowSelect?: (rows: Array<unknown>) => void;
   showPagination?: boolean;
   pagination?: any;

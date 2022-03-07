@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 import { Input } from "app/components/Input";
 import { Button } from "app/components/Buttons";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { editPersonalProfileDetails } from "services/PersonalProfileServices";
@@ -119,7 +119,7 @@ const EditPersonalDetailsForm = (props: EditDetailsInterface) => {
           error={touched.emailId && errors.emailId}
           required
         />
-        <SelectNew
+        <Select
           name="Permission"
           label="Permission"
           placeholder="Select Permission"

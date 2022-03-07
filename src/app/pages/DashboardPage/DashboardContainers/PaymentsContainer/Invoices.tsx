@@ -12,14 +12,18 @@ import { H2, H3, H5 } from "app/components/Typography/Typography";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import TableSkeleton from "app/components/Table/TableSkeleton";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import NullState from "app/components/NullState/NullState";
 import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 import {
   getInvoiceList,
   getMultipleInvoicesPdf,
 } from "services/PaymentServices";
-import { getInvoiceData, invoiceColoumns } from "./helper";
+import {
+  getDisabledInvoiceRows,
+  getInvoiceData,
+  invoiceColoumns,
+} from "./helper";
 import InvoiceDetailsDrawer from "./InvoiceDetailsDrawer";
 import OrderItemDetailsDrawer from "../SignleShipmentContainer/OrderItemDetailsDrawer";
 import { FilterFlexBox } from "./style";
@@ -235,7 +239,7 @@ const InvoicesContainer = ({ path }) => {
             />
           </Grid>
           <Grid item xs={6} sm={3} lg={2}>
-            <SelectNew
+            <Select
               name="isPayment"
               label="Status"
               placeholder="Select Invoice Status"
@@ -267,6 +271,7 @@ const InvoicesContainer = ({ path }) => {
           coloumns={invoiceColoumns}
           data={getInvoiceData(invoiceData, openInvoiceDrawer)}
           showCheckbox
+          disabledRows={getDisabledInvoiceRows(invoiceData)}
           onRowSelect={setSelectedRows}
           showPagination
           pagination={pagination}

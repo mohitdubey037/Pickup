@@ -8,7 +8,7 @@ import Switches from "app/components/Input/SwitchButton";
 import SelectBox from "app/components/Select/SelectBox";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import EditAvatar from "app/components/Avatar/EditAvatar";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import { updateColleague } from "services/CompanyService";
 import {
   NOTIFICATION_FREQUENCY_TYPES,
@@ -158,7 +158,7 @@ const EditColleagueDetailsForm = (props: EditDetailsInterface) => {
         />
         <Switches value={isChecked} setIsChecked={setIsChecked} />
         {isChecked && (
-          <SelectNew
+          <Select
             name="notificationFrequency"
             label="Notification Frequency"
             placeholder="Select Notification Frequency"

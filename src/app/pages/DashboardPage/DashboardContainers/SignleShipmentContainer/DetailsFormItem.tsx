@@ -1,7 +1,7 @@
 import { FormikValues } from "formik";
 import { Box, Grid } from "@material-ui/core";
 
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { H3 } from "app/components/Typography/Typography";
 // import { Input } from "../CompanyProfileContainer/style";
@@ -73,7 +73,7 @@ function DetailsFormItem(props: {
                                 />
                             </Grid>
                             <Grid item xs={6} lg={3}>
-                                <SelectNew
+                                <Select
                                     id={`${formFieldName}.${formItem}.weightDimension`}
                                     name={`${formFieldName}.${formItem}.weightDimension`}
                                     label={"Unit"}
@@ -147,7 +147,7 @@ function DetailsFormItem(props: {
                                 />
                             </Grid>
                             <Grid item xs={6} sm={3}>
-                                <SelectNew
+                                <Select
                                     id={`${formFieldName}.${formItem}.sizeDimension`}
                                     name={`${formFieldName}.${formItem}.sizeDimension`}
                                     label={"Unit"}

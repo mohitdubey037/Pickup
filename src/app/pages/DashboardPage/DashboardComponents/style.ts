@@ -38,22 +38,21 @@ export const LeftContent = styled.div`
   max-height: calc(100vh - 88px);
   overflow: auto;
 
+  scrollbar-width: thin;
+  scrollbar-color: #ddd #ffdb6f;
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
+    height: 4px;
   }
-
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #d1d14d;
-    border-radius: 10px;
+    background-color: #ffdb6f;
   }
-
   &::-webkit-scrollbar-thumb {
-    background: #f5f59a;
-    border-radius: 10px;
+    background-color: #ddd;
   }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #f5f59a;
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
   }
 `;
 

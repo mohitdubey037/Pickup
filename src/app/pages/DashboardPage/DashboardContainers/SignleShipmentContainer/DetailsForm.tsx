@@ -4,7 +4,7 @@ import { Box, Grid } from "@mui/material";
 import AddIcon from "@material-ui/icons/Add";
 
 import RadioGroup from "app/components/RadioGroup";
-import SelectNew from "app/components/Select/SelectNew";
+import Select from "app/components/Select";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { OrderImage } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
@@ -158,7 +158,7 @@ function DetailsForm(props: {
         <Box mt={4}>
             <GridContainer container spacing={3}>
                 <Grid item sm={6} xs={12}>
-                    <SelectNew
+                    <Select
                         id={`${formFieldName}.categoryId`}
                         name={`${formFieldName}.categoryId`}
                         label={"Category"}
@@ -208,7 +208,7 @@ function DetailsForm(props: {
                     />
                 </Grid>
                 <Grid item sm={6} xs={12}>
-                    <SelectNew
+                    <Select
                         id={`${formFieldName}.dropOption`}
                         name={`${formFieldName}.dropOption`}
                         label={"Delivery Options"}
