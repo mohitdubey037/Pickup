@@ -10,14 +10,14 @@ import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { DrawerFooter } from "app/components/Drawer/style";
 import DatePickerInput from "app/components/Input/DatePickerInput";
 import { Input } from "app/components/Input";
-import { STATUS, WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
-import { advanceFilterInitValues } from "./helper";
-import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import {
   deleteAdvancedFilter,
   saveAdvancedFilters,
 } from "services/SearchItemService";
 import { getCategoryList } from "services/SingleShipmentServices";
+import { STATUS, WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
+import { advanceFilterInitValues } from "./helper";
+import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 
 const CusLabel = ({ label }) => (
   <span>
@@ -92,7 +92,7 @@ function AdvanceFilters({ data, applyFilters }) {
 
   return (
     <Box>
-      <Grid container spacing={2}>
+      <GridContainer container spacing={2}>
         <Grid item xs={6}>
           <DatePickerInput
             label="From Order Date"
@@ -123,11 +123,11 @@ function AdvanceFilters({ data, applyFilters }) {
             allowEmpty
           />
         </Grid>
-      </Grid>
+      </GridContainer>
 
       <Divider />
 
-      <H3 text="Order Origin Details" mt={24} mb={24} />
+      <H3 text="Order Origin Details" mt={30} mb={24} />
       <GridContainer container spacing={2}>
         <Grid item xs={6}>
           <Input
@@ -188,7 +188,7 @@ function AdvanceFilters({ data, applyFilters }) {
 
       <Divider />
 
-      <H3 text="Order Destination Details" mb={24} mt={24} />
+      <H3 text="Order Destination Details" mb={30} mt={24} />
       <GridContainer container spacing={2}>
         <Grid item sm={6}>
           <Input
@@ -249,7 +249,7 @@ function AdvanceFilters({ data, applyFilters }) {
 
       <Divider />
 
-      <H3 text="Order Details" mb={24} mt={24} />
+      <H3 text="Order Details" mb={30} mt={24} />
       <GridContainer container spacing={2}>
         <Grid item xs={3}>
           <Select
@@ -265,7 +265,7 @@ function AdvanceFilters({ data, applyFilters }) {
         <Grid item xs={6}>
           <Input
             name="weight"
-            label=""
+            label={<>&nbsp;</>}
             placeholder={"eg. 100"}
             initValue={values.weight}
             onChange={handleChange}
@@ -297,7 +297,7 @@ function AdvanceFilters({ data, applyFilters }) {
         <Grid item xs={6}>
           <Input
             name="volume"
-            label=""
+            label={<>&nbsp;</>}
             placeholder="eg. 100"
             initValue={values.volume}
             onChange={handleChange}

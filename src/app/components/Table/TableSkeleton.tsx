@@ -1,7 +1,12 @@
-import React from "react";
+import {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Skeleton,
+} from "@mui/material";
+
 import { CustomTableContainer, CustomTable, TableTop } from "./style";
-import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
-import { Skeleton } from "@mui/material";
 
 const TableSkeleton = () => {
   return (
@@ -24,40 +29,35 @@ const TableSkeleton = () => {
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
               </TableCell>
-
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
               </TableCell>
-
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
               </TableCell>
-
               <TableCell>
                 <Skeleton width="50%" height={28} className="value" />
               </TableCell>
             </TableRow>
           </TableHead>
-          {Array.from(Array(5).keys()).map(() => (
-            <TableBody>
-              <TableRow>
-                <>
-                  <TableCell>
-                    <Skeleton width="50%" height={28} className="value" />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton width="50%" height={28} className="value" />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton width="50%" height={28} className="value" />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton width="50%" height={28} className="value" />
-                  </TableCell>
-                </>
+          <TableBody>
+            {Array.from(Array(5).keys()).map((idx) => (
+              <TableRow key={idx}>
+                <TableCell>
+                  <Skeleton width="50%" height={28} className="value" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="50%" height={28} className="value" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="50%" height={28} className="value" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="50%" height={28} className="value" />
+                </TableCell>
               </TableRow>
-            </TableBody>
-          ))}
+            ))}
+          </TableBody>
         </CustomTable>
       </CustomTableContainer>
     </>
