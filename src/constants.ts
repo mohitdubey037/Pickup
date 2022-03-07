@@ -9,6 +9,7 @@ export const LOCATION_URL = process.env.REACT_APP_LOCATION_URL;
 export const HERE_MAPS_API_KEY = process.env.REACT_APP_HERE_MAPS_API_KEY;
 
 export const PHONE_NUMBER_REGEX_NEW = /^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+export const EMPLOYEE_STRENGTH = /^[0-9]*$/
 export const NEWPASSWORD_REGEX =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#$%&+`()*,-./:;/\/<=>?@[\]~{}_^!&]).{8,}$/;
 export const EMAIL_REGEX =

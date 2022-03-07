@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -11,12 +11,11 @@ import SelectNew from "app/components/Select/SelectNew";
 
 export default function ChildAccountForm({formik}:{formik: any}){
 
-  const onChangeHandler = (event: any, name: string) => {
-    handleChange(event);
-  };
+  const { handleChange, values, errors, touched, handleBlur, setFieldValue } =formik;
 
-  const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
-    formik;
+  useEffect(() => {
+    console.log(values);
+  },[values])
 
     const handler = (value) => {
       let temp = {};
@@ -64,7 +63,8 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 name="companyName"
                 onBlur={handleBlur}
                 initValue={values.companyName}
-                onChange={(e) => onChangeHandler(e, `companyName`)}
+                // onChange={(e) => onChangeHandler(e, `companyName`)}
+                onChange={handleChange}
                 error={touched.companyName && errors.companyName}
                 label={"Company Name"}
                 placeholder={"Example Company"}
@@ -77,7 +77,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 name="businessNumber"
                 onBlur={handleBlur}
                 initValue = {values.businessNumber}
-                onChange={(e) => onChangeHandler(e, `businessNumber`)}
+                onChange={handleChange}
                 error={touched.businessNumber && errors.businessNumber}
                 label={"Business Number"}
                 placeholder="eg. 123456"
@@ -112,8 +112,9 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 id="Employee"
                 name="employeeStrength"
                 onBlur={handleBlur}
-                initValue = {values.employeeStrength}
-                onChange={(e) => onChangeHandler(e, `employeeStrength`)}
+                // initValue = {values.employeeStrength}
+                onChange={handleChange}
+                // onChange={(e) => onChangeHandler(e, `employeeStrength`)}
                 error={touched.employeeStrength && errors.employeeStrength}
                 label={"Employee Strength"}
                 placeholder={"eg. 1 or 4"}
@@ -126,8 +127,8 @@ export default function ChildAccountForm({formik}:{formik: any}){
                   label={"Address Line 1"}
                   initValue = {values.addressLine1}
                   value = {values.addressLine1}
-                  error={touched.address1 && errors.address1}
-                  onChange={(e) => onChangeHandler(e, `addressLine1`)}
+                  error={touched.addressLine1 && errors.addressLine1}
+                  onChange={handleChange}
                   placeholder={"123 Address Street"}
                   setFieldValue={setFieldValue}
                   handleBlur={handleBlur}
@@ -140,9 +141,9 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 id="AddressLine2"
                 name="addressLine2"
                 onBlur={handleBlur}
-                initValue = {values.address2}
-                onChange={(e) => onChangeHandler(e, `addressLine2`)}
-                error={touched.address2 && errors.address2}
+                initValue = {values.addressLine2}
+                onChange={handleChange}
+                error={touched.addressLine2 && errors.addressLine2}
                 label={"Address Line 2"}
                 placeholder={"123 Address Street"}
               />
@@ -154,7 +155,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 onBlur={handleBlur}
                 initValue={values.pincode}
                 // initValue = {values.pincode}
-                onChange={(e) => onChangeHandler(e, `pinCode`)}
+                onChange={handleChange}
                 error={touched.pincode && errors.pincode}
                 label={"Pincode"}
                 placeholder={"1234"}
@@ -169,7 +170,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 name="province"
                 onBlur={handleBlur}
                 initValue={values.province}
-                onChange={(e) => onChangeHandler(e, `province`)}
+                onChange={handleChange}
                 error={touched.province && errors.province}
                 label={"Province"}
                 placeholder={"eg. Ontario"}
@@ -183,7 +184,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 name="city"
                 onBlur={handleBlur}
                 initValue = {values.city}
-                onChange={(e) => onChangeHandler(e, `city`)}
+                onChange={handleChange}
                 error={touched.city && errors.city}
                 label={"City"}
                 placeholder={"eg. Toronto"}
@@ -196,7 +197,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 name="country"
                 onBlur={handleBlur}
                 initValue = {values.country}
-                onChange={(e) => onChangeHandler(e, `country`)}
+                onChange={handleChange}
                 error={touched.country && errors.country}
                 label={"Country"}
                 placeholder={"eg. Canada"}

@@ -3,6 +3,7 @@ import { PHONE_NUMBER_REGEX_NEW, PIN_CODE_REGEX } from "../../../../../constants
 
 export const editChildAccountSchema = yup.object().shape({
     companyName: yup.string().required("Company Name is a required field"),
+    strength: yup.number(),
     businessNumber: yup
     .number()
     .positive("Please enter valid Business Number")

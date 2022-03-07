@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 
+
 import {
   CustomInput,
   CustomInputTextArea,
@@ -9,6 +10,7 @@ import {
 } from "./style";
 import { H4 } from "../Typography/Typography";
 import { InputProps } from "./type";
+import { EMPLOYEE_STRENGTH } from "../../../constants";
 
 const Input = React.forwardRef<any, InputProps>(
   (
@@ -39,8 +41,17 @@ const Input = React.forwardRef<any, InputProps>(
     }, [initValue]);
 
     const onChangeHandler = (e: any) => {
-      setValue(e.target.value);
-      onChange && onChange(e);
+      if (e.target.name === 'employeeStrength') {
+        const isValid = EMPLOYEE_STRENGTH.test(e.target.value);
+        if (isValid) {
+          setValue(e.target.value);
+          onChange && onChange(e);
+        }
+      }
+      else {
+        setValue(e.target.value);
+        onChange && onChange(e);
+      }
     };
 
     return (
