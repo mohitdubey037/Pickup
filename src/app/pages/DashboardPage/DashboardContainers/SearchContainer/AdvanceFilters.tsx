@@ -283,6 +283,7 @@ function AdvanceFilters({ data, applyFilters }) {
             options={OPERANDS}
             value={values.volumnOperand}
             onChange={handleChange}
+            allowEmpty
           />
         </Grid>
         <Grid item xs={6}>
