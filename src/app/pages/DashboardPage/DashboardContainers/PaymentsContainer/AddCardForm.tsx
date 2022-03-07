@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useFormik } from "formik";
 
 import { Input } from "app/components/Input";
@@ -39,6 +39,8 @@ const AddCardForm: FC<AddCardFromProps> = ({
         handleBlur,
         handleSubmit,
         setFieldValue,
+        validateForm,
+        isValid
     } = useFormik({
         initialValues: {
             cardType: "1",
@@ -59,6 +61,14 @@ const AddCardForm: FC<AddCardFromProps> = ({
                 cardNumber: values.cardNumber.replace(/ /g, ""),
             }),
     });
+
+    useEffect(() => {
+        (() => validateForm())();
+      }, []);
+
+    useEffect(() => {
+        console.log(isValid);
+    },[cardData])
 
     const handleAddNewCard = async (values) => {
         setLoading(true);
@@ -182,6 +192,7 @@ const AddCardForm: FC<AddCardFromProps> = ({
                 />
                 <Button
                     size="medium"
+                    disabled={!(isValid)}
                     label={submitButtonLabel}
                     onClick={handleSubmit}
                     showLoader={loading}
