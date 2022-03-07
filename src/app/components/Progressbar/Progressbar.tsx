@@ -1,18 +1,23 @@
 import { CustomProgressbar } from "./style";
 
-interface ProgressbarProps{
-    value:number;
-    smallProgreebar?:boolean;
+interface ProgressbarProps {
+  variant?: "determinate" | "indeterminate" | "buffer" | "query";
+  value?: number;
+  smallProgreebar?: boolean;
 }
 
-const Progressbar = ({value, smallProgreebar}:ProgressbarProps) => {
+const Progressbar = ({
+  value,
+  smallProgreebar,
+  variant = "determinate",
+}: ProgressbarProps) => {
   return (
     <CustomProgressbar
-      color={"primary"}
+      color="primary"
       value={value}
-      variant={"determinate"}
+      variant={variant}
       smallProgreebar={smallProgreebar}
-    ></CustomProgressbar>
+    />
   );
 };
 
