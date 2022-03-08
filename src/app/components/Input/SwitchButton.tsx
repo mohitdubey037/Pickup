@@ -1,4 +1,5 @@
-import { FormControl, FormControlLabel, FormGroup, Switch } from "@mui/material";
+// import { FormControl, FormControlLabel, FormGroup, Switch } from "@mui/material";
+import { FormControl, FormControlLabel, FormGroup, Switch } from "@material-ui/core";
 import React from "react";
 import { SwitchBox } from "./style";
 
