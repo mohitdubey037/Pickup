@@ -9,8 +9,8 @@ import {
 } from "../style";
 import { mailLogo } from "../../../assets/Icons/";
 import { H1, H4 } from "../../../components/Typography/Typography";
-import { Box } from "@material-ui/core";
 import { CustomLink } from "app/components/Typography/Links";
+import { Box } from "@mui/material";
 
 const MailSent = ({ navigate }: RouteComponentProps) => {
   return (

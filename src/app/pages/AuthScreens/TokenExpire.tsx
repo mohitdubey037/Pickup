@@ -1,9 +1,9 @@
 import React from "react";
-import { Box } from "@material-ui/core";
 import { DrawerHeading } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { FormWrapper, LoginBackgroundWrapper, LoginWrapper, LogoImage } from "./style";
 import { RouteComponentProps } from "@reach/router";
+import { Box } from "@mui/material";
 
 type TokenExpireProps = RouteComponentProps;
 

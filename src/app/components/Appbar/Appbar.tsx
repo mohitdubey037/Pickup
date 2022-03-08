@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { navigate, useLocation } from "@reach/router";
 import { Avatar, IconButton } from "@mui/material";
 import { MenuItem } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import CloseIcon from "@material-ui/icons/Close";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { SidebarLogo } from "app/pages/DashboardPage/DashboardComponents/style";
 import { LeftDashboard } from "app/pages/DashboardPage/DashboardComponents";

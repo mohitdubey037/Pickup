@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Box, Grid } from "@material-ui/core";
-
 import { Input } from "app/components/Input";
 import Select from "app/components/Select";
 import RadioGroup from "app/components/RadioGroup";
@@ -21,6 +19,7 @@ import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import { FavoritesBox } from "./style";
 import { Checkbox } from "app/components/Checkbox";
 import CustomTooltip from "app/components/Tooltip/CustomTooltip";
+import { Box, Grid } from "@mui/material";
 
 const ADD_TYPE = {
   origin: "Origin",
@@ -142,7 +141,7 @@ function SingleSipmentForm({
   };
 
   return (
-    <Box mb={8}>
+    <Box mb={5}>
       <form>
         <Grid container>
           <Grid item xs>
@@ -237,7 +236,7 @@ function SingleSipmentForm({
 
         {!disabled && (
           <>
-            <GridContainer container spacing={2}>
+            <Grid container spacing={2} mb={2}>
               <Grid item lg={4} sm={6} xs={12}>
                 <Select
                   id={`${formFieldName}.${title}LocationType`}
@@ -255,7 +254,7 @@ function SingleSipmentForm({
                   required
                 />
               </Grid>
-            </GridContainer>
+            </Grid>
             <GridContainer container spacing={2}>
               {singleFormValues[`${title}BillingType`] === 2 && (
                 <Grid item lg={4} sm={6} xs={12}>

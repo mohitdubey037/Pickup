@@ -31,7 +31,6 @@ export const FavoritesBox = styled(Box)`
 `;
 
 
-
 export const OrderImageWrapper = styled(Box)`
   width: fit-content;
   position: relative;
@@ -44,10 +43,6 @@ export const Remove = styled.img`
   cursor: pointer;
 `;
 
-export const ItemDetailsBox = styled(Box)`
-  border-top: 1px solid #ddd;
-  margin: 20px 0;
-`;
 
 export const TotalBox = styled(Box)`
   margin: 24px;
@@ -75,7 +70,7 @@ export const DisclaimerBox = styled(Box)`
 `;
 
 export const AddImgBox = styled(Flex)`
-  margin: 24px 0;
+  margin: 0 0 24px 0;
   cursor: ${(props: { disabled?: boolean }) =>
     props.disabled ? "not-allowed" : "pointer"};
   align-items: center;

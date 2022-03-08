@@ -5,13 +5,13 @@ import {
   Step,
   StepLabel,
   StepContent,
-  Avatar,
-  Box,
+  Avatar
 } from "@material-ui/core";
 
 import { StepperBox, StepperInnerBox } from "./style";
 import { H4, H5 } from "../Typography/Typography";
 import { Button } from "../Buttons";
+import { Box } from "@mui/material";
 
 export default function TrackingSteps({ data }: any) {
   const [activeStep, setActiveStep] = useState(-1);

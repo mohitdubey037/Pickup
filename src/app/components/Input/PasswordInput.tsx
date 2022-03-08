@@ -3,8 +3,8 @@ import { CustomInput, ErrorLabel, InputWrapper, VisibilityBox } from "./style";
 import { InputProps } from "./type";
 import { PasswordValidate } from "../PasswordValidate";
 import { H4 } from "../Typography/Typography";
-import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import VisibilityOffOutlinedIcon from "@material-ui/icons/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
 const PasswordInput = ({
   label,

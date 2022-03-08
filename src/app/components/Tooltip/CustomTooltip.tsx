@@ -1,8 +1,6 @@
 import React, { FC, useState } from 'react';
 import { withStyles} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography'
-import Tooltip from '@material-ui/core/Tooltip';
-import { Box, useMediaQuery } from '@mui/material';
+import { Box, Tooltip, Typography, useMediaQuery } from '@mui/material';
 
 interface TooltipProps {
   content?: any;

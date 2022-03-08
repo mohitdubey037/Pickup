@@ -1,8 +1,9 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
+
 import { Accordion } from "app/components/Accordion";
-import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { ContentBox } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
+import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 import { ItemDetailsBox } from "./style";
 
 function ItemDetailsPage(props: any) {
@@ -110,6 +111,7 @@ function ItemDetailsPage(props: any) {
       </ItemDetailsBox>
     );
   };
+
   return (
     <>
       <ContentBox>

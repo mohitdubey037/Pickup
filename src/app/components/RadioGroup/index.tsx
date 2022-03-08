@@ -8,7 +8,7 @@ import {
 
 import { ErrorLabel } from "../Input/style";
 import { H4 } from "../Typography/Typography";
-import { RadioBox, RadioFlex } from "./style";
+import { RadioBox, RadioFlex} from "./style";
 import CustomTooltip from "../Tooltip/CustomTooltip";
 import { tooltipIcon } from "app/assets/Icons";
 
@@ -49,7 +49,7 @@ function RadioGroup({
   return (
     <RadioBox>
       <H4 text={label} className="title" required={required} />
-      <RadioGroupComponent
+      <RadioGroupComponent 
         id={id}
         aria-label={ariaLabel || "radio"}
         defaultValue={defaultValue}

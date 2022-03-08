@@ -1,4 +1,4 @@
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from '@mui/icons-material/Add';
 import styled from "styled-components";
 import { AddImgBox } from "./style";
 import { H4 } from "../Typography/Typography";

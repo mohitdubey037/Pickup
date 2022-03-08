@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
 import { Input } from "app/components/Input";
 import { H3 } from "app/components/Typography/Typography";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { CustomLink } from "app/components/Typography/Links";
 import { Drawer } from "app/components/Drawer";
 import CardList from "./CardList";
@@ -34,16 +33,6 @@ export default function Cards({formik}:{formik: any}){
           />
         </Box>
         <GridContainer container spacing={2}>
-          {/* <Grid item xs={12}>
-            <RadioGroup
-              label="Method of Payment"
-              options={[
-                { label: "Credit Card", value: "creditCard" },
-                { label: "Debit Card", value: "debitCard" },
-              ]}
-              name={"Radio Options"}
-            />
-          </Grid> */}
           <Grid item xs={12} sm={6}>
             <Input
               id="cardNumber"
@@ -106,18 +95,6 @@ export default function Cards({formik}:{formik: any}){
               placeholder={"John Doe"}
             />
           </Grid>
-          {/* <Grid item xs={12} sm={6}>
-            <Input
-              id="pinCode"
-              name="pincard"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              initValue={values.pincard}
-              error={touched.pincard && errors.pincard}
-              label={"Pin Code"}
-              placeholder={"Pin Code"}
-            />
-          </Grid> */}
           <Grid item xs={12} sm={6}>
             <Input
               id="nickName"
@@ -129,7 +106,6 @@ export default function Cards({formik}:{formik: any}){
               label={"Nick name (optional)"}
               placeholder={"Nickname"}
             />
-            {/* <Button label="+ Add New Card" size="medium" /> */}
           </Grid>
         </GridContainer>
       </form>

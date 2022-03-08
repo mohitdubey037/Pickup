@@ -1,7 +1,6 @@
 import { Badge, Box } from "@mui/material";
 import styled from "styled-components";
 
-
 export const TabWrapper = styled.div`
   .tabs {
     @media (min-width: 601px) {

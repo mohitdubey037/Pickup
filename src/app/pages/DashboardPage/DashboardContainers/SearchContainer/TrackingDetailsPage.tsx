@@ -6,12 +6,9 @@ import { ContentBox, Flex } from "app/components/CommonCss/CommonCss";
 import { H4 } from "app/components/Typography/Typography";
 import TrackingSteps from "app/components/Stepper/TrackingSteps";
 import NullState from "app/components/NullState/NullState";
+import { getLocation, getTrackStatus } from "services/SearchItemService";
 import { ShareIcon } from "../../../../assets/Icons/index";
 import { MapDiv } from "./style";
-import {
-  getLocation,
-  getTrackStatus,
-} from "../../../../../services/SearchItemService";
 
 function TrackingDetailsPage(props: any) {
   let { singleOrderData } = props;
@@ -48,9 +45,9 @@ function TrackingDetailsPage(props: any) {
     <ContentBox>
       <Flex justifyContent="space-between" bottom={12}>
         <H4 text="Track Shipment" className="subtitle" />
-        <Box display="flex" style={{cursor:'pointer'}}>
+        <Box display="flex" style={{ cursor: "pointer" }}>
           <img src={ShareIcon} alt="" />
-          <H4 text="Share Tracking"  ml={7} color="#1b8af0" />
+          <H4 text="Share Tracking" ml={7} color="#1b8af0" />
         </Box>
       </Flex>
 

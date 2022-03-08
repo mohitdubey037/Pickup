@@ -78,9 +78,9 @@ export const searchOrderColoumns = [
 ];
 
 export const advanceFilterInitValues = (data) => ({
-  fromShippingDate: data?.fromShippingDate || null,
-  toShippingDate: data?.toShippingDate || null,
-  status: data?.status || "",
+  fromShippingDate: null,
+  toShippingDate: null,
+  status: "",
   originCity: data?.originCity || "",
   originPincode: data?.originPincode || "",
   originProvince: data?.originProvince || "",

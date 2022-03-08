@@ -1,5 +1,5 @@
 import { FC } from "react";
-import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import { NullStateBox } from "./style";
 
 interface nullStateProps {

@@ -47,7 +47,7 @@ const Input = React.forwardRef<any, InputProps>(
 
     return (
       <InputWrapper style={style}>
-        <H4 text={label} required={required} mb={8} />
+        <H4 text={label} required={required} mb={8} className="label" />
 
         {type === "textarea" ? (
           <CustomInputTextArea

@@ -6,17 +6,15 @@ export const Error = styled(Box)`
   border: 1px solid #e35a5a;
   box-sizing: border-box;
   border-radius: 8px;
-  text-align:center;
-  padding:24px 12px;
-  margin:24px 0;
+  text-align: center;
+  padding: 24px 12px;
+  margin-top: 24px;
   
-  .subheading{
+  .subheading {
     color: #515151;
-    font-size:14px;
-    a{
-      color: #EB5757;
+    font-size: 14px;
+    a {
+      color: #eb5757;
     }
   }
 `;
-
-

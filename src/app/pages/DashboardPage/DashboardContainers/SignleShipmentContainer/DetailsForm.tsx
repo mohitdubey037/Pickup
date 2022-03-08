@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { FormikValues } from "formik";
 import { Box, Grid } from "@mui/material";
-import AddIcon from "@material-ui/icons/Add";
-
+import AddIcon from '@mui/icons-material/Add';
 import RadioGroup from "app/components/RadioGroup";
 import Select from "app/components/Select";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
@@ -155,7 +154,7 @@ function DetailsForm(props: {
     };
 
     return (
-        <Box mt={4}>
+        <Box mt={5}>
             <GridContainer container spacing={3}>
                 <Grid item sm={6} xs={12}>
                     <Select
@@ -258,7 +257,7 @@ function DetailsForm(props: {
                 </Grid>
             </GridContainer>
 
-            <Box mt={5}>
+            <Box mt={2}>
                 {singleFormValues.picture && (
                     <OrderImageWrapper className="orderImageWrapper">
                         <Remove
