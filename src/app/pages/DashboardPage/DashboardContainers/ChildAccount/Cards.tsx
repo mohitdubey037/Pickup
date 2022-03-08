@@ -39,7 +39,7 @@ export default function Cards({formik}:{formik: any}){
               name="number"
               onBlur={handleBlur}
               initValue={values.number}
-              onChange={(e) => onChangeHandler(e, `number`)}
+              onChange={handleChange}
               error={touched.number && errors.number}
               label={"Card Number"}
               placeholder={"**** **** **** ****"}
@@ -57,7 +57,7 @@ export default function Cards({formik}:{formik: any}){
               name="expiryDate"
               onBlur={handleBlur}
               initValue={values.expiryDate}
-              onChange={(e) => onChangeHandler(e, `expiryDate`)}
+              onChange={handleChange}
               error={touched.expiryDate && errors.expiryDate}
               label={"Expiration Date"}
               placeholder={"MM/YY"}
@@ -76,7 +76,7 @@ export default function Cards({formik}:{formik: any}){
               onBlur={handleBlur}
               initValue={values.cvd}
               // onChange={handleChange}
-              onChange={(e) => onChangeHandler(e, `cvd`)}
+              onChange={handleChange}
               error={touched.cvd && errors.cvd}
               label={"CVC"}
               placeholder={"CVC"}
@@ -89,7 +89,7 @@ export default function Cards({formik}:{formik: any}){
               name="name"
               onBlur={handleBlur}
               initValue={values.name}
-              onChange={(e) => onChangeHandler(e, `name`)}
+              onChange={handleChange}
               error={touched.name && errors.name}
               label={"Name on Card"}
               placeholder={"John Doe"}
@@ -112,14 +112,14 @@ export default function Cards({formik}:{formik: any}){
 
 
       <Drawer
-            open={drawerOpen}
-            title="Share Cards"
-            setDrawerOpen={setDrawerOpen}
-            closeIcon
-          >
-           <CardList />
-          
-          </Drawer>
+        open={drawerOpen}
+        title="Share Cards"
+        setDrawerOpen={setDrawerOpen}
+        closeIcon
+      >
+        <CardList />
+      
+      </Drawer>
 
     </Box>
   );

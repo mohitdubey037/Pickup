@@ -23,7 +23,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 name="firstName"
                 onBlur={handleBlur}
                 initValue={values.firstName}
-                onChange={(e) => onChangeHandler(e, `firstName`)}
+                onChange={handleChange}
                 error={touched.firstName && errors.firstName}
                 label={"First Name"}
                 placeholder={"John"}
@@ -36,7 +36,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 name="lastName"
                 onBlur={handleBlur}
                 initValue={values.lastName}
-                onChange={(e) => onChangeHandler(e, `lastName`)}
+                onChange={handleChange}
                 error={touched.lastName && errors.lastName}
                 label={"Last Name"}
                 placeholder={"Doe"}
@@ -49,7 +49,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 name="phoneNumber"
                 onBlur={handleBlur}
                 initValue={values.phoneNumber}
-                onChange={(e) => onChangeHandler(e, `phoneNumber`)}
+                onChange={handleChange}
                 error={touched.phoneNumber && errors.phoneNumber}
                 label={"Phone Number"}
                 placeholder={"+1 (999)-999-9999"}
@@ -64,7 +64,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 name="roleDesignation"
                 onBlur={handleBlur}
                 initValue={values.roleDesignation}
-                onChange={(e) => onChangeHandler(e, `roleDesignation`)}
+                onChange={handleChange}
                 error={touched.roleDesignation && errors.roleDesignation}
                 label={"Role/Designation"}
                 placeholder={"eg. Manager"}
@@ -77,7 +77,7 @@ export default function AdminDetails({formik}:{formik: any}){
                 name="emailId"
                 onBlur={handleBlur}
                 initValue={values.emailId}
-                onChange={(e) => onChangeHandler(e, `emailId`)}
+                onChange={handleChange}
                 error={touched.emailId && errors.emailId}
                 label={"Email id"}
                 placeholder={"johndoe@gmail.com"}

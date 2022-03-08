@@ -9,11 +9,28 @@ export const LOCATION_URL = process.env.REACT_APP_LOCATION_URL;
 export const HERE_MAPS_API_KEY = process.env.REACT_APP_HERE_MAPS_API_KEY;
 
 export const PHONE_NUMBER_REGEX_NEW = /^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+export const EMPLOYEE_STRENGTH = /^[0-9]*$/
 export const NEWPASSWORD_REGEX =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#$%&+`()*,-./:;/\/<=>?@[\]~{}_^!&]).{8,}$/;
 export const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export const PIN_CODE_REGEX = /^([a-zA-Z0-9]+)$|^[a-zA-Z0-9]+\s[a-zA-Z0-9]+$/;
+
+export const EMPLOYEE_STRENGTH_MASK = {
+  mask: [
+    /[0-9 ]/,
+    /[0-9 ]/,
+    /[0-9 ]/,
+    /[0-9 ]/,
+    /[0-9 ]/,
+  ],
+  maskPlaceholder: null,
+}
+
+export const EDIT_EMPLOYEE_STRENGTH_MASK = {
+  mask: "9999999",
+  maskPlaceholder: null,
+}
 
 export const PIN_CODE_MASK = {
   mask: [

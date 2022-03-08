@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { Box } from "@mui/material";
 
@@ -15,7 +15,7 @@ interface ChangePasswordInterface {
 const ChangePasswordForm = ({ setDrawerOpen }: ChangePasswordInterface) => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit, isValid, validateForm } =
     useFormik({
       initialValues: {
         currentPassword: "",
@@ -35,8 +35,13 @@ const ChangePasswordForm = ({ setDrawerOpen }: ChangePasswordInterface) => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    (() => validateForm())();
+  }, []);
+
   return (
     <>
+      
       <DrawerInnerContent>
         <Box>
           <PasswordInput
@@ -80,6 +85,7 @@ const ChangePasswordForm = ({ setDrawerOpen }: ChangePasswordInterface) => {
           secondary
         />
         <Button
+          disabled = {!(isValid)}
           label="Save"
           onClick={handleSubmit}
           size="medium"
