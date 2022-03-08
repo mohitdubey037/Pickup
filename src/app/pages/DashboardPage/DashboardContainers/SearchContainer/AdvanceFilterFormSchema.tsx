@@ -1,25 +1,51 @@
 import * as yup from "yup";
 
 export const AdvanceFilterFormSchema = yup.object().shape({
-  from_shipping: yup.date(),
-  to_shipping: yup.date(),
-  status: yup.string(),
-  origin_city: yup.string(),
-  origin_postal_code: yup.string(),
-  origin_province_state: yup.string(),
-  origin_country: yup.string(),
-  origin_email: yup.string().email("Please enter valid email"),
-  destination_city: yup.string(),
-  destination_postal_code: yup.string(),
-  destination_province_state: yup.string(),
-  destination_country: yup.string(),
-  destination_email: yup.string().email("Please enter valid email"),
-  destination_company_name: yup.string(),
-  weight: yup.string(),
-  weight_value: yup.string(),
-  weight_unit: yup.string(),
-  volume: yup.string(),
-  volume_value: yup.string(),
-  volume_unit: yup.string(),
+  originCity: yup.string(),
+  originPincode: yup.string(),
+  originProvince: yup.string(),
+  originCountry: yup.string(),
+  originEmail: yup.string().email("Please enter valid email"),
+  destinationCity: yup.string(),
+  destinationPincode: yup.string(),
+  destinationProvince: yup.string(),
+  destinationCountry: yup.string(),
+  destinationEmail: yup.string().email("Please enter valid email"),
+  weightOperand: yup.string().when("weightDimension", {
+    is: (val) => Number(val) === 14 || Number(val) === 15,
+    then: yup.string().required("Required field"),
+  }),
+  weight: yup.string().when("weightDimension", {
+    is: (val) => Number(val) === 14 || Number(val) === 15,
+    then: yup
+      .string()
+      .required("Required field")
+      .test("maxDigitsAfterDecimal", "Inalid Weight", (number: any) => {
+        return (
+          Number(number) > 0 &&
+          number?.length > 0 &&
+          /^\d+(\.\d{1,2})?$/.test(number)
+        );
+      }),
+  }),
+  weightDimension: yup.string(),
+  volumnOperand: yup.string().when("volumeDimension", {
+    is: (val) => Number(val) === 12 || Number(val) === 13,
+    then: yup.string().required("Required field"),
+  }),
+  volume: yup.string().when("volumeDimension", {
+    is: (val) => Number(val) === 12 || Number(val) === 13,
+    then: yup
+      .string()
+      .required("Required field")
+      .test("maxDigitsAfterDecimal", "Inalid Volume", (number: any) => {
+        return (
+          Number(number) > 0 &&
+          number?.length > 0 &&
+          /^\d+(\.\d{1,2})?$/.test(number)
+        );
+      }),
+  }),
+  volumeDimension: yup.string(),
   category: yup.string(),
 });
