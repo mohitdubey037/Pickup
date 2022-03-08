@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Box, Grid } from "@mui/material";
 
@@ -11,7 +11,7 @@ import { editChildAccountData } from "services/ChildAccount";
 import { editChildAccountSchema } from "./ChildAccountSchema";
 import { editChildAccountProps } from "./type";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
-import { INDUSTRY_TEXT, PIN_CODE_MASK } from "../../../../../constants";
+import { EDIT_EMPLOYEE_STRENGTH_MASK, INDUSTRY_TEXT, PIN_CODE_MASK } from "../../../../../constants";
 
 export default function EditChildAccountForm({
   saveAction,
@@ -38,7 +38,7 @@ export default function EditChildAccountForm({
       companyId: singleCompanyDetails.companyId,
       companyName: singleCompanyDetails.companyName || "",
       businessNumber: singleCompanyDetails.businessNumber || "",
-      employeeStrength: singleCompanyDetails.employeeStrength || "",
+      employeeStrength: singleCompanyDetails.employeeStrength.toString() || null,
       industry: singleCompanyDetails.industry || "",
       addressLine1: singleCompanyDetails.address1 || "",
       addressLine2: singleCompanyDetails.address2 || "",
@@ -229,9 +229,11 @@ export default function EditChildAccountForm({
               label="Employee Strength"
               placeholder="e.g. 32"
               initValue={values.employeeStrength}
-              onBlur={handleBlur}
               onChange={handleChange}
+              onBlur={handleBlur}
               error={touched.employeeStrength && errors.employeeStrength}
+              type="mask"
+              maskProps={EDIT_EMPLOYEE_STRENGTH_MASK}
             />
           </Grid>
         </Grid>

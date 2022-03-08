@@ -10,7 +10,6 @@ import {
 } from "./style";
 import { H4 } from "../Typography/Typography";
 import { InputProps } from "./type";
-import { EMPLOYEE_STRENGTH } from "../../../constants";
 
 const Input = React.forwardRef<any, InputProps>(
   (
