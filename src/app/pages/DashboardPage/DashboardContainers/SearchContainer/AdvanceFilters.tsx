@@ -55,12 +55,20 @@ function AdvanceFilters({ data, applyFilters }) {
     })();
   }, []);
 
-  const { handleChange, values, errors, touched, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: advanceFilterInitValues(data),
-      validationSchema: AdvanceFilterFormSchema,
-      onSubmit: (values) => applyAdvancedFilters(values),
-    });
+  const {
+    values,
+    errors,
+    touched,
+    isValid,
+    handleBlur,
+    handleChange,
+    setFieldValue,
+    handleSubmit,
+  } = useFormik({
+    initialValues: advanceFilterInitValues(data),
+    validationSchema: AdvanceFilterFormSchema,
+    onSubmit: (values) => applyAdvancedFilters(values),
+  });
 
   const applyAdvancedFilters = async (values) => {
     // values.fromShippingDate = values.fromShippingDate
@@ -70,14 +78,14 @@ function AdvanceFilters({ data, applyFilters }) {
     //   ? moment(values.toShippingDate).format("YYYY-MM-DD")
     //   : null;
     const res = await saveAdvancedFilters(values);
-    if (res.success) {
+    if (res?.success) {
       applyFilters();
     }
   };
 
   const removeAdvancedFilters = async () => {
     const res = await deleteAdvancedFilter();
-    if (res.success) {
+    if (res?.success) {
       applyFilters();
     }
   };
@@ -251,6 +259,9 @@ function AdvanceFilters({ data, applyFilters }) {
             options={OPERANDS}
             value={values.weightOperand}
             onChange={handleChange}
+            error={touched.weightOperand && errors.weightOperand}
+            disabled={!values.weightDimension}
+            required={values.weightDimension}
             allowEmpty
           />
         </Grid>
@@ -262,6 +273,8 @@ function AdvanceFilters({ data, applyFilters }) {
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.weight && errors.weight}
+            disabled={!values.weightDimension}
+            maxLength={8}
           />
         </Grid>
         <Grid item xs={3}>
@@ -271,7 +284,13 @@ function AdvanceFilters({ data, applyFilters }) {
             placeholder="Select Unit"
             options={WEIGHTDIMENSION}
             value={values.weightDimension}
-            onChange={handleChange}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setFieldValue("weightOperand", "");
+                setFieldValue("weight", "");
+              }
+              setFieldValue("weightDimension", e.target.value);
+            }}
             allowEmpty
           />
         </Grid>
@@ -283,6 +302,9 @@ function AdvanceFilters({ data, applyFilters }) {
             options={OPERANDS}
             value={values.volumnOperand}
             onChange={handleChange}
+            error={touched.volumnOperand && errors.volumnOperand}
+            disabled={!values.volumeDimension}
+            required={values.volumeDimension}
             allowEmpty
           />
         </Grid>
@@ -294,6 +316,8 @@ function AdvanceFilters({ data, applyFilters }) {
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.volume && errors.volume}
+            disabled={!values.volumeDimension}
+            maxLength={8}
           />
         </Grid>
         <Grid item xs={3}>
@@ -303,7 +327,13 @@ function AdvanceFilters({ data, applyFilters }) {
             placeholder="Select Unit"
             options={VOLUMEDIMENSION}
             value={values.volumeDimension}
-            onChange={handleChange}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setFieldValue("volumnOperand", "");
+                setFieldValue("volume", "");
+              }
+              setFieldValue("volumeDimension", e.target.value);
+            }}
             allowEmpty
           />
         </Grid>
@@ -327,7 +357,12 @@ function AdvanceFilters({ data, applyFilters }) {
           size="medium"
           secondary
         />
-        <Button label="Apply Filters" onClick={handleSubmit} size="medium" />
+        <Button
+          label="Apply Filters"
+          onClick={handleSubmit}
+          size="medium"
+          disabled={!isValid}
+        />
       </DrawerFooter>
     </Box>
   );
