@@ -6,6 +6,7 @@ import { H2, H3, Para } from "app/components/Typography/Typography";
 import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
 import { Flex, FullCard } from "app/components/CommonCss/CommonCss";
+import { addbulkOrdersFromCSV } from "services/SingleShipmentServices";
 
 const BulkShipment = ({ path }) => {
   const [files, setFiles] = useState<any>([]);
@@ -16,16 +17,16 @@ const BulkShipment = ({ path }) => {
     setProcessing(true);
     const formData = new FormData();
     formData.append("files", files[0], files[0].name);
-    setTimeout(() => {
-      const res = { success: true };
-      if (res?.success) {
-        navigate("/dashboard/charter-shipment/bulk-summary");
-      } else {
-        setFiles([]);
-        setError(true);
-      }
-      setProcessing(false);
-    }, 5000);
+    const res: any = await addbulkOrdersFromCSV(formData);
+    if (res?.success) {
+      navigate("/dashboard/charter-shipment/bulk-summary", {
+        state: { data: res.response.data.data },
+      });
+    } else {
+      setFiles([]);
+      setError(true);
+    }
+    setProcessing(false);
   };
 
   return (
