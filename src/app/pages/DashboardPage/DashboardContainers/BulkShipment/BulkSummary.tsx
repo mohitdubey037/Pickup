@@ -1,59 +1,96 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { navigate } from "@reach/router";
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
+import { navigate, useLocation } from "@reach/router";
 
 import ModuleContainer from "app/components/ModuleContainer";
 import { Table } from "app/components/Table";
-import { H2, H3 } from "app/components/Typography/Typography";
+import { H2, H3, H5 } from "app/components/Typography/Typography";
 import { checkSquare } from "app/assets/Icons";
 import { Button } from "app/components/Buttons";
 import { Drawer } from "app/components/Drawer";
-import { SearchTableTop } from "app/components/CommonCss/CommonCss";
-import { BulkOrderColoumns, OnHoldTable } from "./helper";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
+import TableSkeleton from "app/components/Table/TableSkeleton";
+import NullState from "app/components/NullState/NullState";
+import { bulkOrderColoumns, getOrderData } from "./helper";
 import { SuccessBox } from "./style";
 import PayementDetailsDrawer from "./PayementDetailsDrawer";
+import BulkOrderItemDetails from "./BulkOrderItemDetails";
+
+const DRAWER_TITLE = {
+  orderItemDetails: "Order Items",
+  payment: "Payment",
+};
 
 const BulkSummary = ({ path }) => {
-  const authUser = useSelector((state: any) => state.auth?.user);
+  const location: any = useLocation();
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [payementDrawerOpen, setPayementDrawerOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [orderListData, setOrderListData] = useState<any>([]);
+  const [selectedRows, setSelectedRows] = useState<any>([]);
   const [pagination, setPagination] = useState({
     count: 0,
     page: 0,
   });
 
-  const openPaymentDrawer = () => {
-    setPayementDrawerOpen(true);
-  };
+  const [orderDetailData, setOrderDetailData] = useState({});
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerType, setDrawerType] = useState("");
 
-  const openOrderDrawer = () => {
+  const alertUser = (e) => (e.returnValue = "");
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", alertUser);
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (location?.state?.data) {
+      setOrderListData(location?.state?.data);
+      setPagination({
+        count: location?.state?.data?.length,
+        page: 0,
+      });
+    } else {
+      navigate("/dashboard/charter-shipment/bulk-shipment", { replace: true });
+    }
+  }, []);
+
+  const openDrawer = (type: string, data?: any) => {
+    if (type === "orderItemDetails") {
+      setOrderDetailData(data);
+    }
+    setDrawerType(type);
     setDrawerOpen(true);
   };
-
-  if ([1, 2, 3, 4].indexOf(authUser?.roleId) === -1) {
-    navigate("/non-authorized-page");
-  }
 
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`Orders`} className="heading" />
+        <Flex alignItems="center">
+          <H3 text={`${pagination.count} Orders`} className="heading" />
+          <H5
+            text={`(${selectedRows.length} Selected)`}
+            className="spanlabel"
+            ml={8}
+            mt={4}
+          />
+        </Flex>
         <Box>
           <Button
             label="Delete"
             onClick={() => {}}
             size="small"
             secondary
-            disabled
+            disabled={selectedRows.length === 0}
             style={{ marginRight: "12px" }}
           />
           <Button
-            label="Move to holding zone"
+            label="Move to Holding Zone"
             onClick={() => {}}
             size="small"
-            disabled
+            disabled={selectedRows.length === 0}
           />
         </Box>
       </SearchTableTop>
@@ -61,50 +98,56 @@ const BulkSummary = ({ path }) => {
   };
 
   return (
-    <>
-      <ModuleContainer>
-        <H2 title="Bulk Orders" />
-        <SuccessBox>
-          <img src={checkSquare} alt="" />
-          <p>
-            Success! <span> 17 orders ready </span> to go and 3 orders added to
-            order holding zone.
-          </p>
-        </SuccessBox>
+    <ModuleContainer>
+      <H2 title="Bulk Order Summary" />
 
+      <SuccessBox>
+        <img src={checkSquare} alt="" />
+        <p>
+          Success! <span> 17 orders ready </span> to go and 3 orders added to
+          order holding zone.
+        </p>
+      </SuccessBox>
+
+      {loading && orderListData.length === 0 ? (
+        <TableSkeleton />
+      ) : orderListData.length > 0 ? (
         <Table
-          data={OnHoldTable(openOrderDrawer)}
-          coloumns={BulkOrderColoumns}
+          loading={loading}
           tableTop={tableTop()}
+          coloumns={bulkOrderColoumns}
+          data={getOrderData(orderListData, openDrawer)}
+          showCheckbox
+          onRowSelect={setSelectedRows}
           showPagination
           pagination={pagination}
-          showCheckbox
-          // onRowSelect={rowSelectHandler}
         />
-        <Button
-          label="Confirm Orders"
-          size="medium"
-          onClick={openPaymentDrawer}
-          style={{ float: "right", margin: "16px 0" }}
-        />
-      </ModuleContainer>
+      ) : (
+        <NullState />
+      )}
+
+      <Button
+        label="Confirm Orders"
+        size="medium"
+        onClick={() => openDrawer("payment")}
+        style={{ float: "right", margin: "16px 0" }}
+      />
 
       <Drawer
         open={drawerOpen}
+        title={DRAWER_TITLE?.[drawerType] || ""}
         setDrawerOpen={setDrawerOpen}
-        title="Order Items"
         closeIcon
-      ></Drawer>
-
-      <Drawer
-        open={payementDrawerOpen}
-        setDrawerOpen={(flag) => setPayementDrawerOpen(flag)}
-        title="Payment"
-        closeIcon={true}
       >
-        <PayementDetailsDrawer />
+        {drawerType === "orderItemDetails" ? (
+          <BulkOrderItemDetails data={orderDetailData} />
+        ) : drawerType === "payment" ? (
+          <PayementDetailsDrawer />
+        ) : (
+          <></>
+        )}
       </Drawer>
-    </>
+    </ModuleContainer>
   );
 };
 

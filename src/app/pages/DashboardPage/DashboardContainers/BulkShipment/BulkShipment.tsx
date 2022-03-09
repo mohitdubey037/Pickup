@@ -31,7 +31,7 @@ const BulkShipment = ({ path }) => {
 
   return (
     <ModuleContainer>
-      <H2 title="Bulk order" />
+      <H2 title="Bulk Order" />
 
       <FullCard>
         <H3 text="Bulk Order" />
@@ -64,7 +64,7 @@ const BulkShipment = ({ path }) => {
               label="Import"
               onClick={handleImportOrders}
               size="medium"
-              disabled={files.length === 0}
+              // disabled={files.length === 0}
             />
           </Flex>
         )}
