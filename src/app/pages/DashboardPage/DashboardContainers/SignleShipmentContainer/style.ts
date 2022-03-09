@@ -46,7 +46,7 @@ export const Remove = styled.img`
 
 export const TotalBox = styled(Box)`
   margin: 24px;
-  margin-right: calc(25% - 73px);
+  margin-right: calc(25% - 60px);
   display: flex;
   justify-content: flex-end;
 `;

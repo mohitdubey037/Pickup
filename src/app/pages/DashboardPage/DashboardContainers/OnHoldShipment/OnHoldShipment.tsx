@@ -61,7 +61,10 @@ const OnHoldShipmentContainer = ({ path: string }) => {
   const getDrawerTitle = () => {
     if (drawerType === "orderDetails") {
       return "Order Items";
-    } else if (drawerType === "scheduleOrder") {
+    } else if (
+      drawerType === "scheduleOrder" ||
+      drawerType === "scheduleSelectedOrders"
+    ) {
       return "Schedule Orders";
     } else {
       return "";
