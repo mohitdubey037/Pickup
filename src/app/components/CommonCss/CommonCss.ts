@@ -52,6 +52,11 @@ export const FlexBox = styled(Box)`
     flex-direction: column;
     align-items: flex-start;
   }
+  &.profileflexbox{
+     @media (min-width: 600px) {
+      align-items:center;
+  }
+  }
 `;
 
 
@@ -175,6 +180,9 @@ export const SearchTableTop = styled.div`
   box-sizing: border-box;
   @media (max-width: 600px) {
     padding: 12px;
+    flex-flow: wrap;
+    gap: 10px;
+    justify-content: flex-end;
   }
   .heading {
     color: #f99746;

@@ -15,22 +15,7 @@ export const ModuleContainerWrapper = styled.div`
   @media (max-width: 600px) {
     padding: 16px;
   }
-
   scrollbar-width: thin;
-  scrollbar-color: #fece3e #bbb;
-  &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: #bbb;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #fece3e;
-  }
-  &::-webkit-scrollbar-track,
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-  }
+  scrollbar-color: #ddd #eee;
   
 `;

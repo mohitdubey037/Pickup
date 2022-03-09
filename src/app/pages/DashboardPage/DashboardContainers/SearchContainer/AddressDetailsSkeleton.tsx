@@ -74,7 +74,7 @@ export const AddressDetailsSkeleton = () => {
             <Para text="Email Address" />
             <Skeleton width="50%" height={28} className="value" />
           </Grid>
-          <Grid item sm={6} xs={6}>
+          <Grid item sm={6} xs={12}>
             <Para text="Additional Notes" />
             <Skeleton width="30%" height={28} className="value" />
           </Grid>

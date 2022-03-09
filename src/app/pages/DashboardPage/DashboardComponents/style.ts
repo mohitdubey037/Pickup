@@ -39,21 +39,7 @@ export const LeftContent = styled.div`
   overflow: auto;
 
   scrollbar-width: thin;
-  scrollbar-color: #ddd #ffdb6f;
-  &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: #ffdb6f;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #ddd;
-  }
-  &::-webkit-scrollbar-track,
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-  }
+  scrollbar-color: #ddd #eee;
 `;
 
 interface StyledProps {
@@ -106,7 +92,7 @@ export const ChildLink = styled.div`
   .labeltext {
     margin: 0;
     text-transform: capitalize;
-    padding: 8px 0;
+    padding: 5px 0;
     @media (max-width: 1023px) {
       padding: 4px 0;
     }
