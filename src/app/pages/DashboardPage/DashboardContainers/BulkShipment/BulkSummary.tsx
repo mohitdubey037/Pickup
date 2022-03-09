@@ -15,6 +15,7 @@ import { bulkOrderColoumns, getOrderData } from "./helper";
 import { SuccessBox } from "./style";
 import PayementDetailsDrawer from "./PayementDetailsDrawer";
 import BulkOrderItemDetails from "./BulkOrderItemDetails";
+import { getCategoryList } from "services/SingleShipmentServices";
 
 const DRAWER_TITLE = {
   orderItemDetails: "Order Items",
@@ -24,6 +25,7 @@ const DRAWER_TITLE = {
 const BulkSummary = ({ path }) => {
   const location: any = useLocation();
 
+  const [categoryById, setCategoryById] = useState({});
   const [loading, setLoading] = useState<boolean>(false);
   const [orderListData, setOrderListData] = useState<any>([]);
   const [selectedRows, setSelectedRows] = useState<any>([]);
@@ -45,6 +47,16 @@ const BulkSummary = ({ path }) => {
     };
   }, []);
 
+  const fetchCategoryList = async () => {
+    const res: any = await getCategoryList();
+    if (res?.success) {
+      let temp = res.response.data.data;
+      let categories = {};
+      temp.forEach((obj: any) => (categories[obj.categoryId] = obj.name));
+      setCategoryById(categories);
+    }
+  };
+
   useEffect(() => {
     if (location?.state?.data) {
       setOrderListData(location?.state?.data);
@@ -52,6 +64,7 @@ const BulkSummary = ({ path }) => {
         count: location?.state?.data?.length,
         page: 0,
       });
+      fetchCategoryList();
     } else {
       navigate("/dashboard/charter-shipment/bulk-shipment", { replace: true });
     }
@@ -125,7 +138,12 @@ const BulkSummary = ({ path }) => {
           loading={loading}
           tableTop={tableTop()}
           coloumns={bulkOrderColoumns}
-          data={getOrderData(orderListData, pagination.page, openDrawer)}
+          data={getOrderData(
+            orderListData,
+            pagination.page,
+            categoryById,
+            openDrawer
+          )}
           showCheckbox
           onRowSelect={setSelectedRows}
           showPagination
@@ -150,7 +168,10 @@ const BulkSummary = ({ path }) => {
         closeIcon
       >
         {drawerType === "orderItemDetails" ? (
-          <BulkOrderItemDetails data={orderDetailData} />
+          <BulkOrderItemDetails
+            data={orderDetailData}
+            categoryById={categoryById}
+          />
         ) : drawerType === "payment" ? (
           <PayementDetailsDrawer />
         ) : (

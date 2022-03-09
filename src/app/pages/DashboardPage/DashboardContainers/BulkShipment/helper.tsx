@@ -19,6 +19,7 @@ const getItemCount = (
 export const getOrderData = (
   orderData: any,
   page: number,
+  categoryById: any,
   openOrderDrawer: (type: string, data?: any) => void
 ) => {
   let makeTableData: any = [],
@@ -28,7 +29,7 @@ export const getOrderData = (
       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
       .map((obj: any) => ({
         "Order Number": obj?.OrderNumber || "N/A",
-        Category: obj?.categoryId,
+        Category: categoryById?.[obj?.categoryId] || "N/A",
         "Item Count": getItemCount(openOrderDrawer, obj),
         Schedule:
           Number(obj.type) === 17

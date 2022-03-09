@@ -8,13 +8,14 @@ import {
   InnerAccordion,
   OrderImage,
 } from "app/components/CommonCss/CommonCss";
-import { DIMENSION2 } from "../../../../../constants";
+import { DIMENSION2, WEIGHTDIMENSION } from "../../../../../constants";
 
 interface OrderDetailsProps {
   data: any;
+  categoryById: any;
 }
 
-function BulkOrderItemDetails({ data }: OrderDetailsProps) {
+function BulkOrderItemDetails({ data, categoryById }: OrderDetailsProps) {
   const getLabelFromID = (id: number, list: any[]) => {
     const foundLabel = list.find((item) => item.value === id);
     if (foundLabel) {
@@ -34,12 +35,15 @@ function BulkOrderItemDetails({ data }: OrderDetailsProps) {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <H4 text="Category" />
-              <H4 text={data?.Category || "-"} className="value" />
+              <H4
+                text={categoryById?.[data?.categoryId] || "-"}
+                className="value"
+              />
             </Grid>
             <Grid item xs={6}>
               <H4 text="Customer Reference #" />
               <H4
-                text={data?.CustomerReferenceNumber || "-"}
+                text={data?.customerReferenceNumber || "-"}
                 className="value"
               />
             </Grid>
@@ -86,24 +90,25 @@ function BulkOrderItemDetails({ data }: OrderDetailsProps) {
                     {!!item.weight && item.weight !== "0" && (
                       <Grid item xs={4}>
                         <H4
-                          text={`Weight${
-                            item?.weightUnit ? `(${item?.weightUnit})` : ""
-                          }`}
+                          text={`Weight${getLabelFromID(
+                            item.weightDimension,
+                            WEIGHTDIMENSION
+                          )}`}
                         />
                         <H4 text={item.weight} className="value" />
                       </Grid>
                     )}
 
-                    {item.length > 0 && item.breadth > 0 && item.height > 0 && (
+                    {item.length > 0 && item.width > 0 && item.height > 0 && (
                       <Grid item xs={4}>
                         <H4
                           text={`LBH${getLabelFromID(
-                            item.LBHUnit,
+                            item.sizeDimension,
                             DIMENSION2
                           )}`}
                         />
                         <H4
-                          text={`${item.length} x ${item.breadth} x ${item.height}`}
+                          text={`${item.length} x ${item.width} x ${item.height}`}
                           className="value"
                         />
                       </Grid>
