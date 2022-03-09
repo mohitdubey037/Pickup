@@ -97,6 +97,15 @@ const BulkSummary = ({ path }) => {
     );
   };
 
+  const getBulkOrderListData = async (page?: number) => {
+    if (page !== undefined) {
+      setPagination({
+        count: orderListData.length,
+        page: page,
+      });
+    }
+  };
+
   return (
     <ModuleContainer>
       <H2 title="Bulk Order Summary" />
@@ -116,11 +125,12 @@ const BulkSummary = ({ path }) => {
           loading={loading}
           tableTop={tableTop()}
           coloumns={bulkOrderColoumns}
-          data={getOrderData(orderListData, openDrawer)}
+          data={getOrderData(orderListData, pagination.page, openDrawer)}
           showCheckbox
           onRowSelect={setSelectedRows}
           showPagination
           pagination={pagination}
+          onPageChange={(page) => getBulkOrderListData(page)}
         />
       ) : (
         <NullState />

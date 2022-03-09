@@ -18,12 +18,15 @@ const getItemCount = (
 
 export const getOrderData = (
   orderData: any,
+  page: number,
   openOrderDrawer: (type: string, data?: any) => void
 ) => {
-  let makeTableData: any = [];
+  let makeTableData: any = [],
+    rowsPerPage = 10;
   if (orderData && orderData.length) {
-    orderData.forEach((obj: any) => {
-      makeTableData.push({
+    makeTableData = orderData
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      .map((obj: any) => ({
         "Order Number": obj?.OrderNumber || "N/A",
         Category: obj?.categoryId,
         "Item Count": getItemCount(openOrderDrawer, obj),
@@ -35,8 +38,7 @@ export const getOrderData = (
             : "ON HOLD",
         "Destination City": `${obj.dropLocation.locationCity}, ${obj.dropLocation.locationProvinceCode}`,
         Action: getActionItem(),
-      });
-    });
+      }));
   }
   return makeTableData;
 };
