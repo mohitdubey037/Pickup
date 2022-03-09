@@ -1,8 +1,18 @@
 import { trash } from "app/assets/Icons";
 import moment from "moment";
 
-const getActionItem = () => {
-  return <img src={trash} alt="delete" style={{ float: "left" }} />;
+const getActionItem = (
+  deleteOrder: (index?: number) => void,
+  index: number
+) => {
+  return (
+    <img
+      src={trash}
+      alt="delete"
+      style={{ float: "left" }}
+      onClick={() => deleteOrder(index)}
+    />
+  );
 };
 
 const getItemCount = (
@@ -20,14 +30,15 @@ export const getOrderData = (
   orderData: any,
   page: number,
   categoryById: any,
-  openOrderDrawer: (type: string, data?: any) => void
+  openOrderDrawer: (type: string, data?: any) => void,
+  deleteOrder: (index?: number) => void
 ) => {
   let makeTableData: any = [],
     rowsPerPage = 10;
   if (orderData && orderData.length) {
     makeTableData = orderData
       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-      .map((obj: any) => ({
+      .map((obj: any, idx: number) => ({
         "Order Number": obj?.OrderNumber || "N/A",
         Category: categoryById?.[obj?.categoryId] || "N/A",
         "Item Count": getItemCount(openOrderDrawer, obj),
@@ -38,7 +49,7 @@ export const getOrderData = (
             ? "RIGHT NOW	"
             : "ON HOLD",
         "Destination City": `${obj.dropLocation.locationCity}, ${obj.dropLocation.locationProvinceCode}`,
-        Action: getActionItem(),
+        Action: getActionItem(deleteOrder, idx),
       }));
   }
   return makeTableData;

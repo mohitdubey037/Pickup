@@ -78,6 +78,17 @@ const BulkSummary = ({ path }) => {
     setDrawerOpen(true);
   };
 
+  const deleteSelectedOrders = async (orderIdx?: number) => {
+    let data = orderListData;
+    let indexes = orderIdx !== undefined ? [orderIdx] : selectedRows;
+    indexes = indexes.map((item) => item + pagination.page * 10);
+    data = data.filter(function (value, index) {
+      return indexes.indexOf(index) === -1;
+    });
+    setOrderListData(data);
+    setPagination({ ...pagination, count: data.length });
+  };
+
   const tableTop = () => {
     return (
       <SearchTableTop>
@@ -93,7 +104,7 @@ const BulkSummary = ({ path }) => {
         <Box>
           <Button
             label="Delete"
-            onClick={() => {}}
+            onClick={() => deleteSelectedOrders()}
             size="small"
             secondary
             disabled={selectedRows.length === 0}
@@ -142,7 +153,8 @@ const BulkSummary = ({ path }) => {
             orderListData,
             pagination.page,
             categoryById,
-            openDrawer
+            openDrawer,
+            deleteSelectedOrders
           )}
           showCheckbox
           onRowSelect={setSelectedRows}
