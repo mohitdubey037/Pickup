@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import { navigate, useLocation } from "@reach/router";
 
@@ -11,11 +12,12 @@ import { Drawer } from "app/components/Drawer";
 import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 import TableSkeleton from "app/components/Table/TableSkeleton";
 import NullState from "app/components/NullState/NullState";
+import { getCategoryList } from "services/SingleShipmentServices";
+import { actions } from "store/reducers/SingleShipmentReducer";
 import { bulkOrderColoumns, getOrderData } from "./helper";
 import { SuccessBox } from "./style";
 import PayementDetailsDrawer from "./PayementDetailsDrawer";
 import BulkOrderItemDetails from "./BulkOrderItemDetails";
-import { getCategoryList } from "services/SingleShipmentServices";
 
 const DRAWER_TITLE = {
   orderItemDetails: "Order Items",
@@ -23,10 +25,18 @@ const DRAWER_TITLE = {
 };
 
 const BulkSummary = ({ path }) => {
+  const dispatch = useDispatch();
   const location: any = useLocation();
 
+  const orderIds = useSelector((state: { singleShipment: { orderIds } }) => {
+    return state.singleShipment.orderIds;
+  });
+  const inProgress = useSelector((state: { globalState: { showLoader } }) => {
+    return state.globalState.showLoader;
+  });
+
   const [categoryById, setCategoryById] = useState({});
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [orderListData, setOrderListData] = useState<any>([]);
   const [selectedRows, setSelectedRows] = useState<any>([]);
   const [pagination, setPagination] = useState({
@@ -55,6 +65,7 @@ const BulkSummary = ({ path }) => {
       temp.forEach((obj: any) => (categories[obj.categoryId] = obj.name));
       setCategoryById(categories);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -114,7 +125,7 @@ const BulkSummary = ({ path }) => {
             label="Move to Holding Zone"
             onClick={() => {}}
             size="small"
-            disabled={selectedRows.length === 0}
+            disabled={selectedRows.length === 0 || true}
           />
         </Box>
       </SearchTableTop>
@@ -130,17 +141,34 @@ const BulkSummary = ({ path }) => {
     }
   };
 
+  useEffect(() => {
+    if (orderIds?.length > 0) {
+      navigate("/dashboard/charter-shipment/order-summary");
+    }
+  }, [orderIds]);
+
+  const handleConfirmOrders = async () => {
+    let orders = JSON.parse(JSON.stringify(orderListData));
+    orders = orders.map((order) => {
+      delete order.OrderNumber;
+      return order;
+    });
+    dispatch(actions.submitShipment({ orders, source: "bulk" }));
+  };
+
   return (
     <ModuleContainer>
-      <H2 title="Bulk Order Summary" />
+      <H2 title="Bulk Order" />
 
-      <SuccessBox>
-        <img src={checkSquare} alt="" />
-        <p>
-          Success! <span> 17 orders ready </span> to go and 3 orders added to
-          order holding zone.
-        </p>
-      </SuccessBox>
+      {orderListData.length > 0 && (
+        <SuccessBox>
+          <img src={checkSquare} alt="" />
+          <p>
+            Success! <span> {orderListData.length} orders ready </span> to go
+            and 0 orders added to order holding zone.
+          </p>
+        </SuccessBox>
+      )}
 
       {loading && orderListData.length === 0 ? (
         <TableSkeleton />
@@ -168,8 +196,10 @@ const BulkSummary = ({ path }) => {
 
       <Button
         label="Confirm Orders"
+        onClick={handleConfirmOrders}
         size="medium"
-        onClick={() => openDrawer("payment")}
+        showLoader={inProgress}
+        disabled={orderListData.length === 0 || loading}
         style={{ float: "right", margin: "16px 0" }}
       />
 
@@ -190,6 +220,19 @@ const BulkSummary = ({ path }) => {
           <></>
         )}
       </Drawer>
+
+      {inProgress && (
+        <div
+          style={{
+            position: "absolute",
+            zIndex: 100000,
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+          }}
+        />
+      )}
     </ModuleContainer>
   );
 };
