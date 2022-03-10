@@ -3,6 +3,7 @@ import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import {
+  BUSINESS_NUMBER,
   EDIT_EMPLOYEE_STRENGTH_MASK,
   INDUSTRY_TEXT,
   PIN_CODE_MASK,
@@ -78,6 +79,8 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 error={touched.businessNumber && errors.businessNumber}
                 label={"Business Number"}
                 placeholder="eg. 123456"
+                type="mask"
+                maskProps={BUSINESS_NUMBER}
                 required
               />
             </Grid>
