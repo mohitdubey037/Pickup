@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CSVLink } from "react-csv";
 import Dropzone from "react-dropzone";
 
 import { Button } from "app/components/Buttons";
@@ -15,29 +14,6 @@ interface FileDrawerProps {
   setDrawerOpen: (value: boolean) => void;
   onAddSuccess: () => void;
 }
-
-const csvData = [
-  [
-    "Favourites",
-    "IndividualOrCompany",
-    "LocationType",
-    "CompanyName",
-    "FirstName",
-    "LastName",
-    "AddressLine1",
-    "AddressLine2",
-    "City",
-    "PostalCode",
-    "ProvinceOrState",
-    "Country",
-    "ContactNumber",
-    "AlternateNumber",
-    "EmailAddress",
-    "AdditionalNotes",
-    "Latitude",
-    "Longitude",
-  ],
-];
 
 const FileDrawer = (props: FileDrawerProps) => {
   const { setDrawerOpen, onAddSuccess } = props;
@@ -59,21 +35,29 @@ const FileDrawer = (props: FileDrawerProps) => {
     setLoading(false);
   };
 
+  const downloadSample = () => {
+    let link: any = document.createElement("a");
+    link.href =
+      "https://pickups-staging.s3.ca-central-1.amazonaws.com/order/8a4c82270f7441aaae1c69033771b49a.csv";
+    link.download = `Favourite Locations Sample.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       <DrawerInnerContent>
         <Para text="Download this file to organize your locations correctly before upload and we can import it" />
 
-        <CSVLink
-          filename="Bulk-Location-Sample.csv"
-          data={csvData}
-          target="_blank"
-          style={{ textDecoration: "none", margin: "16px 0", display: "block" }}
-        >
-          <Button label="Download Sample" size="medium" />
-        </CSVLink>
+        <Button
+          label="Download Sample"
+          onClick={downloadSample}
+          size="medium"
+          style={{ margin: "16px 0", display: "block" }}
+        />
 
-        <Dropzone accept=".xlsx,.xls,.csv" maxFiles={1} onDrop={onDrop}>
+        <Dropzone accept=".csv" maxFiles={1} onDrop={onDrop}>
           {({ getRootProps, getInputProps }) => (
             <>
               <div {...getRootProps()}>
@@ -85,7 +69,7 @@ const FileDrawer = (props: FileDrawerProps) => {
                       Drag and drop files or <Link to="">Click Here</Link> to
                       select a file
                     </Termslink>
-                    <H5 text="Files accepted CSV, XLS" className="smalltext" />
+                    <H5 text="Files accepted CSV" className="smalltext" />
                   </DropeZoneText>
                 </DropzoneBox>
               </div>
