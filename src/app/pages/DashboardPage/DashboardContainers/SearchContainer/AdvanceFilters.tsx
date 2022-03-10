@@ -62,7 +62,6 @@ function AdvanceFilters({ data, applyFilters }) {
     isValid,
     handleBlur,
     handleChange,
-    setFieldValue,
     handleSubmit,
   } = useFormik({
     initialValues: advanceFilterInitValues(data),
@@ -259,9 +258,7 @@ function AdvanceFilters({ data, applyFilters }) {
             options={OPERANDS}
             value={values.weightOperand}
             onChange={handleChange}
-            error={touched.weightOperand && errors.weightOperand}
-            disabled={!values.weightDimension}
-            required={values.weightDimension}
+            error={errors.weightOperand}
             allowEmpty
           />
         </Grid>
@@ -272,8 +269,7 @@ function AdvanceFilters({ data, applyFilters }) {
             initValue={values.weight}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.weight && errors.weight}
-            disabled={!values.weightDimension}
+            error={errors.weight}
             maxLength={8}
           />
         </Grid>
@@ -284,13 +280,8 @@ function AdvanceFilters({ data, applyFilters }) {
             placeholder="Select Unit"
             options={WEIGHTDIMENSION}
             value={values.weightDimension}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setFieldValue("weightOperand", "");
-                setFieldValue("weight", "");
-              }
-              setFieldValue("weightDimension", e.target.value);
-            }}
+            onChange={handleChange}
+            error={errors.weightDimension}
             allowEmpty
           />
         </Grid>
@@ -302,9 +293,7 @@ function AdvanceFilters({ data, applyFilters }) {
             options={OPERANDS}
             value={values.volumnOperand}
             onChange={handleChange}
-            error={touched.volumnOperand && errors.volumnOperand}
-            disabled={!values.volumeDimension}
-            required={values.volumeDimension}
+            error={errors.volumnOperand}
             allowEmpty
           />
         </Grid>
@@ -315,8 +304,7 @@ function AdvanceFilters({ data, applyFilters }) {
             initValue={values.volume}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.volume && errors.volume}
-            disabled={!values.volumeDimension}
+            error={errors.volume}
             maxLength={8}
           />
         </Grid>
@@ -327,13 +315,8 @@ function AdvanceFilters({ data, applyFilters }) {
             placeholder="Select Unit"
             options={VOLUMEDIMENSION}
             value={values.volumeDimension}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setFieldValue("volumnOperand", "");
-                setFieldValue("volume", "");
-              }
-              setFieldValue("volumeDimension", e.target.value);
-            }}
+            onChange={handleChange}
+            error={errors.volumeDimension}
             allowEmpty
           />
         </Grid>
