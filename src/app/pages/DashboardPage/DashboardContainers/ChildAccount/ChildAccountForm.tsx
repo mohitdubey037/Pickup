@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import {
-  EDIT_EMPLOYEE_STRENGTH_MASK,
+  EMPLOYEE_STRENGTH_MASK,
   INDUSTRY_TEXT,
   PIN_CODE_MASK,
 } from "../../../../../constants";
@@ -115,7 +114,7 @@ export default function ChildAccountForm({formik}:{formik: any}){
                 label={"Employee Strength"}
                 placeholder={"eg. 1 or 4"}
                 type="mask"
-                maskProps={EDIT_EMPLOYEE_STRENGTH_MASK}
+                maskProps={EMPLOYEE_STRENGTH_MASK}
               />
               
             </Grid>

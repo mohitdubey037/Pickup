@@ -13,7 +13,11 @@ import {
   saveAdvancedFilters,
 } from "services/SearchItemService";
 import { getCategoryList } from "services/SingleShipmentServices";
-import { WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
+import {
+  WEIGHTDIMENSION,
+  OPERANDS,
+  WEIGHT_VOLUME_MASK,
+} from "../../../../../constants";
 import { advanceFilterInitValues } from "./helper";
 import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import { LineDivider } from "app/components/CommonCss/CommonCss";
@@ -271,6 +275,8 @@ function AdvanceFilters({ data, applyFilters }) {
             onBlur={handleBlur}
             error={errors.weight}
             maxLength={8}
+            type="mask"
+            maskProps={WEIGHT_VOLUME_MASK}
           />
         </Grid>
         <Grid item xs={3}>
@@ -306,6 +312,8 @@ function AdvanceFilters({ data, applyFilters }) {
             onBlur={handleBlur}
             error={errors.volume}
             maxLength={8}
+            type="mask"
+            maskProps={WEIGHT_VOLUME_MASK}
           />
         </Grid>
         <Grid item xs={3}>

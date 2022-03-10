@@ -11,7 +11,11 @@ import { editChildAccountData } from "services/ChildAccount";
 import { editChildAccountSchema } from "./ChildAccountSchema";
 import { editChildAccountProps } from "./type";
 import AutoComplete from "../PersonalProfileContainer/Autocomplete";
-import { EDIT_EMPLOYEE_STRENGTH_MASK, INDUSTRY_TEXT, PIN_CODE_MASK } from "../../../../../constants";
+import {
+  EMPLOYEE_STRENGTH_MASK,
+  INDUSTRY_TEXT,
+  PIN_CODE_MASK,
+} from "../../../../../constants";
 
 export default function EditChildAccountForm({
   saveAction,
@@ -38,7 +42,8 @@ export default function EditChildAccountForm({
       companyId: singleCompanyDetails.companyId,
       companyName: singleCompanyDetails.companyName || "",
       businessNumber: singleCompanyDetails.businessNumber || "",
-      employeeStrength: singleCompanyDetails.employeeStrength.toString() || null,
+      employeeStrength:
+        singleCompanyDetails.employeeStrength.toString() || null,
       industry: singleCompanyDetails.industry || "",
       addressLine1: singleCompanyDetails.address1 || "",
       addressLine2: singleCompanyDetails.address2 || "",
@@ -233,7 +238,7 @@ export default function EditChildAccountForm({
               onBlur={handleBlur}
               error={touched.employeeStrength && errors.employeeStrength}
               type="mask"
-              maskProps={EDIT_EMPLOYEE_STRENGTH_MASK}
+              maskProps={EMPLOYEE_STRENGTH_MASK}
             />
           </Grid>
         </Grid>
