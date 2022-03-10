@@ -178,7 +178,11 @@ function DetailsFormItem(props: {
                 </GridContainer>
             )}
 
-            <Grid container>
+            <GridContainer
+                container
+                spacing={3}
+                mt={props.hasDimensions ? 0 : 3}
+            >
                 <Grid item sm={6} xs={12}>
                     <Input
                         id={`${formFieldName}.${formItem}.quantity`}
@@ -190,10 +194,7 @@ function DetailsFormItem(props: {
                         initValue={formItemValue.quantity}
                         value={formItemValue.quantity}
                         placeholder={"eg. 10"}
-                        maxLength={8}
                         required
-                        type="mask"
-                        maskProps={WEIGHT_VOLUME_MASK}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -212,7 +213,7 @@ function DetailsFormItem(props: {
                         initValue={formItemValue.description}
                     />
                 </Grid>
-            </Grid>
+            </GridContainer>
         </>
     );
 }

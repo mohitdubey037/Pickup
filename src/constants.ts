@@ -20,6 +20,11 @@ export const EMPLOYEE_STRENGTH_MASK = {
   maskPlaceholder: null,
 };
 
+export const BUSINESS_NUMBER = {
+  mask: "9999999999",
+  maskPlaceholder: null,
+}
+
 export const PIN_CODE_MASK = {
   mask: [
     /[a-zA-Z0-9 ]/,

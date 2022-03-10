@@ -91,7 +91,9 @@ export default function PaymentCardContainer({
             />
           ))
         ) : (
+          <Grid item xs={12}>
           <NullState message="No Card Added" />
+          </Grid>
         )}
       </Grid>
 

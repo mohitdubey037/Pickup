@@ -10,7 +10,7 @@ export const AddressDetails = ({ data, title }) => {
     <ContentBox>
       <H2 title={title} className="title" />
 
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item sm={3} xs={6}>
           <Para text="Location Type" />
           <H4
@@ -78,7 +78,7 @@ export const AddressDetails = ({ data, title }) => {
           <Para text="Email Address" />
           <H4 className="value" text={data?.locationEmail || "N/A"} />
         </Grid>
-        <Grid item sm={6} xs={6}>
+        <Grid item sm={6} xs={12}>
           <Para text="Additional Notes" />
           <H4 className="value" text={data?.details || "N/A"} />
         </Grid>
