@@ -168,7 +168,7 @@ function DetailsFormItem(props: {
             )}
 
         
-                <Grid container>
+                <GridContainer container spacing={3} mt={props.hasDimensions ? 0 : 3}>
                     <Grid item sm={6} xs={12}>
                         <Input
                             id={`${formFieldName}.${formItem}.quantity`}
@@ -200,7 +200,7 @@ function DetailsFormItem(props: {
                             initValue={formItemValue.description}
                         />
                     </Grid>
-                </Grid>
+                </GridContainer>
           
         </>
     );

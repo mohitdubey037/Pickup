@@ -2,7 +2,7 @@ import React from "react";
 import { MenuItem } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-import { ComponentContainer, CustomNewSelect } from "./style";
+import { ComponentContainer, CustomNewSelect, MenuItemStyle } from "./style";
 import { H4 } from "../Typography/Typography";
 import { ErrorLabel } from "../Input/style";
 
@@ -54,14 +54,14 @@ export default function Select(props: SelectPropTypes) {
         displayEmpty
       >
         {placeholder && (
-          <MenuItem disabled={!allowEmpty} value="">
+          <MenuItemStyle disabled={!allowEmpty} value=""  >
             {placeholder}
-          </MenuItem>
+          </MenuItemStyle>
         )}
         {options.map((item) => (
-          <MenuItem key={item.value} value={item.value}>
+          <MenuItemStyle key={item.value} value={item.value} className="menuitem">
             {item.label}
-          </MenuItem>
+          </MenuItemStyle>
         ))}
       </CustomNewSelect>
 

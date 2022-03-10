@@ -9,6 +9,9 @@ export const TabWrapper = styled.div`
       overflow: auto;
     }
   }
+  .MuiTabs-scroller{
+    overflow: auto !important;
+  }
   .MuiTab-root {
     font-size: 20px;
     line-height: 23px;

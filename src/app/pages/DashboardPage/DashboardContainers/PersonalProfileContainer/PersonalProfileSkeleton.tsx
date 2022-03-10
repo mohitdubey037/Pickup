@@ -10,7 +10,7 @@ const PersonalProfileSkeleton = () => {
         <H3 text="Personal Details" />
       </Box>
 
-      <FlexBox>
+      <FlexBox className="profileflexbox">
         <Box mr={4}>
           <Skeleton variant="circular" width={86} height={86} />
         </Box>
