@@ -27,7 +27,7 @@ const initialValues = {
   businessNumber: "",
   fromDate: "",
   toDate: "",
-  status: "active",
+  status: "",
 };
 
 export default function ChildAccountList({ path }) {

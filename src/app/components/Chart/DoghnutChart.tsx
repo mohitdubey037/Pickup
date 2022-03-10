@@ -10,6 +10,7 @@ interface DoghnutProps{
 }
 
 export default function DoghnutChart({onTimePercentage,delayedPercentage,doghnutData}:DoghnutProps) {
+  // console.log(onTimePercentage,delayedPercentage,doghnutData, 'dlsj');
     return (
         <>
             <Box display="flex" alignItems="center">
@@ -69,7 +70,7 @@ export default function DoghnutChart({onTimePercentage,delayedPercentage,doghnut
                                         color: '#373d3f',
                                         formatter: function (w) {
                                           return w.globals.seriesTotals.reduce((a, b) => {
-                                            return a + b
+                                            return a + b;
                                           }, 0)
                                         }
                                       }

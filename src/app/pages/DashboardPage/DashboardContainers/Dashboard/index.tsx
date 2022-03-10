@@ -17,15 +17,30 @@ const Dashboard = ({ path: string }) => {
   const [chartData, setChartData] = useState<any>();
   const [spentPercentage, setSpentPercentage] = useState<number>(0);
   const [actualSpent, setActualSpent] = useState<number>();
+  const [totalSpentPercentage, setTotalSpentPercentage] = useState<number>(0)
+  const [a, setA] = useState<any>();
+
+  // useEffect(() => {
+  //   console.log(dashboard);
+  // },[dashboard])
+
+  // useEffect(() => {
+  //   console.log(chartData);
+  // },[chartData])
+
+  // useEffect(() => {
+  //   console.log(actualSpent);
+  // },[actualSpent])
 
   const getDashboardData = async () => {
     const res = (await getDashboardDetails()) as any;
+
     if (res.success) {
       const dashboardData = res.response.data.data;
       const dashboardcat = res.response.data.data.category;
       const duration = res.response.data.data.duration;
-      const actual = res.response.data.data.youSpent;
-      setActualSpent(actual);
+      const spentData = res.response.data.data.youSpent;
+      setActualSpent(spentData);
       setDashboard(dashboardData);
       let data: any = [];
       for (let keys in duration) {
@@ -34,31 +49,20 @@ const Dashboard = ({ path: string }) => {
           y: duration[keys],
         });
       }
-      data.push({
-        x: "February",
-        y: 4000,
-      });
+      let previousMonthSpent: number = (data[0].y);
 
-      const nativeChartData = [{ data }];
-      data = [];
+      let thisMonthSpent: number = (data[1]?.y);
 
-      data.push(
-        {
-          x: "Januarry",
-          y: 100,
-        },
-        {
-          x: "February",
-          y: 400,
-        }
-      );
+      // 1147, 1225
+      var per = (((thisMonthSpent - previousMonthSpent)/previousMonthSpent) * 100).toFixed(2);
+      console.log(per);
+      setTotalSpentPercentage(+per);
 
-      nativeChartData.push({ data });
-      setChartData(nativeChartData);
-      const CategoryLength = Object.keys(dashboardData?.category).length;
-      // const spentByCat: number = 2057.6 / CategoryLength;
-      const spentPer: number = (2057.6 / CategoryLength / 2057.6) * 100;
-      setSpentPercentage(+spentPer.toFixed(0));
+      console.log(data);
+      
+      setChartData([{ data }]);
+      setA([{data}]);
+
       const progressCardNative: any = [];
       for (let keys in dashboardcat) {
         progressCardNative.push({
@@ -71,10 +75,17 @@ const Dashboard = ({ path: string }) => {
     }
   };
 
-  let totalOrder = dashboard.completed + dashboard.pending;
-  const onTime = (dashboard.completed / totalOrder) * 100;
-  const delayed = (dashboard.pending / totalOrder) * 100;
-  const series = [dashboard.completed, dashboard.pending];
+  var series = [dashboard?.pending, dashboard?.completed]
+  let totalOrder = dashboard?.completed + dashboard?.pending;
+
+  if (dashboard.completed !== 0 || dashboard.pending !== 0) {
+    var onTime = (dashboard.completed / totalOrder) * 100 || 0;
+    var delayed = (dashboard.pending / totalOrder) * 100 || 0;
+  }
+  else {
+    onTime = 0;
+    delayed = 0;
+  }
 
   useEffect(() => {
     getDashboardData();
@@ -94,7 +105,7 @@ const Dashboard = ({ path: string }) => {
                   ? dashboard.pending
                   : "-"
               }
-              label="4% more than last Month"
+              label={dashboard.pending !== 0 ? `${totalSpentPercentage}% more than last Month` : "You have no previous data"}
               onClick={() => {}}
             />
           </Grid>
@@ -107,7 +118,7 @@ const Dashboard = ({ path: string }) => {
                   ? dashboard.inprogress
                   : "-"
               }
-              label="4% more than last Month"
+              label={dashboard.inprogress !== 0 ? `${totalSpentPercentage}% more than last Month` : "You have no previous data"}
               onClick={() => {}}
               isOrangeBox={true}
             />
@@ -128,7 +139,7 @@ const Dashboard = ({ path: string }) => {
                   />
                 </>
               }
-              label="4% more than last Month"
+              label={dashboard.completed !== 0 ? `${totalSpentPercentage}% more than last Month` : "You have no previous data"}
               onClick={() => {}}
             />
           </Grid>
@@ -141,20 +152,21 @@ const Dashboard = ({ path: string }) => {
                     ? `$ ${dashboard.total.toFixed(2)}`
                     : "-"
                 }
-                labelMarketPrice="4% more than last Month"
+                labelMarketPrice={dashboard.total !== 0 ? `${totalSpentPercentage}% ${totalSpentPercentage > 0 ? 'more' :  'less'} than last Month`: "You have no previous data"}
                 spentNumber={
                   dashboard.youSpent || dashboard.youSpent === 0
                     ? `$ ${dashboard.youSpent.toFixed(2)}`
                     : "-"
                 }
-                labelSpentNumber="4% more than last Month"
+                labelSpentNumber={dashboard.youSpent !== 0 ? `${totalSpentPercentage}% ${totalSpentPercentage > 0 ? 'more' : 'less'} than last Month` : "You have no previous data"}
                 savedNumber={
                   dashboard.yousaved || dashboard.yousaved === 0
                     ? `$ ${dashboard.yousaved.toFixed(2)}`
                     : "-"
                 }
-                labelSavedNumber="4% more than last Month"
+                labelSavedNumber={dashboard.yousaved !== 0 ? `${totalSpentPercentage}% ${totalSpentPercentage > 0 ? 'more' : 'less'} than last Month` : "You have no previous data"}
                 chartSeries={chartData}
+                car = {a}
                 chartData={dashboard.duration}
               />
             </PaperBox>
@@ -169,15 +181,15 @@ const Dashboard = ({ path: string }) => {
           <Grid item sm={5} xs={12}>
             <PaperBox>
               <H3 text="Deliveries" />
-              {dashboard.completed && dashboard.pending ? (
+              {/* {dashboard.completed && dashboard.pending ? ( */}
                 <DoghnutChart
                   onTimePercentage={+onTime.toFixed(2)}
                   delayedPercentage={+delayed.toFixed(2)}
                   doghnutData={series}
                 />
-              ) : (
+              {/* ) : (
                 <NullState />
-              )}
+              )} */}
             </PaperBox>
           </Grid>
         </Grid>

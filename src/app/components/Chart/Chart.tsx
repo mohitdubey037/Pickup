@@ -14,6 +14,7 @@ interface ChartProps {
     labelSavedNumber: string;
     chartData?: any;
     chartSeries?: any;
+    car?: any;
 }
 
 const ChartDashboard: React.FC<ChartProps> = ({
@@ -24,7 +25,10 @@ const ChartDashboard: React.FC<ChartProps> = ({
     savedNumber,
     labelSavedNumber,
     chartSeries,
+    car
 }) => {
+    console.log(typeof(chartSeries), car);
+    // console.log(chartSeries[0].data)
     return (
         <CardContainer>
             <Grid container spacing={2}>
@@ -66,10 +70,10 @@ const ChartDashboard: React.FC<ChartProps> = ({
                                 curve: "straight",
                             },
                             chart: {
-                                height: 280,
+                                height: 380,
                                 type: "area",
                                 toolbar: {
-                                    show: false,
+                                    show: true,
                                 },
                             },
                             dataLabels: {
@@ -104,9 +108,85 @@ const ChartDashboard: React.FC<ChartProps> = ({
                                 show: false,
                             },
                         }}
-                        series={chartSeries || []}
+                        
+                        // series = {
+                        //     [
+                        //         {
+                        //         name: 'market price',
+                        //         data: [{
+                        //             x: chartSeries[0].data.map(a => a.x),
+                        //             y: chartSeries[0].data.map(a => a.y)
+                        //             }]
+                        //         },
+                        //         {
+                        //             name: 'spent price',
+                        //             data: [{
+                        //                 x: car[0].data.map(a => a.x),
+                        //                 y: car[0].data.map(a => a.y)
+                        //             }], 
+                        //         }
+                        //     ]
+                        // }
+                        // series = {
+                        //         [{
+                        //         name: 'market price',
+                        //         data: [{
+                        //             x: chartSeries
+                        //         }]
+                        //       }, {
+                        //         name: 'spent',
+                        //         data: [{
+                        //             x: 
+                        //         }]
+                        //       }]
+                        //     }
+                        // series= [{
+                        //         name: 'north',
+                        //         data: [{
+                        //                 x: 1996,
+                        //                 y: 322
+                        //               },
+                        //               {
+                        //                     x: 1997,
+                        //                     y: 324
+                        //                   }]
+                        //                 }]
+
+                        
+                        series = {
+                            [{
+                                name: 'market price',
+                                data: [
+                                    {
+                                        x: chartSeries?.[0]?.data?.[0]?.x,
+                                        y: chartSeries?.[0]?.data?.[0]?.y
+                                    },
+                                    {
+                                        x: chartSeries?.[0]?.data?.[1]?.x,
+                                        y: chartSeries?.[0]?.data?.[1]?.y
+                                    },
+                                ]
+                            },
+                            {
+                                name: 'spent price',
+                                data: [
+                                    {
+                                        x: chartSeries?.[0]?.data?.[0]?.x,
+                                        y: chartSeries?.[0]?.data?.[0]?.y
+                                    },
+                                    {
+                                        x: chartSeries?.[0]?.data?.[1]?.x,
+                                        y: chartSeries?.[0]?.data?.[1]?.y
+                                    },
+                                ]
+                            }  
+                        ]}
+                        
+                        // series={chartSeries || []}
                         type="area"
                         height={280}
+                        // type="area"
+                        // height={280}
                     />
                 </Grid>
             </Grid>
