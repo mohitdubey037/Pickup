@@ -112,7 +112,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <Flex alignItems="center">
+        <Flex alignItems="center" style={{flexFlow:'wrap'}}>
           <H3 text={`${pagination.count} Orders`} className="heading" />
           <H5
             text={`(${selectedRows.length} Selected)`}
