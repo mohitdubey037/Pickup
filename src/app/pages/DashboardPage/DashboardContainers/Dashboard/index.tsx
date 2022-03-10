@@ -17,10 +17,20 @@ const Dashboard = ({ path: string }) => {
   const [chartData, setChartData] = useState<any>();
   const [spentPercentage, setSpentPercentage] = useState<number>(0);
   const [actualSpent, setActualSpent] = useState<number>();
+  const [totalSpentPercentage, setTotalSpentPercentage] = useState<number>(0)
+  const [a, setA] = useState<any>();
 
-  useEffect(() => {
-    console.log(dashboard);
-  },[dashboard])
+  // useEffect(() => {
+  //   console.log(dashboard);
+  // },[dashboard])
+
+  // useEffect(() => {
+  //   console.log(chartData);
+  // },[chartData])
+
+  // useEffect(() => {
+  //   console.log(actualSpent);
+  // },[actualSpent])
 
   const getDashboardData = async () => {
     const res = (await getDashboardDetails()) as any;
@@ -29,8 +39,8 @@ const Dashboard = ({ path: string }) => {
       const dashboardData = res.response.data.data;
       const dashboardcat = res.response.data.data.category;
       const duration = res.response.data.data.duration;
-      const actual = res.response.data.data.youSpent;
-      setActualSpent(actual);
+      const spentData = res.response.data.data.youSpent;
+      setActualSpent(spentData);
       setDashboard(dashboardData);
       let data: any = [];
       for (let keys in duration) {
@@ -39,14 +49,19 @@ const Dashboard = ({ path: string }) => {
           y: duration[keys],
         });
       }
+      let previousMonthSpent: number = (data[0].y);
 
-      const nativeChartData = [{ data }];
+      let thisMonthSpent: number = (data[1]?.y);
 
-      setChartData(nativeChartData);
-      const CategoryLength = Object.keys(dashboardData?.category).length;
-      const spentPer: number = (2057.6 / CategoryLength / 2057.6) * 100;
+      // 1147, 1225
+      var per = (((thisMonthSpent - previousMonthSpent)/previousMonthSpent) * 100).toFixed(2);
+      console.log(per);
+      setTotalSpentPercentage(+per);
+
+      console.log(data);
       
-      setSpentPercentage(+spentPer.toFixed(0));
+      setChartData([{ data }]);
+      setA([{data}]);
 
       const progressCardNative: any = [];
       for (let keys in dashboardcat) {
@@ -90,7 +105,7 @@ const Dashboard = ({ path: string }) => {
                   ? dashboard.pending
                   : "-"
               }
-              label={dashboard.pending !== 0 ? "4% more than last Month" : "You have no previous data"}
+              label={dashboard.pending !== 0 ? `${totalSpentPercentage}% more than last Month` : "You have no previous data"}
               onClick={() => {}}
             />
           </Grid>
@@ -103,7 +118,7 @@ const Dashboard = ({ path: string }) => {
                   ? dashboard.inprogress
                   : "-"
               }
-              label={dashboard.inprogress !== 0 ? "4% more than last Month" : "You have no previous data"}
+              label={dashboard.inprogress !== 0 ? `${totalSpentPercentage}% more than last Month` : "You have no previous data"}
               onClick={() => {}}
               isOrangeBox={true}
             />
@@ -124,7 +139,7 @@ const Dashboard = ({ path: string }) => {
                   />
                 </>
               }
-              label={dashboard.completed !== 0 ? "4% more than last Month" : "You have no previous data"}
+              label={dashboard.completed !== 0 ? `${totalSpentPercentage}% more than last Month` : "You have no previous data"}
               onClick={() => {}}
             />
           </Grid>
@@ -137,20 +152,21 @@ const Dashboard = ({ path: string }) => {
                     ? `$ ${dashboard.total.toFixed(2)}`
                     : "-"
                 }
-                labelMarketPrice={dashboard.total !== 0 ? "4% more than last Month" : "You have no previous data"}
+                labelMarketPrice={dashboard.total !== 0 ? `${totalSpentPercentage}% ${totalSpentPercentage > 0 ? 'more' :  'less'} than last Month`: "You have no previous data"}
                 spentNumber={
                   dashboard.youSpent || dashboard.youSpent === 0
                     ? `$ ${dashboard.youSpent.toFixed(2)}`
                     : "-"
                 }
-                labelSpentNumber={dashboard.youSpent !== 0 ? "4% more than last Month" : "You have no previous data"}
+                labelSpentNumber={dashboard.youSpent !== 0 ? `${totalSpentPercentage}% ${totalSpentPercentage > 0 ? 'more' : 'less'} than last Month` : "You have no previous data"}
                 savedNumber={
                   dashboard.yousaved || dashboard.yousaved === 0
                     ? `$ ${dashboard.yousaved.toFixed(2)}`
                     : "-"
                 }
-                labelSavedNumber={dashboard.yousaved !== 0 ? "4% more than last Month" : "You have no previous data"}
+                labelSavedNumber={dashboard.yousaved !== 0 ? `${totalSpentPercentage}% ${totalSpentPercentage > 0 ? 'more' : 'less'} than last Month` : "You have no previous data"}
                 chartSeries={chartData}
+                car = {a}
                 chartData={dashboard.duration}
               />
             </PaperBox>

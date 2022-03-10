@@ -10,7 +10,7 @@ interface DoghnutProps{
 }
 
 export default function DoghnutChart({onTimePercentage,delayedPercentage,doghnutData}:DoghnutProps) {
-  console.log(onTimePercentage,delayedPercentage,doghnutData, 'dlsj');
+  // console.log(onTimePercentage,delayedPercentage,doghnutData, 'dlsj');
     return (
         <>
             <Box display="flex" alignItems="center">
