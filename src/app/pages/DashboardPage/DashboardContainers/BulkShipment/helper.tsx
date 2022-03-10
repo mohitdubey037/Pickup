@@ -1,66 +1,83 @@
 import { trash } from "app/assets/Icons";
+import moment from "moment";
 
-  const getActionItem = () => {
-    return (
-        <>
-        <img src={trash} alt="delete" style={{float:'left'}} />
-        </>
-    );
-  };
+const getActionItem = (
+  deleteOrder: (index?: number) => void,
+  index: number
+) => {
+  return (
+    <img
+      src={trash}
+      alt="delete"
+      style={{ float: "left" }}
+      onClick={() => deleteOrder(index)}
+    />
+  );
+};
 
-  const getItemCount = (
-      openOrderDrawer: (type: any) => void,
-      Count: any
-      ) => {
-    return (
-        <>
-        <a onClick={() => openOrderDrawer('')}>
-        {Count}
-        </a>
-        </>
-    );
-  };
+const getItemCount = (
+  openOrderDrawer: (type: string, data?: any) => void,
+  data: any
+) => {
+  return (
+    <a onClick={() => openOrderDrawer("orderItemDetails", data)}>
+      {data?.items?.length}
+    </a>
+  );
+};
 
+export const getOrderData = (
+  orderData: any,
+  page: number,
+  categoryById: any,
+  openOrderDrawer: (type: string, data?: any) => void,
+  deleteOrder: (index?: number) => void
+) => {
+  let makeTableData: any = [],
+    rowsPerPage = 10;
+  if (orderData && orderData.length) {
+    makeTableData = orderData
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      .map((obj: any, idx: number) => ({
+        "Order Number": obj?.OrderNumber || "N/A",
+        Category: categoryById?.[obj?.categoryId] || "N/A",
+        "Item Count": getItemCount(openOrderDrawer, obj),
+        Schedule:
+          Number(obj.type) === 17
+            ? moment(obj.orderedAt).format("HH:mm - DD/MM/YY")
+            : Number(obj.type) === 16
+            ? "RIGHT NOW	"
+            : "ON HOLD",
+        "Destination City": `${obj.dropLocation.locationCity}, ${obj.dropLocation.locationProvinceCode}`,
+        Action: getActionItem(deleteOrder, idx),
+      }));
+  }
+  return makeTableData;
+};
 
-export const OnHoldTable = (openOrderDrawer : any) => [
-    {'Order Id':'TOR-0607-123','Category':'Electronics','Item Count':getItemCount(openOrderDrawer, '2'),'Schedule':'09:00 - 06/06/21','Destination City':'Toronto, Ontario','Action':getActionItem()},
-    {'Order Id':'TOR-0607-123','Category':'Electronics','Item Count':getItemCount(openOrderDrawer, '5'),'Schedule':'09:00 - 06/06/21','Destination City':'Toronto, Ontario','Action':getActionItem()},
-    {'Order Id':'TOR-0607-123','Category':'Electronics','Item Count':getItemCount(openOrderDrawer, '6'),'Schedule':'09:00 - 06/06/21','Destination City':'Toronto, Ontario','Action':getActionItem()},
-    {'Order Id':'TOR-0607-123','Category':'Electronics','Item Count':getItemCount(openOrderDrawer, '8'),'Schedule':'09:00 - 06/06/21','Destination City':'Toronto, Ontario','Action':getActionItem()},
-    
-]
-
-
-export const BulkOrderColoumns = [
-    {
-        id: "OrderId",
-        label: "Order Id",
-        isSort: true,
-    },
-    {
-        id: "Category",
-        label: "Category",
-        isSort: false,
-    },
-    {
-        id: "ItemCount",
-        label: "Item Count",
-        isSort: true,
-    },
-    {
-        id: "Schedule",
-        label: "Schedule",
-        isSort: false,
-    },
-    {
-        id: "DestinationCity",
-        label: "Destination City",
-        isSort: false,
-    },
-
-    {
-        id: "Action",
-        label: "Action",
-        isSort: false,
-    },
+export const bulkOrderColoumns = [
+  {
+    id: "OrderNumber",
+    label: "Order Number",
+  },
+  {
+    id: "categoryId",
+    label: "Category",
+  },
+  {
+    id: "itemCount",
+    label: "Item Count",
+  },
+  {
+    id: "type",
+    label: "Schedule",
+  },
+  {
+    id: "destinationCity",
+    label: "Destination City",
+  },
+  {
+    id: "action",
+    label: "Action",
+  },
 ];

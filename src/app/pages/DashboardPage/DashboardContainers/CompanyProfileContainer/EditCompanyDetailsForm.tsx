@@ -150,6 +150,7 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
           onChange={handleChange}
           onBlur={handleBlur}
           error={touched.address2 && errors.address2}
+          required
         />
         <Grid container spacing={2}>
           <Grid item sm={6} xs={12}>

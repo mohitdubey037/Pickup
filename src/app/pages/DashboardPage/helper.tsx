@@ -22,11 +22,11 @@ export const dashboardHelper: Array<Link> = [
         label: "Single Order",
         link: "/dashboard/charter-shipment/single-shipment",
       },
-      // {
-      //   id: 1,
-      //   label: "Bulk Order",
-      //   link: "/dashboard/charter-shipment/bulk-shipment",
-      // },
+      {
+        id: 1,
+        label: "Bulk Order",
+        link: "/dashboard/charter-shipment/bulk-shipment",
+      },
     ],
   },
   {
