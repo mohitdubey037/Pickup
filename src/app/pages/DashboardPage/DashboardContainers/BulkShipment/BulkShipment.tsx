@@ -64,7 +64,7 @@ const BulkShipment = ({ path }) => {
               label="Import"
               onClick={handleImportOrders}
               size="medium"
-              // disabled={files.length === 0}
+              disabled={files.length === 0}
             />
           </Flex>
         )}
