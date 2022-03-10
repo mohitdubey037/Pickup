@@ -36,6 +36,7 @@ const BulkSummary = ({ path }) => {
   });
 
   const [categoryById, setCategoryById] = useState({});
+  const [onHoldCount, setOnHoldCount] = useState(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [orderListData, setOrderListData] = useState<any>([]);
   const [selectedRows, setSelectedRows] = useState<any>([]);
@@ -80,6 +81,16 @@ const BulkSummary = ({ path }) => {
       navigate("/dashboard/charter-shipment/bulk-shipment", { replace: true });
     }
   }, []);
+
+  useEffect(() => {
+    let tempOnHold = 0;
+    orderListData.forEach((item) => {
+      if (Number(item.type) === 22) {
+        tempOnHold += 1;
+      }
+    });
+    setOnHoldCount(tempOnHold);
+  }, [orderListData]);
 
   const openDrawer = (type: string, data?: any) => {
     if (type === "orderItemDetails") {
@@ -164,8 +175,11 @@ const BulkSummary = ({ path }) => {
         <SuccessBox>
           <img src={checkSquare} alt="" />
           <p>
-            Success! <span> {orderListData.length} orders ready </span> to go
-            and 0 orders added to order holding zone.
+            Success!
+            <span>{orderListData.length - onHoldCount} orders ready</span>to go
+            {onHoldCount > 0 &&
+              ` and ${onHoldCount} orders will be added to holding zone`}
+            .
           </p>
         </SuccessBox>
       )}
