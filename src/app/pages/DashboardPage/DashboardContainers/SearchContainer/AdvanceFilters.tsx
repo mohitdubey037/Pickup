@@ -80,6 +80,16 @@ function AdvanceFilters({ data, applyFilters }) {
     // values.toShippingDate = values.toShippingDate
     //   ? moment(values.toShippingDate).format("YYYY-MM-DD")
     //   : null;
+    let isAllEmpty = true;
+    Object.values(values).forEach((item: any) => {
+      if (["", null, undefined].indexOf(item) === -1) {
+        isAllEmpty = false;
+      }
+    });
+    if (isAllEmpty) {
+      removeAdvancedFilters();
+      return;
+    }
     const res = await saveAdvancedFilters(values);
     if (res?.success) {
       applyFilters();
