@@ -14,11 +14,11 @@ import { Box, Grid } from "@mui/material";
 const Dashboard = ({ path: string }) => {
   const [dashboard, setDashboard] = useState<any>({});
   const [progressCardDataTwo, setProgressCardDataTwo] = useState<any>([]);
-  const [chartData, setChartData] = useState<any>();
   const [spentPercentage, setSpentPercentage] = useState<number>(0);
   const [actualSpent, setActualSpent] = useState<number>();
   const [totalSpentPercentage, setTotalSpentPercentage] = useState<number>(0)
-  const [a, setA] = useState<any>();
+  const [chartData, setChartData] = useState<any>([]);
+  const [a, setA] = useState<any>([]);
 
   // useEffect(() => {
   //   console.log(dashboard);
@@ -55,13 +55,13 @@ const Dashboard = ({ path: string }) => {
 
       // 1147, 1225
       var per = (((thisMonthSpent - previousMonthSpent)/previousMonthSpent) * 100).toFixed(2);
-      console.log(per);
+      // console.log(per);
       setTotalSpentPercentage(+per);
 
       console.log(data);
       
-      setChartData([{ data }]);
-      setA([{data}]);
+      setChartData(data);
+      setA(data);
 
       const progressCardNative: any = [];
       for (let keys in dashboardcat) {
