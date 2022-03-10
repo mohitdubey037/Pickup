@@ -16,7 +16,7 @@ const BulkShipment = ({ path }) => {
   const handleImportOrders = async () => {
     setProcessing(true);
     const formData = new FormData();
-    formData.append("files", files[0], files[0].name);
+    formData.append("document", files[0], files[0].name);
     const res: any = await addbulkOrdersFromCSV(formData);
     if (res?.success) {
       navigate("/dashboard/charter-shipment/bulk-summary", {
