@@ -79,7 +79,7 @@ const SearchContainer = ({ path }: any) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <Flex alignItems="center">
+        <Flex alignItems="center" style={{flexFlow:'wrap'}}>
           <H3 text={`${pagination.count} Orders`} className="heading" />
           <H5
             text={`(${selectedRows.length} Selected)`}
@@ -199,7 +199,7 @@ const SearchContainer = ({ path }: any) => {
 
       <Box mt={4} mb={2}>
         <GridContainer container spacing={2}>
-          <Grid item xs={6} sm={4} lg={3}>
+          <Grid item xs={6} sm={3}>
             <Input
               name="consignmentId"
               label="Consignment Id"
@@ -210,7 +210,7 @@ const SearchContainer = ({ path }: any) => {
               error={touched.consignmentId && errors.consignmentId}
             />
           </Grid>
-          <Grid item xs={6} sm={4} lg={3}>
+          <Grid item xs={6} sm={3}>
             <Input
               name="invoiceNumber"
               label="Invoice Number"
@@ -221,7 +221,7 @@ const SearchContainer = ({ path }: any) => {
               error={touched.invoiceNumber && errors.invoiceNumber}
             />
           </Grid>
-          <Grid item xs={6} sm={4} lg={3}>
+          <Grid item xs={6} sm={3}>
             <Input
               name="orderId"
               label="Order Id"
@@ -232,7 +232,7 @@ const SearchContainer = ({ path }: any) => {
               error={touched.orderId && errors.orderId}
             />
           </Grid>
-          <Grid item xs={6} sm={4} lg={3}>
+          <Grid item xs={6} sm={3}>
             <Select
               name="status"
               label="Status"
@@ -243,7 +243,7 @@ const SearchContainer = ({ path }: any) => {
               allowEmpty
             />
           </Grid>
-          <Grid item xs={6} sm={4} lg={3}>
+          <Grid item xs={6} sm={3}>
             <DatePickerInput
               label="From Date"
               placeholder="e.g 06/06/2021"
@@ -252,7 +252,7 @@ const SearchContainer = ({ path }: any) => {
               onChange={(val) => setFieldValue("fromDate", val)}
             />
           </Grid>
-          <Grid item xs={6} sm={4} lg={3}>
+          <Grid item xs={6} sm={3}>
             <DatePickerInput
               label="To Date"
               placeholder="e.g 06/06/2021"
@@ -262,7 +262,7 @@ const SearchContainer = ({ path }: any) => {
               onChange={(val) => setFieldValue("toDate", val)}
             />
           </Grid>
-          <Grid item xs={12} sm={4} lg={6}>
+          <Grid item xs={12} sm={6}>
             <FilterFlexBox>
               <Button
                 label="Search"

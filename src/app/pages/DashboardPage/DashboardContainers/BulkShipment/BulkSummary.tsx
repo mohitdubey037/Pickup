@@ -9,7 +9,7 @@ import { H2, H3 } from "app/components/Typography/Typography";
 import { checkSquare } from "app/assets/Icons";
 import { Button } from "app/components/Buttons";
 import { Drawer } from "app/components/Drawer";
-import { SearchTableTop } from "app/components/CommonCss/CommonCss";
+import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
 import { BulkOrderColoumns, OnHoldTable } from "./helper";
 import { SuccessBox } from "./style";
 import PayementDetailsDrawer from "./PayementDetailsDrawer";
@@ -39,7 +39,9 @@ const BulkSummary = ({ path }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
+        <Flex alignItems="center" style={{flexFlow:'wrap'}}>
         <H3 text={`Orders`} className="heading" />
+        </Flex>
         <Box>
           <Button
             label="Delete"
@@ -47,7 +49,7 @@ const BulkSummary = ({ path }) => {
             size="small"
             secondary
             disabled
-            style={{ marginRight: "12px" }}
+            style={{ marginRight: "8px" }}
           />
           <Button
             label="Move to holding zone"

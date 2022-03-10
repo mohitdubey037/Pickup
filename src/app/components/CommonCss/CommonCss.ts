@@ -186,18 +186,22 @@ export const SearchTableTop = styled.div`
   }
   .heading {
     color: #f99746;
+    margin-right: 8px;
     @media (max-width: 600px) {
       font-size: 16px;
     }
   }
   .spanlabel {
-    margin-left: 8px;
     margin-top: 4px;
+    margin-left:0;
   }
   button {
     height: 32px;
     padding: 8px 16px;
     min-width: 120px;
+    @media (max-width: 600px) {
+      min-width: auto;
+    }
   }
 `;
 

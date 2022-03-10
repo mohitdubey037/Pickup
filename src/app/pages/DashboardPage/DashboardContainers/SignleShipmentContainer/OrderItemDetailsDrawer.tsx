@@ -65,12 +65,12 @@ function OrderItemDetailsDrawer(props) {
                 defaultExpanded={index === 0}
               >
                 <Box>
-                  <Grid container spacing={2}>
+                  <Grid container spacing={3}>
                     <Grid item xs={6}>
                       <H4 text="Category" />
                       <H4 text={order?.categoryName} className="value" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                       <H4 text="Customer Reference #" />
                       <H4
                         text={
@@ -129,9 +129,9 @@ function OrderItemDetailsDrawer(props) {
                             key={i}
                             title={`Item #${i + 1} ${item.name}`}
                           >
-                            <Grid container spacing={2}>
+                            <Grid container spacing={3}>
                               {!!item.weight && item.weight !== "0" && (
-                                <Grid item xs={4}>
+                                <Grid item sm={4} xs={6}>
                                   <H4
                                     text={`Weight${getLabelFromID(
                                       item.weightDimension,
@@ -145,7 +145,7 @@ function OrderItemDetailsDrawer(props) {
                               {item.length > 0 &&
                                 item.width > 0 &&
                                 item.height > 0 && (
-                                  <Grid item xs={4}>
+                                  <Grid item sm={4} xs={6}>
                                     <H4
                                       text={`LBH${getLabelFromID(
                                         item.sizeDimension,
@@ -159,7 +159,7 @@ function OrderItemDetailsDrawer(props) {
                                   </Grid>
                                 )}
                               {!!item.quantity && (
-                                <Grid item xs={4}>
+                                <Grid item sm={4} xs={12}>
                                   <H4 text="Pieces" />
                                   <H4 text={item.quantity} className="value" />
                                 </Grid>
