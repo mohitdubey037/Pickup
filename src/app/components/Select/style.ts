@@ -1,4 +1,4 @@
-import { FormControl } from "@material-ui/core";
+import { FormControl, MenuItem } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Box, Select } from "@mui/material";
 import styled, { css } from "styled-components";
@@ -189,4 +189,8 @@ export const CustomNewSelect = styled(Select)<CustomNewSelectProps>`
   .Mui-disabled {
     background-color: #ddd;
   }
+`;
+
+export const MenuItemStyle = styled(MenuItem)`
+    white-space: break-spaces !important;
 `;

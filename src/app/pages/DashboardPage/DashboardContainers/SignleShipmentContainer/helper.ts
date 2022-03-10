@@ -150,7 +150,7 @@ export const getSameDetailsValues = (
             hasSameOrigin: true,
             originLatitude: firstOrder.originLatitude,
             originLongitude: firstOrder.originLongitude,
-            originFavorite: firstOrder.originFavorite,
+            originFavorite: false,
             originBillingType: firstOrder.originBillingType,
             originLocationType: firstOrder.originLocationType,
             originCompanyName: firstOrder.originCompanyName,
@@ -174,7 +174,7 @@ export const getSameDetailsValues = (
             hasSameDestination: true,
             destinationLatitude: firstOrder.destinationLatitude,
             destinationLongitude: firstOrder.destinationLongitude,
-            destinationFavorite: firstOrder.destinationFavorite,
+            destinationFavorite: false,
             destinationBillingType: firstOrder.destinationBillingType,
             destinationLocationType: firstOrder.destinationLocationType,
             destinationCompanyName: firstOrder.destinationCompanyName,
@@ -261,9 +261,12 @@ export const transformPayloadToBackend = (values: any) => {
             locationProvinceCode: values.originProvinceState,
             locationCountry: values.originCountry,
         },
-        orderedAt: getSingleDate(values.shipmentDate, values.shipmentTime),
-        shipmentTime: values.shipmentTime,
-        shipmentDate: values.shipmentDate,
+        orderedAt:
+            Number(values.scheduleType) === 17
+                ? getSingleDate(values.shipmentDate, values.shipmentTime)
+                : null,
+        // shipmentTime: values.shipmentTime,
+        // shipmentDate: values.shipmentDate,
         type: Number(values.scheduleType),
         items: values.shipmentDetails.map((item) => ({
             ...item,

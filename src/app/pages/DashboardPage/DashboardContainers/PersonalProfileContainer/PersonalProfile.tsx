@@ -23,7 +23,7 @@ const PersonalProfile = (props: PersonalProfileInterface) => {
         <EditIcon onClick={handleEditDetails} />
       </Box>
 
-      <FlexBox alignItems="center">
+      <FlexBox className="profileflexbox">
         <Box mr={4}>
           <Avatar src={data?.profileImage} style={{ width: 86, height: 86 }} />
         </Box>

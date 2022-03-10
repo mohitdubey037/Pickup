@@ -26,8 +26,9 @@ const HtmlTooltip = withStyles(() => ({
       boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.25)',
       backgroundColor: '#000',
       borderRadius: '4px',
-      maxWidth: 280,
-	  margin:'5px',
+      maxWidth: 300,
+	  boxSizing:'border-box',
+	  margin:'10px !important',
 			'& p' : {
 				fontSize:'13px'
 			}
@@ -40,7 +41,7 @@ const HtmlTooltip = withStyles(() => ({
 const CustomTooltip: FC<TooltipProps> = ({
 	content,
 	text,
-	placement = 'right',
+	placement = 'bottom',
 	className,
 }) => {
 	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
@@ -49,9 +50,9 @@ const CustomTooltip: FC<TooltipProps> = ({
 		<HtmlTooltip
 			open={tooltipIsOpen}
 			title={
-				<Box className={className}>
+				<span className={className}>
 					<Typography>{text}</Typography>
-				</Box>
+				</span>
 			}
 			placement={placement}
 			className={className}
