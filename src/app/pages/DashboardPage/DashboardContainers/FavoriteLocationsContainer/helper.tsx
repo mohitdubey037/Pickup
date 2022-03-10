@@ -83,8 +83,11 @@ export const getLocationData = (
         Client: getClientItem(item, openDrawer),
         Email: item.locationEmail,
         Date: moment(item.createdDate).format("DD/MM/YYYY"),
-        Address: item.locationAddressLine1,
+        Address:
+          item.locationAddressLine1 +
+          (item.locationAddressLine2 ? `, ${item.locationAddressLine2}` : ""),
         City: item.locationCity,
+        "Postal Code": item.locationPinCode,
         "Provience/State": item.locationProvinceCode,
         Country: item.locationCountry,
         Action: getActionItem(item, openDrawer, deleteLocation),
@@ -116,6 +119,10 @@ export const favoriteLocationColoumns = [
   {
     id: "locationCity",
     label: "City",
+  },
+  {
+    id: "locationPinCode",
+    label: "Postal Code",
   },
   {
     id: "locationProvinceCode",

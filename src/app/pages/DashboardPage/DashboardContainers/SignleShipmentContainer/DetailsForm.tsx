@@ -141,9 +141,7 @@ function DetailsForm(props: {
             }
             formData.append("document", image, image?.name);
             const res: any = await imageUploadService(formData);
-            if (res.error) {
-                showToast(res.error.message, "error");
-            } else {
+            if (res?.success) {
                 setFieldValue(
                     `orders.${index}.picture`,
                     res?.response?.data?.data || ""

@@ -3,7 +3,11 @@ import { FormikValues } from "formik";
 import Select from "app/components/Select";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
 import { H3 } from "app/components/Typography/Typography";
-import { WEIGHTDIMENSION, DIMENSION2 } from "../../../../../constants";
+import {
+    WEIGHTDIMENSION,
+    DIMENSION2,
+    WEIGHT_VOLUME_MASK,
+} from "../../../../../constants";
 import { CustomLink } from "app/components/Typography/Links";
 import { Input } from "app/components/Input";
 import { Box, Grid } from "@mui/material";
@@ -37,7 +41,7 @@ function DetailsFormItem(props: {
 
     return (
         <>
-        <LineDivider />
+            <LineDivider />
             <Box display="flex" justifyContent="space-between">
                 <H3 text={`Item #${index + 1}`} fontFamily="bold" />
                 {props?.formik?.values?.orders?.[props.orderIndex]
@@ -68,8 +72,9 @@ function DetailsFormItem(props: {
                                     value={formItemValue.weight}
                                     placeholder={"eg. 100"}
                                     maxLength={8}
-                                    validate
                                     required
+                                    type="mask"
+                                    maskProps={WEIGHT_VOLUME_MASK}
                                 />
                             </Grid>
                             <Grid item xs={6} lg={3}>
@@ -110,6 +115,8 @@ function DetailsFormItem(props: {
                                     placeholder={"eg. 10"}
                                     maxLength={8}
                                     required
+                                    type="mask"
+                                    maskProps={WEIGHT_VOLUME_MASK}
                                 />
                             </Grid>
                             <Grid item xs={6} sm={3}>
@@ -127,6 +134,8 @@ function DetailsFormItem(props: {
                                     placeholder={"eg. 10"}
                                     maxLength={8}
                                     required
+                                    type="mask"
+                                    maskProps={WEIGHT_VOLUME_MASK}
                                 />
                             </Grid>
                             <Grid item xs={6} sm={3}>
@@ -144,6 +153,8 @@ function DetailsFormItem(props: {
                                     placeholder={"eg. 10"}
                                     maxLength={8}
                                     required
+                                    type="mask"
+                                    maskProps={WEIGHT_VOLUME_MASK}
                                 />
                             </Grid>
                             <Grid item xs={6} sm={3}>
@@ -167,41 +178,42 @@ function DetailsFormItem(props: {
                 </GridContainer>
             )}
 
-        
-                <GridContainer container spacing={3} mt={props.hasDimensions ? 0 : 3}>
-                    <Grid item sm={6} xs={12}>
-                        <Input
-                            id={`${formFieldName}.${formItem}.quantity`}
-                            name={`${formFieldName}.${formItem}.quantity`}
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            error={toucherItem?.quantity && errorItem?.quantity}
-                            label={"Pieces"}
-                            initValue={formItemValue.quantity}
-                            value={formItemValue.quantity}
-                            placeholder={"eg. 10"}
-                            required
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Input
-                            id={`${formFieldName}.${formItem}.description`}
-                            name={`${formFieldName}.${formItem}.description`}
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            error={
-                                toucherItem?.description &&
-                                errorItem?.description
-                            }
-                            label={"Item Description"}
-                            placeholder={"Add a description of the order"}
-                            type={"textarea"}
-                            value={formItemValue.description}
-                            initValue={formItemValue.description}
-                        />
-                    </Grid>
-                </GridContainer>
-          
+            <GridContainer
+                container
+                spacing={3}
+                mt={props.hasDimensions ? 0 : 3}
+            >
+                <Grid item sm={6} xs={12}>
+                    <Input
+                        id={`${formFieldName}.${formItem}.quantity`}
+                        name={`${formFieldName}.${formItem}.quantity`}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        error={toucherItem?.quantity && errorItem?.quantity}
+                        label={"Pieces"}
+                        initValue={formItemValue.quantity}
+                        value={formItemValue.quantity}
+                        placeholder={"eg. 10"}
+                        required
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <Input
+                        id={`${formFieldName}.${formItem}.description`}
+                        name={`${formFieldName}.${formItem}.description`}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        error={
+                            toucherItem?.description && errorItem?.description
+                        }
+                        label={"Item Description"}
+                        placeholder={"Add a description of the order"}
+                        type={"textarea"}
+                        value={formItemValue.description}
+                        initValue={formItemValue.description}
+                    />
+                </Grid>
+            </GridContainer>
         </>
     );
 }

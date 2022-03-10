@@ -41,11 +41,15 @@ const Table = ({
   });
 
   useEffect(() => {
+    pagination && setPage(pagination?.page);
+    handleRowSelect(false, undefined, "header");
+  }, [pagination]);
+
+  useEffect(() => {
     handleRowSelect(false, undefined, "header");
   }, []);
 
   const handleSort = (field, type) => {
-    handleRowSelect(false, undefined, "header");
     onSortChange?.(field, type);
     setSortDetail({ field, type });
   };
@@ -68,7 +72,6 @@ const Table = ({
   };
 
   const handlePageChange = (event: any, newPage: number) => {
-    handleRowSelect(false, undefined, "header");
     onPageChange?.(newPage);
     setPage(newPage);
   };
@@ -89,46 +92,54 @@ const Table = ({
                         handleRowSelect(e.target.checked, undefined, "header")
                       }
                       isChecked={
+                        data.length > 0 &&
+                        data.length !== disabledRows?.length &&
                         selectedRows.length ===
-                        data.length - (disabledRows ? disabledRows?.length : 0)
+                          data.length -
+                            (disabledRows ? disabledRows?.length : 0)
                       }
-                      disabled={loading}
+                      disabled={
+                        loading ||
+                        data.length === 0 ||
+                        data.length === disabledRows?.length
+                      }
                     />
                   </TableCell>
                 )}
                 {coloumns.map((col: any) => (
                   <TableCell key={col.id}>
-                   <Box display="flex" justifyContent="space-between"> <span>{col.label}</span>
-                    {col.isSort && (
-                      <>
-                        {sortDetail.field === col.id ? (
-                          <img
-                            src={sortBy}
-                            alt=""
-                            style={loading ? { cursor: "default" } : {}}
-                            className={
-                              sortDetail.type === "asc" ? "ascending" : ""
-                            }
-                            onClick={() =>
-                              !loading &&
-                              handleSort(
-                                col.id,
-                                sortDetail.type === "asc" ? "desc" : "asc"
-                              )
-                            }
-                          />
-                        ) : (
-                          <img
-                            src={noSort}
-                            alt=""
-                            style={loading ? { cursor: "default" } : {}}
-                            onClick={() =>
-                              !loading && handleSort(col.id, "desc")
-                            }
-                          />
-                        )}
-                      </>
-                    )}
+                    <Box display="flex" justifyContent="space-between">
+                      <span>{col.label}</span>
+                      {col.isSort && (
+                        <>
+                          {sortDetail.field === col.id ? (
+                            <img
+                              src={sortBy}
+                              alt=""
+                              style={loading ? { cursor: "default" } : {}}
+                              className={
+                                sortDetail.type === "asc" ? "ascending" : ""
+                              }
+                              onClick={() =>
+                                !loading &&
+                                handleSort(
+                                  col.id,
+                                  sortDetail.type === "asc" ? "desc" : "asc"
+                                )
+                              }
+                            />
+                          ) : (
+                            <img
+                              src={noSort}
+                              alt=""
+                              style={loading ? { cursor: "default" } : {}}
+                              onClick={() =>
+                                !loading && handleSort(col.id, "desc")
+                              }
+                            />
+                          )}
+                        </>
+                      )}
                     </Box>
                   </TableCell>
                 ))}
@@ -172,7 +183,7 @@ const Table = ({
           count={pagination.count}
           page={page}
           onPageChange={handlePageChange}
-          labelDisplayedRows={({ count, page }) => (
+          labelDisplayedRows={({ count }) => (
             <span>
               <b>{page + 1}</b>&nbsp;
               {` out of ${Math.ceil(count / rowsPerPage)}`}

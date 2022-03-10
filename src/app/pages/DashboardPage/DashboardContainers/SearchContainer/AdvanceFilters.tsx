@@ -13,7 +13,11 @@ import {
   saveAdvancedFilters,
 } from "services/SearchItemService";
 import { getCategoryList } from "services/SingleShipmentServices";
-import { WEIGHTDIMENSION, OPERANDS } from "../../../../../constants";
+import {
+  WEIGHTDIMENSION,
+  OPERANDS,
+  WEIGHT_VOLUME_MASK,
+} from "../../../../../constants";
 import { advanceFilterInitValues } from "./helper";
 import { AdvanceFilterFormSchema } from "./AdvanceFilterFormSchema";
 import { LineDivider } from "app/components/CommonCss/CommonCss";
@@ -62,7 +66,6 @@ function AdvanceFilters({ data, applyFilters }) {
     isValid,
     handleBlur,
     handleChange,
-    setFieldValue,
     handleSubmit,
   } = useFormik({
     initialValues: advanceFilterInitValues(data),
@@ -77,6 +80,16 @@ function AdvanceFilters({ data, applyFilters }) {
     // values.toShippingDate = values.toShippingDate
     //   ? moment(values.toShippingDate).format("YYYY-MM-DD")
     //   : null;
+    let isAllEmpty = true;
+    Object.values(values).forEach((item: any) => {
+      if (["", null, undefined].indexOf(item) === -1) {
+        isAllEmpty = false;
+      }
+    });
+    if (isAllEmpty) {
+      removeAdvancedFilters();
+      return;
+    }
     const res = await saveAdvancedFilters(values);
     if (res?.success) {
       applyFilters();
@@ -259,9 +272,7 @@ function AdvanceFilters({ data, applyFilters }) {
             options={OPERANDS}
             value={values.weightOperand}
             onChange={handleChange}
-            error={touched.weightOperand && errors.weightOperand}
-            disabled={!values.weightDimension}
-            required={values.weightDimension}
+            error={errors.weightOperand}
             allowEmpty
           />
         </Grid>
@@ -272,9 +283,10 @@ function AdvanceFilters({ data, applyFilters }) {
             initValue={values.weight}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.weight && errors.weight}
-            disabled={!values.weightDimension}
+            error={errors.weight}
             maxLength={8}
+            type="mask"
+            maskProps={WEIGHT_VOLUME_MASK}
           />
         </Grid>
         <Grid item xs={3}>
@@ -284,13 +296,8 @@ function AdvanceFilters({ data, applyFilters }) {
             placeholder="Select Unit"
             options={WEIGHTDIMENSION}
             value={values.weightDimension}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setFieldValue("weightOperand", "");
-                setFieldValue("weight", "");
-              }
-              setFieldValue("weightDimension", e.target.value);
-            }}
+            onChange={handleChange}
+            error={errors.weightDimension}
             allowEmpty
           />
         </Grid>
@@ -302,9 +309,7 @@ function AdvanceFilters({ data, applyFilters }) {
             options={OPERANDS}
             value={values.volumnOperand}
             onChange={handleChange}
-            error={touched.volumnOperand && errors.volumnOperand}
-            disabled={!values.volumeDimension}
-            required={values.volumeDimension}
+            error={errors.volumnOperand}
             allowEmpty
           />
         </Grid>
@@ -315,9 +320,10 @@ function AdvanceFilters({ data, applyFilters }) {
             initValue={values.volume}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.volume && errors.volume}
-            disabled={!values.volumeDimension}
+            error={errors.volume}
             maxLength={8}
+            type="mask"
+            maskProps={WEIGHT_VOLUME_MASK}
           />
         </Grid>
         <Grid item xs={3}>
@@ -327,13 +333,8 @@ function AdvanceFilters({ data, applyFilters }) {
             placeholder="Select Unit"
             options={VOLUMEDIMENSION}
             value={values.volumeDimension}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setFieldValue("volumnOperand", "");
-                setFieldValue("volume", "");
-              }
-              setFieldValue("volumeDimension", e.target.value);
-            }}
+            onChange={handleChange}
+            error={errors.volumeDimension}
             allowEmpty
           />
         </Grid>

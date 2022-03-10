@@ -10,6 +10,7 @@ export const editChildAccountSchema = yup.object().shape({
     .min(0, "Please enter valid Business Number")
     .typeError("Business Number must be a number")
     .required(" Business Number is a required field"),
+    
     addressLine1: yup.string().required("Address Line 1 is a required field"),
     pincode: yup.string().required("Pincode is a required field").matches(PIN_CODE_REGEX, "Please enter valid Postal code"),
     province: yup.string().required("Province is a required field"),

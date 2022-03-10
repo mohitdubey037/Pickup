@@ -73,7 +73,9 @@ function SingleSipmentForm({
   ) => {
     sameDetails &&
       sameDetails[`hasSame${ADD_TYPE[title]}`].forEach((item) => {
-        setFieldValue(`orders.${item}.${name}`, value);
+        if (name === "originFavorite" || name === "destinationFavorite")
+          setFieldValue(`orders.${item}.${name}`, false);
+        else setFieldValue(`orders.${item}.${name}`, value);
       });
   };
 
@@ -146,7 +148,12 @@ function SingleSipmentForm({
         <Grid container>
           <Grid item xs>
             <FavoritesBox>
-              <H4 text={title}  mr={16} fontFamily="bold" textTransform="capitalize"/>
+              <H4
+                text={title}
+                mr={16}
+                fontFamily="bold"
+                textTransform="capitalize"
+              />
 
               <Box
                 role="button"
@@ -181,7 +188,12 @@ function SingleSipmentForm({
                 ) : (
                   <img src={starImageEmpty} alt="" className="icon" />
                 )}
-                <H5 text="Add to Favorites" className="label" mr={6} color="#878787" />
+                <H5
+                  text="Add to Favorites"
+                  className="label"
+                  mr={6}
+                  color="#878787"
+                />
                 <CustomTooltip
                   text="Your location will be saved once you have confirmed your order. 
                         You can access them later from Favourite Locations."
