@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { navigate, useLocation } from "@reach/router";
-import { Avatar, IconButton } from "@mui/material";
-import { MenuItem } from "@material-ui/core";
+import { Avatar, IconButton, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 

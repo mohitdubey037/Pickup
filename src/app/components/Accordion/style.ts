@@ -1,4 +1,4 @@
-import { Accordion } from "@material-ui/core";
+import { Accordion } from "@mui/material";
 import styled from "styled-components";
 
 export const CustomAccordion = styled(Accordion)`
@@ -20,6 +20,7 @@ export const CustomAccordion = styled(Accordion)`
   .MuiAccordionDetails-root {
     margin: 12px 0px;
     padding: 0px;
+    width:100%;
   }
   .MuiAccordion-root:before {
     display: none;

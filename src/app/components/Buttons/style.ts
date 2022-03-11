@@ -1,8 +1,8 @@
-import {Button} from '@material-ui/core';
 import styled from "styled-components";
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import { ButtonProps } from './Buttons';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material/styles';
 
 const sizes = {
 	'small': 'auto',
@@ -54,7 +54,6 @@ export const CustomButton = styled(Button)`
   box-shadow: none !important;
   &.MuiButton-root{
     text-transform: none;
-    border: ${(props:{secondary?:boolean})=>props.secondary && '1px solid' };
     color: #343434;
     font-family: "Roboto-Medium";
     line-height:1 !important;

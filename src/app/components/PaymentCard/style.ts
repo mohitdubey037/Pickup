@@ -1,5 +1,4 @@
-import { Menu } from "@material-ui/core";
-import { Box } from "@mui/material";
+import { Box, Menu } from "@mui/material";
 import styled from "styled-components";
 
 export const IndividualCardDiv = styled(Box)`
@@ -17,9 +16,8 @@ export const IndividualCardDiv = styled(Box)`
 `;
 
 export const MenuBox = styled(Menu)`
-  right: 20px !important;
-  left: -110px !important;
-  top: 40px !important;
+  left:-110px !important;
+  top: 10px !important;
 
   .MuiPaper-rounded {
     background: #ffffff;
