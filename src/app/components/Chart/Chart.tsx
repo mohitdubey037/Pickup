@@ -27,8 +27,6 @@ const ChartDashboard: React.FC<ChartProps> = ({
     chartSeries,
     car
 }) => {
-    console.log(typeof(chartSeries), car);
-    // console.log(chartSeries[0].data)
     return (
         <CardContainer>
             <Grid container spacing={2}>
@@ -108,85 +106,33 @@ const ChartDashboard: React.FC<ChartProps> = ({
                                 show: false,
                             },
                         }}
-                        
-                        // series = {
-                        //     [
-                        //         {
-                        //         name: 'market price',
-                        //         data: [{
-                        //             x: chartSeries[0].data.map(a => a.x),
-                        //             y: chartSeries[0].data.map(a => a.y)
-                        //             }]
-                        //         },
-                        //         {
-                        //             name: 'spent price',
-                        //             data: [{
-                        //                 x: car[0].data.map(a => a.x),
-                        //                 y: car[0].data.map(a => a.y)
-                        //             }], 
-                        //         }
-                        //     ]
-                        // }
-                        // series = {
-                        //         [{
-                        //         name: 'market price',
-                        //         data: [{
-                        //             x: chartSeries
-                        //         }]
-                        //       }, {
-                        //         name: 'spent',
-                        //         data: [{
-                        //             x: 
-                        //         }]
-                        //       }]
-                        //     }
-                        // series= [{
-                        //         name: 'north',
-                        //         data: [{
-                        //                 x: 1996,
-                        //                 y: 322
-                        //               },
-                        //               {
-                        //                     x: 1997,
-                        //                     y: 324
-                        //                   }]
-                        //                 }]
-
-                        
+                                                
                         series = {
-                            [{
+                            [
+                            {
                                 name: 'market price',
-                                data: [
-                                    {
-                                        x: chartSeries?.[0]?.data?.[0]?.x,
-                                        y: chartSeries?.[0]?.data?.[0]?.y
-                                    },
-                                    {
-                                        x: chartSeries?.[0]?.data?.[1]?.x,
-                                        y: chartSeries?.[0]?.data?.[1]?.y
-                                    },
-                                ]
+                                data: 
+                                    chartSeries.map(a => {
+                                        return {
+                                            x : a.x,
+                                            y : a.y
+                                        }
+                                    })
                             },
                             {
                                 name: 'spent price',
-                                data: [
-                                    {
-                                        x: chartSeries?.[0]?.data?.[0]?.x,
-                                        y: chartSeries?.[0]?.data?.[0]?.y
-                                    },
-                                    {
-                                        x: chartSeries?.[0]?.data?.[1]?.x,
-                                        y: chartSeries?.[0]?.data?.[1]?.y
-                                    },
-                                ]
+                                data: car.map(a => {
+                                    return {
+                                        x : a.x,
+                                        y : a.y
+                                    }
+                                })
                             }  
-                        ]}
+                            ]}
                         
                         // series={chartSeries || []}
                         type="area"
                         height={280}
-                        // type="area"
-                        // height={280}
                     />
                 </Grid>
             </Grid>
