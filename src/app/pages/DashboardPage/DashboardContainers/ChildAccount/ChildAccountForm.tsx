@@ -1,48 +1,33 @@
+import { Box, Grid } from "@mui/material";
+
 import { Input } from "app/components/Input";
 import { GridContainer } from "app/components/GridSpacing/GridSpacing";
-import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import Select from "app/components/Select";
+import Autocomplete from "app/components/Autocomplete";
 import {
   EMPLOYEE_STRENGTH_MASK,
   BUSINESS_NUMBER,
   INDUSTRY_TEXT,
   PIN_CODE_MASK,
 } from "../../../../../constants";
-import { Box, Grid } from "@mui/material";
-import Select from "app/components/Select";
 
 export default function ChildAccountForm({ formik }: { formik: any }) {
   const { handleChange, values, errors, touched, handleBlur, setFieldValue } =
     formik;
 
-  const handler = (value) => {
-    let temp = {};
-    if (
-      value?.location?.displayPosition?.longitude &&
-      value?.location?.displayPosition?.latitude
-    ) {
-      temp[`longitude`] = value?.location?.displayPosition?.longitude || "";
-      temp[`latitude`] = value?.location?.displayPosition?.latitude || "";
-      temp[`country`] = value?.location?.address?.country || "";
-      temp[`province`] =
-        value?.location?.address?.state ||
-        value?.location?.address?.county ||
-        "";
-      temp[`city`] = value?.location?.address?.city || "";
-      temp[`pincode`] = value?.location?.address?.postalCode || "";
-      temp[`addressLine1`] = value?.location?.address?.label || "";
-      temp[`addressLine2`] = value?.location?.address?.street || "";
-    } else {
-      temp[`longitude`] = "";
-      temp[`latitude`] = "";
-      temp[`country`] = "";
-      temp[`province`] = "";
-      temp[`city`] = "";
-      temp[`pincode`] = "";
-      temp[`addressLine2`] = "";
-    }
+  const handleAddressSelect = (value) => {
+    let temp = {
+      latitude: value.latitude,
+      longitude: value.longitude,
+      addressLine1: value.addressLine1,
+      addressLine2: value.addressLine2,
+      city: value.city,
+      pincode: value.postalCode,
+      province: value.state,
+      country: value.country,
+    };
 
     let updatedOrders = { ...temp };
-
     Object.keys(updatedOrders).forEach((key) => {
       setFieldValue(key, updatedOrders[key]);
     });
@@ -119,19 +104,15 @@ export default function ChildAccountForm({ formik }: { formik: any }) {
             />
           </Grid>
           <Grid item xs={12} lg={6}>
-            <AutoComplete
-              id="AddressLine1"
+            <Autocomplete
               name="addressLine1"
-              label={"Address Line 1"}
+              label="Address Line 1"
+              placeholder="123 Address Street"
               initValue={values.addressLine1}
-              value={values.addressLine1}
-              error={touched.addressLine1 && errors.addressLine1}
               onChange={handleChange}
-              placeholder={"123 Address Street"}
-              setFieldValue={setFieldValue}
-              handleBlur={handleBlur}
-              onSelect={handler}
-              disabled={false}
+              onBlur={handleBlur}
+              onSelect={handleAddressSelect}
+              error={touched.addressLine1 && errors.addressLine1}
             />
           </Grid>
           <Grid item xs={12} lg={6}>

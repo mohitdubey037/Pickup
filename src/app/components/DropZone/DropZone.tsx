@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Dropzone from "react-dropzone";
 
 import { DropzoneWrapper, DropzoneBox, DropeZoneText } from "./style";

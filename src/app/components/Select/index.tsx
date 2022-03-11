@@ -1,5 +1,4 @@
 import React from "react";
-import { MenuItem } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import { ComponentContainer, CustomNewSelect, MenuItemStyle } from "./style";

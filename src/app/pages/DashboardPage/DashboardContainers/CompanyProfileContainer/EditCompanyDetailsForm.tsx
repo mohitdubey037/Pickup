@@ -7,10 +7,10 @@ import { Button } from "app/components/Buttons";
 import Select from "app/components/Select";
 import EditAvatar from "app/components/Avatar/EditAvatar";
 import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
+import Autocomplete from "app/components/Autocomplete";
 import { updateCompanyProfile } from "services/CompanyService";
 import { INDUSTRY_TEXT, PIN_CODE_MASK } from "../../../../../constants";
 import { editCompanySchema } from "./schema";
-import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import { CompanyDetailsType } from "./types";
 
 interface EditDetailsInterface {
@@ -54,41 +54,14 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
   });
 
   const handleAddressSelect = (value) => {
-    let temp = {};
-    if (
-      value?.location?.displayPosition?.longitude &&
-      value?.location?.displayPosition?.latitude
-    ) {
-      let tempCountry = "",
-        tempProvinceState = "";
-      value?.location?.address?.additionalData.forEach((ele) => {
-        if (ele.key === "CountryName" && !tempCountry) {
-          tempCountry = ele.value;
-        }
-        if (
-          (ele.key === "StateName" || ele.key === "CountyName") &&
-          !tempProvinceState
-        ) {
-          tempProvinceState = ele.value;
-        }
-      });
-      temp["country"] = tempCountry || value?.location?.address?.country || "";
-      temp["province"] =
-        tempProvinceState ||
-        value?.location?.address?.state ||
-        value?.location?.address?.county ||
-        "";
-      temp["city"] = value?.location?.address?.city || "";
-      temp["pincode"] = value?.location?.address?.postalCode || "";
-      temp["address1"] = value?.location?.address?.label || "";
-      temp["address2"] = value?.location?.address?.street || "";
-    } else {
-      temp["country"] = "";
-      temp["province"] = "";
-      temp["city"] = "";
-      temp["pincode"] = "";
-      temp["address2"] = "";
-    }
+    let temp = {
+      address1: value.addressLine1,
+      address2: value.addressLine2,
+      city: value.city,
+      pincode: value.postalCode,
+      province: value.state,
+      country: value.country,
+    };
     let updatedCompany = values;
     updatedCompany = {
       ...updatedCompany,
@@ -128,19 +101,15 @@ const EditCompanyDetailsForm = (props: EditDetailsInterface) => {
           error={touched.companyName && errors.companyName}
           required
         />
-        <AutoComplete
-          id="address1"
+        <Autocomplete
           name="address1"
           label="Address Line 1"
           placeholder="123 Address Street"
           initValue={values.address1}
-          value={values.address1}
           onChange={handleChange}
-          handleBlur={handleBlur}
-          setFieldValue={setFieldValue}
+          onBlur={handleBlur}
           onSelect={handleAddressSelect}
           error={touched.address1 && errors.address1}
-          disabled={false}
         />
         <Input
           name="address2"
