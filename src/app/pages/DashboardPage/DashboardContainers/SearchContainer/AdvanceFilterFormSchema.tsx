@@ -31,7 +31,7 @@ export const AdvanceFilterFormSchema = yup.object().shape({
         !notEmpty(val)
       );
     })
-    .test("maxDigitsAfterDecimal", "Inalid Volume", (number: any) => {
+    .test("maxDigitsAfterDecimal", "Invalid Weight", (number: any) => {
       return notEmpty(number)
         ? Number(number) > 0 && /^\d+(\.\d{1,2})?$/.test(number)
         : true;
@@ -63,7 +63,7 @@ export const AdvanceFilterFormSchema = yup.object().shape({
         !notEmpty(val)
       );
     })
-    .test("maxDigitsAfterDecimal", "Inalid Volume", (number: any) => {
+    .test("maxDigitsAfterDecimal", "Invalid Volume", (number: any) => {
       return notEmpty(number)
         ? Number(number) > 0 && /^\d+(\.\d{1,2})?$/.test(number)
         : true;

@@ -114,7 +114,7 @@ const BulkSummary = ({ path }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <Flex alignItems="center">
+        <Flex alignItems="center" style={{flexFlow:'wrap'}}>
           <H3 text={`${pagination.count} Orders`} className="heading" />
           <H5
             text={`(${selectedRows.length} Selected)`}
@@ -130,7 +130,7 @@ const BulkSummary = ({ path }) => {
             size="small"
             secondary
             disabled={selectedRows.length === 0}
-            style={{ marginRight: "12px" }}
+            style={{ marginRight: "8px" }}
           />
           <Button
             label="Move to Holding Zone"

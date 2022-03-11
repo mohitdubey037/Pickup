@@ -125,7 +125,12 @@ export default function Appbar() {
         </IconButton>
 
         <MenuLinks display={menuVisibility ? "block" : "none"}>
-          <LeftDashboard onDrawerItemSelect={() => setMenuVisibility(false)} />
+          <LeftDashboard
+            onDrawerItemSelect={() => {
+              window["scrollTo"]({ top: 0, behavior: "smooth" });
+              setMenuVisibility(false);
+            }}
+          />
         </MenuLinks>
       </RightBox>
     </AppbarContainer>
