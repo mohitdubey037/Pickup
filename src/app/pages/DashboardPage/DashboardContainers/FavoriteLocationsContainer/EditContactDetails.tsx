@@ -9,7 +9,7 @@ import Select from "app/components/Select";
 import RadioGroup from "app/components/RadioGroup";
 import { updateSavedLocation } from "services/LocationServices";
 import { editContactDetailsSchema } from "./helper";
-import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import Autocomplete from "app/components/Autocomplete";
 import {
   BILLING_TYPES,
   LOCATION_TYPES,
@@ -94,46 +94,17 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
   });
 
   const handleAddressSelect = (value) => {
-    let temp = {};
-    if (
-      value?.location?.displayPosition?.longitude &&
-      value?.location?.displayPosition?.latitude
-    ) {
-      let tempCountry = "",
-        tempProvinceState = "";
-      value?.location?.address?.additionalData.forEach((ele) => {
-        if (ele.key === "CountryName" && !tempCountry) {
-          tempCountry = ele.value;
-        }
-        if (
-          (ele.key === "StateName" || ele.key === "CountyName") &&
-          !tempProvinceState
-        ) {
-          tempProvinceState = ele.value;
-        }
-      });
+    let temp = {
+      latitude: value.latitude,
+      longitude: value.longitude,
+      address1: value.addressLine1,
+      address2: value.addressLine2,
+      city: value.city,
+      postal: value.postalCode,
+      state: value.state,
+      country: value.country,
+    };
 
-      temp["latitude"] = value?.location?.displayPosition?.longitude || "";
-      temp["longitude"] = value?.location?.displayPosition?.latitude || "";
-      temp["country"] = tempCountry || value?.location?.address?.country || "";
-      temp["state"] =
-        tempProvinceState ||
-        value?.location?.address?.state ||
-        value?.location?.address?.county ||
-        "";
-      temp["city"] = value?.location?.address?.city || "";
-      temp["postal"] = value?.location?.address?.postalCode || "";
-      temp["address1"] = value?.location?.address?.label || "";
-      temp["address2"] = value?.location?.address?.street || "";
-    } else {
-      temp["latitude"] = "";
-      temp["longitude"] = "";
-      temp["country"] = "";
-      temp["state"] = "";
-      temp["city"] = "";
-      temp["postal"] = "";
-      temp["address2"] = "";
-    }
     let updatedAddress = values;
     updatedAddress = {
       ...updatedAddress,
@@ -199,19 +170,15 @@ const EditContactDetails = (props: EditContactDetailsProps) => {
           error={touched.lastName && errors.lastName}
           required
         />
-        <AutoComplete
-          id="address1"
+        <Autocomplete
           name="address1"
           label="Address Line 1"
           placeholder="123 Address Street"
           initValue={values.address1}
-          value={values.address1}
           onChange={handleChange}
-          handleBlur={handleBlur}
-          setFieldValue={setFieldValue}
+          onBlur={handleBlur}
           onSelect={handleAddressSelect}
           error={touched.address1 && errors.address1}
-          disabled={false}
         />
         <Input
           name="address2"
