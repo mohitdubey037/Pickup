@@ -97,7 +97,7 @@ const Autocomplete = ({
 
       temp["latitude"] = latitude || "";
       temp["longitude"] = longitude || "";
-      temp["addressLine1"] = tempAddress1 || address?.label || "";
+      temp["addressLine1"] = tempAddress1 || "";
       temp["addressLine2"] = address?.district || "";
       temp["city"] = address?.city || "";
       temp["postalCode"] = address?.postalCode || "";
