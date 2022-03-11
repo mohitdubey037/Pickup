@@ -58,7 +58,7 @@ function FavoriteLocations({ path }) {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <H3 text={`${locationData.length} Locations`} className="heading" />
+        <H3 text={`${pagination.count} Locations`} className="heading" />
       </SearchTableTop>
     );
   };
