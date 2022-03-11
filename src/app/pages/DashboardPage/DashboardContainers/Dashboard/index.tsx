@@ -15,68 +15,63 @@ const Dashboard = ({ path: string }) => {
   const [dashboard, setDashboard] = useState<any>({});
   const [progressCardDataTwo, setProgressCardDataTwo] = useState<any>([]);
   const [spentPercentage, setSpentPercentage] = useState<number>(0);
-  const [actualSpent, setActualSpent] = useState<number>();
   const [totalSpentPercentage, setTotalSpentPercentage] = useState<number>(0)
   const [chartData, setChartData] = useState<any>([]);
   const [a, setA] = useState<any>([]);
-
-  // useEffect(() => {
-  //   console.log(dashboard);
-  // },[dashboard])
-
-  // useEffect(() => {
-  //   console.log(chartData);
-  // },[chartData])
-
-  // useEffect(() => {
-  //   console.log(actualSpent);
-  // },[actualSpent])
+  const [seriesData, setSeriesData] = useState<number[]>([])
 
   const getDashboardData = async () => {
+
     const res = (await getDashboardDetails()) as any;
 
     if (res.success) {
-      const dashboardData = res.response.data.data;
-      const dashboardcat = res.response.data.data.category;
-      const duration = res.response.data.data.duration;
-      const spentData = res.response.data.data.youSpent;
-      setActualSpent(spentData);
-      setDashboard(dashboardData);
-      let data: any = [];
+
+      const data = res.response.data.data;
+      const {duration, category } = res.response.data.data;
+
+      setDashboard(data);
+
+      let datas: any = [];
+
       for (let keys in duration) {
-        data.push({
+        datas.push({
           x: keys,
           y: duration[keys],
         });
       }
-      let previousMonthSpent: number = (data[0].y);
 
-      let thisMonthSpent: number = (data[1]?.y);
+      let previousMonthSpent: number = (datas[0]?.y);
 
-      // 1147, 1225
-      var per = (((thisMonthSpent - previousMonthSpent)/previousMonthSpent) * 100).toFixed(2);
-      // console.log(per);
-      setTotalSpentPercentage(+per);
+      let thisMonthSpent: number = (datas[1]?.y);
 
-      console.log(data);
+      var per = (((thisMonthSpent - previousMonthSpent) / previousMonthSpent) * 100).toFixed(2);
+
+      setSeriesData([data.pending, data.completed]);
+
+      setTotalSpentPercentage(+per | 0);
       
-      setChartData(data);
-      setA(data);
+      setChartData(datas);
+      setA(datas);
 
       const progressCardNative: any = [];
-      for (let keys in dashboardcat) {
+
+      for (let keys in category) {
         progressCardNative.push({
           category: keys,
           progressValue: spentPercentage,
-          cost: dashboardcat[keys],
+          cost: category[keys],
         });
       }
+
       setProgressCardDataTwo(progressCardNative);
     }
   };
 
-  var series = [dashboard?.pending, dashboard?.completed]
   let totalOrder = dashboard?.completed + dashboard?.pending;
+
+  if (dashboard) {
+    console.log('hiii');
+  }
 
   if (dashboard.completed !== 0 || dashboard.pending !== 0) {
     var onTime = (dashboard.completed / totalOrder) * 100 || 0;
@@ -90,6 +85,10 @@ const Dashboard = ({ path: string }) => {
   useEffect(() => {
     getDashboardData();
   }, []);
+
+  useEffect(() => {
+    console.log(seriesData)
+  },[seriesData])
 
   return (
     <ModuleContainer>
@@ -185,7 +184,7 @@ const Dashboard = ({ path: string }) => {
                 <DoghnutChart
                   onTimePercentage={+onTime.toFixed(2)}
                   delayedPercentage={+delayed.toFixed(2)}
-                  doghnutData={series}
+                  doghnutData={seriesData}
                 />
               {/* ) : (
                 <NullState />

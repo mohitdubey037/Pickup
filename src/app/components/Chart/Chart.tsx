@@ -27,9 +27,6 @@ const ChartDashboard: React.FC<ChartProps> = ({
     chartSeries,
     car
 }) => {
-    console.log(typeof(chartSeries), car);
-    // console.log(chartSeries?.map(a => a.x))
-    // console.log(chartSeries[0].data)
     return (
         <CardContainer>
             <Grid container spacing={2}>
@@ -136,8 +133,6 @@ const ChartDashboard: React.FC<ChartProps> = ({
                         // series={chartSeries || []}
                         type="area"
                         height={280}
-                        // type="area"
-                        // height={280}
                     />
                 </Grid>
             </Grid>
