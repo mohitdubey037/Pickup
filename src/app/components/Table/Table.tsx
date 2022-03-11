@@ -107,7 +107,10 @@ const Table = ({
                   </TableCell>
                 )}
                 {coloumns.map((col: any) => (
-                  <TableCell key={col.id}>
+                  <TableCell
+                    key={col.id}
+                    width={col?.width ? col.width : "auto"}
+                  >
                     <Box display="flex" justifyContent="space-between">
                       <span>{col.label}</span>
                       {col.isSort && (
