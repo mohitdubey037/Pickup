@@ -160,13 +160,13 @@ function SingleSipmentForm({
                   mr={6}
                   color="#878787"
                 />
-                <CustomTooltip
+              </Box>
+              
+              <CustomTooltip
                   text="Your location will be saved once you have confirmed your order. 
                         You can access them later from Favourite Locations."
                   content={<img src={tooltipIcon} alt="" />}
-                  className="tooltip"
                 />
-              </Box>
             </FavoritesBox>
           </Grid>
 

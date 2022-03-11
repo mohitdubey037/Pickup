@@ -1,16 +1,11 @@
 import React from "react";
-import {
-  Radio,
-  FormControlLabel,
-  RadioGroup as RadioGroupComponent,
-  Box,
-} from "@material-ui/core";
 
 import { ErrorLabel } from "../Input/style";
 import { H4 } from "../Typography/Typography";
 import { RadioBox, RadioFlex} from "./style";
 import CustomTooltip from "../Tooltip/CustomTooltip";
 import { tooltipIcon } from "app/assets/Icons";
+import { Box, FormControlLabel, RadioGroup as RadioGroupComponent, Radio } from "@mui/material";
 
 interface RadioOptionItem {
   value: number | string;
@@ -71,7 +66,6 @@ function RadioGroup({
                 <CustomTooltip
                   text={tooltipText}
                   content={<img src={tooltipIcon} alt="" />}
-                  className="tooltip"
                 />
               )}
             </Box>

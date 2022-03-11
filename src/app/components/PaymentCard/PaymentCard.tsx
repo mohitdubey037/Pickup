@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
-import { MenuItem } from "@material-ui/core";
 import {
   Carddetails,
   CardEllipse,
@@ -14,7 +13,7 @@ import { deleteCard } from "services/PaymentServices";
 import { actions } from "store/reducers/PaymentReducer";
 import { IndividualCard } from "../../pages/DashboardPage/DashboardContainers/PaymentsContainer/PaymentsCardContainer";
 import AlertDialog from "../Dialog";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, MenuItem } from "@mui/material";
 
 interface PaymentCardProps {
   key?: any;
@@ -114,7 +113,6 @@ export default function PaymentCard({
         handleConfirm={handleDeleteCard}
         content="Are you sure you want to delete this card?"
       />
-      
     </Grid>
   );
 }

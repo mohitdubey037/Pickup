@@ -1,10 +1,9 @@
 import React from "react";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
 import { MenuIcon, MenuLabel, SelectBoxStyle, SmallLabeltext } from "./style";
 import { dropdown } from "app/assets/Icons";
 import { ErrorLabel } from "../Input/style";
 import { H4 } from "../Typography/Typography";
+import { MenuItem, Select } from "@mui/material";
 
 interface SelectOption {
   value: number;
@@ -46,7 +45,7 @@ export default function SelectBox(props: SelectPropTypes) {
     null
   );
   const [age, setAge] = React.useState<any>(value ? value : "");
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (event: any) => {
     setAge(event.target.value as any);
   };
   // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

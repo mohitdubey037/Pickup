@@ -1,12 +1,6 @@
-import { FormControl, MenuItem } from "@material-ui/core";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Box, Select } from "@mui/material";
-import styled, { css } from "styled-components";
+import { Box,FormControl,MenuItem,Select } from "@mui/material";
+import styled from "styled-components";
 import { H4 } from "../Typography/Typography";
-
-interface SelectContainerType {
-  disabled?: boolean;
-}
 
 export const ComponentContainer = styled.div`
   align-items: flex-start;
@@ -52,6 +46,7 @@ export const SelectBoxStyle = styled(FormControl)`
 
   .title {
     margin: 0;
+    margin-bottom:8px;
   }
 
   .MuiAutocomplete-endAdornment,
@@ -65,7 +60,7 @@ export const SelectBoxStyle = styled(FormControl)`
   .MuiSelect-select.MuiSelect-select {
     padding: 12px 8px;
     border-radius: 4px;
-    border: 1px solid #c4c4c4;
+    border: none !important;
     height: 42px;
     box-sizing: border-box;
     display: flex;
@@ -93,7 +88,6 @@ export const SelectBoxStyle = styled(FormControl)`
     line-height: 19px;
     color: #343434 !important;
     font-family: "Roboto";
-    margin-top: 8px;
   }
   .MuiFormHelperText-root {
     color: #c94c43;
@@ -131,44 +125,6 @@ export const SelectBoxStyle = styled(FormControl)`
   }
 `;
 
-export const SelectContainer = styled.div<SelectContainerType>`
-    width: 100%;
-    height: 42px;
-    align-items: flex-start;
-    display: flex;
-    padding: 12px 8px;
-    border-radius: 4px;
-    border: 1px solid #C4C4C4;
-    cursor:pointer;
-    align-items: center ;
-    box-sizing:border-box;
-    margin-bottom:6px;
-    background:#fff;
-    ${(props) =>
-      props.disabled &&
-      css`
-        background-color: #ddd;
-      `}
- }
-`;
-export const CustomSelect = styled.select`
-  outline: none;
-  border: none;
-  background-color: #fff;
-  width: 100%;
-`;
-export const useStyles = makeStyles(() =>
-  createStyles({
-    typography: {
-      padding: "8px 12px",
-    },
-    placeholder: {
-      flex: 1,
-      textAlign: "initial",
-      color: "#C4C4C4",
-    },
-  })
-);
 
 interface CustomNewSelectProps {
   value?: string | number | null;
