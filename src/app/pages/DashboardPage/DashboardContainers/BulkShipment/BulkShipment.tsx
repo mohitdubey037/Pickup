@@ -26,7 +26,7 @@ const BulkShipment = ({ path }) => {
       setFiles([]);
       setError({
         show: true,
-        url: null,
+        url: res.response,
       });
     }
     setProcessing(false);

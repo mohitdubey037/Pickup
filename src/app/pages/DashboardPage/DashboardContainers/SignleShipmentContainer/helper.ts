@@ -215,7 +215,10 @@ export const transformPayloadToBackend = (values: any) => {
             saveLocation: values.destinationFavorite ? 1 : 0,
             type: values.destinationBillingType,
             addressType: values.destinationLocationType,
-            companyName: values.destinationCompanyName,
+            companyName:
+                Number(values.destinationBillingType) === 2
+                    ? values.destinationCompanyName
+                    : "",
             locationFirstName: values.destinationFirstName,
             locationLastName: values.destinationLastName,
             locationPhone: values.destinationContactNumber.replace(
@@ -248,7 +251,10 @@ export const transformPayloadToBackend = (values: any) => {
             saveLocation: values.originFavorite ? 1 : 0,
             type: values.originBillingType,
             addressType: values.originLocationType,
-            companyName: values.originCompanyName,
+            companyName:
+                Number(values.originBillingType) === 2
+                    ? values.originCompanyName
+                    : "",
             locationFirstName: values.originFirstName,
             locationLastName: values.originLastName,
             locationPhone: values.originContactNumber.replace(/[()-]/g, ""),
