@@ -101,11 +101,21 @@ const BulkSummary = ({ path }) => {
   };
 
   const deleteSelectedOrders = async (orderIdx?: number) => {
-    let data = orderListData;
+    let data = JSON.parse(JSON.stringify(orderListData));
     let indexes = orderIdx !== undefined ? [orderIdx] : selectedRows;
     indexes = indexes.map((item) => item + pagination.page * 10);
-    data = data.filter(function (value, index) {
-      return indexes.indexOf(index) === -1;
+    data = data.filter((_, index) => indexes.indexOf(index) === -1);
+    setOrderListData(data);
+    setPagination({ ...pagination, page: 0, count: data.length });
+  };
+
+  const setToHoldingZone = () => {
+    let data = JSON.parse(JSON.stringify(orderListData));
+    let indexes = selectedRows;
+    indexes.forEach((item) => {
+      const index = item + pagination.page * 10;
+      data[index].orderedAt = null;
+      data[index].type = 22;
     });
     setOrderListData(data);
     setPagination({ ...pagination, count: data.length });
@@ -114,7 +124,7 @@ const BulkSummary = ({ path }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <Flex alignItems="center" style={{flexFlow:'wrap'}}>
+        <Flex alignItems="center" style={{ flexFlow: "wrap" }}>
           <H3 text={`${pagination.count} Orders`} className="heading" />
           <H5
             text={`(${selectedRows.length} Selected)`}
@@ -134,9 +144,9 @@ const BulkSummary = ({ path }) => {
           />
           <Button
             label="Move to Holding Zone"
-            onClick={() => {}}
+            onClick={setToHoldingZone}
             size="small"
-            disabled={selectedRows.length === 0 || true}
+            disabled={selectedRows.length === 0}
           />
         </Box>
       </SearchTableTop>
@@ -205,7 +215,7 @@ const BulkSummary = ({ path }) => {
           onPageChange={(page) => getBulkOrderListData(page)}
         />
       ) : (
-        <NullState />
+        <NullState message="No order to place now" />
       )}
 
       <Button
