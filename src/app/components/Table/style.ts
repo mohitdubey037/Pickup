@@ -77,8 +77,8 @@ export const CustomPagination = styled(TablePagination)`
   padding:0 !important;
   .MuiTablePagination-displayedRows {
     position: absolute;
-    right: 30px;
-    width: 80px;
+    right: 10px;
+    width: 120px;
     text-align: center;
   }
   .MuiTablePagination-actions {
