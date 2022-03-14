@@ -1,7 +1,7 @@
 import React from "react";
-import { AccordionDetails, AccordionSummary } from "@material-ui/core";
 import { CustomAccordion } from "./style";
-import { ChevronDown } from "app/assets/Icons";
+import { AccordionDetails, AccordionSummary } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface AccordionProps {
 	title?: string;
@@ -14,7 +14,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, children, style, defaultEx
         <>
             <CustomAccordion style={{...style}} defaultExpanded={defaultExpanded}>
                 <AccordionSummary
-                    expandIcon={<img src={ChevronDown} alt={'ChevronDown'} />}
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >

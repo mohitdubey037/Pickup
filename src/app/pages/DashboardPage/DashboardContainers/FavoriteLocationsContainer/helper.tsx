@@ -115,6 +115,7 @@ export const favoriteLocationColoumns = [
   {
     id: "locationAddressLine1",
     label: "Address",
+    width: "20%",
   },
   {
     id: "locationCity",

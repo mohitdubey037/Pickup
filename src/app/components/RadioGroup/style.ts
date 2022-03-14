@@ -4,14 +4,15 @@ import { Flex } from "../CommonCss/CommonCss";
 
 export const RadioFlex = styled(Flex)`
 flex-flow: wrap;
-  .MuiRadio-colorSecondary.Mui-checked {
-    color: #fece3e;
-  }
-  .tooltip{
-    margin-right:20px;
-    margin-left:-8px;
-    display: flex;
-  }
+.MuiFormControlLabel-root{
+  margin-left:0;
+  margin-right:8px;
+}
+
+.MuiBox-root {
+  margin-right:12px;
+  margin-left:-8px;
+}
 `;
 
 export const RadioBox = styled(Box)`

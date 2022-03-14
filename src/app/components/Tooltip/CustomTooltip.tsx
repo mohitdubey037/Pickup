@@ -1,91 +1,82 @@
-import React, { FC, useState } from 'react';
-import { withStyles} from '@material-ui/core/styles';
-import { Box, Tooltip, Typography, useMediaQuery } from '@mui/material';
+import React, { FC, useState } from "react";
+import { styled } from "@mui/material/styles";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
+import { Typography, useMediaQuery } from "@mui/material";
 
-interface TooltipProps {
+interface Props {
   content?: any;
   text: any;
-  className?: string;
-  placement?: 'bottom-end'
-| 'bottom-start'
-| 'bottom'
-| 'left-end'
-| 'left-start'
-| 'left'
-| 'right-end'
-| 'right-start'
-| 'right'
-| 'top-end'
-| 'top-start'
-| 'top';
+  placement?:
+    | "bottom-end"
+    | "bottom-start"
+    | "bottom"
+    | "left-end"
+    | "left-start"
+    | "left"
+    | "right-end"
+    | "right-start"
+    | "right"
+    | "top-end"
+    | "top-start"
+    | "top";
 }
 
+const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(() => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.25)",
+    backgroundColor: "#000",
+    borderRadius: "4px",
+    maxWidth: 300,
+    boxSizing: "border-box",
+    "& p": {
+      fontSize: "13px",
+    },
+  },
+}));
 
-const HtmlTooltip = withStyles(() => ({
-    tooltip: {
-      boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.25)',
-      backgroundColor: '#000',
-      borderRadius: '4px',
-      maxWidth: 300,
-	  boxSizing:'border-box',
-	  margin:'10px !important',
-			'& p' : {
-				fontSize:'13px'
-			}
-    }
-
-  }))(Tooltip);
-
-
-
-const CustomTooltip: FC<TooltipProps> = ({
-	content,
-	text,
-	placement = 'bottom',
-	className,
-}) => {
-	const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
-	const isMobile = useMediaQuery('(max-width:600px)');
-	return (
-		<HtmlTooltip
-			open={tooltipIsOpen}
-			title={
-				<span className={className}>
-					<Typography>{text}</Typography>
-				</span>
-			}
-			placement={placement}
-			className={className}
-		>
-			{isMobile ? (
-				<span
-					onClick={() => {
-						setTooltipIsOpen(!tooltipIsOpen);
-					}}
-					onMouseLeave={() => {
-						setTooltipIsOpen(false);
-					}}
-				>
-					{content}
-				</span>
-			) : (
-				<span
-					onMouseEnter={() => {
-						setTooltipIsOpen(true);
-					}}
-					onMouseLeave={() => {
-						setTooltipIsOpen(false);
-					}}
-				>
-					{content}
-				</span>
-			)}
-		</HtmlTooltip>
-	);
+const CustomTooltip: FC<Props> = ({ content, text, placement = "bottom" }) => {
+  const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width:600px)");
+  return (
+    <HtmlTooltip
+      open={tooltipIsOpen}
+      PopperProps={{
+        disablePortal: true,
+      }}
+      title={
+        <span>
+          <Typography>{text}</Typography>
+        </span>
+      }
+      placement={placement}
+    >
+      {isMobile ? (
+        <span
+          onClick={() => {
+            setTooltipIsOpen(!tooltipIsOpen);
+          }}
+          onMouseLeave={() => {
+            setTooltipIsOpen(false);
+          }}
+        >
+          {content}
+        </span>
+      ) : (
+        <span
+          onMouseEnter={() => {
+            setTooltipIsOpen(true);
+          }}
+          onMouseLeave={() => {
+            setTooltipIsOpen(false);
+          }}
+        >
+          {content}
+        </span>
+      )}
+    </HtmlTooltip>
+  );
 };
 
 export default CustomTooltip;
-
-
-
-

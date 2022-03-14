@@ -1,5 +1,4 @@
-import { Box } from "@mui/material";
-import { Menu } from "@material-ui/core";
+import { Box, Menu } from "@mui/material";
 import styled from "styled-components";
 
 

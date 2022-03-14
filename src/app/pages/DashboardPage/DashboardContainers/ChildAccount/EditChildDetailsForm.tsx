@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { Box, Grid } from "@mui/material";
 
@@ -7,10 +7,10 @@ import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Button } from "app/components/Buttons";
 import Select from "app/components/Select";
 import EditAvatar from "app/components/Avatar/EditAvatar";
+import Autocomplete from "app/components/Autocomplete";
 import { editChildAccountData } from "services/ChildAccount";
 import { editChildAccountSchema } from "./ChildAccountSchema";
 import { editChildAccountProps } from "./type";
-import AutoComplete from "../PersonalProfileContainer/Autocomplete";
 import {
   EMPLOYEE_STRENGTH_MASK,
   INDUSTRY_TEXT,
@@ -67,41 +67,14 @@ export default function EditChildAccountForm({
   };
 
   const handleAddressSelect = (value) => {
-    let temp = {};
-    if (
-      value?.location?.displayPosition?.longitude &&
-      value?.location?.displayPosition?.latitude
-    ) {
-      let tempCountry = "",
-        tempProvinceState = "";
-      value?.location?.address?.additionalData.forEach((ele) => {
-        if (ele.key === "CountryName" && !tempCountry) {
-          tempCountry = ele.value;
-        }
-        if (
-          (ele.key === "StateName" || ele.key === "CountyName") &&
-          !tempProvinceState
-        ) {
-          tempProvinceState = ele.value;
-        }
-      });
-      temp["country"] = tempCountry || value?.location?.address?.country || "";
-      temp["province"] =
-        tempProvinceState ||
-        value?.location?.address?.state ||
-        value?.location?.address?.county ||
-        "";
-      temp["city"] = value?.location?.address?.city || "";
-      temp["pincode"] = value?.location?.address?.postalCode || "";
-      temp["addressLine1"] = value?.location?.address?.label || "";
-      temp["addressLine2"] = value?.location?.address?.street || "";
-    } else {
-      temp["country"] = "";
-      temp["province"] = "";
-      temp["city"] = "";
-      temp["pincode"] = "";
-      temp["addressLine2"] = "";
-    }
+    let temp = {
+      addressLine1: value.addressLine1,
+      addressLine2: value.addressLine2,
+      city: value.city,
+      pincode: value.postalCode,
+      province: value.state,
+      country: value.country,
+    };
     let updatedChild = values;
     updatedChild = {
       ...updatedChild,
@@ -130,19 +103,15 @@ export default function EditChildAccountForm({
           error={touched.companyName && errors.companyName}
           required
         />
-        <AutoComplete
-          id="addressLine1"
+        <Autocomplete
           name="addressLine1"
           label="Address Line 1"
           placeholder="123 Address Street"
           initValue={values.addressLine1}
-          value={values.addressLine1}
           onChange={handleChange}
-          handleBlur={handleBlur}
-          setFieldValue={setFieldValue}
+          onBlur={handleBlur}
           onSelect={handleAddressSelect}
           error={touched.addressLine1 && errors.addressLine1}
-          disabled={false}
         />
         <Input
           name="addressLine2"

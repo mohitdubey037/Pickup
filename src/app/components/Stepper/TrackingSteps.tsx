@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import {
-  Stepper,
-  Step,
-  StepLabel,
-  StepContent,
-  Avatar
-} from "@material-ui/core";
-
 import { StepperBox, StepperInnerBox } from "./style";
 import { H4, H5 } from "../Typography/Typography";
 import { Button } from "../Buttons";
-import { Box } from "@mui/material";
+import { Avatar, Box, Step, StepContent, StepLabel, Stepper } from "@mui/material";
 
 export default function TrackingSteps({ data }: any) {
   const [activeStep, setActiveStep] = useState(-1);
@@ -62,7 +54,7 @@ export default function TrackingSteps({ data }: any) {
               <StepLabel>
                 <H4 text={item.statusName} />
                 {item.timestamp && (
-                  <H5 text={moment(item.timestamp).format("lll")} />
+                  <H5 text={moment(item.timestamp).format("lll")} mt={5} />
                 )}
               </StepLabel>
               <StepContent>

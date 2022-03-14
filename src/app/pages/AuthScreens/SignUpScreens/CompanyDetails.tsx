@@ -14,12 +14,11 @@ import { Button } from "../../../components/Buttons";
 import { companyDetailsSchema } from "./signUpSchemas";
 import { getEmailUserId } from "services/SignUpSerivces";
 import { useEffect } from "react";
-import { CircularProgress } from "@material-ui/core";
 import { showToast } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "store/reducers/SignUpReducer";
 import { H1 } from "app/components/Typography/Typography";
-import { Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 
 const CompanyDetails = ({ navigate, path }: RouteComponentProps) => {
   const { userId } = useParams();

@@ -15,7 +15,7 @@ import {
   starImageEmpty,
   tooltipIcon,
 } from "../../../../assets/Icons";
-import AutoComplete from "../PersonalProfileContainer/Autocomplete";
+import Autocomplete from "app/components/Autocomplete";
 import { FavoritesBox } from "./style";
 import { Checkbox } from "app/components/Checkbox";
 import CustomTooltip from "app/components/Tooltip/CustomTooltip";
@@ -79,50 +79,16 @@ function SingleSipmentForm({
       });
   };
 
-  const handler = (value) => {
+  const onAddressSelect = (value) => {
     let temp = {};
-    if (
-      value?.location?.displayPosition?.longitude &&
-      value?.location?.displayPosition?.latitude
-    ) {
-      let tempCountry = "",
-        tempProvinceState = "";
-      value?.location?.address?.additionalData.forEach((ele) => {
-        if (ele.key === "CountryName" && !tempCountry) {
-          tempCountry = ele.value;
-        }
-        if (
-          (ele.key === "StateName" || ele.key === "CountyName") &&
-          !tempProvinceState
-        ) {
-          tempProvinceState = ele.value;
-        }
-      });
-
-      temp[`${title}Longitude`] =
-        value?.location?.displayPosition?.longitude || "";
-      temp[`${title}Latitude`] =
-        value?.location?.displayPosition?.latitude || "";
-      temp[`${title}Country`] =
-        tempCountry || value?.location?.address?.country || "";
-      temp[`${title}ProvinceState`] =
-        tempProvinceState ||
-        value?.location?.address?.state ||
-        value?.location?.address?.county ||
-        "";
-      temp[`${title}City`] = value?.location?.address?.city || "";
-      temp[`${title}PostalCode`] = value?.location?.address?.postalCode || "";
-      temp[`${title}AddressLine1`] = value?.location?.address?.label || "";
-      temp[`${title}AddressLine2`] = value?.location?.address?.street || "";
-    } else {
-      temp[`${title}Longitude`] = "";
-      temp[`${title}Latitude`] = "";
-      temp[`${title}Country`] = "";
-      temp[`${title}ProvinceState`] = "";
-      temp[`${title}City`] = "";
-      temp[`${title}PostalCode`] = "";
-      temp[`${title}AddressLine2`] = "";
-    }
+    temp[`${title}Latitude`] = value.latitude;
+    temp[`${title}Longitude`] = value.longitude;
+    temp[`${title}AddressLine1`] = value.addressLine1;
+    temp[`${title}AddressLine2`] = value.addressLine2;
+    temp[`${title}City`] = value.city;
+    temp[`${title}PostalCode`] = value.postalCode;
+    temp[`${title}ProvinceState`] = value.state;
+    temp[`${title}Country`] = value.country;
 
     let updatedOrders = values.orders;
     updatedOrders[index] = {
@@ -194,13 +160,13 @@ function SingleSipmentForm({
                   mr={6}
                   color="#878787"
                 />
-                <CustomTooltip
+              </Box>
+              
+              <CustomTooltip
                   text="Your location will be saved once you have confirmed your order. 
                         You can access them later from Favourite Locations."
                   content={<img src={tooltipIcon} alt="" />}
-                  className="tooltip"
                 />
-              </Box>
             </FavoritesBox>
           </Grid>
 
@@ -325,22 +291,18 @@ function SingleSipmentForm({
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>
-                <AutoComplete
-                  id={`${formFieldName}.${title}AddressLine1`}
+                <Autocomplete
                   name={`${formFieldName}.${title}AddressLine1`}
-                  label={"Address Line 1"}
+                  label="Address Line 1"
+                  placeholder="123 Address Street"
                   initValue={singleFormValues[`${title}AddressLine1`]}
-                  value={singleFormValues[`${title}AddressLine1`]}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  onSelect={onAddressSelect}
                   error={
                     singleFormTouched?.[`${title}AddressLine1`] &&
                     singleFormErrors?.[`${title}AddressLine1`]
                   }
-                  placeholder={"123 Address Street"}
-                  setFieldValue={setFieldValue}
-                  onChange={handleChange}
-                  disabled={disabled}
-                  handleBlur={handleBlur}
-                  onSelect={handler}
                 />
               </Grid>
               <Grid item lg={4} sm={6} xs={12}>

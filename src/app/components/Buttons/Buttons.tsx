@@ -1,5 +1,5 @@
+import { CircularProgress } from "@mui/material";
 import React from "react";
-import { CircularProgress } from "@material-ui/core";
 import { CustomButton, useStyles } from "./style";
 
 export interface ButtonProps {
@@ -35,9 +35,8 @@ const ThemeButton: React.FC<ButtonProps> = ({
         onClick={onClick}
         size={size}
         type={type}
-        variant="contained"
+        variant={secondary ? "outlined" : "contained"}
         style={{ ...style, backgroundColor: secondary ? "#fff" : "" }}
-        secondary={secondary}
         className={`${className} ${classes.root}`}
       >
         {showLoader ? (

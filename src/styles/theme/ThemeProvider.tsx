@@ -1,7 +1,6 @@
-import * as React from "react";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const outerTheme = createTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#FECE3E",
@@ -13,6 +12,6 @@ const outerTheme = createTheme({
   },
 });
 
-export const ThemeProviderWraper = (props: { children: React.ReactChild }) => {
-  return <ThemeProvider theme={outerTheme}>{props.children}</ThemeProvider>;
+export const ThemeProviderWraper = ({ children }) => {
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
