@@ -53,7 +53,7 @@ const Routes = () => {
         <RecoverPassword path="/recover-password" />
         <SignUpDetails path="/sign-up-details/" />
         <TokenExpire path="/sign-up/verify-account" />
-        <AccountVerified path="sign-up/account-verified" />
+        <AccountVerified path="/sign-up/account-verified" />
         <PageNotFound default />
         {/* <CompanyDetails path="/company-details/:userId" /> */}
       </AuthPages>
