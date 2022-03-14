@@ -39,6 +39,16 @@ code {
   min-width: 29cm;
 }
 
+/* Custom React Confirm Alert */
+.react-confirm-alert-overlay {
+  z-index: 1300;
+  background: rgba(0, 0, 0, 0.5);
+}
+.react-confirm-alert-button-group button:first-child {
+  background: #fece3e;
+  color: #000;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;

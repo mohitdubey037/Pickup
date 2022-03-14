@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { Provider } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 import Routes from "../Routes";
 import store, { persistor } from "../store/configureStore";
