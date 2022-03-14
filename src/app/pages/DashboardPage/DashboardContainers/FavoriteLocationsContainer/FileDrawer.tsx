@@ -9,6 +9,7 @@ import { DrawerFooter, DrawerInnerContent } from "app/components/Drawer/style";
 import { Link } from "app/components/Typography/Links";
 import { Termslink } from "app/components/Typography/style";
 import { addLocationsFromCSV } from "services/LocationServices";
+import { fileDownload } from "utils/commonUtils";
 
 interface FileDrawerProps {
   setDrawerOpen: (value: boolean) => void;
@@ -35,15 +36,11 @@ const FileDrawer = (props: FileDrawerProps) => {
     setLoading(false);
   };
 
-  const downloadSample = () => {
-    let link: any = document.createElement("a");
-    link.href =
-      "https://pickups-staging.s3.ca-central-1.amazonaws.com/order/8a4c82270f7441aaae1c69033771b49a.csv";
-    link.download = `Favourite-Locations-Sample.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  const downloadSample = () =>
+    fileDownload(
+      "https://pickups-staging.s3.ca-central-1.amazonaws.com/order/8a4c82270f7441aaae1c69033771b49a.csv",
+      `Favourite-Locations-Sample.csv`
+    );
 
   return (
     <>

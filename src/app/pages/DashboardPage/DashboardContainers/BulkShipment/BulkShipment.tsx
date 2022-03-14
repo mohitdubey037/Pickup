@@ -11,7 +11,7 @@ import { addbulkOrdersFromCSV } from "services/SingleShipmentServices";
 const BulkShipment = ({ path }) => {
   const [files, setFiles] = useState<any>([]);
   const [processing, setProcessing] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<any>({ show: false, url: null });
 
   const handleImportOrders = async () => {
     setProcessing(true);
@@ -24,7 +24,10 @@ const BulkShipment = ({ path }) => {
       });
     } else {
       setFiles([]);
-      setError(true);
+      setError({
+        show: true,
+        url: res.response,
+      });
     }
     setProcessing(false);
   };
@@ -52,9 +55,12 @@ const BulkShipment = ({ path }) => {
           files={files}
           setFiles={(val) => {
             setFiles(val);
-            setError(false);
+            setError({
+              show: false,
+              url: null,
+            });
           }}
-          isError={error}
+          error={error}
           inProgress={processing}
         />
 

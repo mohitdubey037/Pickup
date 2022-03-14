@@ -19,7 +19,7 @@ export const dashboardHelper: Array<Link> = [
     children: [
       {
         id: 0,
-        label: "Single Order",
+        label: "Create Order",
         link: "/dashboard/charter-shipment/single-shipment",
       },
       {

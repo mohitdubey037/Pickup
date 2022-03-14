@@ -39,3 +39,12 @@ export const getUserId = () => {
   const decoded: Token | null = token ? jwt_decode(token) : null;
   return decoded?.userId;
 };
+
+export const fileDownload = (fileUrl: string, fileName: string) => {
+  let link: any = document.createElement("a");
+  link.href = fileUrl;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};

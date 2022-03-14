@@ -75,13 +75,20 @@ const Autocomplete = ({
         address,
       }: any = value;
       let tempAddress1: any = [],
+        tempAddress2 = "",
         tempState = "",
         tempCountry = "";
 
       ["housenumber", "street", "subdistrict"].forEach((key) => {
         address?.[key] && tempAddress1.push(address?.[key]);
       });
-      tempAddress1 = tempAddress1.join(", ");
+
+      if (tempAddress1.length > 0) {
+        tempAddress1 = tempAddress1.join(", ");
+        tempAddress2 = address?.district;
+      } else {
+        tempAddress1 = address?.district;
+      }
 
       address?.additionalData.forEach((ele) => {
         if (ele.key === "CountryName" && !tempCountry) {
@@ -98,7 +105,7 @@ const Autocomplete = ({
       temp["latitude"] = latitude || "";
       temp["longitude"] = longitude || "";
       temp["addressLine1"] = tempAddress1 || "";
-      temp["addressLine2"] = address?.district || "";
+      temp["addressLine2"] = tempAddress2 || "";
       temp["city"] = address?.city || "";
       temp["postalCode"] = address?.postalCode || "";
       temp["state"] = tempState || address?.state || address?.county || "";

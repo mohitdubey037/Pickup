@@ -117,7 +117,12 @@ export const addbulkOrdersFromCSV = async (data: any) => {
     );
     return { response: res, success: true };
   } catch (err) {
-    showToast(err?.message || "Something Went Wrong", "error");
-    return { response: null, success: false };
+    var fileUrl = null;
+    if (err?.message && err?.message.slice(0, 4) === "http") {
+      fileUrl = err?.message;
+    } else {
+      showToast(err?.message || "Something Went Wrong", "error");
+    }
+    return { response: fileUrl, success: false };
   }
 };

@@ -15,6 +15,7 @@ import TableSkeleton from "app/components/Table/TableSkeleton";
 import Select from "app/components/Select";
 import NullState from "app/components/NullState/NullState";
 import { Flex, SearchTableTop } from "app/components/CommonCss/CommonCss";
+import { fileDownload } from "utils/commonUtils";
 import {
   getInvoiceList,
   getMultipleInvoicesPdf,
@@ -83,12 +84,10 @@ const InvoicesContainer = ({ path }) => {
       const blob = new Blob([res.response.data], {
         type: "application/x-rar-compressed",
       });
-      const link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob);
-      link.download = `Invoices_${moment().format("YYYYMMDD_HHmmss")}.rar`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      fileDownload(
+        window.URL.createObjectURL(blob),
+        `Invoices_${moment().format("YYYYMMDD_HHmmss")}.rar`
+      );
     }
     setDownloading(false);
   };
@@ -96,7 +95,7 @@ const InvoicesContainer = ({ path }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <Flex alignItems="center" style={{flexFlow:'wrap'}}>
+        <Flex alignItems="center" style={{ flexFlow: "wrap" }}>
           <H3 text={`${pagination.count} Invoices`} className="heading" />
           <H5
             text={`(${selectedRows.length} Selected)`}

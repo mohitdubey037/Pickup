@@ -13,7 +13,8 @@ import { Flex, LineDivider } from "app/components/CommonCss/CommonCss";
 import CustomTooltip from "app/components/Tooltip/CustomTooltip";
 import { getInvoiceDetails } from "services/PaymentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
-import { Illustration } from "../../../../assets/Images/index";
+import { fileDownload } from "utils/commonUtils";
+import { Illustration } from "app/assets/Images/index";
 import { DrawerHeaderBox, InvoiceDetailsBox } from "./style";
 import InvoiceDrawerSkeleton from "./InvoiceDrawerSkeleton";
 
@@ -85,14 +86,8 @@ function InvoiceDetailsDrawer({ invoiceId }: any) {
     html2pdf().set(opt).from(ref.current).save();
   };
 
-  const invoiceDownload = () => {
-    let link: any = document.createElement("a");
-    link.download = `Invoice_${invoiceId}.pdf`;
-    link.href = invoiceDetails?.invoicePdf;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  const invoiceDownload = () =>
+    fileDownload(invoiceDetails?.invoicePdf || "", `Invoice_${invoiceId}.pdf`);
 
   useEffect(() => {
     if (orderIds?.length > 0 && isCompletePayment) {
