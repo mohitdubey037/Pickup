@@ -69,9 +69,9 @@ const Dashboard = ({ path: string }) => {
 
   let totalOrder = dashboard?.completed + dashboard?.pending;
 
-  if (dashboard) {
-    console.log('hiii');
-  }
+  // if (dashboard) {
+  //   console.log('hiii');
+  // }
 
   if (dashboard.completed !== 0 || dashboard.pending !== 0) {
     var onTime = (dashboard.completed / totalOrder) * 100 || 0;

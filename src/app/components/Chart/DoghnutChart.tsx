@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import { DoghnutChip, DoghnutLabelContainer } from './style'
 
@@ -11,6 +11,9 @@ interface DoghnutProps{
 
 export default function DoghnutChart({onTimePercentage,delayedPercentage,doghnutData}:DoghnutProps) {
   // console.log(doghnutData, 'hhhhiii');
+  // useEffect(() => {
+  //   console.log(doghnutData);
+  // },[doghnutData])
   // console.log(onTimePercentage,delayedPercentage,doghnutData, 'dlsj');
     return (
         <>
@@ -86,17 +89,17 @@ export default function DoghnutChart({onTimePercentage,delayedPercentage,doghnut
                                 show: false,
                             },
                             colors:['#FECE3E','#F99746'],
-                            responsive: [{
-                                breakpoint: 480,
-                                options: {
-                                    chart: {
-                                        width: 200
-                                    },
-                                    legend: {
-                                        show: false,
-                                    }
-                                }
-                        }]}}
+                            // responsive: [{
+                            //     breakpoint: 480,
+                            //     options: {
+                            //         chart: {
+                            //             width: 200
+                            //         },
+                            //         legend: {
+                            //             show: true,
+                            //         }
+                            //     }}]
+                              }}
                         series={doghnutData}
                         type="donut"
                         height={200}

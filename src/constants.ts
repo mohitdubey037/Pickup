@@ -176,9 +176,8 @@ export const PAYMENT_STATUS = [
 ];
 
 export const CHILD_STATUS = [
-  { label: "Active", value: "active" },
-  { label: "Pending", value: "pending" },
-  { label: "Verified", value: "verified" },
+  { label: "sign up created", value: "SIGN UP CREATED" },
+  { label: "sign up completed", value: "SIGN UP COMPLETED" },
 ];
 
 export const IMAGE_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];
