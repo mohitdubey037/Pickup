@@ -12,6 +12,7 @@ import { editChildAccountData } from "services/ChildAccount";
 import { editChildAccountSchema } from "./ChildAccountSchema";
 import { editChildAccountProps } from "./type";
 import {
+  BUSINESS_NUMBER,
   EMPLOYEE_STRENGTH_MASK,
   INDUSTRY_TEXT,
   PIN_CODE_MASK,
@@ -182,6 +183,8 @@ export default function EditChildAccountForm({
           onChange={handleChange}
           onBlur={handleBlur}
           error={touched.businessNumber && errors.businessNumber}
+          type="mask"
+          maskProps={BUSINESS_NUMBER}
           required
         />
         <Grid container spacing={2}>
