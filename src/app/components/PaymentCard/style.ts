@@ -13,11 +13,16 @@ export const IndividualCardDiv = styled(Box)`
   .menulist {
     right: 0 !important;
   }
+  .card-options {
+    position: absolute;
+    top: 8px;
+    right: 4px;
+    color: #343434;
+  }
 `;
 
 export const MenuBox = styled(Menu)`
-  left:-110px !important;
-  top: 10px !important;
+  left: -90px !important;
 
   .MuiPaper-rounded {
     background: #ffffff;
@@ -58,12 +63,6 @@ export const CardEllipse = styled.img`
   top: -2px;
   opacity: 0.1;
   right: -2px;
-`;
-export const CardOption = styled.img`
-  position: absolute;
-  cursor: pointer;
-  top: 20px;
-  right: 20px;
 `;
 
 interface CardProp {
