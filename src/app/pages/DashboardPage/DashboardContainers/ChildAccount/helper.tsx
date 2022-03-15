@@ -98,7 +98,7 @@ export const childDataTable = (
                     "Company Name": item.companyName ? getChildCompany(item.companyName,item.companyId) : "N/A",
                     "Business Number": item.businessNumber || "N/A",
                     "Invitation Date": item.createdAt ? moment(item.createdAt).format("DD/MM/YYYY") : "N/A",
-                    "Status": item.status.toLowerCase(),
+                    "Status": item?.status,
                     "Admin Name": item.admin || "N/A",
                 };
             });
