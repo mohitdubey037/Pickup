@@ -7,11 +7,12 @@ import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
 import { Flex, FullCard } from "app/components/CommonCss/CommonCss";
 import { addbulkOrdersFromCSV } from "services/SingleShipmentServices";
+import { fileDownload } from "utils/commonUtils";
 
 const BulkShipment = ({ path }) => {
   const [files, setFiles] = useState<any>([]);
   const [processing, setProcessing] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<any>({ show: false, url: null });
 
   const handleImportOrders = async () => {
     setProcessing(true);
@@ -24,10 +25,19 @@ const BulkShipment = ({ path }) => {
       });
     } else {
       setFiles([]);
-      setError(true);
+      setError({
+        show: true,
+        url: res.response,
+      });
     }
     setProcessing(false);
   };
+
+  const downloadSample = () =>
+    fileDownload(
+      "https://pickups-staging.s3.ca-central-1.amazonaws.com/order/d41fba5fe411456a9ea7f36cd3b21783.xlsx",
+      `Bulk-Order-Sample.csv`
+    );
 
   return (
     <ModuleContainer>
@@ -44,7 +54,11 @@ const BulkShipment = ({ path }) => {
               mt={24}
               mb={12}
             />
-            <Button label="Download Sample" onClick={() => {}} size="medium" />
+            <Button
+              label="Download Sample"
+              onClick={downloadSample}
+              size="medium"
+            />
           </>
         )}
 
@@ -52,9 +66,12 @@ const BulkShipment = ({ path }) => {
           files={files}
           setFiles={(val) => {
             setFiles(val);
-            setError(false);
+            setError({
+              show: false,
+              url: null,
+            });
           }}
-          isError={error}
+          error={error}
           inProgress={processing}
         />
 

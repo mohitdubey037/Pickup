@@ -1,3 +1,3 @@
 import BulkShipment from "./BulkShipment";
 
-export {BulkShipment};
+export { BulkShipment };
