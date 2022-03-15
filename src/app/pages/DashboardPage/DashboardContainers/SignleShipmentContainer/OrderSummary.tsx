@@ -12,9 +12,10 @@ import { disclaimer } from "app/assets/Icons";
 import { Drawer } from "app/components/Drawer";
 import NullState from "app/components/NullState/NullState";
 import { Flex } from "app/components/CommonCss/CommonCss";
+import { Button } from "app/components/Buttons";
 import { getShipmentDetails } from "services/SingleShipmentServices";
 import { actions } from "store/reducers/SingleShipmentReducer";
-import { Button } from "../../../../components/Buttons";
+import { showConfirmAlert } from "utils";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
 import { DisclaimerBox, OrderSummaryTableOuter, TotalBox } from "./style";
 import { orderSummaryColoumns } from "./helper";
@@ -87,16 +88,26 @@ function OrderSummary({ path }) {
 
   const onBackHandler = () => {
     if (orderSummaryData?.length > 0 || onHoldShipment > 0) {
-      let msg = "Are you sure you want to leave this page?";
-      msg +=
-        orderSummaryData?.length > 0
-          ? "\nYour orders will be listed in search orders. You can pay them later."
-          : onHoldShipment > 0
-          ? "\nYour orders will be listed in holding zone. You can schedule them later."
-          : "";
-      if (window.confirm(msg)) {
-        dispatch(actions.resetSingleShipment());
-      }
+      showConfirmAlert({
+        message: (
+          <>
+            Are you sure you want to leave this page? <br />
+            {orderSummaryData?.length > 0
+              ? "Your orders will be listed in search orders. You can pay them later."
+              : onHoldShipment > 0
+              ? "Your orders will be listed in holding zone. You can schedule them later."
+              : ""}
+          </>
+        ),
+        buttons: [
+          {
+            label: "Yes",
+            onClick: () => {
+              dispatch(actions.resetSingleShipment());
+            },
+          },
+        ],
+      });
     } else dispatch(actions.resetSingleShipment());
   };
 

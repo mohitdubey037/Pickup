@@ -1,19 +1,20 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
+import { Box, Grid, IconButton, MenuItem } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+
+import { ellipse } from "app/assets/Icons";
+import { IndividualCard } from "app/pages/DashboardPage/DashboardContainers/PaymentsContainer/PaymentsCardContainer";
+import { deleteCard } from "services/PaymentServices";
+import { actions } from "store/reducers/PaymentReducer";
+import { showConfirmAlert } from "utils";
 import {
   Carddetails,
   CardEllipse,
   CardNumber,
-  CardOption,
   IndividualCardDiv,
   MenuBox,
 } from "./style";
-import { dots, ellipse } from "../../assets/Icons/index";
-import { deleteCard } from "services/PaymentServices";
-import { actions } from "store/reducers/PaymentReducer";
-import { IndividualCard } from "../../pages/DashboardPage/DashboardContainers/PaymentsContainer/PaymentsCardContainer";
-import AlertDialog from "../Dialog";
-import { Box, Grid, MenuItem } from "@mui/material";
 
 interface PaymentCardProps {
   key?: any;
@@ -41,43 +42,43 @@ export default function PaymentCard({
     setAnchorEl(null);
   };
 
-  const [openDialog, setOpenDialog] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
-
   const handleEditCard = () => {
     handleClose();
     setCardData?.(cardData);
     setDrawerOpen?.(true);
   };
 
-  const handleDeleteCard = async () => {
-    handleClose();
-    try {
-      const res: { response: any; error: any } = await deleteCard({
-        cardId: cardData.id,
-        cardFrom,
-        customerId: cardData.customer,
-      });
-      if (res.error === null) {
-        dispatch(actions.getCards());
-        saveAction?.();
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
+  const handleDeleteCard = () => {
+    showConfirmAlert({
+      title: "Delete Card",
+      message: "Are you sure you want to delete this card?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            const res: any = await deleteCard({
+              cardId: cardData.id,
+              cardFrom,
+              customerId: cardData.customer,
+            });
+            if (res.error === null) {
+              dispatch(actions.getCards());
+              saveAction?.();
+            }
+            handleClose();
+          },
+        },
+      ],
+    });
   };
 
   return (
     <Grid item lg={4} sm={6} xs={12} xl={3}>
       <IndividualCardDiv>
         <CardEllipse src={ellipse} />
-        <CardOption src={dots} onClick={handleClick} />
+        <IconButton className="card-options" onClick={handleClick}>
+          <MoreVertIcon />
+        </IconButton>
 
         <Box mt={14}>
           <CardNumber>**** **** **** {cardData.last4}</CardNumber>
@@ -99,20 +100,10 @@ export default function PaymentCard({
           onClose={handleClose}
           className="menulist"
         >
-          {/* <MenuItem onClick={() => handleEditCard()}>Edit Card</MenuItem> */}
-          <MenuItem onClick={handleClickOpen}>Delete Card</MenuItem>
+          <MenuItem onClick={handleDeleteCard}>Delete Card</MenuItem>
           {/* <MenuItem onClick={handleEditCard}>Edit Card</MenuItem> */}
         </MenuBox>
       </IndividualCardDiv>
-
-      <AlertDialog
-        open={openDialog}
-        handleConfirmLabel="Yes"
-        handleCloseLabel="No"
-        handleClose={handleCloseDialog}
-        handleConfirm={handleDeleteCard}
-        content="Are you sure you want to delete this card?"
-      />
     </Grid>
   );
 }

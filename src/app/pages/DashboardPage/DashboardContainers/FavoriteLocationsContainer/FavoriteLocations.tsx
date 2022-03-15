@@ -12,6 +12,7 @@ import {
   deleteSavedLocation,
   getLocationList,
 } from "services/LocationServices";
+import { showConfirmAlert } from "utils";
 import ContactDetailsSidebar from "./ContactDetailsSidebar";
 import EditContactDetails from "./EditContactDetails";
 import FileDrawer from "./FileDrawer";
@@ -47,12 +48,23 @@ function FavoriteLocations({ path }) {
     setDrawerOpen(true);
   };
 
-  const deleteLocation = async (locationId: string) => {
-    const res: any = await deleteSavedLocation(locationId);
-    if (res?.success) {
-      getLocationListData();
-      setDrawerOpen(false);
-    }
+  const deleteLocation = (locationId: string) => {
+    showConfirmAlert({
+      title: "Delete Location",
+      message: "Are you sure you want to delete this location?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            const res: any = await deleteSavedLocation(locationId);
+            if (res?.success) {
+              getLocationListData();
+              setDrawerOpen(false);
+            }
+          },
+        },
+      ],
+    });
   };
 
   const tableTop = () => {

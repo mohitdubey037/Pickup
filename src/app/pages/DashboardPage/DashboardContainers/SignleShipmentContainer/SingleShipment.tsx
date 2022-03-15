@@ -117,12 +117,12 @@ function SingleShipment({ path }) {
 
   return (
     <ModuleContainer>
-      {formik?.values?.orders.length === 1 && <H2 title="Create Order" />}
+      <H2 title="Create Order" />
       {new Array(formik.values.orders.length).fill("").map((_, index) => (
         <Fragment key={index}>
           {formik.values.orders.length > 1 && (
             <Flex justifyContent="space-between" alignItems="center" top={24}>
-              <H2 title={`Order ${index + 1}`} />
+              <H3 text={`Order ${index + 1}`} fontFamily="bold" />
               <CustomLink
                 label="Delete"
                 onClick={() => deleteOrderHandler(index)}
