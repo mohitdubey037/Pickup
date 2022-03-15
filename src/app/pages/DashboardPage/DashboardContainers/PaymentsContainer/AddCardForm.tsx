@@ -10,14 +10,16 @@ import { IndividualCard } from "./PaymentsCardContainer";
 import { addNewCardService } from "services/PaymentServices";
 import { useDispatch } from "react-redux";
 import { actions } from "store/reducers/PaymentReducer";
+import { addChildDetailsCard } from "services/ChildAccount";
 
 interface AddCardFromProps {
     setDrawerOpen: (val: boolean) => void;
-    saveAction?: (data) => void;
+    saveAction?: () => void;
     getSavedCard?: (data) => void;
     enableSave?: boolean;
     submitButtonLabel?: string;
     cardData?: IndividualCard;
+    userId?: string
 }
 
 const AddCardForm: FC<AddCardFromProps> = ({
@@ -26,6 +28,8 @@ const AddCardForm: FC<AddCardFromProps> = ({
     enableSave = false,
     submitButtonLabel = "Save",
     cardData = {},
+    userId,
+    saveAction
 }) => {
     const dispatch = useDispatch();
 
@@ -66,24 +70,37 @@ const AddCardForm: FC<AddCardFromProps> = ({
         (() => validateForm())();
       }, []);
 
-    useEffect(() => {
-        console.log(isValid);
-    },[cardData])
-
     const handleAddNewCard = async (values) => {
         setLoading(true);
-        const body = {
-            name: values.nameOnCard,
-            number: values.cardNumber,
-            expiryMonth: values.expiryDate.split("/")[0],
-            expiryYear: values.expiryDate.split("/")[1],
-            cvd: values.cvc,
-        };
-        const res: any = await addNewCardService(body);
-        if (res.error === null) {
-            dispatch(actions.getCards());
-            setDrawerOpen(false);
-            getSavedCard?.(res.response.data.data);
+        if (!userId) {
+            const body = {
+                name: values.nameOnCard,
+                number: values.cardNumber,
+                expiryMonth: values.expiryDate.split("/")[0],
+                expiryYear: values.expiryDate.split("/")[1],
+                cvd: values.cvc,
+            };
+            const res: any = await addNewCardService(body);
+            if (res.error === null) {
+                dispatch(actions.getCards());
+                setDrawerOpen(false);
+                getSavedCard?.(res.response.data.data);
+            }
+        }
+        else {
+            const body = {
+                name: values.nameOnCard,
+                number: values.cardNumber,
+                expiryMonth: values.expiryDate.split("/")[0],
+                expiryYear: values.expiryDate.split("/")[1],
+                cvd: values.cvc,
+                userId: userId
+            }
+            const res: any = await addChildDetailsCard(body);
+            if (res.error === null) {
+                setDrawerOpen(false);
+                saveAction?.();
+            }
         }
         setLoading(false);
     };

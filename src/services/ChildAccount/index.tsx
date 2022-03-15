@@ -2,6 +2,7 @@ import services from '../';
 import { showToast } from "utils";
 import { transformPayloadToBackend } from 'app/pages/DashboardPage/DashboardContainers/ChildAccount/helper';
 
+const type = "user_cr";
 
 export const getChildAccountData = async (urlParams?: string)=>{
   try {
@@ -66,3 +67,21 @@ export const editSuperIndendentAccountData = async (body?: any, userId?: number)
       return { response: err, sucess: false };
     }
 }
+
+export const addChildDetailsCard = async (body: any) => {
+  try {
+    const res = await services.post(
+      "business/card/add/ChildAccount",
+      body,
+      type
+    );
+    if (res) showToast("Your card has been successfully added", "success");
+    return { response: res, error: null };
+  } catch (error) {
+    showToast(
+      "Invalid card details. Please check your information and try again.",
+      "error"
+    );
+    return { response: null, error: error };
+  }
+};
