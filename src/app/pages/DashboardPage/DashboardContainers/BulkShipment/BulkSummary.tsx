@@ -172,6 +172,7 @@ const BulkSummary = ({ path }) => {
     let orders = JSON.parse(JSON.stringify(orderListData));
     orders = orders.map((order) => {
       delete order.OrderNumber;
+      delete order.orderSrNo;
       return order;
     });
     dispatch(actions.submitShipment({ orders, source: "bulk" }));
