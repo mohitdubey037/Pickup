@@ -42,6 +42,7 @@ const VOLUMEDIMENSION = [
 
 function AdvanceFilters({ data, applyFilters }) {
   const [categoryList, setCategoryList] = useState([]);
+  const [isAllEmpty, setIsAllEmpty] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -73,6 +74,16 @@ function AdvanceFilters({ data, applyFilters }) {
     onSubmit: (values) => applyAdvancedFilters(values),
   });
 
+  useEffect(() => {
+    let allFieldsEmpty = true;
+    Object.values(values).forEach((item: any) => {
+      if (["", null, undefined].indexOf(item) === -1) {
+        allFieldsEmpty = false;
+      }
+    });
+    setIsAllEmpty(allFieldsEmpty);
+  }, [values]);
+
   const applyAdvancedFilters = async (values) => {
     // values.fromShippingDate = values.fromShippingDate
     //   ? moment(values.fromShippingDate).format("YYYY-MM-DD")
@@ -80,16 +91,6 @@ function AdvanceFilters({ data, applyFilters }) {
     // values.toShippingDate = values.toShippingDate
     //   ? moment(values.toShippingDate).format("YYYY-MM-DD")
     //   : null;
-    let isAllEmpty = true;
-    Object.values(values).forEach((item: any) => {
-      if (["", null, undefined].indexOf(item) === -1) {
-        isAllEmpty = false;
-      }
-    });
-    if (isAllEmpty) {
-      removeAdvancedFilters();
-      return;
-    }
     const res = await saveAdvancedFilters(values);
     if (res?.success) {
       applyFilters();
@@ -362,7 +363,7 @@ function AdvanceFilters({ data, applyFilters }) {
           label="Apply Filters"
           onClick={handleSubmit}
           size="medium"
-          disabled={!isValid}
+          disabled={!isValid || isAllEmpty}
         />
       </DrawerFooter>
     </Box>
