@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
+import { useDispatch } from "react-redux";
 
 import ModuleContainer from "app/components/ModuleContainer";
 import { H2, H3, Para } from "app/components/Typography/Typography";
@@ -7,12 +8,19 @@ import { Button } from "app/components/Buttons";
 import { DropZone } from "app/components/DropZone";
 import { Flex, FullCard } from "app/components/CommonCss/CommonCss";
 import { addbulkOrdersFromCSV } from "services/SingleShipmentServices";
+import { actions } from "store/reducers/SingleShipmentReducer";
 import { fileDownload } from "utils/commonUtils";
 
 const BulkShipment = ({ path }) => {
+  const dispatch = useDispatch();
+
   const [files, setFiles] = useState<any>([]);
   const [processing, setProcessing] = useState<boolean>(false);
   const [error, setError] = useState<any>({ show: false, url: null });
+
+  useEffect(() => {
+    dispatch(actions.resetSingleShipment());
+  }, []);
 
   const handleImportOrders = async () => {
     setProcessing(true);

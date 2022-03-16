@@ -70,6 +70,7 @@ const BulkSummary = ({ path }) => {
   };
 
   useEffect(() => {
+    dispatch(actions.resetSingleShipment());
     if (location?.state?.data) {
       setOrderListData(location?.state?.data);
       setPagination({
