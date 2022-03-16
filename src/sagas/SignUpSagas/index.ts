@@ -12,7 +12,7 @@ function* registerUserWorker(action) {
   try {
     yield put(globalActions.showLoader(true));
     const res = yield call(registerUserService, action.email);
-    yield put(actions.registerUserResponse(res.data?.data));
+    yield put(actions.registerUserResponse(res));
     yield put(globalActions.showLoader(false));
 } catch (err: any) {
     yield put(globalActions.showLoader(false));
