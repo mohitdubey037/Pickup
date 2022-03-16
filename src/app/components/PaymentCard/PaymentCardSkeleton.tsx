@@ -9,7 +9,7 @@ export default function PaymentCardSkeleton() {
     <Box mt={3}>
       <Grid container spacing={2}>
         {Array.from(Array(3).keys()).map(() => (
-          <Grid item lg={4} sm={6} xs={12} xl={3}>
+          <Grid item xl={4} sm={6} xs={12}>
             <IndividualCardDiv>
               <CardEllipse src={ellipse} />
               <IconButton className="card-options" disabled>

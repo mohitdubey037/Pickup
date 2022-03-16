@@ -73,7 +73,7 @@ export default function PaymentCard({
   };
 
   return (
-    <Grid item lg={4} sm={6} xs={12} xl={3}>
+    <Grid item xl={4} sm={6} xs={12}>
       <IndividualCardDiv>
         <CardEllipse src={ellipse} />
         <IconButton className="card-options" onClick={handleClick}>

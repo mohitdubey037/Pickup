@@ -38,6 +38,7 @@ import PageNotFound from "app/components/PageNotFound/PageNotFound";
 import { TrackYourOrder } from "app/pages/TrackYourOrder";
 import HelpContainer from "app/pages/DashboardPage/DashboardContainers/HelpContainer/HelpContainer";
 import AccountVerified from "app/pages/AuthScreens/AccountVerified";
+import ReVerify from "app/pages/AuthScreens/ReVerify";
 
 const Routes = () => {
   return (
@@ -54,6 +55,7 @@ const Routes = () => {
         <SignUpDetails path="/sign-up-details/" />
         <TokenExpire path="/sign-up/verify-account" />
         <AccountVerified path="/sign-up/account-verified" />
+        <ReVerify path="/re-verify" />
         <PageNotFound default />
         {/* <CompanyDetails path="/company-details/:userId" /> */}
       </AuthPages>
