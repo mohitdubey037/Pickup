@@ -5,35 +5,35 @@ import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 
 const sizes = {
-	'small': 'auto',
-  'medium': '148px',
-	'large': '100%',
+	'small': 'auto !important',
+  'medium': '148px !important',
+	'large': '100% !important',
 }
 
 const mobilesizes = {
-	'small': 'auto',
-  'medium': '124px',
+	'small': 'auto !important',
+  'medium': '124px !important',
 	'large': '100% !important',
 }
 
 
 const padding = {
-	'small': '12px 16px',
-  'medium': '12px 16px',
-	'large': '19px 16px 18px',
+	'small': '12px 16px !important',
+  'medium': '12px 16px !important',
+	'large': '19px 16px 18px !important',
 }
 
 const fontSize = {
-	'small': '14px',
-  'medium': '14px',
-	'large': '18px',
+	'small': '14px !important',
+  'medium': '14px !important',
+	'large': '18px !important',
 }
 
 
 const height = {
-  'small': '40px',
-  'medium': '40px',
-	'large': '56px',
+  'small': '40px !important',
+  'medium': '40px !important',
+	'large': '56px !important',
 }
 
 
