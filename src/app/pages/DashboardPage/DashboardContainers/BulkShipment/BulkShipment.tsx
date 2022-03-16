@@ -43,8 +43,8 @@ const BulkShipment = ({ path }) => {
 
   const downloadSample = () =>
     fileDownload(
-      "https://pickups-staging.s3.ca-central-1.amazonaws.com/order/d41fba5fe411456a9ea7f36cd3b21783.xlsx",
-      `Bulk-Order-Sample.csv`
+      "https://pickups-staging.s3.ca-central-1.amazonaws.com/order/Bulk%20Order%20Sample%20Sheet.xlsx",
+      `Bulk_Order_Sample.xlsx`
     );
 
   return (
