@@ -60,7 +60,7 @@ const InvoicesContainer = ({ path }) => {
     if (drawerType === "invoice") {
       return "Invoice #" + selectedInvoiceId;
     } else if (drawerType === "orderItemDetails") {
-      return "Order Details";
+      return "Order Items Detail";
     } else {
       return "";
     }

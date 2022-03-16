@@ -48,10 +48,10 @@ const SignUp = ({ navigate }: SignUpProps) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (signUpResponse.verifyEmailLink) {
+    if (signUpResponse.status === 200) {
       navigate?.("/email-sent");
     } else if (signUpResponse.status === 400) {
-      setErrorMessage(signUpResponse.message)
+      setErrorMessage(signUpResponse.message);
     }
   }, [signUpResponse, navigate]);
 

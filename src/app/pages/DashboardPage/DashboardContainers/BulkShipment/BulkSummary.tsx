@@ -20,7 +20,7 @@ import PayementDetailsDrawer from "./PayementDetailsDrawer";
 import BulkOrderItemDetails from "./BulkOrderItemDetails";
 
 const DRAWER_TITLE = {
-  orderItemDetails: "Order Items",
+  orderItemDetails: "Order Items Detail",
   payment: "Payment",
 };
 
@@ -70,6 +70,7 @@ const BulkSummary = ({ path }) => {
   };
 
   useEffect(() => {
+    dispatch(actions.resetSingleShipment());
     if (location?.state?.data) {
       setOrderListData(location?.state?.data);
       setPagination({

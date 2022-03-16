@@ -222,7 +222,7 @@ function OrderSummary({ path }) {
 
       <Drawer
         open={drawerOpen}
-        title="Order Details"
+        title="Order Items Detail"
         setDrawerOpen={setDrawerOpen}
         closeIcon
       >
