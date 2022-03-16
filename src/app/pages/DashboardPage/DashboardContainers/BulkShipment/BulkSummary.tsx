@@ -20,7 +20,7 @@ import PayementDetailsDrawer from "./PayementDetailsDrawer";
 import BulkOrderItemDetails from "./BulkOrderItemDetails";
 
 const DRAWER_TITLE = {
-  orderItemDetails: "Order Items",
+  orderItemDetails: "Order Items Detail",
   payment: "Payment",
 };
 
