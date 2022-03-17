@@ -117,7 +117,7 @@ export default function EditSuperintendentDetailsForm({
           onBlur={handleBlur}
           error={touched.emailId && errors.emailId}
           required
-          disabled
+          // disabled
         />
       </DrawerInnerContent>
 
