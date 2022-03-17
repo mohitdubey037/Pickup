@@ -78,10 +78,11 @@ export const addChildDetailsCard = async (body: any) => {
     if (res) showToast("Your card has been successfully added", "success");
     return { response: res, error: null };
   } catch (error) {
-    showToast(
-      "Invalid card details. Please check your information and try again.",
-      "error"
-    );
+    // showToast(
+    //   "Invalid card details. Please check your information and try again.",
+    //   "error"
+    // );
+    showToast(error?.message || "Something Went Wrong", "error");
     return { response: null, error: error };
   }
 };
