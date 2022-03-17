@@ -6,6 +6,7 @@ import { H3 } from "app/components/Typography/Typography";
 import NullState from "app/components/NullState/NullState";
 import { FullCard } from "app/components/CommonCss/CommonCss";
 import AddCardForm from "../PaymentsContainer/AddCardForm";
+import { CustomLink } from "app/components/Typography/Links";
 
 interface cardDetailsProps {
   cardDetails: any;
@@ -19,9 +20,9 @@ const CardsDetails = ({ cardDetails, saveAction }: cardDetailsProps) => {
   return (
     <>
     <FullCard>
-      <Box mb={2} display="flex" justifyContent="space-between">
+      <Box mb={2} display="flex" alignItems="center" justifyContent="space-between">
         <H3 text="Cards" />
-        <H3 text="Add Card" onClick={() => setDrawerOpen(true)}/>
+        <CustomLink label="Add Card" onClick={() => setDrawerOpen(true)} redlink/>
       </Box>
       
       <Grid container spacing={2}>

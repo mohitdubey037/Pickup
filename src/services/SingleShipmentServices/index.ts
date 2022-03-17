@@ -45,23 +45,31 @@ export const addMultipleShipment = async (body: any) => {
 
 export const addShipmentForm = async (values: any) => {
   try {
-    if (values.orders.length === 1) {
-      const res = await addShipmentDetail(
+    // if (values.orders.length === 1) {
+    //   const res = await addShipmentDetail(
+    //     values?.source === "bulk"
+    //       ? values.orders[0]
+    //       : transformPayloadToBackend(values.orders[0])
+    //   );
+    //   return res;
+    // } else {
+    //   const body = {
+    //     orders:
+    //       values?.source === "bulk"
+    //         ? values.orders
+    //         : values.orders.map((item) => transformPayloadToBackend(item)),
+    //   };
+    //   const res = await addMultipleShipment(body);
+    //   return res;
+    // }
+    const body = {
+      orders:
         values?.source === "bulk"
-          ? values.orders[0]
-          : transformPayloadToBackend(values.orders[0])
-      );
-      return res;
-    } else {
-      const body = {
-        orders:
-          values?.source === "bulk"
-            ? values.orders
-            : values.orders.map((item) => transformPayloadToBackend(item)),
-      };
-      const res = await addMultipleShipment(body);
-      return res;
-    }
+          ? values.orders
+          : values.orders.map((item) => transformPayloadToBackend(item)),
+    };
+    const res = await addMultipleShipment(body);
+    return res;
   } catch (err) {
     showToast(err?.message || "Something Went Wrong", "error");
     return err;

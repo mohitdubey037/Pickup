@@ -22,6 +22,7 @@ import {
   scheduleShipmentService,
   deleteShipmentService,
 } from "services/HoldingService";
+import { showConfirmAlert } from "utils";
 import { actions as singleActions } from "store/reducers/SingleShipmentReducer";
 import OrderDetailsDrawer from "../SignleShipmentContainer/OrderDetailsDrawer";
 import { onHoldOrderColoumns, getOnHoldOrderData } from "./helper";
@@ -60,7 +61,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
 
   const getDrawerTitle = () => {
     if (drawerType === "orderDetails") {
-      return "Order Items";
+      return "Order Items Detail";
     } else if (
       drawerType === "scheduleOrder" ||
       drawerType === "scheduleSelectedOrders"
@@ -79,15 +80,25 @@ const OnHoldShipmentContainer = ({ path: string }) => {
     setDrawerOpen(true);
   };
 
-  const deleteSelectedOrders = async () => {
-    const orderIds = onHoldOrderData
-      .filter((_, idx) => selectedRows.includes(idx))
-      .map((item) => item.orderId);
-
-    const res: any = await deleteShipmentService(orderIds);
-    if (res?.success) {
-      getOnHoldOrderListData();
-    }
+  const deleteSelectedOrders = () => {
+    showConfirmAlert({
+      title: "Delete Orders",
+      message: "Are you sure you want to delete selected orders?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            const orderIds = onHoldOrderData
+              .filter((_, idx) => selectedRows.includes(idx))
+              .map((item) => item.orderId);
+            const res: any = await deleteShipmentService(orderIds);
+            if (res?.success) {
+              getOnHoldOrderListData();
+            }
+          },
+        },
+      ],
+    });
   };
 
   const scheduleSelectedOrders = async (values) => {
@@ -112,7 +123,7 @@ const OnHoldShipmentContainer = ({ path: string }) => {
   const tableTop = () => {
     return (
       <SearchTableTop>
-        <Flex alignItems="center" style={{flexFlow:'wrap'}}>
+        <Flex alignItems="center" style={{ flexFlow: "wrap" }}>
           <H3 text={`${pagination.count} Orders`} className="heading" />
           <H5
             text={`(${selectedRows.length} Selected)`}

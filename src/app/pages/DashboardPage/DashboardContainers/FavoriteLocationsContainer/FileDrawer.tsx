@@ -38,8 +38,8 @@ const FileDrawer = (props: FileDrawerProps) => {
 
   const downloadSample = () =>
     fileDownload(
-      "https://pickups-staging.s3.ca-central-1.amazonaws.com/order/8a4c82270f7441aaae1c69033771b49a.csv",
-      `Favourite-Locations-Sample.csv`
+      "https://pickups-staging.s3.ca-central-1.amazonaws.com/order/Favourite%20Location%20Sample%20Sheet.csv",
+      `Favourite_Locations_Sample.csv`
     );
 
   return (

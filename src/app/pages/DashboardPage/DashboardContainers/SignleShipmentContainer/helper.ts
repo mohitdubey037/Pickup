@@ -205,6 +205,25 @@ export const getSameDetailsValues = (
 };
 
 export const transformPayloadToBackend = (values: any) => {
+    let dropAddress = [
+        values.destinationCity,
+        values.destinationProvinceState,
+        values.destinationCountry,
+        values.destinationPostalCode,
+    ].join(", ");
+    if (values.destinationAddressLine2) {
+        dropAddress = `${values.destinationAddressLine2}, ${dropAddress}`;
+    }
+
+    let pickupAddress = [
+        values.originCity,
+        values.originProvinceState,
+        values.originCountry,
+        values.originPostalCode,
+    ].join(", ");
+    if (values.originAddressLine2) {
+        pickupAddress = `${values.originAddressLine2}, ${pickupAddress}`;
+    }
     const payload = {
         categoryId: values.categoryId.categoryId,
         customerReferenceNumber: values.customerRefNo,
@@ -232,13 +251,7 @@ export const transformPayloadToBackend = (values: any) => {
             locationAddressLine1: values.destinationAddressLine1,
             locationAddressLine2: values.destinationAddressLine2,
             addressTitle: values.destinationAddressLine1,
-            address: [
-                values.destinationAddressLine2,
-                values.destinationCity,
-                values.destinationProvinceState,
-                values.destinationCountry,
-                values.destinationPostalCode,
-            ].join(", "),
+            address: dropAddress,
             locationCity: values.destinationCity,
             locationPinCode: values.destinationPostalCode,
             locationProvinceCode: values.destinationProvinceState,
@@ -265,13 +278,7 @@ export const transformPayloadToBackend = (values: any) => {
             locationEmail: values.originEmailAddress,
             locationBillingType: values.originBillingType,
             addressTitle: values.originAddressLine1,
-            address: [
-                values.originAddressLine2,
-                values.originCity,
-                values.originProvinceState,
-                values.originCountry,
-                values.originPostalCode,
-            ].join(", "),
+            address: pickupAddress,
             locationAddressLine1: values.originAddressLine1,
             locationAddressLine2: values.originAddressLine2,
             locationCity: values.originCity,

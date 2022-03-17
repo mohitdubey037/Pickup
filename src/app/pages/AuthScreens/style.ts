@@ -16,6 +16,7 @@ export const SignUpBackgroundWrapper = styled.div`
   align-items: center;
   gap: 20px;
   background: rgba(102, 102, 102, 0.6);
+  box-sizing:border-box;
   @media (max-width:1023px){
     padding-bottom:24px;
   }
